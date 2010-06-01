@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>beansight</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.playframework.playclipse.playNature</nature>
+	</natures>
+	<linkedResources><link><name>gae-1.0.2</name><type>2</type><location>C:/dev/play-1.0-r1048/modules/gae-1.0.2/app</location></link>
+<link><name>siena-1.1</name><type>2</type><location>C:/dev/play-1.0-r1048/modules/siena-1.1/app</location></link>
+</linkedResources>
+</projectDescription>

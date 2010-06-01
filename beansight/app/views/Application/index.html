@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+Hello
+
+<ul>
+    #{list items:allInsights, as:'insight' }
+        <li>${insight.content}</li>
+    #{/list}
+</ul>
+<
+<a href="@Application.createInsight"></a>
