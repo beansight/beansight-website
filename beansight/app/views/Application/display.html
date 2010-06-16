@@ -1,0 +1,20 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+
+
+#{form @Application.createInsight()}
+
+    <p>
+        <label for="author">Share your insight :</label>
+        <input type="text" name="insight" id="insight" />
+    </p>
+
+
+#{/form}
+
+<ul>
+    #{list items:insights, as:'insight' }
+        <li>${insight.content}</li>
+    #{/list}
+</ul>

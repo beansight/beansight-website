@@ -15,7 +15,8 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.playframework.playclipse.playNature</nature>
 	</natures>
-	<linkedResources><link><name>gae-1.0.2</name><type>2</type><location>C:/dev/play-1.0-r1048/modules/gae-1.0.2/app</location></link>
-<link><name>siena-1.1</name><type>2</type><location>C:/dev/play-1.0-r1048/modules/siena-1.1/app</location></link>
+	<linkedResources><link><name>secure</name><type>2</type><location>C:/dev/play-1.0-r1048/modules/secure/app</location></link>
+<link><name>conf/secure</name><type>2</type><location>C:/dev/play-1.0-r1048/modules/secure/conf</location></link>
+<link><name>public/secure</name><type>2</type><location>C:/dev/play-1.0-r1048/modules/secure/public</location></link>
 </linkedResources>
 </projectDescription>

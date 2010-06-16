@@ -1,16 +1,102 @@
-<!DOCTYPE html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <head>
-        <title>#{get 'title' /}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script>
-        #{get 'moreScripts' /}
-    </head>
-    <body>
-        #{doLayout /}
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>#{get 'title' /}</title>
+
+ <!-- Framework CSS -->  
+     <link rel="stylesheet" href="@{'/public/blueprint/screen.css'}" type="text/css" media="screen, projection">  
+     <link rel="stylesheet" href="@{'/public/blueprint/print.css'}" type="text/css" media="print">
+     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+     <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+     #{get 'moreScripts' /}  
+     <!--[if IE]>  
+         <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection">  
+     <![endif]-->  
+   
+<style type="text/css">
+div.main {
+	height : 400px;
+}
+img.avatar {
+	 width: 48px;
+	 height:48px;
+}
+
+
+div.newuser {
+	-moz-border-radius:5px 5px 5px 5px;
+	background:none repeat scroll 0 0 #DDEEF6;
+	color:#445566;
+	padding:0 0px 0px;
+}
+ul {
+	list-style:none outside none;
+	margin:10px 0px 10px 0;
+	padding:0;
+	text-align: center;
+}
+.website {
+	margin:0;
+	padding:0;
+	background:none repeat scroll 0 0 #FFFFFF;
+	padding:0 0px 0px;
+}
+</style>
+</head>
+<body>
+  
+	<div class="website header">
+		<img src="@{'/public/images/logo.png'}" />
+	</div>  
+  
+<div class="container showgrid">
+	
+	<div class="newuser span-5">
+			<ul>
+				<li>
+					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48"/> 
+					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
+					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
+				</li>
+				<li>	
+					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48"/> 
+					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
+					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
+				</li>
+			</ul>
+	</div>
+	
+	<div class="span-15">
+
+		<div class="main span-15 last">
+			#{doLayout /}
+		</div>
+	</div>
+	
+	<div class="newuser span-4 last">
+		<div>
+			#{isNotConnected}
+				<a href="@{Register.register()}">Register</a>
+				<a href="@{Secure.login()}">Login</a>
+			#{/isNotConnected}
+			#{isConnected}
+				<a>${controllers.Secure.Security.connected()}</a>
+				<a href="@{Secure.logout()}">Logout</a>
+			#{/isConnected}
+		</div>
+	
+		<ul>
+			<li>Share your insights</li>	
+			<li>Prove your expertise</li>
+			<li>Display your credibility</li>	
+		</ul>
+	</div>
+	<div class="newuser span-24 last">
+		Footer
+	</div>
+</div>
+
+
+</body>
 </html>

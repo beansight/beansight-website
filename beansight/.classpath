@@ -2,24 +2,9 @@
 <classpath>
 	<classpathentry excluding="views/**" kind="src" path="app"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="src" path="gae-1.0.2"/><classpathentry kind="src" path="siena-1.1"/>
+	<classpathentry kind="src" path="secure"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\framework\play.jar" sourcepath="C:/dev/play-1.0-r1048/framework" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\appengine-api-1.0-sdk-1.3.0.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\appengine-api-labs-1.3.0.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\asm-3.1.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\datanucleus-appengine-1.0.4.1.final.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\datanucleus-core-1.1.5.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\datanucleus-enhancer-1.1.4.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\datanucleus-jpa-1.1.5.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\jdo2-api-2.3-eb.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\play-gae.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\provided-appengine-api-labs.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\provided-appengine-api-stubs.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\provided-appengine-api.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\gae-1.0.2\lib\provided-appengine-local-runtime.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\siena-1.1\lib\play-siena.jar" />
-	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\modules\siena-1.1\lib\siena-0.7.0.jar" />
 	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\framework\lib\activation.jar" />
 	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\framework\lib\antlr-2.7.6.jar" />
 	<classpathentry kind="lib" path="C:\dev\play-1.0-r1048\framework\lib\asyncweb-common-0.9.0-SNAPSHOT.jar" />
