@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 import play.libs.Crypto;
@@ -20,6 +22,13 @@ public class User extends Model {
 	public String password;
 	public String email;
 	
+	@OneToMany(mappedBy="owner")
+	public List<Insight> ownedInsights;
+	
+	@ManyToMany
+	public List<Insight> agreededInsights;
+	
+	
     public User(String email, String password, String userName) {
         this.email = email;
         this.password = Crypto.passwordHash(password);
@@ -34,5 +43,7 @@ public class User extends Model {
     	return false;
     }
 	
-	
+    public static User findByUserName(String userName) {
+    	return find("userName = ?", userName).first();
+    }
 }

@@ -15,6 +15,6 @@
 
 <ul>
     #{list items:insights, as:'insight' }
-        <li>${insight.content}</li>
+        <li>${insight.content} ${insight.agreeCount} &nbsp; <a href="@{Application.agree(insight.id)}">Agree</a> &nbsp; <a href="@{Application.disagree(insight.id)}">Disagree</a> &nbsp; ${insight.disagreeCount}</li>
     #{/list}
 </ul>
