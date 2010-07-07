@@ -15,9 +15,6 @@ import play.db.jpa.Model;
 @Entity
 public class Insight extends Model {
 
-	@Id
-	public Long id;
-	
 	@ManyToOne
 	public User owner;
 	
@@ -31,7 +28,8 @@ public class Insight extends Model {
 //	public List<User> whoNeutrals; 
 	
 	public int disagreeCount;
-//	public List<User> whoDisagreeds;
+	@ManyToMany(mappedBy="disagreededInsights")
+	public List<User> whoDisagreeds;
 	
 	
 	public void addSomeoneWhoAgreed(User user) {
@@ -39,5 +37,12 @@ public class Insight extends Model {
 		if(whoAgreeds==null)
 			whoAgreeds = new ArrayList<User>();
 		whoAgreeds.add(user);
+	}
+	
+	public void addSomeoneWhoDisagreed(User user) {
+		disagreeCount++;
+		if(whoDisagreeds==null)
+			whoDisagreeds = new ArrayList<User>();
+		whoDisagreeds.add(user);
 	}
 }

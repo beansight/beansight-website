@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,9 +14,6 @@ import play.libs.Crypto;
 @Entity
 public class User extends Model {
 
-	@Id
-	public Long id;
-	
 	public String userName;
 	public String firstName;
 	public String lastName;
@@ -28,6 +26,8 @@ public class User extends Model {
 	@ManyToMany
 	public List<Insight> agreededInsights;
 	
+	@ManyToMany
+	public List<Insight> disagreededInsights;
 	
     public User(String email, String password, String userName) {
         this.email = email;
@@ -45,5 +45,25 @@ public class User extends Model {
 	
     public static User findByUserName(String userName) {
     	return find("userName = ?", userName).first();
+    }
+    
+    public Insight createAnInsight(String insightContent) {
+    	Insight i = new Insight();
+    	i.content = insightContent;
+    	i.owner = this;
+    	if (this.ownedInsights == null)
+    		this.ownedInsights = new ArrayList<Insight>();
+    	this.ownedInsights.add(i);
+    	i.save();
+    	
+    	return i;
+    }
+    
+    public boolean ownThisInsight(Long insightId) {
+		   Insight insight = Insight.findById(insightId);
+		   if (insight.owner.id.equals(this.id))
+			   return true;
+		   else
+			   return false;
     }
 }

@@ -9,10 +9,9 @@ import models.User;
 
 public class InsightService {
 
-	   public static void createInsight(String insight) {
-	    	Insight i = new Insight();
-	    	i.content = insight;
-	    	i.save();
+	
+	   public static void createInsight(String insight, User user) {
+	    	user.createAnInsight(insight);
 	    }
 	
 	   public static List<Insight> loadInsights() {
@@ -21,16 +20,33 @@ public class InsightService {
 	    	return allInsights;
 	   }
 	   
-	   public static void incrementAgree(Long insightId, Long whoId) {
+	   public static void incrementAgree(Long insightId, User who) {
 		   Insight insight = Insight.findById(insightId);
-		   User who = User.findById(whoId);
+		   
+		   // On ne peut voter qu'une seule fois pour un insight
+		   if (who.ownThisInsight(insightId))
+			   	return;
+		   
 		   insight.addSomeoneWhoAgreed(who);
 		   insight.save();
 	   }
 	
-	   public static void incrementDisagree(Long insightId) {
+	   public static void incrementDisagree(Long insightId, User who) {
 		   Insight insight = Insight.findById(insightId);
-		   insight.disagreeCount++;
+		   
+		   // On ne peut voter qu'une seule fois pour un insight
+		   if (who.ownThisInsight(insightId))
+			   	return;
+		   
+		   insight.addSomeoneWhoDisagreed(who);
 		   insight.save();
 	   }
+	   
+//	   public static boolean isOwningThisInsight(Long insightId, Long someoneId) {
+//		   Insight insight = Insight.findById(insightId);
+//		   if (insight.owner.id.equals(insightId))
+//			   return true;
+//		   else
+//			   return false;
+//	   }
 }
