@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -20,13 +21,13 @@ public class User extends Model {
 	public String password;
 	public String email;
 	
-	@OneToMany(mappedBy="owner")
+	@OneToMany(mappedBy="owner", cascade=CascadeType.ALL)
 	public List<Insight> ownedInsights;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Insight> agreededInsights;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Insight> disagreededInsights;
 	
     public User(String email, String password, String userName) {
@@ -59,6 +60,12 @@ public class User extends Model {
     	return i;
     }
     
+    /**
+     * Retourne vraie si l'id de l'insight passé en paramètre
+     * appartient au user
+     * @param insightId
+     * @return
+     */
     public boolean ownThisInsight(Long insightId) {
 		   Insight insight = Insight.findById(insightId);
 		   if (insight.owner.id.equals(this.id))
@@ -66,4 +73,18 @@ public class User extends Model {
 		   else
 			   return false;
     }
+
+    public boolean hasAlreadyVotedForThisInsight(Long insightId) {
+    	if (!this.agreededInsights.isEmpty())
+    		System.out.println("agreededInsights non vide !");
+    	return false;
+    }
+    
+//    public boolean hasAlreadyVotedForThisInsight(Long insightId) {
+//    	Insight anInsight = find("select distinct i from models.Insight i join i.whoAgreeds as whoAgreed where i.id= ? and whoAgreed.id = ?", insightId, this.id).first();
+//    	if (anInsight!=null)
+//    		return true;
+//    	else
+//    		return false;
+//    }
 }

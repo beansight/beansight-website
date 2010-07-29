@@ -13,6 +13,10 @@
 
 #{/form}
 
+#{if flash.error}
+    <p>${flash.error}</p>
+#{/if}
+
 <ul>
     #{list items:insights, as:'insight' }
         <li>${insight.content} (by ${insight.owner.userName}) ${insight.agreeCount} &nbsp; <a href="@{Application.agree(insight.id)}">Agree</a> &nbsp; <a href="@{Application.disagree(insight.id)}">Disagree</a> &nbsp; ${insight.disagreeCount}</li>

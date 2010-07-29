@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -21,7 +22,7 @@ public class Insight extends Model {
 	public String content;
 	
 	public int agreeCount;
-	@ManyToMany(mappedBy="agreededInsights")
+	@ManyToMany(mappedBy="agreededInsights", cascade = CascadeType.ALL)
 	public List<User> whoAgreeds;
 	
 	public int neutralCount;
@@ -37,6 +38,9 @@ public class Insight extends Model {
 		if(whoAgreeds==null)
 			whoAgreeds = new ArrayList<User>();
 		whoAgreeds.add(user);
+		if (user.agreededInsights==null)
+			user.agreededInsights = new ArrayList<Insight>();
+		user.agreededInsights.add(this);
 	}
 	
 	public void addSomeoneWhoDisagreed(User user) {

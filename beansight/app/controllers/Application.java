@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import exceptions.CannotVoteForAnInsightYouOwnException;
+
 import models.Insight;
 import models.User;
 import play.mvc.Controller;
@@ -31,13 +33,24 @@ public class Application extends Controller {
     
     public static void agree(Long id) {
     	User currentUser = User.findByUserName(Security.connected());
-    	InsightService.incrementAgree(id, currentUser);
+    	try {
+			InsightService.incrementAgree(id, currentUser);
+		} catch (CannotVoteForAnInsightYouOwnException e) {
+			flash.error(e.getMessage());
+			display();
+		}
     	display();
     }
     
+    
     public static void disagree(Long id) {
     	User currentUser = User.findByUserName(Security.connected());
-    	InsightService.incrementDisagree(id, currentUser);    	
+    	try {
+			InsightService.incrementDisagree(id, currentUser);
+    	} catch (CannotVoteForAnInsightYouOwnException e) {
+			flash.error(e.getMessage());
+			display();
+		}    	
     	display();
     }
     
