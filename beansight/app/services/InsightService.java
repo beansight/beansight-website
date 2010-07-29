@@ -22,29 +22,29 @@ public class InsightService {
 	    	return allInsights;
 	   }
 	   
-	   public static void incrementAgree(Long insightId, User who) throws CannotVoteForAnInsightYouOwnException {
+	   public static void incrementAgree(Long insightId, User currentUser) throws CannotVoteForAnInsightYouOwnException {
 		   Insight insight = Insight.findById(insightId);
 		   
 		   // On ne peut voter que pour l'insight de quelqu'un d'autre
-		   if (who.ownThisInsight(insightId))
+		   if (currentUser.ownThisInsight(insightId))
 			   throw new CannotVoteForAnInsightYouOwnException();
 		   
 		   // On ne peut pas voter plus d'une fois pour le même insight
-		   if (who.hasAlreadyVotedForThisInsight(insightId))
+		   if (currentUser.hasAlreadyVotedForThisInsight(insightId))
 			   System.out.println("multi vote détecté");
 		   
-		   insight.addSomeoneWhoAgreed(who);
+		   insight.addSomeoneWhoAgreed(currentUser);
 		   insight.save();
 	   }
 	
-	   public static void incrementDisagree(Long insightId, User who) throws CannotVoteForAnInsightYouOwnException {
+	   public static void incrementDisagree(Long insightId, User currentUser) throws CannotVoteForAnInsightYouOwnException {
 		   Insight insight = Insight.findById(insightId);
 		   
 		   // On ne peut voter que pour l'insight de quelqu'un d'autre
-		   if (who.ownThisInsight(insightId))
+		   if (currentUser.ownThisInsight(insightId))
 			   	throw new CannotVoteForAnInsightYouOwnException();
 		   
-		   insight.addSomeoneWhoDisagreed(who);
+		   insight.addSomeoneWhoDisagreed(currentUser);
 		   insight.save();
 	   }
 	   
