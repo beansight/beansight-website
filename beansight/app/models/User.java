@@ -52,8 +52,9 @@ public class User extends Model {
     	Insight i = new Insight();
     	i.content = insightContent;
     	i.owner = this;
-    	if (this.ownedInsights == null)
+    	if (this.ownedInsights == null) {
     		this.ownedInsights = new ArrayList<Insight>();
+    	}
     	this.ownedInsights.add(i);
     	i.save();
     	
