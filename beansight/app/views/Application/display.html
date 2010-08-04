@@ -7,7 +7,7 @@
 
     <p>
         <label for="author">Share your insight :</label>
-        <input type="text" name="insight" id="insight" />
+        <input type="text" name="insightContent" id="insightContent" />
     </p>
 
 
@@ -19,6 +19,6 @@
 
 <ul>
     #{list items:insights, as:'insight' }
-        <li>${insight.content} (by ${insight.creator.userName}) <a href="@{Application.agree(insight.id)}">Agree</a> &nbsp; <a href="@{Application.disagree(insight.id)}">Disagree</a></li>
+        <li>${insight.content} (by ${insight.creator.userName}) <a href="@{Application.agree(insight.id)}">Agree</a> (${insight.creator.votes.size()}) <a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.creator.votes.size()})</li>
     #{/list}
 </ul>

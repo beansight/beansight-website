@@ -39,6 +39,7 @@ public class User extends Model {
         this.email = email;
         this.password = Crypto.passwordHash(password);
         this.userName = userName;
+        this.votes = new ArrayList<Vote>();
     }
     
     public static boolean connect(String username, String password) {
@@ -54,7 +55,7 @@ public class User extends Model {
     }
 
     // TODO : get the end date.
-    public Insight createAnInsight(String insightContent) {
+    public Insight createInsight(String insightContent) {
     	Date endDate = new Date();
     	Insight i = new Insight(this, insightContent, endDate);
     	
@@ -66,5 +67,25 @@ public class User extends Model {
     	
     	return i;
     }
+
+    /**
+     * add a vote to the user's votes
+     * @param vote
+     */
+//    public void addVote(Vote vote) {
+//    	if (this.votes == null) {
+//    		this.votes = new ArrayList<Vote>();
+//    	}
+//    	this.votes.add(vote);
+//    }
+//    
+//    public int getAgreeNumber(Insight insight) {
+//    	
+//    	
+//    	
+//    	return 0;
+//    }
+    
+
     
 }
