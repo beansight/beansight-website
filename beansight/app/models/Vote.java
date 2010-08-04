@@ -33,9 +33,6 @@ public class Vote extends Model {
 		this.insight = insight;
 		this.state = state;
 		this.creationDate = new Date();
-		
-//		user.addVote(this);
-//		insight.votes.add(this);
 	}
 
 }

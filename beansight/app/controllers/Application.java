@@ -38,7 +38,6 @@ public class Application extends Controller {
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(currentUser, insight, Vote.State.AGREE);
 		vote.save();
-		currentUser.votes.add(vote);
 		// TODO : only return JSON to use with AJAX
 		display();
 	}
@@ -53,7 +52,6 @@ public class Application extends Controller {
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(currentUser, insight, Vote.State.DISAGREE);
 		vote.save();
-		currentUser.votes.add(vote);
 		// TODO : only return JSON to use with AJAX
 		display();
 	}

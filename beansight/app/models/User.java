@@ -59,30 +59,9 @@ public class User extends Model {
     public Insight createInsight(String insightContent) {
     	Date endDate = new Date();
     	Insight i = new Insight(this, insightContent, endDate);
-    	this.createdInsights.add(i);
     	i.save();
     	
     	return i;
     }
 
-    /**
-     * add a vote to the user's votes
-     * @param vote
-     */
-//    public void addVote(Vote vote) {
-//    	if (this.votes == null) {
-//    		this.votes = new ArrayList<Vote>();
-//    	}
-//    	this.votes.add(vote);
-//    }
-//    
-//    public int getAgreeNumber(Insight insight) {
-//    	
-//    	
-//    	
-//    	return 0;
-//    }
-    
-
-    
 }
