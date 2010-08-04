@@ -40,6 +40,7 @@ public class User extends Model {
         this.password = Crypto.passwordHash(password);
         this.userName = userName;
         this.votes = new ArrayList<Vote>();
+        this.createdInsights = new ArrayList<Insight>();
     }
     
     public static boolean connect(String username, String password) {
@@ -58,10 +59,6 @@ public class User extends Model {
     public Insight createInsight(String insightContent) {
     	Date endDate = new Date();
     	Insight i = new Insight(this, insightContent, endDate);
-    	
-    	if (this.createdInsights == null) {
-    		this.createdInsights = new ArrayList<Insight>();
-    	}
     	this.createdInsights.add(i);
     	i.save();
     	

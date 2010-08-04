@@ -17,7 +17,7 @@ public class Application extends Controller {
 
 	public static void display() {
 		List<Insight> insights = Insight.findAll();
-
+		
 		render(insights);
 	}
 
