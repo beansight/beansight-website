@@ -37,9 +37,8 @@ public class Application extends Controller {
 		User currentUser = User.findByUserName(Security.connected());
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(currentUser, insight, Vote.State.AGREE);
-		vote.save();
-		
-		// are these lines really necessary ? -- Steren 2010/08/04
+
+		// are the two save necessary ? -- Steren 2010/08/04
 		currentUser.votes.add(vote);
 		currentUser.save();
 		insight.votes.add(vote);
@@ -58,9 +57,8 @@ public class Application extends Controller {
 		User currentUser = User.findByUserName(Security.connected());
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(currentUser, insight, Vote.State.DISAGREE);
-		vote.save();
 		
-		// are these lines really necessary ? -- Steren 2010/08/04
+		// are the two save necessary ? -- Steren 2010/08/04
 		currentUser.votes.add(vote);
 		currentUser.save();
 		insight.votes.add(vote);
