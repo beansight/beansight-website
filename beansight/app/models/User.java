@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -51,11 +52,11 @@ public class User extends Model {
     public static User findByUserName(String userName) {
     	return find("userName = ?", userName).first();
     }
-    
+
+    // TODO : get the end date.
     public Insight createAnInsight(String insightContent) {
-    	Insight i = new Insight();
-    	i.content = insightContent;
-    	i.creator = this;
+    	Date endDate = new Date();
+    	Insight i = new Insight(this, insightContent, endDate);
     	
     	if (this.createdInsights == null) {
     		this.createdInsights = new ArrayList<Insight>();
