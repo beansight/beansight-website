@@ -14,7 +14,7 @@ public class MyInsightsTag extends Controller {
 
     public static List<Insight> myInsights() {
     	User currentUser = User.findByUserName(Security.connected());
-    	return currentUser.ownedInsights;
+    	return currentUser.createdInsights;
     }
     
 }

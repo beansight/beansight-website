@@ -21,8 +21,8 @@ public class User extends Model {
 	public String password;
 	public String email;
 	
-	@OneToMany(mappedBy="owner", cascade=CascadeType.ALL)
-	public List<Insight> ownedInsights;
+	@OneToMany(mappedBy="creator", cascade=CascadeType.ALL)
+	public List<Insight> createdInsights;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Insight> agreededInsights;
@@ -51,11 +51,11 @@ public class User extends Model {
     public Insight createAnInsight(String insightContent) {
     	Insight i = new Insight();
     	i.content = insightContent;
-    	i.owner = this;
-    	if (this.ownedInsights == null) {
-    		this.ownedInsights = new ArrayList<Insight>();
+    	i.creator = this;
+    	if (this.createdInsights == null) {
+    		this.createdInsights = new ArrayList<Insight>();
     	}
-    	this.ownedInsights.add(i);
+    	this.createdInsights.add(i);
     	i.save();
     	
     	return i;
@@ -69,7 +69,7 @@ public class User extends Model {
      */
     public boolean ownThisInsight(Long insightId) {
 		   Insight insight = Insight.findById(insightId);
-		   if (insight.owner.id.equals(this.id))
+		   if (insight.creator.id.equals(this.id))
 			   return true;
 		   else
 			   return false;

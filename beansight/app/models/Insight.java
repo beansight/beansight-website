@@ -17,7 +17,7 @@ import play.db.jpa.Model;
 public class Insight extends Model {
 
 	@ManyToOne
-	public User owner;
+	public User creator;
 	
 	public String content;
 	
@@ -49,4 +49,5 @@ public class Insight extends Model {
 			whoDisagreeds = new ArrayList<User>();
 		whoDisagreeds.add(user);
 	}
+	
 }
