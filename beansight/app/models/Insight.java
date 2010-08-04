@@ -34,12 +34,15 @@ public class Insight extends Model {
 	@ManyToMany(mappedBy = "followedInsights", cascade = CascadeType.ALL)
 	public List<User> followers;
 
-	
 	public Insight(User creator, String content, Date endDate) {
 		this.creator = creator;
 		this.creationDate = new Date();
 		this.endDate = endDate;
 		this.content = content;
 	}
-	
+
+	public String toString() {
+		return content;
+	}
+
 }

@@ -34,5 +34,10 @@ public class Vote extends Model {
 		this.state = state;
 		this.creationDate = new Date();
 	}
+	
+	public String toString() {
+	    return state.toString();
+	}
+
 
 }

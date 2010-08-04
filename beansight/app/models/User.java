@@ -42,6 +42,10 @@ public class User extends Model {
         this.votes = new ArrayList<Vote>();
         this.createdInsights = new ArrayList<Insight>();
     }
+
+    public String toString() {
+        return userName;
+    }
     
     public static boolean connect(String username, String password) {
     	User user = find("userName=? and password=?", username, Crypto.passwordHash(password)).first();
