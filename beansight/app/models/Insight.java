@@ -1,53 +1,37 @@
 package models;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
-
 
 @Entity
 public class Insight extends Model {
 
 	@ManyToOne
 	public User creator;
-	
+
+	/** the date this insight has been created by its creator */
+	public Date creationDate;
+
+	/** the date this insight is ending, defined by its creator */
+	public Date endDate;
+
+	/** Content of the insight, a simple text describing the idea */
 	public String content;
-	
-	public int agreeCount;
-	@ManyToMany(mappedBy="agreededInsights", cascade = CascadeType.ALL)
-	public List<User> whoAgreeds;
-	
-	public int neutralCount;
-//	public List<User> whoNeutrals; 
-	
-	public int disagreeCount;
-	@ManyToMany(mappedBy="disagreededInsights")
-	public List<User> whoDisagreeds;
-	
-	
-	public void addSomeoneWhoAgreed(User user) {
-		agreeCount++;
-		if(whoAgreeds==null)
-			whoAgreeds = new ArrayList<User>();
-		whoAgreeds.add(user);
-		if (user.agreededInsights==null)
-			user.agreededInsights = new ArrayList<Insight>();
-		user.agreededInsights.add(this);
-	}
-	
-	public void addSomeoneWhoDisagreed(User user) {
-		disagreeCount++;
-		if(whoDisagreeds==null)
-			whoDisagreeds = new ArrayList<User>();
-		whoDisagreeds.add(user);
-	}
-	
+
+	/** Every votes of the current insight */
+	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
+	public List<Vote> votes;
+
+	/** Users who follow the current insight */
+	@ManyToMany(mappedBy = "followedInsights", cascade = CascadeType.ALL)
+	public List<User> followers;
+
 }

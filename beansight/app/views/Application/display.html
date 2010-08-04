@@ -19,6 +19,6 @@
 
 <ul>
     #{list items:insights, as:'insight' }
-        <li>${insight.content} (by ${insight.creator.userName}) ${insight.agreeCount} &nbsp; <a href="@{Application.agree(insight.id)}">Agree</a> &nbsp; <a href="@{Application.disagree(insight.id)}">Disagree</a> &nbsp; ${insight.disagreeCount}</li>
+        <li>${insight.content} (by ${insight.creator.userName}) <a href="@{Application.agree(insight.id)}">Agree</a> &nbsp; <a href="@{Application.disagree(insight.id)}">Disagree</a></li>
     #{/list}
 </ul>

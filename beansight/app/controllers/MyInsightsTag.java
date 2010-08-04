@@ -7,7 +7,6 @@ import exceptions.CannotVoteForAnInsightYouOwnException;
 import models.Insight;
 import models.User;
 import play.mvc.Controller;
-import services.InsightService;
 
 public class MyInsightsTag extends Controller {
 

@@ -21,14 +21,18 @@ public class User extends Model {
 	public String password;
 	public String email;
 	
+	/** list of insights created by this user */
 	@OneToMany(mappedBy="creator", cascade=CascadeType.ALL)
 	public List<Insight> createdInsights;
 	
+	/** every votes of the current user */
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	public List<Vote> votes;
+
+	/** the insights followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL)
-	public List<Insight> agreededInsights;
+	public List<Insight> followedInsights;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	public List<Insight> disagreededInsights;
 	
     public User(String email, String password, String userName) {
         this.email = email;
@@ -52,6 +56,7 @@ public class User extends Model {
     	Insight i = new Insight();
     	i.content = insightContent;
     	i.creator = this;
+    	
     	if (this.createdInsights == null) {
     		this.createdInsights = new ArrayList<Insight>();
     	}
@@ -61,31 +66,4 @@ public class User extends Model {
     	return i;
     }
     
-    /**
-     * Retourne vraie si l'id de l'insight passé en paramètre
-     * appartient au user
-     * @param insightId
-     * @return
-     */
-    public boolean ownThisInsight(Long insightId) {
-		   Insight insight = Insight.findById(insightId);
-		   if (insight.creator.id.equals(this.id))
-			   return true;
-		   else
-			   return false;
-    }
-
-    public boolean hasAlreadyVotedForThisInsight(Long insightId) {
-    	if (!this.agreededInsights.isEmpty())
-    		System.out.println("agreededInsights non vide !");
-    	return false;
-    }
-    
-//    public boolean hasAlreadyVotedForThisInsight(Long insightId) {
-//    	Insight anInsight = find("select distinct i from models.Insight i join i.whoAgreeds as whoAgreed where i.id= ? and whoAgreed.id = ?", insightId, this.id).first();
-//    	if (anInsight!=null)
-//    		return true;
-//    	else
-//    		return false;
-//    }
 }
