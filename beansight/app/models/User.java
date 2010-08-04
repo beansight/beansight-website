@@ -65,6 +65,9 @@ public class User extends Model {
     	Insight i = new Insight(this, insightContent, endDate);
     	i.save();
     	
+    	this.createdInsights.add(i); // I am not sure this line is necessary, it seamed to work without -- Steren 2010/08/04
+    	this.save();
+    	
     	return i;
     }
 

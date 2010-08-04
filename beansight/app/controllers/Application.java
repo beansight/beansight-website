@@ -38,6 +38,13 @@ public class Application extends Controller {
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(currentUser, insight, Vote.State.AGREE);
 		vote.save();
+		
+		// are these lines really necessary ? -- Steren 2010/08/04
+		currentUser.votes.add(vote);
+		currentUser.save();
+		insight.votes.add(vote);
+		insight.save();
+		
 		// TODO : only return JSON to use with AJAX
 		display();
 	}
@@ -52,6 +59,13 @@ public class Application extends Controller {
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(currentUser, insight, Vote.State.DISAGREE);
 		vote.save();
+		
+		// are these lines really necessary ? -- Steren 2010/08/04
+		currentUser.votes.add(vote);
+		currentUser.save();
+		insight.votes.add(vote);
+		insight.save();
+		
 		// TODO : only return JSON to use with AJAX
 		display();
 	}
