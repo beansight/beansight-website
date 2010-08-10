@@ -1,15 +1,16 @@
 # Data to use for debugging
 
 # Warning: be sure to use spaces and not tabs in a yml file
+# for the users password Xr4ilOzQ4PCOq3aQ0qbuaQ== is the hash for: secret
 
 User(steren):
     email:          steren@test.com
-    password:       secret
+    password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
     userName:       Steren
     
 User(jb):
     email:          jb@test.com
-    password:       secret
+    password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
     userName:       JB
     
 Insight(insight):
