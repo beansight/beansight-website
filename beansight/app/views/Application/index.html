@@ -14,6 +14,6 @@
 
 <ul>
     #{list items:insights, as:'insight' }
-        <li><a href="@{Application.showInsight(insight.id)}">${insight.content}</a> (by <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a>) <a href="@{Application.agree(insight.id)}">Agree</a> (${insight.getPositiveVoteNumber()}) <a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.getNegativeVoteNumber()})</li>
+        <li><a href="@{Application.showInsight(insight.id)}">${insight.content}</a> (by <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a>) <a href="@{Application.agree(insight.id)}">Agree</a> (${insight.agreeCount}) <a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.disagreeCount})</li>
     #{/list}
 </ul>

@@ -7,7 +7,7 @@
         <li>Created ${insight.creationDate}</li>
         <li>End ${insight.endDate}</li>
         <li>By <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a></li>
-        <li>Agree: ${insight.getPositiveVoteNumber()} - Disagree: ${insight.getNegativeVoteNumber()} </li>
+        <li>Agree: ${insight.agreeCount} - Disagree: ${insight.disagreeCount} </li>
     </ul> 
         
 </div>
