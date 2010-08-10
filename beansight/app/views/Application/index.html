@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Beansight: Home' /}
 
 #{if flash.error}
     <p>${flash.error}</p>
@@ -14,6 +14,6 @@
 
 <ul>
     #{list items:insights, as:'insight' }
-        <li>${insight.content} (by ${insight.creator.userName}) <a href="@{Application.agree(insight.id)}">Agree</a> (${insight.getPositiveVoteNumber()}) <a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.getNegativeVoteNumber()})</li>
+        <li><a href="@{Application.showInsight(insight.id)}">${insight.content}</a> (by <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a>) <a href="@{Application.agree(insight.id)}">Agree</a> (${insight.getPositiveVoteNumber()}) <a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.getNegativeVoteNumber()})</li>
     #{/list}
 </ul>

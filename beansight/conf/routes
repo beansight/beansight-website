@@ -5,8 +5,11 @@
 # Home page
 GET     /                                       Application.index
 
+# Insight page
+GET     /insight/{<[0-9]+>id}                   Application.showInsight                   
+
 # Import CRUD routes
-*      /admin              module:crud
+*       /admin              module:crud
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

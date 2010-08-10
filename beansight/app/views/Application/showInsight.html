@@ -1,0 +1,13 @@
+#{extends 'main.html' /}
+#{set title:insight.content /}
+
+<div class="insightDetail">
+    <p>${insight.content}</p>
+    <ul>
+        <li>Created ${insight.creationDate}</li>
+        <li>End ${insight.endDate}</li>
+        <li>By <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a></li>
+        <li>Agree: ${insight.getPositiveVoteNumber()} - Disagree: ${insight.getNegativeVoteNumber()} </li>
+    </ul> 
+        
+</div>
