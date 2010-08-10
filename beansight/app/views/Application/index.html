@@ -1,24 +1,19 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-
-
-#{form @Application.createInsight()}
-
-    <p>
-        <label for="author">Share your insight :</label>
-        <input type="text" name="insightContent" id="insightContent" />
-    </p>
-
-
-#{/form}
-
 #{if flash.error}
     <p>${flash.error}</p>
 #{/if}
 
+#{form @Application.createInsight()}
+    <p>
+        <label for="author">Share your insight :</label>
+        <input type="text" name="insightContent" id="insightContent" />
+    </p>
+#{/form}
+
 <ul>
     #{list items:insights, as:'insight' }
-        <li>${insight.content} (by ${insight.creator.userName}) <a href="@{Application.agree(insight.id)}">Agree</a> (${insight.votes.size()}) <a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.votes.size()})</li>
+        <li>${insight.content} (by ${insight.creator.userName}) <a href="@{Application.agree(insight.id)}">Agree</a> (${insight.getPositiveVoteNumber()}) <a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.getNegativeVoteNumber()})</li>
     #{/list}
 </ul>

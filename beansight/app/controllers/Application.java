@@ -12,12 +12,7 @@ import play.mvc.Controller;
 public class Application extends Controller {
 
 	public static void index() {
-		display();
-	}
-
-	public static void display() {
 		List<Insight> insights = Insight.findAll();
-		
 		render(insights);
 	}
 
@@ -25,7 +20,7 @@ public class Application extends Controller {
 		User currentUser = User.findByUserName(Security.connected());
 		currentUser.createInsight(insightContent);
 
-		display();
+		index();
 	}
 
 	/**
@@ -45,7 +40,7 @@ public class Application extends Controller {
 		insight.save();
 		
 		// TODO : only return JSON to use with AJAX
-		display();
+		index();
 	}
 
 	/**
@@ -65,7 +60,7 @@ public class Application extends Controller {
 		insight.save();
 		
 		// TODO : only return JSON to use with AJAX
-		display();
+		index();
 	}
 
 }
