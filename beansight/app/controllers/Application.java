@@ -7,7 +7,7 @@ import exceptions.CannotVoteForAnInsightYouOwnException;
 import models.Insight;
 import models.User;
 import models.Vote;
-import play.libs.Codec;
+import models.Vote.State;
 import play.mvc.Controller;
 
 public class Application extends Controller {
@@ -32,13 +32,8 @@ public class Application extends Controller {
 	public static void agree(Long insightId) {
 		User currentUser = User.findByUserName(Security.connected());
 		Insight insight = Insight.findById(insightId);
-		Vote vote = new Vote(currentUser, insight, Vote.State.AGREE);
-
-		// are the two save necessary ? -- Steren 2010/08/04
-		currentUser.votes.add(vote);
-		currentUser.save();
-		insight.votes.add(vote);
-		insight.save();
+		
+		currentUser.voteToInsight(insight, State.AGREE);
 		
 		// TODO : only return JSON to use with AJAX
 		index();
@@ -52,13 +47,9 @@ public class Application extends Controller {
 	public static void disagree(Long insightId) {
 		User currentUser = User.findByUserName(Security.connected());
 		Insight insight = Insight.findById(insightId);
-		Vote vote = new Vote(currentUser, insight, Vote.State.DISAGREE);
 		
-		// are the two save necessary ? -- Steren 2010/08/04
-		currentUser.votes.add(vote);
-		currentUser.save();
-		insight.votes.add(vote);
-		insight.save();
+		currentUser.voteToInsight(insight, State.DISAGREE);
+		
 		
 		// TODO : only return JSON to use with AJAX
 		index();
