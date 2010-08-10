@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import models.Vote.State;
+
 import play.db.jpa.Model;
 import play.libs.Crypto;
 
@@ -35,12 +37,13 @@ public class User extends Model {
 	public List<Insight> followedInsights;
 	
 	
-    public User(String email, String password, String userName) {
+    public User(String email, String userName, String password) {
         this.email = email;
         this.password = Crypto.passwordHash(password);
         this.userName = userName;
         this.votes = new ArrayList<Vote>();
         this.createdInsights = new ArrayList<Insight>();
+        this.followedInsights = new ArrayList<Insight>();
     }
 
     public String toString() {
@@ -68,5 +71,18 @@ public class User extends Model {
     	
     	return i;
     }
+    
+	public void voteToInsight(Insight insight, State voteState) {
+		Vote vote = new Vote(this, insight, voteState);
+		votes.add(vote);
+		if (voteState.equals(State.AGREE))
+			insight.agreeCount++;
+		else
+			insight.disagreeCount++;
+		insight.votes.add(vote);
+		insight.save();
+		save();
+	}
 
+	
 }
