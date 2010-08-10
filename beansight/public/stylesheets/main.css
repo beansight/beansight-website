@@ -1,0 +1,26 @@
+div.main {
+    height : 400px;
+}
+img.avatar {
+     width: 48px;
+     height:48px;
+}
+
+div.newuser {
+    -moz-border-radius:5px 5px 5px 5px;
+    background:none repeat scroll 0 0 #DDEEF6;
+    color:#445566;
+    padding:0 0px 0px;
+}
+ul {
+    list-style:none outside none;
+    margin:10px 0px 10px 0;
+    padding:0;
+    text-align: center;
+}
+.website {
+    margin:0;
+    padding:0;
+    background:none repeat scroll 0 0 #FFFFFF;
+    padding:0 0px 0px;
+}
