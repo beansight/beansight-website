@@ -29,12 +29,19 @@ public class Insight extends Model {
 	/** Every votes of the current insight */
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
 	public List<Vote> votes;
-	// TODO : to reduce the number of queries, we may need to store the positive and negative vote number.
-	
+
 	/** Users who follow the current insight */
 	@ManyToMany(mappedBy = "followedInsights", cascade = CascadeType.ALL)
 	public List<User> followers;
 
+	/** 
+	 * model denormalization : 
+	 * having to count agree and disagree each time 
+	 * you need to access an insight is a performance killer 
+	 **/
+	public long agreeCount;
+	public long disagreeCount;
+	
 	public Insight(User creator, String content, Date endDate) {
 		this.creator = creator;
 		this.creationDate = new Date();
@@ -42,15 +49,6 @@ public class Insight extends Model {
 		this.content = content;
 	}
 
-	/** get the number of agreed for this insight */
-	public long getPositiveVoteNumber() {
-		return Vote.count("insight = ? and state = ?", this, Vote.State.AGREE);
-	}
-	
-	/** get the number of disagreed for this insight */
-	public long getNegativeVoteNumber() {
-		return Vote.count("insight = ? and state = ?", this, Vote.State.DISAGREE);
-	}
 	
 	public String toString() {
 		return content;
