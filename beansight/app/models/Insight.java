@@ -34,12 +34,13 @@ public class Insight extends Model {
 	@ManyToMany(mappedBy = "followedInsights", cascade = CascadeType.ALL)
 	public List<User> followers;
 
-	/** 
-	 * model denormalization : 
-	 * having to count agree and disagree each time 
-	 * you need to access an insight is a performance killer 
-	 **/
+	/*
+	model denormalization : 
+	having to count agree and disagree each time you need to access an insight is a performance killer 
+	*/
+	/** current number of active "agree" votes (if someone changed his mind, it is not counted) */
 	public long agreeCount;
+	/** current number of active "disagree" votes (if someone changed his mind, it is not counted) */
 	public long disagreeCount;
 	
 	public Insight(User creator, String content, Date endDate) {
