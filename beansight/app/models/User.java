@@ -52,8 +52,9 @@ public class User extends Model {
     
     public static boolean connect(String username, String password) {
     	User user = find("userName=? and password=?", username, Crypto.passwordHash(password)).first();
-    	if (user!=null)
+    	if (user!=null) {
     		return true;
+    	}
 
     	return false;
     }
@@ -75,13 +76,20 @@ public class User extends Model {
 	public void voteToInsight(Insight insight, State voteState) {
 		Vote vote = new Vote(this, insight, voteState);
 		votes.add(vote);
-		if (voteState.equals(State.AGREE))
+		if (voteState.equals(State.AGREE)) {
 			insight.agreeCount++;
-		else
+		} else {
 			insight.disagreeCount++;
+		}
 		insight.votes.add(vote);
 		insight.save();
 		save();
+	}
+
+	public void tag(Insight insight, String label) {
+		Tag tag = new Tag(this, insight, label);
+		insight.tags.add(tag);
+		insight.save();
 	}
 
 	

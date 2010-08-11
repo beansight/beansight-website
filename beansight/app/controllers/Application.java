@@ -23,6 +23,15 @@ public class Application extends Controller {
 
 		index();
 	}
+	
+	public static void addTag(Long insightId, String label) {
+		User currentUser = User.findByUserName(Security.connected());
+		Insight insight = Insight.findById(insightId);
+		
+		currentUser.tag(insight, label);
+		
+		showInsight(insightId);
+	}
 
 	/**
 	 * Agree a given insight

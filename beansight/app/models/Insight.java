@@ -26,9 +26,13 @@ public class Insight extends Model {
 	/** Content of the insight, a simple text describing the idea */
 	public String content;
 
-	/** Every votes of the current insight */
+	/** Every vote of the current insight */
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
 	public List<Vote> votes;
+	
+	/** Every tag of the current insight */
+	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
+	public List<Tag> tags;
 
 	/** Users who follow the current insight */
 	@ManyToMany(mappedBy = "followedInsights", cascade = CascadeType.ALL)

@@ -13,7 +13,22 @@ User(jb):
     password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
     userName:       JB
     
-Insight(insight):
-    creator:   steren
-    content:   Beansight will be ready on time
-    endDate:   2010-09-12
+Insight(insightBeansight):
+    creator:        steren
+    content:        Beansight will be ready on time
+    creationDate:   2010-08-10
+    endDate:        2010-09-12
+    agreeCount:     1
+    disagreeCount:  0
+    
+Vote(voteJb):
+    user:       jb
+    insight:    insightBeansight
+    state:      AGREE
+    creationDate: 2010-08-10
+    
+Tag(tagSteren):
+    user:       steren
+    insight:    insightBeansight
+    label:      web
+    creationDate: 2010-08-10

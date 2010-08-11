@@ -3,11 +3,22 @@
 
 <div class="insightDetail">
     <p>${insight.content}</p>
+    <p>Created ${insight.creationDate}</p>
+    <p>End ${insight.endDate}</p>
+    <p>By <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a></p>
+    <p>Agree: ${insight.agreeCount} - Disagree: ${insight.disagreeCount} </p>
+    
+    <p>tags:
+    #{form @Application.addTag(insight.id)}
+        <label for="label">Add tag:</label>
+        <input type="text" name="label" id="label" />
+    #{/form}
+    
     <ul>
-        <li>Created ${insight.creationDate}</li>
-        <li>End ${insight.endDate}</li>
-        <li>By <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a></li>
-        <li>Agree: ${insight.agreeCount} - Disagree: ${insight.disagreeCount} </li>
-    </ul> 
-        
+    #{list items:insight.tags, as:'tag' }
+        <li>${tag.label}</li>
+    #{/list}
+    </ul>
+    </p>
+
 </div>
