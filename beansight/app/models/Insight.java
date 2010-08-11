@@ -55,6 +55,13 @@ public class Insight extends Model {
 	}
 
 	
+	public boolean isCreator(User user) {
+		if(creator.equals(user))
+			return true;
+		return false;
+	}
+	
+	
 	public String toString() {
 		return content;
 	}
