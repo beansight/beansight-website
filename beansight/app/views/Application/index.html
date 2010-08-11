@@ -12,8 +12,27 @@
     </p>
 #{/form}
 
+#{if flash.success}
+    <p class="success">${flash.success}</p>
+#{/if}
+
 <ul>
     #{list items:insights, as:'insight' }
-        <li><a href="@{Application.showInsight(insight.id)}">${insight.content}</a> (by <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a>) <a href="@{Application.agree(insight.id)}">Agree</a> (${insight.agreeCount}) <a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.disagreeCount})</li>
+        <li>
+        	<a href="@{Application.showInsight(insight.id)}">${insight.content}</a> 
+        	(by <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a>) 
+        	<a href="@{Application.agree(insight.id)}">Agree</a> (${insight.agreeCount}) 
+        	<a href="@{Application.disagree(insight.id)}">Disagree</a> (${insight.disagreeCount})
+        	#{isConnected}
+	        	#{if insight.isCreator(currentUser)==false} 
+		        	#{if currentUser.isFollowingInsight(insight)}
+		        		<a href="@{Application.stopFollowingInsight(insight.id)}">stop following this insight</a>
+		        	#{/if}
+		        	#{else} 
+		        		<a href="@{Application.startFollowingInsight(insight.id)}">start following this insight</a>
+		        	#{/else}
+	        	#{/if}
+	        #{/isConnected}
+        </li>
     #{/list}
 </ul>
