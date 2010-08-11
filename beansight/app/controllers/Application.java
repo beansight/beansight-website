@@ -2,19 +2,19 @@ package controllers;
 
 import java.util.List;
 
-import exceptions.CannotVoteForAnInsightYouOwnException;
-
 import models.Insight;
 import models.User;
-import models.Vote;
 import models.Vote.State;
 import play.mvc.Controller;
+import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Application extends Controller {
 
 	public static void index() {
 		List<Insight> insights = Insight.findAll();
-		render(insights);
+		User currentUser = User.findByUserName(Security.connected());
+		
+		render(insights, currentUser);
 	}
 
 	public static void createInsight(String insightContent) {
@@ -40,9 +40,8 @@ public class Application extends Controller {
 	 */
 	public static void agree(Long insightId) {
 		User currentUser = User.findByUserName(Security.connected());
-		Insight insight = Insight.findById(insightId);
 		
-		currentUser.voteToInsight(insight, State.AGREE);
+		currentUser.voteToInsight(insightId, State.AGREE);
 		
 		// TODO : only return JSON to use with AJAX
 		index();
@@ -51,16 +50,13 @@ public class Application extends Controller {
 	/**
 	 * Disagree a given insight
 	 * 
+	 * TODO : should return JSON to user AJAX
+	 * 
 	 * @param insightId
 	 */
 	public static void disagree(Long insightId) {
 		User currentUser = User.findByUserName(Security.connected());
-		Insight insight = Insight.findById(insightId);
-		
-		currentUser.voteToInsight(insight, State.DISAGREE);
-		
-		
-		// TODO : only return JSON to use with AJAX
+		currentUser.voteToInsight(insightId, State.DISAGREE);
 		index();
 	}
 	
@@ -83,5 +79,21 @@ public class Application extends Controller {
         notFoundIfNull(user);
     	render(user);
     }
+    
+    public static void startFollowingInsight(Long insightId) {
+    	User currentUser = User.findByUserName(Security.connected());
+    	try {
+			currentUser.startFollowingThisInsight(insightId);
+		} catch (UserIsAlreadyFollowingInsightException e) {
+			flash.error(e.getMessage());
+		}
+		
+    	index();
+    }
 
+    public static void stopFollowingInsight(Long insightId) {
+    	User currentUser = User.findByUserName(Security.connected());
+		currentUser.stopFollowingThisInsight(insightId);
+    	index();
+    }
 }
