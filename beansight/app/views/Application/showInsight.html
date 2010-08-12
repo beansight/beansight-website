@@ -19,6 +19,18 @@
         <li>${tag.label}</li>
     #{/list}
     </ul>
+    
+    <p>
+    #{form @Application.addComment(insight.id)}
+        <label for="label">Add new comment::</label>
+        <input type="text" name="content" id="content" />
+    #{/form}
+    <ul>
+    #{list items:insight.comments, as:'comment' }
+        <li>${comment.user} (${comment.creationDate}) :<br/> ${comment.content}</li>
+    #{/list}
+    </ul>    
+    
     </p>
 
 </div>

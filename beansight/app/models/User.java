@@ -38,6 +38,9 @@ public class User extends Model {
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Insight> followedInsights;
 	
+	/** the comments  */
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	public List<Comment> comments;
 	
     public User(String email, String userName, String password) {
         this.email = email;
@@ -110,15 +113,13 @@ public class User extends Model {
 	public void voteToInsight(Long insightId, State voteState) {
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(this, insight, voteState);
-		votes.add(vote);
+		vote.save();
 		if (voteState.equals(State.AGREE)) {
 			insight.agreeCount++;
 		} else {
 			insight.disagreeCount++;
 		}
-		insight.votes.add(vote);
 		insight.save();
-		save();
 	}
 
 	public void tag(Insight insight, String label) {
@@ -127,7 +128,11 @@ public class User extends Model {
 		insight.save();
 	}
 
-	
+	/**
+	 * Tells if the given insight is already in the current user followed insight list. 
+	 * @param insight
+	 * @return
+	 */
 	public boolean isFollowingInsight(Insight insight) {
 		if(followedInsights.contains(insight))
 			return true;
@@ -135,7 +140,7 @@ public class User extends Model {
 	}
 	
 	/**
-	 * 
+	 * Call this method to add the given insight in the current user followed insight list 
 	 * @param insightId
 	 */
 	public void startFollowingThisInsight(Long insightId) throws UserIsAlreadyFollowingInsightException {

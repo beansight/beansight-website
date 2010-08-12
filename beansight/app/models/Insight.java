@@ -38,6 +38,10 @@ public class Insight extends Model {
 	@ManyToMany(mappedBy = "followedInsights", cascade = CascadeType.ALL)
 	public List<User> followers;
 
+	/** Comments made to current insight */
+	@OneToMany(mappedBy="insight", cascade = CascadeType.ALL)
+	public List<Comment> comments;
+	
 	/*
 	model denormalization : 
 	having to count agree and disagree each time you need to access an insight is a performance killer 
@@ -54,13 +58,27 @@ public class Insight extends Model {
 		this.content = content;
 	}
 
-	
+	/**
+	 * Tells if the current insight was created by the given User
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public boolean isCreator(User user) {
 		if(creator.equals(user))
 			return true;
 		return false;
 	}
 	
+	/**
+	 * Add a comment to the current insight
+	 * @param content
+	 * @param user
+	 */
+	public void addComment(String content, User user) {
+		Comment comment = new Comment(user, this, content);
+		comment.save();
+	}
 	
 	public String toString() {
 		return content;

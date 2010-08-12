@@ -96,4 +96,12 @@ public class Application extends Controller {
 		currentUser.stopFollowingThisInsight(insightId);
     	index();
     }
+    
+    public static void addComment(Long insightId, String content) {
+    	User currentUser = User.findByUserName(Security.connected());
+    	Insight insight = Insight.findById(insightId);
+    	insight.addComment(content, currentUser);
+    	showInsight(insightId);
+    }
+    
 }
