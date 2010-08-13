@@ -5,12 +5,24 @@
     <p>${flash.error}</p>
 #{/if}
 
-#{form @Application.createInsight()}
-    <p>
-        <label for="author">Share your insight :</label>
-        <input type="text" name="insightContent" id="insightContent" />
-    </p>
-#{/form}
+#{isConnected}
+	#{form @Application.createInsight()}
+	    <p>What is going to happen?</p>
+	    <p>
+	        <label for="endDate">On </label>
+	        <input type="text" name="endDate" id="endDate" />, 
+	        <input type="text" name="insightContent" id="insightContent" />
+	    </p>
+	    <p>
+	        <label for="labelList">tags:</label>
+	        <input type="text" name="labelList" id="labelList" />
+	    <p>
+	    </p>
+	    <p>
+	        <input type="submit" value="Create" />
+	    </p>
+	#{/form}
+#{/isConnected}
 
 #{if flash.success}
     <p class="success">${flash.success}</p>

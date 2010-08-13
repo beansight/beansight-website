@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import models.Insight;
@@ -17,22 +18,20 @@ public class Application extends Controller {
 		render(insights, currentUser);
 	}
 
-	public static void createInsight(String insightContent) {
+	/**
+	 * create an insight for the current user
+	 * @param insightContent: the content of this insight
+	 * @param endDate: the end date chosen by the user
+	 * @param labelList: a comma separated list of tags
+	 */
+	public static void createInsight(String insightContent, Date endDate, String labelList) {
 		User currentUser = User.findByUserName(Security.connected());
-		currentUser.createInsight(insightContent);
+		currentUser.createInsight(insightContent, endDate, labelList);
 
+		// TODO : return JSON, this action should be AJAX, no page reload when submitting an insight
 		index();
 	}
 	
-	public static void addTag(Long insightId, String label) {
-		User currentUser = User.findByUserName(Security.connected());
-		Insight insight = Insight.findById(insightId);
-		
-		currentUser.tag(insight, label);
-		
-		showInsight(insightId);
-	}
-
 	/**
 	 * Agree a given insight
 	 * 
@@ -40,9 +39,7 @@ public class Application extends Controller {
 	 */
 	public static void agree(Long insightId) {
 		User currentUser = User.findByUserName(Security.connected());
-		
 		currentUser.voteToInsight(insightId, State.AGREE);
-		
 		// TODO : only return JSON to use with AJAX
 		index();
 	}
@@ -50,13 +47,12 @@ public class Application extends Controller {
 	/**
 	 * Disagree a given insight
 	 * 
-	 * TODO : should return JSON to user AJAX
-	 * 
 	 * @param insightId
 	 */
 	public static void disagree(Long insightId) {
 		User currentUser = User.findByUserName(Security.connected());
 		currentUser.voteToInsight(insightId, State.DISAGREE);
+		// TODO : only return JSON to use with AJAX
 		index();
 	}
 	
@@ -97,11 +93,28 @@ public class Application extends Controller {
     	index();
     }
     
+    /**
+     * Add a comment to a specific insight for the current user
+     * @param insightId: id of the insight
+     * @param content: text content of the insight
+     */
     public static void addComment(Long insightId, String content) {
     	User currentUser = User.findByUserName(Security.connected());
     	Insight insight = Insight.findById(insightId);
     	insight.addComment(content, currentUser);
     	showInsight(insightId);
     }
+    
+    /**
+     * 
+     * @param insightId : the id of the tagged insight
+     * @param labelList: a comma separated list of tag labels
+     */
+	public static void addTags(Long insightId, String labelList) {
+		User currentUser = User.findByUserName(Security.connected());
+		Insight insight = Insight.findById(insightId);
+    	insight.addTags(labelList, currentUser);
+		showInsight(insightId);
+	}
     
 }

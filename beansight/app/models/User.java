@@ -86,14 +86,15 @@ public class User extends Model {
      * Call this method to create a new insight that will be
      * automatically owned by the current user.
      * 
-     * TODO : get the end date.
-     * 
-     * @param insightContent
-     * @return
+     * @param insightContent: the content text of this insight
+     * @param endDate: date this insight should end 
+     * @param labelList: a comma separated list of tags
      */
-    public Insight createInsight(String insightContent) {
-    	Date endDate = new Date();
+    public Insight createInsight(String insightContent, Date endDate, String labelList) {
     	Insight i = new Insight(this, insightContent, endDate);
+    	i.save();
+    	i.addTags(labelList, this);
+    	
     	this.createdInsights.add(i);
     	this.save();
     	
@@ -119,12 +120,6 @@ public class User extends Model {
 		} else {
 			insight.disagreeCount++;
 		}
-		insight.save();
-	}
-
-	public void tag(Insight insight, String label) {
-		Tag tag = new Tag(this, insight, label);
-		insight.tags.add(tag);
 		insight.save();
 	}
 

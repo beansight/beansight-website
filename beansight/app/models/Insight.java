@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +52,12 @@ public class Insight extends Model {
 	/** current number of active "disagree" votes (if someone changed his mind, it is not counted) */
 	public long disagreeCount;
 	
+	/**
+	 * Create an insight
+	 * @param creator
+	 * @param content: content text of this insight
+	 * @param endDate: date this insight is supposed to end
+	 */
 	public Insight(User creator, String content, Date endDate) {
 		this.creator = creator;
 		this.creationDate = new Date();
@@ -65,9 +72,34 @@ public class Insight extends Model {
 	 * @return
 	 */
 	public boolean isCreator(User user) {
-		if(creator.equals(user))
+		if(creator.equals(user)) {
 			return true;
+		}
 		return false;
+	}
+	
+	/**
+	 * Add tags from an input string.
+	 * @param labelList: list of tag labels separated by commas and spaces
+	 * @param user: the user adding the tag
+	 */
+	public void addTags(String labelList, User user) {
+    	String[] labelArray = labelList.split(",");
+		
+		for( int i=0; i < labelArray.length; i++ ) {
+			String label = labelArray[i].trim();
+			this.addTag(label, user);
+		}
+	}
+	
+	/**
+	 * Add a tag from a given label
+	 * @param label: the label of the tag (will not be processed)
+	 * @param user: the user adding the tag
+	 */
+	private void addTag(String label, User user) {
+		Tag tag = new Tag(user, this, label);
+		tag.save();
 	}
 	
 	/**

@@ -9,9 +9,9 @@
     <p>Agree: ${insight.agreeCount} - Disagree: ${insight.disagreeCount} </p>
     
     <p>tags:
-    #{form @Application.addTag(insight.id)}
-        <label for="label">Add tag:</label>
-        <input type="text" name="label" id="label" />
+    #{form @Application.addTags(insight.id)}
+        <label for="labelList">Add tag:</label>
+        <input type="text" name="labelList" id="labelList" />
     #{/form}
     
     <ul>
