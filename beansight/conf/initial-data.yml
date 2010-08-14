@@ -1,0 +1,18 @@
+# Initial data of the website
+
+# Warning: be sure to use spaces and not tabs in a yml file
+
+Category(catCelebrities):
+    label:  Celebrities
+
+Category(catFun):
+    label:  Fun
+
+Category(catSport):
+    label:  Sport
+
+Category(catTechnology):
+    label:  Technology
+
+Category(catWeb):
+    label:  Web

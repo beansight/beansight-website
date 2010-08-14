@@ -20,7 +20,7 @@ Insight(insightBeansight):
     endDate:        2010-09-12
     agreeCount:     1
     disagreeCount:  0
-    
+
 Vote(voteJb):
     user:       jb
     insight:    insightBeansight

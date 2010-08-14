@@ -8,10 +8,12 @@
     <p>By <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a></p>
     <p>Agree: ${insight.agreeCount} - Disagree: ${insight.disagreeCount} </p>
     
+    <p>Category: ${insight.category.label}</p>
+    
     <p>tags:
     #{form @Application.addTags(insight.id)}
-        <label for="labelList">Add tag:</label>
-        <input type="text" name="labelList" id="labelList" />
+        <label for="tagLabelList">Add tag:</label>
+        <input type="text" name="tagLabelList" id="tagLabelList" />
     #{/form}
     
     <ul>

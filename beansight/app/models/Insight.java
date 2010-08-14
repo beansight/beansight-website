@@ -35,6 +35,10 @@ public class Insight extends Model {
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
 	public List<Tag> tags;
 
+	@ManyToOne
+	/** Category of this insight */
+	public Category category;
+	
 	/** Users who follow the current insight */
 	@ManyToMany(mappedBy = "followedInsights", cascade = CascadeType.ALL)
 	public List<User> followers;
@@ -57,12 +61,14 @@ public class Insight extends Model {
 	 * @param creator
 	 * @param content: content text of this insight
 	 * @param endDate: date this insight is supposed to end
+	 * @param category: the category of the insight
 	 */
-	public Insight(User creator, String content, Date endDate) {
+	public Insight(User creator, String content, Date endDate, Category category) {
 		this.creator = creator;
 		this.creationDate = new Date();
 		this.endDate = endDate;
 		this.content = content;
+		this.category = category;
 	}
 
 	/**
@@ -80,11 +86,11 @@ public class Insight extends Model {
 	
 	/**
 	 * Add tags from an input string.
-	 * @param labelList: list of tag labels separated by commas and spaces
+	 * @param tagLabelList: list of tag labels separated by commas and spaces
 	 * @param user: the user adding the tag
 	 */
-	public void addTags(String labelList, User user) {
-    	String[] labelArray = labelList.split(",");
+	public void addTags(String tagLabelList, User user) {
+    	String[] labelArray = tagLabelList.split(",");
 		
 		for( int i=0; i < labelArray.length; i++ ) {
 			String label = labelArray[i].trim();

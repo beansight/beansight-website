@@ -88,12 +88,16 @@ public class User extends Model {
      * 
      * @param insightContent: the content text of this insight
      * @param endDate: date this insight should end 
-     * @param labelList: a comma separated list of tags
+     * @param tagLabelList: a comma separated list of tags
      */
-    public Insight createInsight(String insightContent, Date endDate, String labelList) {
-    	Insight i = new Insight(this, insightContent, endDate);
+    public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long cateopryId) {
+    	
+    	Category category = Category.findById(cateopryId);
+    	// exception if null
+    	
+    	Insight i = new Insight(this, insightContent, endDate, category);
     	i.save();
-    	i.addTags(labelList, this);
+    	i.addTags(tagLabelList, this);
     	
     	this.createdInsights.add(i);
     	this.save();
