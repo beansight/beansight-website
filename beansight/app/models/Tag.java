@@ -1,10 +1,14 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import play.db.jpa.Model;
@@ -14,18 +18,20 @@ public class Tag extends Model {
 
 	public String label;
 
-	@ManyToOne
-	public User user;
+	@ManyToMany(cascade = CascadeType.ALL)
+	public List<User> users;
 
-	@ManyToOne
-	public Insight insight;
+	@ManyToMany(cascade = CascadeType.ALL)
+	public List<Insight> insights;
 
 	/** the date this vote has been made */
 	public Date creationDate;
 
-	public Tag(User user, Insight insight, String label) {
-		this.user = user;
-		this.insight = insight;
+	public Tag(String label, Insight insight, User user) {
+		this.users = new ArrayList<User>();
+		this.users.add(user);
+		this.insights = new ArrayList<Insight>();
+		this.insights.add(insight);
 		this.label = label;
 		this.creationDate = new Date();
 	}

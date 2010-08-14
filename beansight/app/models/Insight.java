@@ -32,7 +32,7 @@ public class Insight extends Model {
 	public List<Vote> votes;
 	
 	/** Every tag of the current insight */
-	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "insights", cascade = CascadeType.ALL)
 	public List<Tag> tags;
 
 	@ManyToOne
@@ -85,7 +85,7 @@ public class Insight extends Model {
 	}
 	
 	/**
-	 * Add tags from an input string.
+	 * a user adds tags from an input string.
 	 * @param tagLabelList: list of tag labels separated by commas and spaces
 	 * @param user: the user adding the tag
 	 */
@@ -99,14 +99,41 @@ public class Insight extends Model {
 	}
 	
 	/**
-	 * Add a tag from a given label
+	 * Add a tag from a given label string, will check if tag already exists for this insight
 	 * @param label: the label of the tag (will not be processed)
 	 * @param user: the user adding the tag
 	 */
 	private void addTag(String label, User user) {
-		Tag tag = new Tag(user, this, label);
-		tag.save();
-	}
+		// TODO call here a method to normalize the label
+
+		// check if this tag already exist for this insight
+		boolean foundTag = false;
+		if(this.tags != null) {
+			for(Tag storedTag : this.tags) {
+				if(storedTag.label.equals(label)) {
+					storedTag.users.add(user);
+					storedTag.save();
+					foundTag = true;
+					break;
+				}
+			}
+		}
+		// if not, check if this tag already exist on the website
+		if(!foundTag) {
+			Tag existTag = Tag.find("byLabel", label).first();
+			if(existTag == null) {
+				// if null, then create it.
+				Tag newTag = new Tag(label, this, user);
+				newTag.save();
+			} else {
+				System.out.println("FFFOUND:" + existTag.label);
+				// if found, then associate with this insight and this user.
+				existTag.insights.add(this);
+				existTag.users.add(user);
+				existTag.save();
+			}
+		}
+}
 	
 	/**
 	 * Add a comment to the current insight
