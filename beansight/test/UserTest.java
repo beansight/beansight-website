@@ -13,7 +13,7 @@ public class UserTest extends UnitTest {
 	@Before
 	public void setup() {
 		Fixtures.deleteAll();
-		Fixtures.load("debug-data.yml");
+		Fixtures.load("initial-data.yml");
 		User user = TestHelper.createTestUser();
 	}
 	
@@ -21,7 +21,7 @@ public class UserTest extends UnitTest {
 	
     @Test
     public void createNewUser() {
-   		User user = new User("john.do@usa.com", "john", "24hours");
+   		User user = new User("john.doe@usa.com", "john", "thepassword");
         user.save();
         
         User userFound = User.findByUserName("john");
