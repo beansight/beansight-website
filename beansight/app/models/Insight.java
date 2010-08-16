@@ -68,6 +68,8 @@ public class Insight extends Model {
 		this.creationDate = new Date();
 		this.endDate = endDate;
 		this.content = content;
+		this.followers = new ArrayList<User>();
+		this.comments = new ArrayList<Comment>();
 		this.category = category;
 	}
 
