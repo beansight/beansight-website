@@ -25,6 +25,10 @@ public class Category extends Model {
 		this.label = label;
 	}
 	
+	public static List<Category> getAllCategories() {
+		return Category.findAll();
+	}
+	
 	public String toString() {
 	    return label;
 	}

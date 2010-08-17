@@ -3,4 +3,18 @@
 
 <div class="userDetail">
     <p>${user.userName} (${user.firstName} ${user.lastName})</p>
+    <p>score ${user.score}</p>
+
+    <p>score by category:</p>
+<ul>
+    #{list items:user.categoryScores, as:'categoryScore' }
+        <li>
+            ${categoryScore.category.label}: ${categoryScore.score}
+        </li>
+    #{/list}
+</ul>
+
+<p><a href="@{Application.temp_recomputeScore()}">TEMP Recompute Score</a></p>
+
+
 </div>

@@ -26,6 +26,16 @@ public class User extends Model {
 	public String password;
 	public String email;
 	
+	/** Date the user created his account */
+	private Date crdate; // private because must be read-only.
+	
+	/** the global score for this user */
+	public double score;
+	
+	/** list of scores of this users in all the categories */
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	public List<UserCategoryScore> categoryScores;
+	
 	/** list of insights created by this user */
 	@OneToMany(mappedBy="creator", cascade=CascadeType.ALL)
 	public List<Insight> createdInsights;
@@ -49,6 +59,10 @@ public class User extends Model {
         this.votes = new ArrayList<Vote>();
         this.createdInsights = new ArrayList<Insight>();
         this.followedInsights = new ArrayList<Insight>();
+        this.crdate = new Date();
+        
+        this.score = 0;
+        this.categoryScores = new ArrayList<UserCategoryScore>();
     }
 
     public String toString() {
@@ -72,7 +86,11 @@ public class User extends Model {
     	return false;
     }
 	
-    /**
+    public Date getCrdate() {
+		return crdate;
+	}
+
+	/**
      * Static method to get a User instance given his username
      * 
      * @param userName
@@ -110,12 +128,11 @@ public class User extends Model {
      * current user.
      * It shouldn't be possible to vote twice for one insight.
      * 
-     * TODO : check user hasn't already vote for the insight
-     * 
      * @param insightId : id of the insight user is voting for.
      * @param voteState State.AGREE or State.DISAGREE
      */
 	public void voteToInsight(Long insightId, State voteState) {
+		// TODO : check user hasn't already vote for the insight
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(this, insight, voteState);
 		vote.save();
@@ -133,8 +150,9 @@ public class User extends Model {
 	 * @return
 	 */
 	public boolean isFollowingInsight(Insight insight) {
-		if(followedInsights.contains(insight))
+		if(followedInsights.contains(insight)) {
 			return true;
+		}
 		return false;
 	}
 	
@@ -146,8 +164,9 @@ public class User extends Model {
 		Insight insight = Insight.findById(insightId);
 		
 		// If we are already following the insight throw a business exception
-		if (isFollowingInsight(insight)==true)
+		if (isFollowingInsight(insight)==true) {
 			throw new UserIsAlreadyFollowingInsightException();
+		}
 		
 		followedInsights.add(insight);
 		save();
@@ -164,12 +183,43 @@ public class User extends Model {
 		Insight insight = Insight.findById(insightId);
 		
 		// If we were not following the insight just do nothing ...
-		if (isFollowingInsight(insight)==false)
+		if (isFollowingInsight(insight)==false) {
 			return;
+		}
 		
 		followedInsights.remove(insight);
 		save();
 		insight.followers.remove(this);
 		insight.save();
+	}
+	
+	public void computeScores() {
+		this.computeUserScore();
+		for (Category category : Category.getAllCategories()) {
+			this.computeCategoryScore(category);
+		}
+	}
+	
+	public void computeUserScore() {
+		// TODO: insert here the score computation algorithm
+		this.score = Math.random();
+	}
+	
+	public void computeCategoryScore(Category category) {
+		// look if this user has a score for this category
+		boolean newCategory = true; 
+		for( UserCategoryScore userCatScore : categoryScores ) {
+			if(userCatScore.category == category) {
+				newCategory = false;
+				userCatScore.score = Math.random();
+				// TODO: insert here the score computation algorithm for a given category
+			}
+		}
+		// if not, create the link between user and category
+		if(newCategory) {
+			UserCategoryScore newUserCatScore = new UserCategoryScore(this, category);
+			newUserCatScore.score = Math.random();
+			categoryScores.add(newUserCatScore);
+		}
 	}
 }

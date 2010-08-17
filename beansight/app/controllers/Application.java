@@ -108,7 +108,7 @@ public class Application extends Controller {
     }
     
     /**
-     * 
+     * add tags to an insight
      * @param insightId : the id of the tagged insight
      * @param tagLabelList: a comma separated list of tag labels
      */
@@ -126,5 +126,15 @@ public class Application extends Controller {
 		List<Category> categories = Category.findAll();
 		return categories;
 	}
-    
+	
+	// TODO remove me, score computation should be called in a job.
+	public static void temp_recomputeScore() {
+		User currentUser = User.findByUserName(Security.connected());
+    	currentUser.computeScores();
+    	currentUser.save();
+    	showUser(currentUser.id);
+	}
+
+
+	
 }
