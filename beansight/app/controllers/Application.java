@@ -8,6 +8,7 @@ import models.Insight;
 import models.User;
 import models.Vote.State;
 import play.mvc.Controller;
+import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Application extends Controller {
@@ -41,7 +42,11 @@ public class Application extends Controller {
 	 */
 	public static void agree(Long insightId) {
 		User currentUser = User.findByUserName(Security.connected());
-		currentUser.voteToInsight(insightId, State.AGREE);
+		try {
+			currentUser.voteToInsight(insightId, State.AGREE);
+		} catch (CannotVoteTwiceForTheSameInsightException e) {
+			// TODO : add a message on the UI ?
+		}
 		// TODO : only return JSON to use with AJAX
 		index();
 	}
@@ -53,7 +58,11 @@ public class Application extends Controller {
 	 */
 	public static void disagree(Long insightId) {
 		User currentUser = User.findByUserName(Security.connected());
-		currentUser.voteToInsight(insightId, State.DISAGREE);
+		try {
+			currentUser.voteToInsight(insightId, State.DISAGREE);
+		} catch (CannotVoteTwiceForTheSameInsightException e) {
+			// TODO : add a message on the UI ?
+		}
 		// TODO : only return JSON to use with AJAX
 		index();
 	}

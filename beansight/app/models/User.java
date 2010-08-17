@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
 import models.Vote.State;
@@ -131,8 +133,10 @@ public class User extends Model {
      * @param insightId : id of the insight user is voting for.
      * @param voteState State.AGREE or State.DISAGREE
      */
-	public void voteToInsight(Long insightId, State voteState) {
-		// TODO : check user hasn't already vote for the insight
+	public void voteToInsight(Long insightId, State voteState) throws CannotVoteTwiceForTheSameInsightException  {
+		if (Vote.hasUserVotedForInsight(this.id, insightId)) {
+			throw new CannotVoteTwiceForTheSameInsightException();
+		}
 		Insight insight = Insight.findById(insightId);
 		Vote vote = new Vote(this, insight, voteState);
 		vote.save();
@@ -144,6 +148,7 @@ public class User extends Model {
 		insight.save();
 	}
 
+	
 	/**
 	 * Tells if the given insight is already in the current user followed insight list. 
 	 * @param insight

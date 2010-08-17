@@ -1,3 +1,6 @@
+import java.util.Calendar;
+import java.util.Date;
+
 import models.User;
 
 
@@ -16,6 +19,12 @@ public class TestHelper {
 	
 	public static User getTestUser() {
 		return User.findByUserName(TEST_USER_NAME);
+	}
+	
+	public static Date getDateWithXMonthFromNow(int months) {
+		Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, months);
+        return calendar.getTime();        
 	}
 	
 }

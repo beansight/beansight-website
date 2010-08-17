@@ -28,10 +28,13 @@ public class Category extends Model {
 	public static List<Category> getAllCategories() {
 		return Category.findAll();
 	}
+
+	public static Category findByLabel(String label) {
+		return Category.find("byLabel", label).first();
+	}
 	
 	public String toString() {
 	    return label;
 	}
-
 
 }

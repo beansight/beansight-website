@@ -39,5 +39,17 @@ public class Vote extends Model {
 	    return state.toString();
 	}
 
-
+	/**
+	 * Call this to test if someone has already vote for an insight.
+	 * @param userId
+	 * @param insightId
+	 * @return true if user has already vote, false otherwise.
+	 */
+	public static boolean hasUserVotedForInsight(Long userId, Long insightId) {
+		Long count = find("select count(*) from Vote v join v.user u join v.insight i where u.id=:userId and i.id=:insightId").bind("userId", userId).bind("insightId", insightId).first();
+		if (count==0) {
+			return false;
+		}
+		return true;
+	}
 }
