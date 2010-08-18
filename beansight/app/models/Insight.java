@@ -112,7 +112,7 @@ public class Insight extends Model {
 		boolean foundTag = false;
 		if(this.tags != null) {
 			for(Tag storedTag : this.tags) {
-				if(storedTag.label.equals(label)) {
+				if(storedTag.label.equalsIgnoreCase(label)) {
 					storedTag.users.add(user);
 					storedTag.save();
 					foundTag = true;

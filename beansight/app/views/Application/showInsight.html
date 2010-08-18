@@ -3,7 +3,7 @@
 
 <div class="insightDetail">
     <p>${insight.content}</p>
-    <p>Created ${insight.creationDate}</p>
+    <p>Created ${insight.creationDate.since(true)}</p>
     <p>End ${insight.endDate}</p>
     <p>By <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a></p>
     <p>Agree: ${insight.agreeCount} - Disagree: ${insight.disagreeCount} </p>
@@ -29,7 +29,7 @@
     #{/form}
     <ul>
     #{list items:insight.comments, as:'comment' }
-        <li>${comment.user} (${comment.creationDate}) :<br/> ${comment.content}</li>
+        <li>${comment.user} (${comment.creationDate.since(true)}) :<br/> ${comment.content}</li>
     #{/list}
     </ul>    
     
