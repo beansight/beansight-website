@@ -25,7 +25,7 @@ public class UserCategoryScore extends Model {
 	public Category category;
 
 	/** Date of the last update of the score */
-	public Date update;
+	public Date lastupdate;
 	
 	public UserCategoryScore(User user, Category category) {
 		this.user = user;
