@@ -3,6 +3,9 @@
 # Warning: be sure to use spaces and not tabs in a yml file
 # for the users password Xr4ilOzQ4PCOq3aQ0qbuaQ== is the hash for: secret
 
+Category(catDebug):
+    label: Debug
+
 User(steren):
     email:          steren@test.com
     password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
@@ -20,6 +23,7 @@ Insight(insightBeansight):
     endDate:        2010-09-12
     agreeCount:     1
     disagreeCount:  0
+    category:       catDebug
 
 Vote(voteJb):
     user:       jb

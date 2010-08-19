@@ -1,0 +1,42 @@
+#{extends 'main.html' /}
+#{set title:'Beansight: Home' /}
+
+#{if flash.error}
+    <p>${flash.error}</p>
+#{/if}
+
+<div class="prepend-4 span-14 append-4 last">
+	#{form @Application.createInsight()}
+	    <p>What is going to happen?</p>
+	    <p>
+	        <label for="endDate">On </label>
+	        <input type="text" name="endDate" id="endDate" />, 
+	        <input type="text" name="insightContent" id="insightContent" />
+	    </p>
+	    <p>
+	        <label for="tagLabelList">Tags:</label>
+	        <input type="text" name="tagLabelList" id="tagLabelList" />
+	        <label for="category">Category:</label>
+	           #{selectCategories/}
+	    <p>
+	    </p>
+	    <p>
+	        <input type="submit" value="Create" />
+	    </p>
+	#{/form}
+</div>
+
+#{if flash.success}
+    <p class="success">${flash.success}</p>
+#{/if}
+
+<div class="prepend-2 span-16">
+    #{listInsights insights:insights, currentUser:currentUser /}
+</div>
+
+<div class="span-4 last">
+<div class="sideBox">
+    #{myInsights/}
+    #{myFollowedInsights/}
+</div>
+</div>

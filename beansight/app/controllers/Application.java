@@ -15,9 +15,13 @@ public class Application extends Controller {
 
 	public static void index() {
 		List<Insight> insights = Insight.findAll();
-		User currentUser = User.findByUserName(Security.connected());
 		
-		render(insights, currentUser);
+		if(Security.isConnected()) {
+			User currentUser = User.findByUserName(Security.connected());
+			render("Application/indexConnected.html", insights, currentUser);
+		}
+		
+		render("Application/indexNotConnected.html", insights);
 	}
 
 	/**
@@ -41,6 +45,7 @@ public class Application extends Controller {
 	 * @param insightId
 	 */
 	public static void agree(Long insightId) {
+		// TODO : if not connected: go to log / signin page
 		User currentUser = User.findByUserName(Security.connected());
 		try {
 			currentUser.voteToInsight(insightId, State.AGREE);
@@ -57,6 +62,7 @@ public class Application extends Controller {
 	 * @param insightId
 	 */
 	public static void disagree(Long insightId) {
+		// TODO : if not connected: go to log / signin page
 		User currentUser = User.findByUserName(Security.connected());
 		try {
 			currentUser.voteToInsight(insightId, State.DISAGREE);

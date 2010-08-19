@@ -1,26 +1,94 @@
-div.main {
-    height : 400px;
-}
-img.avatar {
-     width: 48px;
-     height:48px;
+/*
+Original palette :
+dark
+#1B676B     A Dream In Color 
+#519548     A Dream in Green
+#88C425     A Dream In Lime
+#BEF202     A Dream In Grellow
+#EAFDE6     Dream Base
+light
+based on http://fr-fr.colourlovers.com/palette/871636/A_Dream_in_Color
+by http://fr-fr.colourlovers.com/lover/madmod001
+Thanks man !
+
+our light gray :
+#F6F6F6     Light Gray
+
+declinaison of Dream Base: (luminosity)
+#f4fcf2     Dream Base light
+#EAFDE6     Dream Base
+#d6e6d3     Dream Base gray
+#c2ccc0     Dream Base gray 2
+*/
+
+body {
+    background-color:#F6F6F6;
+    color: #333333;
 }
 
-div.newuser {
-    -moz-border-radius:5px 5px 5px 5px;
-    background:none repeat scroll 0 0 #DDEEF6;
-    color:#445566;
-    padding:0 0px 0px;
-}
 ul {
     list-style:none outside none;
     margin:10px 0px 10px 0;
     padding:0;
-    text-align: center;
 }
-.website {
+
+a {text-decoration: none; color:#1B676B;}
+a:visited {text-decoration: none;}
+a:active {text-decoration: none;}
+a:hover {text-decoration: underline;}
+
+
+.sideBox {
+    -moz-border-radius-topright: 7px;
+    -webkit-border-top-right-radius: 7px;
+    border-top-right-radius: 7px;
+
+    -moz-border-radius-bottomleft: 7px;
+    -webkit-border-bottom-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+
+    border: 1px solid #BEF202;
+    
+    padding: 0.5em 1em;
+    background-color:   white;
+    margin-bottom: 2em;
+}
+
+#mainContainer {
+    -moz-box-shadow: 0 0 10px #519548;
+    -webkit-box-shadow: 0 0 10px #519548;
+    box-shadow: 0 0 10px #519548;
+    
+    background: url("images/bg-glow.png") no-repeat scroll left top transparent;
+    
+    /*padding: 3em 0 0;*/
+    background-color: #f4fcf2;
+    border-left: 7px solid #BEF202;
+    border-right: 7px solid #BEF202;
+}
+
+.beansight {
+    font-family: 'Yanone Kaffeesatz', arial, serif;
+    font-size:2em;
+}
+
+
+
+#footer {
+    padding: 2em 0 1em;
+    background-color: #d6e6d3;
+    color: #c2ccc0;
+    
+    text-shadow: 0 1px 0 #FFFFFF;   
+}
+
+#footer ul {
     margin:0;
     padding:0;
-    background:none repeat scroll 0 0 #FFFFFF;
-    padding:0 0px 0px;
+
 }
+
+
+#userOptions {
+	float:right;
+	}

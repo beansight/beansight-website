@@ -16,63 +16,63 @@
      #{get 'moreScripts' /}  
      <!--[if IE]>  
          <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection">  
-     <![endif]-->  
+     <![endif]-->
+     
+    <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light' rel='stylesheet' type='text/css'>
+
+
 </head>
 <body>
-  
-	<div class="website header">
-		<a href="/"><img src="@{'/public/images/logo.png'}" /></a>
-	</div>  
-  
-<div class="container">
-	
-	<div class="newuser span-5">
-			<ul>
-				<li>
-					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48"/> 
-					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
-					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
-				</li>
-				<li>	
-					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48"/> 
-					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
-					<img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
-				</li>
-			</ul>
-	</div>
-	
-	<div class="span-15">
+<div id="mainContainer" class="container">
+<div >
 
-		<div class="main span-15 last">
-			#{doLayout /}
-		</div>
-	</div>
-	
-	<div class="newuser span-4 last">
-		<div>
-			#{isNotConnected}
-				<a href="@{Register.register()}">Register</a>
-				<a href="@{Secure.login()}">Login</a>
-			#{/isNotConnected}
-			#{isConnected}
-				<a>${controllers.Secure.Security.connected()}</a>
-				<a href="@{Secure.logout()}">Logout</a>
-			#{/isConnected}
-		</div>
-	
-		<ul>
-			<li>Share your insights</li>	
-			<li>Prove your expertise</li>
-			<li>Display your credibility</li>	
-		</ul>
-		#{myInsights/}
-		#{myFollowedInsights/}
-	</div>
-	<div class="newuser span-24 last">
-		Footer
+<div class="prepend-11 span-12 append-1 last">
+	<div id="userOptions">
+	    #{isNotConnected}
+	        <a href="@{Register.register()}">Register</a>
+	        <a href="@{Secure.login()}">Login</a>
+	    #{/isNotConnected}
+	    #{isConnected}
+	        ${controllers.Secure.Security.connected()}
+	        <a>Settings</a>
+	        <a href="@{Secure.logout()}">Logout</a>
+	    #{/isConnected}
 	</div>
 </div>
+    <div class="prepend-1 span-3 append-20 last">
+	<div id="logo">
+		<a href="/"><img alt="Beansight" src="@{'/public/images/logo.png'}" /></a>
+	</div>
+    </div>
+	
+	<div class="prepend-1 span-22 last">
+	<div>
+	    #{doLayout /}
+    </div>
+	</div>
+	
+	<div id="footer" class="span-24 last">
+        <div class="prepend-1 span-2">
 
+            <span class="beansight">Beansight</span>
+        </div>
+
+        <div class="prepend-2 span-4">
+            <ul>
+                <li id="link-twitter"><a href="http://twitter.com/beansight">Twitter</a></li>
+                <li id="link-facebook"><a href="http://www.facebook.com/pages/Beansight/120701864625294">Facebook</a></li>
+                <li id="link-blog"><a href="http://beansight.tumblr.com/">Blog</a></li>
+
+            </ul>
+        </div>
+        
+        <div class="prepend-11 span-4 last">
+                <a href="mailto:contact@beansight.com">contact</a>
+        </div>
+
+	</div>
+</div>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,51 @@
+#{extends 'main.html' /}
+#{set title:'Beansight: Home' /}
+
+#{if flash.error}
+    <p>${flash.error}</p>
+#{/if}
+
+<div class="prepend-8 span-12 append-2 last">
+	<p>Search the future:</p>
+	<p>
+	    <input type="text" name="search" id="search" />
+	    <input type="submit" value="Search" />
+	</p>
+</div>
+
+#{if flash.success}
+    <p class="success">${flash.success}</p>
+#{/if}
+
+<div class="span-5">
+<div class="sideBox">
+        <ul>
+            <li>
+                <img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48"/> 
+                <img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
+                <img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
+            </li>
+            <li>    
+                <img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48"/> 
+                <img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
+                <img class="avatar" alt="" src="@{'/public/images/pic1.jpg'}" width="48" height="48" />
+            </li>
+        </ul>
+</div>
+</div>
+
+<div class="prepend-1 span-10 append-1">
+	Trending insights:
+    #{listInsights insights:insights, currentUser:currentUser /}
+</div>
+
+<div class="span-5 last">
+<div class="sideBox">
+    Blabla Marketing
+    <ul>
+        <li>Share your insights</li>    
+        <li>Prove your expertise</li>
+        <li>Display your credibility</li>   
+    </ul>
+</div>
+</div>
