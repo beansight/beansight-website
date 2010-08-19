@@ -6,6 +6,7 @@ import java.util.List;
 import models.Category;
 import models.Insight;
 import models.User;
+import models.Vote;
 import models.Vote.State;
 import play.mvc.Controller;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
@@ -80,7 +81,10 @@ public class Application extends Controller {
     public static void showInsight(Long id) {
         Insight insight = Insight.findById(id);
         notFoundIfNull(insight);
-        render(insight);
+        User currentUser = User.findByUserName(Security.connected());
+        Vote lastUserVote = Vote.findLastVote(currentUser.id, id);
+        
+        render(insight, lastUserVote);
     }
     
     /**

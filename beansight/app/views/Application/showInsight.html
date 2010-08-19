@@ -8,6 +8,10 @@
     <p>By <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a></p>
     <p>Agree: ${insight.agreeCount} - Disagree: ${insight.disagreeCount} </p>
     
+    #{if lastUserVote != null}
+    	<p>Since ${lastUserVote.creationDate.format("dd MMMM yyyy")} you #{if lastUserVote.state.equals(models.Vote.State.AGREE)} agree #{/if} #{else} disagree #{/else} with this insight.</p> 
+    #{/if}
+    
     <p>Category: ${insight.category.label}</p>
     
     <p>tags:

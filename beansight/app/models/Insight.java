@@ -151,5 +151,4 @@ public class Insight extends Model {
 		return content;
 	}
 	
-
 }

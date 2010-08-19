@@ -52,4 +52,15 @@ public class Vote extends Model {
 		}
 		return true;
 	}
+	
+	/**
+	 * Call this to get the last vote a user made for an insight 
+	 * @param userId
+	 * @param insightId
+	 * @return
+	 */
+	public static Vote findLastVote(Long userId, Long insightId) {
+		Vote vote = find("select v from Vote v join v.user u join v.insight i where u.id=:userId and i.id=:insightId order by v.creationDate desc").bind("userId", userId).bind("insightId", insightId).first();
+		return vote;
+	}
 }
