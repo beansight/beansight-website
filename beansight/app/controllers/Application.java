@@ -84,7 +84,7 @@ public class Application extends Controller {
         User currentUser = User.findByUserName(Security.connected());
         Vote lastUserVote = Vote.findLastVote(currentUser.id, id);
         
-        render(insight, lastUserVote);
+        render(insight, currentUser, lastUserVote);
     }
     
     /**

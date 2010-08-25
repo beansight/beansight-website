@@ -2,11 +2,11 @@
 #{set title:insight.content /}
 
 <div class="insightDetail">
-    <p>${insight.content}</p>
+
+    <p>#{insight insight:insight, currentUser:currentUser /}</p>
+
     <p>Created ${insight.creationDate.since(true)}</p>
     <p>End ${insight.endDate}</p>
-    <p>By <a href="@{Application.showUser(insight.creator.id)}">${insight.creator.userName}</a></p>
-    <p>Agree: ${insight.agreeCount} - Disagree: ${insight.disagreeCount} </p>
     
     #{if lastUserVote != null}
     	<p>Since ${lastUserVote.creationDate.format("dd MMMM yyyy")} you #{if lastUserVote.state.equals(models.Vote.State.AGREE)} agree #{/if} #{else} disagree #{/else} with this insight.</p> 
