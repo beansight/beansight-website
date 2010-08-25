@@ -1,6 +1,7 @@
 package controllers;
 
-import com.sun.xml.internal.ws.developer.UsesJAXBContext;
+// This import needed to be removed to run on Steren's server.
+// import com.sun.xml.internal.ws.developer.UsesJAXBContext;
 
 import models.User;
 import play.mvc.Controller;
