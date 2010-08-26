@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -93,7 +94,7 @@ public class Application extends Controller {
      */
     public static void showUser(Long id) {
     	User user = User.findById(id);
-        notFoundIfNull(user);
+        notFoundIfNull(user);              
     	render(user);
     }
     
@@ -154,6 +155,33 @@ public class Application extends Controller {
     	showUser(currentUser.id);
 	}
 
-
+	
+	public static void saveSettings(User user) {
+		User currentUser = User.findByUserName(Security.connected());
+		// User should be the same as the one connected
+	    if (currentUser.id.equals(user.id)==false) {
+	    	forbidden("It seems you are trying to hack someone else settings");
+	    }
+		currentUser.avatar = user.avatar;
+		currentUser.save();
+		settings();
+	}	
+	
+	
+	public static void settings() {
+		User user = User.findByUserName(Security.connected());
+		render(user);
+	}
+	
+	
+	public static void showAvatar(Long userId) {
+		User user = User.findById(userId);
+		if (user != null && user.avatar.isSet()) {
+			renderBinary(user.avatar.get());
+		} 
+		renderBinary(new File("public/images/unknown.jpg"));
+		notFound();
+	}
+	
 	
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 
 import models.Vote.State;
 
+import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 import play.libs.Crypto;
 
@@ -27,6 +29,9 @@ public class User extends Model {
 	public String lastName;
 	public String password;
 	public String email;
+	
+    @Embedded
+    public FileAttachment avatar;
 	
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.

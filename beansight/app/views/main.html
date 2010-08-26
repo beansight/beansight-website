@@ -9,10 +9,10 @@
      <link rel="stylesheet" href="@{'/public/blueprint/print.css'}" type="text/css" media="print">
 <!-- Beansight CSS -->  
      <link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" type="text/css" media="screen, projection">
-          
+              
      <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
    
-     <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+     <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script> 	 
      #{get 'moreScripts' /}  
      <!--[if IE]>  
          <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection">  
@@ -34,7 +34,7 @@
 	    #{/isNotConnected}
 	    #{isConnected}
 	        ${controllers.Secure.Security.connected()}
-	        <a>Settings</a>
+	        <a href="@{Application.settings()}">Settings</a>
 	        <a href="@{Secure.logout()}">Logout</a>
 	    #{/isConnected}
 	</div>

@@ -1,8 +1,16 @@
 #{extends 'main.html' /}
 #{set title:user.userName /}
 
+<script language="Javascript">
+
+
+
+</script>
+
 <div class="userDetail">
+
     <p>${user.userName} (${user.firstName} ${user.lastName})</p>
+    <p><img src="@{Application.showAvatar(user.id)}" id="cropbox" /></p>
     <p>score ${user.score}</p>
 
     <p>score by category:</p>

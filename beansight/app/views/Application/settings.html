@@ -1,0 +1,34 @@
+#{extends 'main.html' /}
+#{set title:user.userName /}
+
+<script language="Javascript">
+
+
+
+</script>
+
+<div class="userDetail">
+
+    #{form @Application.saveSettings(), enctype:'multipart/form-data'}
+    	<p>
+    		<label for="avatar">email</label>
+        	<input type="text" name="user.email" value="${user.email}"/>
+        </p>
+    	<p>
+	        <label for="avatar">User avatar :</label>
+	        <input type="hidden" name="user.id" value="${user.id}"/>
+	        <input type="file" id="avatar" name="user.avatar">
+	    </p>
+    	<p>
+	        <img src="@{Application.showAvatar(user.id)}" id="cropbox" />
+        </p>
+        <p>
+        	<input type="submit">
+        </p>
+    #{/form}
+	
+
+	
+
+
+</div>
