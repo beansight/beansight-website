@@ -20,23 +20,29 @@ import models.Vote.State;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 import play.libs.Crypto;
+import play.modules.search.*;
 
 @Entity
+@Indexed
 public class User extends Model {
 
+	@Field
 	public String userName;
+	@Field
 	public String firstName;
+	@Field
 	public String lastName;
 	public String password;
 	public String email;
 	
-    @Embedded
+    //use the @Embedded annotation to store avatars in the database
     public FileAttachment avatar;
 	
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.
 	
 	/** the global score for this user */
+	@Field
 	public double score;
 	
 	/** list of scores of this users in all the categories */

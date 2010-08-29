@@ -8,8 +8,10 @@
 <div class="prepend-8 span-12 append-2 last">
 	<p>Search the future:</p>
 	<p>
-	    <input type="text" name="search" id="search" />
-	    <input type="submit" value="Search" />
+        #{form @Application.search()}
+		    <input type="text" name="query" id="query" />
+		    <input type="submit" value="Search" />
+        #{/form}
 	</p>
 </div>
 

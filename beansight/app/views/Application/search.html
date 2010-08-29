@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+#{set title:'Beansight: Search' /}
+
+<div class="prepend-1 span-20 append-1 last">
+	Found ${insights.size()} result${insights.size().pluralize()} for "${query}":
+        #{list items:insights , as:'insight'}
+            <li>#{insight insight:insight, display:"SMALL" /}</li>
+        #{/list}
+</div>

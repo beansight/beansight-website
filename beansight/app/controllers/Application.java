@@ -9,6 +9,8 @@ import models.Insight;
 import models.User;
 import models.Vote;
 import models.Vote.State;
+import play.modules.search.Search;
+import play.modules.search.Search.Query;
 import play.mvc.Controller;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.UserIsAlreadyFollowingInsightException;
@@ -165,7 +167,7 @@ public class Application extends Controller {
 		currentUser.avatar = user.avatar;
 		currentUser.save();
 		settings();
-	}	
+	}
 	
 	
 	public static void settings() {
@@ -181,6 +183,20 @@ public class Application extends Controller {
 		} 
 		renderBinary(new File("public/images/unknown.jpg"));
 		notFound();
+	}
+	
+	public static void search(String query) {
+		//TODO Steren : this query string construction is temporary, we should better handle this
+		String fullQueryString = "content:" + query + " OR tags:" + query + " OR category:" + query;
+		Query q = Search.search(fullQueryString, Insight.class);
+		List<Insight> insights = q.fetch();
+		render(query, insights);
+	}
+	
+	public static void userSearch(String query) {
+		Query q = Search.search(query, User.class);
+		List<User> users = q.fetch();
+		render(users);
 	}
 	
 	

@@ -11,7 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
+import play.modules.search.*;
 
+@Indexed
 @Entity
 public class Insight extends Model {
 
@@ -19,12 +21,15 @@ public class Insight extends Model {
 	public User creator;
 
 	/** the date this insight has been created by its creator */
+	//TODO index this  (unfortunately simply adding @Field transforms the date in string) 
 	public Date creationDate;
 
 	/** the date this insight is ending, defined by its creator */
+	//TODO index this
 	public Date endDate;
 
 	/** Content of the insight, a simple text describing the idea */
+	@Field
 	public String content;
 
 	/** Every vote of the current insight */
@@ -33,9 +38,11 @@ public class Insight extends Model {
 	
 	/** Every tag of the current insight */
 	@ManyToMany(mappedBy = "insights", cascade = CascadeType.ALL)
+	@Field
 	public List<Tag> tags;
 
 	@ManyToOne
+	@Field
 	/** Category of this insight */
 	public Category category;
 	
