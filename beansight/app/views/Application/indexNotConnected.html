@@ -6,13 +6,7 @@
 #{/if}
 
 <div class="prepend-8 span-12 append-2 last">
-	<p>Search the future:</p>
-	<p>
-        #{form @Application.search()}
-		    <input type="text" name="query" id="query" />
-		    <input type="submit" value="Search" />
-        #{/form}
-	</p>
+	#{searchInput /}
 </div>
 
 #{if flash.success}
