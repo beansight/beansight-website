@@ -5,6 +5,9 @@
 Category(catCelebrities):
     label:  Celebrities
 
+Category(catFinance):
+    label:  Finance
+
 Category(catFun):
     label:  Fun
 
