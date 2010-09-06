@@ -1,7 +1,7 @@
 <ul>
     #{list items:_insights, as:'insight' }
         <li>
-            #{insight insight:insight, currentUser:_currentUser /}
+            #{insight insight:insight /}
         </li>
     #{/list}
 </ul>

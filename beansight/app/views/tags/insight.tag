@@ -9,8 +9,8 @@
 	<a href="@{Application.agree(_insight.id)}">Agree</a> (${_insight.agreeCount}) 
 	<a href="@{Application.disagree(_insight.id)}">Disagree</a> (${_insight.disagreeCount})
 	#{isConnected}
-		#{if _insight.isCreator(_currentUser)==false}
-		    #{if _currentUser.isFollowingInsight(_insight)}
+		#{if _insight.isCreator(controllers.CurrentUser.getCurrentUser())==false}
+		    #{if controllers.CurrentUser.getCurrentUser().isFollowingInsight(_insight)}
 		        <a href="@{Application.stopFollowingInsight(_insight.id)}">stop following this insight</a>
 		    #{/if}
 		    #{else} 

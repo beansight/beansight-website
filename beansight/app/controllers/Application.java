@@ -21,8 +21,7 @@ public class Application extends Controller {
 		List<Insight> insights = Insight.findAll();
 		
 		if(Security.isConnected()) {
-			User currentUser = User.findByUserName(Security.connected());
-			render("Application/indexConnected.html", insights, currentUser);
+			render("Application/indexConnected.html", insights);
 		}
 		
 		render("Application/indexNotConnected.html", insights);
