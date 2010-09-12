@@ -10,7 +10,7 @@
 </div>
 
 <div class="prepend-4 span-14 append-4 last">
-	#{form @Application.createInsight()}
+	<form id="createInsightForm">
 	    <p>What is going to happen?</p>
 	    <p>
 	        <label for="endDate">On </label>
@@ -27,15 +27,15 @@
 	    <p>
 	        <input type="submit" value="Create" />
 	    </p>
-	#{/form}
+	</form>
 </div>
 
 #{if flash.success}
     <p class="success">${flash.success}</p>
 #{/if}
 
-<div class="prepend-2 span-16">
-    #{listInsights insights:insights /}
+<div id="listInsights" class="prepend-2 span-16">
+    {listInsights insights:insights /}
 </div>
 
 <div class="span-4 last">
@@ -44,3 +44,53 @@
     #{myFollowedInsights/}
 </div>
 </div>
+
+<script type="text/javascript" charset="utf-8"><!--
+	$(document).ready(
+		refreshInsightList()
+	);
+
+	function refreshInsightList() {
+		$.get(
+			'@{Application.displayAllInsights()}', 
+			function(allInsights) {
+				$("#listInsights").empty();
+				$("#listInsights").append(allInsights);
+			}
+		);					
+	}
+
+	// called when an insight is created
+	$('#createInsightForm').submit(function() {
+	  $.ajax({ 
+		  type: "POST",
+		  url: "@{Application.createInsight()}", 
+		  data: $(this).serialize(), 
+		  success: onCreateInsightSuccess,
+		  error: onCreateInsightError
+	  });
+	  
+	  return false;
+	});
+
+	// callback for insight creation
+	function onCreateInsightSuccess(msg) {
+		alert('success:' + msg);
+		clearForm();
+		refreshInsightList();
+	}
+
+	// callback for insight creation
+	function onCreateInsightError() {
+		alert('error');
+	}
+
+	function clearForm() {
+		$(':input','#createInsightForm')
+		 .not(':button, :submit, :reset, :hidden')
+		 .val('')
+		 .removeAttr('checked')
+		 .removeAttr('selected');
+	}
+--></script>
+

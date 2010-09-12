@@ -36,11 +36,18 @@ public class Application extends Controller {
 	 */
 	public static void createInsight(String insightContent, Date endDate, String tagLabelList, long categoryId) {
 		User currentUser = User.findByUserName(Security.connected());
-		currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
-
+		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
+		
 		// TODO : return JSON, this action should be AJAX, no page reload when submitting an insight
-		index();
+//		index();
+		renderText("Your insight has been created");
 	}
+	
+	public static void displayAllInsights() {
+		List<Insight> allInsights = Insight.all().fetch();
+		render(allInsights);
+	}
+	
 	
 	/**
 	 * Agree a given insight
