@@ -34,8 +34,8 @@
     <p class="success">${flash.success}</p>
 #{/if}
 
-<div id="listInsights" class="prepend-2 span-16">
-    {listInsights insights:insights /}
+<div class="prepend-2 span-16">
+    #{listInsights insights:insights /}
 </div>
 
 <div class="span-4 last">
@@ -46,20 +46,6 @@
 </div>
 
 <script type="text/javascript" charset="utf-8"><!--
-	$(document).ready(
-		refreshInsightList()
-	);
-
-	function refreshInsightList() {
-		$.get(
-			'@{Application.displayAllInsights()}', 
-			function(allInsights) {
-				$("#listInsights").empty();
-				$("#listInsights").append(allInsights);
-			}
-		);					
-	}
-
 	// called when an insight is created
 	$('#createInsightForm').submit(function() {
 	  $.ajax({ 
@@ -77,7 +63,6 @@
 	function onCreateInsightSuccess(msg) {
 		alert('success:' + msg);
 		clearForm();
-		refreshInsightList();
 	}
 
 	// callback for insight creation
