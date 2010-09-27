@@ -2,7 +2,9 @@ package controllers;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.Category;
 import models.Insight;
@@ -38,9 +40,9 @@ public class Application extends Controller {
 		User currentUser = User.findByUserName(Security.connected());
 		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
 		
-		// TODO : return JSON, this action should be AJAX, no page reload when submitting an insight
-//		index();
 		renderText("Your insight has been created");
+		// TODO: send back the content of the insight
+		// renderJSON(insight); // circular reference found :(
 	}
 	
 	public static void displayAllInsights() {
@@ -62,8 +64,9 @@ public class Application extends Controller {
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			// TODO : add a message on the UI ?
 		}
-		// TODO : only return JSON to use with AJAX
-		index();
+
+		Insight insight = Insight.findById(insightId);
+		render("Application/vote.json", insight);
 	}
 
 	/**
@@ -74,13 +77,15 @@ public class Application extends Controller {
 	public static void disagree(Long insightId) {
 		// TODO : if not connected: go to log / signin page
 		User currentUser = User.findByUserName(Security.connected());
+
 		try {
 			currentUser.voteToInsight(insightId, State.DISAGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			// TODO : add a message on the UI ?
 		}
-		// TODO : only return JSON to use with AJAX
-		index();
+
+		Insight insight = Insight.findById(insightId);
+		render("Application/vote.json", insight);
 	}
 	
 	/**

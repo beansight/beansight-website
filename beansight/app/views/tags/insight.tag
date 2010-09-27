@@ -6,8 +6,8 @@
 
 #{if _display != "SMALL"}
 	(by <a href="@{Application.showUser(_insight.creator.id)}">${_insight.creator.userName}</a>) 
-	<a href="@{Application.agree(_insight.id)}">Agree</a> (${_insight.agreeCount}) 
-	<a href="@{Application.disagree(_insight.id)}">Disagree</a> (${_insight.disagreeCount})
+	<span onClick="agree(${_insight.id})" ><a href="" onClick="return false">Agree</a></span> (<span id="agreeCount_${_insight.id}">${_insight.agreeCount}</span>) 
+	<span onClick="disagree(${_insight.id})" ><a href="" onClick="return false">Disagree</a></span> (<span id="disagreeCount_${_insight.id}">${_insight.disagreeCount}</span>)
 	#{isConnected}
 		#{if _insight.isCreator(controllers.CurrentUser.getCurrentUser())==false}
 		    #{if controllers.CurrentUser.getCurrentUser().isFollowingInsight(_insight)}

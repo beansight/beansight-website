@@ -5,29 +5,31 @@
     <p>${flash.error}</p>
 #{/if}
 
+<div id="error"></div>
+
 <div class="prepend-8 span-12 append-2 last">
     #{searchInput /}
 </div>
 
 <div class="prepend-4 span-14 append-4 last">
-	<form id="createInsightForm">
-	    <p>What is going to happen?</p>
-	    <p>
-	        <label for="endDate">On </label>
-	        <input type="text" name="endDate" id="endDate" />, 
-	        <input type="text" name="insightContent" id="insightContent" />
-	    </p>
-	    <p>
-	        <label for="tagLabelList">Tags:</label>
-	        <input type="text" name="tagLabelList" id="tagLabelList" />
-	        <label for="category">Category:</label>
-	           #{selectCategories/}
-	    <p>
-	    </p>
-	    <p>
-	        <input type="submit" value="Create" />
-	    </p>
-	</form>
+    <form id="createInsightForm">
+        <p>What is going to happen?</p>
+        <p>
+            <label for="endDate">On </label>
+            <input type="text" name="endDate" id="endDate" />, 
+            <input type="text" name="insightContent" id="insightContent" />
+        </p>
+        <p>
+            <label for="tagLabelList">Tags:</label>
+            <input type="text" name="tagLabelList" id="tagLabelList" />
+            <label for="category">Category:</label>
+               #{selectCategories/}
+        <p>
+        </p>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </form>
 </div>
 
 #{if flash.success}
@@ -46,36 +48,58 @@
 </div>
 
 <script type="text/javascript" charset="utf-8"><!--
-	// called when an insight is created
-	$('#createInsightForm').submit(function() {
-	  $.ajax({ 
-		  type: "POST",
-		  url: "@{Application.createInsight()}", 
-		  data: $(this).serialize(), 
-		  success: onCreateInsightSuccess,
-		  error: onCreateInsightError
-	  });
-	  
-	  return false;
-	});
 
-	// callback for insight creation
-	function onCreateInsightSuccess(msg) {
-		alert('success:' + msg);
-		clearForm();
-	}
+    /** Called when an AJAX request returns an error */
+    $("#error").ajaxError(function(event, request, settings){
+        $(this).text('Sorry, an error occured during last action.');
+    });
 
-	// callback for insight creation
-	function onCreateInsightError() {
-		alert('error');
-	}
 
-	function clearForm() {
-		$(':input','#createInsightForm')
-		 .not(':button, :submit, :reset, :hidden')
-		 .val('')
-		 .removeAttr('checked')
-		 .removeAttr('selected');
-	}
+    /** Submit action for insight creation form */
+    $('#createInsightForm').submit(function() {
+        $.post("@{Application.createInsight()}", $(this).serialize(), onCreateInsightSuccess);
+        return false;
+    });
+
+    /** callback for insight creation */
+    function onCreateInsightSuccess(msg) {
+        alert('TODO:' + msg);
+        clearForm();
+        // TODO prepend the list with the new insight
+        // .prepend()
+    }
+
+    function clearForm() {
+        $(':input','#createInsightForm')
+         .not(':button, :submit, :reset, :hidden')
+         .val('')
+         .removeAttr('checked')
+         .removeAttr('selected');
+    }
+
+    /** Current user agree an insight */
+    function agree(insightId) {
+        var agreeAction = #{jsAction @Application.agree(':insightId') /};
+        $.getJSON(agreeAction({'insightId': insightId}), onVoteSuccess);
+    }
+    
+    /** Current user disagree an insight */
+    function disagree(insightId) {
+        var disagreeAction = #{jsAction @Application.disagree(':insightId') /};
+        $.getJSON(disagreeAction({'insightId': insightId}), onVoteSuccess);
+    }
+    
+    /** Callback after a vote is done */
+    function onVoteSuccess(data) {
+        updateAgreeDisagreeCount(data.id, data.updatedAgreeCount, data.updatedDisagreeCount);
+    }
+
+    /** Update the counts of an insight, given new counts */
+    function updateAgreeDisagreeCount(id, agreeCount, disagreeCount) {
+        $("#agreeCount_" + id).text(agreeCount);
+        $("#disagreeCount_" + id).text(disagreeCount);
+    }
+
+    
 --></script>
 

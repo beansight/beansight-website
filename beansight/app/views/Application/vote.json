@@ -1,0 +1,5 @@
+{
+    "id": ${insight.id},
+    "updatedAgreeCount": ${insight.agreeCount},
+    "updatedDisagreeCount": ${insight.disagreeCount}
+}
