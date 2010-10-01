@@ -1,16 +1,24 @@
 package controllers;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import models.Category;
 import models.Insight;
 import models.User;
 import models.Vote;
 import models.Vote.State;
+import play.Play;
+import play.db.jpa.FileAttachment;
+import play.libs.Files;
+import play.libs.Images;
 import play.modules.search.Search;
 import play.modules.search.Search.Query;
 import play.mvc.Controller;
@@ -186,7 +194,10 @@ public class Application extends Controller {
 		render(user);
 	}
 	
-	
+	/**
+	 * Render the user avatar 
+	 * @param userId
+	 */
 	public static void showAvatar(Long userId) {
 		User user = User.findById(userId);
 		if (user != null && user.avatar.isSet()) {
@@ -194,6 +205,62 @@ public class Application extends Controller {
 		} 
 		renderBinary(new File("public/images/unknown.jpg"));
 		notFound();
+	}
+	
+	/**
+	 * Receive an image from which the user want to crop his avatar.
+	 * The image is stored in the default attachments path with the name "tmpFile"+user.id
+	 * 
+	 * @param file
+	 */
+	public static void uploadUncropedAvatarImage(File file) {
+		User user = User.findByUserName(Security.connected());
+		
+		File to = new File(FileAttachment.getStore(), "tmpFile"+user.id);
+		Files.copy(file, to);
+
+		uploadAndCropAvatarScreen();
+	}
+	
+	/**
+	 * Render the uploaded image so that the user crop his avatar from it 
+	 */
+	public static void displayUploadedTmpImage() {
+		User user = User.findByUserName(Security.connected());
+		File tmpFile = new File(FileAttachment.getStore(), "tmpFile"+user.id);
+		if (!tmpFile.exists()) {
+			notFound();
+		}
+		renderBinary(tmpFile);
+	}	
+	
+	/**
+	 * Render to the page which give the opportunity to upload an image to crop
+	 */
+	public static void uploadAndCropAvatarScreen() {
+		User user = User.findByUserName(Security.connected());
+		
+		render(user);
+	}
+	
+	public static void cropImage(Integer x1, Integer y1, Integer x2, Integer y2, Integer imageW, Integer imageH) {
+		User user = User.findByUserName(Security.connected());
+		
+		File imageToCrop = new File(FileAttachment.getStore(), "tmpFile"+user.id);
+		try {
+			BufferedImage source = ImageIO.read(imageToCrop);
+			int originalImageWidth = source.getWidth();
+			int originalImageHeight = source.getHeight();
+			float ratioX = new Float(originalImageWidth) / imageW;
+			float ratioY = new Float(originalImageHeight) / imageH;
+		
+			Images.crop(imageToCrop, imageToCrop, Math.round(x1*ratioX), Math.round(y1*ratioY), Math.round(x2*ratioX), Math.round((y2*ratioY)));
+			user.avatar.set(imageToCrop);
+			user.saveAttachment();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static void search(String query) {

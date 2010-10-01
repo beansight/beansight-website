@@ -1,9 +1,28 @@
 #{extends 'main.html' /}
 #{set title:user.userName /}
+#{set 'moreScripts'}
+<script type="text/javascript" src="@{'/public/javascripts/fancybox/jquery.fancybox-1.3.1.pack.js'}"></script>
+<link rel="stylesheet" href="@{'/public/javascripts/fancybox/jquery.fancybox-1.3.1.css'}" type="text/css" media="screen" /> 	 
+#{/set}
 
 <script language="Javascript">
 
+$(document).ready(function() {
 
+	
+	/* Apply fancybox to multiple items */
+	
+	$("#uploadNewImage").fancybox({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+		'speedIn'		:	600, 
+		'speedOut'		:	200, 
+		'overlayShow'	:	false,
+		'width' 		: 	800,
+		'height' 		: 	600
+	});
+	
+});
 
 </script>
 
@@ -20,7 +39,10 @@
 	        <input type="file" id="avatar" name="user.avatar">
 	    </p>
     	<p>
-	        <img src="@{Application.showAvatar(user.id)}" id="cropbox" />
+	        <img src="@{Application.showAvatar(user.id)}" width="60px" />
+        </p>
+		<p>
+        	<a class="iframe" id="uploadNewImage" href="@{Application.uploadAndCropAvatarScreen()}">upload an image and crop a new avatar</a>
         </p>
         <p>
         	<input type="submit">

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
+
+<!-- Beansight CSS -->  
+    <link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" type="text/css" media="screen, projection">
+             
+    <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+   
+    <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script> 	 
+    <script src="@{'/public/javascripts/jquery.imgareaselect.pack.js'}" type="text/javascript" charset="utf-8"></script>  
+    <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
+	<link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+	
+	div.frame {
+		background:none repeat scroll 0 0 #FFFFFF;
+		border:2px solid #DDDDDD;
+		padding:0.8em;
+	}
+	
+	</style>
+
+</head>
+<body>
+
+#{form @Application.uploadUncropedAvatarImage(), enctype:'multipart/form-data'}
+	<p><input type="file" id="avatar" name="file"><input type="submit"/> </p>
+#{/form}	
+	
+	<div class="container demo">
+	 	<div style="float: left; width: 50%;">
+	  		<p class="instructions">
+	   			Click and drag on the image to select an area. 
+	  		</p>
+	 
+			<div style="margin: 0pt 0.3em; width: 300px; height: auto;" class="frame">
+		   		<img src="@{Application.displayUploadedTmpImage()}" id="uploadedImage" style="width:300px;height:auto;">
+		  	</div>	
+		</div>		
+		
+		<div style="float: left; width: 50%;">
+			<p style="font-size: 110%; font-weight: bold; padding-left: 0.1em;">
+			 Selection Preview
+			</p>
+ 	
+			<div style="margin: 0pt 1em; width: 100px; height: 100px;" class="frame">
+		   		<div style="width: 100px; height: 100px; overflow: hidden;" id="preview">
+					<img src="@{Application.displayUploadedTmpImage()}" id="preview" style="width:100px;height:100px;"/>
+		   		</div>
+			</div>	
+			#{form @Application.cropImage(), enctype:'multipart/form-data'}
+				<input type="hidden" id="x1" name="x1"/>
+				<input type="hidden" id="y1" name="y1"/>
+				<input type="hidden" id="x2" name="x2"/>
+				<input type="hidden" id="y2" name="y2"/>
+				<input type="hidden" id="imageW" name="imageW"/>
+				<input type="hidden" id="imageH" name="imageH"/>				
+				<input type="submit" onmousedown="window.close()"/> 
+			#{/form}	
+		</div>
+	
+	</div>
+
+
+
+</body>
+</html>
+
+<script type="text/javascript" charset="utf-8"><!--
+	function preview(img, selection) {
+	 
+	 if (!selection.width || !selection.height)
+	 return;
+	 
+	 var scaleX = 100 / selection.width;
+	 var scaleY = 100 / selection.height;
+
+	 $('#preview img').css({
+		 width: Math.round(scaleX * 300),
+		 height: Math.round(scaleY * $("#uploadedImage").height()),
+		 marginLeft: -Math.round(scaleX * selection.x1),
+		 marginTop: -Math.round(scaleY * selection.y1)
+	 });
+
+	 $('#x1').val(selection.x1);
+	 $('#y1').val(selection.y1);
+	 $('#x2').val(selection.x2);
+	 $('#y2').val(selection.y2);
+	 $('#imageW').val(300);
+	 $('#imageH').val($("#uploadedImage").height());
+	 
+	}
+
+	$(function () {
+	 $('#uploadedImage').imgAreaSelect({ aspectRatio: '1:1', handles: true,
+	 fadeSpeed: 200, onSelectChange: preview });
+	}); 
+	
+/*
+	$("#uploadImageForm").submit(
+		function() {
+			$.ajax({
+				type: "POST",
+				url: "@{Application.uploadUncropedAvatarImage()}",
+				data: $(this).serialize(),
+				success: onUploadImageSuccess,
+				error: onUploadImageError
+			});
+		}
+	);
+
+	function onUploadImageSuccess(result) {
+		$("#uploadedImage").src
+	}
+
+	function onUploadImageError() {
+		alert("Error while uploading image");
+	}
+*/	
+--></script>
