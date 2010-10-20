@@ -20,7 +20,12 @@
         </p>
         <script type="text/javascript">
 	        $(function() {
-	          $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' } );
+	          $(".datePicker").datepicker({ 
+		          dateFormat: 'yy-mm-dd',
+		          showOtherMonths: true,
+		          selectOtherMonths: true,
+		          minDate: 0
+				} );
 	        });
         </script>
         <p>
