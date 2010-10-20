@@ -1,0 +1,69 @@
+#{extends 'mainConnected.html' /}
+#{set title:'Create insight' /}
+
+#{set currentMenu:'menuCreate' /}
+
+#{set 'moreScripts'}
+    <script src="@{'/public/javascripts/jquery-ui-1.8.5.custom.min.js'}" type="text/javascript" charset="utf-8"></script>
+#{/set}
+#{set 'moreStyles'}
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/jquery-ui/smoothness/jquery-ui-1.8.5.custom.css'}">
+#{/set}
+
+<div class="prepend-4 span-14 append-4 last">
+    <form id="createInsightForm">
+        <p>What is going to happen?</p>
+        <p>
+            <label for="endDate">On </label>
+            <input type="text" name="endDate" id="endDate" class="datePicker" size="10"/>, 
+            <input type="text" name="insightContent" id="insightContent" />
+        </p>
+        <script type="text/javascript">
+	        $(function() {
+	          $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' } );
+	        });
+        </script>
+        <p>
+            <label for="tagLabelList">Tags:</label>
+            <input type="text" name="tagLabelList" id="tagLabelList" />
+            <label for="category">Category:</label>
+               #{selectCategories/}
+        <p>
+        </p>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </form>
+</div>
+
+<script type="text/javascript" charset="utf-8"><!--
+
+    /** Called when an AJAX request returns an error */
+    $("#error").ajaxError(function(event, request, settings){
+        $(this).text('Sorry, an error occured during last action.');
+    });
+
+    /** Submit action for insight creation form */
+    $('#createInsightForm').submit(function() {
+        $.post("@{Application.createInsight()}", $(this).serialize(), onCreateInsightSuccess);
+        return false;
+    });
+
+    /** callback for insight creation */
+    function onCreateInsightSuccess(msg) {
+        alert('TODO:' + msg);
+        clearForm();
+        // TODO prepend the list with the new insight
+        // .prepend()
+    }
+
+    function clearForm() {
+        $(':input','#createInsightForm')
+         .not(':button, :submit, :reset, :hidden')
+         .val('')
+         .removeAttr('checked')
+         .removeAttr('selected');
+    }
+    
+--></script>
+

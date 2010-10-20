@@ -36,6 +36,10 @@ public class Application extends Controller {
 		
 		render("Application/indexNotConnected.html", insights);
 	}
+	
+	public static void create() {
+		render();
+	}
 
 	/**
 	 * create an insight for the current user

@@ -35,6 +35,13 @@
 		<a href="/"><img alt="Beansight" src="@{'/public/images/logo.png'}" /></a>
 	</div>
     </div>
+    
+#{if flash.error}
+    <div class="error">${flash.error}</div>
+#{/if}
+#{if flash.success}
+    <div class="success">${flash.success}</div>
+#{/if}
 	
 	<div class="prepend-1 span-22 last">
 	<div>
