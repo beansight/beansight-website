@@ -83,15 +83,14 @@ public class User extends Model {
     }
     
     /**
-     * Call this method to authenticate a user given his username 
-     * and password.
+     * Return true if the given email / password is valid
      * 
-     * @param username
+     * @param email
      * @param password
      * @return true if authenticated, false otherwise
      */
-    public static boolean connect(String username, String password) {
-    	User user = find("userName=? and password=?", username, Crypto.passwordHash(password)).first();
+    public static boolean authenticate(String email, String password) {
+    	User user = find("email=? and password=?", email, Crypto.passwordHash(password)).first();
     	if (user!=null) {
     		return true;
     	}

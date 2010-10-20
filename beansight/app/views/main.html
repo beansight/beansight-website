@@ -33,7 +33,7 @@
 	        <a href="@{Secure.login()}">Login</a>
 	    #{/isNotConnected}
 	    #{isConnected}
-	        ${controllers.Secure.Security.connected()}
+	        ${controllers.CurrentUser.getCurrentUserName()}
 	        <a href="@{Application.settings()}">Settings</a>
 	        <a href="@{Secure.logout()}">Logout</a>
 	    #{/isConnected}

@@ -33,7 +33,7 @@ public class BasicTest extends UnitTest {
     
     @Test
     public void connectUser() {
-    	boolean connected = User.connect(TestHelper.TEST_USER_NAME, TestHelper.TEST_PASSWORD);
+    	boolean connected = User.authenticate(TestHelper.TEST_USER_NAME, TestHelper.TEST_PASSWORD);
     	
         assertTrue(connected);
     }
