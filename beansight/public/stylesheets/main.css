@@ -28,7 +28,7 @@ body {
 
 ul {
     list-style:none outside none;
-    margin:10px 0px 10px 0;
+    margin:0;
     padding:0;
 }
 
@@ -92,3 +92,100 @@ a:hover {text-decoration: underline;}
 #userOptions {
 	float:right;
 	}
+	
+	
+	
+
+/** 
+ * Main upper bar
+ */
+#upperBar {
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    
+    background-color: #D6E6D3;
+    border:1px solid #DDDDDD;
+    height:24px;
+    padding:4px 10px;
+    margin: 0 0 15px;
+}
+
+/**
+ * Main Menu
+ */
+#menuBar ul {
+    margin-left:0;
+    padding-left:0;
+    float: left;
+}
+#menuBar ul li {
+    display:inline;
+}
+#menuBar ul li a {
+    -moz-border-radius:4px;
+    -wekbit-border-radius:4px;
+    border-radius:4px;
+    
+    text-decoration: none;
+    
+    color:#666666;
+    font-size:14px;
+    height:26px;
+    line-height:26px;
+    padding:0 6px;
+    margin-right:6px;
+    text-shadow:1px 1px 0 white;
+}
+#menuBar ul li a.current {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-width:1px;
+    border-color:#CCCCCC #EEEEEE #EEEEEE #CCCCCC;
+    border-style:solid;
+    color:#333333;
+}
+
+/**
+ * Search
+ */
+#searchBox {
+    float:right;
+}
+/* Search input, credits MediaWiki template */
+#searchBox h5 {
+    display: none;
+}
+#simpleSearch {
+    box-shadow: 0px 3px 4px #E5E5E5 inset, 1px 1px 0 #EFEFEF;
+    -webkit-box-shadow: 0px 3px 4px #E5E5E5 inset, 1px 1px 0 #EFEFEF; 
+    -moz-box-shadow: 0px 3px 4px #E5E5E5 inset, 1px 1px 0 #EFEFEF;  
+
+    border:1px solid #AAAAAA;
+    min-height:1px;
+    position:relative;
+    background-color: white;
+    width: 221px;
+}
+#simpleSearch input#searchInput {
+    background-color:transparent;
+    border-width:0;
+    font-size:13px;
+    margin:0;
+    padding:3px;
+    vertical-align:top;
+    width:14em;
+}
+#simpleSearch button#searchButton {
+    background-color:transparent;
+    border:medium none;
+    cursor:pointer;
+    font-size:x-small;
+    margin:0 5px;
+    padding:0;
+}
+#simpleSearch button#searchButton img {
+    border:medium none;
+    margin:0;
+    padding:0;
+    vertical-align:middle;
+}
