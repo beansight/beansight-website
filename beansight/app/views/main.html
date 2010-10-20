@@ -13,11 +13,18 @@
               
      <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
    
-     <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script> 	 
+     <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+     <script src="@{'/public/javascripts/beansight.js'}" type="text/javascript" charset="utf-8"></script>
      #{get 'moreScripts' /}  
      <!--[if IE]>  
          <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection">  
      <![endif]-->
+     
+     <!-- define here the actions -->
+     <script type="text/javascript">
+     var agreeAction = #{jsAction @Application.agree(':insightId') /};
+     var disagreeAction = #{jsAction @Application.disagree(':insightId') /};
+     </script>
      
     <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light' rel='stylesheet' type='text/css'>
 
