@@ -51,7 +51,15 @@
 #{/if}
 	
 	<div class="prepend-1 span-22 last">
-	<div>
+	<div class="mainContent">
+	#{isConnected}
+		<div id="upperBar">
+	        #{menuBar /}
+	        #{searchInput /}
+	    </div>
+    #{/isConnected}
+	
+	
 	    #{doLayout /}
     </div>
 	</div>
