@@ -29,6 +29,7 @@ Vote(voteJb):
     user:       jb
     insight:    insightBeansight
     state:      AGREE
+    status:     ACTIVE
     creationDate: 2010-08-10
     
 Tag(tagSteren):

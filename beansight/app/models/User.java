@@ -16,6 +16,7 @@ import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
 import models.Vote.State;
+import models.Vote.Status;
 
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
@@ -144,18 +145,44 @@ public class User extends Model {
      * @param voteState State.AGREE or State.DISAGREE
      */
 	public void voteToInsight(Long insightId, State voteState) throws CannotVoteTwiceForTheSameInsightException  {
-		if (Vote.hasUserVotedForInsight(this.id, insightId)) {
-			throw new CannotVoteTwiceForTheSameInsightException();
-		}
 		Insight insight = Insight.findById(insightId);
-		Vote vote = new Vote(this, insight, voteState);
-		vote.save();
-		if (voteState.equals(State.AGREE)) {
-			insight.agreeCount++;
+		Vote vote = Vote.findLastVoteByUserAndInsight(this.id, insightId);
+		if (vote != null) {
+			// there are only idiots who do not change their minds
+			if (vote.state.equals(voteState)) {
+				// voting twice for the same side ... 
+				throw new CannotVoteTwiceForTheSameInsightException();
+			} else {
+				// historized the current vote 
+				vote.status = Status.HISTORIZED;
+				vote.save();
+				// and create a new one
+				Vote newVote = new Vote(this, insight, voteState);
+				newVote.save();
+				// if we change the side of the vote we increment the new
+				// vote side and decrement the previous side
+				if (voteState.equals(State.AGREE)) {
+					insight.agreeCount++;
+					insight.disagreeCount--;
+				} else {
+					insight.agreeCount--;
+					insight.disagreeCount++;
+				}
+				insight.save();
+			}
 		} else {
-			insight.disagreeCount++;
+			// First time voting for this insight
+			vote = new Vote(this, insight, voteState);
+			vote.save();
+			if (voteState.equals(State.AGREE)) {
+				insight.agreeCount++;
+			} else {
+				insight.disagreeCount++;
+			}
+			insight.save();
+			
 		}
-		insight.save();
+		
 	}
 
 	

@@ -119,7 +119,7 @@ public class Application extends Controller {
         Insight insight = Insight.findById(id);
         notFoundIfNull(insight);
 		User currentUser = CurrentUser.getCurrentUser();
-        Vote lastUserVote = Vote.findLastVote(currentUser.id, id);
+        Vote lastUserVote = Vote.findLastVoteByUserAndInsight(currentUser.id, id);
         
         render(insight, currentUser, lastUserVote);
     }
@@ -205,7 +205,7 @@ public class Application extends Controller {
 	
 	
 	public static void settings() {
-		User user = User.findByUserName(Security.connected());
+		User user = CurrentUser.getCurrentUser();
 		render(user);
 	}
 	
@@ -229,7 +229,7 @@ public class Application extends Controller {
 	 * @param file
 	 */
 	public static void uploadUncropedAvatarImage(File file) {
-		User user = User.findByUserName(Security.connected());
+		User user = CurrentUser.getCurrentUser();
 		
 		File to = new File(FileAttachment.getStore(), "tmpFile"+user.id);
 		Files.copy(file, to);
@@ -241,7 +241,7 @@ public class Application extends Controller {
 	 * Render the uploaded image so that the user crop his avatar from it 
 	 */
 	public static void displayUploadedTmpImage() {
-		User user = User.findByUserName(Security.connected());
+		User user = CurrentUser.getCurrentUser();
 		File tmpFile = new File(FileAttachment.getStore(), "tmpFile"+user.id);
 		if (!tmpFile.exists()) {
 			notFound();
@@ -253,13 +253,13 @@ public class Application extends Controller {
 	 * Render to the page which give the opportunity to upload an image to crop
 	 */
 	public static void uploadAndCropAvatarScreen() {
-		User user = User.findByUserName(Security.connected());
+		User user = CurrentUser.getCurrentUser();
 		
 		render(user);
 	}
 	
 	public static void cropImage(Integer x1, Integer y1, Integer x2, Integer y2, Integer imageW, Integer imageH) {
-		User user = User.findByUserName(Security.connected());
+		User user = CurrentUser.getCurrentUser();
 		
 		File imageToCrop = new File(FileAttachment.getStore(), "tmpFile"+user.id);
 		try {

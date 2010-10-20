@@ -9,6 +9,7 @@ import java.util.*;
 import play.test.*;
 import models.*;
 import models.Vote.State;
+import models.Vote.Status;
 
 public class BasicTest extends UnitTest {
 
@@ -33,7 +34,7 @@ public class BasicTest extends UnitTest {
     
     @Test
     public void connectUser() {
-    	boolean connected = User.authenticate(TestHelper.TEST_USER_NAME, TestHelper.TEST_PASSWORD);
+    	boolean connected = User.authenticate(TestHelper.TEST_MAIL, TestHelper.TEST_PASSWORD);
     	
         assertTrue(connected);
     }
@@ -74,7 +75,7 @@ public class BasicTest extends UnitTest {
     }
     
     @Test
-    public void votingTwiceForAnInsightIsNotPossible() {
+    public void votingTwiceSameSideForAnInsightIsNotPossible() {
     	// create a user and make him post a new insight
     	User user = new User("john.doe@usa.com", "john", "thepassword");
         user.save();
@@ -82,7 +83,7 @@ public class BasicTest extends UnitTest {
         
         Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "", categoryWeb.id);
         
-        // use the user test and make him vote twice for the insight
+        // use the user test to vote for the created insight
         User userTest = TestHelper.getTestUser();
 		assertFalse(Vote.hasUserVotedForInsight(userTest.id, insight.id));
 		try {
@@ -91,10 +92,56 @@ public class BasicTest extends UnitTest {
 			fail("CannotVoteTwiceForTheSameInsightException should not happen here");
 		}
         assertTrue(Vote.hasUserVotedForInsight(userTest.id, insight.id));
+        
+        // userTest changes his mind and vote for the other side, this is possible
         try {
-        	userTest.voteToInsight(insight.id, State.AGREE);
+			userTest.voteToInsight(insight.id, State.DISAGREE);
+		} catch (CannotVoteTwiceForTheSameInsightException e) {
+			fail("CannotVoteTwiceForTheSameInsightException should not happen here");
+		}
+        assertTrue(Vote.hasUserVotedForInsight(userTest.id, insight.id));
+        
+        // we test that there is 2 votes for the insight by the same user
+        List<Vote> historicalVotes = Vote.findVotesByUserAndInsight(userTest.id, insight.id);
+        assertNotNull(historicalVotes);
+        assertTrue(historicalVotes.size() == 2);
+        assertTrue(historicalVotes.get(0).status.equals(Status.ACTIVE));
+        assertTrue(historicalVotes.get(1).status.equals(Status.HISTORIZED));
+        
+        // now userTest vote a second time but on the same side
+        try {
+        	userTest.voteToInsight(insight.id, State.DISAGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			// this should happen, so it's ok
 		}
+    }
+    
+    
+    @Test
+    public void testFindLastVote() throws CannotVoteTwiceForTheSameInsightException {
+    	User user = new User("john.doe@usa.com", "john", "thepassword");
+        user.save();
+        Category categoryWeb = Category.findByLabel("Web");
+        
+        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "brag", categoryWeb.id);
+        
+        User userTest = TestHelper.getTestUser();
+        
+        // no last vote yet return should be null
+        Vote lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.id);
+        assertNull(lastVote);
+        
+        // This time we vote so we'll have a "last vote"
+		userTest.voteToInsight(insight.id, State.AGREE);
+		lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.id);
+		assertNotNull(lastVote);	
+		assertTrue(lastVote.state.equals(State.AGREE));
+		
+		// let's vote another time
+		userTest.voteToInsight(insight.id, State.DISAGREE);
+		lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.id);
+		assertNotNull(lastVote);	
+		assertTrue(lastVote.state.equals(State.DISAGREE));
+		
     }
 }
