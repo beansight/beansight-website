@@ -5,6 +5,11 @@
 # Home page
 GET     /                                       Application.index
 
+GET     /create                                 Application.create
+GET     /favorites                              Application.favorites
+GET     /insights                               Application.insights
+GET     /experts                                Application.experts
+
 # Insight page
 GET     /insight/{<[0-9]+>id}                   Application.showInsight                   
 

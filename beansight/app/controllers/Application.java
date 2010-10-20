@@ -41,6 +41,17 @@ public class Application extends Controller {
 		render();
 	}
 
+	public static void favorites() {
+		render();
+	}
+
+	public static void insights() {
+		render();
+	}
+
+	public static void experts() {
+		render();
+	}
 	/**
 	 * create an insight for the current user
 	 * @param insightContent: the content of this insight
