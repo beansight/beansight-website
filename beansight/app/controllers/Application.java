@@ -45,7 +45,7 @@ public class Application extends Controller {
 	 * @param categoryId: the ID of the category of the insight
 	 */
 	public static void createInsight(String insightContent, Date endDate, String tagLabelList, long categoryId) {
-		User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
 		
 		renderText("Your insight has been created");
@@ -66,7 +66,7 @@ public class Application extends Controller {
 	 */
 	public static void agree(Long insightId) {
 		// TODO : if not connected: go to log / signin page
-		User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
 		try {
 			currentUser.voteToInsight(insightId, State.AGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
@@ -84,7 +84,7 @@ public class Application extends Controller {
 	 */
 	public static void disagree(Long insightId) {
 		// TODO : if not connected: go to log / signin page
-		User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
 
 		try {
 			currentUser.voteToInsight(insightId, State.DISAGREE);
@@ -103,7 +103,7 @@ public class Application extends Controller {
     public static void showInsight(Long id) {
         Insight insight = Insight.findById(id);
         notFoundIfNull(insight);
-        User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
         Vote lastUserVote = Vote.findLastVote(currentUser.id, id);
         
         render(insight, currentUser, lastUserVote);
@@ -120,7 +120,7 @@ public class Application extends Controller {
     }
     
     public static void startFollowingInsight(Long insightId) {
-    	User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
     	try {
 			currentUser.startFollowingThisInsight(insightId);
 		} catch (UserIsAlreadyFollowingInsightException e) {
@@ -131,7 +131,7 @@ public class Application extends Controller {
     }
 
     public static void stopFollowingInsight(Long insightId) {
-    	User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
 		currentUser.stopFollowingThisInsight(insightId);
     	index();
     }
@@ -142,7 +142,7 @@ public class Application extends Controller {
      * @param content: text content of the insight
      */
     public static void addComment(Long insightId, String content) {
-    	User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
     	Insight insight = Insight.findById(insightId);
     	insight.addComment(content, currentUser);
     	showInsight(insightId);
@@ -154,7 +154,7 @@ public class Application extends Controller {
      * @param tagLabelList: a comma separated list of tag labels
      */
 	public static void addTags(Long insightId, String tagLabelList) {
-		User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = Insight.findById(insightId);
     	insight.addTags(tagLabelList, currentUser);
 		showInsight(insightId);
@@ -170,7 +170,7 @@ public class Application extends Controller {
 	
 	// TODO remove me, score computation should be called in a job.
 	public static void temp_recomputeScore() {
-		User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
     	currentUser.computeScores();
     	currentUser.save();
     	showUser(currentUser.id);
@@ -178,7 +178,7 @@ public class Application extends Controller {
 
 	
 	public static void saveSettings(User user) {
-		User currentUser = User.findByUserName(Security.connected());
+		User currentUser = CurrentUser.getCurrentUser();
 		// User should be the same as the one connected
 	    if (currentUser.id.equals(user.id)==false) {
 	    	forbidden("It seems you are trying to hack someone else settings");

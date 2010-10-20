@@ -3,9 +3,17 @@
 
 #{set currentMenu:'menuHome' /}
 
+#{set 'moreScripts'}
+    <script src="@{'/public/javascripts/jquery-ui-1.8.5.custom.min.js'}" type="text/javascript" charset="utf-8"></script>
+#{/set}
+#{set 'moreStyles'}
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/jquery-ui/smoothness/jquery-ui-1.8.5.custom.css'}">
+#{/set}
 #{if flash.error}
     <p>${flash.error}</p>
 #{/if}
+
+
 
 <div id="error"></div>
 
@@ -19,9 +27,14 @@
         <p>What is going to happen?</p>
         <p>
             <label for="endDate">On </label>
-            <input type="text" name="endDate" id="endDate" />, 
+            <input type="text" name="endDate" id="endDate" class="datePicker" size="10"/>, 
             <input type="text" name="insightContent" id="insightContent" />
         </p>
+        <script type="text/javascript">
+	        $(function() {
+	          $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' } );
+	        });
+        </script>
         <p>
             <label for="tagLabelList">Tags:</label>
             <input type="text" name="tagLabelList" id="tagLabelList" />
