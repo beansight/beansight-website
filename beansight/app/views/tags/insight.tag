@@ -11,10 +11,10 @@
 	#{isConnected}
 		#{if _insight.isCreator(controllers.CurrentUser.getCurrentUser())==false}
 		    #{if controllers.CurrentUser.getCurrentUser().isFollowingInsight(_insight)}
-		        <a href="@{Application.stopFollowingInsight(_insight.id)}">stop following this insight</a>
+		        <a href="@{Application.stopFollowingInsight(_insight.id)}" title="remove this insight from favorites" class="favorite active"></a>
 		    #{/if}
 		    #{else} 
-		        <a href="@{Application.startFollowingInsight(_insight.id)}">start following this insight</a>
+		        <a href="@{Application.startFollowingInsight(_insight.id)}" title="add this insight to your favorites" class="favorite inactive"></a>
 		    #{/else}
 		#{/if}
 	#{/isConnected}
