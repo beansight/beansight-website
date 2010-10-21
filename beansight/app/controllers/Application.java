@@ -102,6 +102,7 @@ public class Application extends Controller {
 		}
 
 		Insight insight = Insight.findById(insightId);
+		renderArgs.put("agree", voteState == State.AGREE);
 		render("Application/vote.json", insight);
 	}
 	

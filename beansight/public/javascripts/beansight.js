@@ -12,13 +12,22 @@ function disagree(insightId) {
 
 /** Callback after a vote is done */
 function onVoteSuccess(data) {
-    updateAgreeDisagreeCount(data.id, data.updatedAgreeCount, data.updatedDisagreeCount);
+    updateAgreeDisagreeCount(data.id, data.updatedAgreeCount, data.updatedDisagreeCount, data.voteState);
 }
 
 /** Update the counts of an insight, given new counts */
-function updateAgreeDisagreeCount(id, agreeCount, disagreeCount) {
-    $("#agreeCount_" + id).text(agreeCount);
-    $("#disagreeCount_" + id).text(disagreeCount);
+function updateAgreeDisagreeCount(id, agreeCount, disagreeCount, voteState) {
+	var insightline = $("#insight_" + id);
+    $("#agreeCount", insightline).text(agreeCount);
+    $("#disagreeCount", insightline).text(disagreeCount);
+    
+    if(voteState == "agree") {
+    	insightline.removeClass("voteDisagree");
+    	insightline.addClass("voteAgree");
+    } else {
+    	insightline.addClass("voteDisagree");
+    	insightline.removeClass("voteAgree");
+    }
 }
 
 

@@ -1,5 +1,6 @@
 {
     "id": ${insight.id},
     "updatedAgreeCount": ${insight.agreeCount},
-    "updatedDisagreeCount": ${insight.disagreeCount}
+    "updatedDisagreeCount": ${insight.disagreeCount},
+    "voteState": #{if agree}"agree"#{/if} #{else}"disagree"#{/else}
 }

@@ -214,16 +214,44 @@ a:hover {text-decoration: underline;}
 	text-align: right;
 }
 
+
+/*
+ * icons
+ */
+
+a.icon {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: left top; 
+}
+
+/** 
+ * Agree Disagree
+ */
+a.icon.agree {
+    background-image: url('/public/images/agree-inactive.png');
+}
+.voteAgree a.icon.agree {
+    background-image: url('/public/images/agree.png');
+}
+
+a.icon.disagree {
+    background-image: url('/public/images/disagree-inactive.png');
+}
+.voteDisagree a.icon.disagree {
+    background-image: url('/public/images/disagree.png');
+}
+
 /**
  * Favorites
  */
-a.favorite {
-	display: inline-block;
-	width: 15px;
-	height: 15px;
-    background: url('/public/images/star-inactive.png') no-repeat scroll left top transparent; 
+a.icon.favorite {
+    background-image: url('/public/images/star-inactive.png');
 }
 
-a.favorite.active {
-    background-image: url('/public/images/star-active.png');	
+a.icon.favorite.active {
+    background-image: url('/public/images/star-active.png');
 }

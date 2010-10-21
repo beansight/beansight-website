@@ -33,6 +33,7 @@ public class Vote extends Model {
 	/** agree or disagree */
 	public State state;
 
+	/** active or historized */
 	public Status status;
 
 	public Vote(User user, Insight insight, State state) {
@@ -65,6 +66,26 @@ public class Vote extends Model {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Call this to test if someone has already vote for an insight.
+	 * 
+	 * @param userId
+	 * @param insightId
+	 * @return null if did not voted, State if voted
+	 */
+	public static State whatVoteForInsight(Long userId, Long insightId) {
+		Vote vote = find(
+				"select v from Vote v join v.user u join v.insight i "
+						+ "where u.id=:userId and v.status = :status "
+						+ "and i.id=:insightId").bind("userId", userId)
+				.bind("status", Status.ACTIVE).bind("insightId", insightId)
+				.first();
+		if(vote == null) {
+			return null;
+		}
+		return vote.state;
 	}
 
 	/**
