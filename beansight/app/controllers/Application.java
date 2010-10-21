@@ -63,9 +63,7 @@ public class Application extends Controller {
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
 		
-		renderText("Your insight has been created");
-		// TODO: send back the content of the insight
-		// renderJSON(insight); // circular reference found :(
+		index();
 	}
 	
 	public static void displayAllInsights() {

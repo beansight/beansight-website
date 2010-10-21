@@ -11,7 +11,8 @@
 #{/set}
 
 <div class="prepend-4 span-14 append-4 last">
-    <form id="createInsightForm">
+
+    #{form @Application.createInsight()}
         <p>What is going to happen?</p>
         <p>
             <label for="endDate">On </label>
@@ -38,37 +39,5 @@
         <p>
             <input type="submit" value="Create" />
         </p>
-    </form>
+    #{/form}
 </div>
-
-<script type="text/javascript" charset="utf-8"><!--
-
-    /** Called when an AJAX request returns an error */
-    $("#error").ajaxError(function(event, request, settings){
-        $(this).text('Sorry, an error occured during last action.');
-    });
-
-    /** Submit action for insight creation form */
-    $('#createInsightForm').submit(function() {
-        $.post("@{Application.createInsight()}", $(this).serialize(), onCreateInsightSuccess);
-        return false;
-    });
-
-    /** callback for insight creation */
-    function onCreateInsightSuccess(msg) {
-        alert('TODO:' + msg);
-        clearForm();
-        // TODO prepend the list with the new insight
-        // .prepend()
-    }
-
-    function clearForm() {
-        $(':input','#createInsightForm')
-         .not(':button, :submit, :reset, :hidden')
-         .val('')
-         .removeAttr('checked')
-         .removeAttr('selected');
-    }
-    
---></script>
-
