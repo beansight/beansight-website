@@ -15,18 +15,16 @@
 #{if _display != "SMALL"}
 
 	(by <a href="@{Application.showUser(_insight.creator.id)}">${_insight.creator.userName}</a>) 
-	<span onClick="agree(${_insight.id})" ><a href="" onClick="return false" class="icon agree"></a></span> (<span id="agreeCount">${_insight.agreeCount}</span>)
-	<span onClick="disagree(${_insight.id})" ><a href="" onClick="return false" class="icon disagree"></a></span> (<span id="disagreeCount">${_insight.disagreeCount}</span>)
+	<span onClick="agree(${_insight.id})" ><a href="" onClick="return false" class="icon agree"></a></span> (<span class="agreeCount">${_insight.agreeCount}</span>)
+	<span onClick="disagree(${_insight.id})" ><a href="" onClick="return false" class="icon disagree"></a></span> (<span class="disagreeCount">${_insight.disagreeCount}</span>)
 
 	#{isConnected}
 	
 		#{if _insight.isCreator(controllers.CurrentUser.getCurrentUser())==false}
-		    #{if controllers.CurrentUser.getCurrentUser().isFollowingInsight(_insight)}
-		        <a href="@{Application.stopFollowingInsight(_insight.id)}" title="remove this insight from favorites" class="icon favorite active"></a>
-		    #{/if}
-		    #{else} 
-		        <a href="@{Application.startFollowingInsight(_insight.id)}" title="add this insight to your favorites" class="icon favorite inactive"></a>
-		    #{/else}
+		      <span onClick="toggleFollowingInsight(${_insight.id})" >
+		      <a href="" onClick="return false" title="add or remove this insight from your favorites" 
+		          class="icon favorite  #{if controllers.CurrentUser.getCurrentUser().isFollowingInsight(_insight)}active#{/if}#{else}inactive#{/else}"></a>
+		      </span>
 		#{/if}
 		
 	#{/isConnected}

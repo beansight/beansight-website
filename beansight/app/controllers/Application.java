@@ -74,7 +74,7 @@ public class Application extends Controller {
 	
 	
 	/**
-	 * Agree a given insight
+	 * AJAX Agree a given insight
 	 * 
 	 * @param insightId
 	 */
@@ -83,7 +83,7 @@ public class Application extends Controller {
 	}
 
 	/**
-	 * Disagree a given insight
+	 * AJAX Disagree a given insight
 	 * 
 	 * @param insightId
 	 */
@@ -129,21 +129,44 @@ public class Application extends Controller {
     	render(user);
     }
     
+    /**
+     * AJAX: Change the follow state for the connected user toward this insight
+     */
+    public static void toggleFollowingInsight(Long insightId) {
+		User currentUser = CurrentUser.getCurrentUser();
+		Insight insight = Insight.findById(insightId);
+		
+		if (currentUser.isFollowingInsight(insight)==true) {
+			currentUser.stopFollowingThisInsight(insightId);
+			renderArgs.put("follow", false);
+		} else {
+			try {
+				currentUser.startFollowingThisInsight(insightId);
+				renderArgs.put("follow", true);
+			} catch (UserIsAlreadyFollowingInsightException e) {
+				// it's ok to re-follow something
+			}
+		}
+		
+		render("Application/followInsight.json", insightId);
+    }
+    
     public static void startFollowingInsight(Long insightId) {
 		User currentUser = CurrentUser.getCurrentUser();
     	try {
 			currentUser.startFollowingThisInsight(insightId);
 		} catch (UserIsAlreadyFollowingInsightException e) {
-			flash.error(e.getMessage());
+			// it's ok to re-follow something
 		}
-		
-    	index();
+		renderArgs.put("follow", true);
+		render("Application/followInsight.json", insightId);
     }
 
     public static void stopFollowingInsight(Long insightId) {
 		User currentUser = CurrentUser.getCurrentUser();
 		currentUser.stopFollowingThisInsight(insightId);
-    	index();
+		renderArgs.put("follow", false);
+		render("Application/followInsight.json", insightId);
     }
     
     /**

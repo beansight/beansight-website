@@ -1,0 +1,4 @@
+{
+    "id": ${insightId},
+    "follow": ${follow}
+}
