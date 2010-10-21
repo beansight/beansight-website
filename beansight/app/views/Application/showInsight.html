@@ -3,9 +3,11 @@
 
 #{set currentMenu:'menuInsights' /}
 
-<div class="insightDetail">
+#{insightContainer insight:insight}
 
     <p>#{insight insight:insight /}</p>
+    #{agree-disagreeWidget insight:insight /}
+    #{followInsightWidget insight:insight /}
 
     <p>Created ${insight.creationDate.since(true)}</p>
     <p>End ${insight.endDate.format("dd MMMM yyyy")}</p>
@@ -55,7 +57,7 @@
         </div>
     </form>
 
-</div>
+#{/insightContainer}
 
 <script type="text/javascript" charset="utf-8">
 

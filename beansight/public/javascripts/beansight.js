@@ -32,14 +32,14 @@ function onToggleFollowingInsightSuccess(data) {
 
 /** Update the counts of an insight, given new counts */
 function updateAgreeDisagreeCount(id, agreeCount, disagreeCount, voteState) {
-	var insightline = $("#insight_" + id);
-    $(".agreeCount", insightline).text(agreeCount);
-    $(".disagreeCount", insightline).text(disagreeCount);
+	var insightContainer = $("#insight_" + id);
+    $(".agreeCount", insightContainer).text(agreeCount);
+    $(".disagreeCount", insightContainer).text(disagreeCount);
     
     if(voteState == "agree") {
-    	insightline.removeClass("voteDisagree").addClass("voteAgree");
+    	insightContainer.removeClass("voteDisagree").addClass("voteAgree");
     } else {
-    	insightline.addClass("voteDisagree").removeClass("voteAgree");
+    	insightContainer.addClass("voteDisagree").removeClass("voteAgree");
     }
 }
 
