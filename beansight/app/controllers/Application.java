@@ -79,16 +79,7 @@ public class Application extends Controller {
 	 * @param insightId
 	 */
 	public static void agree(Long insightId) {
-		// TODO : if not connected: go to log / signin page
-		User currentUser = CurrentUser.getCurrentUser();
-		try {
-			currentUser.voteToInsight(insightId, State.AGREE);
-		} catch (CannotVoteTwiceForTheSameInsightException e) {
-			// TODO : add a message on the UI ?
-		}
-
-		Insight insight = Insight.findById(insightId);
-		render("Application/vote.json", insight);
+		vote(insightId, State.AGREE);
 	}
 
 	/**
@@ -97,11 +88,15 @@ public class Application extends Controller {
 	 * @param insightId
 	 */
 	public static void disagree(Long insightId) {
+		vote(insightId, State.DISAGREE);
+	}
+	
+	private static void vote(Long insightId, State voteState) {
 		// TODO : if not connected: go to log / signin page
 		User currentUser = CurrentUser.getCurrentUser();
 
 		try {
-			currentUser.voteToInsight(insightId, State.DISAGREE);
+			currentUser.voteToInsight(insightId, voteState);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			// TODO : add a message on the UI ?
 		}
