@@ -29,16 +29,37 @@
     </ul>
     
     <p>
-    #{form @Application.addComment(insight.id)}
-        <label for="label">Add new comment::</label>
-        <input type="text" name="content" id="content" />
-    #{/form}
-    <ul>
+    <ul id="commentList">
     #{list items:insight.comments, as:'comment' }
-        <li>${comment.user} (${comment.creationDate.since(true)}) :<br/> ${comment.content}</li>
+        <li>${comment.user} (${comment.creationDate.since(true)}):<br/> ${comment.content}</li>
     #{/list}
     </ul>    
-    
     </p>
 
+    <form id="addCommentForm">
+        <div>
+        <label for="label">Add new comment:</label>
+        </div>
+        <div class="right">
+        <textarea name="content"></textarea>
+        <input type="submit" value="Post" id="submit"/>
+        </div>
+    </form>
+
 </div>
+
+<script type="text/javascript" charset="utf-8">
+
+	/** Submit action for add comment form */
+	$('#addCommentForm').submit(function() {
+	    $.getJSON("@{Application.addComment(insight.id)}", $(this).serialize(), onAddCommentSuccess);
+	    return false;
+	});
+	
+	/** callback for comment addition */
+	function onAddCommentSuccess(data) {
+	    $("#commentList").append( '<li>' + data.user + " (" + data.since + ")" + "<br/>" + data.content + '</li>');
+	    clearForm('#addCommentForm');
+	}
+
+</script>

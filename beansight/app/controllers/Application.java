@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import models.Category;
+import models.Comment;
 import models.Insight;
 import models.User;
 import models.Vote;
@@ -157,8 +158,9 @@ public class Application extends Controller {
     public static void addComment(Long insightId, String content) {
 		User currentUser = CurrentUser.getCurrentUser();
     	Insight insight = Insight.findById(insightId);
-    	insight.addComment(content, currentUser);
-    	showInsight(insightId);
+    	Comment comment = insight.addComment(content, currentUser);
+    	
+		render("Application/comment.json", comment);
     }
     
     /**

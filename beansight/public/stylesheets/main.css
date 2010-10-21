@@ -189,3 +189,19 @@ a:hover {text-decoration: underline;}
     padding:0;
     vertical-align:middle;
 }
+
+/** 
+ * Comments
+ */
+ #addCommentForm {
+    width: 400px;
+ }
+ 
+#addCommentForm textarea {
+    height: 100px;
+}
+
+#addCommentForm .right {
+	text-align: right;
+}
+

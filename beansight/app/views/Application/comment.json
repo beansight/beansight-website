@@ -1,0 +1,5 @@
+{
+    "content": "${comment.content}",
+    "user": "${comment.user}",
+    "since": "${comment.creationDate.since()}"
+}

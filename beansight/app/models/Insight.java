@@ -149,9 +149,10 @@ public class Insight extends Model {
 	 * @param content
 	 * @param user
 	 */
-	public void addComment(String content, User user) {
+	public Comment addComment(String content, User user) {
 		Comment comment = new Comment(user, this, content);
 		comment.save();
+		return comment;
 	}
 	
 	public String toString() {
