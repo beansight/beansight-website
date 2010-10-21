@@ -31,11 +31,11 @@ $(document).ready(function() {
 
     #{form @Application.saveSettings(), enctype:'multipart/form-data'}
     	<p>
-    		<label for="avatar">email</label>
-        	<input type="text" name="user.email" value="${user.email}"/>
+    		<label for="userName">User name</label>
+        	<input type="text" name="user.userName" value="${user.userName}"/>
         </p>
     	<p>
-	        <label for="avatar">User avatar :</label>
+	        <label for="avatar">avatar :</label>
 	        <input type="hidden" name="user.id" value="${user.id}"/>
 	        <input type="file" id="avatar" name="user.avatar">
 	    </p>
