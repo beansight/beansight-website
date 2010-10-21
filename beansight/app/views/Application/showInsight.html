@@ -8,7 +8,7 @@
     <p>#{insight insight:insight /}</p>
 
     <p>Created ${insight.creationDate.since(true)}</p>
-    <p>End ${insight.endDate}</p>
+    <p>End ${insight.endDate.format("dd MMMM yyyy")}</p>
     
     #{if lastUserVote != null}
     	<p>Since ${lastUserVote.creationDate.format("dd MMMM yyyy")} you #{if lastUserVote.state.equals(models.Vote.State.AGREE)} agree #{/if} #{else} disagree #{/else} with this insight.</p> 
