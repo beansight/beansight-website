@@ -190,6 +190,17 @@ a:hover {text-decoration: underline;}
     vertical-align:middle;
 }
 
+/**
+ * Tags
+ */
+#tagList ul li {
+    display:inline;
+}
+
+#tagList {
+    padding-bottom: 10px;	
+}
+
 /** 
  * Comments
  */

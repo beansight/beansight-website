@@ -14,27 +14,36 @@
     	<p>Since ${lastUserVote.creationDate.format("dd MMMM yyyy")} you #{if lastUserVote.state.equals(models.Vote.State.AGREE)} agree #{/if} #{else} disagree #{/else} with this insight.</p> 
     #{/if}
     
-    <p>Category: ${insight.category.label}</p>
+    <div id="category">
+        <h3>Category:</h3>
+        <p>${insight.category.label}</p>
+    </div>
     
-    <p>tags:
-    #{form @Application.addTags(insight.id)}
-        <label for="tagLabelList">Add tag:</label>
-        <input type="text" name="tagLabelList" id="tagLabelList" />
-    #{/form}
+    <div id="tagList">
+	    <h3>Tags:</h3>
+	    <ul>
+	    #{list items:insight.tags, as:'tag' }
+	        <li>${tag.label}</li>
+	    #{/list}
+        </ul>
+        
+        <p>
+	    <span onclick="showAddMoreTags()"><a href="#">suggest other tags</a></span>
+	    </p>
+	    <div id="moreTags" style="display:none;">
+	    #{form @Application.addTags(insight.id)}
+	        <input type="text" name="tagLabelList" id="tagLabelList" />
+	        <input type="submit" value="Add tags"/>
+	    #{/form}
+	    </div>
+    </div>
     
-    <ul>
-    #{list items:insight.tags, as:'tag' }
-        <li>${tag.label}</li>
-    #{/list}
-    </ul>
-    
-    <p>
+    <h3>Comments:</h3>
     <ul id="commentList">
     #{list items:insight.comments, as:'comment' }
         <li>${comment.user} (${comment.creationDate.since(true)}):<br/> ${comment.content}</li>
     #{/list}
-    </ul>    
-    </p>
+    </ul>
 
     <form id="addCommentForm">
         <div>
@@ -49,6 +58,12 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+
+/** show the more tag suggestion input field*/
+	function showAddMoreTags() {
+		$('#moreTags').show();
+	}
+
 
 	/** Submit action for add comment form */
 	$('#addCommentForm').submit(function() {
