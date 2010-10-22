@@ -55,12 +55,20 @@ public class User extends Model {
 	public List<Insight> createdInsights;
 	
 	/** every votes of the current user */
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<Vote> votes;
 
 	/** the insights followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Insight> followedInsights;
+
+	/** the users followed by this user */
+	@ManyToMany(cascade = CascadeType.ALL)
+	public List<User> followedUsers;
+	
+	/** the users you follow this user */
+	@ManyToMany(mappedBy="followedUsers", cascade = CascadeType.ALL)
+	public List<User> followers;
 	
 	/** the comments  */
 	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
@@ -240,6 +248,45 @@ public class User extends Model {
 		save();
 		insight.followers.remove(this);
 		insight.save();
+	}
+	
+	/**
+	 * is this user following the given user 
+	 * @param user to check
+	 */
+	public boolean isFollowingUser(User user) {
+		if(followedUsers.contains(user)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * This user start following the given user 
+	 * @param user: User to follow
+	 */
+	public void startFollowingThisUser(User user) {
+		if(isFollowingUser(user)==true){
+			return;
+		}
+		followedUsers.add(user);
+		save();
+		user.followers.add(this);
+		user.save();
+	}
+
+	/**
+	 * This user stops following the given user
+	 * @param insightId
+	 */
+	public void stopFollowingThisUser(User user) {
+		if(isFollowingUser(user)==false){
+			return;
+		}
+		followedUsers.remove(user);
+		save();
+		user.followers.remove(this);
+		user.save();
 	}
 	
 	public void computeScores() {

@@ -10,24 +10,9 @@ function disagree(insightId) {
     $.getJSON(disagreeAction({'insightId': insightId}), onVoteSuccess);
 }
 
-function toggleFollowingInsight(insightId) {
-	$.getJSON(toggleFollowingInsightAction({'insightId': insightId}), onToggleFollowingInsightSuccess);
-}
-
 /** Callback after a vote is done */
 function onVoteSuccess(data) {
     updateAgreeDisagreeCount(data.id, data.updatedAgreeCount, data.updatedDisagreeCount, data.voteState);
-}
-
-/** Callback after a follow is done */
-function onToggleFollowingInsightSuccess(data) {
-	var favicon = $(".icon.favorite", ".insight_" + data.id);
-	if(data.follow) {
-		favicon.addClass("active").removeClass("inactive");
-	} else {
-		favicon.addClass("inactive").removeClass("active");
-	}
-	
 }
 
 /** Update the counts of an insight, given new counts */
@@ -43,6 +28,35 @@ function updateAgreeDisagreeCount(id, agreeCount, disagreeCount, voteState) {
     }
 }
 
+function toggleFollowingInsight(insightId) {
+	$.getJSON(toggleFollowingInsightAction({'insightId': insightId}), onToggleFollowingInsightSuccess);
+}
+
+/** Callback after a follow of insight is done */
+function onToggleFollowingInsightSuccess(data) {
+	var favicon = $(".icon.favorite", ".insight_" + data.id);
+	if(data.follow) {
+		favicon.addClass("active").removeClass("inactive");
+	} else {
+		favicon.addClass("inactive").removeClass("active");
+	}
+	
+}
+
+function toggleFollowingUser(userId) {
+	$.getJSON(toggleFollowingUserAction({'userId': userId}), onToggleFollowingUserSuccess);
+}
+
+/** Callback after a follow of user is done */
+function onToggleFollowingUserSuccess(data) {
+	var favicon = $(".icon.favorite", ".user_" + data.id);
+	if(data.follow) {
+		favicon.addClass("active").removeClass("inactive");
+	} else {
+		favicon.addClass("inactive").removeClass("active");
+	}
+	
+}
 
 // Tools
 function clearForm( context ) {

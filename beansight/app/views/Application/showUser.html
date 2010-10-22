@@ -3,28 +3,26 @@
 
 #{set currentMenu:'menuExperts' /}
 
-<script language="Javascript">
+#{userContainer user:user}
 
-
-
-</script>
-
-<div class="userDetail">
-
-    <p>${user.userName} (${user.firstName} ${user.lastName})</p>
-    <p><img src="@{Application.showAvatar(user.id)}" id="cropbox" /></p>
-    <p>score ${user.score}</p>
-
-    <p>score by category:</p>
-<ul>
-    #{list items:user.categoryScores, as:'categoryScore' }
-        <li>
-            ${categoryScore.category.label}: ${categoryScore.score}
-        </li>
-    #{/list}
-</ul>
-
-<p><a href="@{Application.temp_recomputeScore()}">TEMP Recompute Score</a></p>
-
-
+<div class="pageFavorite">
+    #{followUserWidget user:user /}
 </div>
+
+<h2>${user.userName} (${user.firstName} ${user.lastName})</h2>
+
+<div><img width="100px" src="@{Application.showAvatar(user.id)}" id="cropbox" /></div>
+<div>
+	<p>score ${user.score}</p>
+	<p>score by category:</p>
+	<ul>
+	    #{list items:user.categoryScores, as:'categoryScore' }
+	        <li>
+	            ${categoryScore.category.label}: ${categoryScore.score}
+	        </li>
+	    #{/list}
+	</ul>
+<p><a href="@{Application.temp_recomputeScore()}">TEMP Recompute Score</a></p>
+</div>
+
+#{/userContainer}

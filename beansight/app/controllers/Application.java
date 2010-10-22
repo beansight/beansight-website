@@ -58,7 +58,10 @@ public class Application extends Controller {
 	public static void experts() {
 		List<User> experts = User.findAll();
 		
-		render(experts);
+		User currentUser = CurrentUser.getCurrentUser();
+		List<User> followedUsers = currentUser.followedUsers;
+		
+		render(experts, followedUsers);
 	}
 	/**
 	 * create an insight for the current user
@@ -174,6 +177,22 @@ public class Application extends Controller {
 		currentUser.stopFollowingThisInsight(insightId);
 		renderArgs.put("follow", false);
 		render("Application/followInsight.json", insightId);
+    }
+    
+    /**
+     * AJAX: Change the follow state for the connected user toward this user
+     */
+    public static void toggleFollowingUser(Long userId) {
+		User currentUser = CurrentUser.getCurrentUser();
+		User user = User.findById(userId);
+		if (currentUser.isFollowingUser(user)==true) {
+			currentUser.stopFollowingThisUser(user);
+			renderArgs.put("follow", false);
+		} else {
+			currentUser.startFollowingThisUser(user);
+			renderArgs.put("follow", true);
+		}
+		render("Application/followUser.json", userId);
     }
     
     /**

@@ -1,4 +1,4 @@
-*{ A star to follow or an insight  }*
+*{ A star to follow an insight  }*
 *{ @param insigth: the insight  }*
 
 <span onClick="toggleFollowingInsight(${_insight.id})" >
