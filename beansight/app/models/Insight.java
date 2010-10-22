@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import models.Vote.Status;
+
 import play.db.jpa.Model;
 import play.modules.search.*;
 
@@ -155,6 +157,21 @@ public class Insight extends Model {
 		return comment;
 	}
 	
+	/**
+	 * get the list of the n last active votes
+	 * @param n: the maximum number of votes to return
+	 * @return: the list of n most recent active votes
+	 */
+	public List<Vote> getLastVotes(int n){
+		return Vote.find(
+				"select v from Vote v "
+				+ "join v.insight i "
+				+ "where v.status = :status and i.id=:insightId "
+				+ "order by creationDate DESC")
+				.bind("status", Status.ACTIVE).bind("insightId", this.id)
+				.fetch(n);
+	}
+
 	public String toString() {
 		return content;
 	}

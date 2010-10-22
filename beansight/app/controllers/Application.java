@@ -128,8 +128,9 @@ public class Application extends Controller {
         notFoundIfNull(insight);
 		User currentUser = CurrentUser.getCurrentUser();
         Vote lastUserVote = Vote.findLastVoteByUserAndInsight(currentUser.id, id);
+        List<Vote> lastVotes = insight.getLastVotes(5);
         
-        render(insight, currentUser, lastUserVote);
+        render(insight, currentUser, lastUserVote, lastVotes);
     }
     
     /**
