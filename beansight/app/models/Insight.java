@@ -167,7 +167,7 @@ public class Insight extends Model {
 				"select v from Vote v "
 				+ "join v.insight i "
 				+ "where v.status = :status and i.id=:insightId "
-				+ "order by creationDate DESC")
+				+ "order by v.creationDate DESC")
 				.bind("status", Status.ACTIVE).bind("insightId", this.id)
 				.fetch(n);
 	}
