@@ -8,6 +8,6 @@
 /}%
 #{/isConnected}
 
-<div id="insight_${_insight.id}" class="#{if state.equals(models.Vote.State.AGREE) } voteAgree #{/if } #{elseif state.equals(models.Vote.State.DISAGREE)} voteDisagree #{/elseif}">
+<div class="insight_${_insight.id} #{if state.equals(models.Vote.State.AGREE) } voteAgree #{/if } #{elseif state.equals(models.Vote.State.DISAGREE)} voteDisagree #{/elseif}">
 #{doBody /}
 </div>

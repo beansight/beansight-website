@@ -21,7 +21,7 @@ function onVoteSuccess(data) {
 
 /** Callback after a follow is done */
 function onToggleFollowingInsightSuccess(data) {
-	var favicon = $(".icon.favorite", "#insight_" + data.id);
+	var favicon = $(".icon.favorite", ".insight_" + data.id);
 	if(data.follow) {
 		favicon.addClass("active").removeClass("inactive");
 	} else {
@@ -32,7 +32,7 @@ function onToggleFollowingInsightSuccess(data) {
 
 /** Update the counts of an insight, given new counts */
 function updateAgreeDisagreeCount(id, agreeCount, disagreeCount, voteState) {
-	var insightContainer = $("#insight_" + id);
+	var insightContainer = $(".insight_" + id);
     $(".agreeCount", insightContainer).text(agreeCount);
     $(".disagreeCount", insightContainer).text(disagreeCount);
     

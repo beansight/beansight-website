@@ -42,12 +42,17 @@ public class Application extends Controller {
 		render();
 	}
 
-	public static void favorites() {
+	public static void myInsights() {
 		render();
 	}
 
 	public static void insights() {
-		render();
+		
+		List<Insight> insights = Insight.findAll();
+		
+		User currentUser = CurrentUser.getCurrentUser();
+		List<Insight> followedInsights = currentUser.followedInsights;
+		render(insights, followedInsights);
 	}
 
 	public static void experts() {

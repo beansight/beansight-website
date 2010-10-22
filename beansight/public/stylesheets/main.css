@@ -144,6 +144,18 @@ a:hover {text-decoration: underline;}
 }
 
 /**
+ * Index
+ */
+#trendingInsights {
+	width:420px;
+    float:left;	
+}
+#activityAroundMe {
+    width:420px;
+    float:right;    
+}
+
+/**
  * Search
  */
 #searchBox {

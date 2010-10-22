@@ -3,14 +3,15 @@
 
 #{set currentMenu:'menuHome' /}
 
-<div class="prepend-2 span-16">
+<div id="trendingInsights">
+    <h2>New and trending</h2>
     #{listInsights insights:insights /}
 </div>
 
-<div class="span-4 last">
-<div class="sideBox">
-    #{myInsights/}
-    #{myFollowedInsights/}
+<div id="activityAroundMe">
+	<h2>Activity on my insights</h2>
+	#{myInsights/}
+	
+	<h2>Favorites</h2>
+	#{myFollowedInsights/}
 </div>
-</div>
-
