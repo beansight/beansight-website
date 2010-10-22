@@ -10,8 +10,21 @@
 
 <div id="activityAroundMe">
 	<h2>Activity on my insights</h2>
-	#{myInsights/}
+	<ul>
+	    #{list items:insightActivity , as:'insight'} 
+	        <li>#{insight insight:insight /}</li>
+	    #{/list}
+    </ul>
 	
 	<h2>Favorites</h2>
-	#{myFollowedInsights/}
+	<ul>
+	    #{list items:followedInsights , as:'insight'}
+	           <li>#{insight insight:insight /}</li>
+	    #{/list}
+	</ul>
+	<ul>
+        #{list items:followedUsers , as:'user'}
+               <li>#{userInline user:user /}</li>
+        #{/list}
+    </ul>
 </div>

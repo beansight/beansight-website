@@ -15,7 +15,7 @@
         #{agree-disagreeWidget insight:insight /}
     </div>
     
-    <p>Created ${insight.creationDate.since(true)}</p>
+    <p>Created ${insight.creationDate.since(true)} by #{userInline user:insight.creator /}</p>
     <p>End ${insight.endDate.format("dd MMMM yyyy")}</p>
     
     #{if lastUserVote != null}

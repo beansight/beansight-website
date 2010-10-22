@@ -32,7 +32,11 @@ public class Application extends Controller {
 		List<Insight> insights = Insight.findAll();
 		
 		if(Security.isConnected()) {
-			render("Application/indexConnected.html", insights);
+			User currentUser = CurrentUser.getCurrentUser();
+			List<Insight> insightActivity = currentUser.createdInsights;
+			List<Insight> followedInsights = currentUser.followedInsights;
+			List<User> followedUsers = currentUser.followedUsers;
+			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivity);
 		}
 		
 		render("Application/indexNotConnected.html", insights);
@@ -47,7 +51,6 @@ public class Application extends Controller {
 	}
 
 	public static void insights() {
-		
 		List<Insight> insights = Insight.findAll();
 		
 		User currentUser = CurrentUser.getCurrentUser();
