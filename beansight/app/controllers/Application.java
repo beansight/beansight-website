@@ -47,7 +47,10 @@ public class Application extends Controller {
 	}
 
 	public static void myInsights() {
-		render();
+		User currentUser = CurrentUser.getCurrentUser();
+		List<Insight> myLastInsights = currentUser.getLastInsights(20);
+		
+		render(myLastInsights);
 	}
 
 	public static void insights() {

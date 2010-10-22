@@ -158,7 +158,7 @@ public class Insight extends Model {
 	}
 	
 	/**
-	 * get the list of the n last active votes
+	 * get the list of the n last active votes for this Insight
 	 * @param n: the maximum number of votes to return
 	 * @return: the list of n most recent active votes
 	 */

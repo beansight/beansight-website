@@ -1,4 +1,9 @@
 #{extends 'main.html' /}
-#{set title:'Favorite insights' /}
+#{set title:'My insights' /}
 
 #{set currentMenu:'menuMyInsights' /}
+
+<div>
+    <h2>Insights</h2>
+    #{listInsights insights:myLastInsights /}
+</div>

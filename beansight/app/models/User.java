@@ -318,4 +318,22 @@ public class User extends Model {
 			categoryScores.add(newUserCatScore);
 		}
 	}
+	
+	/**
+	 * get the list of the n last insights of this User (insights he voted for)
+	 * @param n: the maximum number of votes to return
+	 * @return: the list of n most recent active insights of this user
+	 */
+	public List<Insight> getLastInsights(int n){
+		return Vote.find(
+				"select i from Insight i "
+				+ "join i.votes v "
+				+ "join v.user u "
+				+ "where v.status = :status and u.id=:userId "
+				+ "order by v.creationDate DESC"
+				)
+				.bind("status", Status.ACTIVE).bind("userId", this.id)
+				.fetch(n);
+	}
+	
 }
