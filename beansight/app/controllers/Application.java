@@ -77,7 +77,7 @@ public class Application extends Controller {
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
 		
-		index();
+		showInsight(insight.id);
 	}
 	
 	public static void displayAllInsights() {
