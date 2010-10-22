@@ -5,10 +5,16 @@
 
 #{insightContainer insight:insight}
 
-    <p>#{insight insight:insight /}</p>
-    #{agree-disagreeWidget insight:insight /}
-    #{followInsightWidget insight:insight /}
+    <div class="pageFavorite">
+        #{followInsightWidget insight:insight /}
+    </div>
 
+    <h2>${insight.content}</h2>
+    
+    <div class="sideBox insightVoteDetails">
+        #{agree-disagreeWidget insight:insight /}
+    </div>
+    
     <p>Created ${insight.creationDate.since(true)}</p>
     <p>End ${insight.endDate.format("dd MMMM yyyy")}</p>
     

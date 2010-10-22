@@ -255,3 +255,15 @@ a.icon.favorite {
 a.icon.favorite.active {
     background-image: url('/public/images/star-active.png');
 }
+
+.pageFavorite {
+    float:right;
+}
+
+/**
+ * Insight Page
+ */
+.insightVoteDetails {
+	float:right;
+    width:300px;
+}
