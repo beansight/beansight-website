@@ -56,7 +56,9 @@ public class Application extends Controller {
 	}
 
 	public static void experts() {
-		render();
+		List<User> experts = User.findAll();
+		
+		render(experts);
 	}
 	/**
 	 * create an insight for the current user
