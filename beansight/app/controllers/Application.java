@@ -32,10 +32,13 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Application extends Controller {
 
-	private static final int NUMBER_INSIGHTS_INDEXPAGE = 20;
-	private static final int NUMBER_LASTINSIGHTS_USERPAGE = 20;
+	private static final int NUMBER_INSIGHTS_INDEXPAGE 		= 16;
+	private static final int NUMBER_INSIGHTS_USERPAGE 		= 6;
+	private static final int NUMBER_INSIGHTS_INSIGHTPAGE 	= 40;
+	private static final int NUMBER_EXPERTS_EXPERTPAGE 		= 16;
 	
 	public static void index() {
+		//TODO order by upDate
 		List<Insight> insights = Insight.find("order by creationDate DESC").fetch(NUMBER_INSIGHTS_INDEXPAGE);
 		
 		if(Security.isConnected()) {
@@ -55,13 +58,13 @@ public class Application extends Controller {
 
 	public static void myInsights() {
 		User currentUser = CurrentUser.getCurrentUser();
-		List<Insight> myLastInsights = currentUser.getLastInsights(NUMBER_LASTINSIGHTS_USERPAGE);
+		List<Insight> myLastInsights = currentUser.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
 		
 		render(myLastInsights);
 	}
 
 	public static void insights() {
-		List<Insight> insights = Insight.findAll();
+		List<Insight> insights = Insight.find("order by creationDate DESC").fetch(NUMBER_INSIGHTS_INSIGHTPAGE);
 		
 		User currentUser = CurrentUser.getCurrentUser();
 		List<Insight> followedInsights = currentUser.followedInsights;
@@ -69,7 +72,8 @@ public class Application extends Controller {
 	}
 
 	public static void experts() {
-		List<User> experts = User.findAll();
+		// TODO order by score
+		List<User> experts = User.find("order by crdate DESC").fetch(NUMBER_EXPERTS_EXPERTPAGE);
 		
 		User currentUser = CurrentUser.getCurrentUser();
 		List<User> followedUsers = currentUser.followedUsers;
