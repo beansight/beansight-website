@@ -32,8 +32,11 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Application extends Controller {
 
+	private static final int NUMBER_INSIGHTS_INDEXPAGE = 20;
+	private static final int NUMBER_LASTINSIGHTS_USERPAGE = 20;
+	
 	public static void index() {
-		List<Insight> insights = Insight.findAll();
+		List<Insight> insights = Insight.find("order by creationDate DESC").fetch(NUMBER_INSIGHTS_INDEXPAGE);
 		
 		if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -52,7 +55,7 @@ public class Application extends Controller {
 
 	public static void myInsights() {
 		User currentUser = CurrentUser.getCurrentUser();
-		List<Insight> myLastInsights = currentUser.getLastInsights(20);
+		List<Insight> myLastInsights = currentUser.getLastInsights(NUMBER_LASTINSIGHTS_USERPAGE);
 		
 		render(myLastInsights);
 	}
