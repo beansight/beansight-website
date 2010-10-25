@@ -2,12 +2,12 @@
 *{ @param insigth: the insight  }*
 
 #{insightContainer insight:_insight}
-
-<a href="@{Application.showInsight(_insight.id)}">${_insight.content}</a>
+<span class="insight-line">
+<a href="@{Application.showInsight(_insight.id)}"><span class="date">${_insight.endDate.format("dd MM yyyy")},</span> <span class="content">${_insight.content}</span></a>
 
 #{isConnected}
     #{agree-disagreeWidget insight:_insight/}
     #{followInsightWidget insight:_insight /}
 #{/isConnected}
-
+</span>
 #{/insightContainer}

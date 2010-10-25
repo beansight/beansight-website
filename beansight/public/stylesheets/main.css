@@ -278,3 +278,12 @@ a.icon.favorite.active {
 	float:right;
     width:300px;
 }
+
+/**
+ * Insight Line
+ */
+.insight-line .date {
+	color:#66a0a3;
+}
+.insight-line .content {
+}
