@@ -3,7 +3,7 @@
 
 #{insightContainer insight:_insight}
 <span class="insight-line">
-<a href="@{Application.showInsight(_insight.id)}"><span class="date">${_insight.endDate.format("dd MM yyyy")},</span> <span class="content">${_insight.content}</span></a>
+<a href="@{Application.showInsight(_insight.id)}"><span class="date">${_insight.endDate.format("yyyy MM dd")},</span> <span class="content">${_insight.content}</span></a>
 
 #{isConnected}
     #{agree-disagreeWidget insight:_insight/}

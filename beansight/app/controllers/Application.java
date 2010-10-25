@@ -17,6 +17,10 @@ import models.User;
 import models.Vote;
 import models.Vote.State;
 import play.Play;
+import play.data.validation.MaxSize;
+import play.data.validation.Min;
+import play.data.validation.MinSize;
+import play.data.validation.Required;
 import play.db.jpa.FileAttachment;
 import play.libs.Files;
 import play.libs.Images;
@@ -42,8 +46,8 @@ public class Application extends Controller {
 		render("Application/indexNotConnected.html", insights);
 	}
 	
-	public static void create() {
-		render();
+	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId) {
+		render(insightContent, endDate, tagLabelList, categoryId);
 	}
 
 	public static void myInsights() {
@@ -71,15 +75,26 @@ public class Application extends Controller {
 	}
 	/**
 	 * create an insight for the current user
-	 * @param insightContent: the content of this insight
+	 * @param insightContent: the content of this insight (min 6, max 140 characters)
 	 * @param endDate: the end date chosen by the user
 	 * @param tagLabelList: a comma separated list of tags
 	 * @param categoryId: the ID of the category of the insight
 	 */
-	public static void createInsight(String insightContent, Date endDate, String tagLabelList, long categoryId) {
+	public static void createInsight(@Required @MinSize(6) @MaxSize(140) String insightContent, @Required Date endDate, @MaxSize(100) String tagLabelList, @Required long categoryId) {
+		// Check if the given category Id corresponds to a category
+		Category category = Category.findById(categoryId);
+		if(category == null) {
+			validation.addError("categoryId", "Not a valid Category");
+			// FIXME: This error doesn't display
+		}
+	    if (validation.hasErrors()) {
+	        flash.error("Error creating the insight");
+	        create(insightContent, endDate, tagLabelList, categoryId);
+	    }
+		
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
-		
+
 		showInsight(insight.id);
 	}
 	

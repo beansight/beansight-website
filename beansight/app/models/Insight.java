@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 
 import models.Vote.Status;
 
+import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.modules.search.*;
 
@@ -20,18 +21,21 @@ import play.modules.search.*;
 public class Insight extends Model {
 
 	@ManyToOne
+	@Required
 	public User creator;
 
 	/** the date this insight has been created by its creator */
-	//TODO index this  (unfortunately simply adding @Field transforms the date in string) 
+	//TODO index this  (unfortunately simply adding @Field transforms the date in string)
 	public Date creationDate;
 
 	/** the date this insight is ending, defined by its creator */
 	//TODO index this
+	@Required
 	public Date endDate;
 
 	/** Content of the insight, a simple text describing the idea */
 	@Field
+	@Required
 	public String content;
 
 	/** Every vote of the current insight */
@@ -45,6 +49,7 @@ public class Insight extends Model {
 
 	@ManyToOne
 	@Field
+	@Required
 	/** Category of this insight */
 	public Category category;
 	

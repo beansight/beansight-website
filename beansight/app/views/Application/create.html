@@ -16,8 +16,10 @@
         <p>What is going to happen?</p>
         <p>
             <label for="endDate">On </label>
-            <input type="text" name="endDate" id="endDate" class="datePicker" size="10"/>, 
-            <input type="text" name="insightContent" id="insightContent" />
+            <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}"/>,
+            #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
+            <input type="text" name="insightContent" id="insightContent" value="${insightContent}"/>
+            #{if errors.forKey('insightContent')}<span class="error">${errors.forKey('insightContent')}</span>#{/if}
         </p>
         <script type="text/javascript">
 	        $(function() {
@@ -31,10 +33,11 @@
         </script>
         <p>
             <label for="tagLabelList">Tags:</label>
-            <input type="text" name="tagLabelList" id="tagLabelList" />
+            <input type="text" name="tagLabelList" id="tagLabelList" value="${tagLabelList}" />
+            #{if errors.forKey('tagLabelList')}<span class="error">${errors.forKey('tagLabelList')}</span>#{/if}
             <label for="category">Category:</label>
-               #{selectCategories/}
-        <p>
+               #{selectCategories none:true/}
+               #{if errors.forKey('categoryId')}<span class="error">${errors.forKey('categoryId')}</span>#{/if}
         </p>
         <p>
             <input type="submit" value="Create" />
