@@ -11,6 +11,9 @@ Category(catFinance):
 Category(catFun):
     label:  Fun
 
+Category(catPolitics):
+    label:  Politics
+
 Category(catSport):
     label:  Sport
 
