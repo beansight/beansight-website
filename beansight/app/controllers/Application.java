@@ -16,6 +16,7 @@ import models.Insight;
 import models.User;
 import models.Vote;
 import models.Vote.State;
+import models.Vote.Status;
 import play.Play;
 import play.data.validation.MaxSize;
 import play.data.validation.Min;
@@ -63,12 +64,20 @@ public class Application extends Controller {
 		render(myLastInsights);
 	}
 
-	public static void insights() {
-		List<Insight> insights = Insight.find("order by creationDate DESC").fetch(NUMBER_INSIGHTS_INSIGHTPAGE);
+	public static void insights(long categoryId) {
+		Category category = Category.findById(categoryId);
+		
+		String query = "";
+		if(categoryId != 0) {
+			query += "select i from Insight i join i.category c where c.id=" + categoryId;
+		}
+		query += " order by creationDate DESC";
+		
+		List<Insight> insights = Insight.find(query).fetch(NUMBER_INSIGHTS_INSIGHTPAGE);
 		
 		User currentUser = CurrentUser.getCurrentUser();
 		List<Insight> followedInsights = currentUser.followedInsights;
-		render(insights, followedInsights);
+		render(insights, followedInsights, category);
 	}
 
 	public static void experts() {
@@ -80,6 +89,7 @@ public class Application extends Controller {
 		
 		render(experts, followedUsers);
 	}
+	
 	/**
 	 * create an insight for the current user
 	 * @param insightContent: the content of this insight (min 6, max 140 characters)

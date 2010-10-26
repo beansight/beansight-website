@@ -4,7 +4,8 @@
 #{set currentMenu:'menuInsights' /}
 
 <div>
-    <h2>Insights</h2>
+    <div>#{filterInsights all:true /}</div>
+    <h2>Insights #{if category} in ${category} #{/if}</h2>
     #{listInsights insights:insights /}
 </div>
 
