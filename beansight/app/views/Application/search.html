@@ -1,7 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Search' /}
 
-<div class="prepend-1 span-20 append-1 last">
-	Found ${insights.size()} result${insights.size().pluralize()} for "${query}":
-        #{listInsights insights:insights /}
+<div>
+    <ul class="filters">
+          <a href="@{Application.search(query)}">All</a>
+       #{list items:controllers.Application.getCategories(), as:'category'}
+          <a href="@{Application.search(query, category.id)}">${category.label}</a>
+       #{/list}
+    </ul>
+
+	<h2>Found ${insights.size()} result${insights.size().pluralize()} for "${query}":</h2>
+    #{listInsights insights:insights /}
 </div>

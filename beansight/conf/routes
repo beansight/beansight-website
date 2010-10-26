@@ -9,9 +9,13 @@ GET     /create                                 Application.create
 GET     /favorites                              Application.favorites
 GET     /insights                               Application.insights
 GET     /experts                                Application.experts
+GET     /search                                 Application.search
 
 # Insight page
 GET     /insight/{<[0-9]+>id}                   Application.showInsight                   
+
+# Expert page
+GET     /expert/{<[0-9]+>id}                    Application.showUser
 
 # Import CRUD routes
 *       /admin              module:crud

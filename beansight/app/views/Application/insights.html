@@ -4,9 +4,16 @@
 #{set currentMenu:'menuInsights' /}
 
 <div>
-    <div>#{filterInsights all:true /}</div>
+	<ul class="filters">
+          <a href="@{Application.insights()}">All</a>
+	   #{list items:controllers.Application.getCategories(), as:'category'}
+	      <a href="@{Application.insights(category.id)}">${category.label}</a>
+	   #{/list}
+    </ul>
+    
     <h2>Insights #{if category} in ${category} #{/if}</h2>
     #{listInsights insights:insights /}
+
 </div>
 
 <div>
