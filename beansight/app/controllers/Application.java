@@ -44,8 +44,7 @@ public class Application extends Controller {
 
 	public static void index() {
 		// TODO order by upDate
-		List<Insight> insights = Insight.find("order by creationDate DESC")
-				.fetch(NUMBER_INSIGHTS_INDEXPAGE);
+		List<Insight> insights = Insight.find("order by creationDate DESC").fetch(NUMBER_INSIGHTS_INDEXPAGE);
 
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -56,22 +55,19 @@ public class Application extends Controller {
 			List<Insight> followedInsights = currentUser.followedInsights;
 			List<User> followedUsers = currentUser.followedUsers;
 
-			render("Application/indexConnected.html", insights,
-					followedInsights, followedUsers, insightActivity);
+			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivity);
 		}
 
 		render("Application/indexNotConnected.html", insights);
 	}
 
-	public static void create(String insightContent, Date endDate,
-			String tagLabelList, long categoryId) {
+	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId) {
 		render(insightContent, endDate, tagLabelList, categoryId);
 	}
 
 	public static void myInsights() {
 		User currentUser = CurrentUser.getCurrentUser();
-		List<Insight> myLastInsights = currentUser
-				.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
+		List<Insight> myLastInsights = currentUser.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
 
 		render(myLastInsights);
 	}
@@ -81,13 +77,11 @@ public class Application extends Controller {
 
 		String query = "";
 		if (categoryId != 0) {
-			query += "select i from Insight i join i.category c where c.id="
-					+ categoryId;
+			query += "select i from Insight i join i.category c where c.id=" + categoryId;
 		}
 		query += " order by creationDate DESC";
 
-		List<Insight> insights = Insight.find(query).fetch(
-				NUMBER_INSIGHTS_INSIGHTPAGE);
+		List<Insight> insights = Insight.find(query).fetch(NUMBER_INSIGHTS_INSIGHTPAGE);
 
 		User currentUser = CurrentUser.getCurrentUser();
 		List<Insight> followedInsights = currentUser.followedInsights;
@@ -96,8 +90,7 @@ public class Application extends Controller {
 
 	public static void experts() {
 		// TODO order by score
-		List<User> experts = User.find("order by crdate DESC").fetch(
-				NUMBER_EXPERTS_EXPERTPAGE);
+		List<User> experts = User.find("order by crdate DESC").fetch(NUMBER_EXPERTS_EXPERTPAGE);
 
 		User currentUser = CurrentUser.getCurrentUser();
 		List<User> followedUsers = currentUser.followedUsers;
@@ -108,14 +101,10 @@ public class Application extends Controller {
 	/**
 	 * create an insight for the current user
 	 * 
-	 * @param insightContent
-	 *            : the content of this insight (min 6, max 140 characters)
-	 * @param endDate
-	 *            : the end date chosen by the user
-	 * @param tagLabelList
-	 *            : a comma separated list of tags
-	 * @param categoryId
-	 *            : the ID of the category of the insight
+	 * @param insightContent : the content of this insight (min 6, max 140 characters)
+	 * @param endDate : the end date chosen by the user
+	 * @param tagLabelList : a comma separated list of tags
+	 * @param categoryId : the ID of the category of the insight
 	 */
 	public static void createInsight(
 			@Required @MinSize(6) @MaxSize(140) String insightContent,
@@ -133,8 +122,7 @@ public class Application extends Controller {
 		}
 
 		User currentUser = CurrentUser.getCurrentUser();
-		Insight insight = currentUser.createInsight(insightContent, endDate,
-				tagLabelList, categoryId);
+		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
 
 		showInsight(insight.id);
 	}
@@ -163,13 +151,12 @@ public class Application extends Controller {
 	}
 
 	private static void vote(Long insightId, State voteState) {
-		// TODO : if not connected: go to log / signin page
 		User currentUser = CurrentUser.getCurrentUser();
 
 		try {
 			currentUser.voteToInsight(insightId, voteState);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
-			// TODO : add a message on the UI ?
+			// its ok, do not show anything
 		}
 
 		Insight insight = Insight.findById(insightId);
