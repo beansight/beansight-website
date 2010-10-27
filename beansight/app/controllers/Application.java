@@ -37,7 +37,7 @@ public class Application extends Controller {
 
 	public static final int NUMBER_INSIGHTS_INDEXPAGE = 16;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 6;
-	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 2; //30
+	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 20;
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 16;
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 2;
 	public static final int NUMBER_EXPERTS_SEARCHPAGE = 20;
