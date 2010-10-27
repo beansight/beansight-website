@@ -181,12 +181,12 @@ public class Insight extends Model {
 	/**
 	 * Performs a search action
 	 * @param query : the search query
-	 * @param offset : index of the first item to be returned
+	 * @param from : index of the first item to be returned
 	 * @param number : number of items to return
 	 * @param category : the category to restrict the search to (null
 	 * @return : an object containing the result list and the total result number
 	 */
-	public static SearchResult search(String query, int offset, int number, Category category) {
+	public static InsightResult search(String query, int from, int number, Category category) {
 		//TODO Steren : this query string construction is temporary, we should better handle this
 		String fullQueryString = "(content:" + query + " OR tags:" + query + ") ";
 		if(category != null) {
@@ -196,19 +196,43 @@ public class Insight extends Model {
 		Query q = Search.search(fullQueryString, Insight.class);
 
 		// create the result object
-		SearchResult result = new SearchResult();
+		InsightResult result = new InsightResult();
 		result.count = q.count();
 		
 		// restrict to a sub group
-		q.page( offset, number );
+		q.page( from, number );
 		
 		result.results = q.fetch(); 
 		
 		return result;
 	}
+
+	/**
+	 * 
+	 * @param from
+	 * @param number
+	 * @param category
+	 * @return
+	 */
+	public static InsightResult getLatest(int from, int number, Category category) {
+		
+		String query = "";
+		if (category != null) {
+			query += "select i from Insight i join i.category c where c.id=" + category.id;
+		}
+		query += " order by creationDate DESC";
+
+		InsightResult result = new InsightResult();
+		//result.count = Insight.count(query);
+		
+		List<Insight> insights = Insight.find(query).from(from).fetch(number);
+		result.results = insights;
+		
+		return result;
+	}
 	
-	public static class SearchResult {
-		public List<JPASupport> results;
+	public static class InsightResult {
+		public List<Insight> results;
 		public long count;
 	}
 	

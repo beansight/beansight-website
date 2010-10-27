@@ -26,7 +26,8 @@
      var disagreeAction = #{jsAction @Application.disagree(':insightId') /};
      var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightId') /};
      var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
-     var moreSearchAction = #{jsAction @Application.moreSearch(':query', ':offset', ':categoryId') /};
+     var moreInsightsAction = #{jsAction @Application.moreInsights(':from', ':categoryId') /};
+     var moreSearchAction = #{jsAction @Application.moreSearch(':query', ':from', ':categoryId') /};
      </script>
      
     <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light' rel='stylesheet' type='text/css'>

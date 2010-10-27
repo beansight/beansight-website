@@ -12,9 +12,37 @@
     </ul>
     
     <h2>Insights #{if category} in ${category} #{/if}</h2>
-    <ul>
+    <ul id="insightList">
         #{listInsights insights:insights /}
     </ul>
+    
+    <div><span onClick="moreInsights()" id="moreResults" style="display:none;"><a href="" onClick="return false">more</a></span></div>
+    
+    
+    <script type="text/javascript">
+    // check if a "more" button should be displayed
+    if( $("#insightList li").length >= ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
+            $("#moreResults").fadeIn(2000);
+       }
+    var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
+
+    /** get more insights */
+    function moreInsights() {
+        $.ajax( {
+            url: moreInsightsAction({"from": insightsFrom #{if category}, "categoryId": ${category.id}#{/if} }),
+            success: onMoreInsightsSuccess
+        } );
+    }
+    
+    function onMoreInsightsSuccess(content) {
+        $("#insightList").append(content);
+        insightsFrom += ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
+        // disable the "more button" if less results than the number to display
+        if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
+            $("#moreResults").fadeOut(1000);
+        }
+    }
+    </script>
 
 </div>
 

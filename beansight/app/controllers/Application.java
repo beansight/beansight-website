@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import models.Category;
 import models.Comment;
 import models.Insight;
-import models.Insight.SearchResult;
+import models.Insight.InsightResult;
 import models.User;
 import models.Vote;
 import models.Vote.State;
@@ -37,9 +37,9 @@ public class Application extends Controller {
 
 	public static final int NUMBER_INSIGHTS_INDEXPAGE = 16;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 6;
-	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 40;
+	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 2; //30
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 16;
-	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 20;
+	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 2;
 	public static final int NUMBER_EXPERTS_SEARCHPAGE = 20;
 
 	public static void index() {
@@ -75,17 +75,27 @@ public class Application extends Controller {
 	public static void insights(long categoryId) {
 		Category category = Category.findById(categoryId);
 
-		String query = "";
-		if (categoryId != 0) {
-			query += "select i from Insight i join i.category c where c.id=" + categoryId;
-		}
-		query += " order by creationDate DESC";
-
-		List<Insight> insights = Insight.find(query).fetch(NUMBER_INSIGHTS_INSIGHTPAGE);
-
+		InsightResult result = Insight.getLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, category);
+		renderArgs.put("insights", result.results);
+		renderArgs.put("count", result.count);
+		
 		User currentUser = CurrentUser.getCurrentUser();
 		List<Insight> followedInsights = currentUser.followedInsights;
-		render(insights, followedInsights, category);
+		
+		render(followedInsights, category);
+	}
+
+	/**
+	 * AJAX get more insights from the explore page
+	 * @param from : the index of the first insight to return
+	 * @param categoryId
+	 */
+	public static void moreInsights(int from, long categoryId) {
+		Category category = Category.findById(categoryId);
+
+		InsightResult result = Insight.getLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, category);
+		renderArgs.put("insights", result.results);
+		render();
 	}
 
 	public static void experts() {
@@ -256,10 +266,8 @@ public class Application extends Controller {
 	/**
 	 * Add a comment to a specific insight for the current user
 	 * 
-	 * @param insightId
-	 *            : id of the insight
-	 * @param content
-	 *            : text content of the insight
+	 * @param insightId : id of the insight
+	 * @param content : text content of the insight
 	 */
 	public static void addComment(Long insightId, String content) {
 		User currentUser = CurrentUser.getCurrentUser();
@@ -272,10 +280,8 @@ public class Application extends Controller {
 	/**
 	 * add tags to an insight
 	 * 
-	 * @param insightId
-	 *            : the id of the tagged insight
-	 * @param tagLabelList
-	 *            : a comma separated list of tag labels
+	 * @param insightId : the id of the tagged insight
+	 * @param tagLabelList : a comma separated list of tag labels
 	 */
 	public static void addTags(Long insightId, String tagLabelList) {
 		User currentUser = CurrentUser.getCurrentUser();
@@ -396,8 +402,7 @@ public class Application extends Controller {
 		}
 		Category category = Category.findById(categoryId);
 
-		SearchResult result = Insight.search(query, offset,
-				NUMBER_INSIGHTS_SEARCHPAGE, category);
+		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, category);
 
 		renderArgs.put("count", result.count);
 		renderArgs.put("insights", result.results);
@@ -412,11 +417,10 @@ public class Application extends Controller {
 	public static void moreSearch(String query, int offset, long categoryId) {
 		Category category = Category.findById(categoryId);
 
-		SearchResult result = Insight.search(query, offset,
-				NUMBER_INSIGHTS_SEARCHPAGE, category);
+		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, category);
 
 		renderArgs.put("insights", result.results);
-		render();
+		render("Application/moreInsights.html");
 	}
 
 	public static void userSearch(String query) {
