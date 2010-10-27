@@ -5,9 +5,11 @@
 
 #{userContainer user:user}
 
+#{isConnected}
 <div class="pageFavorite">
     #{followUserWidget user:user /}
 </div>
+#{/isConnected}
 
 <h2>${user.userName} (${user.firstName} ${user.lastName})</h2>
 
