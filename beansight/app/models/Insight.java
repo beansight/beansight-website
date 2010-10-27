@@ -223,6 +223,7 @@ public class Insight extends Model {
 		query += " order by creationDate DESC";
 
 		InsightResult result = new InsightResult();
+		// TODO : return total number using count ?
 		//result.count = Insight.count(query);
 		
 		List<Insight> insights = Insight.find(query).from(from).fetch(number);
