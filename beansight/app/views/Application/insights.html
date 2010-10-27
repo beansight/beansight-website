@@ -6,8 +6,8 @@
 <div>
 	<ul class="filters">
           <a href="@{Application.insights()}">All</a>
-	   #{list items:controllers.Application.getCategories(), as:'category'}
-	      <a href="@{Application.insights(category.id)}">${category.label}</a>
+	   #{list items:controllers.Application.getCategories(), as:'cat'}
+	      <a href="@{Application.insights(cat.id)}">${cat.label}</a>
 	   #{/list}
     </ul>
     
