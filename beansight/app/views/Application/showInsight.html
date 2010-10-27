@@ -5,14 +5,18 @@
 
 #{insightContainer insight:insight}
 
+    #{isConnected}
     <div class="pageFavorite">
         #{followInsightWidget insight:insight /}
     </div>
-
+    #{/isConnected}
+    
     <h2>${insight.content}</h2>
     
     <div class="sideBox insightVoteDetails">
-        #{agree-disagreeWidget insight:insight /}
+        #{isConnected}
+            #{agree-disagreeWidget insight:insight /}
+        #{/isConnected}
     </div>
     
     <p>Created ${insight.creationDate.since(true)} by #{userInline user:insight.creator /}</p>
@@ -44,6 +48,7 @@
 	    #{/list}
         </ul>
         
+        #{isConnected}
         <p>
 	    <span onclick="showAddMoreTags()"><a href="#">suggest other tags</a></span>
 	    </p>
@@ -53,6 +58,7 @@
 	        <input type="submit" value="Add tags"/>
 	    #{/form}
 	    </div>
+	    #{/isConnected}
     </div>
     
     <h3>Comments:</h3>
@@ -61,7 +67,7 @@
         <li>${comment.user} (${comment.creationDate.since(true)}):<br/> ${comment.content}</li>
     #{/list}
     </ul>
-
+#{isConnected}
     <form id="addCommentForm">
         <div>
         <label for="label">Add new comment:</label>
@@ -71,6 +77,7 @@
         <input type="submit" value="Post" id="submit"/>
         </div>
     </form>
+#{/isConnected}
 
 #{/insightContainer}
 
