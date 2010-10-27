@@ -5,7 +5,9 @@
 
 <div id="trendingInsights">
     <h2>New and trending</h2>
-    #{listInsights insights:insights /}
+    <ul>
+        #{listInsights insights:insights /}
+    </ul>
     <a href="@{Application.insights()}">Explore more...</a>
 </div>
 

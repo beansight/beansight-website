@@ -3,12 +3,43 @@
 
 <div>
     <ul class="filters">
-          <a href="@{Application.search(query)}">All</a>
-       #{list items:controllers.Application.getCategories(), as:'category'}
-          <a href="@{Application.search(query, category.id)}">${category.label}</a>
+          <a href="@{Application.search(query, 0)}">All</a>
+       #{list items:controllers.Application.getCategories(), as:'cat'}
+          <a href="@{Application.search(query, 0, cat.id)}">${cat.label}</a>
        #{/list}
     </ul>
 
-	<h2>Found ${insights.size()} result${insights.size().pluralize()} for "${query}":</h2>
-    #{listInsights insights:insights /}
+	<h2>Found ${count} result${count.pluralize()} for "${query}" #{if category}in category #{/if}:</h2>
+    
+    <ul id="searchResults">
+        #{listInsights insights:insights /}
+    </ul>
+    
+    <div><span onClick="moreSearch()" id="moreResults" style="display:none;"><a href="" onClick="return false">more</a></span></div>
+    
+    <script type="text/javascript">
+    // check if a "more" button soulg be displayed
+    if( $("#searchResults li").length == ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
+            $("#moreResults").fadeIn(2000);
+       }
+    
+    var offset = ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE};
+
+    /** get more search results */
+    function moreSearch() {
+        $.ajax( {
+            url: moreSearchAction({"query": "${query}", "offset": offset #{if category}, "categoryId": ${category.id}#{/if} }),
+            success: onMoreSearchSuccess
+        } );
+    }
+    
+    function onMoreSearchSuccess(content) {
+        $("#searchResults").append(content);
+        offset += ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE};
+        // disable the "more button" if less results than the number to display
+        if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
+            $("#moreResults").fadeOut(1000);
+        }
+    }
+    </script>
 </div>

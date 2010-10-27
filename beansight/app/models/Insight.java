@@ -12,9 +12,12 @@ import javax.persistence.OneToMany;
 
 import models.Vote.Status;
 
+import play.Logger;
 import play.data.validation.Required;
+import play.db.jpa.JPASupport;
 import play.db.jpa.Model;
 import play.modules.search.*;
+import play.modules.search.Search.Query;
 
 @Indexed
 @Entity
@@ -61,10 +64,8 @@ public class Insight extends Model {
 	@OneToMany(mappedBy="insight", cascade = CascadeType.ALL)
 	public List<Comment> comments;
 	
-	/*
-	model denormalization : 
-	having to count agree and disagree each time you need to access an insight is a performance killer 
-	*/
+	// model denormalization : 
+	// having to count agree and disagree each time you need to access an insight is a performance killer 
 	/** current number of active "agree" votes (if someone changed his mind, it is not counted) */
 	public long agreeCount;
 	/** current number of active "disagree" votes (if someone changed his mind, it is not counted) */
@@ -177,6 +178,40 @@ public class Insight extends Model {
 				.fetch(n);
 	}
 
+	/**
+	 * Performs a search action
+	 * @param query : the search query
+	 * @param offset : index of the first item to be returned
+	 * @param number : number of items to return
+	 * @param category : the category to restrict the search to (null
+	 * @return : an object containing the result list and the total result number
+	 */
+	public static SearchResult search(String query, int offset, int number, Category category) {
+		//TODO Steren : this query string construction is temporary, we should better handle this
+		String fullQueryString = "(content:" + query + " OR tags:" + query + ") ";
+		if(category != null) {
+			fullQueryString += " AND category:" + category.label;
+		}
+		
+		Query q = Search.search(fullQueryString, Insight.class);
+
+		// create the result object
+		SearchResult result = new SearchResult();
+		result.count = q.count();
+		
+		// restrict to a sub group
+		q.page( offset, number );
+		
+		result.results = q.fetch(); 
+		
+		return result;
+	}
+	
+	public static class SearchResult {
+		public List<JPASupport> results;
+		public long count;
+	}
+	
 	public String toString() {
 		return content;
 	}

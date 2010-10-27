@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import models.Category;
 import models.Comment;
 import models.Insight;
+import models.Insight.SearchResult;
 import models.User;
 import models.Vote;
 import models.Vote.State;
@@ -34,12 +35,12 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Application extends Controller {
 
-	private static final int NUMBER_INSIGHTS_INDEXPAGE 		= 16;
-	private static final int NUMBER_INSIGHTS_USERPAGE 		= 6;
-	private static final int NUMBER_INSIGHTS_INSIGHTPAGE 	= 40;
-	private static final int NUMBER_EXPERTS_EXPERTPAGE 		= 16;
-	private static final int NUMBER_INSIGHTS_SEARCHPAGE		= 30;
-	private static final int NUMBER_EXPERTS_SEARCHPAGE		= 20;
+	public static final int NUMBER_INSIGHTS_INDEXPAGE 		= 16;
+	public static final int NUMBER_INSIGHTS_USERPAGE 		= 6;
+	public static final int NUMBER_INSIGHTS_INSIGHTPAGE 	= 40;
+	public static final int NUMBER_EXPERTS_EXPERTPAGE 		= 16;
+	public static final int NUMBER_INSIGHTS_SEARCHPAGE		= 20;
+	public static final int NUMBER_EXPERTS_SEARCHPAGE		= 20;
 	
 	public static void index() {
 		//TODO order by upDate
@@ -365,25 +366,32 @@ public class Application extends Controller {
 		
 	}
 	
-	public static void search(String query, long categoryId) {
-		
+	public static void search(String query, int offset, long categoryId) {
 		if(query == null || query.isEmpty()) {
 			insights(0);
 		}
+		Category category = Category.findById(categoryId);
 		
-		//TODO Steren : this query string construction is temporary, we should better handle this
-		String fullQueryString = "(content:" + query + " OR tags:" + query + ") ";
-		if(categoryId != 0) {
-			Category category = Category.findById(categoryId);
-			fullQueryString += " AND category:" + category.label;
-		}
-			
-		Logger.info(fullQueryString);
-
-		Query q = Search.search(fullQueryString, Insight.class);
-		List<Insight> insights = q.fetch();
-		render(query, insights);
+		SearchResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, category);
+		
+		renderArgs.put("count", result.count);
+		renderArgs.put("insights", result.results);
+		render(query, category, offset);
 	}
+	
+	/**
+	 * AJAX : get more formatted results for a search
+	 * @return: the HTML containing the lines to add to the search results
+	 */
+	public static void moreSearch(String query, int offset, long categoryId) {
+		Category category = Category.findById(categoryId);
+		
+		SearchResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, category);
+		
+		renderArgs.put("insights", result.results);
+		render();
+	}
+	
 	
 	public static void userSearch(String query) {
 		Query q = Search.search(query, User.class);

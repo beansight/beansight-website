@@ -12,11 +12,15 @@
     </ul>
     
     <h2>Insights #{if category} in ${category} #{/if}</h2>
-    #{listInsights insights:insights /}
+    <ul>
+        #{listInsights insights:insights /}
+    </ul>
 
 </div>
 
 <div>
     <h2>Favorites</h2>
-    #{listInsights insights:followedInsights /}
+    <ul>
+        #{listInsights insights:followedInsights /}
+    </ul>
 </div>
