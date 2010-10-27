@@ -49,9 +49,13 @@ public class Application extends Controller {
 
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
+			// TODO display activity, and not insights (such as "XXX persons agreed on your insight YYY")
 			List<Insight> insightActivity = currentUser.createdInsights;
+			
+			// TODO limit the number and order by update
 			List<Insight> followedInsights = currentUser.followedInsights;
 			List<User> followedUsers = currentUser.followedUsers;
+
 			render("Application/indexConnected.html", insights,
 					followedInsights, followedUsers, insightActivity);
 		}
