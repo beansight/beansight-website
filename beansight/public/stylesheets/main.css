@@ -147,11 +147,11 @@ a:hover {text-decoration: underline;}
  * Index
  */
 #trendingInsights {
-	width:420px;
+	width:480px;
     float:left;	
 }
 #activityAroundMe {
-    width:420px;
+    width:360px;
     float:right;    
 }
 
