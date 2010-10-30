@@ -44,30 +44,35 @@ public class Application extends Controller {
 
 	public static void index() {
 		// TODO order by upDate
-		List<Insight> insights = Insight.find("order by creationDate DESC").fetch(NUMBER_INSIGHTS_INDEXPAGE);
+		List<Insight> insights = Insight.find("order by creationDate DESC")
+				.fetch(NUMBER_INSIGHTS_INDEXPAGE);
 
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			// TODO display activity, and not insights (such as "XXX persons agreed on your insight YYY")
+			// TODO display activity, and not insights (such as
+			// "XXX persons agreed on your insight YYY")
 			List<Insight> insightActivity = currentUser.createdInsights;
-			
+
 			// TODO limit the number and order by update
 			List<Insight> followedInsights = currentUser.followedInsights;
 			List<User> followedUsers = currentUser.followedUsers;
 
-			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivity);
+			render("Application/indexConnected.html", insights,
+					followedInsights, followedUsers, insightActivity);
 		}
 
 		render("Application/indexNotConnected.html", insights);
 	}
 
-	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId) {
+	public static void create(String insightContent, Date endDate,
+			String tagLabelList, long categoryId) {
 		render(insightContent, endDate, tagLabelList, categoryId);
 	}
 
 	public static void myInsights() {
 		User currentUser = CurrentUser.getCurrentUser();
-		List<Insight> myLastInsights = currentUser.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
+		List<Insight> myLastInsights = currentUser
+				.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
 
 		render(myLastInsights);
 	}
@@ -75,32 +80,37 @@ public class Application extends Controller {
 	public static void insights(long categoryId) {
 		Category category = Category.findById(categoryId);
 
-		InsightResult result = Insight.getLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, category);
+		InsightResult result = Insight.getLatest(0,
+				NUMBER_INSIGHTS_INSIGHTPAGE, category);
 		renderArgs.put("insights", result.results);
 		renderArgs.put("count", result.count);
-		
+
 		User currentUser = CurrentUser.getCurrentUser();
 		List<Insight> followedInsights = currentUser.followedInsights;
-		
+
 		render(followedInsights, category);
 	}
 
 	/**
 	 * AJAX get more insights from the explore page
-	 * @param from : the index of the first insight to return
+	 * 
+	 * @param from
+	 *            : the index of the first insight to return
 	 * @param categoryId
 	 */
 	public static void moreInsights(int from, long categoryId) {
 		Category category = Category.findById(categoryId);
 
-		InsightResult result = Insight.getLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, category);
+		InsightResult result = Insight.getLatest(from,
+				NUMBER_INSIGHTS_INSIGHTPAGE, category);
 		renderArgs.put("insights", result.results);
 		render();
 	}
 
 	public static void experts() {
 		// TODO order by score
-		List<User> experts = User.find("order by crdate DESC").fetch(NUMBER_EXPERTS_EXPERTPAGE);
+		List<User> experts = User.find("order by crdate DESC").fetch(
+				NUMBER_EXPERTS_EXPERTPAGE);
 
 		User currentUser = CurrentUser.getCurrentUser();
 		List<User> followedUsers = currentUser.followedUsers;
@@ -111,10 +121,14 @@ public class Application extends Controller {
 	/**
 	 * create an insight for the current user
 	 * 
-	 * @param insightContent : the content of this insight (min 6, max 140 characters)
-	 * @param endDate : the end date chosen by the user
-	 * @param tagLabelList : a comma separated list of tags
-	 * @param categoryId : the ID of the category of the insight
+	 * @param insightContent
+	 *            : the content of this insight (min 6, max 140 characters)
+	 * @param endDate
+	 *            : the end date chosen by the user
+	 * @param tagLabelList
+	 *            : a comma separated list of tags
+	 * @param categoryId
+	 *            : the ID of the category of the insight
 	 */
 	public static void createInsight(
 			@Required @MinSize(6) @MaxSize(140) String insightContent,
@@ -132,7 +146,8 @@ public class Application extends Controller {
 		}
 
 		User currentUser = CurrentUser.getCurrentUser();
-		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId);
+		Insight insight = currentUser.createInsight(insightContent, endDate,
+				tagLabelList, categoryId);
 
 		showInsight(insight.id);
 	}
@@ -182,12 +197,13 @@ public class Application extends Controller {
 	public static void showInsight(Long id) {
 		Insight insight = Insight.findById(id);
 		notFoundIfNull(insight);
-		
+
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(currentUser.id, id);
+			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(
+					currentUser.id, id);
 			List<Vote> lastVotes = insight.getLastVotes(5);
-			
+
 			renderArgs.put("currentUser", currentUser);
 			renderArgs.put("lastUserVote", lastUserVote);
 			renderArgs.put("lastVotes", lastVotes);
@@ -266,8 +282,10 @@ public class Application extends Controller {
 	/**
 	 * Add a comment to a specific insight for the current user
 	 * 
-	 * @param insightId : id of the insight
-	 * @param content : text content of the insight
+	 * @param insightId
+	 *            : id of the insight
+	 * @param content
+	 *            : text content of the insight
 	 */
 	public static void addComment(Long insightId, String content) {
 		User currentUser = CurrentUser.getCurrentUser();
@@ -280,8 +298,10 @@ public class Application extends Controller {
 	/**
 	 * add tags to an insight
 	 * 
-	 * @param insightId : the id of the tagged insight
-	 * @param tagLabelList : a comma separated list of tag labels
+	 * @param insightId
+	 *            : the id of the tagged insight
+	 * @param tagLabelList
+	 *            : a comma separated list of tag labels
 	 */
 	public static void addTags(Long insightId, String tagLabelList) {
 		User currentUser = CurrentUser.getCurrentUser();
@@ -306,14 +326,30 @@ public class Application extends Controller {
 		showUser(currentUser.id);
 	}
 
-	public static void saveSettings(User user) {
-		User currentUser = CurrentUser.getCurrentUser();
+	public static void saveSettings(Long id, String userName, String firstName, String lastName, File originalImage) {
+		User user = CurrentUser.getCurrentUser();
 		// User should be the same as the one connected
-		if (currentUser.id.equals(user.id) == false) {
+		if (user.id.equals(id) == false) {
 			forbidden("It seems you are trying to hack someone else settings");
 		}
-		currentUser.avatar = user.avatar;
-		currentUser.save();
+		// check if a new image has been uploaded
+		if (originalImage != null) {
+			File originalImageCopy = new File(FileAttachment.getStore(),
+					"originalImage_" + user.id);
+			Files.copy(originalImage, originalImageCopy);
+			// Default is we resize the originalImage without any modification. 
+			// Can be cropped later if necessary since we keep the original
+			boolean deleted = user.avatar.get().delete();
+			System.out.println(deleted);
+			Images.resize(originalImageCopy, user.avatar.get(), 60, 60);
+		}
+		
+		user.userName = userName;
+		user.firstName = firstName;
+		user.lastName = lastName;
+		
+		user.save();
+		
 		settings();
 	}
 
@@ -332,31 +368,18 @@ public class Application extends Controller {
 		if (user != null && user.avatar.isSet()) {
 			renderBinary(user.avatar.get());
 		}
-		renderBinary(new File("public/images/unknown.jpg"));
+		renderBinary(new File(Play.getFile("appImages") + "/unknown.jpg"));
 		notFound();
 	}
 
-	/**
-	 * Receive an image from which the user want to crop his avatar. The image
-	 * is stored in the default attachments path with the name "tmpFile"+user.id
-	 * 
-	 * @param file
-	 */
-	public static void uploadUncropedAvatarImage(File file) {
-		User user = CurrentUser.getCurrentUser();
-
-		File to = new File(FileAttachment.getStore(), "tmpFile" + user.id);
-		Files.copy(file, to);
-
-		uploadAndCropAvatarScreen();
-	}
 
 	/**
 	 * Render the uploaded image so that the user crop his avatar from it
 	 */
-	public static void displayUploadedTmpImage() {
+	public static void displayOriginalUncropedImage() {
 		User user = CurrentUser.getCurrentUser();
-		File tmpFile = new File(FileAttachment.getStore(), "tmpFile" + user.id);
+		File tmpFile = new File(FileAttachment.getStore(), "originalImage_"
+				+ user.id);
 		if (!tmpFile.exists()) {
 			notFound();
 		}
@@ -364,9 +387,9 @@ public class Application extends Controller {
 	}
 
 	/**
-	 * Render to the page which give the opportunity to upload an image to crop
+	 * Render to the page which give the opportunity to crop the avatar image
 	 */
-	public static void uploadAndCropAvatarScreen() {
+	public static void cropAvatar() {
 		User user = CurrentUser.getCurrentUser();
 
 		render(user);
@@ -376,7 +399,7 @@ public class Application extends Controller {
 			Integer y2, Integer imageW, Integer imageH) {
 		User user = CurrentUser.getCurrentUser();
 
-		File imageToCrop = new File(FileAttachment.getStore(), "tmpFile"
+		File imageToCrop = new File(FileAttachment.getStore(), "originalImage_"
 				+ user.id);
 		try {
 			BufferedImage source = ImageIO.read(imageToCrop);
@@ -385,10 +408,12 @@ public class Application extends Controller {
 			float ratioX = new Float(originalImageWidth) / imageW;
 			float ratioY = new Float(originalImageHeight) / imageH;
 
-			Images.crop(imageToCrop, imageToCrop, Math.round(x1 * ratioX),
+			Images.crop(imageToCrop, user.avatar.get(), Math.round(x1 * ratioX),
 					Math.round(y1 * ratioY), Math.round(x2 * ratioX),
 					Math.round((y2 * ratioY)));
-			user.avatar.set(imageToCrop);
+			
+			Images.resize(user.avatar.get(), user.avatar.get(), 60, 60);
+			
 			user.saveAttachment();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -402,7 +427,8 @@ public class Application extends Controller {
 		}
 		Category category = Category.findById(categoryId);
 
-		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, category);
+		InsightResult result = Insight.search(query, offset,
+				NUMBER_INSIGHTS_SEARCHPAGE, category);
 
 		renderArgs.put("count", result.count);
 		renderArgs.put("insights", result.results);
@@ -417,7 +443,8 @@ public class Application extends Controller {
 	public static void moreSearch(String query, int offset, long categoryId) {
 		Category category = Category.findById(categoryId);
 
-		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, category);
+		InsightResult result = Insight.search(query, offset,
+				NUMBER_INSIGHTS_SEARCHPAGE, category);
 
 		renderArgs.put("insights", result.results);
 		render("Application/moreInsights.html");

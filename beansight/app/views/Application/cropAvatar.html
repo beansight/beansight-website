@@ -26,10 +26,6 @@
 </head>
 <body>
 
-#{form @Application.uploadUncropedAvatarImage(), enctype:'multipart/form-data'}
-	<p><input type="file" id="avatar" name="file"><input type="submit"/> </p>
-#{/form}	
-	
 	<div class="container demo">
 	 	<div style="float: left; width: 50%;">
 	  		<p class="instructions">
@@ -99,25 +95,5 @@
 	 fadeSpeed: 200, onSelectChange: preview });
 	}); 
 	
-/*
-	$("#uploadImageForm").submit(
-		function() {
-			$.ajax({
-				type: "POST",
-				url: "@{Application.uploadUncropedAvatarImage()}",
-				data: $(this).serialize(),
-				success: onUploadImageSuccess,
-				error: onUploadImageError
-			});
-		}
-	);
 
-	function onUploadImageSuccess(result) {
-		$("#uploadedImage").src
-	}
-
-	function onUploadImageError() {
-		alert("Error while uploading image");
-	}
-*/	
 --></script>

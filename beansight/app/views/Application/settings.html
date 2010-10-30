@@ -1,29 +1,92 @@
 #{extends 'main.html' /}
 #{set title:user.userName + ' Settings'/}
 
-#{set 'moreScripts'}
-<script type="text/javascript" src="@{'/public/javascripts/fancybox/jquery.fancybox-1.3.1.pack.js'}"></script>
-<link rel="stylesheet" href="@{'/public/javascripts/fancybox/jquery.fancybox-1.3.1.css'}" type="text/css" media="screen" /> 	 
+#{set 'moreScripts'}	
+	<script src="@{'/public/javascripts/jquery-ui-1.8.5.custom.min.js'}" type="text/javascript" charset="utf-8"></script>
+	<script src="@{'/public/javascripts/jquery.imgareaselect.pack.js'}" type="text/javascript" charset="utf-8"></script>
+#{/set}
+#{set 'moreStyles'}
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/jquery-ui/smoothness/jquery-ui-1.8.5.custom.css'}">
+    <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
 #{/set}
 
 <script language="Javascript">
+var imgAreaSelect;
+function onOpenModalCrop(event, ui) {
+	imgAreaSelect = $('#uploadedImage').imgAreaSelect({ 
+		instance:		true,
+		aspectRatio: 	'1:1', 
+		handles:		true,
+		fadeSpeed: 		200,
+		onSelectChange: preview
+	});
+}
+
+function onCloseModalCrop(event, ui) {
+	imgAreaSelect.setOptions({
+		remove:	true,
+		hide: 	true
+	});	
+	imgAreaSelect.update();
+
+	imgAreaSelect = null;
+}
 
 $(document).ready(function() {
 
+	$( "#modal-crop" ).dialog({
+		height: 	500,
+		width:		600,
+		modal: 		true,
+		open:		onOpenModalCrop,
+		beforeclose:onCloseModalCrop,
+		autoOpen: 	false,
+		resizable:	false,
+		draggable:	false
+	});
 	
-	/* Apply fancybox to multiple items */
-	
-	$("#uploadNewImage").fancybox({
-		'transitionIn'	:	'elastic',
-		'transitionOut'	:	'elastic',
-		'speedIn'		:	600, 
-		'speedOut'		:	200, 
-		'overlayShow'	:	false,
-		'width' 		: 	800,
-		'height' 		: 	600
+	$('#cropAvatar').click(function() {  
+		$('#modal-crop').dialog('open');  
+    }); 
+
+	$("#cropForm").submit(function() {
+		$.post('@{Application.cropImage()}', $("#cropForm").serialize(), refreshAvatarImage);
+		$('#modal-crop').dialog('close');
+		return false;
 	});
 	
 });
+
+function refreshAvatarImage() {
+	var timestamp = new Date().getTime();
+	$("#userAvatarImage").attr('src', '@{Application.showAvatar(user.id)}' + '&time=' + timestamp );
+}
+
+function preview(img, selection) {
+	 
+	 if (!selection.width || !selection.height)
+	 return;
+	 
+	 var scaleX = 100 / selection.width;
+	 var scaleY = 100 / selection.height;
+
+	 $('#preview img').css({
+		 width: Math.round(scaleX * 300),
+		 height: Math.round(scaleY * $("#uploadedImage").height()),
+		 marginLeft: -Math.round(scaleX * selection.x1),
+		 marginTop: -Math.round(scaleY * selection.y1)
+	 });
+
+	 $('#x1').val(selection.x1);
+	 $('#y1').val(selection.y1);
+	 $('#x2').val(selection.x2);
+	 $('#y2').val(selection.y2);
+	 $('#imageW').val(300);
+	 $('#imageH').val($("#uploadedImage").height());
+	 
+}
+
+
 
 </script>
 
@@ -32,34 +95,66 @@ $(document).ready(function() {
     #{form @Application.saveSettings(), enctype:'multipart/form-data'}
     	<p>
     		<label for="userName">Username</label>
-        	<input type="text" name="user.userName" value="${user.userName}"/>
+        	<input type="text" name="userName" value="${user.userName}"/>
         </p>
         <p>
             <label for="userName">First name</label>
-            <input type="text" name="user.firstName" value="${user.firstName}"/>
+            <input type="text" name="firstName" value="${user.firstName}"/>
         </p>
         <p>
             <label for="userName">Last name</label>
-            <input type="text" name="user.lastName" value="${user.lastName}"/>
+            <input type="text" name="lastName" value="${user.lastName}"/>
         </p>
     	<p>
 	        <label for="avatar">avatar :</label>
-	        <input type="hidden" name="user.id" value="${user.id}"/>
-	        <input type="file" id="avatar" name="user.avatar">
+	        <input type="hidden" name="id" value="${user.id}"/>
+	        <input type="file" id="avatar" name="originalImage">
 	    </p>
     	<p>
-	        <img src="@{Application.showAvatar(user.id)}" width="60px" />
+	        <img id="userAvatarImage" src="@{Application.showAvatar(user.id)}" width="60px" />
         </p>
 		<p>
-        	<a class="iframe" id="uploadNewImage" href="@{Application.uploadAndCropAvatarScreen()}">upload an image and crop a new avatar</a>
+        	<a id="cropAvatar" href="#" onclick="openModalCrop(); return false;">Crop avatar image</a>
         </p>
         <p>
         	<input type="submit">
         </p>
     #{/form}
-	
 
-	
+</div>
 
+
+<!-- HTML for the modal dialog used to crop user original image -->
+<div id="modal-crop" title="Crop image">
+ 	<div style="float: left; width: 75%;">
+  		<p class="instructions">
+   			Click and drag on the image to select an area. 
+  		</p>
+ 
+		<div style="margin: 0pt 0.3em; width: 300px; height: auto;" class="frame">
+	   		<img src="@{Application.displayOriginalUncropedImage()}" id="uploadedImage" style="width:300px;height:auto;">
+	  	</div>	
+	</div>		
+	
+	<div style="float: left; width: 25%;">
+		<p style="font-size: 110%; font-weight: bold; padding-left: 0.1em;">
+		 Selection Preview
+		</p>
+	
+		<div style="margin: 0pt 1em; width: 100px; height: 100px;" class="frame">
+	   		<div style="width: 100px; height: 100px; overflow: hidden;" id="preview">
+				<img src="@{Application.displayOriginalUncropedImage()}" id="preview" style="width:100px;height:100px;"/>
+	   		</div>
+		</div>	
+		<form id="cropForm">
+			<input type="hidden" id="x1" name="x1"/>
+			<input type="hidden" id="y1" name="y1"/>
+			<input type="hidden" id="x2" name="x2"/>
+			<input type="hidden" id="y2" name="y2"/>
+			<input type="hidden" id="imageW" name="imageW"/>
+			<input type="hidden" id="imageH" name="imageH"/>				
+			<input type="submit"/> 
+		</form>	
+	</div>
 
 </div>
