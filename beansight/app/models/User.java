@@ -35,27 +35,27 @@ public class User extends Model {
 	public String lastName;
 	public String password;
 	public String email;
-	
-	//use the @Embedded annotation to store avatars in the database
+
+	// use the @Embedded annotation to store avatars in the database
 	public FileAttachment avatar;
-	
+
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.
-	
+
 	/** the global score for this user */
 	@Field
 	public double score;
-	
+
 	/** list of scores of this users in all the categories */
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public List<UserCategoryScore> categoryScores;
-	
+
 	/** list of insights created by this user */
-	@OneToMany(mappedBy="creator", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
 	public List<Insight> createdInsights;
-	
+
 	/** every votes of the current user */
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public List<Vote> votes;
 
 	/** the insights followed by this user */
@@ -65,109 +65,116 @@ public class User extends Model {
 	/** the users followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<User> followedUsers;
-	
+
 	/** the users you follow this user */
-	@ManyToMany(mappedBy="followedUsers", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "followedUsers", cascade = CascadeType.ALL)
 	public List<User> followers;
-	
-	/** the comments  */
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+
+	/** the comments */
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public List<Comment> comments;
-	
-    public User(String email, String userName, String password) {
-        this.email = email;
-        this.password = Crypto.passwordHash(password);
-        this.userName = userName;
-        this.votes = new ArrayList<Vote>();
-        this.createdInsights = new ArrayList<Insight>();
-        this.followedInsights = new ArrayList<Insight>();
-        this.crdate = new Date();
-        
-        this.score = 0;
-        this.categoryScores = new ArrayList<UserCategoryScore>();
-    }
 
-    public String toString() {
-        return userName;
-    }
-    
-    /**
-     * Return true if the given email / password is valid
-     * 
-     * @param email
-     * @param password
-     * @return true if authenticated, false otherwise
-     */
-    public static boolean authenticate(String email, String password) {
-    	User user = find("email=? and password=?", email, Crypto.passwordHash(password)).first();
-    	if (user!=null) {
-    		return true;
-    	}
+	public User(String email, String userName, String password) {
+		this.email = email;
+		this.password = Crypto.passwordHash(password);
+		this.userName = userName;
+		this.votes = new ArrayList<Vote>();
+		this.createdInsights = new ArrayList<Insight>();
+		this.followedInsights = new ArrayList<Insight>();
+		this.crdate = new Date();
 
-    	return false;
-    }
-	
-    public Date getCrdate() {
+		this.score = 0;
+		this.categoryScores = new ArrayList<UserCategoryScore>();
+	}
+
+	public String toString() {
+		return userName;
+	}
+
+	/**
+	 * Return true if the given email / password is valid
+	 * 
+	 * @param email
+	 * @param password
+	 * @return true if authenticated, false otherwise
+	 */
+	public static boolean authenticate(String email, String password) {
+		User user = find("email=? and password=?", email,
+				Crypto.passwordHash(password)).first();
+		if (user != null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public Date getCrdate() {
 		return crdate;
 	}
 
 	/**
-     * Static method to get a User instance given his username
-     * 
-     * @param userName
-     * @return
-     */
-    public static User findByUserName(String userName) {
-    	return find("userName = ?", userName).first();
-    }
+	 * Static method to get a User instance given his username
+	 * 
+	 * @param userName
+	 * @return
+	 */
+	public static User findByUserName(String userName) {
+		return find("userName = ?", userName).first();
+	}
 
-    /**
-     * Call this method to create a new insight that will be
-     * automatically owned by the current user.
-     * 
-     * @param insightContent: the content text of this insight
-     * @param endDate: date this insight should end 
-     * @param tagLabelList: a comma separated list of tags
-     */
-    public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long cateopryId) {
-    	
-    	Category category = Category.findById(cateopryId);
-    	// exception if null
-    	
-    	Insight i = new Insight(this, insightContent, endDate, category);
-    	i.save();
-    	i.addTags(tagLabelList, this);
-    	
-    	this.createdInsights.add(i);
-    	// agree with this insight
-    	try {
+	/**
+	 * Call this method to create a new insight that will be automatically owned
+	 * by the current user.
+	 * 
+	 * @param insightContent
+	 *            : the content text of this insight
+	 * @param endDate
+	 *            : date this insight should end
+	 * @param tagLabelList
+	 *            : a comma separated list of tags
+	 */
+	public Insight createInsight(String insightContent, Date endDate,
+			String tagLabelList, long cateopryId) {
+
+		Category category = Category.findById(cateopryId);
+		// exception if null
+
+		Insight i = new Insight(this, insightContent, endDate, category);
+		i.save();
+		i.addTags(tagLabelList, this);
+
+		this.createdInsights.add(i);
+		// agree with this insight
+		try {
 			this.voteToInsight(i.id, State.AGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			e.printStackTrace();
 		}
-    	
-    	this.save();
-    	
-    	return i;
-    }
-    
-    /**
-     * Call this method to set a vote for one insight for the
-     * current user.     
-     * 
-     * @param insightId : id of the insight user is voting for.
-     * @param voteState State.AGREE or State.DISAGREE
-     */
-	public void voteToInsight(Long insightId, State voteState) throws CannotVoteTwiceForTheSameInsightException  {
+
+		this.save();
+
+		return i;
+	}
+
+	/**
+	 * Call this method to set a vote for one insight for the current user.
+	 * 
+	 * @param insightId
+	 *            : id of the insight user is voting for.
+	 * @param voteState
+	 *            State.AGREE or State.DISAGREE
+	 */
+	public void voteToInsight(Long insightId, State voteState)
+			throws CannotVoteTwiceForTheSameInsightException {
 		Insight insight = Insight.findById(insightId);
 		Vote vote = Vote.findLastVoteByUserAndInsight(this.id, insightId);
 		if (vote != null) {
 			// there are only idiots who do not change their minds
 			if (vote.state.equals(voteState)) {
-				// voting twice for the same side ... 
+				// voting twice for the same side ...
 				throw new CannotVoteTwiceForTheSameInsightException();
 			} else {
-				// historized the current vote 
+				// historized the current vote
 				vote.status = Status.HISTORIZED;
 				vote.save();
 				// and create a new one
@@ -182,7 +189,7 @@ public class User extends Model {
 					insight.agreeCount--;
 					insight.disagreeCount++;
 				}
-                                insight.lastUpdated = new Date();
+				insight.lastUpdated = new Date();
 				insight.save();
 			}
 		} else {
@@ -194,80 +201,87 @@ public class User extends Model {
 			} else {
 				insight.disagreeCount++;
 			}
-                        insight.lastUpdated = new Date();
+			insight.lastUpdated = new Date();
 			insight.save();
-			
+
 		}
-		
+
 	}
 
-	
 	/**
-	 * Tells if the given insight is already in the current user followed insight list. 
+	 * Tells if the given insight is already in the current user followed
+	 * insight list.
+	 * 
 	 * @param insight
 	 * @return
 	 */
 	public boolean isFollowingInsight(Insight insight) {
-		if(followedInsights.contains(insight)) {
+		if (followedInsights.contains(insight)) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Call this method to add the given insight in the current user followed insight list 
+	 * Call this method to add the given insight in the current user followed
+	 * insight list
+	 * 
 	 * @param insightId
 	 */
-	public void startFollowingThisInsight(Long insightId) throws UserIsAlreadyFollowingInsightException {
+	public void startFollowingThisInsight(Long insightId)
+			throws UserIsAlreadyFollowingInsightException {
 		Insight insight = Insight.findById(insightId);
-		
+
 		// If we are already following the insight throw a business exception
-		if (isFollowingInsight(insight)==true) {
+		if (isFollowingInsight(insight) == true) {
 			throw new UserIsAlreadyFollowingInsightException();
 		}
-		
+
 		followedInsights.add(insight);
 		save();
 		insight.followers.add(this);
 		insight.save();
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param insightId
 	 */
 	public void stopFollowingThisInsight(Long insightId) {
 		Insight insight = Insight.findById(insightId);
-		
+
 		// If we were not following the insight just do nothing ...
-		if (isFollowingInsight(insight)==false) {
+		if (isFollowingInsight(insight) == false) {
 			return;
 		}
-		
+
 		followedInsights.remove(insight);
 		save();
 		insight.followers.remove(this);
 		insight.save();
 	}
-	
+
 	/**
-	 * is this user following the given user 
-	 * @param user to check
+	 * is this user following the given user
+	 * 
+	 * @param user
+	 *            to check
 	 */
 	public boolean isFollowingUser(User user) {
-		if(followedUsers.contains(user)) {
+		if (followedUsers.contains(user)) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
-	 * This user start following the given user 
-	 * @param user: User to follow
+	 * This user start following the given user
+	 * 
+	 * @param user
+	 *            : User to follow
 	 */
 	public void startFollowingThisUser(User user) {
-		if(isFollowingUser(user)==true){
+		if (isFollowingUser(user) == true) {
 			return;
 		}
 		followedUsers.add(user);
@@ -278,10 +292,11 @@ public class User extends Model {
 
 	/**
 	 * This user stops following the given user
+	 * 
 	 * @param insightId
 	 */
 	public void stopFollowingThisUser(User user) {
-		if(isFollowingUser(user)==false){
+		if (isFollowingUser(user) == false) {
 			return;
 		}
 		followedUsers.remove(user);
@@ -289,52 +304,53 @@ public class User extends Model {
 		user.followers.remove(this);
 		user.save();
 	}
-	
+
 	public void computeScores() {
 		this.computeUserScore();
 		for (Category category : Category.getAllCategories()) {
 			this.computeCategoryScore(category);
 		}
 	}
-	
+
 	public void computeUserScore() {
 		// TODO: insert here the score computation algorithm
 		this.score = Math.random();
 	}
-	
+
 	public void computeCategoryScore(Category category) {
 		// look if this user has a score for this category
-		boolean newCategory = true; 
-		for( UserCategoryScore userCatScore : categoryScores ) {
-			if(userCatScore.category == category) {
+		boolean newCategory = true;
+		for (UserCategoryScore userCatScore : categoryScores) {
+			if (userCatScore.category == category) {
 				newCategory = false;
 				userCatScore.score = Math.random();
-				// TODO: insert here the score computation algorithm for a given category
+				// TODO: insert here the score computation algorithm for a given
+				// category
 			}
 		}
 		// if not, create the link between user and category
-		if(newCategory) {
-			UserCategoryScore newUserCatScore = new UserCategoryScore(this, category);
+		if (newCategory) {
+			UserCategoryScore newUserCatScore = new UserCategoryScore(this,
+					category);
 			newUserCatScore.score = Math.random();
 			categoryScores.add(newUserCatScore);
 		}
 	}
-	
+
 	/**
 	 * get the list of the n last insights of this User (insights he voted for)
-	 * @param n: the maximum number of votes to return
+	 * 
+	 * @param n
+	 *            : the maximum number of votes to return
 	 * @return: the list of n most recent active insights of this user
 	 */
-	public List<Insight> getLastInsights(int n){
+	public List<Insight> getLastInsights(int n) {
 		return Vote.find(
-				"select i from Insight i "
-				+ "join i.votes v "
-				+ "join v.user u "
-				+ "where v.status = :status and u.id=:userId "
-				+ "order by v.creationDate DESC"
-				)
-				.bind("status", Status.ACTIVE).bind("userId", this.id)
-				.fetch(n);
+				"select i from Insight i " + "join i.votes v "
+						+ "join v.user u "
+						+ "where v.status = :status and u.id=:userId "
+						+ "order by v.creationDate DESC").bind("status",
+				Status.ACTIVE).bind("userId", this.id).fetch(n);
 	}
-	
+
 }

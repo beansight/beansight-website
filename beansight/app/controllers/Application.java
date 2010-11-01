@@ -326,7 +326,8 @@ public class Application extends Controller {
 		showUser(currentUser.id);
 	}
 
-	public static void saveSettings(Long id, String userName, String firstName, String lastName, File originalImage) {
+	public static void saveSettings(Long id, String userName, String firstName,
+			String lastName, File originalImage) {
 		User user = CurrentUser.getCurrentUser();
 		// User should be the same as the one connected
 		if (user.id.equals(id) == false) {
@@ -337,19 +338,19 @@ public class Application extends Controller {
 			File originalImageCopy = new File(FileAttachment.getStore(),
 					"originalImage_" + user.id);
 			Files.copy(originalImage, originalImageCopy);
-			// Default is we resize the originalImage without any modification. 
+			// Default is we resize the originalImage without any modification.
 			// Can be cropped later if necessary since we keep the original
 			boolean deleted = user.avatar.get().delete();
 			System.out.println(deleted);
 			Images.resize(originalImageCopy, user.avatar.get(), 60, 60);
 		}
-		
+
 		user.userName = userName;
 		user.firstName = firstName;
 		user.lastName = lastName;
-		
+
 		user.save();
-		
+
 		settings();
 	}
 
@@ -372,7 +373,6 @@ public class Application extends Controller {
 		notFound();
 	}
 
-
 	/**
 	 * Render the uploaded image so that the user crop his avatar from it
 	 */
@@ -381,7 +381,8 @@ public class Application extends Controller {
 		File tmpFile = new File(FileAttachment.getStore(), "originalImage_"
 				+ user.id);
 		if (!tmpFile.exists()) {
-                    renderBinary(new File(Play.getFile("public/images") + "/unknown.jpg"));
+			renderBinary(new File(Play.getFile("public/images")
+					+ "/unknown.jpg"));
 		}
 		renderBinary(tmpFile);
 	}
@@ -408,12 +409,12 @@ public class Application extends Controller {
 			float ratioX = new Float(originalImageWidth) / imageW;
 			float ratioY = new Float(originalImageHeight) / imageH;
 
-			Images.crop(imageToCrop, user.avatar.get(), Math.round(x1 * ratioX),
-					Math.round(y1 * ratioY), Math.round(x2 * ratioX),
-					Math.round((y2 * ratioY)));
-			
+			Images.crop(imageToCrop, user.avatar.get(),
+					Math.round(x1 * ratioX), Math.round(y1 * ratioY), Math
+							.round(x2 * ratioX), Math.round((y2 * ratioY)));
+
 			Images.resize(user.avatar.get(), user.avatar.get(), 60, 60);
-			
+
 			user.saveAttachment();
 		} catch (IOException e) {
 			e.printStackTrace();
