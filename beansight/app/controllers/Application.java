@@ -368,7 +368,7 @@ public class Application extends Controller {
 		if (user != null && user.avatar.isSet()) {
 			renderBinary(user.avatar.get());
 		}
-		renderBinary(new File(Play.getFile("appImages") + "/unknown.jpg"));
+		renderBinary(new File(Play.getFile("public/images") + "/unknown.jpg"));
 		notFound();
 	}
 
@@ -381,7 +381,7 @@ public class Application extends Controller {
 		File tmpFile = new File(FileAttachment.getStore(), "originalImage_"
 				+ user.id);
 		if (!tmpFile.exists()) {
-			notFound();
+                    renderBinary(new File(Play.getFile("public/images") + "/unknown.jpg"));
 		}
 		renderBinary(tmpFile);
 	}

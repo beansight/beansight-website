@@ -36,8 +36,8 @@ public class User extends Model {
 	public String password;
 	public String email;
 	
-    //use the @Embedded annotation to store avatars in the database
-    public FileAttachment avatar;
+	//use the @Embedded annotation to store avatars in the database
+	public FileAttachment avatar;
 	
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.
@@ -55,7 +55,7 @@ public class User extends Model {
 	public List<Insight> createdInsights;
 	
 	/** every votes of the current user */
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	public List<Vote> votes;
 
 	/** the insights followed by this user */
@@ -153,8 +153,7 @@ public class User extends Model {
     
     /**
      * Call this method to set a vote for one insight for the
-     * current user.
-     * It shouldn't be possible to vote twice for one insight.
+     * current user.     
      * 
      * @param insightId : id of the insight user is voting for.
      * @param voteState State.AGREE or State.DISAGREE
@@ -183,6 +182,7 @@ public class User extends Model {
 					insight.agreeCount--;
 					insight.disagreeCount++;
 				}
+                                insight.lastUpdated = new Date();
 				insight.save();
 			}
 		} else {
@@ -194,6 +194,7 @@ public class User extends Model {
 			} else {
 				insight.disagreeCount++;
 			}
+                        insight.lastUpdated = new Date();
 			insight.save();
 			
 		}
