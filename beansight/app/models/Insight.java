@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import models.Vote.Status;
 
@@ -81,6 +82,10 @@ public class Insight extends Model {
 	/** the last time when someone voted for the insight */
 	public Date lastUpdated;
 
+	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
+	@OrderBy(value = "trendDate")
+	public List<Trend> trends;
+	
 	/**
 	 * Create an insight
 	 * 
@@ -100,6 +105,7 @@ public class Insight extends Model {
 		this.followers = new ArrayList<User>();
 		this.comments = new ArrayList<Comment>();
 		this.category = category;
+		this.trends = new ArrayList<Trend>();
 		this.lastUpdated = new Date();
 	}
 
@@ -266,6 +272,10 @@ public class Insight extends Model {
 		return result;
 	}
 
+	public void addTrend(Trend trend) {
+	    trends.add(trend);
+	}
+	
 	public static class InsightResult {
 
 		public List<Insight> results;

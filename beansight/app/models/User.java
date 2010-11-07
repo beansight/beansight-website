@@ -5,23 +5,20 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import exceptions.CannotVoteTwiceForTheSameInsightException;
-import exceptions.UserIsAlreadyFollowingInsightException;
-
 import models.Vote.State;
 import models.Vote.Status;
-
+import models.oauthclient.Credentials;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 import play.libs.Crypto;
-import play.modules.search.*;
+import play.modules.search.Field;
+import play.modules.search.Indexed;
+import exceptions.CannotVoteTwiceForTheSameInsightException;
+import exceptions.UserIsAlreadyFollowingInsightException;
 
 @Entity
 @Indexed
@@ -35,6 +32,8 @@ public class User extends Model {
 	public String lastName;
 	public String password;
 	public String email;
+	
+	public String twitterUserId;
 
 	// use the @Embedded annotation to store avatars in the database
 	public FileAttachment avatar;
@@ -122,6 +121,17 @@ public class User extends Model {
 		return find("userName = ?", userName).first();
 	}
 
+	   
+	/**
+     * Static method to get a User instance given his username
+     * 
+     * @param userName
+     * @return
+     */
+    public static User findByTwitterUserId(String twitterUserId) {
+        return find("twitterUserId = ?", twitterUserId).first();
+    }
+	
 	/**
 	 * Call this method to create a new insight that will be automatically owned
 	 * by the current user.

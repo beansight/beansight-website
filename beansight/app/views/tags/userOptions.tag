@@ -2,6 +2,7 @@
         #{isNotConnected}
     <span id="signupLink"><a href="" onclick="return false">Sign up</a></span>
     <span id="loginLink"><a href="" onclick="return false">Log in</a></span>
+    <span id="loginLink"><a href="@{TwitterOAuth.loginWithTwitter}">Log in with Twitter</a></span>
         #{/isNotConnected}
         #{isConnected}
             ${controllers.CurrentUser.getCurrentUserName()}

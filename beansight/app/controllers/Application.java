@@ -4,9 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -14,14 +12,12 @@ import models.Category;
 import models.Comment;
 import models.Insight;
 import models.Insight.InsightResult;
+import models.Trend;
 import models.User;
 import models.Vote;
 import models.Vote.State;
-import models.Vote.Status;
-import play.Logger;
 import play.Play;
 import play.data.validation.MaxSize;
-import play.data.validation.Min;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.FileAttachment;
@@ -202,13 +198,17 @@ public class Application extends Controller {
 			User currentUser = CurrentUser.getCurrentUser();
 			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(
 					currentUser.id, id);
-			List<Vote> lastVotes = insight.getLastVotes(5);
-
+			
 			renderArgs.put("currentUser", currentUser);
 			renderArgs.put("lastUserVote", lastUserVote);
-			renderArgs.put("lastVotes", lastVotes);
 		}
-
+		
+		List<Vote> lastVotes = insight.getLastVotes(5);
+		
+        List<List<Long>>  agreeDisagreeTrends = Trend.getNormalizedAgreeDisagreeTrendForInsight(id);
+        
+        renderArgs.put("lastVotes", lastVotes);
+        renderArgs.put("agreeTrends", agreeDisagreeTrends.get(0));
 		render(insight);
 	}
 
@@ -337,12 +337,18 @@ public class Application extends Controller {
 		if (originalImage != null) {
 			File originalImageCopy = new File(FileAttachment.getStore(),
 					"originalImage_" + user.id);
-			Files.copy(originalImage, originalImageCopy);
+//			Files.copy(originalImage, originalImageCopy);
+			originalImage.renameTo(originalImageCopy);
 			// Default is we resize the originalImage without any modification.
 			// Can be cropped later if necessary since we keep the original
-			boolean deleted = user.avatar.get().delete();
-			System.out.println(deleted);
-			Images.resize(originalImageCopy, user.avatar.get(), 60, 60);
+//			if (user.avatar.isSet()) {
+//			    user.avatar.get().delete();
+//			}
+			File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + user.id);
+			Images.resize(originalImageCopy, resizedOriginalImage, 60, 60);
+			user.avatar.set(resizedOriginalImage);
+			user.saveAttachment();
+			resizedOriginalImage.deleteOnExit();
 		}
 
 		user.userName = userName;
@@ -456,5 +462,6 @@ public class Application extends Controller {
 		List<User> users = q.fetch();
 		render(users);
 	}
+
 
 }

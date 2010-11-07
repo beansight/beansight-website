@@ -14,11 +14,13 @@ import play.db.jpa.Model;
 public class Vote extends Model {
 
 	public enum State {
-		AGREE, DISAGREE
+		DISAGREE,     // 0
+		AGREE           // 1
 	}
 
 	public enum Status {
-		ACTIVE, HISTORIZED
+		HISTORIZED,   // 0
+		ACTIVE            // 1
 	}
 
 	@ManyToOne

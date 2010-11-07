@@ -11,7 +11,10 @@ import play.mvc.Controller;
 public class CurrentUser extends Controller {
 
     public static User getCurrentUser() {
-    	return User.find("byEmail", Security.connected()).first();
+        if (Boolean.parseBoolean(session.get("isTwitterUser"))) {
+            return User.findByUserName(Security.connected());
+        }
+        return User.find("byEmail", Security.connected()).first();    
     }
     
     public static String getCurrentUserName() {

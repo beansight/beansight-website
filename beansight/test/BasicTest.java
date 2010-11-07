@@ -1,15 +1,20 @@
-import org.joda.time.LocalDate;
-import org.junit.*;
+import java.util.List;
 
-import exceptions.CannotVoteTwiceForTheSameInsightException;
-import exceptions.UserIsAlreadyFollowingInsightException;
-
-import java.util.*;
-
-import play.test.*;
-import models.*;
+import models.Category;
+import models.Insight;
+import models.User;
+import models.Vote;
 import models.Vote.State;
 import models.Vote.Status;
+
+import org.joda.time.LocalDate;
+import org.junit.Before;
+import org.junit.Test;
+
+import play.test.Fixtures;
+import play.test.UnitTest;
+import exceptions.CannotVoteTwiceForTheSameInsightException;
+import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class BasicTest extends UnitTest {
 
