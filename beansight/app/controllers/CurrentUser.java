@@ -11,8 +11,8 @@ import play.mvc.Controller;
 public class CurrentUser extends Controller {
 
     public static User getCurrentUser() {
-        if (Boolean.parseBoolean(session.get("isTwitterUser"))) {
-            return User.findByUserName(Security.connected());
+        if ( Boolean.parseBoolean(session.get("isTwitterUser")) ) {
+            return User.findByTwitterUserId(session.get("twitterUserId"));
         }
         return User.find("byEmail", Security.connected()).first();    
     }

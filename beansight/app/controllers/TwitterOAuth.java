@@ -38,13 +38,15 @@ public class TwitterOAuth extends Controller {
         String twitterUserId = client.getProvider().getResponseParameters().get("user_id");
         String twitterScreenName = client.getProvider().getResponseParameters().get("screen_name");
 
-        User twitterUser = User.findByUserName(twitterScreenName);
+        User twitterUser = User.findByTwitterUserId(twitterUserId);
 
         // If this is the first time this user uses his twitter account to
         // connect to beansight
         // then create a beansight account linked to his twitter account
         if (null == twitterUser) {
             twitterUser = new User("", twitterScreenName, "");
+            twitterUser.twitterScreenName = twitterScreenName;
+            twitterUser.twitterUserId = twitterUserId;
             twitterUser.save();
 
             // Exemple pour appeler l'api twitter :
@@ -53,11 +55,15 @@ public class TwitterOAuth extends Controller {
             // String response = client.getConsumer(creds).sign(WS.url(url),
             // "GET").get().getString();
             // System.out.println(response);
+        } else {
+            // update the twitter screen name
+            twitterUser.twitterScreenName = twitterScreenName;
+            twitterUser.save();
         }
 
         session.put("isTwitterUser", Boolean.TRUE);
         session.put("twitterUserId", twitterUserId);
-        session.put("username", twitterScreenName);
+        session.put("username", twitterUser.userName);
 
         // redirect(callback);
         Logger.info("Callback end");

@@ -34,6 +34,7 @@ public class User extends Model {
 	public String email;
 	
 	public String twitterUserId;
+	public String twitterScreenName;
 
 	// use the @Embedded annotation to store avatars in the database
 	public FileAttachment avatar;
