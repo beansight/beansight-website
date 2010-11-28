@@ -272,10 +272,46 @@ public class Insight extends Model {
 		return result;
 	}
 
+	public void createTrendSnapshot() {
+	    addTrend(new Trend(new Date(), this, this.agreeCount, this.disagreeCount));
+	}
+	
 	public void addTrend(Trend trend) {
 	    trends.add(trend);
 	}
 	
+    public static long getTrendCountForInsight(long insightId) {
+        return find("select count(t) from Trend t join t.insight i where i.id = :insightId").bind("insightId", insightId).first();
+   }
+	
+    /**
+     * 
+     * 
+     * @param horizontalDefinition Number of horizontal value that will be used to create the charts
+     * @return
+     */
+    public List<Double> getAgreeRatioTrends(long horizontalDefinition) {
+        long trendsCount = getTrendCountForInsight(this.id);
+                
+        List<Double> agreeTrends;
+        if (trendsCount <= horizontalDefinition) {
+            agreeTrends = find("select t.agreeRatio from Trend t join t.insight i where i.id = :insightId order by t.trendDate").bind("insightId", this.id)
+                    .fetch();
+        } else {
+            long incrementSize = (trendsCount - 2) / horizontalDefinition;
+            List<Long> indexList = new ArrayList<Long>((int)horizontalDefinition);
+            for (int i = 1 ; i<horizontalDefinition ; i++) {
+                indexList.add(i * incrementSize + 1);
+            }
+            
+            agreeTrends = find(
+                    "select t.agreeRatio from Trend t join t.insight i where i.id = :insightId and t.relativeIndex in (:indexList) order by t.trendDate")
+                    .bind("insightId", this.id).bind("indexList", indexList).fetch();
+        }
+
+        return agreeTrends;
+    }
+    
 	public static class InsightResult {
 
 		public List<Insight> results;

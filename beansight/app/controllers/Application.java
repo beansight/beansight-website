@@ -205,10 +205,8 @@ public class Application extends Controller {
 		
 		List<Vote> lastVotes = insight.getLastVotes(5);
 		
-        List<List<Long>>  agreeDisagreeTrends = Trend.getNormalizedAgreeDisagreeTrendForInsight(id);
-        
         renderArgs.put("lastVotes", lastVotes);
-        renderArgs.put("agreeTrends", agreeDisagreeTrends.get(0));
+        renderArgs.put("agreeTrends", insight.getAgreeRatioTrends(100));
 		render(insight);
 	}
 
@@ -337,13 +335,9 @@ public class Application extends Controller {
 		if (originalImage != null) {
 			File originalImageCopy = new File(FileAttachment.getStore(),
 					"originalImage_" + user.id);
-//			Files.copy(originalImage, originalImageCopy);
 			originalImage.renameTo(originalImageCopy);
 			// Default is we resize the originalImage without any modification.
 			// Can be cropped later if necessary since we keep the original
-//			if (user.avatar.isSet()) {
-//			    user.avatar.get().delete();
-//			}
 			File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + user.id);
 			Images.resize(originalImageCopy, resizedOriginalImage, 60, 60);
 			user.avatar.set(resizedOriginalImage);

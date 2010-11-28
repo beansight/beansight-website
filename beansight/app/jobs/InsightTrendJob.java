@@ -8,7 +8,7 @@ import models.Trend;
 import play.jobs.Every;
 import play.jobs.Job;
 
-@Every("12h")
+@Every("24h")
 public class InsightTrendJob extends Job {
 
     @Override
