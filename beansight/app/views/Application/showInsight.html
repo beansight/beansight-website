@@ -23,6 +23,8 @@
     <p>Created ${insight.creationDate.since(true)} by #{userInline user:insight.creator /}</p>
     <p>End ${insight.endDate.format("dd MMMM yyyy")}</p>
     
+    <p>Language: ${insight.lang}</p>
+    
     #{if lastUserVote != null}
     	<p>Since ${lastUserVote.creationDate.format("dd MMMM yyyy")} you #{if lastUserVote.state.equals(models.Vote.State.AGREE)} agree #{/if} #{else} disagree #{/else} with this insight.</p> 
     #{/if}

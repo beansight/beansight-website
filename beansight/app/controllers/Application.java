@@ -129,7 +129,8 @@ public class Application extends Controller {
 	public static void createInsight(
 			@Required @MinSize(6) @MaxSize(140) String insightContent,
 			@Required Date endDate, @MaxSize(100) String tagLabelList,
-			@Required long categoryId) {
+			@Required long categoryId, String lang) {
+		
 		// Check if the given category Id corresponds to a category
 		Category category = Category.findById(categoryId);
 		if (category == null) {
@@ -142,8 +143,7 @@ public class Application extends Controller {
 		}
 
 		User currentUser = CurrentUser.getCurrentUser();
-		Insight insight = currentUser.createInsight(insightContent, endDate,
-				tagLabelList, categoryId);
+		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId, lang);
 
 		showInsight(insight.id);
 	}

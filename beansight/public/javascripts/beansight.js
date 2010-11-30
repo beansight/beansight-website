@@ -67,11 +67,22 @@ function clearForm( context ) {
      .removeAttr('selected');
 }
 
-
 // Overload jQuery error
-
 /** Called when an AJAX request returns an error */
 $("#error").ajaxError(function(event, request, settings){
     $(this).text('Sorry, an error occured during last action.');
 });
 
+// Execute scripts after the document creation
+$(document).ready(function() {
+	
+	$("#insightCreationLangEn").click( function() {
+		$("#insightCreationLang").val("en");
+		return false;
+	});
+	$("#insightCreationLangFr").click( function() {
+		$("#insightCreationLang").val("fr");
+		return false;
+	});
+	
+});

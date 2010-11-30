@@ -17,6 +17,7 @@ import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.JPASupport;
 import play.db.jpa.Model;
+import play.i18n.Lang;
 import play.modules.search.*;
 import play.modules.search.Search.Query;
 
@@ -43,6 +44,9 @@ public class Insight extends Model {
 	@Required
 	public String content;
 
+	/** the language of the content of this insight */
+	public String lang;
+	
 	/** Every vote of the current insight */
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
 	public List<Vote> votes;
@@ -97,7 +101,7 @@ public class Insight extends Model {
 	 * @param category
 	 *            : the category of the insight
 	 */
-	public Insight(User creator, String content, Date endDate, Category category) {
+	public Insight(User creator, String content, Date endDate, Category category, String lang) {
 		this.creator = creator;
 		this.creationDate = new Date();
 		this.endDate = endDate;
@@ -107,6 +111,7 @@ public class Insight extends Model {
 		this.category = category;
 		this.trends = new ArrayList<Trend>();
 		this.lastUpdated = new Date();
+		this.lang = lang;
 	}
 
 	/**

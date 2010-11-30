@@ -49,7 +49,7 @@ public class BasicTest extends UnitTest {
     public void createAnInsight() {
     	Category categoryWeb = Category.find("byLabel", "Web").first();
         assertNotNull(categoryWeb);
-        Insight insight = TestHelper.getTestUser().createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id);
+        Insight insight = TestHelper.getTestUser().createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id, "en");
 
         assertEquals(insight, Insight.findById(insight.id));
         
@@ -64,7 +64,7 @@ public class BasicTest extends UnitTest {
         
         Category categoryWeb = Category.findByLabel("Web");
 
-        Insight insight = user.createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id);
+        Insight insight = user.createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id, "en");
         assertNotNull(insight);
         assertNotNull(insight.id);
         
@@ -86,7 +86,7 @@ public class BasicTest extends UnitTest {
         user.save();
         Category categoryWeb = Category.findByLabel("Web");
         
-        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "", categoryWeb.id);
+        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "", categoryWeb.id, "en");
         
         // use the user test to vote for the created insight
         User userTest = TestHelper.getTestUser();
@@ -128,7 +128,7 @@ public class BasicTest extends UnitTest {
         user.save();
         Category categoryWeb = Category.findByLabel("Web");
         
-        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "brag", categoryWeb.id);
+        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "brag", categoryWeb.id, "en");
         
         User userTest = TestHelper.getTestUser();
         

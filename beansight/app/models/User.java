@@ -14,6 +14,7 @@ import models.Vote.Status;
 import models.oauthclient.Credentials;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
+import play.i18n.Lang;
 import play.libs.Crypto;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
@@ -36,6 +37,11 @@ public class User extends Model {
 	public String twitterUserId;
 	public String twitterScreenName;
 
+	/** Language the user wants his UI to be displayed in */
+	public String uiLang;
+	/** Preferred language the user is writing insight in */
+	public String insightLang;
+	
 	// use the @Embedded annotation to store avatars in the database
 	public FileAttachment avatar;
 
@@ -78,6 +84,8 @@ public class User extends Model {
 		this.email = email;
 		this.password = Crypto.passwordHash(password);
 		this.userName = userName;
+		this.uiLang = Lang.get();
+		this.insightLang = this.uiLang;
 		this.votes = new ArrayList<Vote>();
 		this.createdInsights = new ArrayList<Insight>();
 		this.followedInsights = new ArrayList<Insight>();
@@ -85,6 +93,7 @@ public class User extends Model {
 
 		this.score = 0;
 		this.categoryScores = new ArrayList<UserCategoryScore>();
+		
 	}
 
 	public String toString() {
@@ -137,20 +146,19 @@ public class User extends Model {
 	 * Call this method to create a new insight that will be automatically owned
 	 * by the current user.
 	 * 
-	 * @param insightContent
-	 *            : the content text of this insight
-	 * @param endDate
-	 *            : date this insight should end
-	 * @param tagLabelList
-	 *            : a comma separated list of tags
+	 * @param insightContent : the content text of this insight
+	 * @param endDate : date this insight should end
+	 * @param tagLabelList : a comma separated list of tags
 	 */
-	public Insight createInsight(String insightContent, Date endDate,
-			String tagLabelList, long cateopryId) {
-
+	public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long cateopryId, String lang) {
+		if(lang == null) { // if lang is not specified, use the language from the user's preferred insight language
+			lang = this.insightLang;
+		}
+		
 		Category category = Category.findById(cateopryId);
-		// exception if null
+		// TODO exception if null
 
-		Insight i = new Insight(this, insightContent, endDate, category);
+		Insight i = new Insight(this, insightContent, endDate, category, lang);
 		i.save();
 		i.addTags(tagLabelList, this);
 

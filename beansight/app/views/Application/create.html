@@ -38,6 +38,7 @@
             <label for="category">Category:</label>
                #{selectCategories none:true/}
                #{if errors.forKey('categoryId')}<span class="error">${errors.forKey('categoryId')}</span>#{/if}
+            <input style="display:none;" id="insightCreationLang" name="lang" value="en" /> <a id="insightCreationLangEn" href="" onclick="return false;">en</a> <a id="insightCreationLangFr" href="" onclick="return false;">fr</a>
         </p>
         <p>
             <input type="submit" value="Create" />
