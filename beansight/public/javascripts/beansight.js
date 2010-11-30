@@ -76,12 +76,17 @@ $("#error").ajaxError(function(event, request, settings){
 // Execute scripts after the document creation
 $(document).ready(function() {
 	
-	$("#insightCreationLangEn").click( function() {
-		$("#insightCreationLang").val("en");
+	$('#insightCreationLangEn').click( function() {
+		$('.insightCreationLangChoose img').removeClass('selected');
+		$('#insightCreationLangEn img').addClass('selected');
+		$('#insightCreationLang').val('en');
 		return false;
 	});
-	$("#insightCreationLangFr").click( function() {
-		$("#insightCreationLang").val("fr");
+	$('#insightCreationLangFr').click( function() {
+		$('.insightCreationLangChoose img').removeClass('selected');
+		$('#insightCreationLangFr img').addClass('selected');
+		$('#insightCreationLang').val('fr')
+			.addClass('selected');
 		return false;
 	});
 	

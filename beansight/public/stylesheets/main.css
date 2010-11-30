@@ -287,3 +287,11 @@ a.icon.favorite.active {
 }
 .insight-line .content {
 }
+
+.insightCreationLangChoose img{
+    padding: 5px;	
+}
+
+.insightCreationLangChoose img.selected{
+    background-color: #D6E6D3;
+}
