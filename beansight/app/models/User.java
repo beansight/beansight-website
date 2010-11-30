@@ -66,7 +66,7 @@ public class User extends Model {
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<User> followedUsers;
 
-	/** the users you follow this user */
+	/** the users who follow this user */
 	@ManyToMany(mappedBy = "followedUsers", cascade = CascadeType.ALL)
 	public List<User> followers;
 
