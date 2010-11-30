@@ -5,36 +5,36 @@ import java.util.List;
 
 import models.Insight;
 import models.Trend;
+import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
 
 @Every("24h")
 public class InsightTrendJob extends Job {
 
+	public static final int INSIGHT_NUMBER_TO_PROCESS = 100;
+	
     @Override
     public void doJob() throws Exception {
-        System.out.println("InsightTrendJob begin");
-        
-        int pageSize = 100;
-        long insightCount = Insight.count();
-        int pageCount = (int)(insightCount / pageSize);
-        
-        for (int i = 1; i <= pageCount; i++) {
-            List<Insight> insights = Insight.all().fetch((i-1)*pageCount+1, i*pageCount);
-            processInsights(insights);
-        }
-        
-        List<Insight> insights = Insight.all().fetch(pageCount*pageSize+1, (int)insightCount);
-        processInsights(insights);
-        
-        System.out.println("InsightTrendJob end");
+    	Logger.info("InsightTrendJob begin");
+    	
+    	int page = 1;
+    	List<Insight> insights = Insight.all().fetch(page, INSIGHT_NUMBER_TO_PROCESS);
+    	while(insights.size() > 0) {
+    		processInsights(insights);
+            Logger.info("InsightTrendJob: page " + page);
+    		page++;
+    		insights = Insight.all().fetch(page, INSIGHT_NUMBER_TO_PROCESS);
+    	}
+    	
+        Logger.info("InsightTrendJob end");
     }
     
     
     private void processInsights(List<Insight> insights) {
         for (Insight insight : insights) {
-            System.out.println("processing insight : " + insight.content);
-            insight.addTrend(new Trend(new Date(), insight, insight.agreeCount, insight.disagreeCount));
+            Logger.info("Trend Snapshot of Insight: " + insight.content);
+            insight.createTrendSnapshot();
             insight.save();
         }
     }

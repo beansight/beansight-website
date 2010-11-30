@@ -24,15 +24,10 @@ public class Trend extends Model {
     public Trend(Date date, Insight insight,  long agreeCount, long disagreeCount) {
         this.trendDate = date;
         this.insight = insight;
-        this.relativeIndex = getTrendCountForInsight(insight.id);
+        this.relativeIndex = insight.getTrendCount();
         this.agreeCount = agreeCount;
         this.disagreeCount = disagreeCount;
         this.agreeRatio = 100 * (agreeCount)/ ((double)agreeCount + disagreeCount);
     }
-
-    public static long getTrendCountForInsight(long insightId) {
-         return find("select count(t) from Trend t join t.insight i where i.id = :insightId").bind("insightId", insightId).first();
-    }
-    
  
 }

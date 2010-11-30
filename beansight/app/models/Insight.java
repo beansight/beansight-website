@@ -272,16 +272,17 @@ public class Insight extends Model {
 		return result;
 	}
 
+	/**
+	 * Create a snapshot of this insight state, store it in a Trend
+	 */
 	public void createTrendSnapshot() {
-	    addTrend(new Trend(new Date(), this, this.agreeCount, this.disagreeCount));
+		this.trends.add(new Trend(new Date(), this, this.agreeCount, this.disagreeCount));
 	}
 	
-	public void addTrend(Trend trend) {
-	    trends.add(trend);
-	}
-	
-    public static long getTrendCountForInsight(long insightId) {
-        return find("select count(t) from Trend t join t.insight i where i.id = :insightId").bind("insightId", insightId).first();
+    public long getTrendCount() {
+    	// was:
+    	// return find("select count(t) from Trend t join t.insight i where i.id = :insightId").bind("insightId", this.id).first();
+    	return this.trends.size();
    }
 	
     /**
@@ -291,7 +292,7 @@ public class Insight extends Model {
      * @return
      */
     public List<Double> getAgreeRatioTrends(long horizontalDefinition) {
-        long trendsCount = getTrendCountForInsight(this.id);
+        long trendsCount = this.getTrendCount();
                 
         List<Double> agreeTrends;
         if (trendsCount <= horizontalDefinition) {
