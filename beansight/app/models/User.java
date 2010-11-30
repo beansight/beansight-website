@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import models.Vote.State;
 import models.Vote.Status;
 import models.oauthclient.Credentials;
+import play.Logger;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 import play.i18n.Lang;
@@ -81,11 +82,16 @@ public class User extends Model {
 	public List<Comment> comments;
 
 	public User(String email, String userName, String password) {
+		Logger.info("New User: " + userName);
 		this.email = email;
 		this.password = Crypto.passwordHash(password);
 		this.userName = userName;
-		this.uiLang = Lang.get();
-		this.insightLang = this.uiLang;
+		
+		String lang = Lang.get();
+		if( lang == null || lang.equals("") ) { lang = "en"; }
+		this.uiLang = lang;
+		this.insightLang = lang;
+		
 		this.votes = new ArrayList<Vote>();
 		this.createdInsights = new ArrayList<Insight>();
 		this.followedInsights = new ArrayList<Insight>();

@@ -16,11 +16,13 @@ import models.Trend;
 import models.User;
 import models.Vote;
 import models.Vote.State;
+import play.Logger;
 import play.Play;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.FileAttachment;
+import play.i18n.Lang;
 import play.libs.Files;
 import play.libs.Images;
 import play.modules.search.Search;
@@ -60,9 +62,12 @@ public class Application extends Controller {
 		render("Application/indexNotConnected.html", insights);
 	}
 
-	public static void create(String insightContent, Date endDate,
-			String tagLabelList, long categoryId) {
-		render(insightContent, endDate, tagLabelList, categoryId);
+	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang) {
+		if(insightLang == null ) {
+			User currentUser = CurrentUser.getCurrentUser();
+			insightLang = currentUser.insightLang;
+		}
+		render(insightContent, endDate, tagLabelList, categoryId, insightLang);
 	}
 
 	public static void myInsights() {
@@ -139,7 +144,7 @@ public class Application extends Controller {
 		}
 		if (validation.hasErrors()) {
 			flash.error("Error creating the insight");
-			create(insightContent, endDate, tagLabelList, categoryId);
+			create(insightContent, endDate, tagLabelList, categoryId, lang);
 		}
 
 		User currentUser = CurrentUser.getCurrentUser();
