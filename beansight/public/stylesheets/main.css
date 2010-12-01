@@ -288,10 +288,14 @@ a.icon.favorite.active {
 .insight-line .content {
 }
 
-.languageFlag{
+.languageFlag {
     padding: 5px;	
 }
 
-.languageFlag.selected{
+.languageFlag.selected {
     background-color: #D6E6D3;
+}
+
+.categoryFilter.selected {
+    background-color: #D6E6D3;   	
 }
