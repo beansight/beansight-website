@@ -1,9 +1,11 @@
 # indexNotConnected
 trendinginsights=Prédictions montantes :
 
-
 # indexConnected
 newandtrending=Nouveaux
+
+#showInsight
+onbeansight=sur #Beansight
 
 # settings
 uiLanguage=Langue de l'interface

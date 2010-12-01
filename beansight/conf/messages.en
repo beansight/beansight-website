@@ -4,6 +4,9 @@ trendinginsights=Trending insights:
 # indexConnected
 newandtrending=New and trending
 
+#showInsight
+onbeansight=on #Beansight
+
 # settings
 uiLanguage=Interface language
 
