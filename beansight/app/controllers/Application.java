@@ -78,32 +78,33 @@ public class Application extends Controller {
 		render(myLastInsights);
 	}
 
-	public static void insights(long categoryId) {
+	public static void insights(long categoryId, String language) {
 		Category category = Category.findById(categoryId);
+		
+		if(language == null || language.equals("")) {
+			language = "en";
+		}
 
-		InsightResult result = Insight.getLatest(0,
-				NUMBER_INSIGHTS_INSIGHTPAGE, category);
+		InsightResult result = Insight.getLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
 		renderArgs.put("insights", result.results);
 		renderArgs.put("count", result.count);
 
 		User currentUser = CurrentUser.getCurrentUser();
 		List<Insight> followedInsights = currentUser.followedInsights;
 
-		render(followedInsights, category);
+		render(followedInsights, category, language);
 	}
 
 	/**
 	 * AJAX get more insights from the explore page
 	 * 
-	 * @param from
-	 *            : the index of the first insight to return
+	 * @param from : the index of the first insight to return
 	 * @param categoryId
 	 */
-	public static void moreInsights(int from, long categoryId) {
+	public static void moreInsights(int from, long categoryId, String language) {
 		Category category = Category.findById(categoryId);
 
-		InsightResult result = Insight.getLatest(from,
-				NUMBER_INSIGHTS_INSIGHTPAGE, category);
+		InsightResult result = Insight.getLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
 		renderArgs.put("insights", result.results);
 		render();
 	}
@@ -429,7 +430,7 @@ public class Application extends Controller {
 
 	public static void search(String query, int offset, long categoryId) {
 		if (query == null || query.isEmpty()) {
-			insights(0);
+			insights(0, "en");
 		}
 		Category category = Category.findById(categoryId);
 

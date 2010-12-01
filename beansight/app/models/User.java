@@ -176,6 +176,9 @@ public class User extends Model {
 			e.printStackTrace();
 		}
 
+		// store the given language as the default language for the user
+		this.insightLang = lang;
+		
 		this.save();
 
 		return i;

@@ -257,14 +257,22 @@ public class Insight extends Model {
 	 * @param category
 	 * @return
 	 */
-	public static InsightResult getLatest(int from, int number,
-			Category category) {
-
-		String query = "";
-		if (category != null) {
-			query += "select i from Insight i join i.category c where c.id="
-					+ category.id;
+	public static InsightResult getLatest(int from, int number, Category category, String language) {
+		String query = "select i from Insight i join i.category c";
+		
+		if (category != null || language != null) {
+			query += " where ";
+			if (category != null) {
+				query += " c.id=" + category.id;
+			}
+			if (language != null) {
+				if(category != null) {
+					query += " and ";
+				}
+				query += " i.lang='" + language +"'";
+			}
 		}
+
 		query += " order by creationDate DESC";
 
 		InsightResult result = new InsightResult();

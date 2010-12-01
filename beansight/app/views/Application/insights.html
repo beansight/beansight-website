@@ -5,10 +5,16 @@
 
 <div>
 	<ul class="filters">
-          <a href="@{Application.insights()}">All</a>
+          <a href="@{Application.insights(null, language)}">All</a>
 	   #{list items:controllers.Application.getCategories(), as:'cat'}
-	      <a href="@{Application.insights(cat.id)}">${cat.label}</a>
+	      <a href="@{Application.insights(cat.id, language)}">${cat.label}</a>
 	   #{/list}
+	       <a href="@{Application.insights(category?.id, "en")}">
+	           <img alt="english" src="@{'/public/images/flags/gb.png'}" />
+	       </a>
+           <a href="@{Application.insights(category?.id, "fr")}">
+	           <img alt="french" src="@{'/public/images/flags/fr.png'}" />
+           </a>
     </ul>
     
     <h2>Insights #{if category} in ${category} #{/if}</h2>
