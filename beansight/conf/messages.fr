@@ -8,7 +8,14 @@ newandtrending=Nouveaux
 onbeansight=sur #Beansight
 
 # settings
+userName=Alias
+firstName=Prénom
+lastName=Nom
 uiLanguage=Langue de l'interface
+avatar=Avatar
+cropAvatarImage=Ajuster l'image de l'avatar
+selectArea=Cliquer et déplacer en maintenant appuyer le curseur pour sélectionner une zone
+selectionPreview=Previsualisation du résulat
 
 # menuBar
 menuhome=Accueil

@@ -8,7 +8,14 @@ newandtrending=New and trending
 onbeansight=on #Beansight
 
 # settings
+userName=User name
+firstName=First name
+lastName=Last name
 uiLanguage=Interface language
+avatar=Avatar
+cropAvatarImage=Crop avatar image
+selectArea=Click and drag on the image to select an area. 
+selectionPreview=Selection Preview
 
 # menuBar
 menuhome=Home

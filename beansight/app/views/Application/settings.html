@@ -94,15 +94,15 @@ function preview(img, selection) {
 
     #{form @Application.saveSettings(), enctype:'multipart/form-data'}
     	<p>
-    		<label for="userName">Username</label>
+    		<label for="userName">&{'userName'}</label>
         	<input type="text" name="userName" value="${user.userName}"/>
         </p>
         <p>
-            <label for="userName">First name</label>
+            <label for="userName">&{'firstName'}</label>
             <input type="text" name="firstName" value="${user.firstName}"/>
         </p>
         <p>
-            <label for="userName">Last name</label>
+            <label for="userName">&{'lastName'}</label>
             <input type="text" name="lastName" value="${user.lastName}"/>
         </p>
         <p>
@@ -113,7 +113,7 @@ function preview(img, selection) {
             </select>
         </p>
     	<p>
-	        <label for="avatar">avatar :</label>
+	        <label for="avatar">&{'avatar'} :</label>
 	        <input type="hidden" name="id" value="${user.id}"/>
 	        <input type="file" id="avatar" name="originalImage">
 	    </p>
@@ -121,7 +121,7 @@ function preview(img, selection) {
 	        <img id="userAvatarImage" src="@{Application.showAvatar(user.id)}" width="60px" />
         </p>
 		<p>
-        	<a id="cropAvatar" href="#" onclick="openModalCrop(); return false;">Crop avatar image</a>
+        	<a id="cropAvatar" href="#" onclick="openModalCrop(); return false;">&{'cropAvatarImage'}</a>
         </p>
         <p>
         	<input type="submit">
@@ -135,7 +135,7 @@ function preview(img, selection) {
 <div id="modal-crop" title="Crop image">
  	<div style="float: left; width: 75%;">
   		<p class="instructions">
-   			Click and drag on the image to select an area. 
+  			&{'selectArea'}
   		</p>
  
 		<div style="margin: 0pt 0.3em; width: 300px; height: auto;" class="frame">
@@ -145,7 +145,7 @@ function preview(img, selection) {
 	
 	<div style="float: left; width: 25%;">
 		<p style="font-size: 110%; font-weight: bold; padding-left: 0.1em;">
-		 Selection Preview
+		&{'selectionPreview'}
 		</p>
 	
 		<div style="margin: 0pt 1em; width: 100px; height: 100px;" class="frame">
