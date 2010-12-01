@@ -35,7 +35,7 @@
     /** get more insights */
     function moreInsights() {
         $.ajax( {
-            url: moreInsightsAction({"from": insightsFrom #{if category}, "categoryId": ${category.id}#{/if} }),
+            url: moreInsightsAction({"from": insightsFrom #{if category}, "categoryId": ${category.id}#{/if}#{if language}, "language": ${language}#{/if} }),
             success: onMoreInsightsSuccess
         } );
     }

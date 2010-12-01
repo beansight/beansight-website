@@ -38,7 +38,7 @@
             <label for="category">Category:</label>
                #{selectCategories none:true/}
                #{if errors.forKey('categoryId')}<span class="error">${errors.forKey('categoryId')}</span>#{/if}
-            <input style="display:none;" id="insightCreationLang" name="lang" value="en" />
+            <input style="display:none;" id="insightCreationLang" name="lang" value="${insightLang}" />
             <a id="insightCreationLangEn" class="insightCreationLangChoose" href="" onclick="return false;">
                 <img alt="Beansight" class="languageFlag #{if insightLang.equals("en")}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
             </a>

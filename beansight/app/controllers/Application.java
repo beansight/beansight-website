@@ -65,7 +65,7 @@ public class Application extends Controller {
 	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang) {
 		if(insightLang == null ) {
 			User currentUser = CurrentUser.getCurrentUser();
-			insightLang = currentUser.insightLang;
+			insightLang = currentUser.writtingLanguage;
 		}
 		render(insightContent, endDate, tagLabelList, categoryId, insightLang);
 	}

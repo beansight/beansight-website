@@ -39,9 +39,9 @@ public class User extends Model {
 	public String twitterScreenName;
 
 	/** Language the user wants his UI to be displayed in */
-	public String uiLang;
-	/** Preferred language the user is writing insight in */
-	public String insightLang;
+	public String uiLanguage;
+	/** Language the user is writing insights in */
+	public String writtingLanguage;
 	
 	// use the @Embedded annotation to store avatars in the database
 	public FileAttachment avatar;
@@ -89,8 +89,8 @@ public class User extends Model {
 		
 		String lang = Lang.get();
 		if( lang == null || lang.equals("") ) { lang = "en"; }
-		this.uiLang = lang;
-		this.insightLang = lang;
+		this.uiLanguage = lang;
+		this.writtingLanguage = lang;
 		
 		this.votes = new ArrayList<Vote>();
 		this.createdInsights = new ArrayList<Insight>();
@@ -158,7 +158,7 @@ public class User extends Model {
 	 */
 	public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long cateopryId, String lang) {
 		if(lang == null) { // if lang is not specified, use the language from the user's preferred insight language
-			lang = this.insightLang;
+			lang = this.writtingLanguage;
 		}
 		
 		Category category = Category.findById(cateopryId);
@@ -177,7 +177,7 @@ public class User extends Model {
 		}
 
 		// store the given language as the default language for the user
-		this.insightLang = lang;
+		this.writtingLanguage = lang;
 		
 		this.save();
 
