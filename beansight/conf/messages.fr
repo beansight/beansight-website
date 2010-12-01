@@ -1,0 +1,16 @@
+# indexNotConnected
+trendinginsights=Prédictions montantes :
+
+
+# indexConnected
+newandtrending=Nouveaux
+
+# settings
+uiLanguage=Langue de l'interface
+
+# menuBar
+menuhome=Accueil
+menumyinsights=Mes prévisions
+menucreate=Créer
+menuinsights=Prévisions
+menuexperts=Experts

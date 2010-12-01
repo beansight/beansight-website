@@ -27,6 +27,7 @@ import play.libs.Files;
 import play.libs.Images;
 import play.modules.search.Search;
 import play.modules.search.Search.Query;
+import play.mvc.Before;
 import play.mvc.Controller;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.UserIsAlreadyFollowingInsightException;
@@ -40,6 +41,18 @@ public class Application extends Controller {
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 20;
 	public static final int NUMBER_EXPERTS_SEARCHPAGE = 20;
 
+    @Before
+    /**
+     * Make sure the language is the one the user has chosen.
+     */
+    static void setLanguage() {
+        if(Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			Lang.change(currentUser.uiLanguage);
+        }
+    }
+
+	
 	public static void index() {
 		// TODO order by upDate
 		List<Insight> insights = Insight.find("order by creationDate DESC")
@@ -47,8 +60,8 @@ public class Application extends Controller {
 
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			// TODO display activity, and not insights (such as
-			// "x persons agreed on your insight y")
+			
+			// TODO display activity, and not insights (such as "x persons agreed on your insight y")
 			List<Insight> insightActivity = currentUser.createdInsights;
 
 			// TODO limit the number and order by update
@@ -331,7 +344,7 @@ public class Application extends Controller {
 	}
 
 	public static void saveSettings(Long id, String userName, String firstName,
-			String lastName, File originalImage) {
+			String lastName, String uiLanguage, File originalImage) {
 		User user = CurrentUser.getCurrentUser();
 		// User should be the same as the one connected
 		if (user.id.equals(id) == false) {
@@ -354,6 +367,7 @@ public class Application extends Controller {
 		user.userName = userName;
 		user.firstName = firstName;
 		user.lastName = lastName;
+		user.uiLanguage = uiLanguage;
 
 		user.save();
 

@@ -105,6 +105,13 @@ function preview(img, selection) {
             <label for="userName">Last name</label>
             <input type="text" name="lastName" value="${user.lastName}"/>
         </p>
+        <p>
+            <label for="uiLanguage">&{'uiLanguage'}</label>
+            <select name="uiLanguage">
+                <option value="en" #{if user.uiLanguage.equals("en")}selected#{/if}>en</option>
+                <option value="fr" #{if user.uiLanguage.equals("fr")}selected#{/if}>fr</option>
+            </select>
+        </p>
     	<p>
 	        <label for="avatar">avatar :</label>
 	        <input type="hidden" name="id" value="${user.id}"/>

@@ -40,10 +40,10 @@
                #{if errors.forKey('categoryId')}<span class="error">${errors.forKey('categoryId')}</span>#{/if}
             <input style="display:none;" id="insightCreationLang" name="lang" value="${insightLang}" />
             <a id="insightCreationLangEn" class="insightCreationLangChoose" href="" onclick="return false;">
-                <img alt="Beansight" class="languageFlag #{if insightLang.equals("en")}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
+                <img alt="English flag" class="languageFlag #{if insightLang.equals("en")}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
             </a>
             <a id="insightCreationLangFr" class="insightCreationLangChoose" href="" onclick="return false;">
-                <img alt="Beansight" class="languageFlag #{if insightLang.equals("fr")}selected#{/if}" src="@{'/public/images/flags/fr.png'}" />
+                <img alt="French flag" class="languageFlag #{if insightLang.equals("fr")}selected#{/if}" src="@{'/public/images/flags/fr.png'}" />
             </a>
         </p>
         <p>
