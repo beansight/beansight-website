@@ -285,9 +285,7 @@ public class Insight extends Model {
 	}
 	
     public long getTrendCount() {
-    	// was:
-    	// return find("select count(t) from Trend t join t.insight i where i.id = :insightId").bind("insightId", this.id).first();
-    	return this.trends.size();
+    	return Trend.count("insight", this);
    }
 	
     /**
