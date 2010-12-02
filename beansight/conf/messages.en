@@ -4,6 +4,13 @@ trendinginsights=Trending insights:
 # indexConnected
 newandtrending=New and trending
 
+# Create Insight
+createInsightTitle=What is going to happen ?
+createInsightDate=On
+createInsightTags=Tags
+createInsightCategory=Category
+createInsightSubmit=Create
+
 #showInsight
 onbeansight=on #Beansight
 lastvoters=Last voters:
@@ -30,6 +37,8 @@ avatar=Avatar
 cropAvatarImage=Crop avatar image
 selectArea=Click and drag on the image to select an area. 
 selectionPreview=Selection Preview
+settingsSubmit=Save
+imageCropSubmit=Save
 
 # menuBar
 menuhome=Home

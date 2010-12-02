@@ -7,15 +7,30 @@
     <script src="@{'/public/javascripts/jquery.validate.min.js'}" type="text/javascript" charset="utf-8"></script>
 #{/set}
 
+<script language="Javascript">
+$(document).ready(function() {
+		$("#insightContent").keypress(function(e)
+			{
+				var key = (e.keyCode ? e.keyCode : e.which);
+				switch (key)
+				{
+				case 13:
+					return false;
+				}
+			});
+});
+	
+</script>
+
 <div class="prepend-4 span-14 append-4 last">
 
     #{form @Application.createInsight(), id:'insightCreationForm'}
-        <p>What is going to happen?</p>
+        <p>&{'createInsightTitle'}</p>
         <p>
-            <label for="endDate">On </label>
+            <label for="endDate">&{'createInsightDate'}</label>
             <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />,
             #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
-            <input type="text" name="insightContent" id="insightContent" value="${insightContent}"/>
+            <textarea name="insightContent" id="insightContent" class="insightContent">${insightContent}</textarea>
             #{if errors.forKey('insightContent')}<span class="error">${errors.forKey('insightContent')}</span>#{/if}
         </p>
         <script type="text/javascript">
@@ -29,10 +44,10 @@
 	        });
         </script>
         <p>
-            <label for="tagLabelList">Tags:</label>
+            <label for="tagLabelList">&{'createInsightTags'}</label>
             <input type="text" name="tagLabelList" id="tagLabelList" value="${tagLabelList}" />
             #{if errors.forKey('tagLabelList')}<span class="error">${errors.forKey('tagLabelList')}</span>#{/if}
-            <label for="category">Category:</label>
+            <label for="category">&{'createInsightCategory'}</label>
                #{selectCategories none:true/}
                #{if errors.forKey('categoryId')}<span class="error">${errors.forKey('categoryId')}</span>#{/if}
             <input style="display:none;" id="insightCreationLang" name="lang" value="${insightLang}" />
@@ -44,7 +59,9 @@
             </a>
         </p>
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="&{'createInsightSubmit'}" />
         </p>
     #{/form}
 </div>
+
+

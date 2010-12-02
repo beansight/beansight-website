@@ -4,6 +4,13 @@ trendinginsights=Prédictions montantes :
 # indexConnected
 newandtrending=Nouveaux
 
+# Create Insight
+createInsightTitle=Que va t'il arriver ?
+createInsightDate=Le
+createInsightTags=Tags
+createInsightCategory=Catégorie
+createInsightSubmit=Créer
+
 #showInsight
 onbeansight=sur #Beansight
 lastvoters=Dernier votes :
@@ -30,7 +37,9 @@ uiLanguage=Langue de l'interface
 avatar=Avatar
 cropAvatarImage=Ajuster l'image de l'avatar
 selectArea=Cliquer et déplacer en maintenant appuyer le curseur pour sélectionner une zone
-selectionPreview=Previsualisation du résulat
+selectionPreview=Previsualisation du résultat
+settingsSubmit=Valider
+imageCropSubmit=Valider
 
 # menuBar
 menuhome=Accueil

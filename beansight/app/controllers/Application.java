@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.ImageHelper;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -358,7 +360,8 @@ public class Application extends Controller {
 			// Default is we resize the originalImage without any modification.
 			// Can be cropped later if necessary since we keep the original
 			File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + user.id);
-			Images.resize(originalImageCopy, resizedOriginalImage, 60, 60);
+			ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
+//			Images.resize(originalImageCopy, resizedOriginalImage, 60, 60);
 			user.avatar.set(resizedOriginalImage);
 			user.saveAttachment();
 			resizedOriginalImage.deleteOnExit();

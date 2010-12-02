@@ -156,6 +156,15 @@ a:hover {text-decoration: underline;}
 }
 
 /**
+ * Create
+ */
+ #insightContent {
+ 	vertical-align: top; 
+ 	width: 250px; 
+ 	height:50px;
+ }
+
+/**
  * Search
  */
 #searchBox {
