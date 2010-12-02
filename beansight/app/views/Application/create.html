@@ -9,11 +9,11 @@
 
 <div class="prepend-4 span-14 append-4 last">
 
-    #{form @Application.createInsight()}
+    #{form @Application.createInsight(), id:'insightCreationForm'}
         <p>What is going to happen?</p>
         <p>
             <label for="endDate">On </label>
-            <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}"/>,
+            <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />,
             #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
             <input type="text" name="insightContent" id="insightContent" value="${insightContent}"/>
             #{if errors.forKey('insightContent')}<span class="error">${errors.forKey('insightContent')}</span>#{/if}

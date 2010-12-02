@@ -14,6 +14,8 @@ import javax.persistence.OrderBy;
 import models.Vote.Status;
 
 import play.Logger;
+import play.data.validation.MaxSize;
+import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.JPASupport;
 import play.db.jpa.Model;
@@ -42,6 +44,8 @@ public class Insight extends Model {
 	/** Content of the insight, a simple text describing the idea */
 	@Field
 	@Required
+	@MinSize(5)
+	@MaxSize(140)
 	public String content;
 
 	/** the language of the content of this insight */

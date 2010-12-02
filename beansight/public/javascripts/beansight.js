@@ -1,4 +1,6 @@
-// Insight Vote
+//////////////////////
+// Actions on insights
+//////////////////////
 
 /** Current user agree an insight */
 function agree(insightId) {
@@ -75,7 +77,11 @@ $("#error").ajaxError(function(event, request, settings){
 
 // Execute scripts after the document creation
 $(document).ready(function() {
-	
+
+//////////////////////
+// Insight creation
+//////////////////////
+
 	$('#insightCreationLangEn').click( function() {
 		$('.insightCreationLangChoose img').removeClass('selected');
 		$('#insightCreationLangEn img').addClass('selected');
@@ -89,5 +95,29 @@ $(document).ready(function() {
 			.addClass('selected');
 		return false;
 	});
+	
+	$("#insightCreationForm").validate({
+		rules: {
+			endDate: "required",
+			insightContent: {
+				required: true,
+				minlength: 5,
+				maxlength: 140
+			},
+			insightCreationLang: "required",
+			categoryId: "required"
+		},
+		messages: {
+			endDate: "You have to provide an End Date.",
+			insightContent: {
+				required: "I think you forgot something...",
+				minlength: "You and me know that this insight is too short.",
+				maxlength: "Insight length is limited to 140 characters."
+			},
+			insightCreationLang: "Choose a language.",
+			categoryId: "Put this insight in a category."
+		}
+	});
+
 	
 });
