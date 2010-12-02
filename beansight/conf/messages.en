@@ -6,6 +6,20 @@ newandtrending=New and trending
 
 #showInsight
 onbeansight=on #Beansight
+lastvoters=Last voters:
+category=Category:
+tags=Tags:
+suggesttags=suggest other tags
+addtags=Add tags
+comments=Comments:
+addcomment=Add new comment:
+postcomment=Post
+creationdate=Created
+enddate=End
+createdby=by
+since=Since
+youagree=you agree with this insight.
+youdisagree=you disagree with this insight.
 
 # settings
 userName=User name

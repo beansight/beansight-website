@@ -6,6 +6,21 @@ newandtrending=Nouveaux
 
 #showInsight
 onbeansight=sur #Beansight
+lastvoters=Dernier votes :
+category=Categorie :
+tags=Tags :
+suggesttags=suggérer d'autres tags :
+addtags=Ajouter
+comments=Commentaires :
+addcomment=Ajouter un commentaire :
+postcomment=Poster
+creationdate=Créé
+enddate=Fin
+createdby=par
+since=Depuis
+youagree=vous êtes d'accord avec cette prévision.
+youdisagree=vous n'êtes pas d'accord avec cette prévision.
+
 
 # settings
 userName=Alias

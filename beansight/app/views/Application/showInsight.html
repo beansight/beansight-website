@@ -20,17 +20,15 @@
         #{/isConnected}
     </div>
     
-    <p>Created ${insight.creationDate.since(true)} by #{userInline user:insight.creator /}</p>
-    <p>End ${insight.endDate.format("dd MMMM yyyy")}</p>
-    
-    <p>Language: ${insight.lang}</p>
+    <p>&{'creationdate'} ${insight.creationDate.since(true)} &{'createdby'} #{userInline user:insight.creator /}</p>
+    <p>&{'enddate'} ${insight.endDate.format("dd MMMM yyyy")}</p>
     
     #{if lastUserVote != null}
-    	<p>Since ${lastUserVote.creationDate.format("dd MMMM yyyy")} you #{if lastUserVote.state.equals(models.Vote.State.AGREE)} agree #{/if} #{else} disagree #{/else} with this insight.</p> 
+    	<p>&{'since'} ${lastUserVote.creationDate.format("dd MMMM yyyy")}, #{if lastUserVote.state.equals(models.Vote.State.AGREE)} &{'youagree'} #{/if} #{else} &{'youdisagree'} #{/else}</p> 
     #{/if}
     
     <div id="lastVoters">
-	    <h3>Last voters:</h3>
+	    <h3>&{'lastvoters'}</h3>
 	    <ul>
 	    #{list items:lastVotes, as:'vote'}
 	        <li>#{voteInline vote:vote /}</li>
@@ -39,12 +37,12 @@
     </div>
     
     <div id="category">
-        <h3>Category:</h3>
+        <h3>&{'category'}</h3>
         <p>${insight.category.label}</p>
     </div>
     
     <div id="tagList">
-	    <h3>Tags:</h3>
+	    <h3>${'tags'}</h3>
 	    <ul>
 	    #{list items:insight.tags, as:'tag' }
 	        <li>${tag.label}</li>
@@ -53,12 +51,12 @@
         
         #{isConnected}
         <p>
-	    <span onclick="showAddMoreTags()"><a href="#">suggest other tags</a></span>
+	    <span onclick="showAddMoreTags()"><a href="">&{'suggesttags'}</a></span>
 	    </p>
 	    <div id="moreTags" style="display:none;">
 	    #{form @Application.addTags(insight.id)}
 	        <input type="text" name="tagLabelList" id="tagLabelList" />
-	        <input type="submit" value="Add tags"/>
+	        <input type="submit" value="&{'addtags'}"/>
 	    #{/form}
 	    </div>
 	    #{/isConnected}
@@ -74,7 +72,7 @@
 	    </div>
     </div>
     
-    <h3>Comments:</h3>
+    <h3>&{'comments'}</h3>
     <ul id="commentList">
     #{list items:insight.comments, as:'comment' }
         <li>${comment.user} (${comment.creationDate.since(true)}):<br/> ${comment.content}</li>
@@ -83,11 +81,11 @@
 #{isConnected}
     <form id="addCommentForm">
         <div>
-        <label for="label">Add new comment:</label>
+        <label for="label">&{'addcomment'}</label>
         </div>
         <div class="right">
         <textarea name="content"></textarea>
-        <input type="submit" value="Post" id="submit"/>
+        <input type="submit" value="&{'postcomment'}" id="submit"/>
         </div>
     </form>
 #{/isConnected}
