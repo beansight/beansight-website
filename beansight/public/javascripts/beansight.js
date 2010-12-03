@@ -108,14 +108,14 @@ $(document).ready(function() {
 			categoryId: "required"
 		},
 		messages: {
-			endDate: "You have to provide an End Date.",
+			endDate: i18n.validateEndDate,
 			insightContent: {
-				required: "I think you forgot something...",
-				minlength: "You and me know that this insight is too short.",
-				maxlength: "Insight length is limited to 140 characters."
+				required: i18n.validateInsightContent,
+				minlength: i18n.validateInsightContentMin,
+				maxlength: i18n.validateInsightContentMax
 			},
-			insightCreationLang: "Choose a language.",
-			categoryId: "Put this insight in a category."
+			insightCreationLang: i18n.validateInsightCreationLang,
+			categoryId: i18n.validateCategoryId
 		}
 	});
 
