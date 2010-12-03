@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -46,6 +47,7 @@ public class Insight extends Model {
 	@Required
 	@MinSize(5)
 	@MaxSize(140)
+	@Lob
 	public String content;
 
 	/** the language of the content of this insight */
