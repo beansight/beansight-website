@@ -6,6 +6,7 @@ trendinginsights=Trending insights:
 
 # indexConnected
 newandtrending=New and trending
+needemailconfirm=You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.
 
 # Create Insight
 createInsightTitle=What is going to happen ?
@@ -64,3 +65,18 @@ username=Username
 password=Password
 remember=remember?
 loginbutton=Log in
+
+# confirm
+emailconfirmed=Email confirmed
+
+
+####################
+# E MAILs
+####################
+
+# confirmation
+emailwelcome=Welcome %s
+emailsignature=The Beansight team<br/>http://www.beansight.com
+emailconfirmationsubject=Beansight: please confirm your email
+emailconfirmtext=You need to confirm your email :
+emailconfirmlink=Click here to confirm %s

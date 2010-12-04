@@ -12,6 +12,8 @@ GET     /experts                                Application.experts
 GET     /search                                 Application.search
 GET     /myinsights                             Application.myInsights
 
+GET     /confirm/{hash}                         Application.confirm
+
 # Insight page
 GET     /insight/{<[0-9]+>id}                   Application.showInsight                   
 

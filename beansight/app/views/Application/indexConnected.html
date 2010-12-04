@@ -3,6 +3,12 @@
 
 #{set currentMenu:'menuHome' /}
 
+#{if !emailConfirmed}
+<div id="plzconfirm" class="warning">
+<p>&{'needemailconfirm'}</p>
+</div>
+#{/if}
+
 <div id="trendingInsights">
     <h2>&{'newandtrending'}</h2>
     <ul>

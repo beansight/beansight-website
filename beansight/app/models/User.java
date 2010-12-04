@@ -34,6 +34,11 @@ public class User extends Model {
 	public String lastName;
 	public String password;
 	public String email;
+	/** Has the user confirmed his email */
+	public boolean emailConfirmed;
+
+	/** a unique identifier that designate this user */
+	public long hash;
 	
 	public String twitterUserId;
 	public String twitterScreenName;
@@ -42,6 +47,9 @@ public class User extends Model {
 	public String uiLanguage;
 	/** Language the user is writing insights in */
 	public String writtingLanguage;
+	
+	
+	
 	
 	// use the @Embedded annotation to store avatars in the database
 	public FileAttachment avatar;
@@ -86,6 +94,10 @@ public class User extends Model {
 		this.email = email;
 		this.password = Crypto.passwordHash(password);
 		this.userName = userName;
+		
+		this.emailConfirmed = false;
+		String megaString = email + userName;
+		this.hash = megaString.hashCode();
 		
 		String lang = Lang.get();
 		if( lang == null || lang.equals("") ) { lang = "en"; }

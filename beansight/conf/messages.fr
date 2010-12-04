@@ -6,6 +6,7 @@ trendinginsights=Prédictions montantes :
 
 # indexConnected
 newandtrending=Nouveaux
+needemailconfirm=Vous avez besoin de confirmer votre adresse email. Faites le prochainement. Vérifiez votre boîte de réception.
 
 # Create Insight
 createInsightTitle=Que va t'il arriver ?
@@ -30,7 +31,6 @@ createdby=par
 since=Depuis
 youagree=vous êtes d'accord avec cette prévision.
 youdisagree=vous n'êtes pas d'accord avec cette prévision.
-
 
 # settings
 userName=Alias
@@ -65,3 +65,18 @@ username=Nom d'utilisateur
 password=Mot de passe
 remember=se souvenir ?
 loginbutton=Connexion
+
+# confirm
+emailconfirmed=Email confirmé
+
+
+####################
+# E MAILs
+####################
+
+# confirmation
+emailwelcome=Bonjour %s
+emailsignature=L'équipe Beansight<br/>http://www.beansight.com
+emailconfirmationsubject=Beansight : confirmez votre email.
+emailconfirmtext=Vous devez confirmer votre email
+emailconfirmlink=Suivez ce lien pour confirmer.

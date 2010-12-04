@@ -31,6 +31,7 @@ import play.modules.search.Search;
 import play.modules.search.Search.Query;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.results.NotFound;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
@@ -69,9 +70,10 @@ public class Application extends Controller {
 			// TODO limit the number and order by update
 			List<Insight> followedInsights = currentUser.followedInsights;
 			List<User> followedUsers = currentUser.followedUsers;
+			
+			boolean emailConfirmed = currentUser.emailConfirmed;
 
-			render("Application/indexConnected.html", insights,
-					followedInsights, followedUsers, insightActivity);
+			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivity, emailConfirmed);
 		}
 
 		render("Application/indexNotConnected.html", insights);
@@ -479,6 +481,20 @@ public class Application extends Controller {
 		List<User> users = q.fetch();
 		render(users);
 	}
-
+	
+	/** Confirm that the email adress of the user is a real one */
+	public static void confirm(long hash) {
+		if(hash == 0) {
+			notFound();
+		}
+		User user = User.find("byHash", hash).first();
+		notFoundIfNull(user);
+		user.emailConfirmed = true;
+		user.save();
+		
+		Logger.info("Email confirmation for user : " + user.email);
+		
+		render(user);
+	}
 
 }
