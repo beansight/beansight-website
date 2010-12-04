@@ -77,11 +77,32 @@ $("#error").ajaxError(function(event, request, settings){
 
 // Execute scripts after the document creation
 $(document).ready(function() {
-
-//////////////////////
-// Insight creation
-//////////////////////
-
+	//////////////////////
+	// User Options
+	//////////////////////
+    $("#signupLink").click(function() {
+        $("#loginBox").hide();
+        var box = $("#signupBox");
+        if (box.is(":visible")) {
+            box.fadeOut();
+        } else {
+            box.fadeIn();
+        }
+    });
+    $("#loginLink").click(function() {
+        $("#signupBox").hide();
+        var box = $("#loginBox");
+        if (box.is(":visible")) {
+            box.fadeOut();
+        } else {
+            box.fadeIn();
+        }
+    });
+	
+	
+    //////////////////////
+    // Insight creation
+    //////////////////////
 	$('#insightCreationLangEn').click( function() {
 		$('.insightCreationLangChoose img').removeClass('selected');
 		$('#insightCreationLangEn img').addClass('selected');

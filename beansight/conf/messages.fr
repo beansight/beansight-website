@@ -50,3 +50,18 @@ menumyinsights=Mes prévisions
 menucreate=Créer
 menuinsights=Prévisions
 menuexperts=Experts
+
+# userOptions
+signuptitle=Création de compte
+logintitle=Connexion
+signuplink=S'enregistrer
+loginlink=Se connecter
+twitterloginlink=Se connecter à l'aide d'un compte twitter
+settingslink=Mon compte
+logoutlink=Se déconnecter
+signupbutton=Envoyer
+email=E-mail
+username=Nom d'utilisateur
+password=Mot de passe
+remember=se souvenir ?
+loginbutton=Connexion

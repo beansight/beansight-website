@@ -49,3 +49,18 @@ menumyinsights=My insights
 menucreate=Create
 menuinsights=Insights
 menuexperts=Experts
+
+# userOptions
+signuptitle=Sign up
+logintitle=Log in
+signuplink=Sign up
+loginlink=Log in
+twitterloginlink=Log in with your Twitter account
+settingslink=Settings
+logoutlink=Log out
+signupbutton=Sign up
+email=E-mail
+username=Username
+password=Password
+remember=remember?
+loginbutton=Log in

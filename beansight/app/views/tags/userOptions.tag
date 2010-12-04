@@ -1,73 +1,51 @@
 <div id="userOptions">
-        #{isNotConnected}
-    <span id="signupLink"><a href="" onclick="return false">Sign up</a></span>
-    <span id="loginLink"><a href="" onclick="return false">Log in</a></span>
-    <span id="loginLink"><a href="@{TwitterOAuth.loginWithTwitter}">Log in with Twitter</a></span>
-        #{/isNotConnected}
-        #{isConnected}
-            ${controllers.CurrentUser.getCurrentUserName()}
-            <a href="@{Application.settings()}">Settings</a>
-            <a href="@{Secure.logout()}">Logout</a>
-        #{/isConnected}
+#{isNotConnected}
+    <span id="signupLink"><a href="" onclick="return false">&{'signuplink'}</a></span>
+    <span id="loginLink"><a href="" onclick="return false">&{'loginlink'}</a></span>
+    <span id="loginLink"><a href="@{TwitterOAuth.loginWithTwitter}">&{'twitterloginlink'}</a></span>
+#{/isNotConnected}
+#{isConnected}
+    ${controllers.CurrentUser.getCurrentUserName()}
+    <a href="@{Application.settings()}">&{'settingslink'}</a>
+    <a href="@{Secure.logout()}">&{'logoutlink'}</a>
+#{/isConnected}
 </div>
-
-<script type="text/javascript">
-    $("#signupLink").click(function() {
-        $("#loginBox").hide();
-        var box = $("#signupBox");
-        if (box.is(":visible")) {
-            box.fadeOut();
-        } else {
-            box.fadeIn();
-        }
-    });
-
-    $("#loginLink").click(function() {
-        $("#signupBox").hide();
-        var box = $("#loginBox");
-        if (box.is(":visible")) {
-            box.fadeOut();
-        } else {
-            box.fadeIn();
-        }
-    });
-</script>
 
 #{if !controllers.Secure.Security.isConnected()}
     <div id="signupBox" class="floatingBox" style="display:none;">
-    <h2>Sign Up</h2>
+    <h2>&{'signuptitle'}</h2>
     #{form @Register.registerNew()}
         <p id="email-field">
-            <label for="email">Email</label>
+            <label for="email">&{'email'}</label>
             <input type="email" name="email" id="email" value="&{flash.email}" />
         </p>
         <p id="username-field">
-            <label for="username">User name</label>
+            <label for="username">&{'username'}</label>
             <input type="text" name="username" id="username" value="&{flash.username}" />
         </p>
         <p id="password-field">
-            <label for="password">Password</label>
+            <label for="password">&{'password'}</label>
             <input type="password" name="password" id="password" value="" />
         </p>
         <p id="signin-field">
-        <input type="submit" id="signin" value="&{'signup'}" />
+        <input type="submit" id="signin" value="&{'signupbutton'}" />
         </p>
     #{/form}
     </div>
 
     <div id="loginBox" class="floatingBox" style="display:none;">
-    <h2>Log in</h2>
+    <h2>&{'logintitle'}</h2>
        #{form @Secure.authenticate()}
                 <div>
-	                <label for="username">Email</label> *{ Secure module works using "username", but for us, username is the email }*
+	                <label for="username">&{'email'}</label> *{ Secure module works using "username", but for us, username is the email }*
 	                <input type="email" name="username" id="username" value="${flash.username}" />
-	                <label for="password">Password</label>
+	                <label for="password">&{'password'}</label>
 	                <input type="password" name="password" id="password" value="" />
                 </div>
                 <div>
 	                <input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
-	                <label for="remember">remember?</label>
-	                <input type="submit" id="signin" value="&{'login'}" />
+	                <label for="remember">&{'remember'}</label>
+	                <input type="submit" id="signin" value="&{'loginbutton'}" />
                 </div>
         #{/form}
     </div>
