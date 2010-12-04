@@ -80,3 +80,8 @@ emailsignature=The Beansight team<br/>http://www.beansight.com
 emailconfirmationsubject=Beansight: please confirm your email
 emailconfirmtext=You need to confirm your email :
 emailconfirmlink=Click here to confirm %s
+
+# followNotification
+emailfollownotificationsubject=User %s added you to his favorites on Beansight
+emailuserstartfollowing1=The user
+emailuserstartfollowing2= added you in his favorites on Beansight. You can check his page to learn more about him.

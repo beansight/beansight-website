@@ -12,7 +12,9 @@ import javax.imageio.ImageIO;
 
 import models.Category;
 import models.Comment;
+import models.FollowNotificationTask;
 import models.Insight;
+import models.MailConfirmTask;
 import models.Insight.InsightResult;
 import models.Trend;
 import models.User;
@@ -295,6 +297,10 @@ public class Application extends Controller {
 			renderArgs.put("follow", false);
 		} else {
 			currentUser.startFollowingThisUser(user);
+			
+			FollowNotificationTask mail = new FollowNotificationTask(user, currentUser);
+			mail.save();
+			
 			renderArgs.put("follow", true);
 		}
 		render("Application/followUser.json", userId);
