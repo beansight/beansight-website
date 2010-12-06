@@ -1,5 +1,7 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set 'title'}
+    &{'home'}
+#{/set}
 
 #{if flash.error}
     <p>${flash.error}</p>

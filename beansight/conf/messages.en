@@ -2,11 +2,15 @@
 i18n=en
 
 # indexNotConnected
+home=Home
 trendinginsights=Trending insights:
 
 # indexConnected
 newandtrending=New and trending
 needemailconfirm=You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.
+activityaroundme=Activity on my insights
+favorites=Favorites
+exploremore=Explore more...
 
 # Create Insight
 createInsightTitle=What is going to happen ?

@@ -2,11 +2,15 @@
 i18n=fr
 
 # indexNotConnected
+home=Accueil
 trendinginsights=Prédictions montantes :
 
 # indexConnected
 newandtrending=Nouveaux
 needemailconfirm=Vous avez besoin de confirmer votre adresse email. Faites le prochainement. Vérifiez votre boîte de réception.
+activityaroundme=Activité autour de mes prédictions
+favorites=Favoris
+exploremore=Explorer plus...
 
 # Create Insight
 createInsightTitle=Que va t'il arriver ?
