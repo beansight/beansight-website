@@ -16,6 +16,7 @@ import play.Logger;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 import play.i18n.Lang;
+import play.libs.Codec;
 import play.libs.Crypto;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
@@ -38,7 +39,7 @@ public class User extends Model {
 	public boolean emailConfirmed;
 
 	/** a unique identifier that designate this user */
-	public long hash;
+	public String uuid;
 	
 	public String twitterUserId;
 	public String twitterScreenName;
@@ -96,8 +97,7 @@ public class User extends Model {
 		this.userName = userName;
 		
 		this.emailConfirmed = false;
-		String megaString = email + userName;
-		this.hash = megaString.hashCode();
+		this.uuid = Codec.UUID();
 		
 		String lang = Lang.get();
 		if( lang == null || lang.equals("") ) { lang = "en"; }
