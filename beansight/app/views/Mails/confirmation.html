@@ -1,7 +1,7 @@
 <html><body>
-<p>&{'emailwelcome', task.to.userName}</p>
+<p>&{'emailwelcome', user.userName}</p>
 <p>&{'emailconfirmtext'}</p>
 *{it seams we cannot use @@{} }*
-<p><a href="http://www.beansight.com@{Application.confirm(task.to.uuid)}">&{'emailconfirmlink'}</a></p>
+<p><a href="http://www.beansight.com@{Application.confirm(user.uuid)}">&{'emailconfirmlink'}</a></p>
 <p>&{'emailsignature'}</p>
 </body></html>

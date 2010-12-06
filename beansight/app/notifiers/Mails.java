@@ -6,18 +6,18 @@ import play.i18n.*;
 import java.util.*;
 
 import models.FollowNotificationTask;
-import models.MailConfirmTask;
+import models.User;
 
 public class Mails extends Mailer {
 
-   public static void confirmation(MailConfirmTask task) {
-	  Logger.info("Confirmation email: sending to " + task.to.email);
+   public static void confirmation(User user) {
+	  Logger.info("Confirmation email: sending to " + user.email);
 	   
       setSubject(Messages.get("emailconfirmationsubject"));
-      addRecipient(task.to.email);
+      addRecipient(user.email);
       setFrom("contact@beansight.com");
       
-      send(task);
+      send(user);
    }
 
    public static void followNotification(FollowNotificationTask task) {

@@ -1,7 +1,6 @@
 package controllers;
 
-import models.MailConfirmTask;
-import models.MyModel;
+import notifiers.Mails;
 import models.User;
 import play.libs.Crypto;
 import play.mvc.Controller;
@@ -17,8 +16,8 @@ public class Register extends Controller {
 		User user = new User(email, username, password);
 		user.save();
 		
-		MailConfirmTask confirm = new MailConfirmTask(user);
-		confirm.save();
+		// send a password confirmation mail
+		Mails.confirmation(user);
 		
 		Application.index();
 	}

@@ -14,7 +14,6 @@ import models.Category;
 import models.Comment;
 import models.FollowNotificationTask;
 import models.Insight;
-import models.MailConfirmTask;
 import models.Insight.InsightResult;
 import models.Trend;
 import models.User;
