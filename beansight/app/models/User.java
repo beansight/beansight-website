@@ -204,9 +204,10 @@ public class User extends Model {
 	 * @param voteState
 	 *            State.AGREE or State.DISAGREE
 	 */
-	public void voteToInsight(Long insightId, State voteState)
-			throws CannotVoteTwiceForTheSameInsightException {
+	public void voteToInsight(Long insightId, State voteState) throws CannotVoteTwiceForTheSameInsightException {
 		Insight insight = Insight.findById(insightId);
+
+		boolean change = false;
 		Vote vote = Vote.findLastVoteByUserAndInsight(this.id, insightId);
 		if (vote != null) {
 			// there are only idiots who do not change their minds
@@ -214,6 +215,7 @@ public class User extends Model {
 				// voting twice for the same side ...
 				throw new CannotVoteTwiceForTheSameInsightException();
 			} else {
+				change = true;
 				// historized the current vote
 				vote.status = Status.HISTORIZED;
 				vote.save();
@@ -243,7 +245,27 @@ public class User extends Model {
 			}
 			insight.lastUpdated = new Date();
 			insight.save();
-
+			
+			// create an activity around this user / insight relation
+			InsightActivity activity = new InsightActivity(this, insight);
+			activity.save();
+		}
+		
+		// update the activities around this insight
+		List<InsightActivity> activities = InsightActivity.find("insight = ? and user != ?", insight, this).fetch();
+		for( InsightActivity activity : activities ) {
+			activity.notEmpty = true;
+			activity.updated = new Date();
+			if(change) {
+				activity.voteChangeCount++;
+			} else {
+				if(voteState.equals(State.AGREE)) {
+					activity.newAgreeCount++;
+				} else {
+					activity.newDisagreeCount++;					
+				}
+			}
+			activity.save();
 		}
 
 	}
@@ -281,6 +303,16 @@ public class User extends Model {
 		save();
 		insight.followers.add(this);
 		insight.save();
+		
+		// update the activities around this insight
+		List<InsightActivity> activities = InsightActivity.find("insight = ? and user != ?", insight, this).fetch();
+		for( InsightActivity activity : activities ) {
+			activity.notEmpty = true;
+			activity.updated = new Date();
+			activity.newFavoriteCount++;
+			activity.save();
+		}
+
 	}
 
 	/**
@@ -380,8 +412,7 @@ public class User extends Model {
 	/**
 	 * get the list of the n last insights of this User (insights he voted for)
 	 * 
-	 * @param n
-	 *            : the maximum number of votes to return
+	 * @param n : the maximum number of votes to return
 	 * @return: the list of n most recent active insights of this user
 	 */
 	public List<Insight> getLastInsights(int n) {
@@ -391,6 +422,30 @@ public class User extends Model {
 						+ "where v.status = :status and u.id=:userId "
 						+ "order by v.creationDate DESC").bind("status",
 				Status.ACTIVE).bind("userId", this.id).fetch(n);
+	}
+	
+	/**
+	 * get the list of most relevant InsightActivity around the user (for now, they are only the most recent) 
+	 * @param n : maximum number of item to return 
+	 */
+	public List<InsightActivity> getInsightActivity(int n) {
+		return InsightActivity.find("user = ? and notEmpty is true order by updated DESC", this).fetch(n);
+	}
+	
+	/**
+	 * Reset the stored recorded insight activity for a given user
+	 */
+	public void resetInsightActivity() {
+		List<InsightActivity> activities = InsightActivity.find("user = ? and notEmpty is true order by updated DESC", this).fetch();
+		for( InsightActivity activity : activities ) {
+			activity.notEmpty = false;
+			activity.updated = new Date();
+			activity.newFavoriteCount 	= 0;
+			activity.newAgreeCount 		= 0;
+			activity.newDisagreeCount 	= 0;
+			activity.voteChangeCount 	= 0;
+			activity.save();
+		}
 	}
 
 }

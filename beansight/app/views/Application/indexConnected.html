@@ -21,11 +21,17 @@
 
 <div id="activityAroundMe">
 	<h2>&{'activityaroundme'}</h2>
-	<ul>
-	    #{list items:insightActivity , as:'insight'} 
-	        <li>#{insight insight:insight /}</li>
-	    #{/list}
-    </ul>
+	<div id="insightActivity" #{if insightActivities.isEmpty()}style="display:none;#{/if}>
+		<p><a id="resetActivity" href="" onClick="resetInsightActivity(); return false;">&{'activityreset'}</a></p>
+		<ul id="insightActivityList">
+		    #{list items:insightActivities , as:'insightActivity'} 
+		        <li>#{insightActivity insightActivity:insightActivity /}</li>
+		    #{/list}
+	    </ul>
+	</div>
+	<div id="noInsightActivity" #{if !insightActivities.isEmpty()}style="display:none;#{/if}">
+	   <p>&{'noInsightActivity'}</p>
+	</div>
 	
 	<h2>&{'favorites'}</h2>
 	<ul>

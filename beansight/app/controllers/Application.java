@@ -14,6 +14,7 @@ import models.Category;
 import models.Comment;
 import models.FollowNotificationTask;
 import models.Insight;
+import models.InsightActivity;
 import models.Insight.InsightResult;
 import models.Trend;
 import models.User;
@@ -39,6 +40,7 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 public class Application extends Controller {
 
 	public static final int NUMBER_INSIGHTS_INDEXPAGE = 16;
+	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 8;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 6;
 	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 20;
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 16;
@@ -65,16 +67,15 @@ public class Application extends Controller {
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			
-			// TODO display activity, and not insights (such as "x persons agreed on your insight y")
-			List<Insight> insightActivity = currentUser.createdInsights;
-
+			List<InsightActivity> insightActivities = currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE);
+			
 			// TODO limit the number and order by update
 			List<Insight> followedInsights = currentUser.followedInsights;
 			List<User> followedUsers = currentUser.followedUsers;
 			
 			boolean emailConfirmed = currentUser.emailConfirmed;
 
-			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivity, emailConfirmed);
+			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivities, emailConfirmed);
 		}
 
 		render("Application/indexNotConnected.html", insights);
@@ -500,6 +501,15 @@ public class Application extends Controller {
 		Logger.info("Email confirmation for user : " + user.email);
 		
 		render(user);
+	}
+	
+	/**
+	 * AJAX reset the activity feed for the connected user
+	 */
+	public static void resetInsightActivity() {
+		User currentUser = CurrentUser.getCurrentUser();
+		currentUser.resetInsightActivity();
+		renderText("true");
 	}
 
 }

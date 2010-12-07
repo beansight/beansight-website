@@ -31,6 +31,7 @@
      <script type="text/javascript">
      var agreeAction = #{jsAction @Application.agree(':insightId') /};
      var disagreeAction = #{jsAction @Application.disagree(':insightId') /};
+     var resetInsightActivityAction = #{jsAction @Application.resetInsightActivity() /};
      var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightId') /};
      var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
      var moreInsightsAction = #{jsAction @Application.moreInsights(':from', ':categoryId') /};

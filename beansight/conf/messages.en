@@ -11,6 +11,8 @@ needemailconfirm=You need to confirm your e-mail address. Don't forget to do it 
 activityaroundme=Activity on my insights
 favorites=Favorites
 exploremore=Explore more...
+activityreset=Clear activity feed.
+noInsightActivity=No recent activity
 
 # Create Insight
 createInsightTitle=What is going to happen ?
@@ -73,6 +75,13 @@ loginbutton=Log in
 # confirm
 emailconfirmed=Email confirmed
 
+# insightActivity
+activitychanged=%s changed their minds
+activityagreed=%s agreed
+activitydisagreed=%s disagreed
+activityand= and 
+activitywith= with
+activityfavorited= %s favorited
 
 ####################
 # E MAILs

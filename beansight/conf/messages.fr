@@ -11,6 +11,8 @@ needemailconfirm=Vous avez besoin de confirmer votre adresse email. Faites le pr
 activityaroundme=Activité autour de mes prédictions
 favorites=Favoris
 exploremore=Explorer plus...
+activityreset=Vider le flux d'activité
+noInsightActivity=Pas d'activité récente
 
 # Create Insight
 createInsightTitle=Que va t'il arriver ?
@@ -73,6 +75,13 @@ loginbutton=Connexion
 # confirm
 emailconfirmed=Email confirmé
 
+# insightActivity
+activitychanged=%s ont changé d'avis
+activityagreed=%s sont d'accord
+activitydisagreed=%s ne sont pas d'accord
+activityand= et 
+activitywith= avec 
+activityfavorited= %s favorited 
 
 ####################
 # E MAILs

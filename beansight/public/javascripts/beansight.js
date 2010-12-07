@@ -60,6 +60,17 @@ function onToggleFollowingUserSuccess(data) {
 	
 }
 
+/** Current user reset his activity feed*/
+function resetInsightActivity() {
+	$.get(resetInsightActivityAction(), onResetInsightActivitySuccess);
+}
+
+/** Callback after a resetInsightActivity is done*/
+function onResetInsightActivitySuccess(data) {
+	$('#insightActivity').fadeOut();
+	$('#noInsightActivity').fadeIn();
+	
+}
 // Tools
 function clearForm( context ) {
     $(':input', context)
@@ -88,6 +99,7 @@ $(document).ready(function() {
         } else {
             box.fadeIn();
         }
+        return false;
     });
     $("#loginLink").click(function() {
         $("#signupBox").hide();
@@ -98,7 +110,6 @@ $(document).ready(function() {
             box.fadeIn();
         }
     });
-	
 	
     //////////////////////
     // Insight creation

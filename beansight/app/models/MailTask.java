@@ -21,7 +21,7 @@ public class MailTask extends Model {
 	public int attempt;
 	
 	/** User this mail should be sent to */
-	@OneToOne
+	@ManyToOne
 	public User to;
 	
 	public MailTask(User to) {
