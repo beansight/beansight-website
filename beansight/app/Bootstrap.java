@@ -13,8 +13,10 @@ public class Bootstrap extends Job {
             // Initial data of the plateform
             Fixtures.load("initial-data.yml");
         	
-        	// For debugging purposes only
-            Fixtures.load("debug-data.yml");
+        	// Load debug data only if run in DEV mode
+            if(play.Play.mode == play.Play.mode.DEV) {
+            	Fixtures.load("debug-data.yml");
+            }
         }
     }
 }
