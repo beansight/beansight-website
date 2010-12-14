@@ -1,5 +1,5 @@
 {
-    "content": "${comment.content.nl2br()}",
+    "content": "${comment.content.escape().nl2br()}",
     "user": "${comment.user}",
     "since": "${comment.creationDate.since(true)}"
 }

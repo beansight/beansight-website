@@ -75,7 +75,7 @@
     <h3>&{'comments'}</h3>
     <ul id="commentList">
     #{list items:insight.comments, as:'comment' }
-        <li>${comment.user} (${comment.creationDate.since(true)}):<br/> ${comment.content}</li>
+        <li>${comment.user} (${comment.creationDate.since(true)}):<br/> ${comment.content.escape().nl2br()}</li>
     #{/list}
     </ul>
 #{isConnected}
