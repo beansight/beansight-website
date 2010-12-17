@@ -2,6 +2,7 @@ package models;
 
 import play.*;
 import play.db.jpa.*;
+import play.i18n.Messages;
 
 import javax.persistence.*;
 import java.util.*;
@@ -20,12 +21,11 @@ public class MailTask extends Model {
 	/** Number of time the system tried to send this mail */
 	public int attempt;
 	
-	/** User this mail should be sent to */
-	@ManyToOne
-	public User to;
+	/** email address this mail should be sent to */
+	public String sendTo;
 	
-	public MailTask(User to) {
-		this.to = to;
+	public MailTask(String to) {
+		this.sendTo = to;
 		this.attempt = 0;
 		this.sent = false;
 		this.created = new Date();

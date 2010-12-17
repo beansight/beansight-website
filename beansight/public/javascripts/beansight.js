@@ -110,6 +110,18 @@ $(document).ready(function() {
             box.fadeIn();
         }
     });
+    
+    $('#emailInvite').focus(function() { $('#inviteMessage').slideDown('normal');});
+    
+    $('#inviteForm').submit(function() {
+        $.getJSON(inviteAction(), $(this).serialize(), function() { 
+        	$('#inviteconfirm').slideDown('normal');
+        	$('#inviteTextArea').val('');
+        	$('#emailInvite').val('');
+            }
+        );
+        return false;
+    });
 	
     //////////////////////
     // Insight creation

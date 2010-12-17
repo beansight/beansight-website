@@ -22,6 +22,7 @@ import models.Vote;
 import models.Vote.State;
 import play.Logger;
 import play.Play;
+import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
@@ -72,10 +73,10 @@ public class Application extends Controller {
 			// TODO limit the number and order by update
 			List<Insight> followedInsights = currentUser.followedInsights;
 			List<User> followedUsers = currentUser.followedUsers;
-			
 			boolean emailConfirmed = currentUser.emailConfirmed;
-
-			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivities, emailConfirmed);
+			long invitationsLeft = currentUser.invitationsLeft;
+			
+			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivities, emailConfirmed, invitationsLeft);
 		}
 
 		render("Application/indexNotConnected.html", insights);
@@ -298,7 +299,7 @@ public class Application extends Controller {
 		} else {
 			currentUser.startFollowingThisUser(user);
 			
-			FollowNotificationTask mail = new FollowNotificationTask(user, currentUser);
+			FollowNotificationTask mail = new FollowNotificationTask(user.email, currentUser, user);
 			mail.save();
 			
 			renderArgs.put("follow", true);
@@ -511,5 +512,24 @@ public class Application extends Controller {
 		currentUser.resetInsightActivity();
 		renderText("true");
 	}
-
+	
+	/**
+	 * AJAX The current user invites another user
+	 * @param email : email to invite
+	 * @param message : message displayed in the invitation email
+	 */
+	public static void invite(@Email @Required String email, String message) {
+		if (validation.hasErrors()) {
+			flash.error("Not a valid email");
+			renderText("false");
+		}
+		
+		User currentUser = CurrentUser.getCurrentUser();
+		if(currentUser.invite(email, message)) {
+			renderText("true");
+		} else  {
+			renderText("false");
+		}
+	}
+	
 }

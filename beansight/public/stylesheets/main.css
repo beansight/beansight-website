@@ -70,7 +70,11 @@ a:hover {text-decoration: underline;}
     font-size:2em;
 }
 
-
+.admin {
+    border-style:solid;
+    border-color: red;
+    border-width:1px;   
+}
 
 #footer {
     padding: 2em 0 1em;

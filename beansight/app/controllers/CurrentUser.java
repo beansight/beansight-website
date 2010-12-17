@@ -21,4 +21,8 @@ public class CurrentUser extends Controller {
     	return getCurrentUser().userName;
     }
     
+    public static boolean isAdmin() {
+    	return getCurrentUser().isAdmin;
+    }
+    
 }

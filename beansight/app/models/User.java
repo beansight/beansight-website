@@ -37,6 +37,9 @@ public class User extends Model {
 	public String email;
 	/** Has the user confirmed his email */
 	public boolean emailConfirmed;
+	
+	/** Is this user an administrator ? */
+	public boolean isAdmin;
 
 	/** a unique identifier that designate this user */
 	public String uuid;
@@ -49,8 +52,8 @@ public class User extends Model {
 	/** Language the user is writing insights in */
 	public String writtingLanguage;
 	
-	
-	
+	/** How many invitations this user can send, -1 for infinity*/
+	public long invitationsLeft;
 	
 	// use the @Embedded annotation to store avatars in the database
 	public FileAttachment avatar;
@@ -448,4 +451,26 @@ public class User extends Model {
 		}
 	}
 
+	public boolean invite(String email, String message) {
+		if(invitationsLeft != 0) {
+			// Create the invitation
+			Invitation invitation = new Invitation(this, email, message);
+			invitation.save();
+
+			// create the task for mail sending
+			InvitationMailTask task = new InvitationMailTask(invitation);
+			task.save();
+			
+			invitationsLeft--;
+			save();
+			return true;
+		}
+		return false;
+	}
+	
+	public void addInvitations(long invitationNumber) {
+		this.invitationsLeft += invitationNumber;
+		save();
+	}
+	
 }

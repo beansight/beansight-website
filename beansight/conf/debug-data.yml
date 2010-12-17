@@ -12,6 +12,7 @@ User(steren):
     userName:       Steren
     uiLanguage:     fr
     writtingLanguage:     fr
+    isAdmin:        true
 
 User(jb):
     email:          jb@test.com
@@ -19,7 +20,8 @@ User(jb):
     userName:       JB
     uiLanguage:     fr
     writtingLanguage:     fr
-        
+    isAdmin:        true
+    
 Insight(insightBeansight):
     creator:        steren
     content:        Beansight will be ready on time

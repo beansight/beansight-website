@@ -27,4 +27,15 @@
 <p><a href="@{Application.temp_recomputeScore()}">TEMP Recompute Score</a></p>
 </div>
 
+#{if controllers.CurrentUser.isAdmin()}
+<div class="admin">
+    <h3>admin box</h3>
+    <p>${user.invitationsLeft} invitations left.</p>
+    #{form @Admin.addInvitationsToUser(user.id) }
+        <input type="text" name="number" />
+        <input type="submit" name="submit" value="Add" />
+    #{/form}
+</div>
+#{/if}
+
 #{/userContainer}

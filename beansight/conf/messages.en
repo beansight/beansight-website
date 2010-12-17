@@ -13,6 +13,12 @@ favorites=Favorites
 exploremore=Explore more...
 activityreset=Clear activity feed.
 noInsightActivity=No recent activity
+invitesomeone=Invite someone to Beansight
+invitationsleft=You have %s invitations left
+inviteemailplaceholder=example@email.com
+addmessage=Add a message
+invitesubmit=Send
+inviteconfirm=Invitate sent
 
 # Create Insight
 createInsightTitle=What is going to happen ?
@@ -98,3 +104,9 @@ emailconfirmlink=Click here to confirm %s
 emailfollownotificationsubject=User %s added you to his favorites on Beansight
 emailuserstartfollowing1=The user
 emailuserstartfollowing2= added you in his favorites on Beansight. You can check his page to learn more about him.
+
+# invitation
+emailhello=Hello,
+emailinvitationsubject=%s presents you Beansight
+emailinvitationmarketing=Beansight is a place to share predictions about the future.
+emailinvitationinvitor=%s is saying:

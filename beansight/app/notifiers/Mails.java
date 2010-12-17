@@ -3,9 +3,12 @@ package notifiers;
 import play.*;
 import play.mvc.*;
 import play.i18n.*;
+
 import java.util.*;
 
 import models.FollowNotificationTask;
+import models.InvitationMailTask;
+import models.MailTask;
 import models.User;
 
 public class Mails extends Mailer {
@@ -21,14 +24,22 @@ public class Mails extends Mailer {
 	}
 
 	public static void followNotification(FollowNotificationTask task) {
-		Logger.info("Follow Notification email: sending to " + task.to.email);
-
-		setSubject(Messages.get("emailfollownotificationsubject",
-				task.follower.userName));
-		addRecipient(task.to.email);
-		setFrom("notification@beansight.com");
-
-		send(task);
+		sendMailTask(task, Messages.get("emailfollownotificationsubject", task.follower.userName), "Mails/followNotification.html");
 	}
 
+	public static void invitation(InvitationMailTask task) {
+		sendMailTask(task, Messages.get("emailinvitationsubject", task.invitation.invitor.userName), "Mails/invitation.html");
+	}
+	
+	private static void sendMailTask(MailTask task, String subject, String templateName) {
+		task.attempt++;
+		Logger.info("MailTask " + task.getClass().getSimpleName() + " to: " + task.sendTo);
+
+		setSubject(subject);
+		addRecipient(task.sendTo);
+		setFrom("notification@beansight.com");
+
+		send(templateName, task);
+	}
+	
 }

@@ -6,12 +6,13 @@ import java.util.List;
 import notifiers.Mails;
 
 import models.FollowNotificationTask;
+import models.InvitationMailTask;
 import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
 
-@Every("5min")
-public class FollowNotificationJob extends Job {
+@Every("10min")
+public class SendInvitationJob extends Job {
 	
 	/** Number of task email this job can send in his 5 minutes */
 	public static final int NUM_TASK = 10;
@@ -20,12 +21,12 @@ public class FollowNotificationJob extends Job {
 	
     @Override
     public void doJob() throws Exception {
-    	List<FollowNotificationTask> tasks = FollowNotificationTask.find("sent is false and attempt < 5").fetch(NUM_TASK);
+    	List<InvitationMailTask> tasks = InvitationMailTask.find("sent is false and attempt < 5").fetch(NUM_TASK);
 
-    	for( FollowNotificationTask task : tasks) {
+    	for( InvitationMailTask task : tasks) {
 	    	if(task != null) {
 	            try {
-			    	Mails.followNotification(task);
+			    	Mails.invitation(task);
 			    	task.sent = true;
 					task.save();
 		        } catch (Exception e) {

@@ -1,0 +1,12 @@
+<html><body>
+<p>&{'emailhello'}</p>
+
+<p>&{'emailinvitationmarketing'} <a href="http://www.beansight.com">beansight.com</a></p>
+
+#{if !task.invitation.message.isEmpty()}
+    <p>&{'emailinvitationinvitor', task.invitation.invitor.userName}</p>
+    <p>${task.invitation.message.escape().nl2br()}<p>
+#{/if}
+
+<p>&{'emailsignature'}</p>
+</body></html>

@@ -13,6 +13,12 @@ favorites=Favoris
 exploremore=Explorer plus...
 activityreset=Vider le flux d'activité
 noInsightActivity=Pas d'activité récente
+invitesomeone=Inviter quelqu'un à rejoindre Beansight
+invitationsleft=Il vous reste %s invitations
+inviteemailplaceholder=exemple@email.fr
+addmessage=Ajoutez un message
+invitesubmit=Envoyer
+inviteconfirm=Invitation envoyée
 
 # Create Insight
 createInsightTitle=Que va t'il arriver ?
@@ -98,3 +104,9 @@ emailconfirmlink=Suivez ce lien pour confirmer.
 emailfollownotificationsubject=%s vous a ajouté dans ses favoris sur Beansight
 emailuserstartfollowing1=L'utilisateur
 emailuserstartfollowing2= vous a ajouté a ses favoris sur Beansight. Vous pouvez consulter sa page pour en apprendre plus sur lui.
+
+# invitation
+emailhello=Bonjour,
+emailinvitationsubject=%s vous présente Beansight
+emailinvitationmarketing=Beansight est une plateforme où vous pourrez partager vos intuitions sur l'avenir.
+emailinvitationinvitor=%s a ajouté :
