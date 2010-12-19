@@ -14,6 +14,9 @@ public class CurrentUser extends Controller {
         if ( Boolean.parseBoolean(session.get("isTwitterUser")) ) {
             return User.findByTwitterUserId(session.get("twitterUserId"));
         }
+        if ( Boolean.parseBoolean(session.get("isFacebookUser")) ) {
+            return User.findByFacebookUserId(new Long(session.get("facebookUserId")));
+        }        
         return User.find("byEmail", Security.connected()).first();    
     }
     

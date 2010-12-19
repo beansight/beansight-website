@@ -44,9 +44,15 @@ public class User extends Model {
 	/** a unique identifier that designate this user */
 	public String uuid;
 	
+	/** twitter specific informations */
 	public String twitterUserId;
 	public String twitterScreenName;
 
+	/** facebook specific informations */
+    public Long facebookUserId;
+    public String facebookScreenName;
+	
+	
 	/** Language the user wants his UI to be displayed in */
 	public String uiLanguage;
 	/** Language the user is writing insights in */
@@ -154,7 +160,7 @@ public class User extends Model {
 
 	   
 	/**
-     * Static method to get a User instance given his username
+     * Static method to get a User instance given his twitterUserId
      * 
      * @param userName
      * @return
@@ -163,6 +169,16 @@ public class User extends Model {
         return find("twitterUserId = ?", twitterUserId).first();
     }
 	
+    /**
+     * Static method to get a User instance given his facebookUserId
+     * 
+     * @param userName
+     * @return
+     */
+    public static User findByFacebookUserId(Long facebookUserId) {
+        return find("facebookUserId = ?", facebookUserId).first();
+    }
+    
 	/**
 	 * Call this method to create a new insight that will be automatically owned
 	 * by the current user.

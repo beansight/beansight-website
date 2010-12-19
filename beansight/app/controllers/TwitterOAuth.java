@@ -18,8 +18,8 @@ public class TwitterOAuth extends Controller {
 
     
     
-    private static OAuthClient client = new OAuthClient("http://twitter.com/oauth/request_token", "http://twitter.com/oauth/access_token",
-                                              "http://twitter.com/oauth/authorize", "Aa1wAqJ1qNGwtQMnHPLhNg", "63Bfee3Ni9zQbWtel5nALxMzKBeBaRFfWUXsTLJDs");
+    private static OAuthClient client = new OAuthClient("http://twitter.com/oauth/request_token", "https://twitter.com/oauth/access_token",
+                                              "http://twitter.com/oauth/authorize", "X6T56rx0w0wU4wIWGPIA", "geSJ4hc36jWhNaWf1UDY3apuWlJVK04fxmP3jG8xdM");
 
     public static void loginWithTwitter() throws Exception {
         ICredentials creds = new Credentials();
@@ -44,6 +44,7 @@ public class TwitterOAuth extends Controller {
         // connect to beansight
         // then create a beansight account linked to his twitter account
         if (null == twitterUser) {
+            // TODO 1: we should check that the username is not already in use, and if so add something like _twitterat the end of the username.            
             twitterUser = new User("", twitterScreenName, "");
             twitterUser.twitterScreenName = twitterScreenName;
             twitterUser.twitterUserId = twitterUserId;
