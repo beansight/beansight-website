@@ -92,7 +92,6 @@ $(document).ready(function() {
 	// User Options
 	//////////////////////
     $("#loginLink").click(function() {
-        $("#signupBox").hide();
         var box = $("#loginBox");
         if (box.is(":visible")) {
             box.fadeOut();

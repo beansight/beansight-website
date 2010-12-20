@@ -118,3 +118,5 @@ emailhello=Hello,
 emailinvitationsubject=%s presents you Beansight
 emailinvitationmarketing=Beansight is a place to share predictions about the future.
 emailinvitationinvitor=%s is saying:
+emailinvitationbeta=Beansight is currently in closed beta.
+clickheretoregistrationpage=You have to follow this link to create your account.

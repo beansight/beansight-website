@@ -22,11 +22,14 @@ public class Invitation extends Model {
 	
 	@Lob
 	public String message;
+	
+	public String promocode;
 
-	public Invitation(User invitor, String invitedEmail, String message) {
+	public Invitation(User invitor, String invitedEmail, String message, String code) {
 		this.invitor = invitor;
 		this.invitedEmail = invitedEmail;
 		this.message = message;
+		this.promocode = code;
 	}
 	
 	

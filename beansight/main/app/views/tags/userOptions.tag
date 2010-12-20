@@ -2,8 +2,8 @@
 #{isNotConnected}
     <span id="signupLink"><a href="@{Register.register}">&{'signuplink'}</a></span>
     <span id="loginLink"><a href="" onclick="return false">&{'loginlink'}</a></span>
-    <span id="loginLink"><a href="@{TwitterOAuth.loginWithTwitter}"><img src="/public/images/twitter-login-button.png" height="20px" style="margin-top: 5px;"/></a></span>
-    <span id="loginLink"><a href="@{FaceBookOAuth.authenticate}"><img src="/public/images/facebook-login-button.png" height="20px"/></a></span>
+    <span id="twitterLink"><a href="@{TwitterOAuth.loginWithTwitter}"><img src="/public/images/twitter-login-button.png" height="20px" style="margin-top: 5px;"/></a></span>
+    <span id="facebookLink"><a href="@{FaceBookOAuth.authenticate}"><img src="/public/images/facebook-login-button.png" height="20px"/></a></span>
 #{/isNotConnected}
 #{isConnected}
     ${controllers.CurrentUser.getCurrentUserName()}
@@ -12,7 +12,7 @@
 #{/isConnected}
 </div>
 
-#{isConnected}
+#{isNotConnected}
     <div id="loginBox" class="floatingBox" style="display:none;">
     <h2>&{'logintitle'}</h2>
        #{form @Secure.authenticate()}
@@ -29,4 +29,4 @@
                 </div>
         #{/form}
     </div>
-#{/isConnected}
+#{/isNotConnected}

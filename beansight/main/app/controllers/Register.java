@@ -15,7 +15,7 @@ import play.mvc.Controller;
 
 public class Register extends Controller {
 
-	public static void register(String email, String username, String promocode) {
+	public static void register(String promocode, String email, String username) {
 		render(email, username, promocode);
 	}
 	
@@ -41,7 +41,7 @@ public class Register extends Controller {
 		
 		if (validation.hasErrors()) {
 	        validation.keep();
-	        register(email, username, promocode);
+	        register(promocode, email, username);
 	    }
 		
 		

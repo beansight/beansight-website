@@ -8,5 +8,10 @@
     <p>${task.invitation.message.escape().nl2br()}<p>
 #{/if}
 
+<p>
+	&{'emailinvitationbeta'} <br/>
+	<a href="@@{Register.register(task.invitation.promocode, task.invitation.invitedEmail)}">&{'clickheretoregistrationpage'}</a>
+</p>
+
 <p>&{'emailsignature'}</p>
 </body></html>

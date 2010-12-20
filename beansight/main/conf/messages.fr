@@ -118,3 +118,5 @@ emailhello=Bonjour,
 emailinvitationsubject=%s vous présente Beansight
 emailinvitationmarketing=Beansight est une plateforme où vous pourrez partager vos intuitions sur l'avenir.
 emailinvitationinvitor=%s a ajouté :
+emailinvitationbeta=Beansight est actuellement en bêta privée.
+clickheretoregistrationpage=Il vous faut suivre ce lien pour vous créer un compte.
