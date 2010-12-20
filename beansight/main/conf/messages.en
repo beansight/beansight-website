@@ -78,6 +78,14 @@ password=Password
 remember=remember?
 loginbutton=Log in
 
+# register
+register=Sign up
+passwordconfirm=Confirm password
+promocode=Access code
+registernotvalidpromocode=Not a valid code
+registeremailexist=This email already exists
+registerusernameexist=This name already exists
+
 # confirm
 emailconfirmed=Email confirmed
 

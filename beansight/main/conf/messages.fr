@@ -78,6 +78,14 @@ password=Mot de passe
 remember=se souvenir ?
 loginbutton=Connexion
 
+# register
+register=Création de compte
+passwordconfirm=Confirmer le mot de passe
+promocode=Code d'accès
+registernotvalidpromocode=Code non valide
+registeremailexist=Cet email est déjà pris
+registerusernameexist=Ce nom existe déjà
+
 # confirm
 emailconfirmed=Email confirmé
 

@@ -91,16 +91,6 @@ $(document).ready(function() {
 	//////////////////////
 	// User Options
 	//////////////////////
-    $("#signupLink").click(function() {
-        $("#loginBox").hide();
-        var box = $("#signupBox");
-        if (box.is(":visible")) {
-            box.fadeOut();
-        } else {
-            box.fadeIn();
-        }
-        return false;
-    });
     $("#loginLink").click(function() {
         $("#signupBox").hide();
         var box = $("#loginBox");

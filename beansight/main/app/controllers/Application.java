@@ -81,7 +81,7 @@ public class Application extends Controller {
 
 		render("Application/indexNotConnected.html", insights);
 	}
-
+	
 	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang) {
 		if(insightLang == null ) {
 			User currentUser = CurrentUser.getCurrentUser();

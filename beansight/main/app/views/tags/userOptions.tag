@@ -1,6 +1,6 @@
 <div id="userOptions">
 #{isNotConnected}
-    <span id="signupLink"><a href="" onclick="return false">&{'signuplink'}</a></span>
+    <span id="signupLink"><a href="@{Register.register}">&{'signuplink'}</a></span>
     <span id="loginLink"><a href="" onclick="return false">&{'loginlink'}</a></span>
     <span id="loginLink"><a href="@{TwitterOAuth.loginWithTwitter}"><img src="/public/images/twitter-login-button.png" height="20px" style="margin-top: 5px;"/></a></span>
     <span id="loginLink"><a href="@{FaceBookOAuth.authenticate}"><img src="/public/images/facebook-login-button.png" height="20px"/></a></span>
@@ -12,28 +12,7 @@
 #{/isConnected}
 </div>
 
-#{if !controllers.Secure.Security.isConnected()}
-    <div id="signupBox" class="floatingBox" style="display:none;">
-    <h2>&{'signuptitle'}</h2>
-    #{form @Register.registerNew()}
-        <p id="email-field">
-            <label for="email">&{'email'}</label>
-            <input type="email" name="email" id="email" value="&{flash.email}" />
-        </p>
-        <p id="username-field">
-            <label for="username">&{'username'}</label>
-            <input type="text" name="username" id="username" value="&{flash.username}" />
-        </p>
-        <p id="password-field">
-            <label for="password">&{'password'}</label>
-            <input type="password" name="password" id="password" value="" />
-        </p>
-        <p id="signin-field">
-        <input type="submit" id="signin" value="&{'signupbutton'}" />
-        </p>
-    #{/form}
-    </div>
-
+#{isConnected}
     <div id="loginBox" class="floatingBox" style="display:none;">
     <h2>&{'logintitle'}</h2>
        #{form @Secure.authenticate()}
@@ -50,4 +29,4 @@
                 </div>
         #{/form}
     </div>
-#{/if}
+#{/isConnected}

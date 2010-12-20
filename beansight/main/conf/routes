@@ -5,6 +5,8 @@
 # Home page
 GET     /                                       Application.index
 
+GET     /register                               Register.register
+
 GET     /create                                 Application.create
 GET     /favorites                              Application.favorites
 GET     /insights                               Application.insights
