@@ -152,6 +152,28 @@ $(document).ready(function() {
 			categoryId: i18n.validateCategoryId
 		}
 	});
+	
+	$("#registerForm").validate({
+		rules: {
+			email: {
+				required: true,
+				email: true
+			},
+			username: {
+				required: true,
+				minlength: 3
+			},
+			password: {
+				required: true,
+				minlength: 5
+			},
+			passwordconfirm: {
+				required: true,
+				minlength: 5,
+				equalTo: "#password"
+			}
+		}
+	});
 
 	
 });

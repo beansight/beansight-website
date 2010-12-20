@@ -13,7 +13,7 @@
 
 <div id="signupBox">
 <h2>&{'signuptitle'}</h2>
-#{form @Register.registerNew()}
+#{form @Register.registerNew(), id:'registerForm'}
     <p id="email-field">
         <label for="email">&{'email'}</label>
         <input type="email" name="email" id="email" value="${email}" />
