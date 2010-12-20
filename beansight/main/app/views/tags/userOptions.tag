@@ -1,9 +1,9 @@
 <div id="userOptions">
 #{isNotConnected}
-    <span id="signupLink"><a href="@{Register.register}">&{'signuplink'}</a></span>
-    <span id="loginLink"><a href="" onclick="return false">&{'loginlink'}</a></span>
-    <span id="twitterLink"><a href="@{TwitterOAuth.loginWithTwitter}"><img src="/public/images/twitter-login-button.png" height="20px" style="margin-top: 5px;"/></a></span>
-    <span id="facebookLink"><a href="@{FaceBookOAuth.authenticate}"><img src="/public/images/facebook-login-button.png" height="20px"/></a></span>
+    <a id="signupLink" href="@{Register.register}">&{'signuplink'}</a>
+    <a id="loginLink" href="#" >&{'loginlink'}</a>
+    <a id="twitterLink" href="@{TwitterOAuth.loginWithTwitter}"><img src="/public/images/twitter-login-button.png" height="20px" style="margin-top: 5px;"/></a>
+    <a id="facebookLink" href="@{FaceBookOAuth.authenticate}"><img src="/public/images/facebook-login-button.png" height="20px"/></a>
 #{/isNotConnected}
 #{isConnected}
     ${controllers.CurrentUser.getCurrentUserName()}

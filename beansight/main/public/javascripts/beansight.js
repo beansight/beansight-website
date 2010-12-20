@@ -98,6 +98,7 @@ $(document).ready(function() {
         } else {
             box.fadeIn();
         }
+        return false;
     });
     
     $('#emailInvite').focus(function() { $('#inviteMessage').slideDown('normal');});
