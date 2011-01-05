@@ -59,6 +59,20 @@ public class Application extends Controller {
         }
     }
 
+    // TODO Play 1.1 : use "only" to only call this function on pages (or move not-pages actions to another controller).
+    @Before()
+    /**
+     * If the user is connected, load the needed info into the menu
+     */
+    static void loadMenuData() {
+        if(Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
+			// TODO limit the number and order by update
+			renderArgs.put("followedInsights", currentUser.followedInsights);
+			renderArgs.put("followedUsers", currentUser.followedUsers);
+        }    	
+    }
 	
 	public static void index() {
 		// TODO order by upDate
@@ -67,16 +81,10 @@ public class Application extends Controller {
 
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			
-			List<InsightActivity> insightActivities = currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE);
-			
-			// TODO limit the number and order by update
-			List<Insight> followedInsights = currentUser.followedInsights;
-			List<User> followedUsers = currentUser.followedUsers;
 			boolean emailConfirmed = currentUser.emailConfirmed;
 			long invitationsLeft = currentUser.invitationsLeft;
 			
-			render("Application/indexConnected.html", insights, followedInsights, followedUsers, insightActivities, emailConfirmed, invitationsLeft);
+			render("Application/indexConnected.html", insights, emailConfirmed, invitationsLeft);
 		}
 
 		render("Application/indexNotConnected.html", insights);

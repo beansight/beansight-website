@@ -70,6 +70,13 @@
 	        #{menuBar /}
 	        #{searchInput /}
 	    </div>
+        <div id="activityAroundMe">
+            <h2>&{'activityaroundme'}</h2>
+            #{activity insightActivities:insightActivities /}
+            <h2>&{'favorites'}</h2>
+            #{followedInsights followedInsights:followedInsights/}
+            #{followedUsers followedUsers:followedUsers /}
+        </div>
     #{/isConnected}
 	
 	

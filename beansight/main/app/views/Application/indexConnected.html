@@ -19,31 +19,4 @@
     <a href="@{Application.insights()}">&{'exploremore'}</a>
 </div>
 
-<div id="activityAroundMe">
-	<h2>&{'activityaroundme'}</h2>
-	<div id="insightActivity" #{if insightActivities.isEmpty()}style="display:none;#{/if}>
-		<p><a id="resetActivity" href="" onClick="resetInsightActivity(); return false;">&{'activityreset'}</a></p>
-		<ul id="insightActivityList">
-		    #{list items:insightActivities , as:'insightActivity'} 
-		        <li>#{insightActivity insightActivity:insightActivity /}</li>
-		    #{/list}
-	    </ul>
-	</div>
-	<div id="noInsightActivity" #{if !insightActivities.isEmpty()}style="display:none;#{/if}">
-	   <p>&{'noInsightActivity'}</p>
-	</div>
-	
-	<h2>&{'favorites'}</h2>
-	<ul>
-	    #{list items:followedInsights , as:'insight'}
-	           <li>#{insight insight:insight /}</li>
-	    #{/list}
-	</ul>
-	<ul>
-        #{list items:followedUsers , as:'user'}
-               <li>#{userInline user:user /}</li>
-        #{/list}
-    </ul>
-</div>
-
 #{invitations invitationsLeft:invitationsLeft /}

@@ -8,11 +8,9 @@ GET     /                                       Application.index
 GET     /register                               Register.register
 
 GET     /create                                 Application.create
-GET     /favorites                              Application.favorites
 GET     /insights                               Application.insights
 GET     /experts                                Application.experts
 GET     /search                                 Application.search
-GET     /myinsights                             Application.myInsights
 
 GET     /confirm/{hash}                         Application.confirm
 
