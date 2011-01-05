@@ -312,3 +312,7 @@ a.icon.favorite.active {
 .categoryFilter.selected {
     background-color: #D6E6D3;   	
 }
+
+.tooMuchCharacters {
+	color: red;
+}

@@ -1,3 +1,6 @@
+// Size of an insight
+var MAX_CHARACTERS_INSIGHT = 140;
+
 //////////////////////
 // Actions on insights
 //////////////////////
@@ -69,8 +72,25 @@ function resetInsightActivity() {
 function onResetInsightActivitySuccess(data) {
 	$('#insightActivity').fadeOut();
 	$('#noInsightActivity').fadeIn();
-	
 }
+
+/** Update the progress bar and characters count */
+function updateCharacterCount() {
+	var content = $("#insightContent").val();
+	var size = content.length;
+	var percent = size / MAX_CHARACTERS_INSIGHT * 100;
+	$("#currentCaractersNumbers").html(size);
+	$( "#progressbar" ).progressbar({
+		value: percent
+	});
+	
+	if( size > MAX_CHARACTERS_INSIGHT ) {
+		$("#caracterNumbers").addClass("tooMuchCharacters");
+	} else {
+		$("#caracterNumbers").removeClass("tooMuchCharacters");
+	}
+}
+
 // Tools
 function clearForm( context ) {
     $(':input', context)
@@ -161,8 +181,19 @@ $(document).ready(function() {
         showOtherMonths: true,
         selectOtherMonths: true,
         minDate: 0
-		} );
+	} );
 
+	$( "#progressbar" ).progressbar({
+		value: 0
+	});
+
+	// Progress bar 
+	updateCharacterCount();
+	$("#insightContent").keyup(function() { // cannot use change(), keypress()
+		updateCharacterCount();
+	});
+	
+	// if key is "Enter", then do not validate the form
 	$("#insightContent").keypress(function(e)
 	{
 		var key = (e.keyCode ? e.keyCode : e.which);
