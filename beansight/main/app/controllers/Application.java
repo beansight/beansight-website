@@ -489,21 +489,6 @@ public class Application extends Controller {
 		render(users);
 	}
 	
-	/** Confirm that the email adress of the user is a real one */
-	public static void confirm(String uuid) {
-		if(uuid == null || uuid.isEmpty()) {
-			notFound();
-		}
-		User user = User.find("byUuid", uuid).first();
-		notFoundIfNull(user);
-		user.emailConfirmed = true;
-		user.save();
-		
-		Logger.info("Email confirmation for user : " + user.email);
-		
-		render(user);
-	}
-	
 	/**
 	 * AJAX reset the activity feed for the connected user
 	 */

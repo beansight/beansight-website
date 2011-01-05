@@ -18,7 +18,7 @@ invitationsleft=You have %s invitations left
 inviteemailplaceholder=example@email.com
 addmessage=Add a message
 invitesubmit=Send
-inviteconfirm=Invitate sent
+inviteconfirm=Invitation sent
 
 # Create Insight
 createInsightTitle=What is going to happen ?

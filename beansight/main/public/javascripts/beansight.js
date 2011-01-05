@@ -100,7 +100,10 @@ $(document).ready(function() {
         }
         return false;
     });
-    
+
+	//////////////////////
+	// Invitation System
+	//////////////////////
     $('#emailInvite').focus(function() { $('#inviteMessage').slideDown('normal');});
     
     $('#inviteForm').submit(function() {
@@ -153,6 +156,23 @@ $(document).ready(function() {
 		}
 	});
 	
+	$(".datePicker").datepicker({ 
+        dateFormat: 'yy-mm-dd',
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        minDate: 0
+		} );
+
+	$("#insightContent").keypress(function(e)
+	{
+		var key = (e.keyCode ? e.keyCode : e.which);
+		switch (key)
+		{
+			case 13:
+			return false;
+		}
+	});
+	
 	$("#registerForm").validate({
 		rules: {
 			email: {
@@ -170,10 +190,9 @@ $(document).ready(function() {
 			passwordconfirm: {
 				required: true,
 				minlength: 5,
-				equalTo: "#password"
+				equalTo: "#registerPassword"
 			}
 		}
 	});
-
 	
 });

@@ -23,7 +23,7 @@ GET     /insight/{<[0-9]+>id}                   Application.showInsight
 GET     /expert/{<[0-9]+>id}                    Application.showUser
 
 # Import CRUD routes
-*       /admin              module:crud
+*       /admin                                  module:crud
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

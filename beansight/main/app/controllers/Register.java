@@ -55,4 +55,19 @@ public class Register extends Controller {
 		Application.index();
 	}
 	
+	/** Confirm that the email adress of the user is a real one */
+	public static void confirm(String uuid) {
+		if(uuid == null || uuid.isEmpty()) {
+			notFound();
+		}
+		User user = User.find("byUuid", uuid).first();
+		notFoundIfNull(user);
+		user.emailConfirmed = true;
+		user.save();
+		
+		Logger.info("Email confirmation for user : " + user.email);
+		
+		render(user);
+	}
+	
 }

@@ -3,22 +3,6 @@
 
 #{set currentMenu:'menuCreate' /}
 
-
-<script language="Javascript">
-$(document).ready(function() {
-		$("#insightContent").keypress(function(e)
-			{
-				var key = (e.keyCode ? e.keyCode : e.which);
-				switch (key)
-				{
-				case 13:
-					return false;
-				}
-			});
-});
-	
-</script>
-
 <div class="prepend-4 span-14 append-4 last">
 
     #{form @Application.createInsight(), id:'insightCreationForm'}
@@ -30,16 +14,6 @@ $(document).ready(function() {
             <textarea name="insightContent" id="insightContent" class="insightContent">${insightContent}</textarea>
             #{if errors.forKey('insightContent')}<span class="error">${errors.forKey('insightContent')}</span>#{/if}
         </p>
-        <script type="text/javascript">
-	        $(function() {
-	          $(".datePicker").datepicker({ 
-		          dateFormat: 'yy-mm-dd',
-		          showOtherMonths: true,
-		          selectOtherMonths: true,
-		          minDate: 0
-				} );
-	        });
-        </script>
         <p>
             <label for="tagLabelList">&{'createInsightTags'}</label>
             <input type="text" name="tagLabelList" id="tagLabelList" value="${tagLabelList}" />
