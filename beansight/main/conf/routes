@@ -3,12 +3,11 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                       Application.insights
 
 GET     /register                               Register.register
 
 GET     /create                                 Application.create
-GET     /insights                               Application.insights
 GET     /experts                                Application.experts
 GET     /search                                 Application.search
 

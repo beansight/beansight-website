@@ -40,10 +40,9 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Application extends Controller {
 
-	public static final int NUMBER_INSIGHTS_INDEXPAGE = 16;
+	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 20;
 	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 8;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 6;
-	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 20;
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 16;
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 20;
 	public static final int NUMBER_EXPERTS_SEARCHPAGE = 20;
@@ -71,25 +70,16 @@ public class Application extends Controller {
 			// TODO limit the number and order by update
 			renderArgs.put("followedInsights", currentUser.followedInsights);
 			renderArgs.put("followedUsers", currentUser.followedUsers);
+			
+			renderArgs.put("emailConfirmed", currentUser.emailConfirmed);
+			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);
         }    	
     }
 	
-	public static void index() {
-		// TODO order by upDate
-		List<Insight> insights = Insight.find("order by creationDate DESC")
-				.fetch(NUMBER_INSIGHTS_INDEXPAGE);
-
-		if (Security.isConnected()) {
-			User currentUser = CurrentUser.getCurrentUser();
-			boolean emailConfirmed = currentUser.emailConfirmed;
-			long invitationsLeft = currentUser.invitationsLeft;
-			
-			render("Application/indexConnected.html", insights, emailConfirmed, invitationsLeft);
-		}
-
-		render("Application/indexNotConnected.html", insights);
-	}
-	
+    public static void index() {
+    	insights(0,null);
+    }
+    
 	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang) {
 		if(insightLang == null ) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -98,12 +88,9 @@ public class Application extends Controller {
 		render(insightContent, endDate, tagLabelList, categoryId, insightLang);
 	}
 
-	public static void myInsights() {
+	public static void profile() {
 		User currentUser = CurrentUser.getCurrentUser();
-		List<Insight> myLastInsights = currentUser
-				.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
-
-		render(myLastInsights);
+		showUser(currentUser.id);
 	}
 
 	public static void insights(long categoryId, String language) {
@@ -117,10 +104,7 @@ public class Application extends Controller {
 		renderArgs.put("insights", result.results);
 		renderArgs.put("count", result.count);
 
-		User currentUser = CurrentUser.getCurrentUser();
-		List<Insight> followedInsights = currentUser.followedInsights;
-
-		render(followedInsights, category, language);
+		render(category, language);
 	}
 
 	/**

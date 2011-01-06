@@ -66,21 +66,30 @@
 	<div class="prepend-1 span-22 last">
 	<div class="mainContent">
 	#{isConnected}
+	    <div><a href="@{Application.create()}" #{currentMenu 'menuCreate' /} >&{'menucreate'}</a></div>
+	
 		<div id="upperBar">
 	        #{menuBar /}
 	        #{searchInput /}
 	    </div>
+
+		#{if !emailConfirmed}
+		<div id="plzconfirm" class="warning">
+		<p>&{'needemailconfirm'}</p>
+		</div>
+		#{/if}
+		
         <div id="activityAroundMe">
             <h2>&{'activityaroundme'}</h2>
             #{activity insightActivities:insightActivities /}
             <h2>&{'favorites'}</h2>
             #{followedInsights followedInsights:followedInsights/}
             #{followedUsers followedUsers:followedUsers /}
+            #{invitations invitationsLeft:invitationsLeft /}
         </div>
     #{/isConnected}
 	
-	
-	    #{doLayout /}
+#{doLayout /}
     </div>
 	</div>
 	
@@ -95,7 +104,6 @@
                 <li id="link-twitter"><a href="http://twitter.com/beansight">Twitter</a></li>
                 <li id="link-facebook"><a href="http://www.facebook.com/pages/Beansight/120701864625294">Facebook</a></li>
                 <li id="link-blog"><a href="http://beansight.tumblr.com/">Blog</a></li>
-
             </ul>
         </div>
         

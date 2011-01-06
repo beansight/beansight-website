@@ -57,8 +57,7 @@ settingsSubmit=Save
 imageCropSubmit=Save
 
 # menuBar
-menuhome=Home
-menumyinsights=My insights
+menuprofile=Profile
 menucreate=Create
 menuinsights=Insights
 menuexperts=Experts

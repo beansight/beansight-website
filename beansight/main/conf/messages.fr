@@ -57,8 +57,7 @@ settingsSubmit=Valider
 imageCropSubmit=Valider
 
 # menuBar
-menuhome=Accueil
-menumyinsights=Mes prévisions
+menuprofile=Profil
 menucreate=Créer
 menuinsights=Prévisions
 menuexperts=Experts
