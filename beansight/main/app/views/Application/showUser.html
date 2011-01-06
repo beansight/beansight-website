@@ -1,10 +1,12 @@
 #{extends 'main.html' /}
 #{set title:user.userName /}
 
-#{set currentMenu:'menuMyInsights' /}
-
-#{set currentMenu:'menuExperts' /}
-
+#{if controllers.CurrentUser.getCurrentUser() != null && controllers.CurrentUser.getCurrentUser().id == user.id }
+    #{set currentMenu:'menuProfile' /}
+#{/if}
+#{else}
+    #{set currentMenu:'menuExperts' /}
+#{/else}
 
 #{userContainer user:user}
 
