@@ -210,7 +210,7 @@ public class Application extends Controller {
 	public static void showInsight(Long id) {
 		Insight insight = Insight.findById(id);
 		notFoundIfNull(insight);
-
+		
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(
@@ -235,7 +235,19 @@ public class Application extends Controller {
 	public static void showUser(Long id) {
 		User user = User.findById(id);
 		notFoundIfNull(user);
-		render(user);
+
+		boolean currentUserProfilePage = false;
+		
+		if(Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			if(currentUser.id == user.id ) {
+				currentUserProfilePage = true;
+			}
+		}
+
+		List<Insight> lastInsights = user.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
+		
+		render(user, lastInsights, currentUserProfilePage);
 	}
 
 	/**

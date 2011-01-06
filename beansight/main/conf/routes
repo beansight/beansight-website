@@ -10,6 +10,7 @@ GET     /register                               Register.register
 GET     /create                                 Application.create
 GET     /experts                                Application.experts
 GET     /search                                 Application.search
+GET     /profile                                Application.profile
 
 GET     /confirm/{hash}                         Application.confirm
 

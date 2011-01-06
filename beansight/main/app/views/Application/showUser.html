@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:user.userName /}
 
-#{if controllers.CurrentUser.getCurrentUser() != null && controllers.CurrentUser.getCurrentUser().id == user.id }
+#{if currentUserProfilePage}
     #{set currentMenu:'menuProfile' /}
 #{/if}
 #{else}
@@ -30,6 +30,18 @@
 	    #{/list}
 	</ul>
 <p><a href="@{Application.temp_recomputeScore()}">TEMP Recompute Score</a></p>
+</div>
+
+<div>
+    #{if currentUserProfilePage}
+    <h2>&{'myinsights'}</h2>
+    #{/if}
+	#{else}
+    <h2>&{'userinsights'}</h2>	   
+    #{/else}
+    <ul>
+        #{listInsights insights:lastInsights /}
+    </ul>
 </div>
 
 #{if controllers.CurrentUser.isAdmin()}

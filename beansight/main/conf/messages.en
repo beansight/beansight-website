@@ -26,6 +26,7 @@ createInsightDate=On
 createInsightTags=Tags
 createInsightCategory=Category
 createInsightSubmit=Create
+createinsight=Create insight
 
 #showInsight
 onbeansight=on #Beansight
@@ -43,6 +44,13 @@ createdby=by
 since=Since
 youagree=you agree with this insight.
 youdisagree=you disagree with this insight.
+
+#experts
+explore=Explore experts
+
+#showUser
+userinsights=User insights
+myinsights=My insights
 
 # settings
 userName=User name

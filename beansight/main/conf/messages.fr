@@ -26,6 +26,7 @@ createInsightDate=Le
 createInsightTags=Tags
 createInsightCategory=Catégorie
 createInsightSubmit=Créer
+createinsight=Poster une prédiction
 
 #showInsight
 onbeansight=sur #Beansight
@@ -43,6 +44,13 @@ createdby=par
 since=Depuis
 youagree=vous êtes d'accord avec cette prévision.
 youdisagree=vous n'êtes pas d'accord avec cette prévision.
+
+#experts
+explore=Explorer les experts
+
+#showUser
+userinsights=Prédictions de l'utilisateur
+myinsights=Mes prédictions
 
 # settings
 userName=Alias
