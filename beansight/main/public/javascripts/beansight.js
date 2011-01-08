@@ -76,19 +76,21 @@ function onResetInsightActivitySuccess(data) {
 
 /** Update the progress bar and characters count */
 function updateCharacterCount() {
-	var content = $("#insightContent").val();
-	var size = content.length;
-	var percent = size / MAX_CHARACTERS_INSIGHT * 100;
-	$("#currentCaractersNumbers").html(size);
-	$( "#progressbar" ).progressbar({
-		value: percent
-	});
-	
-	if( size > MAX_CHARACTERS_INSIGHT ) {
-		$("#caracterNumbers").addClass("tooMuchCharacters");
-	} else {
-		$("#caracterNumbers").removeClass("tooMuchCharacters");
-	}
+	try {
+		var content = $("#insightContent").val();
+		var size = content.length;
+		var percent = size / MAX_CHARACTERS_INSIGHT * 100;
+		$("#currentCaractersNumbers").html(size);
+		$( "#progressbar" ).progressbar({
+			value: percent
+		});
+		
+		if( size > MAX_CHARACTERS_INSIGHT ) {
+			$("#caracterNumbers").addClass("tooMuchCharacters");
+		} else {
+			$("#caracterNumbers").removeClass("tooMuchCharacters");
+		}
+	} catch(e) {}
 }
 
 // Tools
