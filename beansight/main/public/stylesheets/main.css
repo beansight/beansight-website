@@ -98,32 +98,9 @@ a:hover {text-decoration: underline;}
 	
 #ui-datepicker-div { font-size: 12px; }
 
-/** 
- * Main upper bar
- */
-#upperBar {
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border-radius:5px;
-    
-    background-color: #D6E6D3;
-    border:1px solid #DDDDDD;
-    height:24px;
-    padding:4px 10px;
-    margin: 0 0 15px;
-}
-
 /**
  * Main Menu
  */
-#menuBar ul {
-    margin-left:0;
-    padding-left:0;
-    float: left;
-}
-#menuBar ul li {
-    display:inline;
-}
 #menuBar ul li a {
     -moz-border-radius:4px;
     -wekbit-border-radius:4px;
@@ -147,16 +124,17 @@ a:hover {text-decoration: underline;}
     color:#333333;
 }
 
+.sideBar {
+    width:200px;
+    float:left;
+}
+
 /**
  * Index
  */
 #trendingInsights {
 	width:480px;
     float:left;	
-}
-#activityAroundMe {
-    width:200px;
-    float:left;    
 }
 
 /**

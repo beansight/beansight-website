@@ -124,11 +124,7 @@ public class Application extends Controller {
 	public static void experts() {
 		// TODO order by score
 		List<User> experts = User.find("order by crdate DESC").fetch( NUMBER_EXPERTS_EXPERTPAGE);
-
-		User currentUser = CurrentUser.getCurrentUser();
-		List<User> followedUsers = currentUser.followedUsers;
-
-		render(experts, followedUsers);
+		render(experts);
 	}
 
 	/**

@@ -19,6 +19,7 @@ inviteemailplaceholder=exemple@email.fr
 addmessage=Ajoutez un message
 invitesubmit=Envoyer
 inviteconfirm=Invitation envoyée
+browsecategory=Catégories
 
 # Create Insight
 createInsightTitle=Que va t'il arriver ?

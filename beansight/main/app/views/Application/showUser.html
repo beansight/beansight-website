@@ -44,6 +44,7 @@
     </ul>
 </div>
 
+#{isConnected}
 #{if controllers.CurrentUser.isAdmin()}
 <div class="admin">
     <h3>admin box</h3>
@@ -54,5 +55,6 @@
     #{/form}
 </div>
 #{/if}
+#{/isConnected}
 
 #{/userContainer}
