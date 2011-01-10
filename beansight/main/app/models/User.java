@@ -120,6 +120,7 @@ public class User extends Model {
 		this.votes = new ArrayList<Vote>();
 		this.createdInsights = new ArrayList<Insight>();
 		this.followedInsights = new ArrayList<Insight>();
+		this.followedUsers = new ArrayList<User>();
 		this.crdate = new Date();
 
 		this.score = 0;

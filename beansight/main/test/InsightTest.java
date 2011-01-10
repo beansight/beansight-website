@@ -16,7 +16,7 @@ import play.test.UnitTest;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
-public class BasicTest extends UnitTest {
+public class InsightTest extends UnitTest {
 
 	@Before
 	public void setup() {
@@ -24,26 +24,6 @@ public class BasicTest extends UnitTest {
 		Fixtures.load("initial-data.yml");
 		User user = TestHelper.createTestUser();
 	}
-	
-	
-	
-    @Test
-    public void createNewUser() {
-   		User user = new User("john.doe@usa.com", "john", "thepassword");
-        user.save();
-        
-        User userFound = User.findByUserName("john");
-        assertEquals(user, userFound);
-    }
-
-    
-    @Test
-    public void connectUser() {
-    	boolean connected = User.authenticate(TestHelper.TEST_MAIL, TestHelper.TEST_PASSWORD);
-    	
-        assertTrue(connected);
-    }
-    
     
     @Test
     public void createAnInsight() {
@@ -114,11 +94,14 @@ public class BasicTest extends UnitTest {
         assertTrue(historicalVotes.get(1).status.equals(Status.HISTORIZED));
         
         // now userTest vote a second time but on the same side
+        boolean exceptionRaised = false;
         try {
         	userTest.voteToInsight(insight.id, State.DISAGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
-			// this should happen, so it's ok
+			// this should happen
+			exceptionRaised = true;
 		}
+		assertTrue(exceptionRaised);
     }
     
     
