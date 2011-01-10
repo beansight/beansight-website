@@ -27,7 +27,7 @@ public class FacebookOAuth extends Controller {
     /**
      * client_id
      */
-    private static final String FB_CLIENT_ID = Play.configuration.getProperty("facebook.client_id", ""); 
+    private static final String FB_CLIENT_ID = Play.configuration.getProperty("facebook.client_id"); 
     
     /**
      * client_secret

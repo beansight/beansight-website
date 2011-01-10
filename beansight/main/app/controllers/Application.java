@@ -362,17 +362,17 @@ public class Application extends Controller {
 		}
 		// check if a new image has been uploaded
 		if (originalImage != null) {
-			File originalImageCopy = new File(FileAttachment.getStore(),
-					"originalImage_" + user.id);
-			originalImage.renameTo(originalImageCopy);
-			// Default is we resize the originalImage without any modification.
-			// Can be cropped later if necessary since we keep the original
-			File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + user.id);
-			ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
-//			Images.resize(originalImageCopy, resizedOriginalImage, 60, 60);
-			user.avatar.set(resizedOriginalImage);
-			user.saveAttachment();
-			resizedOriginalImage.deleteOnExit();
+//			File originalImageCopy = new File(FileAttachment.getStore(),
+//					"originalImage_" + user.id);
+//			originalImage.renameTo(originalImageCopy);
+//			// Default is we resize the originalImage without any modification.
+//			// Can be cropped later if necessary since we keep the original
+//			File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + user.id);
+//			ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
+//			user.avatar.set(resizedOriginalImage);
+//			user.saveAttachment();
+//			resizedOriginalImage.deleteOnExit();
+			user.updateAvatar(originalImage);
 		}
 
 		user.userName = userName;

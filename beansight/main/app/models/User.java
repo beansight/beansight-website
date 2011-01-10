@@ -1,5 +1,8 @@
 package models;
 
+import helpers.ImageHelper;
+
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ import models.Vote.State;
 import models.Vote.Status;
 import models.oauthclient.Credentials;
 import play.Logger;
+import play.Play;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.db.jpa.FileAttachment;
@@ -153,6 +157,20 @@ public class User extends Model {
 		return crdate;
 	}
 
+	
+	public void updateAvatar(File originalImage) {
+		File originalImageCopy = new File(FileAttachment.getStore(),
+				"originalImage_" + this.id);
+		originalImage.renameTo(originalImageCopy);
+		// Default is we resize the originalImage without any modification.
+		// Can be cropped later if necessary since we keep the original
+		File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + this.id);
+		ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
+		this.avatar.set(resizedOriginalImage);
+		this.saveAttachment();
+		resizedOriginalImage.deleteOnExit();
+	}
+	
 	/**
 	 * Static method to get a User instance given his username
 	 * 
