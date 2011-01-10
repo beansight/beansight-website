@@ -279,7 +279,7 @@ public class Insight extends Model {
 			}
 		}
 
-		query += " order by creationDate DESC";
+		query += " order by lastUpdated DESC";
 
 		InsightResult result = new InsightResult();
 		// TODO : return total number using count ?
