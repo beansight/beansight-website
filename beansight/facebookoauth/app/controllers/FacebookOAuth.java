@@ -27,17 +27,17 @@ public class FacebookOAuth extends Controller {
     /**
      * client_id
      */
-    private static final String FB_CLIENT_ID = "137918342928326";
+    private static final String FB_CLIENT_ID = Play.configuration.getProperty("facebook.client_id", ""); 
     
     /**
      * client_secret
      */
-    private static final String FB_APPLICATION_SECRET = "ac6ff2bdcd16a896106a66302d13b94a";
+    private static final String FB_APPLICATION_SECRET = Play.configuration.getProperty("facebook.client_secret");
     
     /**
      * API key
      */
-    private static final String FB_API_KEY = "414df934367721acd7b72ab9fde90812";
+    private static final String FB_API_KEY = Play.configuration.getProperty("facebook.api_key"); 
     
     
     public static void authenticate() {
