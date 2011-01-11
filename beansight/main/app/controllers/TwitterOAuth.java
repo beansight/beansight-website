@@ -112,6 +112,9 @@ public class TwitterOAuth extends Controller {
 		if (twitterUser.avatar == null) {
 			twitterUser.avatar = new FileAttachment();
 		}
+		// save so that we get an id for the new user
+		twitterUser.save();
+		// and now we can update avatar with the twitter profil image
 		twitterUser.updateAvatar(FileHelper.getTmpFile(profileImageInputStream));
 	}
 	
