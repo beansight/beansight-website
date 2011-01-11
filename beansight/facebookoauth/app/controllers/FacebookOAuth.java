@@ -41,7 +41,27 @@ public class FacebookOAuth extends Controller {
     
     
     public static void authenticate() {
-        throw new Redirect("https://graph.facebook.com/oauth/authorize?client_id=" + FB_CLIENT_ID + "&redirect_uri=" + Router.getFullUrl(request.controller + ".callback"));
+		StringBuilder fbAuthenticateUrl = new StringBuilder();
+		fbAuthenticateUrl
+				.append("https://graph.facebook.com/oauth/authorize?client_id=")
+				.append(FB_CLIENT_ID).append("&redirect_uri=")
+				.append(Router.getFullUrl(request.controller + ".callback"));
+				
+		// request extended permissions (email, ...)
+		String extendedPermissions = null;
+		try {
+			extendedPermissions = (String) FacebookOAuthDelegate
+					.invoke("getExtendedPermissions");
+		} catch (Throwable e) {
+			Logger.error("Failed calling getExtendedPermissions", e);
+		}
+		if (extendedPermissions != null
+				&& extendedPermissions.trim().length() != 0) {
+			fbAuthenticateUrl.append("&scope=");
+			fbAuthenticateUrl.append(extendedPermissions);
+		}
+		
+        throw new Redirect(fbAuthenticateUrl.toString());
     }
     
     /**
@@ -49,11 +69,13 @@ public class FacebookOAuth extends Controller {
      * @throws Throwable 
      */
     public static void callback(String code) throws Throwable {
-        StringBuilder fbAccessTokenUrl = new StringBuilder();
-        fbAccessTokenUrl.append("https://graph.facebook.com/oauth/access_token?client_id=").append(FB_CLIENT_ID)
-                                    .append("&redirect_uri=").append(Router.getFullUrl(request.controller + ".callback"))
-                                    .append("&client_secret=").append(FB_APPLICATION_SECRET)
-                                    .append("&code=").append(WS.encode(code));
+		StringBuilder fbAccessTokenUrl = new StringBuilder();
+		fbAccessTokenUrl
+				.append("https://graph.facebook.com/oauth/access_token?client_id=")
+				.append(FB_CLIENT_ID).append("&redirect_uri=")
+				.append(Router.getFullUrl(request.controller + ".callback"))
+				.append("&client_secret=").append(FB_APPLICATION_SECRET)
+				.append("&code=").append(WS.encode(code));
         
         String response = WS.url(fbAccessTokenUrl.toString()).get().getString();
         
@@ -81,8 +103,24 @@ public class FacebookOAuth extends Controller {
      */
     public static class FacebookOAuthDelegate extends Controller {
         
+    	/**
+    	 * Override this method to handle the returning data from facebook containing
+    	 * the user informations.
+    	 * 
+    	 * @param facebookModelObject
+    	 */
         static void onFacebookAuthentication(FacebookModelObject facebookModelObject)  {
             Application.index();
+        }
+        
+        /**
+         * Override this method if you want to get extended permission about users informations.
+         * See http://developers.facebook.com/docs/authentication/
+         * 
+         * @return a comma separated permissions
+         */
+        static String getExtendedPermissions() {
+        	return "";
         }
         
         private static Object invoke(String m, Object... args) throws Throwable {

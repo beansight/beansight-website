@@ -31,22 +31,21 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         // then create a beansight account linked to his facebook account
         if (null == facebookUser) {
             // TODO : we should check that the username is not already in use, and if so add something like _twitterat the end of the username.            
-            facebookUser = new User("", facebookScreenName, "");
-            facebookUser.facebookScreenName = facebookScreenName;
+            facebookUser = new User(facebookModelObject.getEmail(), facebookScreenName, "");
             facebookUser.facebookUserId = facebookUserId;
             facebookUser.save();
 
-        } else {
-            // update the facebook screen name
-            facebookUser.facebookScreenName = facebookScreenName;
-            facebookUser.save();
-        }
+        } 
         
         session.put("isFacebookUser", Boolean.TRUE);
         session.put("facebookUserId", facebookUserId);
         session.put("username", facebookScreenName);
         
         Application.index();
+    }
+    
+    public static String getExtendedPermissions() {
+    	return "email";
     }
     
 }

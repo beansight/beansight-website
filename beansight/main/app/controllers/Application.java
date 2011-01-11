@@ -516,4 +516,11 @@ public class Application extends Controller {
 		}
 	}
 	
+	/**
+	 * @return the play id
+	 */
+	public static void playId() {
+		renderText(Play.id);
+	}
+	
 }

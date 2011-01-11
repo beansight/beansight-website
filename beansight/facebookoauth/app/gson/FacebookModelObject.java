@@ -12,6 +12,7 @@ public class FacebookModelObject {
     private String locale;
     private boolean verified;
     private String update_time;
+    private String email; // need requesting extended permission
     
     public Long getId() {
         return id;
@@ -92,5 +93,13 @@ public class FacebookModelObject {
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 }
