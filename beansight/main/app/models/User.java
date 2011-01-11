@@ -521,5 +521,15 @@ public class User extends Model {
 		this.invitationsLeft += invitationNumber;
 		save();
 	}
+
+	public boolean sendMessage(User user, String content) {
+		Message message = new Message(this, user, content);
+		message.save();
+
+		MessageMailTask task = new MessageMailTask(message);
+		task.save();
+		
+		return true;
+	}
 	
 }

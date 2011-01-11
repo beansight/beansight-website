@@ -9,6 +9,7 @@ import java.util.*;
 import models.FollowNotificationTask;
 import models.InvitationMailTask;
 import models.MailTask;
+import models.MessageMailTask;
 import models.User;
 
 public class Mails extends Mailer {
@@ -29,6 +30,10 @@ public class Mails extends Mailer {
 
 	public static void invitation(InvitationMailTask task) {
 		sendMailTask(task, Messages.get("emailinvitationsubject", task.invitation.invitor.userName), "Mails/invitation.html");
+	}
+	
+	public static void message(MessageMailTask task) {
+		sendMailTask(task, Messages.get("emailmessagesubject", task.message.fromUser.userName), "Mails/message.html");
 	}
 	
 	private static void sendMailTask(MailTask task, String subject, String templateName) {

@@ -362,17 +362,17 @@ public class Application extends Controller {
 		}
 		// check if a new image has been uploaded
 		if (originalImage != null) {
-//			File originalImageCopy = new File(FileAttachment.getStore(),
-//					"originalImage_" + user.id);
-//			originalImage.renameTo(originalImageCopy);
-//			// Default is we resize the originalImage without any modification.
-//			// Can be cropped later if necessary since we keep the original
-//			File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + user.id);
-//			ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
-//			user.avatar.set(resizedOriginalImage);
-//			user.saveAttachment();
-//			resizedOriginalImage.deleteOnExit();
-			user.updateAvatar(originalImage);
+			File originalImageCopy = new File(FileAttachment.getStore(),
+					"originalImage_" + user.id);
+			originalImage.renameTo(originalImageCopy);
+			// Default is we resize the originalImage without any modification.
+			// Can be cropped later if necessary since we keep the original
+			File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + user.id);
+			ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
+//			Images.resize(originalImageCopy, resizedOriginalImage, 60, 60);
+			user.avatar.set(resizedOriginalImage);
+			user.saveAttachment();
+			resizedOriginalImage.deleteOnExit();
 		}
 
 		user.userName = userName;
@@ -515,12 +515,31 @@ public class Application extends Controller {
 			renderText("false");
 		}
 	}
-	
+
 	/**
 	 * @return the play id
 	 */
 	public static void playId() {
 		renderText(Play.id);
+	}
+
+	/**
+	 * AJAX Send a message to a given user
+	 * @param id : id of the user to send the invite
+	 * @param content : message to send
+	 */
+	public static void sendMessage(@Required long id, @Required String content) {
+		if (validation.hasErrors()) {
+			renderText("false");
+		}
+		
+		User currentUser = CurrentUser.getCurrentUser();
+		User user = User.findById(id);
+		if(currentUser.sendMessage(user, content)) {
+			renderText("true");
+		} else  {
+			renderText("false");
+		}
 	}
 	
 }

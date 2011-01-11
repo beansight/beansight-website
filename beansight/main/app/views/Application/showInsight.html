@@ -64,11 +64,15 @@
     
     
     <div class="shareContainer">
-	    <div class="facebook">
+	    <div class="onFacebook">
 	        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like show_faces="false" width="450"></fb:like>
 	    </div>
-	    <div class="twitter">
+	    <div class="onTwitter">
 	        <a href="http://twitter.com/share" class="twitter-share-button" data-text="${insight.content} & {'onbeansight'}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	    </div>
+	    <div class="onBeansight">
+	       <a href="" id="shareOnBeansight">&{'shareonbeansight'}</a>
+	       <input type="text" style="display:none;" id="shareOnBeansightUsername"/>
 	    </div>
     </div>
     

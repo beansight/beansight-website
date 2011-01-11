@@ -45,6 +45,7 @@ createdby=by
 since=Since
 youagree=you agree with this insight.
 youdisagree=you disagree with this insight.
+shareonbeansight=Beansight user
 
 #experts
 explore=Explore experts
@@ -110,7 +111,7 @@ activityfavorited= %s favorited
 ####################
 
 # confirmation
-emailwelcome=Welcome %s
+emailhellouser=Bonjour %s
 emailsignature=The Beansight team<br/>http://www.beansight.com
 emailconfirmationsubject=Beansight: please confirm your email
 emailconfirmtext=You need to confirm your email :
@@ -128,3 +129,8 @@ emailinvitationmarketing=Beansight is a place to share predictions about the fut
 emailinvitationinvitor=%s is saying:
 emailinvitationbeta=Beansight is currently in closed beta.
 clickheretoregistrationpage=You have to follow this link to create your account.
+
+# message
+emailmessagesubject=Beansight: Private message from %s
+emailmessageheadline=%s sent you a private message on Beansight:
+emailmessagegotoprofile=Click here to visite %s profile and answer.

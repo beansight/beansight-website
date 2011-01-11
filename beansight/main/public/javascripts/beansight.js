@@ -137,6 +137,14 @@ $(document).ready(function() {
         );
         return false;
     });
+    
+    $('#sendMessageForm').submit(function() {
+        $.getJSON(sendMessageAction(), $(this).serialize(), function() { 
+        	$('#messageUserContent').val('');
+            }
+        );
+        return false;
+    });
 	
     //////////////////////
     // Insight creation
@@ -205,7 +213,10 @@ $(document).ready(function() {
 			return false;
 		}
 	});
-	
+
+    //////////////////////
+    // Registration
+    //////////////////////
 	$("#registerForm").validate({
 		rules: {
 			email: {
@@ -227,5 +238,13 @@ $(document).ready(function() {
 			}
 		}
 	});
-	
+
+    //////////////////////
+    // Insight Sharing
+    //////////////////////
+	$('#shareOnBeansight').click(function() {
+		$('#shareOnBeansightUsername').slideDown();
+		return false;
+	});
+
 });

@@ -45,6 +45,7 @@ createdby=par
 since=Depuis
 youagree=vous êtes d'accord avec cette prévision.
 youdisagree=vous n'êtes pas d'accord avec cette prévision.
+shareonbeansight=Utilisateur Beansight
 
 #experts
 explore=Explorer les experts
@@ -110,7 +111,7 @@ activityfavorited= %s favorited
 ####################
 
 # confirmation
-emailwelcome=Bonjour %s
+emailhellouser=Bonjour %s
 emailsignature=L'équipe Beansight<br/>http://www.beansight.com
 emailconfirmationsubject=Beansight : confirmez votre email.
 emailconfirmtext=Vous devez confirmer votre email
@@ -128,3 +129,8 @@ emailinvitationmarketing=Beansight est une plateforme où vous pourrez partager 
 emailinvitationinvitor=%s a ajouté :
 emailinvitationbeta=Beansight est actuellement en bêta privée.
 clickheretoregistrationpage=Il vous faut suivre ce lien pour vous créer un compte.
+
+# message
+emailmessagesubject=Beansight : Message de %s
+emailmessageheadline=%s vous a envoyé un message privé sur Beansight :
+emailmessagegotoprofile=Cliquez ici pour visiter la page de %s et répondre.
