@@ -27,6 +27,7 @@ Insight(insightBeansight):
     content:        Beansight will be ready on time
     creationDate:   2010-08-10
     endDate:        2010-09-12
+    uniqueId:       1
     agreeCount:     1
     disagreeCount:  0
     category:       catDebug

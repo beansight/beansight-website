@@ -29,10 +29,10 @@
      
      <!-- define here the actions -->
      <script type="text/javascript">
-     var agreeAction = #{jsAction @Application.agree(':insightId') /};
-     var disagreeAction = #{jsAction @Application.disagree(':insightId') /};
+     var agreeAction = #{jsAction @Application.agree(':insightUniqueId') /};
+     var disagreeAction = #{jsAction @Application.disagree(':insightUniqueId') /};
      var resetInsightActivityAction = #{jsAction @Application.resetInsightActivity() /};
-     var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightId') /};
+     var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
      var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
      var moreInsightsAction = #{jsAction @Application.moreInsights(':from', ':categoryId') /};
      var moreSearchAction = #{jsAction @Application.moreSearch(':query', ':from', ':categoryId') /};

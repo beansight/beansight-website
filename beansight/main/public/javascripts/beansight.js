@@ -6,23 +6,23 @@ var MAX_CHARACTERS_INSIGHT = 140;
 //////////////////////
 
 /** Current user agree an insight */
-function agree(insightId) {
-    $.getJSON(agreeAction({'insightId': insightId}), onVoteSuccess);
+function agree(insightUniqueId) {
+    $.getJSON(agreeAction({'insightUniqueId': insightUniqueId}), onVoteSuccess);
 }
 
 /** Current user disagree an insight */
-function disagree(insightId) {
-    $.getJSON(disagreeAction({'insightId': insightId}), onVoteSuccess);
+function disagree(insightUniqueId) {
+    $.getJSON(disagreeAction({'insightUniqueId': insightUniqueId}), onVoteSuccess);
 }
 
 /** Callback after a vote is done */
 function onVoteSuccess(data) {
-    updateAgreeDisagreeCount(data.id, data.updatedAgreeCount, data.updatedDisagreeCount, data.voteState);
+    updateAgreeDisagreeCount(data.uniqueId, data.updatedAgreeCount, data.updatedDisagreeCount, data.voteState);
 }
 
 /** Update the counts of an insight, given new counts */
-function updateAgreeDisagreeCount(id, agreeCount, disagreeCount, voteState) {
-	var insightContainer = $(".insight_" + id);
+function updateAgreeDisagreeCount(uniqueId, agreeCount, disagreeCount, voteState) {
+	var insightContainer = $(".insight_" + uniqueId);
     $(".agreeCount", insightContainer).text(agreeCount);
     $(".disagreeCount", insightContainer).text(disagreeCount);
     
@@ -33,13 +33,13 @@ function updateAgreeDisagreeCount(id, agreeCount, disagreeCount, voteState) {
     }
 }
 
-function toggleFollowingInsight(insightId) {
-	$.getJSON(toggleFollowingInsightAction({'insightId': insightId}), onToggleFollowingInsightSuccess);
+function toggleFollowingInsight(insightUniqueId) {
+	$.getJSON(toggleFollowingInsightAction({'insightUniqueId': insightUniqueId}), onToggleFollowingInsightSuccess);
 }
 
 /** Callback after a follow of insight is done */
 function onToggleFollowingInsightSuccess(data) {
-	var favicon = $(".icon.favorite", ".insight_" + data.id);
+	var favicon = $(".icon.favorite", ".insight_" + data.uniqueId);
 	if(data.follow) {
 		favicon.addClass("active").removeClass("inactive");
 	} else {

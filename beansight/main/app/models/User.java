@@ -219,15 +219,26 @@ public class User extends Model {
 		// TODO exception if null
 
 		Insight i = new Insight(this, insightContent, endDate, category, lang);
-		i.save();
+		try {
+			i.save();
+		} catch(Throwable t) {
+			Logger.error("Error when saving insight. The handler supposes that it's the uniqueId being not unique, so trying again", t.getMessage());
+			// TODO ? how to be sure that the exception was thrown because of the random uniqueId not being ... unique
+			i.uniqueId = Insight.generateUniqueId();
+			try {
+				i.save();
+			} catch (Throwable e) {
+				Logger.fatal("Cannot save Insight : ", e);
+			}
+		}
 		i.addTags(tagLabelList, this);
 
 		this.createdInsights.add(i);
 		// agree with this insight
 		try {
-			this.voteToInsight(i.id, State.AGREE);
+			this.voteToInsight(i.uniqueId, State.AGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
-			e.printStackTrace();
+			
 		}
 
 		// store the given language as the default language for the user
@@ -246,11 +257,11 @@ public class User extends Model {
 	 * @param voteState
 	 *            State.AGREE or State.DISAGREE
 	 */
-	public void voteToInsight(Long insightId, State voteState) throws CannotVoteTwiceForTheSameInsightException {
-		Insight insight = Insight.findById(insightId);
+	public void voteToInsight(String insightUniqueId, State voteState) throws CannotVoteTwiceForTheSameInsightException {
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
 
 		boolean change = false;
-		Vote vote = Vote.findLastVoteByUserAndInsight(this.id, insightId);
+		Vote vote = Vote.findLastVoteByUserAndInsight(this.id, insight.uniqueId);
 		if (vote != null) {
 			// there are only idiots who do not change their minds
 			if (vote.state.equals(voteState)) {

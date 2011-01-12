@@ -57,12 +57,12 @@ public class Vote extends Model {
 	 * @param insightId
 	 * @return true if user has already vote, false otherwise.
 	 */
-	public static boolean hasUserVotedForInsight(Long userId, Long insightId) {
+	public static boolean hasUserVotedForInsight(Long userId, String insightUniqueId) {
 		Long count = find(
 				"select count(*) from Vote v join v.user u join v.insight i "
 						+ "where u.id=:userId and v.status = :status "
-						+ "and i.id=:insightId").bind("userId", userId)
-				.bind("status", Status.ACTIVE).bind("insightId", insightId)
+						+ "and i.uniqueId=:insightUniqueId").bind("userId", userId)
+				.bind("status", Status.ACTIVE).bind("insightUniqueId", insightUniqueId)
 				.first();
 		if (count == 0) {
 			return false;
@@ -77,12 +77,12 @@ public class Vote extends Model {
 	 * @param insightId
 	 * @return null if did not voted, State if voted
 	 */
-	public static State whatVoteForInsight(Long userId, Long insightId) {
+	public static State whatVoteForInsight(Long userId, String insightUniqueId) {
 		Vote vote = find(
 				"select v from Vote v join v.user u join v.insight i "
 						+ "where u.id=:userId and v.status = :status "
-						+ "and i.id=:insightId").bind("userId", userId)
-				.bind("status", Status.ACTIVE).bind("insightId", insightId)
+						+ "and i.uniqueId=:insightUniqueId").bind("userId", userId)
+				.bind("status", Status.ACTIVE).bind("insightUniqueId", insightUniqueId)
 				.first();
 		if(vote == null) {
 			return null;
@@ -97,23 +97,23 @@ public class Vote extends Model {
 	 * @param insightId
 	 * @return
 	 */
-	public static Vote findLastVoteByUserAndInsight(Long userId, Long insightId) {
+	public static Vote findLastVoteByUserAndInsight(Long userId, String insightUniqueId) {
 		Vote vote = find(
 				"select v from Vote v join v.user u join v.insight i "
 						+ "where u.id=:userId and v.status = :status "
-						+ "and i.id=:insightId").bind("userId", userId)
-				.bind("status", Status.ACTIVE).bind("insightId", insightId)
+						+ "and i.uniqueId=:insightUniqueId").bind("userId", userId)
+				.bind("status", Status.ACTIVE).bind("insightUniqueId", insightUniqueId)
 				.first();
 		return vote;
 	}
 
 	public static List<Vote> findVotesByUserAndInsight(Long userId,
-			Long insightId) {
+			String insightUniqueId) {
 		List<Vote> votes = find(
 				"select v from Vote v join v.user u join v.insight i "
 						+ "where u.id=:userId "
-						+ "and i.id=:insightId order by v.creationDate desc")
-				.bind("userId", userId).bind("insightId", insightId).fetch();
+						+ "and i.uniqueId=:insightUniqueId order by v.creationDate desc")
+				.bind("userId", userId).bind("insightUniqueId", insightUniqueId).fetch();
 		return votes;
 	}
 }

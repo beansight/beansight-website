@@ -5,12 +5,12 @@
 #{isConnected}
 *{ what is the vote of this user for this insight /}*
 %{ 
-      state = models.Vote.whatVoteForInsight(controllers.CurrentUser.getCurrentUser().id, _insight.id)
+      state = models.Vote.whatVoteForInsight(controllers.CurrentUser.getCurrentUser().id, _insight.uniqueId)
 /}%
 #{/isConnected}
 %{ 
       if(_tag == null ) { _tag = "div" }
 /}%
-<${_tag} class="insight_${_insight.id} #{if state.equals(models.Vote.State.AGREE) } voteAgree #{/if } #{elseif state.equals(models.Vote.State.DISAGREE)} voteDisagree #{/elseif}">
+<${_tag} class="insight_${_insight.uniqueId} #{if state.equals(models.Vote.State.AGREE) } voteAgree #{/if } #{elseif state.equals(models.Vote.State.DISAGREE)} voteDisagree #{/elseif}">
 #{doBody /}
 </${_tag}>

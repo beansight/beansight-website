@@ -54,7 +54,7 @@
 	    <span onclick="showAddMoreTags()"><a href="">&{'suggesttags'}</a></span>
 	    </p>
 	    <div id="moreTags" style="display:none;">
-	    #{form @Application.addTags(insight.id)}
+	    #{form @Application.addTags(insight.uniqueId)}
 	        <input type="text" name="tagLabelList" id="tagLabelList" />
 	        <input type="submit" value="&{'addtags'}"/>
 	    #{/form}

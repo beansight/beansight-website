@@ -11,6 +11,7 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import play.Logger;
 import play.test.Fixtures;
 import play.test.UnitTest;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
@@ -70,24 +71,24 @@ public class InsightTest extends UnitTest {
         
         // use the user test to vote for the created insight
         User userTest = TestHelper.getTestUser();
-		assertFalse(Vote.hasUserVotedForInsight(userTest.id, insight.id));
+		assertFalse(Vote.hasUserVotedForInsight(userTest.id, insight.uniqueId));
 		try {
-			userTest.voteToInsight(insight.id, State.AGREE);
+			userTest.voteToInsight(insight.uniqueId, State.AGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			fail("CannotVoteTwiceForTheSameInsightException should not happen here");
 		}
-        assertTrue(Vote.hasUserVotedForInsight(userTest.id, insight.id));
+        assertTrue(Vote.hasUserVotedForInsight(userTest.id, insight.uniqueId));
         
         // userTest changes his mind and vote for the other side, this is possible
         try {
-			userTest.voteToInsight(insight.id, State.DISAGREE);
+			userTest.voteToInsight(insight.uniqueId, State.DISAGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			fail("CannotVoteTwiceForTheSameInsightException should not happen here");
 		}
-        assertTrue(Vote.hasUserVotedForInsight(userTest.id, insight.id));
+        assertTrue(Vote.hasUserVotedForInsight(userTest.id, insight.uniqueId));
         
         // we test that there is 2 votes for the insight by the same user
-        List<Vote> historicalVotes = Vote.findVotesByUserAndInsight(userTest.id, insight.id);
+        List<Vote> historicalVotes = Vote.findVotesByUserAndInsight(userTest.id, insight.uniqueId);
         assertNotNull(historicalVotes);
         assertTrue(historicalVotes.size() == 2);
         assertTrue(historicalVotes.get(0).status.equals(Status.ACTIVE));
@@ -96,7 +97,7 @@ public class InsightTest extends UnitTest {
         // now userTest vote a second time but on the same side
         boolean exceptionRaised = false;
         try {
-        	userTest.voteToInsight(insight.id, State.DISAGREE);
+        	userTest.voteToInsight(insight.uniqueId, State.DISAGREE);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			// this should happen
 			exceptionRaised = true;
@@ -116,20 +117,35 @@ public class InsightTest extends UnitTest {
         User userTest = TestHelper.getTestUser();
         
         // no last vote yet return should be null
-        Vote lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.id);
+        Vote lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.uniqueId);
         assertNull(lastVote);
         
         // This time we vote so we'll have a "last vote"
-		userTest.voteToInsight(insight.id, State.AGREE);
-		lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.id);
+		userTest.voteToInsight(insight.uniqueId, State.AGREE);
+		lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.uniqueId);
 		assertNotNull(lastVote);	
 		assertTrue(lastVote.state.equals(State.AGREE));
 		
 		// let's vote another time
-		userTest.voteToInsight(insight.id, State.DISAGREE);
-		lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.id);
+		userTest.voteToInsight(insight.uniqueId, State.DISAGREE);
+		lastVote = Vote.findLastVoteByUserAndInsight(userTest.id, insight.uniqueId);
 		assertNotNull(lastVote);	
 		assertTrue(lastVote.state.equals(State.DISAGREE));
 		
     }
+    
+    @Test
+    public void testDuplicatedUniqueId() throws CannotVoteTwiceForTheSameInsightException {
+    	// We test that when the same Insight uniqueId is used more than once 
+    	// then another unique should be automatically searched again :
+    	Logger.debug("testing InsightTest.testDuplicatedUniqueId");
+    	Insight i = new Insight(TestHelper.getTestUser(), "Insight 1", TestHelper.getDateWithXMonthFromNow(2), Category.findByLabel("Web"), "fr");
+    	i.uniqueId = "1";
+    	i.save();
+    	i = new Insight(TestHelper.getTestUser(), "Insight 2", TestHelper.getDateWithXMonthFromNow(2), Category.findByLabel("Web"), "fr");
+    	i.uniqueId = "1";
+    	i.save();
+    	assertEquals(Insight.count(), 2); 
+    }
+ 
 }

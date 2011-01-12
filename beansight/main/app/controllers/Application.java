@@ -80,6 +80,15 @@ public class Application extends Controller {
     	insights(0,null);
     }
     
+    /**
+     * Display the insight create form
+     * 
+     * @param insightContent
+     * @param endDate
+     * @param tagLabelList
+     * @param categoryId
+     * @param insightLang
+     */
 	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang) {
 		if(insightLang == null ) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -158,7 +167,7 @@ public class Application extends Controller {
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId, lang);
 
-		showInsight(insight.id);
+		showInsight(insight.uniqueId);
 	}
 
 	public static void displayAllInsights() {
@@ -171,8 +180,8 @@ public class Application extends Controller {
 	 * 
 	 * @param insightId
 	 */
-	public static void agree(Long insightId) {
-		vote(insightId, State.AGREE);
+	public static void agree(String insightUniqueId) {
+		vote(insightUniqueId, State.AGREE);
 	}
 
 	/**
@@ -180,20 +189,20 @@ public class Application extends Controller {
 	 * 
 	 * @param insightId
 	 */
-	public static void disagree(Long insightId) {
-		vote(insightId, State.DISAGREE);
+	public static void disagree(String insightUniqueId) {
+		vote(insightUniqueId, State.DISAGREE);
 	}
 
-	private static void vote(Long insightId, State voteState) {
+	private static void vote(String insightUniqueId, State voteState) {
 		User currentUser = CurrentUser.getCurrentUser();
 
 		try {
-			currentUser.voteToInsight(insightId, voteState);
+			currentUser.voteToInsight(insightUniqueId, voteState);
 		} catch (CannotVoteTwiceForTheSameInsightException e) {
 			// its ok, do not show anything
 		}
 
-		Insight insight = Insight.findById(insightId);
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		renderArgs.put("agree", voteState == State.AGREE);
 		render("Application/vote.json", insight);
 	}
@@ -201,16 +210,16 @@ public class Application extends Controller {
 	/**
 	 * Show info about a given insight
 	 * 
-	 * @param id
+	 * @param insightUniqueId
 	 */
-	public static void showInsight(Long id) {
-		Insight insight = Insight.findById(id);
+	public static void showInsight(String insightUniqueId) {
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		notFoundIfNull(insight);
 		
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(
-					currentUser.id, id);
+					currentUser.id, insight.uniqueId);
 			
 			renderArgs.put("currentUser", currentUser);
 			renderArgs.put("lastUserVote", lastUserVote);
@@ -249,42 +258,25 @@ public class Application extends Controller {
 	/**
 	 * AJAX: Change the follow state for the connected user toward this insight
 	 */
-	public static void toggleFollowingInsight(Long insightId) {
+	public static void toggleFollowingInsight(String insightUniqueId) {
 		User currentUser = CurrentUser.getCurrentUser();
-		Insight insight = Insight.findById(insightId);
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
 
 		if (currentUser.isFollowingInsight(insight) == true) {
-			currentUser.stopFollowingThisInsight(insightId);
+			currentUser.stopFollowingThisInsight(insight.id);
 			renderArgs.put("follow", false);
 		} else {
 			try {
-				currentUser.startFollowingThisInsight(insightId);
+				currentUser.startFollowingThisInsight(insight.id);
 				renderArgs.put("follow", true);
 			} catch (UserIsAlreadyFollowingInsightException e) {
 				// it's ok to re-follow something
 			}
 		}
 
-		render("Application/followInsight.json", insightId);
+		render("Application/followInsight.json", insight);
 	}
 
-	public static void startFollowingInsight(Long insightId) {
-		User currentUser = CurrentUser.getCurrentUser();
-		try {
-			currentUser.startFollowingThisInsight(insightId);
-		} catch (UserIsAlreadyFollowingInsightException e) {
-			// it's ok to re-follow something
-		}
-		renderArgs.put("follow", true);
-		render("Application/followInsight.json", insightId);
-	}
-
-	public static void stopFollowingInsight(Long insightId) {
-		User currentUser = CurrentUser.getCurrentUser();
-		currentUser.stopFollowingThisInsight(insightId);
-		renderArgs.put("follow", false);
-		render("Application/followInsight.json", insightId);
-	}
 
 	/**
 	 * AJAX: Change the follow state for the connected user toward this user
@@ -314,9 +306,9 @@ public class Application extends Controller {
 	 * @param content
 	 *            : text content of the insight
 	 */
-	public static void addComment(Long insightId, String content) {
+	public static void addComment(String insightUniqueId, String content) {
 		User currentUser = CurrentUser.getCurrentUser();
-		Insight insight = Insight.findById(insightId);
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		Comment comment = insight.addComment(content, currentUser);
 
 		render("Application/comment.json", comment);
@@ -330,11 +322,11 @@ public class Application extends Controller {
 	 * @param tagLabelList
 	 *            : a comma separated list of tag labels
 	 */
-	public static void addTags(Long insightId, String tagLabelList) {
+	public static void addTags(String uniqueId, String tagLabelList) {
 		User currentUser = CurrentUser.getCurrentUser();
-		Insight insight = Insight.findById(insightId);
+		Insight insight = Insight.findByUniqueId(uniqueId);
 		insight.addTags(tagLabelList, currentUser);
-		showInsight(insightId);
+		showInsight(uniqueId);
 	}
 
 	/**
@@ -362,17 +354,7 @@ public class Application extends Controller {
 		}
 		// check if a new image has been uploaded
 		if (originalImage != null) {
-			File originalImageCopy = new File(FileAttachment.getStore(),
-					"originalImage_" + user.id);
-			originalImage.renameTo(originalImageCopy);
-			// Default is we resize the originalImage without any modification.
-			// Can be cropped later if necessary since we keep the original
-			File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + user.id);
-			ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
-//			Images.resize(originalImageCopy, resizedOriginalImage, 60, 60);
-			user.avatar.set(resizedOriginalImage);
-			user.saveAttachment();
-			resizedOriginalImage.deleteOnExit();
+			user.updateAvatar(originalImage);
 		}
 
 		user.userName = userName;
