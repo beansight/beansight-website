@@ -51,7 +51,7 @@
         
         #{isConnected}
         <p>
-	    <span onclick="showAddMoreTags()"><a href="">&{'suggesttags'}</a></span>
+	    <a href="" id="showMoreTags">&{'suggesttags'}</a>
 	    </p>
 	    <div id="moreTags" style="display:none;">
 	    #{form @Application.addTags(insight.uniqueId)}

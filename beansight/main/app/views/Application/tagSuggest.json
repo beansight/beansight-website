@@ -1,0 +1,3 @@
+[#{list items:tags, as:'tag'}
+{ "value":"${tag.label}" } #{if !tag_isLast}, #{/if}
+#{/list}]

@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.ImageHelper;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,10 +14,14 @@ import models.Category;
 import models.Comment;
 import models.FollowNotificationTask;
 import models.Insight;
+import models.InsightActivity;
 import models.Insight.InsightResult;
+import models.Tag;
+import models.Trend;
 import models.User;
 import models.Vote;
 import models.Vote.State;
+import play.Logger;
 import play.Play;
 import play.data.validation.Email;
 import play.data.validation.MaxSize;
@@ -23,12 +29,13 @@ import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.FileAttachment;
 import play.i18n.Lang;
-import play.i18n.Messages;
+import play.libs.Files;
 import play.libs.Images;
 import play.modules.search.Search;
 import play.modules.search.Search.Query;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.results.NotFound;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
 import exceptions.NotFollowingUserException;
@@ -43,6 +50,9 @@ public class Application extends Controller {
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 20;
 	public static final int NUMBER_EXPERTS_SEARCHPAGE = 20;
 
+	public static final int NUMBER_SUGGESTED_USERS = 10;
+	public static final int NUMBER_SUGGESTED_TAGS = 20;
+	
     @Before
     /**
      * Make sure the language is the one the user has chosen.
@@ -357,29 +367,16 @@ public class Application extends Controller {
 		if (user.id.equals(id) == false) {
 			forbidden("It seems you are trying to hack someone else settings");
 		}
-		
-		user.firstName = firstName;
-		user.lastName = lastName;
-		user.uiLanguage = uiLanguage;
-		
-		// check that if the userName has changed and if so 
-		// then that the new userName is not already in use
-		if (!user.userName.equals(userName)) {
-			if (!User.isUsernameAvailable(userName)) {
-				user.userName = userName; // set the userName to keep it when reloading the page
-				validation.addError("username", Messages.get("registerusernameexist")); 
-				validation.keep();
-				renderTemplate("Application/settings.html", user);
-			}
-		}
-		
-		user.userName = userName;
-		
 		// check if a new image has been uploaded
 		if (originalImage != null) {
 			user.updateAvatar(originalImage);
 		}
-		
+
+		user.userName = userName;
+		user.firstName = firstName;
+		user.lastName = lastName;
+		user.uiLanguage = uiLanguage;
+
 		user.save();
 
 		settings();
@@ -583,8 +580,17 @@ public class Application extends Controller {
 				+ "where f.id = :id and LOWER(u.userName) like :userName")
 				.bind("id", currentUser.id)
 				.bind("userName", "%" + term.toLowerCase() + "%")
-				.fetch(10);
+				.fetch(NUMBER_SUGGESTED_USERS);
 		render(users);
+	}
+	
+	/**
+	 * AJAX Suggests tags from an input text
+	 * @param term : input text entered by the user
+	 */
+	public static void tagSuggest(String term) {
+		List <Tag> tags = Tag.find( "byLabelLike", "%" + term.toLowerCase() + "%").fetch(NUMBER_SUGGESTED_TAGS);
+		render(tags);
 	}
 
 }
