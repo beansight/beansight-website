@@ -99,7 +99,7 @@ public class Application extends Controller {
 
 	public static void profile() {
 		User currentUser = CurrentUser.getCurrentUser();
-		showUser(currentUser.id);
+		showUser(currentUser.userName);
 	}
 
 	public static void insights(long categoryId, String language) {
@@ -237,8 +237,8 @@ public class Application extends Controller {
 	 * 
 	 * @param id
 	 */
-	public static void showUser(Long id) {
-		User user = User.findById(id);
+	public static void showUser(String userName) {
+		User user = User.findByUserName(userName);
 		notFoundIfNull(user);
 
 		boolean currentUserProfilePage = false;
@@ -342,7 +342,7 @@ public class Application extends Controller {
 		User currentUser = CurrentUser.getCurrentUser();
 		currentUser.computeScores();
 		currentUser.save();
-		showUser(currentUser.id);
+		showUser(currentUser.userName);
 	}
 
 	public static void saveSettings(Long id, String userName, String firstName,

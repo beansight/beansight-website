@@ -10,15 +10,15 @@ GET     /register                               Register.register
 GET     /create                                 Application.create
 GET     /experts                                Application.experts
 GET     /search                                 Application.search
-GET     /profile                                Application.profile
+GET     /profile		            			Application.profile
 
 GET     /confirm/{hash}                         Application.confirm
 
 # Insight page
-GET     /insight/{<[0-9]+>id}                   Application.showInsight                   
+GET     /insight/{<[A-Za-z0-9]+>id}             Application.showInsight                   
 
 # Expert page
-GET     /expert/{<[0-9]+>id}                    Application.showUser
+GET     /expert/{<[A-Za-z0-9]+>userName}        Application.showUser
 
 # Import CRUD routes
 *       /admin                                  module:crud
