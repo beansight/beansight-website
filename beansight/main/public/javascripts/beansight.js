@@ -93,6 +93,17 @@ function updateCharacterCount() {
 	} catch(e) {}
 }
 
+/** show the more tag suggestion input field*/
+function showAddMoreTags() {
+	$('#moreTags').show();
+}
+
+/** callback for comment addition */
+function onAddCommentSuccess(data) {
+    $("#commentList").append( '<li>' + data.user + " (" + data.since + ")" + "<br/>" + data.content + '</li>');
+    clearForm('#addCommentForm');
+}
+
 // Tools
 function clearForm( context ) {
     $(':input', context)
@@ -240,11 +251,42 @@ $(document).ready(function() {
 	});
 
     //////////////////////
-    // Insight Sharing
+    // Insight Page
     //////////////////////
 	$('#shareOnBeansight').click(function() {
-		$('#shareOnBeansightUsername').slideDown();
+		$('#shareOnBeansightForm').slideDown();
 		return false;
 	});
+	$('#shareOnBeansightForm').submit(function() {
+        $.getJSON(shareInsightAction(), $(this).serialize(), function(data) {
+        	clearForm($('#shareOnBeansightForm'));
+        	$('#shareOnBeansightForm').slideUp();
+        	var message = i18n.insightShared;
+        	if(data.error) {
+        		if(data.error === "NotFollowingUserException") { message = i18n.notFollowingUser; }
+        		if(data.error === "InsightAlreadySharedException") { message = i18n.insightAlreadyShared; }
+        		if(data.error === "CannotFindUser") { message = i18n.cannotFindUser; }
+        	}
+        	$('#shareConfirmation').html(message);
+            }
+        );
+        return false;
+	})
+	
+	/** Submit action for add comment form */
+	$('#addCommentForm').submit(function() {
+	    $.getJSON("@{Application.addComment(insight.id)}", $(this).serialize(), onAddCommentSuccess);
+	    return false;
+	});
 
+	// When a autocomplete suggestion is selected, update the country <select> 
+	$( "#userToShareTo" ).autocomplete({
+	    source: favoriteUserSuggestAction(),
+	    minLength: 2,
+	    select: function(event, ui) {
+	        //countrySelect.val(ui.item.country);
+	        //placeMarkerOnSelectionMap( new google.maps.LatLng(ui.item.latitude, ui.item.longitude) );
+	    }
+	});
+	
 });

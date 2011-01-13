@@ -40,7 +40,7 @@
         <h3>&{'category'}</h3>
         <p>${insight.category.label}</p>
     </div>
-    
+
     <div id="tagList">
 	    <h3>${'tags'}</h3>
 	    <ul>
@@ -72,7 +72,11 @@
 	    </div>
 	    <div class="onBeansight">
 	       <a href="" id="shareOnBeansight">&{'shareonbeansight'}</a>
-	       <input type="text" style="display:none;" id="shareOnBeansightUsername"/>
+	       <form id="shareOnBeansightForm" style="display:none;">
+	           <input type="text" name="userName" id="userToShareTo" />
+               <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}" />
+	       </form>
+	       <span id="shareConfirmation"></span>
 	    </div>
     </div>
     
@@ -95,25 +99,3 @@
 #{/isConnected}
 
 #{/insightContainer}
-
-<script type="text/javascript" charset="utf-8">
-
-/** show the more tag suggestion input field*/
-	function showAddMoreTags() {
-		$('#moreTags').show();
-	}
-
-
-	/** Submit action for add comment form */
-	$('#addCommentForm').submit(function() {
-	    $.getJSON("@{Application.addComment(insight.id)}", $(this).serialize(), onAddCommentSuccess);
-	    return false;
-	});
-	
-	/** callback for comment addition */
-	function onAddCommentSuccess(data) {
-	    $("#commentList").append( '<li>' + data.user + " (" + data.since + ")" + "<br/>" + data.content + '</li>');
-	    clearForm('#addCommentForm');
-	}
-
-</script>

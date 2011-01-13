@@ -36,6 +36,8 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.results.NotFound;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
+import exceptions.InsightAlreadySharedException;
+import exceptions.NotFollowingUserException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Application extends Controller {
@@ -109,10 +111,19 @@ public class Application extends Controller {
 			language = "en";
 		}
 
-		InsightResult result = Insight.getLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
+		InsightResult result;
+		
+		// If connected, get suggested insights
+		if (Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
+		} else {
+			result = Insight.getLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
+		}
+
 		renderArgs.put("insights", result.results);
 		renderArgs.put("count", result.count);
-
+		
 		render(category, language);
 	}
 
@@ -522,6 +533,51 @@ public class Application extends Controller {
 		} else  {
 			renderText("false");
 		}
+	}
+	
+	/**
+	 * AJAX share an insight with a user you are following
+	 * @param insightId
+	 * @param userId
+	 */
+	public static void shareInsight(@Required String insightUniqueId, @Required String userName) {
+		if (validation.hasErrors()) {
+			renderText("false");
+		}
+		User currentUser = CurrentUser.getCurrentUser();
+		User toUser = User.findByUserName(userName);
+		if(toUser == null) {
+			renderText("{\"error\":\"CannotFindUser\"}");
+		}
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
+		
+		try {
+			currentUser.shareInsight(toUser, insight);
+			renderText("true");
+		} catch (NotFollowingUserException e) {
+			e.printStackTrace();
+			renderText("{\"error\":\"NotFollowingUserException\"}");
+		} catch (InsightAlreadySharedException e) {
+			e.printStackTrace();
+			renderText("{\"error\":\"InsightAlreadySharedException\"}");
+		}
+		
+	}
+	
+	/**
+	 * AJAX Suggests users from an input text
+	 * @param term : input text entered by the user
+	 */
+	public static void favoriteUserSuggest(String term) {
+		User currentUser = CurrentUser.getCurrentUser();
+		List<User> users = User.find( 
+				"select u from User u " 
+				+ "join u.followers f "
+				+ "where f.id = :id and LOWER(u.userName) like :userName")
+				.bind("id", currentUser.id)
+				.bind("userName", "%" + term.toLowerCase() + "%")
+				.fetch(10);
+		render(users);
 	}
 	
 }

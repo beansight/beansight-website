@@ -6,5 +6,9 @@ var i18n = {
 		validateInsightContentMin : 'Nous savons tous les deux que cette prédiction est trop courte',
 		validateInsightContentMax : 'La taille d\'une prédiction est limitée à 140 lettres.',
 		validateInsightCreationLang : 'Choisissez une langue.',
-		validateCategoryId :		'Choisissez une catégorie pour cette prédiction.'
+		validateCategoryId :		'Choisissez une catégorie pour cette prédiction.',
+		insightAlreadyShared :		'Vous avez déjà partagé cette prédiction avec cet utilisateur.',
+		notFollowingUser :			'Vous devez suivre cet utilisateur pour partager une prédiction avec lui.',
+		insightShared :				'Prédiction partagée.',
+		cannotFindUser :			'L\'utilisateur ne peut pas être trouvé.'
 }

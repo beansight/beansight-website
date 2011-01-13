@@ -1,0 +1,3 @@
+[#{list items:users, as:'user'}
+{ "value":"${user.userName}" } #{if !user_isLast}, #{/if}
+#{/list}]

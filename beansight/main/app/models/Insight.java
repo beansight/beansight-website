@@ -293,7 +293,7 @@ public class Insight extends Model {
 			}
 		}
 
-		query += " order by lastUpdated DESC";
+		//query += " order by lastUpdated DESC";
 
 		InsightResult result = new InsightResult();
 		// TODO : return total number using count ?
@@ -354,8 +354,9 @@ public class Insight extends Model {
     }
     
 	public static class InsightResult {
-
+		/** The asked insights */
 		public List<Insight> results;
+		/** the total number of results */
 		public long count;
 	}
 

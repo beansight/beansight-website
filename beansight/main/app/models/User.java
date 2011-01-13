@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import models.Insight.InsightResult;
 import models.Vote.State;
 import models.Vote.Status;
 import models.oauthclient.Credentials;
@@ -29,11 +30,15 @@ import play.libs.Crypto;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
+import exceptions.InsightAlreadySharedException;
+import exceptions.NotFollowingUserException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
 @Entity
 @Indexed
 public class User extends Model {
+	
+	public static final int NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS = 2;
 
 	@Field
 	public String userName;
@@ -107,6 +112,11 @@ public class User extends Model {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public List<Comment> comments;
 
+	
+	/** insights that has been shared with this user */
+	@OneToMany(mappedBy = "toUser",  cascade = CascadeType.ALL)
+	public List<InsightShare> shared;
+	
 	public User(String email, String userName, String password) {
 		Logger.info("New User: " + userName);
 		this.email = email;
@@ -126,7 +136,9 @@ public class User extends Model {
 		this.followedInsights = new ArrayList<Insight>();
 		this.followedUsers = new ArrayList<User>();
 		this.crdate = new Date();
-
+		
+		this.shared = new ArrayList<InsightShare>();
+		
 		this.score = 0;
 		this.categoryScores = new ArrayList<UserCategoryScore>();
 		
@@ -302,6 +314,13 @@ public class User extends Model {
 			// create an activity around this user / insight relation
 			InsightActivity activity = new InsightActivity(this, insight);
 			activity.save();
+		}
+		
+		// remove this insight from shared insights
+		List<InsightShare> shares = InsightShare.find("insight = ? and toUser = ?", insight, this).fetch();
+		for( InsightShare share : shares ) {
+			share.read = true;
+			share.save();
 		}
 		
 		// update the activities around this insight
@@ -528,9 +547,59 @@ public class User extends Model {
 		return false;
 	}
 	
+	/**
+	 * Share an insight with another beansight's user
+	 * @param toUser : the user to send the insight to
+	 * @param insight : the insight to share
+	 */
+	public boolean shareInsight(User toUser, Insight insight) throws NotFollowingUserException, InsightAlreadySharedException {
+		// check you are following the user
+		if( !this.isFollowingUser(toUser) ) {
+			throw new NotFollowingUserException();
+		}
+		
+		// check if you haven't send it already
+		long shared = InsightShare.count("fromUser = ? and toUser = ? and insight = ?", this, toUser, insight);
+		if(shared != 0) {
+			throw new InsightAlreadySharedException();
+		}
+		
+		InsightShare share = new InsightShare(this, toUser, insight);
+		share.save();
+		
+		this.shared.add(share);
+		this.save();
+
+		return true;
+	}
+	
 	public void addInvitations(long invitationNumber) {
 		this.invitationsLeft += invitationNumber;
 		save();
+	}
+
+	/**
+	 * Return the insights that have been shared to this user.
+	 * @param number : maximum number to return
+	 */
+	public List<Insight> getSharedInsights(int number) {
+		List<InsightShare> shares = InsightShare.find("toUser = ? and read is false order by created DESC", this).fetch(number);
+		List<Insight> sharedInsights = new ArrayList<Insight>();
+		for(InsightShare share : shares) {
+			sharedInsights.add(share.insight);
+		}
+		return sharedInsights;
+	}
+
+	public InsightResult getSuggestedInsights(int from, int number, Category category, String language) {
+		// This is totally temporary.
+		InsightResult result = Insight.getLatest(from, number, category, language);
+		
+		List<Insight> sharedInsights = this.getSharedInsights(NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS);
+		sharedInsights.addAll(result.results);
+		result.results = sharedInsights;
+		
+		return result;
 	}
 
 	public boolean sendMessage(User user, String content) {
@@ -542,5 +611,6 @@ public class User extends Model {
 		
 		return true;
 	}
+
 	
 }
