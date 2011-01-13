@@ -15,9 +15,9 @@ User(steren):
     isAdmin:        true
 
 User(jb):
-    email:          jb@test.com
+    email:          jeanbaptiste.claramonte@gmail.com
     password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
-    userName:       JB
+    userName:       juamee
     uiLanguage:     fr
     writtingLanguage:     fr
     isAdmin:        true
@@ -45,3 +45,9 @@ Tag(tagSteren):
     insight:    insightBeansight
     label:      web
     creationDate: 2010-08-10
+
+Promocode(aPromocode):
+    code:   toto
+    crDate: 2011-01-01
+    endDate:    2012-01-01
+    nbUsageLeft:    100

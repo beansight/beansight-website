@@ -71,8 +71,9 @@ public class TwitterOAuth extends Controller {
 		// connect to beansight
 		// then create a beansight account linked to his twitter account
 		if (null == twitterUser) {
-			// TODO 1: we should check that the username is not already in use,
-			// and if so add something like _twitterat the end of the username.
+			if (!User.isUsernameAvailable(twitterScreenName)) {
+				twitterScreenName = twitterScreenName + "@twitter";
+			}
 			twitterUser = new User("", twitterScreenName, "");
 			twitterUser.twitterScreenName = twitterScreenName;
 			twitterUser.twitterUserId = twitterUserId;

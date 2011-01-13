@@ -12,10 +12,10 @@ GET     /experts                                Application.experts
 GET     /search                                 Application.search
 GET     /profile		            			Application.profile
 
-GET     /confirm/{hash}                         Application.confirm
+GET     /confirm/{hash}                         Register.confirm
 
 # Insight page
-GET     /insight/{<[A-Za-z0-9]+>id}             Application.showInsight                   
+GET     /insight/{<[A-Za-z0-9]+>insightUniqueId}             Application.showInsight                   
 
 # Expert page
 GET     /expert/{<[A-Za-z0-9]+>userName}        Application.showUser

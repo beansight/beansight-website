@@ -17,14 +17,15 @@ import javax.persistence.OneToMany;
 import models.Insight.InsightResult;
 import models.Vote.State;
 import models.Vote.Status;
-import models.oauthclient.Credentials;
+
+import org.hibernate.annotations.Index;
+
 import play.Logger;
 import play.Play;
-import play.data.validation.Email;
-import play.data.validation.Required;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 import play.i18n.Lang;
+import play.i18n.Messages;
 import play.libs.Codec;
 import play.libs.Crypto;
 import play.modules.search.Field;
@@ -37,16 +38,19 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 @Entity
 @Indexed
 public class User extends Model {
-	
-	public static final int NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS = 2;
 
+	public static final int NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS = 2;
+	
 	@Field
+	@Index (name = "USER_USERNAME_IDX")
 	public String userName;
 	@Field
 	public String firstName;
 	@Field
 	public String lastName;
 	public String password;
+	
+	@Index (name = "USER_EMAIL_IDX")
 	public String email;
 	/** Has the user confirmed his email */
 	public boolean emailConfirmed;
@@ -118,6 +122,9 @@ public class User extends Model {
 	public List<InsightShare> shared;
 	
 	public User(String email, String userName, String password) {
+		if (!User.isUsernameAvailable(userName)) {
+			throw new RuntimeException(Messages.get("registerusernameexist"));
+		}
 		Logger.info("New User: " + userName);
 		this.email = email;
 		this.password = Crypto.passwordHash(password);
@@ -148,6 +155,13 @@ public class User extends Model {
 		return userName;
 	}
 
+	public static boolean isUsernameAvailable(String userName) {
+		if (User.count("byUserName", userName) == 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Return true if the given email / password is valid
 	 * 
@@ -601,7 +615,7 @@ public class User extends Model {
 		
 		return result;
 	}
-
+	
 	public boolean sendMessage(User user, String content) {
 		Message message = new Message(this, user, content);
 		message.save();
@@ -611,6 +625,5 @@ public class User extends Model {
 		
 		return true;
 	}
-
 	
 }

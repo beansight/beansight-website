@@ -34,8 +34,8 @@ public class Register extends Controller {
 		if(existantEmail != 0) {
 			validation.addError("email", Messages.get("registeremailexist")); 
 		}
-		long existantUser = User.count("byUserName", username);
-		if(existantUser != 0) {
+		
+		if(!User.isUsernameAvailable(username)) {
 			validation.addError("username", Messages.get("registerusernameexist")); 
 		}
 		

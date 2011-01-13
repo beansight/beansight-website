@@ -94,6 +94,7 @@ function preview(img, selection) {
     	<p>
     		<label for="userName">&{'userName'}</label>
         	<input type="text" name="userName" value="${user.userName}"/>
+        	#{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
         </p>
         <p>
             <label for="userName">&{'firstName'}</label>
