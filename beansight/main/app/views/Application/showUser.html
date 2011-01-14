@@ -48,7 +48,7 @@
 </div>
 
 #{isConnected}
-#{if controllers.CurrentUser.isAdmin()}
+#{secure.check 'admin'}
 <div class="admin">
     <h3>admin box</h3>
     <p>${user.invitationsLeft} invitations left.</p>
@@ -57,7 +57,7 @@
         <input type="submit" name="submit" value="Add" />
     #{/form}
 </div>
-#{/if}
+#{/secure.check}
 #{/isConnected}
 
 #{/userContainer}

@@ -70,7 +70,7 @@ public class Application extends Controller {
     /**
      * If the user is connected, load the needed info into the menu
      */
-    static void loadMenuData() {
+    public static void loadMenuData() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));

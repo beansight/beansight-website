@@ -19,6 +19,7 @@ public class Admin extends Controller {
 	public static void addInvitationsToUser(long userId, long number) {
 		User user = User.findById(userId);
 		user.addInvitations(number);
+		Application.loadMenuData();
 		render(user);
 	}
 	
