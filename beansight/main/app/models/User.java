@@ -125,6 +125,9 @@ public class User extends Model {
 		if (!User.isUsernameAvailable(userName)) {
 			throw new RuntimeException(Messages.get("registerusernameexist"));
 		}
+		if (!User.isEmailAvailable(email)) {
+			throw new RuntimeException(Messages.get("registeremailexist"));
+		}
 		Logger.info("New User: " + userName);
 		this.email = email;
 		this.password = Crypto.passwordHash(password);
@@ -157,6 +160,13 @@ public class User extends Model {
 
 	public static boolean isUsernameAvailable(String userName) {
 		if (User.count("byUserName", userName) == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isEmailAvailable(String email) {
+		if (User.count("byEmail", email) == 0) {
 			return true;
 		}
 		return false;
@@ -207,6 +217,15 @@ public class User extends Model {
 		return find("userName = ?", userName).first();
 	}
 
+	/**
+	 * Static method to get a User instance given his username
+	 * 
+	 * @param userName
+	 * @return
+	 */
+	public static User findByEmail(String email) {
+		return find("email = ?", email).first();
+	}
 	   
 	/**
      * Static method to get a User instance given his twitterUserId

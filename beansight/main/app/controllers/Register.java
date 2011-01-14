@@ -29,12 +29,10 @@ public class Register extends Controller {
 			validation.addError("promocode", Messages.get("registernotvalidpromocode"));
 		}
 		
-		// Check if username or email not already in use
-		long existantEmail = User.count("byEmail", email);
-		if(existantEmail != 0) {
+		// Check if username or email not already in use, because username and email must be unique !
+		if(!User.isEmailAvailable(email)) {
 			validation.addError("email", Messages.get("registeremailexist")); 
 		}
-		
 		if(!User.isUsernameAvailable(username)) {
 			validation.addError("username", Messages.get("registerusernameexist")); 
 		}
@@ -43,7 +41,6 @@ public class Register extends Controller {
 	        validation.keep();
 	        register(promocode, email, username);
 	    }
-		
 		
 		Logger.info("Register: " + email + "/" + username);
 		User user = new User(email, username, password);

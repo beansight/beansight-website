@@ -24,12 +24,21 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         Long facebookUserId = facebookModelObject.getId();
         String facebookScreenName = facebookModelObject.getName();
 
-        User facebookUser = User.findByFacebookUserId(facebookUserId);
+        User facebookUser = null;
         
-        // If this is the first time this user uses his facebook account to
-        // connect to beansight
+        // facebook email could be null/void
+        if (facebookModelObject.getEmail() != null && !facebookModelObject.getEmail().trim().equals("")) {
+        	facebookUser = User.findByEmail(facebookModelObject.getEmail());
+        }
+        
+        // facebookUser is still null after an email lookup we try to find him with his facebook id
+        if (facebookUser == null) {
+        	facebookUser = User.findByFacebookUserId(facebookModelObject.getId());
+        }
+        
+        // Finally no user found this is the first time this user connects to beansight
         // then create a beansight account linked to his facebook account
-        if (null == facebookUser) {
+        if (facebookUser == null) {
         	// if the username is already in use on beansight we add @facebook to the initial userName
 			if (!User.isUsernameAvailable(facebookScreenName)) {
 				facebookScreenName = facebookScreenName + "@facebook";
@@ -39,6 +48,13 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
             facebookUser.save();
 
         } 
+        // if the user already has a beansight account and he is trying 
+        // to connect with his facebook account then "merge" the facebook 
+        // account with the beansight account
+        else if (facebookUser != null && facebookUser.facebookUserId == null) {
+        	facebookUser.facebookUserId = facebookUserId;
+        	facebookUser.save();
+        }
         
         session.put("isFacebookUser", Boolean.TRUE);
         session.put("facebookUserId", facebookUserId);
