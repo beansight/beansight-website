@@ -168,6 +168,13 @@ public class User extends Model {
 		}
 		this.uiLanguage = language;
 	}
+
+	public void setWrittingLanguage(Language language) {
+		if(language == null) {
+			language = Language.findByLabel("en");
+		}
+		this.writtingLanguage = language;
+	}
 	
 	public static boolean isUsernameAvailable(String userName) {
 		if (User.count("byUserName", userName) == 0) {
@@ -637,9 +644,9 @@ public class User extends Model {
 		return sharedInsights;
 	}
 
-	public InsightResult getSuggestedInsights(int from, int number, Category category, Language language) {
+	public InsightResult getSuggestedInsights(int from, int number, Filter filter) {
 		// This is totally temporary.
-		InsightResult result = Insight.findLatest(from, number, category, language);
+		InsightResult result = Insight.findLatest(from, number, filter);
 		
 		List<Insight> sharedInsights = this.getSharedInsights(NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS);
 		sharedInsights.addAll(result.results);

@@ -6,20 +6,23 @@
 Category(catDebug):
     label: Debug
 
+Language(langDebug):
+    label: en
+
 User(steren):
     email:          steren.giannini@gmail.com
     password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
     userName:       Steren
-    uiLanguage:     fr
-    writtingLanguage:     fr
+    uiLanguage:     langDebug
+    writtingLanguage:   langDebug
     isAdmin:        true
 
 User(jb):
     email:          jeanbaptiste.claramonte@gmail.com
     password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
     userName:       juamee
-    uiLanguage:     fr
-    writtingLanguage:     fr
+    uiLanguage:     langDebug
+    writtingLanguage:     langDebug
     isAdmin:        true
     
 Insight(insightBeansight):

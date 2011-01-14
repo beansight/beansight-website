@@ -234,25 +234,19 @@ public class Insight extends Model {
 
 	/**
 	 * Performs a search action
-	 * 
-	 * @param query
-	 *            : the search query
-	 * @param from
-	 *            : index of the first item to be returned
-	 * @param number
-	 *            : number of items to return
-	 * @param category
-	 *            : the category to restrict the search to (null
+	 * @param query : the search query
+	 * @param from : index of the first item to be returned
+	 * @param number : number of items to return
 	 * @return : an object containing the result list and the total result
-	 *         number
 	 */
-	public static InsightResult search(String query, int from, int number, Category category) {
-		// TODO Steren : this query string construction is temporary, we should
-		// better handle this
+	public static InsightResult search(String query, int from, int number, Filter filter) {
+		Category cat = filter.categories.get(0);
+		
+		// TODO Steren : this query string construction is temporary, we should better handle this
 		String fullQueryString = "(content:" + query + " OR tags:" + query
 				+ ") ";
-		if (category != null) {
-			fullQueryString += " AND category:" + category.label;
+		if (cat != null) {
+			fullQueryString += " AND category:" + cat.label;
 		}
 
 		Query q = Search.search(fullQueryString, Insight.class);
@@ -269,26 +263,23 @@ public class Insight extends Model {
 		return result;
 	}
 
-	/**
-	 * 
-	 * @param from
-	 * @param number
-	 * @param category
-	 * @return
-	 */
-	public static InsightResult findLatest(int from, int number, Category category, Language language) {
+	public static InsightResult findLatest(int from, int number, Filter filter) {
 		String query = "select i from Insight i join i.category c";
 		
-		if (category != null || language != null) {
+		Category cat = filter.categories.get(0);
+		Language lang = filter.languages.get(0);
+		
+		
+		if (cat != null || lang != null) {
 			query += " where ";
-			if (category != null) {
-				query += " c.id=" + category.id;
+			if (cat != null) {
+				query += " c.id=" + cat.id;
 			}
-			if (language != null) {
-				if(category != null) {
+			if (lang != null) {
+				if(cat != null) {
 					query += " and ";
 				}
-				query += " i.lang.id ='" + language.id +"'";
+				query += " i.lang.id ='" + lang.id +"'";
 			}
 		}
 

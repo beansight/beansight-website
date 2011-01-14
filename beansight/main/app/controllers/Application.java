@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 import models.Category;
 import models.Comment;
+import models.Filter;
 import models.FollowNotificationTask;
 import models.Insight;
 import models.InsightActivity;
@@ -112,15 +113,18 @@ public class Application extends Controller {
 	public static void insights(long categoryId, String lang) {
 		Category category = Category.findById(categoryId);
 		Language language = Language.findByLabel(lang);
+		Filter filter = new Filter();
+		filter.categories.add(category);
+		filter.languages.add(language);
 		
 		InsightResult result;
 		
 		// If connected, get suggested insights
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
+			result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		} else {
-			result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
+			result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		}
 
 		renderArgs.put("insights", result.results);
@@ -138,8 +142,11 @@ public class Application extends Controller {
 	public static void moreInsights(int from, long categoryId, String lang) {
 		Category category = Category.findById(categoryId);
 		Language language = Language.findByLabel(lang);
+		Filter filter = new Filter();
+		filter.categories.add(category);
+		filter.languages.add(language);
 		
-		InsightResult result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
+		InsightResult result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		renderArgs.put("insights", result.results);
 		render();
 	}
@@ -453,10 +460,12 @@ public class Application extends Controller {
 		if (query == null || query.isEmpty()) {
 			insights(0, "en");
 		}
+		
 		Category category = Category.findById(categoryId);
+		Filter filter = new Filter();
+		filter.categories.add(category);
 
-		InsightResult result = Insight.search(query, offset,
-				NUMBER_INSIGHTS_SEARCHPAGE, category);
+		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, filter);
 
 		renderArgs.put("count", result.count);
 		renderArgs.put("insights", result.results);
@@ -470,9 +479,10 @@ public class Application extends Controller {
 	 */
 	public static void moreSearch(String query, int offset, long categoryId) {
 		Category category = Category.findById(categoryId);
+		Filter filter = new Filter();
+		filter.categories.add(category);
 
-		InsightResult result = Insight.search(query, offset,
-				NUMBER_INSIGHTS_SEARCHPAGE, category);
+		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, filter);
 
 		renderArgs.put("insights", result.results);
 		render("Application/moreInsights.html");
