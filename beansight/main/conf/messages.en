@@ -115,7 +115,7 @@ emailhellouser=Bonjour %s
 emailsignature=The Beansight team<br/>http://www.beansight.com
 emailconfirmationsubject=Beansight: please confirm your email
 emailconfirmtext=You need to confirm your email :
-emailconfirmlink=Click here to confirm %s
+emailconfirmlink=Click here to confirm.
 
 # followNotification
 emailfollownotificationsubject=User %s added you to his favorites on Beansight
