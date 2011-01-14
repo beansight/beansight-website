@@ -71,9 +71,9 @@ public class User extends Model {
 	
 	
 	/** Language the user wants his UI to be displayed in */
-	public String uiLanguage;
+	public Language uiLanguage;
 	/** Language the user is writing insights in */
-	public String writtingLanguage;
+	public Language writtingLanguage;
 	
 	/** How many invitations this user can send, -1 for infinity*/
 	public long invitationsLeft;
@@ -137,9 +137,13 @@ public class User extends Model {
 		this.uuid = Codec.UUID();
 		
 		String lang = Lang.get();
+		// if no language, then english
 		if( lang == null || lang.equals("") ) { lang = "en"; }
-		this.uiLanguage = lang;
-		this.writtingLanguage = lang;
+
+		Language language = Language.findByLabel(lang);
+
+		this.uiLanguage = language;
+		this.writtingLanguage = language;
 		
 		this.votes = new ArrayList<Vote>();
 		this.createdInsights = new ArrayList<Insight>();
@@ -158,6 +162,13 @@ public class User extends Model {
 		return userName;
 	}
 
+	public void setUiLanguage(Language language) {
+		if(language == null) {
+			language = Language.findByLabel("en");
+		}
+		this.uiLanguage = language;
+	}
+	
 	public static boolean isUsernameAvailable(String userName) {
 		if (User.count("byUserName", userName) == 0) {
 			return true;
@@ -257,13 +268,15 @@ public class User extends Model {
 	 */
 	public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long cateopryId, String lang) {
 		if(lang == null) { // if lang is not specified, use the language from the user's preferred insight language
-			lang = this.writtingLanguage;
+			lang = this.writtingLanguage.label;
 		}
 		
 		Category category = Category.findById(cateopryId);
 		// TODO exception if null
+		
+		Language language = Language.findByLabel(lang);
 
-		Insight i = new Insight(this, insightContent, endDate, category, lang);
+		Insight i = new Insight(this, insightContent, endDate, category, language);
 		try {
 			i.save();
 		} catch(Throwable t) {
@@ -287,7 +300,7 @@ public class User extends Model {
 		}
 
 		// store the given language as the default language for the user
-		this.writtingLanguage = lang;
+		this.writtingLanguage = language;
 		
 		this.save();
 
@@ -624,9 +637,9 @@ public class User extends Model {
 		return sharedInsights;
 	}
 
-	public InsightResult getSuggestedInsights(int from, int number, Category category, String language) {
+	public InsightResult getSuggestedInsights(int from, int number, Category category, Language language) {
 		// This is totally temporary.
-		InsightResult result = Insight.getLatest(from, number, category, language);
+		InsightResult result = Insight.findLatest(from, number, category, language);
 		
 		List<Insight> sharedInsights = this.getSharedInsights(NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS);
 		sharedInsights.addAll(result.results);

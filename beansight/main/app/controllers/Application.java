@@ -16,6 +16,7 @@ import models.FollowNotificationTask;
 import models.Insight;
 import models.InsightActivity;
 import models.Insight.InsightResult;
+import models.Language;
 import models.Tag;
 import models.Trend;
 import models.User;
@@ -60,7 +61,7 @@ public class Application extends Controller {
     static void setLanguage() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			Lang.change(currentUser.uiLanguage);
+			Lang.change(currentUser.uiLanguage.label);
         }
     }
 
@@ -98,7 +99,7 @@ public class Application extends Controller {
 	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang) {
 		if(insightLang == null ) {
 			User currentUser = CurrentUser.getCurrentUser();
-			insightLang = currentUser.writtingLanguage;
+			insightLang = currentUser.writtingLanguage.label;
 		}
 		render(insightContent, endDate, tagLabelList, categoryId, insightLang);
 	}
@@ -108,13 +109,10 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
-	public static void insights(long categoryId, String language) {
+	public static void insights(long categoryId, String lang) {
 		Category category = Category.findById(categoryId);
+		Language language = Language.findByLabel(lang);
 		
-		if(language == null || language.equals("")) {
-			language = "en";
-		}
-
 		InsightResult result;
 		
 		// If connected, get suggested insights
@@ -122,7 +120,7 @@ public class Application extends Controller {
 			User currentUser = CurrentUser.getCurrentUser();
 			result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
 		} else {
-			result = Insight.getLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
+			result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
 		}
 
 		renderArgs.put("insights", result.results);
@@ -137,10 +135,11 @@ public class Application extends Controller {
 	 * @param from : the index of the first insight to return
 	 * @param categoryId
 	 */
-	public static void moreInsights(int from, long categoryId, String language) {
+	public static void moreInsights(int from, long categoryId, String lang) {
 		Category category = Category.findById(categoryId);
-
-		InsightResult result = Insight.getLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
+		Language language = Language.findByLabel(lang);
+		
+		InsightResult result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, category, language);
 		renderArgs.put("insights", result.results);
 		render();
 	}
@@ -375,7 +374,7 @@ public class Application extends Controller {
 		user.userName = userName;
 		user.firstName = firstName;
 		user.lastName = lastName;
-		user.uiLanguage = uiLanguage;
+		user.uiLanguage = Language.findByLabel(uiLanguage);
 
 		user.save();
 

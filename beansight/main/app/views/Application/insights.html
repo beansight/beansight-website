@@ -10,10 +10,10 @@
 	      <a href="@{Application.insights(cat.id, language)}"   class="categoryFilter #{if category?.id == cat.id}selected#{/if}" >${cat.label}</a>
 	   #{/list}
 	       <a href="@{Application.insights(category?.id, "en")}">
-	           <img alt="english" class="languageFlag #{if language.equals("en")}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
+	           <img alt="english" class="languageFlag #{if language.label.equals("en")}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
 	       </a>
            <a href="@{Application.insights(category?.id, "fr")}">
-	           <img alt="french" class="languageFlag #{if language.equals("fr")}selected#{/if}" src="@{'/public/images/flags/fr.png'}" />
+	           <img alt="french" class="languageFlag #{if language.label.equals("fr")}selected#{/if}" src="@{'/public/images/flags/fr.png'}" />
            </a>
     </ul>
     
@@ -34,7 +34,7 @@
     /** get more insights */
     function moreInsights() {
         $.ajax( {
-            url: moreInsightsAction({"from": insightsFrom #{if category}, "categoryId": ${category.id}#{/if}#{if language}, "language": ${language}#{/if} }),
+            url: moreInsightsAction({"from": insightsFrom #{if category}, "categoryId": ${category.id}#{/if}#{if language}, "language": ${language.label}#{/if} }),
             success: onMoreInsightsSuccess
         } );
     }

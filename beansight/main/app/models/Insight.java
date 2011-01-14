@@ -59,7 +59,7 @@ public class Insight extends Model {
 	public String content;
 
 	/** the language of the content of this insight */
-	public String lang;
+	public Language lang;
 	
 	/** Every vote of the current insight */
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
@@ -115,7 +115,7 @@ public class Insight extends Model {
 	 * @param category
 	 *            : the category of the insight
 	 */
-	public Insight(User creator, String content, Date endDate, Category category, String lang) {
+	public Insight(User creator, String content, Date endDate, Category category, Language lang) {
 		this.uniqueId = generateUniqueId(); 
 		this.creator = creator;
 		this.creationDate = new Date();
@@ -246,8 +246,7 @@ public class Insight extends Model {
 	 * @return : an object containing the result list and the total result
 	 *         number
 	 */
-	public static InsightResult search(String query, int from, int number,
-			Category category) {
+	public static InsightResult search(String query, int from, int number, Category category) {
 		// TODO Steren : this query string construction is temporary, we should
 		// better handle this
 		String fullQueryString = "(content:" + query + " OR tags:" + query
@@ -277,7 +276,7 @@ public class Insight extends Model {
 	 * @param category
 	 * @return
 	 */
-	public static InsightResult getLatest(int from, int number, Category category, String language) {
+	public static InsightResult findLatest(int from, int number, Category category, Language language) {
 		String query = "select i from Insight i join i.category c";
 		
 		if (category != null || language != null) {
@@ -289,7 +288,7 @@ public class Insight extends Model {
 				if(category != null) {
 					query += " and ";
 				}
-				query += " i.lang='" + language +"'";
+				query += " i.lang.id ='" + language.id +"'";
 			}
 		}
 

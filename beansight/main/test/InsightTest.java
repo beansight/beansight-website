@@ -2,6 +2,7 @@ import java.util.List;
 
 import models.Category;
 import models.Insight;
+import models.Language;
 import models.User;
 import models.Vote;
 import models.Vote.State;
@@ -139,10 +140,10 @@ public class InsightTest extends UnitTest {
     	// We test that when the same Insight uniqueId is used more than once 
     	// then another unique should be automatically searched again :
     	Logger.debug("testing InsightTest.testDuplicatedUniqueId");
-    	Insight i = new Insight(TestHelper.getTestUser(), "Insight 1", TestHelper.getDateWithXMonthFromNow(2), Category.findByLabel("Web"), "fr");
+    	Insight i = new Insight(TestHelper.getTestUser(), "Insight 1", TestHelper.getDateWithXMonthFromNow(2), Category.findByLabel("Web"), Language.findByLabel("fr"));
     	i.uniqueId = "1";
     	i.save();
-    	i = new Insight(TestHelper.getTestUser(), "Insight 2", TestHelper.getDateWithXMonthFromNow(2), Category.findByLabel("Web"), "fr");
+    	i = new Insight(TestHelper.getTestUser(), "Insight 2", TestHelper.getDateWithXMonthFromNow(2), Category.findByLabel("Web"), Language.findByLabel("fr"));
     	i.uniqueId = "1";
     	i.save();
     	assertEquals(Insight.count(), 2); 

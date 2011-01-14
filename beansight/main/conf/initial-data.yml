@@ -22,3 +22,10 @@ Category(catTechnology):
 
 Category(catWeb):
     label:  Web
+    
+
+Language(English):
+    label:  en
+    
+Language(French):
+    label: fr
