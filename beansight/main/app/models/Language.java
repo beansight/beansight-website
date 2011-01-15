@@ -15,6 +15,9 @@ public class Language extends Model {
 		this.label = label;
 	}
 	
+	/**
+	 * Find a language from its label, if nothing is found, return English
+	 */
 	public static Language findByLabel(String label) {
 		Language language = Language.find("byLabel", label).first();
 		if (language == null) {

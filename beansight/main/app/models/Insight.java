@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -240,7 +241,12 @@ public class Insight extends Model {
 	 * @return : an object containing the result list and the total result
 	 */
 	public static InsightResult search(String query, int from, int number, Filter filter) {
-		Category cat = filter.categories.get(0);
+		// TODO : search in multiple categories ?
+		
+		Category cat = null;
+		if( ! filter.categories.isEmpty()) {
+			cat = filter.categories.get(0);
+		}
 		
 		// TODO Steren : this query string construction is temporary, we should better handle this
 		String fullQueryString = "(content:" + query + " OR tags:" + query
@@ -266,21 +272,47 @@ public class Insight extends Model {
 	public static InsightResult findLatest(int from, int number, Filter filter) {
 		String query = "select i from Insight i join i.category c";
 		
-		Category cat = filter.categories.get(0);
-		Language lang = filter.languages.get(0);
-		
-		
-		if (cat != null || lang != null) {
+		// Category Ids
+        StringBuffer bufferCat = new StringBuffer();
+        Iterator<Category> iterCat = filter.categories.iterator();
+        while (iterCat.hasNext()) {
+        	bufferCat.append("'");
+            bufferCat.append(iterCat.next().id);
+            bufferCat.append("'");
+            if (iterCat.hasNext()) {
+                bufferCat.append(",");
+            }
+        }
+        String categoryIds = bufferCat.toString();
+
+		// Lang Ids
+        StringBuffer bufferLang = new StringBuffer();
+        Iterator<Language> iterLang = filter.languages.iterator();
+        while (iterLang.hasNext()) {
+        	bufferLang.append("'");
+            bufferLang.append(iterLang.next().id);
+            bufferLang.append("'");
+            if (iterLang.hasNext()) {
+                bufferLang.append(",");
+            }
+        }
+        String languageIds = bufferLang.toString();
+
+        
+		if (!filter.categories.isEmpty() || !filter.languages.isEmpty()) {
 			query += " where ";
-			if (cat != null) {
-				query += " c.id=" + cat.id;
+
+			if (!filter.categories.isEmpty()) {
+				query += " c.id in (" + categoryIds + ") ";
 			}
-			if (lang != null) {
-				if(cat != null) {
+			
+			if (!filter.languages.isEmpty()) {
+				if(!filter.categories.isEmpty()) {
 					query += " and ";
 				}
-				query += " i.lang.id ='" + lang.id +"'";
+				query += " i.lang.id in (" + languageIds + ") ";
 			}
+
 		}
 
 		//query += " order by lastUpdated DESC";

@@ -9,7 +9,7 @@
        #{/list}
     </ul>
 
-	<h2>Found ${count} insight${count.pluralize()} for "${query}" #{if category}in category #{/if}:</h2>
+	<h2>Found ${count} insight${count.pluralize()} for "${query}" #{if category}in category ${category.label}#{/if}:</h2>
     
     <ul id="searchResults">
         #{listInsights insights:insights /}

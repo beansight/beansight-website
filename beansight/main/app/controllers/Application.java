@@ -114,7 +114,9 @@ public class Application extends Controller {
 		Category category = Category.findById(categoryId);
 		Language language = Language.findByLabel(lang);
 		Filter filter = new Filter();
-		filter.categories.add(category);
+		if(category != null) {
+			filter.categories.add(category);
+		}
 		filter.languages.add(language);
 		
 		InsightResult result;
@@ -143,7 +145,9 @@ public class Application extends Controller {
 		Category category = Category.findById(categoryId);
 		Language language = Language.findByLabel(lang);
 		Filter filter = new Filter();
-		filter.categories.add(category);
+		if(category != null) {
+			filter.categories.add(category);
+		}
 		filter.languages.add(language);
 		
 		InsightResult result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
@@ -463,8 +467,9 @@ public class Application extends Controller {
 		
 		Category category = Category.findById(categoryId);
 		Filter filter = new Filter();
-		filter.categories.add(category);
-
+		if(category != null) {
+			filter.categories.add(category);
+		}
 		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, filter);
 
 		renderArgs.put("count", result.count);
@@ -480,8 +485,9 @@ public class Application extends Controller {
 	public static void moreSearch(String query, int offset, long categoryId) {
 		Category category = Category.findById(categoryId);
 		Filter filter = new Filter();
-		filter.categories.add(category);
-
+		if(category != null) {
+			filter.categories.add(category);
+		}
 		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, filter);
 
 		renderArgs.put("insights", result.results);
