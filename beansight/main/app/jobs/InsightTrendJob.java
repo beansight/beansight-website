@@ -9,7 +9,7 @@ import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
 
-@Every("30s")
+@Every("24h")
 public class InsightTrendJob extends Job {
 
 	public static final int INSIGHT_NUMBER_TO_PROCESS = 100;
