@@ -3,12 +3,6 @@
 # Warning: be sure to use spaces and not tabs in a yml file
 # for the users password Xr4ilOzQ4PCOq3aQ0qbuaQ== is the hash for: secret
 
-Category(catDebug):
-    label: Debug
-
-Language(langDebug):
-    label: en
-
 User(steren):
     email:          steren.giannini@gmail.com
     password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
@@ -24,30 +18,6 @@ User(jb):
     uiLanguage:     langDebug
     writtingLanguage:     langDebug
     isAdmin:        true
-    
-Insight(insightBeansight):
-    creator:        steren
-    content:        Beansight will be ready on time
-    creationDate:   2010-08-10
-    endDate:        2010-09-12
-    uniqueId:       1
-    agreeCount:     1
-    disagreeCount:  0
-    category:       catDebug
-    lang:           en
-
-Vote(voteJb):
-    user:       jb
-    insight:    insightBeansight
-    state:      AGREE
-    status:     ACTIVE
-    creationDate: 2010-08-10
-    
-Tag(tagSteren):
-    user:       steren
-    insight:    insightBeansight
-    label:      web
-    creationDate: 2010-08-10
 
 Promocode(aPromocode):
     code:   toto

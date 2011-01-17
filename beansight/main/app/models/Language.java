@@ -26,4 +26,33 @@ public class Language extends Model {
 		return language;
 	}
 	
+	/**
+	 * Transforms a list of language string to a set of Language
+	 * @param langStrings : the list of language string
+	 */
+	public static Set<Language> toLanguageSet( Set<String> langStrings ) {
+		Set<Language> languages = new HashSet<Language>();
+		for(String lang : langStrings) {
+			languages.add(Language.findByLabel(lang));	
+		}
+		return languages;
+	}
+	
+	public static String listToIdString(Set<Language> languages) {
+        StringBuffer buffer = new StringBuffer();
+        Iterator<Language> iter = languages.iterator();
+        while (iter.hasNext()) {
+        	buffer.append("'");
+            buffer.append(iter.next().id);
+            buffer.append("'");
+            if (iter.hasNext()) {
+                buffer.append(",");
+            }
+        }
+        return buffer.toString();
+	}
+	
+	public String toString() {
+		return label;
+	}
 }

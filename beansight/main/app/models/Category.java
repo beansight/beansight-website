@@ -1,7 +1,9 @@
 package models;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -35,6 +37,20 @@ public class Category extends Model {
 	
 	public String toString() {
 	    return label;
+	}
+	
+	public static String listToIdString(Set<Category> categories) {
+        StringBuffer buffer = new StringBuffer();
+        Iterator<Category> iter = categories.iterator();
+        while (iter.hasNext()) {
+        	buffer.append("'");
+            buffer.append(iter.next().id);
+            buffer.append("'");
+            if (iter.hasNext()) {
+                buffer.append(",");
+            }
+        }
+        return buffer.toString();
 	}
 
 }

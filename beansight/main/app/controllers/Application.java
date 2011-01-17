@@ -6,8 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -112,15 +116,21 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
-	public static void insights(long categoryId, String lang) {
-		Category category = Category.findById(categoryId);
-		Language language = Language.findByLabel(lang);
+	public static void insights(long cat, Set<String> lang) {
 		Filter filter = new Filter();
+
+		Category category = Category.findById(cat);
 		if(category != null) {
 			filter.categories.add(category);
 		}
-		filter.languages.add(language);
+
+		if(lang == null) {
+			lang = new HashSet<String>();
+			lang.add("en");
+		}
 		
+		filter.languages = Language.toLanguageSet(lang);
+
 		InsightResult result;
 		
 		// If connected, get suggested insights
@@ -134,17 +144,24 @@ public class Application extends Controller {
 		renderArgs.put("insights", result.results);
 		renderArgs.put("count", result.count);
 		
-		render(category, language);
+		// We convert to a List because Set don't work properly in views.
+		// TODO  : re-use Sets when the Play! bug is corrected.
+		List<String> langs = null;
+		if(lang != null) {
+			langs = new ArrayList<String>(lang);
+		}
+		
+		render(category, langs);
 	}
 
 	/**
 	 * AJAX get more insights from the explore page
 	 * 
 	 * @param from : the index of the first insight to return
-	 * @param categoryId
+	 * @param cat
 	 */
-	public static void moreInsights(int from, long categoryId, String lang) {
-		Category category = Category.findById(categoryId);
+	public static void moreInsights(int from, long cat, String lang) {
+		Category category = Category.findById(cat);
 		Language language = Language.findByLabel(lang);
 		Filter filter = new Filter();
 		if(category != null) {
@@ -467,12 +484,12 @@ public class Application extends Controller {
 
 	}
 
-	public static void search(String query, int offset, long categoryId) {
+	public static void search(String query, int offset, long cat) {
 		if (query == null || query.isEmpty()) {
-			insights(0, "en");
+			insights(0, null);
 		}
 		
-		Category category = Category.findById(categoryId);
+		Category category = Category.findById(cat);
 		Filter filter = new Filter();
 		if(category != null) {
 			filter.categories.add(category);
@@ -489,8 +506,8 @@ public class Application extends Controller {
 	 * 
 	 * @return: the HTML containing the lines to add to the search results
 	 */
-	public static void moreSearch(String query, int offset, long categoryId) {
-		Category category = Category.findById(categoryId);
+	public static void moreSearch(String query, int offset, long cat) {
+		Category category = Category.findById(cat);
 		Filter filter = new Filter();
 		if(category != null) {
 			filter.categories.add(category);
@@ -614,5 +631,5 @@ public class Application extends Controller {
 		List <Tag> tags = Tag.find( "byLabelLike", "%" + term.toLowerCase() + "%").fetch(NUMBER_SUGGESTED_TAGS);
 		render(tags);
 	}
-
+	
 }

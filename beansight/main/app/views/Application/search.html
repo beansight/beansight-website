@@ -28,7 +28,7 @@
     /** get more search results */
     function moreSearch() {
         $.ajax( {
-            url: moreSearchAction({"query": "${query}", "from": searchFrom #{if category}, "categoryId": ${category.id}#{/if} }),
+            url: moreSearchAction({"query": "${query}", "from": searchFrom #{if category}, "cat": ${category.id}#{/if} }),
             success: onMoreSearchSuccess
         } );
     }

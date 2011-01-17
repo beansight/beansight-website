@@ -250,7 +250,9 @@ public class Insight extends Model {
 		
 		Category cat = null;
 		if( ! filter.categories.isEmpty()) {
-			cat = filter.categories.get(0);
+			for(Category catego : filter.categories) {
+				cat = catego;
+			}
 		}
 		
 		// TODO Steren : this query string construction is temporary, we should better handle this
@@ -291,18 +293,7 @@ public class Insight extends Model {
         String categoryIds = bufferCat.toString();
 
 		// Lang Ids
-        StringBuffer bufferLang = new StringBuffer();
-        Iterator<Language> iterLang = filter.languages.iterator();
-        while (iterLang.hasNext()) {
-        	bufferLang.append("'");
-            bufferLang.append(iterLang.next().id);
-            bufferLang.append("'");
-            if (iterLang.hasNext()) {
-                bufferLang.append(",");
-            }
-        }
-        String languageIds = bufferLang.toString();
-
+        String languageIds = Language.listToIdString(filter.languages);
         
 		if (!filter.categories.isEmpty() || !filter.languages.isEmpty()) {
 			query += " where ";

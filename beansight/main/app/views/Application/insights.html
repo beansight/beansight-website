@@ -5,16 +5,46 @@
 
 <div>
 	<ul class="filters">
-          <a href="@{Application.insights(null, language.label)}"     class="categoryFilter #{if category == null}selected#{/if}" >All</a>
+          <a href="@{Application.insights(null, langs)}"     class="categoryFilter #{if category == null}selected#{/if}" >All</a>
 	   #{list items:controllers.Application.getCategories(), as:'cat'}
-	      <a href="@{Application.insights(cat.id, language.label)}"   class="categoryFilter #{if category?.id == cat.id}selected#{/if}" >${cat.label}</a>
+	      <a href="@{Application.insights(cat.id, langs)}"   class="categoryFilter #{if category?.id == cat.id}selected#{/if}" >${cat.label}</a>
 	   #{/list}
-	       <a href="@{Application.insights(category?.id, "en")}">
-	           <img alt="english" class="languageFlag #{if language.label.equals("en")}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
-	       </a>
-           <a href="@{Application.insights(category?.id, "fr")}">
-	           <img alt="french" class="languageFlag #{if language.label.equals("fr")}selected#{/if}" src="@{'/public/images/flags/fr.png'}" />
-           </a>
+        %{
+            // What URL should the language button go to ?
+            // Should they be selected ?
+            // Should they be clickable ? (if only one language is selected, this language button shouldn't be clickable)
+
+	        langsEn = new ArrayList<String>(langs);
+	        boolean selectedEn = false;
+	        boolean clickableEn = true;
+	        
+            langsFr = new ArrayList<String>(langs);
+            selectedFr = false;
+            clickableFr = true;
+            
+	        if( langsEn.contains("en") ) {
+	            langsEn.remove("en");
+	            selectedEn = true;
+	            if(langs.size() < 2) { clickableEn = false; }
+	        } else {
+	           langsEn.add("en");
+	        }
+	        
+            if( langsFr.contains("fr") ) {
+                langsFr.remove("fr");
+                selectedFr = true;
+                if(langs.size() < 2) { clickableFr = false; }
+            } else {
+               langsFr.add("fr");
+            }
+
+        }%
+        #{if clickableEn}<a href="@{Application.insights(category?.id, langsEn)}">#{/if}
+	           <img alt="english" class="languageFlag #{if selectedEn}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
+	    #{if clickableEn}</a>#{/if}
+        #{if clickableFr}<a href="@{Application.insights(category?.id, langsFr)}">#{/if}
+	           <img alt="french" class="languageFlag #{if selectedFr}selected#{/if}" src="@{'/public/images/flags/fr.png'}" />
+        #{if clickableFr}</a>#{/if}
     </ul>
     
     <h2>Insights #{if category} in ${category} #{/if}</h2>
@@ -34,7 +64,7 @@
     /** get more insights */
     function moreInsights() {
         $.ajax( {
-            url: moreInsightsAction({"from": insightsFrom #{if category}, "categoryId": ${category.id}#{/if}#{if language}, "language": ${language.label}#{/if} }),
+            url: moreInsightsAction({"from": insightsFrom #{if category}, "cat": ${category.id}#{/if}#{if language}, "lang": ${language.label}#{/if} }),
             success: onMoreInsightsSuccess
         } );
     }
