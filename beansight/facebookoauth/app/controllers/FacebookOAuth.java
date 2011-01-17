@@ -82,7 +82,7 @@ public class FacebookOAuth extends Controller {
         String accessToken = response.split("=")[1];
         session.put("fb", accessToken);
         
-        String facebookUserJson = WS.url("https://graph.facebook.com/me?access_token=" + accessToken).get().getString();
+        String facebookUserJson = WS.url("https://graph.facebook.com/me?access_token=%s", accessToken).get().getString();
         
         Gson gson = new Gson();
         FacebookModelObject facebookModelObject = gson.fromJson(facebookUserJson, FacebookModelObject.class);
