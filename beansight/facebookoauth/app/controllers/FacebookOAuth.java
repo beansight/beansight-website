@@ -3,7 +3,6 @@ package controllers;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import models.User;
 import gson.FacebookModelObject;
 import play.Logger;
 import play.Play;
@@ -79,10 +78,10 @@ public class FacebookOAuth extends Controller {
         
         String response = WS.url(fbAccessTokenUrl.toString()).get().getString();
         
-        String accessToken = response.split("=")[1];
+        String accessToken = response.split("=")[1].split("&")[0];
         session.put("fb", accessToken);
         
-        String facebookUserJson = WS.url("https://graph.facebook.com/me?access_token=%s", accessToken).get().getString();
+        String facebookUserJson = WS.url("https://graph.facebook.com/me?access_token=" + WS.encode( accessToken ) ).get().getString();
         
         Gson gson = new Gson();
         FacebookModelObject facebookModelObject = gson.fromJson(facebookUserJson, FacebookModelObject.class);
