@@ -8,26 +8,25 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+
+import models.Vote.Status;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
 
-import models.Vote.Status;
-
-import play.Logger;
-import play.Play;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
-import play.db.jpa.JPASupport;
 import play.db.jpa.Model;
-import play.i18n.Lang;
-import play.modules.search.*;
-import play.modules.search.Search.Query;
+import play.modules.search.Field;
+import play.modules.search.Indexed;
+import play.modules.search.Query;
+import play.modules.search.Search;
+
 
 @Indexed
 @Entity
@@ -235,10 +234,16 @@ public class Insight extends Model {
 
 	/**
 	 * Performs a search action
-	 * @param query : the search query
-	 * @param from : index of the first item to be returned
-	 * @param number : number of items to return
-	 * @return : an object containing the result list and the total result
+	 * 
+	 * @param query
+	 *            the search query
+	 * @param from
+	 *            index of the first item to be returned
+	 * @param number
+	 *            number of items to return
+	 * @param category
+	 *            the category to restrict the search to (null
+	 * @return an object containing the result list and the total result
 	 */
 	public static InsightResult search(String query, int from, int number, Filter filter) {
 		// TODO : search in multiple categories ?

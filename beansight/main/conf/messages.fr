@@ -65,6 +65,7 @@ selectArea=Cliquer et déplacer en maintenant appuyer le curseur pour sélection
 selectionPreview=Previsualisation du résultat
 settingsSubmit=Valider
 imageCropSubmit=Valider
+saveSettingImageNotFoundException=Oups un problème nous empêche de sauver l'image de votre avatar
 
 # menuBar
 menuprofile=Profil

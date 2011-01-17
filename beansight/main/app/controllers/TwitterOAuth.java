@@ -27,6 +27,7 @@ import org.xml.sax.SAXException;
 import models.User;
 import models.oauthclient.Credentials;
 import play.Logger;
+import play.db.jpa.Blob;
 import play.db.jpa.FileAttachment;
 import play.libs.WS;
 import play.libs.XML;
@@ -111,7 +112,7 @@ public class TwitterOAuth extends Controller {
 				.getStream();
 
 		if (twitterUser.avatar == null) {
-			twitterUser.avatar = new FileAttachment();
+			twitterUser.avatar = new Blob();
 		}
 		// save so that we get an id for the new user
 		twitterUser.save();

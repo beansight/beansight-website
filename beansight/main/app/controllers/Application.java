@@ -4,6 +4,7 @@ import helpers.ImageHelper;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -29,12 +30,13 @@ import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
-import play.db.jpa.FileAttachment;
+import play.db.jpa.Blob;
 import play.i18n.Lang;
+import play.i18n.Messages;
 import play.libs.Files;
 import play.libs.Images;
+import play.modules.search.Query;
 import play.modules.search.Search;
-import play.modules.search.Search.Query;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.results.NotFound;
@@ -379,7 +381,12 @@ public class Application extends Controller {
 		}
 		// check if a new image has been uploaded
 		if (originalImage != null) {
-			user.updateAvatar(originalImage);
+			try {
+				// and save it if so
+				user.updateAvatar(originalImage);
+			} catch (FileNotFoundException e) {
+				flash.error(Messages.get("saveSettingImageNotFoundException"));
+			}
 		}
 
 		user.userName = userName;
@@ -404,7 +411,7 @@ public class Application extends Controller {
 	 */
 	public static void showAvatar(Long userId) {
 		User user = User.findById(userId);
-		if (user != null && user.avatar.isSet()) {
+		if (user != null && user.avatar.exists()) {
 			renderBinary(user.avatar.get());
 		}
 		renderBinary(new File(Play.getFile("public/images") + "/unknown.jpg"));
@@ -416,7 +423,7 @@ public class Application extends Controller {
 	 */
 	public static void displayOriginalUncropedImage() {
 		User user = CurrentUser.getCurrentUser();
-		File tmpFile = new File(FileAttachment.getStore(), "originalImage_"
+		File tmpFile = new File(Blob.getStore(), "originalImage_"
 				+ user.id);
 		if (!tmpFile.exists()) {
 			renderBinary(new File(Play.getFile("public/images")
@@ -438,7 +445,7 @@ public class Application extends Controller {
 			Integer y2, Integer imageW, Integer imageH) {
 		User user = CurrentUser.getCurrentUser();
 
-		File imageToCrop = new File(FileAttachment.getStore(), "originalImage_"
+		File imageToCrop = new File(Blob.getStore(), "originalImage_"
 				+ user.id);
 		try {
 			BufferedImage source = ImageIO.read(imageToCrop);
@@ -447,13 +454,13 @@ public class Application extends Controller {
 			float ratioX = new Float(originalImageWidth) / imageW;
 			float ratioY = new Float(originalImageHeight) / imageH;
 
-			Images.crop(imageToCrop, user.avatar.get(),
+			Images.crop(imageToCrop, user.avatar.getFile(),
 					Math.round(x1 * ratioX), Math.round(y1 * ratioY), Math
 							.round(x2 * ratioX), Math.round((y2 * ratioY)));
 
-			Images.resize(user.avatar.get(), user.avatar.get(), 60, 60);
+			Images.resize(user.avatar.getFile(), user.avatar.getFile(), 60, 60);
 
-			user.saveAttachment();
+			user.save();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

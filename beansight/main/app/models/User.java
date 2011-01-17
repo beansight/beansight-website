@@ -3,6 +3,8 @@ package models;
 import helpers.ImageHelper;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import org.hibernate.annotations.Index;
 
 import play.Logger;
 import play.Play;
-import play.db.jpa.FileAttachment;
+import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -79,7 +81,7 @@ public class User extends Model {
 	public long invitationsLeft;
 	
 	// use the @Embedded annotation to store avatars in the database
-	public FileAttachment avatar;
+	public Blob avatar;
 
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.
@@ -212,16 +214,18 @@ public class User extends Model {
 	}
 
 	
-	public void updateAvatar(File originalImage) {
-		File originalImageCopy = new File(FileAttachment.getStore(),
+	public void updateAvatar(File originalImage) throws FileNotFoundException {
+		File originalImageCopy = new File(Blob.getStore(),
 				"originalImage_" + this.id);
 		originalImage.renameTo(originalImageCopy);
 		// Default is we resize the originalImage without any modification.
 		// Can be cropped later if necessary since we keep the original
 		File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + this.id);
 		ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
-		this.avatar.set(resizedOriginalImage);
-		this.saveAttachment();
+
+		this.avatar.set(new FileInputStream(resizedOriginalImage),
+					"Image");
+		this.save();
 		resizedOriginalImage.deleteOnExit();
 	}
 	

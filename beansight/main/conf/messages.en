@@ -65,6 +65,7 @@ selectArea=Click and drag on the image to select an area.
 selectionPreview=Selection Preview
 settingsSubmit=Save
 imageCropSubmit=Save
+saveSettingImageNotFoundException=We are sorry an unexcepted error prevents us to save you avatar image
 
 # menuBar
 menuprofile=Profile
