@@ -1,5 +1,7 @@
 #{extends 'main.html' /}
 
+#{searchInput /}
+
 <div class="sideBar">
 #{isConnected}
     <div><a href="@{Application.create()}" #{currentMenu 'menuCreate' /} >&{'menucreate'}</a></div>
