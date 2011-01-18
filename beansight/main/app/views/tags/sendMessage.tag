@@ -5,5 +5,5 @@
         <input type="hidden" name="id"     value="${_user.id}" />
         <input type="submit" name="submit" value="&{'messagesubmit'}" />
     </form>
-    <p id="inviteconfirm" style="display:none;">&{'inviteconfirm'}</p>
+    <p id="messagesentconfirm" style="display:none;">&{'messagesentconfirm'}</p>
 </div>

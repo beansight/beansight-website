@@ -147,6 +147,7 @@ $(document).ready(function() {
     $('#sendMessageForm').submit(function() {
         $.getJSON(sendMessageAction(), $(this).serialize(), function() { 
         	$('#messageUserContent').val('');
+        	$('#messagesentconfirm').show();
             }
         );
         return false;

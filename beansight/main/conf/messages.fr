@@ -54,6 +54,11 @@ explore=Explorer les experts
 userinsights=Prédictions de l'utilisateur
 myinsights=Mes prédictions
 
+#sendMessage
+sendMessage=Message privé
+messagesubmit=Envoyer
+messagesentconfirm=Message envoyé
+
 # settings
 userName=Alias
 realName=Prénom Nom

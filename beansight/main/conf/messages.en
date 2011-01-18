@@ -54,6 +54,11 @@ explore=Explore experts
 userinsights=User insights
 myinsights=My insights
 
+#sendMessage
+sendMessage=Private Message
+messagesubmit=Send
+messagesentconfirm=Message sent
+
 # settings
 userName=User name
 realName=Real name
