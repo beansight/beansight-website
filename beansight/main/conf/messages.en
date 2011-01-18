@@ -49,6 +49,12 @@ shareonbeansight=Beansight user
 
 #experts
 explore=Explore experts
+expertstitle=Experts
+
+#insights
+exploreinsights=Explore insights
+insightstitle=Insights
+incategory=in
 
 #showUser
 userinsights=User insights

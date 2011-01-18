@@ -49,6 +49,12 @@ shareonbeansight=Utilisateur Beansight
 
 #experts
 explore=Explorer les experts
+expertstitle=Experts
+
+#insights
+exploreinsights=Explorer les prédictions
+insightstitle=Prévisions
+incategory=dans
 
 #showUser
 userinsights=Prédictions de l'utilisateur

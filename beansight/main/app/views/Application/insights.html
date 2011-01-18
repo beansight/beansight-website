@@ -1,5 +1,7 @@
 #{extends 'content.html' /}
-#{set title:'Explore insights' /}
+#{set 'title'}
+    &{'exploreinsights'}
+#{/set}
 
 #{set currentMenu:'menuInsights' /}
 
@@ -47,7 +49,7 @@
         #{if clickableFr}</a>#{/if}
     </ul>
     
-    <h2>Insights #{if category} in ${category} #{/if}</h2>
+    <h2>&{'insightstitle'} #{if category} &{'incategory'} ${category}#{/if}</h2>
     <ul id="insightList">
         #{listInsights insights:insights /}
     </ul>
