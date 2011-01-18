@@ -107,6 +107,13 @@ activityand= et
 activitywith= avec 
 activityfavorited= %s favorited 
 
+# Error
+errornotfound=Page non trouvée
+errorserver=Erreur
+errorservermessagetitle=Oups, une erreur est survenue
+errorservermessage=L'erreur a été enregistrée avec l'identifiant <strong>%s</strong>.
+
+
 ####################
 # E MAILs
 ####################

@@ -1,0 +1,41 @@
+#{extends 'main.html' /}
+
+<div class="sideBar">
+#{isConnected}
+    <div><a href="@{Application.create()}" #{currentMenu 'menuCreate' /} >&{'menucreate'}</a></div>
+#{/isConnected}
+   	
+   #{menuBar /}
+
+   #{isConnected}
+	#{if !emailConfirmed}
+	<div id="plzconfirm" class="warning">
+	<p>&{'needemailconfirm'}</p>
+	</div>
+	#{/if}
+	
+    <div id="activityAroundMe">
+        <h2>&{'activityaroundme'}</h2>
+        #{activity insightActivities:insightActivities /}
+    </div>
+    <div id="favorites">        
+        <h2>&{'favorites'}</h2>
+        #{followedInsights followedInsights:followedInsights/}
+        #{followedUsers followedUsers:followedUsers /}
+        #{invitations invitationsLeft:invitationsLeft /}
+    </div>
+    #{/isConnected}
+
+   #{isNotConnected}
+   <div id="browseCategory">
+       <h2>&{'browsecategory'}</h2>
+       <ul>
+       #{list items:controllers.Application.getCategories(), as:'category'}
+       <li>${category.label}</li>
+       #{/list}
+       </ul>
+   </div>
+   #{/isNotConnected}
+</div>
+	
+#{doLayout /}

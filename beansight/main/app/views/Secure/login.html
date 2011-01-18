@@ -1,0 +1,28 @@
+#{extends 'main.html' /}
+#{set 'title'}
+    &{'register'}
+#{/set}
+
+<div id="login">
+	
+	<h1>&{'secure.title'}</h1>
+		
+	#{form @authenticate()}
+		
+		<p id="username-field">
+			<label for="username">&{'email'}</label>
+			<input type="text" name="username" id="username" value="${flash.username}" />
+		</p>
+		<p id="password-field">
+			<label for="password">&{'password'}</label>
+			<input type="password" name="password" id="password" value="" />
+		</p>
+		<p id="remember-field">
+			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+			<label for="remember">&{'remember'}</label>
+		</p>
+		<p id="signin-field">
+			<input type="submit" id="signin" value="&{'loginbutton'}" />
+		</p>
+	#{/form}
+</div>

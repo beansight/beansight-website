@@ -107,6 +107,12 @@ activityand= and
 activitywith= with
 activityfavorited= %s favorited
 
+# Error
+errornotfound=Not found
+errorserver=Internal Error
+errorservermessagetitle=Oops, an error occure
+errorservermessage=This error has been logged with id <strong>%s</strong>.
+
 ####################
 # E MAILs
 ####################

@@ -75,7 +75,7 @@ public class Application extends Controller {
         }
     }
 
-    // TODO Play 1.1 : use "only" to only call this function on pages (or move not-pages actions to another controller).
+    // TODO Play 1.1 : use "only" to only call this function on website pages (or move not-pages actions to another controller).
     @Before()
     /**
      * If the user is connected, load the needed info into the menu
@@ -215,11 +215,6 @@ public class Application extends Controller {
 		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId, lang);
 
 		showInsight(insight.uniqueId);
-	}
-
-	public static void displayAllInsights() {
-		List<Insight> allInsights = Insight.all().fetch();
-		render(allInsights);
 	}
 
 	/**
