@@ -16,7 +16,8 @@
 </div>
 #{/isConnected}
 
-<h2>${user.userName} (${user.firstName} ${user.lastName})</h2>
+<h2>${user.userName} (${user.realName})</h2>
+<p>${user.description}</p>
 
 <div><img width="100px" src="@{Application.showAvatar(user.id)}" id="cropbox" /></div>
 

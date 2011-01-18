@@ -56,8 +56,8 @@ myinsights=My insights
 
 # settings
 userName=User name
-firstName=First name
-lastName=Last name
+realName=Real name
+description=Description
 uiLanguage=Interface language
 avatar=Avatar
 cropAvatarImage=Crop avatar image

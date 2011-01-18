@@ -387,8 +387,8 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
-	public static void saveSettings(Long id, String userName, String firstName,
-			String lastName, String uiLanguage, File originalImage) {
+	public static void saveSettings(Long id, String userName, String realName,
+			String description, String uiLanguage, File originalImage) {
 		User user = CurrentUser.getCurrentUser();
 		// User should be the same as the one connected
 		if (user.id.equals(id) == false) {
@@ -405,8 +405,8 @@ public class Application extends Controller {
 		}
 
 		user.userName = userName;
-		user.firstName = firstName;
-		user.lastName = lastName;
+		user.realName = realName;
+		user.description = description;
 		user.uiLanguage = Language.findByLabel(uiLanguage);
 
 		user.save();

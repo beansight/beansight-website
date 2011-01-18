@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -46,11 +47,11 @@ public class User extends Model {
 	@Field
 	@Index (name = "USER_USERNAME_IDX")
 	public String userName;
-	@Field
-	public String firstName;
-	@Field
-	public String lastName;
+
 	public String password;
+	
+	@Field
+	public String realName;
 	
 	@Index (name = "USER_EMAIL_IDX")
 	public String email;
@@ -70,7 +71,9 @@ public class User extends Model {
 	/** facebook specific informations */
     public Long facebookUserId;
     public String facebookScreenName;
-	
+    
+	@Lob
+    public String description;
 	
 	/** Language the user wants his UI to be displayed in */
 	public Language uiLanguage;
@@ -80,7 +83,6 @@ public class User extends Model {
 	/** How many invitations this user can send, -1 for infinity*/
 	public long invitationsLeft;
 	
-	// use the @Embedded annotation to store avatars in the database
 	public Blob avatar;
 
 	/** Date the user created his account */

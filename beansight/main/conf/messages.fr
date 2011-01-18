@@ -56,8 +56,8 @@ myinsights=Mes prédictions
 
 # settings
 userName=Alias
-firstName=Prénom
-lastName=Nom
+realName=Prénom Nom
+description=Description
 uiLanguage=Langue de l'interface
 avatar=Avatar
 cropAvatarImage=Ajuster l'image de l'avatar
