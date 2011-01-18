@@ -20,6 +20,10 @@
         #{/isConnected}
     </div>
     
+    #{if insight.validated}
+        <p>&{'validation'} (TODO) ${insight.validationScore}</p>
+    #{/if}
+    
     <p>&{'creationdate'} ${insight.creationDate.since(true)} &{'createdby'} #{userInline user:insight.creator /}</p>
     <p>&{'enddate'} ${insight.endDate.format("dd MMMM yyyy")}</p>
     

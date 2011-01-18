@@ -104,6 +104,14 @@ public class Insight extends Model {
 	@OrderBy(value = "trendDate")
 	public List<Trend> trends;
 	
+	/** has this insight been validated by the ValidationJob ? */
+	public boolean validated;
+	/** True ? False ? Can't say ? Number between 0 and 1 representing the decided validation of this insight. */
+	public double validationScore;
+
+	/** Probability this insight has to occure before its endDate */
+	public double occurenceScore;
+	
 	/**
 	 * Create an insight
 	 * 
@@ -127,6 +135,9 @@ public class Insight extends Model {
 		this.trends = new ArrayList<Trend>();
 		this.lastUpdated = new Date();
 		this.lang = lang;
+		this.validated = false;
+		this.validationScore = 0.5;
+		this.occurenceScore = 0.5;
 	}
 
 	
@@ -235,14 +246,10 @@ public class Insight extends Model {
 	/**
 	 * Performs a search action
 	 * 
-	 * @param query
-	 *            the search query
-	 * @param from
-	 *            index of the first item to be returned
-	 * @param number
-	 *            number of items to return
-	 * @param category
-	 *            the category to restrict the search to (null
+	 * @param query : the search query
+	 * @param from : index of the first item to be returned
+	 * @param number : number of items to return
+	 * @param category : the category to restrict the search to (null
 	 * @return an object containing the result list and the total result
 	 */
 	public static InsightResult search(String query, int from, int number, Filter filter) {
@@ -276,6 +283,10 @@ public class Insight extends Model {
 		return result;
 	}
 
+	/**
+	 * @param from : index of the first item to be returned
+	 * @param number : number of items to return
+	 */
 	public static InsightResult findLatest(int from, int number, Filter filter) {
 		String query = "select i from Insight i join i.category c";
 		
@@ -323,6 +334,15 @@ public class Insight extends Model {
 		return result;
 	}
 
+	/**
+	 * @param page : the page number to start from
+	 * @param number : number of items per page
+	 */
+	public static List<Insight> findNotValidated(int page, int number) {
+		List<Insight> insights = Insight.find("validated is false and endDate < ?", new Date()).fetch(page, number);
+		return insights;
+	}
+	
 	/**
 	 * Create a snapshot of this insight state, store it in a Trend
 	 */
