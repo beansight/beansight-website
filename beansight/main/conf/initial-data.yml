@@ -29,3 +29,18 @@ Language(English):
     
 Language(French):
     label: fr
+    
+
+User(admin):
+    email:          admin@beansight.com
+    password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
+    userName:       admin
+    uiLanguage:     French
+    writtingLanguage:     French
+    isAdmin:        true
+
+Promocode(aPromocode):
+    code:   init
+    crDate: 2011-01-01
+    endDate:    2012-01-01
+    nbUsageLeft:    4    

@@ -15,6 +15,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import models.Insight.InsightResult;
@@ -76,8 +77,10 @@ public class User extends Model {
     public String description;
 	
 	/** Language the user wants his UI to be displayed in */
+    @ManyToOne
 	public Language uiLanguage;
 	/** Language the user is writing insights in */
+    @ManyToOne  
 	public Language writtingLanguage;
 	
 	/** How many invitations this user can send, -1 for infinity*/
@@ -378,7 +381,7 @@ public class User extends Model {
 		// remove this insight from shared insights
 		List<InsightShare> shares = InsightShare.find("insight = ? and toUser = ?", insight, this).fetch();
 		for( InsightShare share : shares ) {
-			share.read = true;
+			share.hasBeenRead = true;
 			share.save();
 		}
 		
@@ -642,7 +645,7 @@ public class User extends Model {
 	 * @param number : maximum number to return
 	 */
 	public List<Insight> getSharedInsights(int number) {
-		List<InsightShare> shares = InsightShare.find("toUser = ? and read is false order by created DESC", this).fetch(number);
+		List<InsightShare> shares = InsightShare.find("toUser = ? and hasBeenRead is false order by created DESC", this).fetch(number);
 		List<Insight> sharedInsights = new ArrayList<Insight>();
 		for(InsightShare share : shares) {
 			sharedInsights.add(share.insight);

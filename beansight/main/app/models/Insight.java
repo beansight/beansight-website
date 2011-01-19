@@ -59,6 +59,7 @@ public class Insight extends Model {
 	public String content;
 
 	/** the language of the content of this insight */
+	@ManyToOne
 	public Language lang;
 	
 	/** Every vote of the current insight */

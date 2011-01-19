@@ -7,10 +7,11 @@ import javax.persistence.*;
 
 import java.util.*;
 
-@Entity
+
 /**
  * The activity that happened on a given insight for a given user
  */
+@Entity
 public class InsightActivity extends Model {
 
 	/** date this activity was created */

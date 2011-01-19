@@ -11,8 +11,16 @@ public class Language extends Model {
     
 	public String label;
 	
+//	@OneToMany(mappedBy="uiLanguage")
+//	public List<User> userUiLanguages;
+//	
+//	@OneToMany(mappedBy="writtingLanguage")
+//	public List<User> userWrittingLanguages;
+	
 	public Language(String label) {
 		this.label = label;
+//		this.userUiLanguages = new ArrayList<User>();
+//		this.userWrittingLanguages = new ArrayList<User>();
 	}
 	
 	/**

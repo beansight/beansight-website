@@ -71,8 +71,8 @@ public class Application extends Controller {
     static void setLanguage() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			Lang.change(currentUser.uiLanguage.label);
-        }
+			Lang.change(currentUser.uiLanguage.label);			
+        } 
     }
 
     // TODO Play 1.1 : use "only" to only call this function on website pages (or move not-pages actions to another controller).
@@ -92,7 +92,7 @@ public class Application extends Controller {
 			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);
         }    	
     }
-	
+    
     public static void index() {
     	insights(0,null);
     }
