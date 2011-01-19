@@ -99,6 +99,56 @@ function onAddCommentSuccess(data) {
     clearForm('#addCommentForm');
 }
 
+//////////////////////
+// Settings
+//////////////////////
+
+var imgAreaSelect;
+function onOpenModalCrop(event, ui) {
+    imgAreaSelect = $('#uploadedImage').imgAreaSelect({ 
+        instance:       true,
+        aspectRatio:    '1:1', 
+        handles:        true,
+        fadeSpeed:      200,
+        onSelectChange: preview
+    });
+}
+
+function onCloseModalCrop(event, ui) {
+    imgAreaSelect.setOptions({
+        remove: true,
+        hide:   true
+    }); 
+    imgAreaSelect.update();
+
+    imgAreaSelect = null;
+}
+
+function preview(img, selection) {
+     
+     if (!selection.width || !selection.height)
+     return;
+     
+     var scaleX = 100 / selection.width;
+     var scaleY = 100 / selection.height;
+
+     $('#preview img').css({
+         width: Math.round(scaleX * 300),
+         height: Math.round(scaleY * $("#uploadedImage").height()),
+         marginLeft: -Math.round(scaleX * selection.x1),
+         marginTop: -Math.round(scaleY * selection.y1)
+     });
+
+     $('#x1').val(selection.x1);
+     $('#y1').val(selection.y1);
+     $('#x2').val(selection.x2);
+     $('#y2').val(selection.y2);
+     $('#imageW').val(300);
+     $('#imageH').val($("#uploadedImage").height());
+}
+
+
+
 // Tools
 function clearForm( context ) {
     $(':input', context)
@@ -128,7 +178,32 @@ $(document).ready(function() {
         }
         return false;
     });
+    
+	//////////////////////
+	// Settings
+	//////////////////////
+	$( "#modal-crop" ).dialog({
+		height: 	500,
+		width:		600,
+		modal: 		true,
+		open:		onOpenModalCrop,
+		beforeclose:onCloseModalCrop,
+		autoOpen: 	false,
+		resizable:	false,
+		draggable:	false
+	});
+	
+	$('#cropAvatar').click(function() {  
+		$('#modal-crop').dialog('open');
+		return false;
+    }); 
 
+	$("#cropForm").submit(function() {
+		$.post(cropImageAction(), $("#cropForm").serialize(), refreshAvatarImage);
+		$('#modal-crop').dialog('close');
+		return false;
+	});
+    
 	//////////////////////
 	// Invitation System
 	//////////////////////

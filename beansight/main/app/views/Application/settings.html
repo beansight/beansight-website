@@ -9,83 +9,10 @@
 #{/set}
 
 <script language="Javascript">
-var imgAreaSelect;
-function onOpenModalCrop(event, ui) {
-	imgAreaSelect = $('#uploadedImage').imgAreaSelect({ 
-		instance:		true,
-		aspectRatio: 	'1:1', 
-		handles:		true,
-		fadeSpeed: 		200,
-		onSelectChange: preview
-	});
-}
-
-function onCloseModalCrop(event, ui) {
-	imgAreaSelect.setOptions({
-		remove:	true,
-		hide: 	true
-	});	
-	imgAreaSelect.update();
-
-	imgAreaSelect = null;
-}
-
-$(document).ready(function() {
-
-	$( "#modal-crop" ).dialog({
-		height: 	500,
-		width:		600,
-		modal: 		true,
-		open:		onOpenModalCrop,
-		beforeclose:onCloseModalCrop,
-		autoOpen: 	false,
-		resizable:	false,
-		draggable:	false
-	});
-	
-	$('#cropAvatar').click(function() {  
-		$('#modal-crop').dialog('open');  
-    }); 
-
-	$("#cropForm").submit(function() {
-		$.post('@{Application.cropImage()}', $("#cropForm").serialize(), refreshAvatarImage);
-		$('#modal-crop').dialog('close');
-		return false;
-	});
-	
-});
-
 function refreshAvatarImage() {
-	var timestamp = new Date().getTime();
-	$("#userAvatarImage").attr('src', '@{Application.showAvatar(user.id)}' + '&time=' + timestamp );
+    var timestamp = new Date().getTime();
+    $("#userAvatarImage").attr('src', '@{Application.showAvatar(user.id)}' + '&time=' + timestamp );
 }
-
-function preview(img, selection) {
-	 
-	 if (!selection.width || !selection.height)
-	 return;
-	 
-	 var scaleX = 100 / selection.width;
-	 var scaleY = 100 / selection.height;
-
-	 $('#preview img').css({
-		 width: Math.round(scaleX * 300),
-		 height: Math.round(scaleY * $("#uploadedImage").height()),
-		 marginLeft: -Math.round(scaleX * selection.x1),
-		 marginTop: -Math.round(scaleY * selection.y1)
-	 });
-
-	 $('#x1').val(selection.x1);
-	 $('#y1').val(selection.y1);
-	 $('#x2').val(selection.x2);
-	 $('#y2').val(selection.y2);
-	 $('#imageW').val(300);
-	 $('#imageH').val($("#uploadedImage").height());
-	 
-}
-
-
-
 </script>
 
 <div class="userDetail">
@@ -120,7 +47,7 @@ function preview(img, selection) {
 	        <img id="userAvatarImage" src="@{Application.showAvatar(user.id)}" width="60px" />
         </p>
 		<p>
-        	<a id="cropAvatar" href="#" onclick="openModalCrop(); return false;">&{'cropAvatarImage'}</a>
+        	<a id="cropAvatar" href="#" >&{'cropAvatarImage'}</a>
         </p>
         <p>
         	<input type="submit" value="&{'settingsSubmit'}"/>
