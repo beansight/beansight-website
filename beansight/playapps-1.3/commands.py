@@ -95,7 +95,7 @@ def execute(**kargs):
         if os.path.exists(upload_buf):
             os.remove(upload_buf)
         bd = 'AJNXKSNCSKNCXSKxJXUjgfjhKGHJHVhvhjbhBKhbkjkjnlkJkjnjlknLKJNJKN'
-        buf = open(upload_buf, 'w')
+        buf = open(upload_buf, 'wb')
         buf.write('--%s\r\n' % bd)
         buf.write('Content-Disposition: form-data; name="archive"; filename="archive.zip"\r\n')
         buf.write('Content-Type: application/octet-stream\r\n')

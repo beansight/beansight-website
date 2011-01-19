@@ -8,7 +8,7 @@ import play.Play;
 public class Init {
 
     static {
-        if("playapps".equals(Play.id)) {
+        if(Play.id != null && Play.id.startsWith("playapps")) {
             File logs = Play.getFile("../logs");
             if (!logs.exists()) {
                 logs.mkdir();

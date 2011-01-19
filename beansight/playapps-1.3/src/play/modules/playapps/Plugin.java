@@ -9,7 +9,7 @@ public class Plugin extends PlayPlugin {
 
     @Override
     public void onLoad() {
-        if ("playapps".equals(Play.id)) {
+        if(Play.id != null && Play.id.startsWith("playapps")) {
             Logger.info("Running on playapps.net");
 
             // Mode DEV forbidden
@@ -32,7 +32,7 @@ public class Plugin extends PlayPlugin {
 
     @Override
     public void onConfigurationRead() {
-        if ("playapps".equals(Play.id)) {
+        if(Play.id != null && Play.id.startsWith("playapps")) {
             // Patch database
             if (Play.configuration.containsKey("db")) {
                 Play.configuration.setProperty("db", "mysql:play:play@play");
