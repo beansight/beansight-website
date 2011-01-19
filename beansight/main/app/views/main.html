@@ -4,11 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>#{get 'title' /} - Beansight</title>
 
-<!-- CSS Blueprint Framework -->  
-     <link rel="stylesheet" href="@{'/public/blueprint/screen.css'}" type="text/css" media="screen, projection">  
-     <link rel="stylesheet" href="@{'/public/blueprint/print.css'}" type="text/css" media="print">
-<!-- Beansight CSS -->
-     <link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" type="text/css" media="screen, projection">
      <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/jquery-ui/smoothness/jquery-ui-1.8.5.custom.css'}">
      #{get 'moreStyles' /}  
               
@@ -23,9 +18,6 @@
      
      <script src="@{'/public/javascripts/beansight.js'}" type="text/javascript" charset="utf-8"></script>
      #{get 'moreScripts' /}  
-     <!--[if IE]>  
-         <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection">  
-     <![endif]-->
      
      <!-- define here the actions -->
      <script type="text/javascript">
@@ -43,22 +35,15 @@
      var tagSuggestAction = #{jsAction @Application.tagSuggest() /};
      </script>
      
-    <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light' rel='stylesheet' type='text/css'>
-
-
 </head>
 <body>
 <div id="mainContainer" class="container">
-<div >
 
-<div class="prepend-7 span-16 append-1 last">
-	#{userOptions /}
+#{userOptions /}
+
+<div id="logo">
+	<a href="/"><img alt="Beansight" src="@{'/public/images/logo.png'}" /></a>
 </div>
-    <div class="prepend-1 span-3 append-20 last">
-	<div id="logo">
-		<a href="/"><img alt="Beansight" src="@{'/public/images/logo.png'}" /></a>
-	</div>
-    </div>
     
 #{if flash.error}
     <div class="error">${flash.error}</div>
@@ -67,33 +52,29 @@
     <div class="success">${flash.success}</div>
 #{/if}
 	
-<div class="prepend-1 span-22 last">
 <div class="mainContent">
 #{doLayout /}
 </div>
-
-</div>
 	
-	<div id="footer" class="span-24 last">
-        <div class="prepend-1 span-2">
+<div id="footer">
+       <div>
+           <span class="beansight">Beansight</span>
+       </div>
 
-            <span class="beansight">Beansight</span>
-        </div>
+       <div>
+           <ul>
+               <li id="link-twitter"><a href="http://twitter.com/beansight">Twitter</a></li>
+               <li id="link-facebook"><a href="http://www.facebook.com/pages/Beansight/120701864625294">Facebook</a></li>
+               <li id="link-blog"><a href="http://beansight.tumblr.com/">Blog</a></li>
+           </ul>
+       </div>
+       
+       <div>
+           <a href="mailto:contact@beansight.com">contact</a>
+       </div>
 
-        <div class="prepend-2 span-4">
-            <ul>
-                <li id="link-twitter"><a href="http://twitter.com/beansight">Twitter</a></li>
-                <li id="link-facebook"><a href="http://www.facebook.com/pages/Beansight/120701864625294">Facebook</a></li>
-                <li id="link-blog"><a href="http://beansight.tumblr.com/">Blog</a></li>
-            </ul>
-        </div>
-        
-        <div class="prepend-11 span-4 last">
-                <a href="mailto:contact@beansight.com">contact</a>
-        </div>
-
-	</div>
 </div>
+
 </div>
 
 <script type="text/javascript" charset="utf-8">
