@@ -5,7 +5,8 @@
 # Home page
 GET     /                                       Application.insights
 
-GET     /register                               Register.register
+GET     /signup                                 Register.register
+GET     /logout                                 Secure.logout
 
 GET     /create                                 Application.create
 GET     /experts                                Application.experts
