@@ -133,9 +133,7 @@ function preview(img, selection) {
 <!-- HTML for the modal dialog used to crop user original image -->
 <div id="modal-crop" title="Crop image">
  	<div style="float: left; width: 75%;">
-  		<p class="instructions">
-  			&{'selectArea'}
-  		</p>
+  		<p class="instructions">&{'selectArea'}</p>
  
 		<div style="margin: 0pt 0.3em; width: 300px; height: auto;" class="frame">
 	   		<img src="@{Application.displayOriginalUncropedImage()}" id="uploadedImage" style="width:300px;height:auto;">
@@ -143,9 +141,7 @@ function preview(img, selection) {
 	</div>		
 	
 	<div style="float: left; width: 25%;">
-		<p style="font-size: 110%; font-weight: bold; padding-left: 0.1em;">
-		&{'selectionPreview'}
-		</p>
+		<p>&{'selectionPreview'}</p>
 	
 		<div style="margin: 0pt 1em; width: 100px; height: 100px;" class="frame">
 	   		<div style="width: 100px; height: 100px; overflow: hidden;" id="preview">

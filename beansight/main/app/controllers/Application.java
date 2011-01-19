@@ -447,15 +447,6 @@ public class Application extends Controller {
 		renderBinary(tmpFile);
 	}
 
-	/**
-	 * Render to the page which give the opportunity to crop the avatar image
-	 */
-	public static void cropAvatar() {
-		User user = CurrentUser.getCurrentUser();
-
-		render(user);
-	}
-
 	public static void cropImage(Integer x1, Integer y1, Integer x2,
 			Integer y2, Integer imageW, Integer imageH) {
 		User user = CurrentUser.getCurrentUser();

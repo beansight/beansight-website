@@ -11,6 +11,7 @@ GET     /create                                 Application.create
 GET     /experts                                Application.experts
 GET     /search                                 Application.search
 GET     /profile		            			Application.profile
+GET     /settings                               Application.settings
 
 GET     /confirm/{hash}                         Register.confirm
 
