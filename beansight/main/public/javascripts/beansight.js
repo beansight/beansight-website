@@ -227,7 +227,18 @@ $(document).ready(function() {
         );
         return false;
     });
-	
+    
+	//////////////////////
+	// Leave your email
+	//////////////////////
+    $('#leaveYourEmailForm').submit(function() {
+        $.getJSON(leaveYourEmailAction(), $(this).serialize(), function(data) { 
+        	$('#leaveYourEmailCallBackMsg').text(data.msg);
+            }
+        );
+        return false;
+    });
+    
     //////////////////////
     // Insight creation
     //////////////////////

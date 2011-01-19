@@ -152,3 +152,9 @@ clickheretoregistrationpage=You have to follow this link to create your account.
 emailmessagesubject=Beansight: Private message from %s
 emailmessageheadline=%s sent you a private message on Beansight:
 emailmessagegotoprofile=Click here to visite %s profile and answer.
+
+# Welcome page
+welcome.title=Welcome
+welcome.leaveYourEmailMsg=Please leave your email
+welcome.leaveYourEmailSubmit=Ok
+welcome.leaveYourEmailSuccess=You will soon have some news from Beansight

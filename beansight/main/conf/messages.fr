@@ -1,6 +1,9 @@
 # used for javascript i18n
 i18n=fr
 
+# validation
+validation.email=L'e-mail saisi n'est pas valide
+
 # indexNotConnected
 home=Accueil
 trendinginsights=Prédictions montantes :
@@ -153,3 +156,9 @@ clickheretoregistrationpage=Il vous faut suivre ce lien pour vous créer un comp
 emailmessagesubject=Beansight : Message de %s
 emailmessageheadline=%s vous a envoyé un message privé sur Beansight :
 emailmessagegotoprofile=Cliquez ici pour visiter la page de %s et répondre.
+
+# Welcome page
+welcome.title=Bienvenue
+welcome.leaveYourEmailMsg=Laissez nous votre email
+welcome.leaveYourEmailSubmit=Ok
+welcome.leaveYourEmailSuccess=Merci pour l'intérêt que vous portez à Beansight. A très bientôt dans votre mail box pour des nouvelles de Beansight.

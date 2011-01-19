@@ -64,7 +64,7 @@ public class Application extends Controller {
 	public static final double INSIGHT_VALIDATED_TRUE_MINVAL = 0.7;
 	public static final double INSIGHT_VALIDATED_FALSE_MAXVAL = 0.3;
 	
-    @Before
+    @Before(unless={"welcome", "leaveYourEmail"})
     /**
      * Make sure the language is the one the user has chosen.
      */
@@ -76,7 +76,7 @@ public class Application extends Controller {
     }
 
     // TODO Play 1.1 : use "only" to only call this function on website pages (or move not-pages actions to another controller).
-    @Before()
+    @Before(unless={"welcome", "leaveYourEmail"})
     /**
      * If the user is connected, load the needed info into the menu
      */
@@ -92,6 +92,35 @@ public class Application extends Controller {
 			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);
         }    	
     }
+    
+    @Before(unless={"welcome", "leaveYourEmail"})
+    static void checkAuthentication() {
+    	if(!Security.isConnected()) {
+    		welcome();
+    	}    
+    }
+
+    public static void welcome() {
+    	if(!Security.isConnected()) {
+    		render();
+    	} else {
+    		index();
+    	}
+    }
+    
+    public static void leaveYourEmail(@Email String email) {
+	   if(validation.hasErrors()) {
+		   String msg = "";
+		   for (play.data.validation.Error error : validation.errors()) {
+			   msg += error.message();
+		   }
+		   render("Application/leaveYourEmail.json", msg);
+	   }
+
+    	String msg = Messages.get("welcome.leaveYourEmailSuccess");
+    	render("Application/leaveYourEmail.json", msg);
+    }
+    
     
     public static void index() {
     	insights(0,null);

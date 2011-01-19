@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+#{set 'title'}
+	&{'welcome.title'}
+#{/set}
+
+#{set 'moreScripts'}	
+	<script src="@{'/public/javascripts/jquery.imgareaselect.pack.js'}" type="text/javascript" charset="utf-8"></script>
+#{/set}
+#{set 'moreStyles'}
+    <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
+#{/set}
+
+<div class="leaveYourEmail">
+	<div>
+		&{'welcome.leaveYourEmailMsg'}
+	</div>
+    <form id="leaveYourEmailForm"">
+    	<p>
+    		<label for="email">&{'email'}</label>
+        	<input type="text" name="email"/>
+        	<span class="error">#{error 'email' /}</span>
+        </p>
+
+        <p>
+        	<input type="submit" value="&{'welcome.leaveYourEmailSubmit'}"/>
+        </p>
+    </form>
+	<div id="leaveYourEmailCallBackMsg">
+	</div>
+</div>
