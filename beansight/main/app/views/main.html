@@ -1,50 +1,68 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>#{get 'title' /} - Beansight</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>#{get 'title' /} - Beansight</title>
 
-     <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/jquery-ui/smoothness/jquery-ui-1.8.5.custom.css'}">
-     #{get 'moreStyles' /}  
-              
-     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-   
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
-     <script src="@{'/public/javascripts/jquery.validate.min.js'}" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/style.css'}" />
+	<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery-ui/smoothness/jquery-ui-1.8.5.custom.css'}">
+	#{get 'moreStyles' /}  
+	         
+	<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="@{'/public/javascripts/jquery.validate.min.js'}" type="text/javascript"></script>
 
-     <!-- load the right i18n file -->
-     <script src="/public/javascripts/i18n/&{'i18n'}.js" type="text/javascript" charset="utf-8"></script>
-     
-     <script src="@{'/public/javascripts/beansight.js'}" type="text/javascript" charset="utf-8"></script>
-     #{get 'moreScripts' /}  
-     
-     <!-- define here the actions -->
-     <script type="text/javascript">
-     var agreeAction = #{jsAction @Application.agree(':insightUniqueId') /};
-     var disagreeAction = #{jsAction @Application.disagree(':insightUniqueId') /};
-     var resetInsightActivityAction = #{jsAction @Application.resetInsightActivity() /};
-     var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
-     var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
-     var moreInsightsAction = #{jsAction @Application.moreInsights(':from', ':categoryId') /};
-     var moreSearchAction = #{jsAction @Application.moreSearch(':query', ':from', ':categoryId') /};
-     var inviteAction = #{jsAction @Application.invite() /};
-     var sendMessageAction = #{jsAction @Application.sendMessage() /};
-     var shareInsightAction = #{jsAction @Application.shareInsight() /};
-     var favoriteUserSuggestAction = #{jsAction @Application.favoriteUserSuggest() /};
-     var tagSuggestAction = #{jsAction @Application.tagSuggest() /};
-     var leaveYourEmailAction = #{jsAction @Application.leaveYourEmail() /};
-     </script>
-     
+	<script src="@{'/public/javascripts/jquery.selectbox-0.6.1.js'}" type="text/javascript"></script>
+	<script src="@{'/public/javascripts/cufon-yui.js'}" type="text/javascript"></script>
+	<script src="@{'/public/javascripts/got-rnd-book_325.font.js'}" type="text/javascript"></script>
+	<script src="@{'/public/javascripts/got-rnd-med_350.font.js'}" type="text/javascript"></script>
+	<script src="@{'/public/javascripts/got-rnd-bold_400.font.js'}" type="text/javascript"></script>
+	<script src="@{'/public/javascripts/cufon-init.js'}" type="text/javascript"></script>
+	<script src="@{'/public/javascripts/events.js'}" type="text/javascript"></script>
+
+	<!-- Beansight javascripts -->
+	<script src="/public/javascripts/i18n/&{'i18n'}.js" type="text/javascript" charset="utf-8"></script>
+	<script src="@{'/public/javascripts/beansight.js'}" type="text/javascript" charset="utf-8"></script>
+	#{get 'moreScripts' /}  
+	
+	<!-- define here the actions -->
+	<script type="text/javascript">
+	var agreeAction = #{jsAction @Application.agree(':insightUniqueId') /};
+	var disagreeAction = #{jsAction @Application.disagree(':insightUniqueId') /};
+	var resetInsightActivityAction = #{jsAction @Application.resetInsightActivity() /};
+	var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
+	var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
+	var moreInsightsAction = #{jsAction @Application.moreInsights(':from', ':categoryId') /};
+	var moreSearchAction = #{jsAction @Application.moreSearch(':query', ':from', ':categoryId') /};
+	var inviteAction = #{jsAction @Application.invite() /};
+	var sendMessageAction = #{jsAction @Application.sendMessage() /};
+	var shareInsightAction = #{jsAction @Application.shareInsight() /};
+	var favoriteUserSuggestAction = #{jsAction @Application.favoriteUserSuggest() /};
+	var tagSuggestAction = #{jsAction @Application.tagSuggest() /};
+	var cropImageAction = #{jsAction @Application.cropImage() /};
+	var leaveYourEmailAction = #{jsAction @Application.leaveYourEmail() /};
+	</script>
 </head>
 <body>
-<div id="mainContainer" class="container">
-
-#{userOptions /}
-
-<div id="logo">
-	<a href="/"><img alt="Beansight" src="@{'/public/images/logo.png'}" /></a>
-</div>
+        <!-- HEADER -->
+        <div id="header">
+            <div class="contentheader">
+                <!-- LOGO -->
+                <div class="colhead logocol">
+                    <h1><a href="/"> Beansight</a></h1>
+                </div>
+                <!-- FORM SEARCH -->
+                <div class="colhead searchcol">
+                #{searchInput /}
+                </div>
+                <!-- ZONE LOGIN -->
+                <div class="colhead collogin">
+                #{userOptions /}
+                </div>
+            </div>
+        </div>
     
 #{if flash.error}
     <div class="error">${flash.error}</div>
@@ -52,31 +70,69 @@
 #{if flash.success}
     <div class="success">${flash.success}</div>
 #{/if}
+
 	
-<div class="mainContent">
+<!-- CONTENU -->
+<div id="content">
 #{doLayout /}
 </div>
 	
-<div id="footer">
-       <div>
-           <span class="beansight">Beansight</span>
-       </div>
+        <!-- FOOTER -->
+        <div id="footer">
+            <div class="backfooter"></div>
+            <div class="contentfooter">
+                <div class="menufooter">
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Extra</h2>
+                        <ul>
+                            <li><a href="#">Read the blog</a></li>
+                            <li><a href="#">About us</a></li>
+                            <li><a href="#">API</a></li>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Help</h2>
+                        <ul>
+                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Read the FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Links</h2>
+                        <ul>
+                            <li><a href="#">Colorz</a></li>
+                            <li><a href="#">Garance Dorée</a></li>
+                            <li><a href="#">Decate</a></li>
+                            <li><a href="#">Monsieur Lam</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">We are social</h2>
+                        <a href="#" class="sociallinks facebooklinks">
+                            <span class="likefb">Like facebook</span>
+                            <span class="titlesocial">Facebook</span>
+                            <span class="nbsocial">950 Fans</span>
+                        </a>
+                        <a href="#" class="sociallinks twitterlinks">
+                            <span class="titlesocial">Twitter</span>
+                            <span class="nbsocial">950 followers</span>
+                        </a>
+                    </div>
 
-       <div>
-           <ul>
-               <li id="link-twitter"><a href="http://twitter.com/beansight">Twitter</a></li>
-               <li id="link-facebook"><a href="http://www.facebook.com/pages/Beansight/120701864625294">Facebook</a></li>
-               <li id="link-blog"><a href="http://beansight.tumblr.com/">Blog</a></li>
-           </ul>
-       </div>
-       
-       <div>
-           <a href="mailto:contact@beansight.com">contact</a>
-       </div>
 
-</div>
+                    <div class="copyright">
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p>
+                        <p class="rights">All rights reserved.</p>
+                        <p class="authorwebsite">Website by <a href="http://www.colorz.fr/">Colorz</a></p>
+                    </div>
+                </div>
+            </div>
 
-</div>
+        </div>
+
+
 
 <script type="text/javascript" charset="utf-8">
   var is_ssl = ("https:" == document.location.protocol);

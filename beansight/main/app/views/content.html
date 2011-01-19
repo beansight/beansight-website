@@ -1,8 +1,10 @@
 #{extends 'main.html' /}
 
-#{searchInput /}
+<!-- CONTENU -->
+<div id="content">
 
-<div class="sideBar">
+<!-- SIDEBAR LEFT -->
+<div id="sidebarleft">
 #{isConnected}
     <div><a href="@{Application.create()}" #{currentMenu 'menuCreate' /} >&{'menucreate'}</a></div>
 #{/isConnected}
@@ -41,3 +43,8 @@
 </div>
 	
 #{doLayout /}
+
+</div>
+
+
+<hr class="clear"/>

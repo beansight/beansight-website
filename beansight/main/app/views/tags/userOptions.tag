@@ -1,32 +1,60 @@
-<div id="userOptions">
 #{isNotConnected}
-    <a id="signupLink" href="@{Register.register}">&{'signuplink'}</a>
-    <a id="loginLink" href="#" >&{'loginlink'}</a>
-    <a id="twitterLink" href="@{TwitterOAuth.loginWithTwitter}"><img src="/public/images/twitter-login-button.png" height="20px" style="margin-top: 5px;"/></a>
-    <a id="facebookLink" href="@{FaceBookOAuth.authenticate}"><img src="/public/images/facebook-login-button.png" height="20px"/></a>
-#{/isNotConnected}
-#{isConnected}
-    ${controllers.CurrentUser.getCurrentUserName()}
-    <a href="@{Application.settings()}">&{'settingslink'}</a>
-    <a href="@{Secure.logout()}">&{'logoutlink'}</a>
-#{/isConnected}
+<div class="signbtn">
+    <a href="@{Register.register}" class="cuf-grb">&{'signuplink'}</a>
 </div>
+<div class="logbtn" id="zonelogin">
+    <a href="#" class="cuf-grb" id="btnlogin">&{'loginlink'}</a>
+    <div id="boxlogin">
+        <div class="listlogin">
+            <ul>
+                <li class="log-b"><a href="#" class="current" id="log-bean">Beansight</a></li>
+                <li class="log-t"><a href="#" id="log-twit">Twitter</a></li>
+                <li class="log-f"><a href="#" id="log-fb">Facebook</a></li>
+            </ul>
+        </div>
 
-#{isNotConnected}
-    <div id="loginBox" class="floatingBox" style="display:none;">
-    <h2>&{'logintitle'}</h2>
-       #{form @Secure.authenticate()}
-                <div>
-	                <label for="username">&{'email'}</label> *{ Secure module works using "username", but for us, username is the email }*
-	                <input type="email" name="username" id="username" value="${flash.username}" />
-	                <label for="password">&{'password'}</label>
-	                <input type="password" name="password" id="password" value="" />
-                </div>
-                <div>
-	                <input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
-	                <label for="remember">&{'remember'}</label>
-	                <input type="submit" id="signin" value="&{'loginbutton'}" />
-                </div>
-        #{/form}
+        <div class="list-logins">
+            <div class="item-loginbox" id="boxlog-bean">
+                #{form @Secure.authenticate()}
+                    <label for="username">&{'email'}</label> *{ Secure module works using "username", but for us, username is the email }*
+                    <div class="inputlogin">
+                        <input type="email" name="username" value="${flash.username}" id="pseudologin"/>
+                    </div>
+                    <label for="password">&{'password'}</label>
+                    <div class="inputlogin">
+                        <input type="password" name="password" value="" id="passlogin"/>
+                    </div>
+                    
+                    <input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+                    <label for="remember">&{'remember'}</label>
+                    
+                    <div class="inputsubmit">
+                        <input type="submit" name="submit-log" value="Connect"/>
+                    </div>
+
+                #{/form}
+            </div>
+
+            <div class="item-loginbox nojavascript" id="boxlog-twit">
+                <a href="@{TwitterOAuth.loginWithTwitter}"><img src="/public/images/twitter-login-button.png" height="20px" style="margin-top: 5px;"/></a>
+            </div>
+
+            <div class="item-loginbox nojavascript" id="boxlog-fb">
+                <a href="@{FaceBookOAuth.authenticate}"><img src="/public/images/facebook-login-button.png" height="20px"/></a>
+            </div>
+        </div>
     </div>
+</div>
 #{/isNotConnected}
+
+
+#{isConnected}
+<div class="signbtn">
+    <a href="@{Secure.logout()}" class="cuf-grb">&{'logoutlink'}</a>
+</div>
+<div class="welcome">
+    <p>&{'welcomeusername'} <a href="@{Application.settings()}" class="pseudo-link">${controllers.CurrentUser.getCurrentUserName()}</a></p>
+    <p><a href="@{Application.settings()}" class="setting-link">&{'settingslink'}</a></p>
+</div>
+#{/isConnected}
+

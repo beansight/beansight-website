@@ -98,6 +98,7 @@ username=Username
 password=Password
 remember=remember?
 loginbutton=Log in
+welcomeusername=Welcome 
 
 # register
 register=Sign up

@@ -101,6 +101,7 @@ username=Nom d'utilisateur
 password=Mot de passe
 remember=se souvenir ?
 loginbutton=Connexion
+welcomeusername=Bonjour 
 
 # register
 register=Création de compte
