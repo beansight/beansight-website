@@ -28,6 +28,7 @@ import models.Trend;
 import models.User;
 import models.Vote;
 import models.Vote.State;
+import models.WaitingEmail;
 import play.Logger;
 import play.Play;
 import play.data.validation.Email;
@@ -115,10 +116,11 @@ public class Application extends Controller {
 			   msg += error.message();
 		   }
 		   render("Application/leaveYourEmail.json", msg);
-	   }
-
-    	String msg = Messages.get("welcome.leaveYourEmailSuccess");
-    	render("Application/leaveYourEmail.json", msg);
+	   	}
+	   WaitingEmail waitingEmail = new WaitingEmail(email);
+	   waitingEmail.save();
+	   String msg = Messages.get("welcome.leaveYourEmailSuccess");
+	   render("Application/leaveYourEmail.json", msg);
     }
     
     
