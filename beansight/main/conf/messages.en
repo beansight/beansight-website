@@ -1,6 +1,10 @@
 # used for javascript i18n
 i18n=en
 
+# validation
+validation.email=E-mail invalid
+vvalidation.required = %s is required
+
 # indexNotConnected
 home=Home
 trendinginsights=Trending insights:
@@ -156,6 +160,6 @@ emailmessagegotoprofile=Click here to visite %s profile and answer.
 
 # Welcome page
 welcome.title=Welcome
-welcome.leaveYourEmailMsg=Please leave your email
+welcome.leaveYourEmailMsg=We are currently in private beta if you want to be part of it please leave us your email.
 welcome.leaveYourEmailSubmit=Ok
-welcome.leaveYourEmailSuccess=You will soon have some news from Beansight
+welcome.leaveYourEmailSuccess=Thanks, you will soon have some news from Beansight

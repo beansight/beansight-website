@@ -3,6 +3,7 @@ i18n=fr
 
 # validation
 validation.email=L'e-mail saisi n'est pas valide
+validation.required = %s doit être rempli
 
 # indexNotConnected
 home=Accueil
@@ -160,6 +161,6 @@ emailmessagegotoprofile=Cliquez ici pour visiter la page de %s et répondre.
 
 # Welcome page
 welcome.title=Bienvenue
-welcome.leaveYourEmailMsg=Laissez nous votre email
+welcome.leaveYourEmailMsg=Beansight est actuellement en beta privée. Laissez nous votre email pour participer à la beta privée.
 welcome.leaveYourEmailSubmit=Ok
 welcome.leaveYourEmailSuccess=Merci pour l'intérêt que vous portez à Beansight. A très bientôt dans votre mail box pour des nouvelles de Beansight.

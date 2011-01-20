@@ -10,21 +10,25 @@
     <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
 #{/set}
 
-<div id="leaveYourEmail">
-	<div>
-		&{'welcome.leaveYourEmailMsg'}
+<div id="content" class="signup">
+	<div class="bloccontent bloccenter">
+		<div  id="leaveYourEmail">
+		    <form id="leaveYourEmailForm"">
+	    		<label for="email">&{'email'}</label>
+	    		<div class="item-input">
+	        		<input type="text" name="email"/>
+	        		<span class="error">#{error 'email' /}</span>
+	        	</div>
+	        	<input type="submit" value="&{'welcome.leaveYourEmailSubmit'}"/>
+		    </form>
+		</div>
+		<div id="leaveYourEmailCallBackMsg">
+		</div>
 	</div>
-    <form id="leaveYourEmailForm"">
-    	<p>
-    		<label for="email">&{'email'}</label>
-        	<input type="text" name="email"/>
-        	<span class="error">#{error 'email' /}</span>
-        </p>
-
-        <p>
-        	<input type="submit" value="&{'welcome.leaveYourEmailSubmit'}"/>
-        </p>
-    </form>
+	<div class="bloccontent blocright">
+		<h2 class="cuf-grs">
+			&{'welcome.leaveYourEmailMsg'}
+		</h2>
+	</div>
 </div>
-<div id="leaveYourEmailCallBackMsg">
-</div>
+<hr class="clear"/>

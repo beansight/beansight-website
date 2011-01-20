@@ -102,18 +102,20 @@ public class Application extends Controller {
     	}
     }
     
-    public static void leaveYourEmail(@Email String email) {
-	   if(validation.hasErrors()) {
-		   String msg = "";
-		   for (play.data.validation.Error error : validation.errors()) {
-			   msg += error.message();
-		   }
-		   render("Application/leaveYourEmail.json", msg);
+    public static void leaveYourEmail(@Required @Email String email) {
+    	String msg = "";
+    	boolean hasError = false;
+    	if(validation.hasErrors()) {
+    		hasError = true;
+    		for (play.data.validation.Error error : validation.errors()) {
+    			msg += error.message();
+    		}
+    		render("Application/leaveYourEmail.json", msg, hasError);
 	   	}
-	   WaitingEmail waitingEmail = new WaitingEmail(email);
-	   waitingEmail.save();
-	   String msg = Messages.get("welcome.leaveYourEmailSuccess");
-	   render("Application/leaveYourEmail.json", msg);
+    	WaitingEmail waitingEmail = new WaitingEmail(email);
+    	waitingEmail.save();
+    	msg = Messages.get("welcome.leaveYourEmailSuccess");
+    	render("Application/leaveYourEmail.json", msg, hasError);
     }
     
     

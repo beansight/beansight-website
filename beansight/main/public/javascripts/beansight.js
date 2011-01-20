@@ -234,9 +234,10 @@ $(document).ready(function() {
     $('#leaveYourEmailForm').submit(function() {
         $.getJSON(leaveYourEmailAction(), $(this).serialize(), function(data) { 
         	$('#leaveYourEmailCallBackMsg').text(data.msg);
-        	$('#leaveYourEmail').slideUp();
-            }
-        );
+        	if (data.hasError == false) {
+        		$('#leaveYourEmail').slideUp();
+        	}
+        });
         return false;
     });
     
