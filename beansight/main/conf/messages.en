@@ -166,3 +166,9 @@ welcome.title=Welcome
 welcome.leaveYourEmailMsg=We are currently in private beta if you want to be part of it please leave us your email.
 welcome.leaveYourEmailSubmit=Ok
 welcome.leaveYourEmailSuccess=Thanks, you will soon have some news from Beansight
+
+# Contact page
+contact.contactUs=Contact Us
+contact.yourName=Your Name
+contact.subject=Subject
+contact.message=Message

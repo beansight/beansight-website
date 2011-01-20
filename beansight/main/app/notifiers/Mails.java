@@ -6,6 +6,7 @@ import play.i18n.*;
 
 import java.util.*;
 
+import models.ContactMailTask;
 import models.FollowNotificationTask;
 import models.InvitationMailTask;
 import models.MailTask;
@@ -34,6 +35,11 @@ public class Mails extends Mailer {
 	
 	public static void message(MessageMailTask task) {
 		sendMailTask(task, Messages.get("emailmessagesubject", task.message.fromUser.userName), "Mails/message.html");
+	}
+	
+	// FIXME : changer le template pour contact
+	public static void message(ContactMailTask task) {
+		sendMailTask(task, task.subject, "Mails/message.html");
 	}
 	
 	private static void sendMailTask(MailTask task, String subject, String templateName) {

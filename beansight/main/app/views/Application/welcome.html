@@ -13,13 +13,15 @@
 <div id="content" class="signup">
 	<div class="bloccontent bloccenter">
 		<div  id="leaveYourEmail">
-		    <form id="leaveYourEmailForm"">
+		    <form id="leaveYourEmailForm">
 	    		<label for="email">&{'email'}</label>
 	    		<div class="item-input">
 	        		<input type="text" name="email"/>
 	        		<span class="error">#{error 'email' /}</span>
 	        	</div>
-	        	<input type="submit" value="&{'welcome.leaveYourEmailSubmit'}"/>
+	        	<div class="item-submit">
+	        		<input type="submit" value="&{'welcome.leaveYourEmailSubmit'}"/>
+	        	</div>
 		    </form>
 		</div>
 		<div id="leaveYourEmailCallBackMsg">

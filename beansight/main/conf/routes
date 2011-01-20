@@ -13,6 +13,7 @@ GET     /experts                                Application.experts
 GET     /search                                 Application.search
 GET     /profile		            			Application.profile
 GET     /settings                               Application.settings
+GET     /contact                                Contact.contact
 
 GET     /confirm/{hash}                         Register.confirm
 

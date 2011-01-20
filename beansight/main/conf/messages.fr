@@ -167,3 +167,9 @@ welcome.title=Bienvenue
 welcome.leaveYourEmailMsg=Beansight est actuellement en beta privée. Laissez nous votre email pour participer à la beta privée.
 welcome.leaveYourEmailSubmit=Ok
 welcome.leaveYourEmailSuccess=Merci pour l'intérêt que vous portez à Beansight. A très bientôt dans votre mail box pour des nouvelles de Beansight.
+
+# Contact page
+contact.contactUs=Contactez nous
+contact.yourName=Nom
+contact.subject=Sujet
+contact.message=Message

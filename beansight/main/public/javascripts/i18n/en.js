@@ -10,5 +10,9 @@ var i18n = {
 		insightAlreadyShared :		'Insight already shared with this user.',
 		notFollowingUser :			'You must follow this user to share an insight with him.',
 		insightShared :				'Insight shared',
-		cannotFindUser :			'user cannot be found'
+		cannotFindUser :			'user cannot be found',
+		validateContactName :		'name is required',
+		validateContactEmail :		'no a valid email',
+		validateContactsubject :	'subject is required',
+		validateContactMessage :	'message is required'
 }

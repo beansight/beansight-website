@@ -43,6 +43,7 @@
 	var tagSuggestAction = #{jsAction @Application.tagSuggest() /};
 	var cropImageAction = #{jsAction @Application.cropImage() /};
 	var leaveYourEmailAction = #{jsAction @Application.leaveYourEmail() /};
+	var sendToContactAction = #{jsAction @Contact.sendToContact() /};
 	</script>
 </head>
 <body>
@@ -95,7 +96,7 @@
                     <div class="colfooter">
                         <h2 class="cuf-grm">Help</h2>
                         <ul>
-                            <li><a href="#">Contact us</a></li>
+                            <li><a href="@{Contact.contact()}">Contact us</a></li>
                             <li><a href="#">Read the FAQ</a></li>
                         </ul>
                     </div>

@@ -240,6 +240,43 @@ $(document).ready(function() {
         });
         return false;
     });
+
+	//////////////////////
+	// Contact page
+	//////////////////////
+    /*
+	$("#contactForm").validate({
+		rules: {
+			name: "required",
+			from : "required email",
+			subject : "required email",
+			message : "required email"
+		},
+		messages: {
+			name: i18n.validateContactName,
+			from: i18n.validateContactEmail,
+			subject: i18n.validateContactsubject,
+			message: i18n.validateContactMessage
+		}
+	});*/
+   
+    $('#contactForm').submit(function() {
+        $.getJSON(sendToContactAction(), $(this).serialize(), function(data) { 
+        	if (data.hasError) {
+        		$('#name_error').text(data.name);
+        		$('#from_error').text(data.from);
+        		$('#subject_error').text(data.subject);
+        		$('#message_error').text(data.message);
+        		$('#contact_otherMessage').text(data.otherMessage);
+        	} else {
+        		$('#contact_otherMessage').text(data.otherMessage);
+        		$('#contactForm').slideUp();
+        	}
+        });
+        return false;
+    });    
+  
+
     
     //////////////////////
     // Insight creation

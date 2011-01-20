@@ -10,5 +10,9 @@ var i18n = {
 		insightAlreadyShared :		'Vous avez déjà partagé cette prédiction avec cet utilisateur.',
 		notFollowingUser :			'Vous devez suivre cet utilisateur pour partager une prédiction avec lui.',
 		insightShared :				'Prédiction partagée.',
-		cannotFindUser :			'L\'utilisateur ne peut pas être trouvé.'
+		cannotFindUser :			'L\'utilisateur ne peut pas être trouvé.',
+		validateContactName :		'un nom est nécessaire',
+		validateContactEmail :		'un email est nécessaire',
+		validateContactsubject :	'un sujet est nécessaire',
+		validateContactMessage :	'un message is nécessaire'
 }
