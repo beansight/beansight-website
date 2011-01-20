@@ -3,5 +3,5 @@
 <!-- avatar 26x26 -->
 <a href="@{Application.showUser(_user.userName)}" class="item-avatar">
     <span class="backavatar"><img src="@{Application.showAvatar(_user.id)}"/></span>
-    <p>Henry Lim</p>
+    <p>${_user.userName}</p>
 </a>

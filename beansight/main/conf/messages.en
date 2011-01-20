@@ -57,6 +57,8 @@ shareonbeansight=Beansight user
 #experts
 explore=Explore experts
 expertstitle=Experts
+expertssearch=Search experts
+expertssearchbutton=Search
 
 #insights
 exploreinsights=Explore insights

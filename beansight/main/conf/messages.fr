@@ -57,6 +57,8 @@ shareonbeansight=Utilisateur Beansight
 #experts
 explore=Explorer les experts
 expertstitle=Experts
+expertssearch=Rechercher parmi les experts
+expertssearchbutton=Rechercher
 
 #insights
 exploreinsights=Explorer les prédictions
