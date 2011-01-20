@@ -82,7 +82,8 @@ settingsSubmit=Valider
 imageCropSubmit=Valider
 saveSettingImageNotFoundException=Oups un problème nous empêche de sauver l'image de votre avatar
 
-# menuBar
+# menu
+menutitle=Menu
 menuprofile=Profil
 menucreate=Créer
 menuinsights=Prévisions

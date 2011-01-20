@@ -1,3 +1,3 @@
 #{if currentMenu==_arg}
-class="current"
+current
 #{/if }

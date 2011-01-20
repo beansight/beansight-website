@@ -82,7 +82,8 @@ settingsSubmit=Save
 imageCropSubmit=Save
 saveSettingImageNotFoundException=We are sorry an unexcepted error prevents us to save you avatar image
 
-# menuBar
+# menu
+menutitle=Menu
 menuprofile=Profile
 menucreate=Create
 menuinsights=Insights

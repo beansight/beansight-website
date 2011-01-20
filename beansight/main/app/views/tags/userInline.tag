@@ -1,6 +1,7 @@
 *{ Display the name and the avatar of the expert  }*
 *{ @param user: the user  }*
-
-<img width="30px" src="@{Application.showAvatar(_user.id)}"/>
-<a href="@{Application.showUser(_user.userName)}">${_user.userName}</a>
-	
+<!-- avatar 26x26 -->
+<a href="@{Application.showUser(_user.userName)}" class="item-avatar">
+    <span class="backavatar"><img src="@{Application.showAvatar(_user.id)}"/></span>
+    <p>Henry Lim</p>
+</a>
