@@ -5,27 +5,81 @@
 
 #{set currentMenu:'menuCreate' /}
 
-<div>
+#{set contentCenterClass:'large' /}
+
+<h2 class="cuf-grb">&{'createInsightTitle'}</h2>
+<div class="contentlarge">
+    <div class="newinsight">
     #{form @Application.createInsight(), id:'insightCreationForm'}
-        <p>&{'createInsightTitle'}</p>
-        <div>
+
+        <div class="line-form">
+            <label for="c_sujet">&{'createInsightMessage'}</label>
+            <div class="item-textarea">
+                <!-- id="c_sujet" -->
+                <textarea name="insightContent" id="insightContent" class="insightContent" cols="50" rows="2">${insightContent}</textarea>
+                #{if errors.forKey('insightContent')}<span class="error">${errors.forKey('insightContent')}</span>#{/if}
+            </div>
+            <div class="compteur-carac">
+                <div id="progressbar"></div>
+                <div class="progressbar">
+                    <p>80%</p>
+                </div>
+            </div>
+            <p id="caracterNumbers" class="progressnb"><span id="currentCaractersNumbers">0</span> / 140</p>
+            <hr class="clear"/>
+        </div>
+
+        <div class="line-form">
             <label for="endDate">&{'createInsightDate'}</label>
-            <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />,
-            #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
-            <textarea name="insightContent" id="insightContent" class="insightContent">${insightContent}</textarea>
-            #{if errors.forKey('insightContent')}<span class="error">${errors.forKey('insightContent')}</span>#{/if}
+            <div class="item-input">
+                <!-- colorz: id="c_date"  -->
+                <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />
+                #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
+                
+            </div>
         </div>
-        <div id="caracterCount">
-            <div id="caracterNumbers"><span id="currentCaractersNumbers">0</span> / 140</div>
-            <div id="progressbar"></div>
-        </div>
-        <div>
-            <label for="tagLabelList">&{'createInsightTags'}</label>
-            <input type="text" name="tagLabelList" id="tagLabelList" value="${tagLabelList}" />
-            #{if errors.forKey('tagLabelList')}<span class="error">${errors.forKey('tagLabelList')}</span>#{/if}
+ 
+        <div class="line-form">
             <label for="category">&{'createInsightCategory'}</label>
-               #{selectCategories none:true/}
-               #{if errors.forKey('categoryId')}<span class="error">${errors.forKey('categoryId')}</span>#{/if}
+            #{selectCategories none:true/}
+            #{if errors.forKey('categoryId')}<span class="error">${errors.forKey('categoryId')}</span>#{/if}
+            <!-- colorz:               
+            <div class="item-select">
+                <select name="" id="c_category">
+                    <option value="">Select a category</option>
+                    <option value="">Test 2</option>
+                    <option value="">Select a category</option>
+                    <option value="">Test 2</option>
+                    <option value="">Select a category</option>
+                    <option value="">Test 2</option>
+                </select>
+            </div>
+             -->
+        </div>
+
+        <div class="line-form">
+            <label for="taginput">&{'createInsightTags'}</label>
+            <div class="item-input">
+                <!-- colorz: id="taginput" -->
+                <input type="text" name="tagLabelList" id="tagLabelList" value="${tagLabelList}" />
+                <input type="hidden" name="" value="" id="tagresult"/>
+                #{if errors.forKey('tagLabelList')}<span class="error">${errors.forKey('tagLabelList')}</span>#{/if}
+            </div>
+            <div class="listtags">
+            </div>
+        </div>
+
+        <div class="line-form">
+            <p class="label">&{'createInsightLang'}</p>
+            <div class="item-radio">
+                <label for="radlang-fr" class="radio-fr">Français</label>
+                <input type="radio" name="lang" value="fr" id="radlang-fr"/>
+                <label for="radlang-en" class="radio-en current">English</label>
+                <input type="radio" name="lang" value="en" id="radlang-en" checked="checked"/>
+            </div>
+        </div>
+<!-- 
+our code:
             <input style="display:none;" id="insightCreationLang" name="lang" value="${insightLang}" />
             <a id="insightCreationLangEn" class="insightCreationLangChoose" href="" onclick="return false;">
                 <img alt="English flag" class="languageFlag #{if insightLang.equals("en")}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
@@ -33,11 +87,11 @@
             <a id="insightCreationLangFr" class="insightCreationLangChoose" href="" onclick="return false;">
                 <img alt="French flag" class="languageFlag #{if insightLang.equals("fr")}selected#{/if}" src="@{'/public/images/flags/fr.png'}" />
             </a>
-        </div>
-        <div>
-            <input type="submit" value="&{'createInsightSubmit'}" />
+ -->
+
+        <div class="item-submit line-form">
+            <input type="submit" name="submit-insight" value="&{'createInsightSubmit'}"/>
         </div>
     #{/form}
+    </div>
 </div>
-
-

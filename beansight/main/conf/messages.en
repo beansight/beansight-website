@@ -26,12 +26,14 @@ inviteconfirm=Invitation sent
 browsecategory=Browse Category
 
 # Create Insight
-createInsightTitle=What is going to happen ?
-createInsightDate=On
+createInsightTitle=What is going to happen?
+createInsightMessage=What?
+createInsightDate=When?
 createInsightTags=Tags
 createInsightCategory=Category
 createInsightSubmit=Create
 createinsight=Create insight
+createInsightLang=Language
 
 #showInsight
 onbeansight=on #Beansight
