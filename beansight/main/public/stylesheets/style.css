@@ -242,7 +242,6 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .listinsights .seeall:hover{background-position:left bottom;}
 #contentcenter .listinsights .seeall p{/*padding:8px 14px 0 0;*/}
 #contentcenter .listinsights .seeall p a{display:block;float:right;color:#fff;font-size:12px;background:url(/public/images/icon-seeall.png) no-repeat 411px 9px;padding:8px 22px 0 0;height:26px;width:405px;text-align:right;}
-#contentcenter.profil .listinsights .seeall{margin-bottom:25px;}
 
 
 

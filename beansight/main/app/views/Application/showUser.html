@@ -8,39 +8,71 @@
     #{set currentMenu:'menuExperts' /}
 #{/else}
 
+#{set contentCenterClass:'large' /}
+
 #{userContainer user:user}
 
-#{isConnected}
-<div class="pageFavorite">
-    #{followUserWidget user:user /}
+<!-- mon porfil -->
+<div class="myprofil">
+    <div class="leftprofil">
+        <div class="avatar-profil">
+            <!-- TODO COLORZ: imagesize : 94x94  -->
+            <img width="100px" src="@{Application.showAvatar(user.id)}" id="cropbox" />
+        </div>
+        <div class="linksprofil">
+            #{isConnected}
+            <a href="#" onClick="toggleFollowingUser(${user.id})" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
+            #{/isConnected}
+            <a href="#" class="sendmail" id="link-sendmail">Send a mail</a>
+        </div>
+    </div>
+    <div class="info-profil">
+        <h2>${user.userName} #{if user.realName}(${user.realName})#{/if}</h2>
+        <p class="resume">${user.description}</p>
+    </div>
+    <hr class="clear"/>
+    <div class="boxmail" id="boxlink-sendmail">
+        <form id="sendMessageForm">
+            <div class="item-textarea">
+                <textarea cols="20" rows="5" id="messageUserContent"  name="content"></textarea>
+            </div>
+            <input type="hidden" name="id" value="${user.id}" />
+            <div class="item-submit">
+                <input type="submit" value="&{'messagesubmit'}"/>
+            </div>
+        </form>
+    </div>
+    <p id="messagesentconfirm" style="display:none;">&{'messagesentconfirm'}</p>
+
 </div>
-#{/isConnected}
 
-<h2>${user.userName} (${user.realName})</h2>
-<p>${user.description}</p>
-
-<div><img width="100px" src="@{Application.showAvatar(user.id)}" id="cropbox" /></div>
-
-<div>#{sendMessage user:user /}</div>
-
-<div>
-	<p>score ${user.score}</p>
-	<p>score by category:</p>
-	<ul>
-	    #{list items:user.categoryScores, as:'categoryScore' }
-	        <li>
-	            ${categoryScore.category.label}: ${categoryScore.score}
-	        </li>
-	    #{/list}
-	</ul>
+<div class="mybadges">
+    <h2 class="cuf-grb">&{'userratings'}</h2>
+    <div class="liststars">
+    #{list items:user.categoryScores, as:'categoryScore' }
+        <div class="colvote">
+            <h3>${categoryScore.category.label}</h3>
+            ${categoryScore.score}
+            <div class="vote">
+                <span class="star fullstar">vote plein</span>
+                <span class="star fullstar">vote plein</span>
+                <span class="star demistar">vote demi-plein</span>
+                <span class="star emptystar">vote vide</span>
+                <span class="star emptystar">vote vide</span>
+            </div>
+        </div>
+    #{/list}
+    </div>
 </div>
+<hr class="clear"/>
 
-<div>
+<!-- TODO COLORZ : add filters -->
+<div class="listinsights">
     #{if currentUserProfilePage}
-    <h2>&{'myinsights'}</h2>
+    <h2 class="cuf-grb">&{'myinsights'}</h2>
     #{/if}
 	#{else}
-    <h2>&{'userinsights'}</h2>	   
+    <h2 class="cuf-grb">&{'userinsights'}</h2>	   
     #{/else}
     <ul>
         #{listInsights insights:lastInsights /}

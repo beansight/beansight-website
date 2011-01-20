@@ -66,6 +66,7 @@ incategory=dans
 #showUser
 userinsights=Prédictions de l'utilisateur
 myinsights=Mes prédictions
+userratings=Expetise
 
 #sendMessage
 sendMessage=Message privé

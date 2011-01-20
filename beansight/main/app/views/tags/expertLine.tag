@@ -4,8 +4,4 @@
 #{userContainer user:_expert}
 	#{userInline user:_expert /}
 	
-	#{isConnected}
-	    #{followUserWidget user:_expert/}
-	#{/isConnected}
-
 #{/userContainer}

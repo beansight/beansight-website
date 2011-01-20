@@ -52,6 +52,7 @@ function onToggleFollowingInsightSuccess(data) {
 
 function toggleFollowingUser(userId) {
 	$.getJSON(toggleFollowingUserAction({'userId': userId}), onToggleFollowingUserSuccess);
+	return false;
 }
 
 /** Callback after a follow of user is done */
