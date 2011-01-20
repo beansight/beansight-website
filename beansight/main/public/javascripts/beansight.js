@@ -234,6 +234,7 @@ $(document).ready(function() {
     $('#leaveYourEmailForm').submit(function() {
         $.getJSON(leaveYourEmailAction(), $(this).serialize(), function(data) { 
         	$('#leaveYourEmailCallBackMsg').text(data.msg);
+        	$('#leaveYourEmail').slideUp();
             }
         );
         return false;
