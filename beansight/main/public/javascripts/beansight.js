@@ -8,11 +8,13 @@ var MAX_CHARACTERS_INSIGHT = 140;
 /** Current user agree an insight */
 function agree(insightUniqueId) {
     $.getJSON(agreeAction({'insightUniqueId': insightUniqueId}), onVoteSuccess);
+    return false;
 }
 
 /** Current user disagree an insight */
 function disagree(insightUniqueId) {
     $.getJSON(disagreeAction({'insightUniqueId': insightUniqueId}), onVoteSuccess);
+    return false;
 }
 
 /** Callback after a vote is done */
@@ -244,7 +246,6 @@ $(document).ready(function() {
 	//////////////////////
 	// Contact page
 	//////////////////////
-    /*
 	$("#contactForm").validate({
 		rules: {
 			name: "required",
@@ -258,7 +259,7 @@ $(document).ready(function() {
 			subject: i18n.validateContactsubject,
 			message: i18n.validateContactMessage
 		}
-	});*/
+	});
    
     $('#contactForm').submit(function() {
         $.getJSON(sendToContactAction(), $(this).serialize(), function(data) { 

@@ -15,7 +15,7 @@
         <div class="line-form">
             <label for="c_sujet">&{'createInsightMessage'}</label>
             <div class="item-textarea">
-                <!-- id="c_sujet" -->
+                <!-- TODO COLORZ id="c_sujet" -->
                 <textarea name="insightContent" id="insightContent" class="insightContent" cols="50" rows="2">${insightContent}</textarea>
                 #{if errors.forKey('insightContent')}<span class="error">${errors.forKey('insightContent')}</span>#{/if}
             </div>
@@ -32,7 +32,7 @@
         <div class="line-form">
             <label for="endDate">&{'createInsightDate'}</label>
             <div class="item-input">
-                <!-- colorz: id="c_date"  -->
+                <!-- TODO COLORZ colorz: id="c_date"  -->
                 <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />
                 #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
                 
@@ -43,7 +43,8 @@
             <label for="category">&{'createInsightCategory'}</label>
             #{selectCategories none:true/}
             #{if errors.forKey('categoryId')}<span class="error">${errors.forKey('categoryId')}</span>#{/if}
-            <!-- colorz:               
+            <!-- TODO COLORZ
+            colorz:               
             <div class="item-select">
                 <select name="" id="c_category">
                     <option value="">Select a category</option>
@@ -60,7 +61,7 @@
         <div class="line-form">
             <label for="taginput">&{'createInsightTags'}</label>
             <div class="item-input">
-                <!-- colorz: id="taginput" -->
+                <!-- TODO COLORZ colorz: id="taginput" -->
                 <input type="text" name="tagLabelList" id="tagLabelList" value="${tagLabelList}" />
                 <input type="hidden" name="" value="" id="tagresult"/>
                 #{if errors.forKey('tagLabelList')}<span class="error">${errors.forKey('tagLabelList')}</span>#{/if}
@@ -78,7 +79,7 @@
                 <input type="radio" name="lang" value="en" id="radlang-en" checked="checked"/>
             </div>
         </div>
-<!-- 
+<!-- TODO COLORZ
 our code:
             <input style="display:none;" id="insightCreationLang" name="lang" value="${insightLang}" />
             <a id="insightCreationLangEn" class="insightCreationLangChoose" href="" onclick="return false;">

@@ -5,80 +5,104 @@
 
 #{set currentMenu:'menuInsights' /}
 
-<div>
-	<ul class="filters">
-          <a href="@{Application.insights(null, langs)}"     class="categoryFilter #{if category == null}selected#{/if}" >All</a>
-	   #{list items:controllers.Application.getCategories(), as:'cat'}
-	      <a href="@{Application.insights(cat.id, langs)}"   class="categoryFilter #{if category?.id == cat.id}selected#{/if}" >${cat.label}</a>
-	   #{/list}
-        %{
-            // What URL should the language button go to ?
-            // Should they be selected ?
-            // Should they be clickable ? (if only one language is selected, this language button shouldn't be clickable)
+#{set contentCenterClass:'large' /}
 
-	        langsEn = new ArrayList<String>(langs);
-	        boolean selectedEn = false;
-	        boolean clickableEn = true;
-	        
-            langsFr = new ArrayList<String>(langs);
-            selectedFr = false;
-            clickableFr = true;
-            
-	        if( langsEn.contains("en") ) {
-	            langsEn.remove("en");
-	            selectedEn = true;
-	            if(langs.size() < 2) { clickableEn = false; }
-	        } else {
-	           langsEn.add("en");
-	        }
-	        
-            if( langsFr.contains("fr") ) {
-                langsFr.remove("fr");
-                selectedFr = true;
-                if(langs.size() < 2) { clickableFr = false; }
-            } else {
-               langsFr.add("fr");
-            }
+%{
+    // What URL should the language button go to ?
+    // Should they be selected ?
+    // Should they be clickable ? (if only one language is selected, this language button shouldn't be clickable)
 
-        }%
-        #{if clickableEn}<a href="@{Application.insights(category?.id, langsEn)}">#{/if}
-	           <img alt="english" class="languageFlag #{if selectedEn}selected#{/if}" src="@{'/public/images/flags/gb.png'}" />
-	    #{if clickableEn}</a>#{/if}
-        #{if clickableFr}<a href="@{Application.insights(category?.id, langsFr)}">#{/if}
-	           <img alt="french" class="languageFlag #{if selectedFr}selected#{/if}" src="@{'/public/images/flags/fr.png'}" />
-        #{if clickableFr}</a>#{/if}
+    langsEn = new ArrayList<String>(langs);
+    boolean selectedEn = false;
+    boolean clickableEn = true;
+    
+    langsFr = new ArrayList<String>(langs);
+    selectedFr = false;
+    clickableFr = true;
+    
+    if( langsEn.contains("en") ) {
+        langsEn.remove("en");
+        selectedEn = true;
+        if(langs.size() < 2) { clickableEn = false; }
+    } else {
+       langsEn.add("en");
+    }
+    
+    if( langsFr.contains("fr") ) {
+        langsFr.remove("fr");
+        selectedFr = true;
+        if(langs.size() < 2) { clickableFr = false; }
+    } else {
+       langsFr.add("fr");
+    }
+}%
+
+<h2 class="cuf-grb">&{'insightstitle'} #{if category} &{'incategory'} ${category}#{/if}</h2>
+<div class="listinsights">
+    <ul class="menulistinsights">
+        <li class="sortby">Sort by</li>
+        <li class="first"><a href="#">suggested</a></li>
+        <li><a href="#">trending</a></li>
+        <li><a href="#">incoming</a></li>
+        <li class="selectme"><a href="#" id="select-tri">select a category</a>
+            <ul class="nojavascript" id="ulselect-tri">
+                <li><a href="@{Application.insights(null, langs)}"     class="categoryFilter #{if category == null}selected#{/if}" >All</a></li>
+                #{list items:controllers.Application.getCategories(), as:'cat'}
+                <li><a href="@{Application.insights(cat.id, langs)}"   class="categoryFilter #{if category?.id == cat.id}selected#{/if}" >${cat.label}</a></li>
+                #{/list}
+                <!-- TODO COLORZ class="last" -->
+            </ul>
+        </li>
+        <li><a href="#">Favorites</a></li>
+        
+        <li class="langme">
+        
+        #{if clickableEn}<a href="@{Application.insights(category?.id, langsEn)}"#{/if}#{else}<span #{/else}
+               class="languageFlag french #{if selectedEn}selected#{/if}" >french
+        #{if clickableEn}</a>#{/if}#{else}</span>#{/else}
+        
+        #{if clickableFr}<a href="@{Application.insights(category?.id, langsFr)}"#{/if}#{else}<span #{/else}
+               class="languageFlag english #{if selectedFr}selected#{/if}" >english
+        #{if clickableFr}</a>#{/if}#{else}</span>#{/else}
+        
+        <hr class="clear"/>
+        </li>
     </ul>
     
-    <h2>&{'insightstitle'} #{if category} &{'incategory'} ${category}#{/if}</h2>
     <ul id="insightList">
         #{listInsights insights:insights /}
     </ul>
-    
-    <div><span onClick="moreInsights()" id="moreResults" style="display:none;"><a href="" onClick="return false">more</a></span></div>
 
-    <script type="text/javascript">
-    // check if a "more" button should be displayed
-    if( $("#insightList li").length >= ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
-            $("#moreResults").fadeIn(2000);
-       }
-    var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
-
-    /** get more insights */
-    function moreInsights() {
-        $.ajax( {
-            url: moreInsightsAction({"from": insightsFrom #{if category}, "cat": ${category.id}#{/if}#{if language}, "lang": ${language.label}#{/if} }),
-            success: onMoreInsightsSuccess
-        } );
-    }
-    
-    function onMoreInsightsSuccess(content) {
-        $("#insightList").append(content);
-        insightsFrom += ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
-        // disable the "more button" if less results than the number to display
-        if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
-            $("#moreResults").fadeOut(1000);
-        }
-    }
-    </script>
-
+    <!-- TODO COLORZ : display a bottom even in there is no more insight to load -->
+    <div id="moreResults" style="display:none;" class="seeall">
+        <p><a onClick="moreInsights()" href="#">more</a></p>
+    </div>
 </div>
+
+
+
+<script type="text/javascript">
+// check if a "more" button should be displayed
+if( $("#insightList li").length >= ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
+        $("#moreResults").fadeIn(2000);
+   }
+var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
+
+/** get more insights */
+function moreInsights() {
+    $.ajax( {
+        url: moreInsightsAction({"from": insightsFrom #{if category}, "cat": ${category.id}#{/if}#{if language}, "lang": ${language.label}#{/if} }),
+        success: onMoreInsightsSuccess
+    } );
+    return false;
+}
+
+function onMoreInsightsSuccess(content) {
+    $("#insightList").append(content);
+    insightsFrom += ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
+    // disable the "more button" if less results than the number to display
+    if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
+        $("#moreResults").fadeOut(1000);
+    }
+}
+</script>

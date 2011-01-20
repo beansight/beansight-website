@@ -24,6 +24,7 @@ addmessage=Ajoutez un message
 invitesubmit=Envoyer
 inviteconfirm=Invitation envoyée
 browsecategory=Catégories
+trendinginsights=Prédictions montantes
 
 # Create Insight
 createInsightTitle=Que va-i-il se passer ?

@@ -1,13 +1,16 @@
 *{ Display the info for a given insight  }*
 *{ @param insigth: the insight  }*
-
 #{insightContainer insight:_insight}
-<span class="insight-line">
-<a href="@{Application.showInsight(_insight.uniqueId)}"><span class="date">${_insight.endDate.format("yyyy MM dd")},</span> <span class="content">${_insight.content}</span></a>
-
-#{isConnected}
-    #{agree-disagreeWidget insight:_insight/}
-    #{followInsightWidget insight:_insight /}
-#{/isConnected}
-</span>
+<div class="item-insight">
+    <div class="content-insight">
+    #{isConnected}
+        #{agree-disagreeWidget insight:_insight/}
+    #{/isConnected}
+        <a href="@{Application.showInsight(_insight.uniqueId)}" class="permalink">
+            <h3>${_insight.content}</h3>
+            <p class="date-insight">${_insight.endDate.format("yyyy MM dd")}</p>
+        </a>
+        <hr class="clear"/>
+    </div>
+</div>
 #{/insightContainer}
