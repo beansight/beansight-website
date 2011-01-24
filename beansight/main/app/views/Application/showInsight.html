@@ -3,103 +3,114 @@
 
 #{set currentMenu:'menuInsights' /}
 
+#{set contentCenterClass:'large' /}
+
 #{insightContainer insight:insight}
 
-    #{isConnected}
-    <div class="pageFavorite">
-        #{followInsightWidget insight:insight /}
-    </div>
-    #{/isConnected}
-    
-    <h2>${insight.content}</h2>
-    <img src='http://chart.apis.google.com/chart?chf=bg,s,F4FCF2&chs=60x40&chco=76A4FB,FF0000&cht=ls&chd=t:${agreeTrends.join(",")}'/>
-    
-    <div class="sideBox insightVoteDetails">
-        #{isConnected}
-            #{agree-disagreeWidget insight:insight /}
-        #{/isConnected}
-    </div>
-    
-    #{if insight.validated}
-        <p>&{'validation'} (TODO) ${insight.validationScore}</p>
-    #{/if}
-    
-    <p>&{'creationdate'} ${insight.creationDate.since(true)} &{'createdby'} #{userInline user:insight.creator /}</p>
-    <p>&{'enddate'} ${insight.endDate.format("dd MMMM yyyy")}</p>
-    
-    #{if lastUserVote != null}
-    	<p>&{'since'} ${lastUserVote.creationDate.format("dd MMMM yyyy")}, #{if lastUserVote.state.equals(models.Vote.State.AGREE)} &{'youagree'} #{/if} #{else} &{'youdisagree'} #{/else}</p> 
-    #{/if}
-    
-    <div id="lastVoters">
-	    <h3>&{'lastvoters'}</h3>
-	    <ul>
-	    #{list items:lastVotes, as:'vote'}
-	        <li>#{voteInline vote:vote /}</li>
-	    #{/list}
-	    </ul>
-    </div>
-    
-    <div id="category">
-        <h3>&{'category'}</h3>
-        <p>${insight.category.label}</p>
-    </div>
-
-    <div id="tagList">
-	    <h3>${'tags'}</h3>
-	    <ul>
-	    #{list items:insight.tags, as:'tag' }
-	        <li>${tag.label}</li>
-	    #{/list}
+<div class="single">
+    <div class="s-header">
+        <p class="s-intro">#{isConnected}#{followInsightWidget insight:insight /}#{/isConnected}
+        &{'creationdate'} ${insight.creationDate.since(true)} &{'createdby'} <a href="@{Application.showUser(insight.creator.userName)}" class="s-author">${insight.creator.userName}</a>
+         &{'createdin'} <a href="#" class="link-cat">${insight.category.label}</a></p>
+         
+        <ul class="list-tags">
+            #{isConnected}<li class="link-new"><a href="#" id="showMoreTags">&{'suggesttags'}</a></li>#{/isConnected}
+            
+            #{list items:insight.tags, as:'tag' }
+            <li><a href="#">${tag.label}</a></li>
+            #{/list}
         </ul>
+        <div id="moreTags" style="display:none;">
+        #{form @Application.addTags(insight.uniqueId)}
+            <input type="text" name="tagLabelList" id="tagLabelList" />
+            <input type="submit" value="&{'addtags'}"/>
+        #{/form}
+        </div>
+    </div>
+    <div class="s-content">
+        <h2>${insight.content}</h2>
+        <p class="insightdate">&{'enddate'} ${insight.endDate.format("dd MMMM yyyy")}</p>
         
-        #{isConnected}
-        <p>
-	    <a href="" id="showMoreTags">&{'suggesttags'}</a>
-	    </p>
-	    <div id="moreTags" style="display:none;">
-	    #{form @Application.addTags(insight.uniqueId)}
-	        <input type="text" name="tagLabelList" id="tagLabelList" />
-	        <input type="submit" value="&{'addtags'}"/>
-	    #{/form}
-	    </div>
-	    #{/isConnected}
-    </div>
-    
-    
-    <div class="shareContainer">
-	    <div class="onFacebook">
-	        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like show_faces="false" width="450"></fb:like>
-	    </div>
-	    <div class="onTwitter">
-	        <a href="http://twitter.com/share" class="twitter-share-button" data-text="${insight.content} & {'onbeansight'}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-	    </div>
-	    <div class="onBeansight">
-	       <a href="" id="shareOnBeansight">&{'shareonbeansight'}</a>
-	       <form id="shareOnBeansightForm" style="display:none;">
-	           <input type="text" name="userName" id="userToShareTo" />
-               <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}" />
-	       </form>
-	       <span id="shareConfirmation"></span>
-	    </div>
-    </div>
-    
-    <h3>&{'comments'}</h3>
-    <ul id="commentList">
-    #{list items:insight.comments, as:'comment' }
-        <li>${comment.user} (${comment.creationDate.since(true)}):<br/> ${comment.content.escape().nl2br()}</li>
-    #{/list}
-    </ul>
-#{isConnected}
-    <form id="addCommentForm">
-        <div>
-        <label for="label">&{'addcomment'}</label>
-        </div>
-        <div class="right">
-        <textarea name="content"></textarea>
-        <input type="submit" value="&{'postcomment'}" id="submit"/>
-        </div>
-    </form>
-#{/isConnected}
+        <div class="graphzone">
+            <div class="leftgraph">
+                
+			    #{if insight.validated}
+			        <p>&{'validation'} (TODO) ${insight.validationScore}</p>
+			    #{/if}
 
+                #{isConnected}
+                    #{agree-disagreeWidgetLarge insight:insight, lastUserVote:lastUserVote /}
+                #{/isConnected}
+
+                <div class="lastvoters">
+                    <p>&{'lastvoters'}</p>
+                    <ul class="listvoters">
+                    #{list items:lastVotes, as:'vote'}
+                        <li>#{userMiniAvatarVote vote:vote /}</li>
+                    #{/list}
+                    </ul>
+                    <hr class="clear"/>
+                </div>
+            </div>
+            
+            <div class="graphique">
+                <img src="http://chart.apis.google.com/chart?chf=bg,s,F4FCF2&chs=60x40&chco=76A4FB,FF0000&cht=ls&chd=t:${agreeTrends.join(",")}" alt=""/>
+            </div>
+            <hr class="clear"/>
+        </div>
+        
+        <div class="sharezone">
+	        <div class="onTwitter">
+	            <a href="http://twitter.com/share" class="twitter-share-button" data-text="${insight.content} & {'onbeansight'}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	        </div>
+	        <div class="onFacebook">
+	            <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like show_faces="false" width="450"></fb:like>
+	        </div>
+	        <div class="onBeansight input-submit">
+	           <button id="shareOnBeansight"><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'shareonbeansight'}</span></button>
+	           <form id="shareOnBeansightForm" style="display:none;">
+	               <input type="text" name="userName" id="userToShareTo" />
+	               <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}" />
+	           </form>
+	           <span id="shareConfirmation"></span>
+	        </div>
+        </div>
+        
+        <div class="commentzone">
+            <p class="nbcomments"><span class="cuf-grm">${insight.comments.size()}</span> <span class="cuf-grb">&{'comments'}</span></p>
+            #{isConnected}
+            <form class="newcomment" id="addCommentForm">
+                
+                <div class="comment-author">
+                    <a href="#">
+                        Bertrand
+                        <span class="img-author">
+                            <img src="images/content/sample-26x26.jpg" alt=""/>
+                        </span>
+                    </a>
+                </div>
+                <div class="input-textarea">
+                    <textarea cols="20" rows="4" name="content"></textarea>
+                </div>
+                <input name="uniqueId" type="hidden" value="${insight.uniqueId}"/>
+
+                <hr class="clear"/>
+                <div class="input-submit">
+                    <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'postcomment'}</span></button>
+                    <!--<input type="submit" name="submit-comment" value="Add a comment"/>-->
+                </div>
+                <hr class="clear"/>
+            </form>
+            #{/isConnected}
+
+            <div id="commentList" class="list-comments">
+            #{list items:insight.comments, as:'comment' }
+            #{comment comment:comment /}
+            #{/list}
+            </div>
+
+        </div>
+    </div>
+</div>
+    
 #{/insightContainer}

@@ -43,15 +43,13 @@ category=Category:
 tags=Tags:
 suggesttags=suggest other tags
 addtags=Add tags
-comments=Comments:
-addcomment=Add new comment:
-postcomment=Post
+postcomment=Add new comment
 creationdate=Created
 enddate=End
 createdby=by
-since=Since
-youagree=you agree with this insight.
-youdisagree=you disagree with this insight.
+createdin=in
+youagree=You agree since
+youdisagree=You disagree since
 shareonbeansight=Beansight user
 
 #experts

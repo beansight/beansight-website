@@ -367,19 +367,20 @@ public class Application extends Controller {
 	}
 
 	/**
+	 * AJAX
 	 * Add a comment to a specific insight for the current user
 	 * 
-	 * @param insightId
-	 *            : id of the insight
+	 * @param insightUniqueId
+	 *            : unique id of the insight
 	 * @param content
 	 *            : text content of the insight
 	 */
-	public static void addComment(String insightUniqueId, String content) {
+	public static void addComment(String uniqueId, String content) {
 		User currentUser = CurrentUser.getCurrentUser();
-		Insight insight = Insight.findByUniqueId(insightUniqueId);
+		Insight insight = Insight.findByUniqueId(uniqueId);
 		Comment comment = insight.addComment(content, currentUser);
 
-		render("Application/comment.json", comment);
+		render(comment);
 	}
 
 	/**

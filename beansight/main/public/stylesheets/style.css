@@ -39,7 +39,7 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #header .contentheader .colhead.collogin .logbtn a{width:120px;height:21px;display:block;background:url(/public/images/back-login.png) no-repeat 0 0;color:#fff;padding:5px 0 0 6px;font-size:14px;}
 #header .contentheader .colhead.collogin .logbtn:hover a{background-position:left bottom;}
 /* connecté */
-#header .contentheader .colhead.collogin .welcome{float:right;width:173px;background:url(/public/images/separator-blancgris.png) no-repeat right center;text-align:right;padding:0 12px 0 0;}
+#header .contentheader .colhead.collogin .welcome{float:right;background:url(/public/images/separator-blancgris.png) no-repeat right center;text-align:right;padding:0 12px 0 0;}
 #header .contentheader .colhead.collogin .welcome p{font-size:14px;color:#aaaeaf;}
 #header .contentheader .colhead.collogin .welcome p a.pseudo-link{font-weight:bold;color:#7aa13d;}
 #header .contentheader .colhead.collogin .welcome p a.pseudo-link:hover{color:#5D7F2C;}
@@ -400,7 +400,8 @@ a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;h
 #content .single .s-header .list-tags li a{display:block;float:left;background-color:#d6d5d6;margin:0 0 0 5px;color:#fff;font-size:12px;-moz-border-radius:2px;-webkit-border-radius:2px;padding:7px 4px 6px 4px;}
 #content .single .s-header .list-tags li a:hover{background-color:#AFAFAF;}
 #content .single .s-content{position:relative;display:block;height:auto;width:696px;background:url(/public/images/single-bottom.png) no-repeat left bottom;padding:0px;}
-#content .single .s-content h2{border:0;width:620px;text-transform:none;height:auto;padding:10px 15px;margin:0 23px 20px 23px;background-image:none;background-color: #f7f7f7;font-size:30px;color:#00505c;font-weight:bold;}
+#content .single .s-content h2{border:0;width:620px;text-transform:none;height:auto;padding:10px 15px;margin:0 23px 5px 23px;background-image:none;background-color: #f7f7f7;font-size:20px;color:#00505c;font-weight:bold;}
+#content .single .s-content .insightdate{margin:0 38px 10px;}
 #content .single .s-content .graphzone{margin:0 23px;}
 #content .single .s-content .graphzone .leftgraph{float:left;width:315px;}
 #content .single .s-content .graphzone .leftgraph .votezone{background-color:#f7f7f7;-moz-border-radius:2px;-webkit-border-radius:2px;padding:10px 32px 8px 32px;margin:0 0 10px 0;}
@@ -412,7 +413,7 @@ a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;h
 #content .single .s-content .graphzone .leftgraph .votezone .linkvote.morevote{border-right:solid #ededed 1px;}
 #content .single .s-content .graphzone .leftgraph .votezone .linkvote.morevote a.active{background-position:0 -68px;}
 #content .single .s-content .graphzone .leftgraph .votezone p{text-align:center;color:#a1a5a6;font-size:12px;padding-top:12px;}
-#content .single .s-content .graphzone .leftgraph .votezone p span{color:#8bad56;}
+/* #content .single .s-content .graphzone .leftgraph .votezone p span{color:#8bad56;} */
 #content .single .s-content .graphzone .leftgraph .lastvoters{width:315px;padding:5px 0;border-top:solid #ededed 1px;border-bottom:solid #ededed 1px;height:31px;}
 #content .single .s-content .graphzone .leftgraph .lastvoters p{padding:7px 9px 0 0;color:#a1a5a6;float:left;font-weight:bold;font-size:12px;}
 #content .single .s-content .graphzone .leftgraph .lastvoters ul.listvoters{}
@@ -420,6 +421,7 @@ a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;h
 #content .single .s-content .graphzone .leftgraph .lastvoters ul.listvoters li a{padding:1px;border:solid #efefef 1px;width:26px;height:26px;display:block;}
 #content .single .s-content .graphzone .leftgraph .lastvoters ul.listvoters li a:hover{}
 #content .single .s-content .graphzone .graphique{float:right;padding:0 0 20px 0;}
+#content .single .s-content .sharezone{margin:0 23px;}
 #content .single .s-content .commentzone{border-top:solid #ededed 1px;padding:10px 0 0 0;margin:0 23px;}
 #content .single .s-content .commentzone p.nbcomments{text-transform:uppercase;background:url(/public/images/icon-comment.png) no-repeat left center;padding:0 0 0 14px;height:18px;color:#00505c;font-size:16px;}
 #content .single .s-content .commentzone .newcomment{margin:10px 0 0 0;position:relative;background-color:#f5f5f5;height:114px;padding:19px;border-top:solid #ededed 1px;border-bottom:solid #ededed 1px;}

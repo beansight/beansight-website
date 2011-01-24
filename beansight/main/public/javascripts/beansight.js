@@ -37,6 +37,7 @@ function updateAgreeDisagreeCount(uniqueId, agreeCount, disagreeCount, voteState
 
 function toggleFollowingInsight(insightUniqueId) {
 	$.getJSON(toggleFollowingInsightAction({'insightUniqueId': insightUniqueId}), onToggleFollowingInsightSuccess);
+	return false;
 }
 
 /** Callback after a follow of insight is done */
@@ -97,8 +98,8 @@ function updateCharacterCount() {
 }
 
 /** callback for comment addition */
-function onAddCommentSuccess(data) {
-    $("#commentList").append( '<li>' + data.user + " (" + data.since + ")" + "<br/>" + data.content + '</li>');
+function onAddCommentSuccess(content) {
+    $("#commentList").prepend( content );
     clearForm('#addCommentForm');
 }
 
@@ -453,7 +454,11 @@ $(document).ready(function() {
 	
 	/** Submit action for add comment form */
 	$('#addCommentForm').submit(function() {
-	    $.getJSON("@{Application.addComment(insight.id)}", $(this).serialize(), onAddCommentSuccess);
+        $.ajax( {
+            url: addCommentAction(),
+            data: $(this).serialize(),
+            success: onAddCommentSuccess
+        } );
 	    return false;
 	});
 

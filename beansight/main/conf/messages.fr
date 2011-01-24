@@ -43,16 +43,15 @@ category=Categorie :
 tags=Tags :
 suggesttags=suggérer d'autres tags :
 addtags=Ajouter
-comments=Commentaires :
-addcomment=Ajouter un commentaire :
-postcomment=Poster
+postcomment=Ajouter un commentaire
 creationdate=Créé
 enddate=Fin
 createdby=par
-since=Depuis
-youagree=vous êtes d'accord avec cette prévision.
-youdisagree=vous n'êtes pas d'accord avec cette prévision.
+createdin=dans
+youagree=Vous êtes d'accord depuis le
+youdisagree=Vous n'êtes pas d'accord depuis le
 shareonbeansight=Utilisateur Beansight
+
 
 #experts
 explore=Explorer les experts
