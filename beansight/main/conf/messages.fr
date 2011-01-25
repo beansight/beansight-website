@@ -69,6 +69,13 @@ userinsights=Prédictions de l'utilisateur
 myinsights=Mes prédictions
 userratings=Expetise
 
+#Contact
+followus=Suivez nous
+alreadyxxfollowers=Déjà %s followers
+likeus=Likez nous
+alreadyxxfans=%s fans, impressionnant !
+sendmymessage=Envoyer
+
 #sendMessage
 sendMessage=Message privé
 messagesubmit=Envoyer

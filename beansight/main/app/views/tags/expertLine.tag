@@ -4,7 +4,7 @@
 #{userContainer user:_expert}
 	    <div class="item-expert">
         <div class="content-expert">
-        <!-- TODO COLORZ : image 26x26 -->
+        <!-- TODO COLORZ : image 41x41 -> sera 46x46 -->
             <a href="@{Application.showUser(_expert.userName)}">
                 <div class="avatar-expert">
                     <img src="@{Application.showAvatar(_expert.id)}" alt="${_expert.userName}"/>

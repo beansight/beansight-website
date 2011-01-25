@@ -473,7 +473,7 @@ a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;h
 #content.contact .bloccenter form .item-submit input{text-indent:-9999px;text-align:left;display:block;cursor:pointer;width:160px;height:35px;text-align:center;border:0 none; background:url(/public/images/form-sendcontact.png) no-repeat 0 0;line-height:0;font-size:0;}
 #content.contact .bloccenter form .item-submit input:hover{background-position:left bottom;}*/
 
-#content.contact .bloccenter form .item-submit{padding:4px 0 6px 0;margin:0 auto;width:174px;}
+#content.contact .bloccenter form .item-submit{padding:4px 0 6px 0;margin:0 auto;width:100px;}
 #content.contact .bloccenter form .item-submit button{display:block;border:0 none;cursor:pointer;height:35px;background:none transparent;}
 #content.contact .bloccenter form .item-submit button span{float:left;display:block;height:35px;}
 #content.contact .bloccenter form .item-submit button span.backbutton{background:url(/public/images/btn-vert1.png) no-repeat 0 0;width:10px;}

@@ -68,6 +68,13 @@ userinsights=User insights
 myinsights=My insights
 userratings=Expertise
 
+#Contact
+followus=Follow us
+alreadyxxfollowers=Already %s followers
+likeus=Like us
+alreadyxxfans=%s fans, amazing
+sendmymessage=Send
+
 #sendMessage
 sendMessage=Private Message
 messagesubmit=Send
