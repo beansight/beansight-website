@@ -3,68 +3,68 @@
 	&{'welcome.title'}
 #{/set}
 
-#{set 'moreScripts'}	
+#{set contentClass:'contact' /}
+
+#{set 'moreScripts'}
 	<script src="@{'/public/javascripts/jquery.imgareaselect.pack.js'}" type="text/javascript" charset="utf-8"></script>
 #{/set}
 #{set 'moreStyles'}
     <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
 #{/set}
 
-<div id="content" class="contact">
-    <div class="bloccontent blocleft">
-        <h2 class="cuf-grs"> </h2>
+<div class="bloccontent blocleft">
+    <h2 class="cuf-grs"> </h2>
 
-        <div class="block-share twitshare">
-            <a href="#" class="shadowtwit">
-                Already 350 followers
-            </a>
-        </div>
-        <div class="block-share fbshare">
-            <a href="#" class="shadowfb">
-                120 fans, amazing
-            </a>
-        </div>
-
-
-
-
+    <div class="block-share twitshare">
+        <a href="#" class="shadowtwit">
+            Already 350 followers
+        </a>
     </div>
-    <div class="bloccontent bloccenter">
-    	<div id="contact_otherMessage"></div>
-        <form action="#" id="contactForm">
-            <h2 class="cuf-grb">&{'contact.contactUs'}</h2>
-			
-            <label for="name">&{'contact.yourName'}</label> 
-            <label for="name" id="name_error"></label>
-            <div class="item-input">
-                <input type="text" name="name" value="" id="name"/>
-            </div>
+    <div class="block-share fbshare">
+        <a href="#" class="shadowfb">
+            120 fans, amazing
+        </a>
+    </div>
 
-            <label for="from">&{'contact.yourName'}</label>
-            <label for="from" id="from_error"></label>
-            <div class="item-input">
-                <input type="text" name="from" value="" id="from"/>
-            </div>
 
-            <label for="subject">&{'contact.subject'}</label>
-            <label for="subject" id="subject_error"></label>
-            <div class="item-input">
-                <input type="text" name="subject" value="" id="subject"/>
-            </div>
 
-            <label for="message">&{'contact.message'}</label>
-            <label for="message" id="message_error"></label>
-            <div class="item-textarea">
-                <textarea cols="15" rows="5" name="message" id="message"></textarea>
-            </div>
 
-            <div class="item-submit">
-                <input type="submit" name="submit-signup" value="Send my message"/>
-            </div>
+</div>
+<div class="bloccontent bloccenter">
+	<div id="contact_otherMessage"></div>
+    <form action="#" id="contactForm">
+        <h2 class="cuf-grb">&{'contact.contactUs'}</h2>
 
-        </form>
-        <div id="contactCallBackMsg">
+        <label for="name">&{'contact.yourName'}</label> 
+        <label for="name" id="name_error"></label>
+        <div class="item-input">
+            <input type="text" name="name" value="" id="name"/>
         </div>
+
+        <label for="from">&{'contact.yourName'}</label>
+        <label for="from" id="from_error"></label>
+        <div class="item-input">
+            <input type="text" name="from" value="" id="from"/>
+        </div>
+
+        <label for="subject">&{'contact.subject'}</label>
+        <label for="subject" id="subject_error"></label>
+        <div class="item-input">
+            <input type="text" name="subject" value="" id="subject"/>
+        </div>
+
+        <label for="message">&{'contact.message'}</label>
+        <label for="message" id="message_error"></label>
+        <div class="item-textarea">
+            <textarea cols="15" rows="5" name="message" id="message"></textarea>
+        </div>
+
+        <div class="item-submit">
+            <input type="submit" name="submit-signup" value="Send my message"/>
+        </div>
+
+    </form>
+    <div id="contactCallBackMsg">
     </div>
 </div>
 

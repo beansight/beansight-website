@@ -3,46 +3,61 @@
     &{'register'}
 #{/set}
 
-#{set currentMenu:'menuSignUp' /}
+#{set contentClass:'signup' /}
 
-#{if flash.error}
-    <p>${flash.error}</p>
-#{/if}
+<div class="bloccontent bloccenter">
+    #{form @Register.registerNew(), id:'registerForm'}
+        <h2 class="cuf-grb">&{'signuptitle'}</h2>
 
-#{if flash.success}
-    <p class="success">${flash.success}</p>
-#{/if}
+        <label for="s_email">&{'email'}</label>
+        <div class="item-input">
+            <input type="email" name="email" id="email" value="${email}" />
+            #{if errors.forKey('email')}<span class="error">#{error 'email' /}</span>#{/if}
+        </div>
 
-<div id="signupBox">
-<h2>&{'signuptitle'}</h2>
-#{form @Register.registerNew(), id:'registerForm'}
-    <p id="email-field">
-        <label for="email">&{'email'}</label>
-        <input type="email" name="email" id="email" value="${email}" />
-        #{if errors.forKey('email')}<span class="error">#{error 'email' /}</span>#{/if}
-    </p>
-    <p id="username-field">
-        <label for="username">&{'username'}</label>
-        <input type="text" name="username" id="username" value="${username}" />
-        #{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
-    </p>
-    <p id="password-field">
-        <label for="password">&{'password'}</label>
-        <input type="password" name="password" id="registerPassword" value="" />
-        #{if errors.forKey('password')}<span class="error">#{error 'password' /}</span>#{/if}
-    </p>
-    <p id="passwordconfirm-field">
-        <label for="passwordconfirm">&{'passwordconfirm'}</label>
-        <input type="password" name="passwordconfirm" id="passwordconfirm" value="" />
-        #{if errors.forKey('passwordconfirm')}<span class="error">#{error 'passwordconfirm' /}</span>#{/if}
-    </p>
-    <p id="promocode-field">
-        <label for="promocode">&{'promocode'}</label>
-        <input type="text" name="promocode" id="promocode" value="${promocode}" />
-        #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
-    </p>
-    <p id="signin-field">
-    <input type="submit" id="signin" value="&{'signupbutton'}" />
-    </p>
-#{/form}
+        <label for="s_username">&{'username'}</label>
+        <div class="item-input">
+            <input type="text" name="username" id="username" value="${username}" />
+            #{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
+        </div>
+
+        <label for="s_pass1">&{'password'}</label>
+        <div class="item-input">
+            <input type="password" name="password" id="registerPassword" value="" />
+            #{if errors.forKey('password')}<span class="error">#{error 'password' /}</span>#{/if}
+        </div>
+
+        <label for="s_pass2">&{'passwordconfirm'}</label>
+        <div class="item-input">
+            <input type="password" name="passwordconfirm" id="passwordconfirm" value="" />
+            #{if errors.forKey('passwordconfirm')}<span class="error">#{error 'passwordconfirm' /}</span>#{/if}
+        </div>
+
+        <label for="s_username">&{'promocode'}</label>
+        <div class="item-input">
+            <input type="text" name="promocode" id="promocode" value="${promocode}" />
+            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
+        </div>
+
+        <div class="item-checkbox">
+            <input type="checkbox" id="s_terms" name="" value="1"/>
+            <label for="s_terms">I accept <a href="">Terms & Conditions</a></label>
+        </div>
+        
+        <div class="item-submit">
+            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
+            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'signupbutton'}</span></button>
+        </div>
+    #{/form}
+</div>
+<div class="bloccontent blocright">
+    <h2 class="cuf-grs">Why register ?</h2>
+    <div class="pushsign explorepush">
+        <span class="cuf-explore">Explore</span>
+        <p>ergerg eprghj trepgj prtioj hgprtjh <a href="#">porti jhoirhb</a> oifrgbnf dogk nb orid tnboidr nboijrd tnotdfvb nkc vnbl b  oit roirt hrtpi rpotih porit </p>
+    </div>
+    <div class="pushsign participatepush">
+        <span class="cuf-participate">Participate</span>
+        <p>rethgreg ptreg itr oritj ortjh oirtjh oirjth ortjho rthoi rtohj <a href="#">ortijh oirtj</a> hoirjth oirjh oirt joih</p>
+    </div>
 </div>
