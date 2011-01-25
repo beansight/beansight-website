@@ -9,7 +9,7 @@
         #{/list}
     </div>
     <!-- Without activity -->
-    <div id="noInsightActivity" #{if !_insightActivities.isEmpty()}style="display:none;#{/if}">
+    <div id="noInsightActivity" #{if !_insightActivities.isEmpty()}style="display:none;"#{/if}>
     <p class="message">noInsightActivity</p>
     </div>
 </div>
