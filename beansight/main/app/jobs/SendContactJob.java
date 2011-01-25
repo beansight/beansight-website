@@ -12,7 +12,7 @@ import play.jobs.Every;
 import play.jobs.Job;
 
 // FIXME : all mail jobs start at the same time : not good 
-@Every("30s")
+@Every("10min")
 public class SendContactJob extends Job {
 	
 	/** Number of task email this job can send in his 5 minutes */
