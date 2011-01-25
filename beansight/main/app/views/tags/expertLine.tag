@@ -7,7 +7,7 @@
         <!-- TODO COLORZ : image 41x41 -> sera 46x46 -->
             <a href="@{Application.showUser(_expert.userName)}">
                 <div class="avatar-expert">
-                    <img src="@{Application.showAvatar(_expert.id)}" alt="${_expert.userName}"/>
+                    <img src="@{Application.showAvatar(_expert.id, 'medium')}" alt="${_expert.userName}"/>
                 </div>
                 <div class="resume-expert">
                     <h3>${_expert.userName}</h3>

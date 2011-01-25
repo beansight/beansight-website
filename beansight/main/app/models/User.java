@@ -86,7 +86,10 @@ public class User extends Model {
 	/** How many invitations this user can send, -1 for infinity*/
 	public long invitationsLeft;
 	
-	public Blob avatar;
+	public Blob avatarUnchanged;
+	public Blob avatarSmall;
+	public Blob avatarMedium;
+	public Blob avatarLarge;
 
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.
@@ -220,18 +223,23 @@ public class User extends Model {
 
 	
 	public void updateAvatar(File originalImage) throws FileNotFoundException {
-		File originalImageCopy = new File(Blob.getStore(),
-				"originalImage_" + this.id);
-		originalImage.renameTo(originalImageCopy);
+		this.avatarUnchanged.set(new FileInputStream(originalImage), "Image");
 		// Default is we resize the originalImage without any modification.
 		// Can be cropped later if necessary since we keep the original
-		File resizedOriginalImage = new File(Play.getFile("tmp") + "/resizedOriginalImageTmp_" + this.id);
-		ImageHelper.resizeRespectingRatio(originalImageCopy, resizedOriginalImage, 60, 60);
-
-		this.avatar.set(new FileInputStream(resizedOriginalImage),
+		File smallImageTmp = ImageHelper.resizeRespectingRatio(originalImage, 26, 26);
+		this.avatarSmall.set(new FileInputStream(smallImageTmp),
+					"Image");
+		File mediumImageTmp = ImageHelper.resizeRespectingRatio(originalImage, 46, 46);
+		this.avatarMedium.set(new FileInputStream(mediumImageTmp),
+					"Image");
+		File largeImageTmp = ImageHelper.resizeRespectingRatio(originalImage, 94, 94);
+		this.avatarLarge.set(new FileInputStream(largeImageTmp),
 					"Image");
 		this.save();
-		resizedOriginalImage.deleteOnExit();
+		originalImage.deleteOnExit();
+		smallImageTmp.deleteOnExit();
+		mediumImageTmp.deleteOnExit();
+		largeImageTmp.deleteOnExit();
 	}
 	
 	/**

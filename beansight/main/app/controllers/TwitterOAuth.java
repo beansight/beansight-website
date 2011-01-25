@@ -111,8 +111,8 @@ public class TwitterOAuth extends Controller {
 		InputStream profileImageInputStream = WS.url(profileImageUrl).get()
 				.getStream();
 
-		if (twitterUser.avatar == null) {
-			twitterUser.avatar = new Blob();
+		if (twitterUser.avatarSmall == null) {
+			twitterUser.avatarSmall = new Blob();
 		}
 		// save so that we get an id for the new user
 		twitterUser.save();

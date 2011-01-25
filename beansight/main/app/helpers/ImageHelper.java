@@ -3,9 +3,11 @@ package helpers;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import play.Play;
 import play.libs.Images;
 
 public class ImageHelper {
@@ -29,6 +31,12 @@ public class ImageHelper {
            throw new RuntimeException(e);
         }
         
+    }
+    
+    public static File resizeRespectingRatio(File from, int width, int height) {
+    	File to = new File(Play.getFile("tmp") + "/" + UUID.randomUUID().toString());
+    	resizeRespectingRatio(from, to, width, height);
+    	return to;
     }
     
 }

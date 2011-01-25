@@ -451,10 +451,16 @@ public class Application extends Controller {
 	 * 
 	 * @param userId
 	 */
-	public static void showAvatar(Long userId) {
+	public static void showAvatar(Long userId, String size) {
 		User user = User.findById(userId);
-		if (user != null && user.avatar.exists()) {
-			renderBinary(user.avatar.get());
+		if (user != null) {
+			if (size.equalsIgnoreCase("small") && user.avatarSmall.exists()) {
+				renderBinary(user.avatarSmall.get());
+			} else if (size.equalsIgnoreCase("medium") && user.avatarMedium.exists()) {
+				renderBinary(user.avatarMedium.get());
+			} else if (size.equalsIgnoreCase("large") && user.avatarLarge.exists()) {
+				renderBinary(user.avatarLarge.get());
+			}
 		}
 		renderBinary(new File(Play.getFile("public/images") + "/unknown.jpg"));
 		notFound();
@@ -465,13 +471,11 @@ public class Application extends Controller {
 	 */
 	public static void displayOriginalUncropedImage() {
 		User user = CurrentUser.getCurrentUser();
-		File tmpFile = new File(Blob.getStore(), "originalImage_"
-				+ user.id);
-		if (!tmpFile.exists()) {
+		if (!user.avatarUnchanged.exists()) {
 			renderBinary(new File(Play.getFile("public/images")
 					+ "/unknown.jpg"));
 		}
-		renderBinary(tmpFile);
+		renderBinary(user.avatarUnchanged.get());
 	}
 
 	public static void cropImage(Integer x1, Integer y1, Integer x2,
@@ -487,11 +491,11 @@ public class Application extends Controller {
 			float ratioX = new Float(originalImageWidth) / imageW;
 			float ratioY = new Float(originalImageHeight) / imageH;
 
-			Images.crop(imageToCrop, user.avatar.getFile(),
+			Images.crop(imageToCrop, user.avatarSmall.getFile(),
 					Math.round(x1 * ratioX), Math.round(y1 * ratioY), Math
 							.round(x2 * ratioX), Math.round((y2 * ratioY)));
 
-			Images.resize(user.avatar.getFile(), user.avatar.getFile(), 60, 60);
+			Images.resize(user.avatarSmall.getFile(), user.avatarSmall.getFile(), 60, 60);
 
 			user.save();
 		} catch (IOException e) {

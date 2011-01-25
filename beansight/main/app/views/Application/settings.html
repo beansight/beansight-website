@@ -11,7 +11,7 @@
 <script language="Javascript">
 function refreshAvatarImage() {
     var timestamp = new Date().getTime();
-    $("#userAvatarImage").attr('src', '@{Application.showAvatar(user.id)}' + '&time=' + timestamp );
+    $("#userAvatarImage").attr('src', '@{Application.showAvatar(user.id, 'medium')}' + '&time=' + timestamp );
 }
 </script>
 
@@ -44,7 +44,7 @@ function refreshAvatarImage() {
 	        <input type="file" id="avatar" name="originalImage">
 	    </p>
     	<p>
-	        <img id="userAvatarImage" src="@{Application.showAvatar(user.id)}" width="60px" />
+	        <img id="userAvatarImage" src="@{Application.showAvatar(user.id, 'large')}" width="60px" />
         </p>
 		<p>
         	<a id="cropAvatar" href="#" >&{'cropAvatarImage'}</a>
