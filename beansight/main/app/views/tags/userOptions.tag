@@ -29,7 +29,7 @@
                     <label for="remember">&{'remember'}</label>
                     
                     <div class="inputsubmit">
-                        <input type="submit" name="submit-log" value="Connect"/>
+                        <button><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'loginbutton'}</span></button>
                     </div>
 
                 #{/form}

@@ -61,9 +61,9 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #header #boxlogin ul li.log-b a:hover, #header #boxlogin ul li.log-b a.current{background-position:left bottom;}
 #header #boxlogin ul li.log-f a:hover, #header #boxlogin ul li.log-f a.current,
 #header #boxlogin ul li.log-t a:hover, #header #boxlogin ul li.log-t a.current{background-position:center bottom;}
-#header #boxlogin .list-logins{clear:both;/*border-top:solid #fff 1px;*/width:183px;height:133px;padding:5px 25px 16px 25px;background:url(/public/images/loginbox2.png) no-repeat left bottom;}
+#header #boxlogin .list-logins{clear:both;/*border-top:solid #fff 1px;*/width:183px;height:150px;padding:5px 25px 16px 25px;background:url(/public/images/loginbox2.png) no-repeat left bottom;}
 #header #boxlogin .list-logins .item-loginbox{position:absolute;overflow:hidden;display:block;}
-#header #boxlogin .list-logins .item-loginbox#boxlog-bean{height:133px;}
+#header #boxlogin .list-logins .item-loginbox#boxlog-bean{height:150px;}
 #header #boxlogin .list-logins .item-loginbox.nojavascript{display:none}/* on supprime cette classe en JS*/
 #header #boxlogin .list-logins label{font-size:14px;color:#aaaeaf;}
 #header #boxlogin .list-logins .inputlogin{-moz-border-radius:5px;-webkit-border-radius:5px;border:solid #eeeeee 1px;background-color:#fff;padding:5px;margin:1px 0 6px 0;}
