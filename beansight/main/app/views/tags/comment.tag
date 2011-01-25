@@ -1,6 +1,6 @@
 <div class="item-comment first">
     <div class="user-comment">
-        <a href="#" class="name-comment">${_comment.user}</a>
+        <a href="#" class="name-comment">${_comment.user.userName}</a>
         <span class="date-comment">${_comment.creationDate.since(true)}</span>
         <!-- TODO COLORZ : display the user vote -->
         <!-- 

@@ -66,12 +66,11 @@
             #{isConnected}
             <form class="newcomment" id="addCommentForm">
                 
-                <!-- TODO COLORZ -->
                 <div class="comment-author">
                     <a href="#">
-                        Bertrand
+                        ${controllers.CurrentUser.getCurrentUserName()}
                         <span class="img-author">
-                            <img src="images/content/sample-26x26.jpg" alt=""/>
+                            <img src="@{Application.showAvatar( controllers.CurrentUser.getCurrentUser().id, 'small')}"/>
                         </span>
                     </a>
                 </div>
