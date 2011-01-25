@@ -50,6 +50,7 @@ createdby=par
 createdin=dans
 youagree=Vous êtes d'accord depuis le
 youdisagree=Vous n'êtes pas d'accord depuis le
+sharethisinsight=Share
 shareonbeansight=Utilisateur Beansight
 
 

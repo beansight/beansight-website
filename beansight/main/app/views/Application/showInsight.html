@@ -59,28 +59,14 @@
             <hr class="clear"/>
         </div>
         
-        <div class="sharezone">
-	        <div class="onTwitter">
-	            <a href="http://twitter.com/share" class="twitter-share-button" data-text="${insight.content} & {'onbeansight'}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-	        </div>
-	        <div class="onFacebook">
-	            <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like show_faces="false" width="450"></fb:like>
-	        </div>
-	        <div class="onBeansight input-submit">
-	           <button id="shareOnBeansight"><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'shareonbeansight'}</span></button>
-	           <form id="shareOnBeansightForm" style="display:none;">
-	               <input type="text" name="userName" id="userToShareTo" />
-	               <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}" />
-	           </form>
-	           <span id="shareConfirmation"></span>
-	        </div>
-        </div>
+        #{shareInsight insight:insight /}
         
         <div class="commentzone">
             <p class="nbcomments"><span class="cuf-grm">${insight.comments.size()}</span> <span class="cuf-grb">&{'comments'}</span></p>
             #{isConnected}
             <form class="newcomment" id="addCommentForm">
                 
+                <!-- TODO COLORZ -->
                 <div class="comment-author">
                     <a href="#">
                         Bertrand
