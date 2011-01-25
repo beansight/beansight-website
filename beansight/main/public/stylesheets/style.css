@@ -181,17 +181,21 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .listinsights .item-insight.firstline:hover .content-insight{background-color:transparent;}
 #contentcenter .listinsights .item-insight.last-insight .content-insight{border-bottom:solid #b3babb 1px;}
 #contentcenter .listinsights .item-insight .content-insight:hover{background-color:#ebebeb;}
-#contentcenter .listinsights .item-insight .vote-insight{float:left;width:34px;margin:4px 0 11px 10px;}
-#contentcenter .listinsights .item-insight .vote-insight p{display:block;width:34px;height:18px;}
-#contentcenter .listinsights .item-insight .vote-insight a{display:block;width:20px;height:14px;padding:0 14px 0 0;color:#aaaeaf;font-size:12px;font-weight:bold;text-align:right;}
-#contentcenter .listinsights .item-insight .vote-insight .vote-more{border-bottom:solid #bfbfbf 1px;margin:0 0 4px 0;}
-#contentcenter .listinsights .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus.png) no-repeat right top;}
-#contentcenter .listinsights .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins.png) no-repeat right top;}
-#contentcenter .listinsights .item-insight .vote-insight .vote-less a:hover, #contentcenter .listinsights .item-insight .vote-insight .vote-more a:hover,
-#contentcenter .listinsights .item-insight .vote-insight .vote-less a.active, #contentcenter .listinsights .item-insight .vote-insight .vote-more a.active
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight{float:left;width:34px;margin:4px 0 11px 10px;}
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight p{display:block;width:34px;height:18px;}
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight a{display:block;width:20px;height:14px;padding:0 14px 0 0;color:#aaaeaf;font-size:12px;font-weight:bold;text-align:right;}
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-more{border-bottom:solid #bfbfbf 1px;margin:0 0 4px 0;}
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus.png) no-repeat right top;}
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins.png) no-repeat right top;}
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-less a:hover,
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-more a:hover,
+#contentcenter .listinsights .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a,
+#contentcenter .listinsights .insightContainer.voteAgree .item-insight .vote-insight .vote-more a
 {background-position:right bottom;}
-#contentcenter .listinsights .item-insight .vote-insight .vote-less a:hover, #contentcenter .listinsights .item-insight .vote-insight .vote-less a.active{color:#a13d3d;}
-#contentcenter .listinsights .item-insight .vote-insight .vote-more a:hover, #contentcenter .listinsights .item-insight .vote-insight .vote-more a.active{color:#7aa13d;}
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-less a:hover,
+#contentcenter .listinsights .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a{color:#a13d3d;}
+#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-more a:hover,
+#contentcenter .listinsights .insightContainer.voteAgree .item-insight .vote-insight .vote-more a{color:#7aa13d;}
 /* liste experts */
 #contentcenter .listexperts .searchexp{display:block;-moz-border-radius:3px;-webkit-border-radius:3px;border-top:solid #b3b3b3 1px;background-color:#f6f6f6;width:209px;height:19px;padding:2px 3px 0px 8px;}
 #contentcenter .listexperts .txtinput{font-size:12px;color:#aaaeaf;display:block;background-color:#f6f6f6;width:180px;float:left;margin:0 9px 0 0;border:0 none;}
@@ -404,16 +408,17 @@ a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;h
 #content .single .s-content .insightdate{margin:0 38px 10px;}
 #content .single .s-content .graphzone{margin:0 23px;}
 #content .single .s-content .graphzone .leftgraph{float:left;width:315px;}
-#content .single .s-content .graphzone .leftgraph .votezone{background-color:#f7f7f7;-moz-border-radius:2px;-webkit-border-radius:2px;padding:10px 32px 8px 32px;margin:0 0 10px 0;}
-#content .single .s-content .graphzone .leftgraph .votezone .linkvote{float:left;width:125px;height:34px;margin:0 0 12px 0;}
-#content .single .s-content .graphzone .leftgraph .votezone .linkvote a{display:block;width:111px;height:26px;padding:8px 0 0 0;text-align:center;color:#fff;font-weight:bold;font-size:18px;background:url(/public/images/insight-vote.png) no-repeat 0 0;}
-#content .single .s-content .graphzone .leftgraph .votezone .linkvote a:hover{background-position:0 -34px;}
-#content .single .s-content .graphzone .leftgraph .votezone .linkvote.lessvote a.active{background-position:0 -102px;}
-#content .single .s-content .graphzone .leftgraph .votezone .linkvote.lessvote a{margin:0 0 0 13px;}
-#content .single .s-content .graphzone .leftgraph .votezone .linkvote.morevote{border-right:solid #ededed 1px;}
-#content .single .s-content .graphzone .leftgraph .votezone .linkvote.morevote a.active{background-position:0 -68px;}
-#content .single .s-content .graphzone .leftgraph .votezone p{text-align:center;color:#a1a5a6;font-size:12px;padding-top:12px;}
-/* #content .single .s-content .graphzone .leftgraph .votezone p span{color:#8bad56;} */
+.insightContainer .voteWidgetLarge{background-color:#f7f7f7;-moz-border-radius:2px;-webkit-border-radius:2px;padding:10px 32px 8px 32px;margin:0 0 10px 0;}
+.insightContainer .voteWidgetLarge .linkvote{float:left;width:125px;height:34px;margin:0 0 12px 0;}
+.insightContainer .voteWidgetLarge .linkvote a{display:block;width:111px;height:26px;padding:8px 0 0 0;text-align:center;background:url(/public/images/insight-vote.png) no-repeat 0 0;}
+.insightContainer .voteWidgetLarge .linkvote a:hover{background-position:0 -34px;}
+.insightContainer .voteWidgetLarge .linkvote .voteCount{color:#fff;font-weight:bold;font-size:18px;}
+.insightContainer .voteWidgetLarge .linkvote.disagreeaction a{margin:0 0 0 13px;}
+.insightContainer .voteWidgetLarge .linkvote.agreeaction{border-right:solid #ededed 1px;}
+.insightContainer.voteDisagree .voteWidgetLarge .linkvote.disagreeaction a{background-position:0 -102px;}
+.insightContainer.voteAgree .voteWidgetLarge .linkvote.agreeaction a{background-position:0 -68px;}
+.insightContainer .voteWidgetLarge p{text-align:center;color:#a1a5a6;font-size:12px;padding-top:12px;}
+/* #content .single .s-content .graphzone .leftgraph .voteWidgetLarge p span{color:#8bad56;} */
 #content .single .s-content .graphzone .leftgraph .lastvoters{width:315px;padding:5px 0;border-top:solid #ededed 1px;border-bottom:solid #ededed 1px;height:31px;}
 #content .single .s-content .graphzone .leftgraph .lastvoters p{padding:7px 9px 0 0;color:#a1a5a6;float:left;font-weight:bold;font-size:12px;}
 #content .single .s-content .graphzone .leftgraph .lastvoters ul.listvoters{}
@@ -453,8 +458,8 @@ a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;h
 #content .single .s-content .commentzone .list-comments .item-comment .user-comment .date-comment{display:block;font-size:10px;color:#b4b8b8;}
 #content .single .s-content .commentzone .list-comments .item-comment .user-comment .avatar-comment{float:left;margin-top:5px;display:block;background-color:#fff;border:solid #efefef 1px;padding:1px;width:26px;height:26px;}
 #content .single .s-content .commentzone .list-comments .item-comment .user-comment .vote-comment{float:left;margin-top:5px;width:30px;height:30px;background-color:#f7f7f7;text-indent:-9999px;}
-#content .single .s-content .commentzone .list-comments .item-comment .user-comment .vote-comment.morevote{background:url(/public/images/commentvote-plus.png) no-repeat center center #f7f7f7;}
-#content .single .s-content .commentzone .list-comments .item-comment .user-comment .vote-comment.lessvote{background:url(/public/images/commentvote-moins.png) no-repeat center center #f7f7f7;}
+#content .single .s-content .commentzone .list-comments .item-comment .user-comment .vote-comment.agreeaction{background:url(/public/images/commentvote-plus.png) no-repeat center center #f7f7f7;}
+#content .single .s-content .commentzone .list-comments .item-comment .user-comment .vote-comment.disagreeaction{background:url(/public/images/commentvote-moins.png) no-repeat center center #f7f7f7;}
 #content .single .s-content .commentzone .list-comments .item-comment .txt-comment{float:right;width:540px;color:#a1a5a6;font-size:12px;line-height:14px;}
 
 

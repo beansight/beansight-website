@@ -5,7 +5,7 @@
         <!-- TODO COLORZ : display the user vote -->
         <!-- 
         <a href="#" class="avatar-comment"><img src="images/content/sample-26x26.jpg" alt=""/></a>
-        <span class="vote-comment morevote">Vote</span>
+        <span class="vote-comment agreeaction">Vote</span>
          -->
         <hr class="clear"/>
     </div>

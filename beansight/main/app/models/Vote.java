@@ -71,26 +71,6 @@ public class Vote extends Model {
 	}
 	
 	/**
-	 * Call this to test if someone has already vote for an insight.
-	 * 
-	 * @param userId
-	 * @param insightId
-	 * @return null if did not voted, State if voted
-	 */
-	public static State whatVoteForInsight(Long userId, String insightUniqueId) {
-		Vote vote = find(
-				"select v from Vote v join v.user u join v.insight i "
-						+ "where u.id=:userId and v.status = :status "
-						+ "and i.uniqueId=:insightUniqueId").bind("userId", userId)
-				.bind("status", Status.ACTIVE).bind("insightUniqueId", insightUniqueId)
-				.first();
-		if(vote == null) {
-			return null;
-		}
-		return vote.state;
-	}
-
-	/**
 	 * Call this to get the last vote a user made for an insight
 	 * 
 	 * @param userId
