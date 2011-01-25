@@ -118,13 +118,13 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #content #sidebarleft .activity{padding:0 0 15px 0;}
 #content #sidebarleft .activity p{font-size:13px;color:#aaaeaf;}
 #content #sidebarleft .activity p.title-activity{padding:5px 0;clear:both;border-top:1px solid #EFEFEF;}
-#content #sidebarleft .activity p.title-activity.first{border:0 none;}
+#content #sidebarleft .activity p.title-activity:first-child{border:0 none;}
 #content #sidebarleft .activity p.title-activity a{font-size:12px;color:#8B8F90;}
 #content #sidebarleft .activity p.title-activity a:hover{color:#696F70;}
 /* favorites */
 #content #sidebarleft .list-fav{padding:0 0 10px 0;border-bottom:solid #efefef 4px;}
 #content #sidebarleft .list-fav .item-fav{border-top:solid #efefef 1px;clear:both;}
-#content #sidebarleft .list-fav .item-fav.first{border-top:0 none;}
+#content #sidebarleft .list-fav .item-fav:first-child{border-top:0 none;}
 #content #sidebarleft .list-fav .item-fav a{font-size:12px;color:#8b8f90;padding:5px 0;display:block;height:12px;overflow:hidden;}
 #content #sidebarleft .list-fav .item-fav a .date-fav{float:left;width:35px;font-size:12px;color:#eeeeee;font-weight:bold;}
 #content #sidebarleft .list-fav .item-fav a .date-fav .date-day{color:#7aa13d;font-weight:bold;}
