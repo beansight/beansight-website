@@ -288,20 +288,6 @@ $(document).ready(function() {
     //////////////////////
     // Insight creation
     //////////////////////
-	$('#insightCreationLangEn').click( function() {
-		$('.insightCreationLangChoose img').removeClass('selected');
-		$('#insightCreationLangEn img').addClass('selected');
-		$('#insightCreationLang').val('en');
-		return false;
-	});
-	$('#insightCreationLangFr').click( function() {
-		$('.insightCreationLangChoose img').removeClass('selected');
-		$('#insightCreationLangFr img').addClass('selected');
-		$('#insightCreationLang').val('fr')
-			.addClass('selected');
-		return false;
-	});
-	
 	$("#insightCreationForm").validate({
 		rules: {
 			endDate: "required",
