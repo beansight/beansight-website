@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.ImageHelper;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -425,7 +427,7 @@ public class Application extends Controller {
 		if (originalImage != null) {
 			try {
 				// and save it if so
-				user.updateAvatar(originalImage);
+				user.updateAvatar(originalImage, true);
 			} catch (FileNotFoundException e) {
 				flash.error(Messages.get("saveSettingImageNotFoundException"));
 			}
@@ -482,20 +484,19 @@ public class Application extends Controller {
 			Integer y2, Integer imageW, Integer imageH) {
 		User user = CurrentUser.getCurrentUser();
 
-		File imageToCrop = new File(Blob.getStore(), "originalImage_"
-				+ user.id);
 		try {
-			BufferedImage source = ImageIO.read(imageToCrop);
+			BufferedImage source = ImageIO.read(user.avatarUnchanged.get());
 			int originalImageWidth = source.getWidth();
 			int originalImageHeight = source.getHeight();
 			float ratioX = new Float(originalImageWidth) / imageW;
 			float ratioY = new Float(originalImageHeight) / imageH;
 
-			Images.crop(imageToCrop, user.avatarSmall.getFile(),
+			File tmpCroppedFile = ImageHelper.getTmpImageFile();
+			Images.crop(user.avatarUnchanged.getFile(), tmpCroppedFile,
 					Math.round(x1 * ratioX), Math.round(y1 * ratioY), Math
 							.round(x2 * ratioX), Math.round((y2 * ratioY)));
 
-			Images.resize(user.avatarSmall.getFile(), user.avatarSmall.getFile(), 60, 60);
+			user.updateAvatar(tmpCroppedFile, false);
 
 			user.save();
 		} catch (IOException e) {

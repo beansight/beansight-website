@@ -9,9 +9,11 @@
 #{/set}
 
 <script language="Javascript">
+var showAvatarMediumAction = #{jsAction @Application.showAvatar(user.id, 'medium') /};
+
 function refreshAvatarImage() {
     var timestamp = new Date().getTime();
-    $("#userAvatarImage").attr('src', '@{Application.showAvatar(user.id, 'medium')}' + '&time=' + timestamp );
+    $("#userAvatarImage").attr('src', showAvatarMediumAction());
 }
 </script>
 

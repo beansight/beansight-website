@@ -117,7 +117,7 @@ public class TwitterOAuth extends Controller {
 		// save so that we get an id for the new user
 		twitterUser.save();
 		// and now we can update avatar with the twitter profil image
-		twitterUser.updateAvatar(FileHelper.getTmpFile(profileImageInputStream));
+		twitterUser.updateAvatar(FileHelper.getTmpFile(profileImageInputStream), true);
 	}
 	
 	// private static void getUserInfo() throws Exception {

@@ -34,9 +34,14 @@ public class ImageHelper {
     }
     
     public static File resizeRespectingRatio(File from, int width, int height) {
-    	File to = new File(Play.getFile("tmp") + "/" + UUID.randomUUID().toString());
+    	File to = getTmpImageFile();
     	resizeRespectingRatio(from, to, width, height);
     	return to;
+    }
+    
+    public static File getTmpImageFile() {
+    	File tmpImageFile = new File(Play.getFile("tmp") + "/" + UUID.randomUUID().toString());
+    	return tmpImageFile;
     }
     
 }

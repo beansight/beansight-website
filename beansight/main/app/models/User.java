@@ -222,8 +222,10 @@ public class User extends Model {
 	}
 
 	
-	public void updateAvatar(File originalImage) throws FileNotFoundException {
-		this.avatarUnchanged.set(new FileInputStream(originalImage), "Image");
+	public void updateAvatar(File originalImage, boolean replaceAvatarUnchanged) throws FileNotFoundException {
+		if (replaceAvatarUnchanged == true) {
+			this.avatarUnchanged.set(new FileInputStream(originalImage), "Image");
+		}
 		// Default is we resize the originalImage without any modification.
 		// Can be cropped later if necessary since we keep the original
 		File smallImageTmp = ImageHelper.resizeRespectingRatio(originalImage, 26, 26);
