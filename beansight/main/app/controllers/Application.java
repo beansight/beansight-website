@@ -653,4 +653,11 @@ public class Application extends Controller {
 		render(tags);
 	}
 	
+	public static void privacyPolicy() {
+		renderTemplate("Legal/privacyPolicy.html");
+	}
+	
+	public static void termsOfUse() {
+		renderTemplate("Legal/termsOfUse.html");
+	}
 }

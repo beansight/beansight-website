@@ -159,12 +159,13 @@ errorservermessage=L'erreur a été enregistrée avec l'identifiant <strong>%s</
 # E MAILs
 ####################
 
-# confirmation
 emailhellouser=Bonjour %s
 emailsignature=L'équipe Beansight<br/>http://www.beansight.com
-emailconfirmationsubject=Beansight : confirmez votre email.
-emailconfirmtext=Vous devez confirmer votre email
-emailconfirmlink=Suivez ce lien pour confirmer.
+
+# confirmation
+emailconfirmationsubject=Confirmez votre email sur Beansight
+emailconfirmtext=Vous venez de rejoindre la communauté Beansight et nous vous en remercions. Avant de commencer, merci de confirmer votre e-mail en suivant ce lien : 
+emailconfirmlink=Lien de validation email.
 
 # followNotification
 emailfollownotificationsubject=%s vous a ajouté dans ses favoris sur Beansight
@@ -182,7 +183,7 @@ clickheretoregistrationpage=Il vous faut suivre ce lien pour vous créer un comp
 # message
 emailmessagesubject=Beansight : Message de %s
 emailmessageheadline=%s vous a envoyé un message privé sur Beansight :
-emailmessagegotoprofile=Cliquez ici pour visiter la page de %s et répondre.
+emailmessagegotoprofile=Vous pouvez maintenant vous rendre sur le profil de %s pour lui répondre.
 
 # contact
 email.contact.from.name=Nom du contact : %s

@@ -69,7 +69,7 @@ public class Contact extends Controller {
     		
     		renderJSON(result);
 	   	}
-    	ContactMailTask contactMailTask = new ContactMailTask(name, from, "jeanbaptiste@beansight.com", subject, message);
+    	ContactMailTask contactMailTask = new ContactMailTask(name, from, "contact@beansight.com", subject, message);
     	contactMailTask.save();
     	result.otherMessage = "Thanks for your message we'll read it as soon as possible.";
     	renderJSON(result);

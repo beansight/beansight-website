@@ -156,12 +156,12 @@ errorservermessage=This error has been logged with id <strong>%s</strong>.
 ####################
 # E MAILs
 ####################
+emailhellouser=Hi %s
+emailsignature=Beansight team<br/>http://www.beansight.com
 
 # confirmation
-emailhellouser=Hello %s
-emailsignature=The Beansight team<br/>http://www.beansight.com
-emailconfirmationsubject=Beansight: please confirm your email
-emailconfirmtext=You need to confirm your email :
+emailconfirmationsubject=Confirm your email address to join Beansight
+emailconfirmtext=Thanks for joining Beansight community. Before you start, please confirm your email address by clicking on the following link:
 emailconfirmlink=Click here to confirm.
 
 # followNotification
@@ -179,8 +179,8 @@ clickheretoregistrationpage=You have to follow this link to create your account.
 
 # message
 emailmessagesubject=Beansight: Private message from %s
-emailmessageheadline=%s sent you a private message on Beansight:
-emailmessagegotoprofile=Click here to visite %s profile and answer.
+emailmessageheadline=%s has sent you a private message:
+emailmessagegotoprofile=You can now consult %s profile to answer.
 
 # contact
 email.contact.from.name=Contact name : %s
