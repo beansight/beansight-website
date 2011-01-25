@@ -38,8 +38,8 @@ public class Mails extends Mailer {
 	}
 	
 	// FIXME : changer le template pour contact
-	public static void message(ContactMailTask task) {
-		sendMailTask(task, task.subject, "Mails/message.html");
+	public static void contact(ContactMailTask task) {
+		sendMailTask(task, task.subject, "Mails/contact.html");
 	}
 	
 	private static void sendMailTask(MailTask task, String subject, String templateName) {

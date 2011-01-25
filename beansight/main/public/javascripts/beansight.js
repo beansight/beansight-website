@@ -235,25 +235,47 @@ $(document).ready(function() {
 	//////////////////////
 	// Leave your email
 	//////////////////////
-    $('#leaveYourEmailForm').submit(function() {
-        $.getJSON(leaveYourEmailAction(), $(this).serialize(), function(data) { 
-        	$('#leaveYourEmailCallBackMsg').text(data.msg);
-        	if (data.hasError == false) {
-        		$('#leaveYourEmail').slideUp();
-        	}
-        });
-        return false;
-    });
+	$("#leaveYourEmailForm").validate({
+		submitHandler: function(form) {
+			$.getJSON(leaveYourEmailAction(), $(this).serialize(), function(data) { 
+	        	$('#leaveYourEmailCallBackMsg').text(data.msg);
+	        	if (data.hasError == false) {
+	        		$('#leaveYourEmail').slideUp();
+	        	}
+	        });
+		},
+		rules: {
+			email : "required email"
+		},
+		messages: {
+			email: i18n.validateContactEmail
+		}
+	});
+	
 
 	//////////////////////
 	// Contact page
 	//////////////////////
 	$("#contactForm").validate({
+		submitHandler: function(form) {
+	        $.getJSON(sendToContactAction(), $(this).serialize(), function(data) { 
+	        	if (data.hasError) {
+	        		$('#name_error').text(data.name);
+	        		$('#from_error').text(data.from);
+	        		$('#subject_error').text(data.subject);
+	        		$('#message_error').text(data.message);
+	        		$('#contact_otherMessage').text(data.otherMessage);
+	        	} else {
+	        		$('#contact_otherMessage').text(data.otherMessage);
+	        		$('#contactForm').slideUp();
+	        	}
+	        });
+		},
 		rules: {
 			name: "required",
 			from : "required email",
-			subject : "required email",
-			message : "required email"
+			subject : "required",
+			message : "required"
 		},
 		messages: {
 			name: i18n.validateContactName,
@@ -263,24 +285,6 @@ $(document).ready(function() {
 		}
 	});
    
-    $('#contactForm').submit(function() {
-        $.getJSON(sendToContactAction(), $(this).serialize(), function(data) { 
-        	if (data.hasError) {
-        		$('#name_error').text(data.name);
-        		$('#from_error').text(data.from);
-        		$('#subject_error').text(data.subject);
-        		$('#message_error').text(data.message);
-        		$('#contact_otherMessage').text(data.otherMessage);
-        	} else {
-        		$('#contact_otherMessage').text(data.otherMessage);
-        		$('#contactForm').slideUp();
-        	}
-        });
-        return false;
-    });    
-  
-
-    
     //////////////////////
     // Insight creation
     //////////////////////

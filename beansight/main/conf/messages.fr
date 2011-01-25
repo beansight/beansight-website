@@ -75,6 +75,17 @@ alreadyxxfollowers=Déjà %s followers
 likeus=Likez nous
 alreadyxxfans=%s fans, impressionnant !
 sendmymessage=Envoyer
+contact.contactUs=Contactez nous
+contact.yourName=Nom
+contact.yourEmail=Email
+contact.subject=Sujet
+contact.message=Message
+
+# Welcome page
+welcome.title=Bienvenue
+welcome.leaveYourEmailMsg=Beansight est actuellement en beta privée. Laissez nous votre email pour participer à la beta privée.
+welcome.leaveYourEmailSubmit=Ok
+welcome.leaveYourEmailSuccess=Merci pour l'intérêt que vous portez à Beansight. A très bientôt dans votre mail box pour des nouvelles de Beansight.
 
 #sendMessage
 sendMessage=Message privé
@@ -172,14 +183,9 @@ emailmessagesubject=Beansight : Message de %s
 emailmessageheadline=%s vous a envoyé un message privé sur Beansight :
 emailmessagegotoprofile=Cliquez ici pour visiter la page de %s et répondre.
 
-# Welcome page
-welcome.title=Bienvenue
-welcome.leaveYourEmailMsg=Beansight est actuellement en beta privée. Laissez nous votre email pour participer à la beta privée.
-welcome.leaveYourEmailSubmit=Ok
-welcome.leaveYourEmailSuccess=Merci pour l'intérêt que vous portez à Beansight. A très bientôt dans votre mail box pour des nouvelles de Beansight.
+# contact
+email.contact.from.name=Nom du contact : %s
+email.contact.from.email=Mail du contact : %s
+email.contact.subject=Subject : %s
+email.contact.message=Message :
 
-# Contact page
-contact.contactUs=Contactez nous
-contact.yourName=Nom
-contact.subject=Sujet
-contact.message=Message

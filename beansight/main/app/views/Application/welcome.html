@@ -3,6 +3,8 @@
 	&{'welcome.title'}
 #{/set}
 
+#{set contentClass:'signup' /}
+
 #{set 'moreScripts'}	
 	<script src="@{'/public/javascripts/jquery.imgareaselect.pack.js'}" type="text/javascript" charset="utf-8"></script>
 #{/set}
@@ -10,27 +12,25 @@
     <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
 #{/set}
 
-<div id="content" class="signup">
-	<div class="bloccontent bloccenter">
-		<div  id="leaveYourEmail">
-		    <form id="leaveYourEmailForm">
-	    		<label for="email">&{'email'}</label>
-	    		<div class="item-input">
-	        		<input type="text" name="email"/>
-	        		<span class="error">#{error 'email' /}</span>
-	        	</div>
-	        	<div class="item-submit">
-	        		<input type="submit" value="&{'welcome.leaveYourEmailSubmit'}"/>
-	        	</div>
-		    </form>
-		</div>
-		<div id="leaveYourEmailCallBackMsg">
-		</div>
+<div class="bloccontent bloccenter">
+	<div  id="leaveYourEmail">
+	    <form id="leaveYourEmailForm">
+    		<label for="email">&{'email'}</label>
+    		<div class="item-input">
+        		<input type="text" id="email" name="email"/>
+        		<span class="error">#{error 'email' /}</span>
+        	</div>
+	        <div class="item-submit">
+	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'welcome.leaveYourEmailSubmit'}</span></button>
+	        </div>        	
+	    </form>
 	</div>
-	<div class="bloccontent blocright">
-		<h2 class="cuf-grs">
-			&{'welcome.leaveYourEmailMsg'}
-		</h2>
+	<div id="leaveYourEmailCallBackMsg">
 	</div>
+</div>
+<div class="bloccontent blocright">
+	<h2 class="cuf-grs">
+		&{'welcome.leaveYourEmailMsg'}
+	</h2>
 </div>
 <hr class="clear"/>

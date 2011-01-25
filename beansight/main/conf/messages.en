@@ -74,6 +74,17 @@ alreadyxxfollowers=Already %s followers
 likeus=Like us
 alreadyxxfans=%s fans, amazing
 sendmymessage=Send
+contact.contactUs=Contact Us
+contact.yourName=Your Name
+contact.yourEmail=Your Email
+contact.subject=Subject
+contact.message=Message
+
+# Welcome page
+welcome.title=Welcome
+welcome.leaveYourEmailMsg=We are currently in private beta if you want to be part of it please leave us your email.
+welcome.leaveYourEmailSubmit=Ok
+welcome.leaveYourEmailSuccess=Thanks, you will soon have some news from Beansight
 
 #sendMessage
 sendMessage=Private Message
@@ -146,7 +157,7 @@ errorservermessage=This error has been logged with id <strong>%s</strong>.
 ####################
 
 # confirmation
-emailhellouser=Bonjour %s
+emailhellouser=Hello %s
 emailsignature=The Beansight team<br/>http://www.beansight.com
 emailconfirmationsubject=Beansight: please confirm your email
 emailconfirmtext=You need to confirm your email :
@@ -170,14 +181,9 @@ emailmessagesubject=Beansight: Private message from %s
 emailmessageheadline=%s sent you a private message on Beansight:
 emailmessagegotoprofile=Click here to visite %s profile and answer.
 
-# Welcome page
-welcome.title=Welcome
-welcome.leaveYourEmailMsg=We are currently in private beta if you want to be part of it please leave us your email.
-welcome.leaveYourEmailSubmit=Ok
-welcome.leaveYourEmailSuccess=Thanks, you will soon have some news from Beansight
+# contact
+email.contact.from.name=Contact name : %s
+email.contact.from.email=Contact mail : %s
+email.contact.subject=Subject : %s
+email.contact.message=Message :
 
-# Contact page
-contact.contactUs=Contact Us
-contact.yourName=Your Name
-contact.subject=Subject
-contact.message=Message
