@@ -19,7 +19,8 @@ public class InsightTrendJob extends Job {
     	Logger.info("InsightTrendJob begin");
     	
     	int page = 1;
-    	List<Insight> insights = Insight.all().fetch(page, INSIGHT_NUMBER_TO_PROCESS);
+    	List<Insight> insights = Insight.findNotValidated(page, INSIGHT_NUMBER_TO_PROCESS);
+    	
     	while(insights.size() > 0) {
     		processInsights(insights);
             Logger.info("InsightTrendJob: page " + page);
