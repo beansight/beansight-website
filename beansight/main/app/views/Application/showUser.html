@@ -23,7 +23,7 @@
             #{isConnected}
             <a href="#" onClick="toggleFollowingUser(${user.id})" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
             #{/isConnected}
-            <a href="#" class="sendmail" id="link-sendmail">Send a mail</a>
+            <a href="#" class="sendmail" id="link-sendmail">Send a message</a>
         </div>
     </div>
     <div class="info-profil">
@@ -38,7 +38,7 @@
             </div>
             <input type="hidden" name="id" value="${user.id}" />
             <div class="item-submit">
-                <input type="submit" value="&{'messagesubmit'}"/>
+                <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'messagesubmit'}</span></button>
             </div>
         </form>
     </div>
