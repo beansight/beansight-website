@@ -6,16 +6,20 @@
 GET     /                                       Application.insights
 
 GET     /signup                                 Register.register
+GET     /login                                 Secure.login
 GET     /logout                                 Secure.logout
+
 
 GET     /create                                 Application.create
 GET     /experts                                Application.experts
 GET     /search                                 Application.search
 GET     /profile		            			Application.profile
 GET     /settings                               Application.settings
+
 GET     /contact                                Contact.contact
-GET		/legals/privacy-policy					Legal.privacyPolicy
-GET		/legals/terms-of-use					Legal.termsOfUse
+GET		/legal/privacy-policy					Legal.privacyPolicy
+GET		/legal/terms-of-use    					Legal.termsOfUse
+GET     /welcome                                Application.welcome
 
 GET     /confirm/{hash}                         Register.confirm
 
