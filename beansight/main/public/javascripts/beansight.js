@@ -247,7 +247,7 @@ $(document).ready(function() {
 	//////////////////////
 	$("#leaveYourEmailForm").validate({
 		submitHandler: function(form) {
-			$.getJSON(leaveYourEmailAction(), $(this).serialize(), function(data) { 
+			$.getJSON(leaveYourEmailAction(), $("#leaveYourEmailForm").serialize(), function(data) { 
 	        	$('#leaveYourEmailCallBackMsg').text(data.msg);
 	        	if (data.hasError == false) {
 	        		$('#leaveYourEmail').slideUp();
@@ -268,7 +268,7 @@ $(document).ready(function() {
 	//////////////////////
 	$("#contactForm").validate({
 		submitHandler: function(form) {
-	        $.getJSON(sendToContactAction(), $(this).serialize(), function(data) { 
+	        $.getJSON(sendToContactAction(), $("#contactForm").serialize(), function(data) { 
 	        	if (data.hasError) {
 	        		$('#name_error').text(data.name);
 	        		$('#from_error').text(data.from);
