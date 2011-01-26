@@ -83,7 +83,7 @@ contact.message=Message
 
 # Welcome page
 welcome.title=Welcome
-welcome.leaveYourEmailMsg=We are currently in private beta if you want to be part of it please leave us your email.
+welcome.leaveYourEmailMsg=We are currently in private beta. Get an invite when it's ready, enter your e-mail:
 welcome.leaveYourEmailSubmit=Ok
 welcome.leaveYourEmailSuccess=Thanks, you will soon have some news from Beansight
 

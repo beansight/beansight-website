@@ -3,34 +3,35 @@
 	&{'welcome.title'}
 #{/set}
 
-#{set contentClass:'signup' /}
+#{set contentClass:'contact' /}
 
-#{set 'moreScripts'}	
-	<script src="@{'/public/javascripts/jquery.imgareaselect.pack.js'}" type="text/javascript" charset="utf-8"></script>
-#{/set}
-#{set 'moreStyles'}
-    <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
-#{/set}
+<!-- SIDEBAR LEFT -->
+<div id="sidebarleft">
+    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fbeansight&amp;width=230&amp;colorscheme=light&amp;show_faces=true&amp;stream=false&amp;header=false&amp;height=280" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:230px; height:280px;" allowTransparency="true"></iframe>
+    <hr class="clear"/>
+</div>
 
-<div class="bloccontent bloccenter">
-	<div  id="leaveYourEmail">
-	    <form id="leaveYourEmailForm">
-    		<label for="email">&{'email'}</label>
-    		<div class="item-input">
-        		<input type="text" id="email" name="email"/>
-        		<span class="error">#{error 'email' /}</span>
-        	</div>
-	        <div class="item-submit">
-	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'welcome.leaveYourEmailSubmit'}</span></button>
-	        </div>        	
-	    </form>
-	</div>
-	<div id="leaveYourEmailCallBackMsg">
-	</div>
+<!-- CONTENU CENTRE -->
+<div id="contentcenter" class="mini">
+    <div>&{'welcome.leaveYourEmailMsg'}</div>
+    <form id="leaveYourEmailForm" class="bigform">
+        <label for="email">&{'email'}</label>
+        <div class="item-input">
+            <input type="text" id="email" name="email"/>
+            <span class="error">#{error 'email' /}</span>
+        </div>
+        <div class="item-submit">
+            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'welcome.leaveYourEmailSubmit'}</span></button>
+        </div>          
+    </form>
+    <div id="leaveYourEmailCallBackMsg">
+    </div>
 </div>
-<div class="bloccontent blocright">
-	<h2 class="cuf-grs">
-		&{'welcome.leaveYourEmailMsg'}
-	</h2>
+
+<!-- SIDEBAR RIGHT -->
+<div id="sidebarright" class="notlog">
+    <a href="#" class="whatisbeansight"></a>
 </div>
+</div>
+
 <hr class="clear"/>

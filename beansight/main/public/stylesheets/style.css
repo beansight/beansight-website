@@ -296,6 +296,9 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #content #sidebarright .listtags li a:hover{color:#228392;}
 #content #sidebarright h2.tagsh2 span{width:208px;padding-left:20px;}
 
+#content #sidebarright a.whatisbeansight{position:relative;display:block;width:250px;height:416px;background:url(/public/images/welcome-en.png) no-repeat 0 0;}
+
+
 #content .bloccontent{float:left;background-color:#fff;-moz-border-radius:4px;-webkit-border-radius:4px;border-bottom:solid #f4f4f4 1px;padding:10px;}
 #content .blocleft{width:230px;margin-right:20px;}
 #content .blocright{width:230px;margin-left:20px;}
@@ -303,26 +306,26 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #content .blocright h2, #content .blocleft h2{text-align:center;font-size:16px;color:#6e7677;font-weight:bold;text-transform:uppercase;padding:0 0 10px 0;}
 /* page sigup */
 #content.signup .bloccenter{margin-left:270px;}
-#content .bloccenter form{background-color:#f7f7f7;padding:18px 70px 20px 70px;}
-#content .bloccenter form h2{background:url(/public/images/icon-pencil.png) no-repeat left center;padding:0 0 0 14px;font-size:16px;color:#7aa13d;text-transform:uppercase;margin:0 0 24px 0;}
-#content .bloccenter form label{display:block;color:#aaaeaf;font-size:14px;padding-bottom:4px;}
-#content .bloccenter form .item-input{margin:0 0 13px 0;padding:6px;-moz-border-radius:6px;-webkit-border-radius:6px;border:solid #eeeeee 3px;background-color:#fff;}
-#content .bloccenter form .item-input input{color:#6e7677;font-size:20px;border:0 none;width:245px;}
-#content .bloccenter form .item-checkbox{text-align:center;margin:0 0 15px 0;padding:5px 0 0 0;}
-#content .bloccenter form .item-checkbox input{display:inline;}
-#content .bloccenter form .item-checkbox label{display:inline;color:#aaaeaf;font-size:14px;}
-#content .bloccenter form .item-checkbox label a{color:#6e7677;}
+.bigform, #content .bloccenter form{background-color:#f7f7f7;padding:18px 70px 20px 70px;}
+.bigform h2, #content .bloccenter form h2{background:url(/public/images/icon-pencil.png) no-repeat left center;padding:0 0 0 14px;font-size:16px;color:#7aa13d;text-transform:uppercase;margin:0 0 24px 0;}
+.bigform label, #content .bloccenter form label{display:block;color:#aaaeaf;font-size:14px;padding-bottom:4px;}
+.bigform .item-input, #content .bloccenter form .item-input{margin:0 0 13px 0;padding:6px;-moz-border-radius:6px;-webkit-border-radius:6px;border:solid #eeeeee 3px;background-color:#fff;}
+.bigform .item-input input, #content .bloccenter form .item-input input{color:#6e7677;font-size:20px;border:0 none;width:245px;}
+.bigform .item-checkbox, #content .bloccenter form .item-checkbox{text-align:center;margin:0 0 15px 0;padding:5px 0 0 0;}
+.bigform .item-checkbox input, #content .bloccenter form .item-checkbox input{display:inline;}
+.bigform .item-checkbox label, #content .bloccenter form .item-checkbox label{display:inline;color:#aaaeaf;font-size:14px;}
+.bigform .item-checkbox label a, #content .bloccenter form .item-checkbox label a{color:#6e7677;}
 
 /*#content.signup .bloccenter form .item-submit{width:182px;margin:0 auto;padding:4px 0 6px 0;}
 #content.signup .bloccenter form .item-submit input{text-indent:-9999px;text-align:left;display:block;cursor:pointer;width:182px;height:35px;text-align:center;border:0 none; background:url(/public/images/form-subnewaccount.png) no-repeat 0 0;line-height:0;font-size:0;}
 #content.signup .bloccenter form .item-submit input:hover{background-position:left bottom;}*/
 
-#content.signup .bloccenter form .item-submit{clear:both;padding-bottom:10px;width:198px;margin:0 auto;}
-#content.signup .bloccenter form .item-submit button{display:block;border:0 none;cursor:pointer;width:198px;height:35px;background:none transparent;}
-#content.signup .bloccenter form .item-submit button span{float:left;display:block;height:35px;}
-#content.signup .bloccenter form .item-submit button span.backbutton{background:url(/public/images/btn-vert1.png) no-repeat 0 0;width:10px;}
-#content.signup .bloccenter form .item-submit button span.txtbutton{height:27px;background:url(/public/images/btn-vert2.png) no-repeat right top;width:170px;font-size:14px;color:#fff;text-transform:uppercase;padding:8px 12px 0 0;}
-#content.signup .bloccenter form .item-submit button:hover span{background-position:right bottom;}
+.bigform .item-submit, #content.signup .bloccenter form .item-submit{clear:both;padding-bottom:10px;width:198px;margin:0 auto;}
+.bigform .item-submit button, #content.signup .bloccenter form .item-submit button{display:block;border:0 none;cursor:pointer;width:198px;height:35px;background:none transparent;}
+.bigform .item-submit button span, #content.signup .bloccenter form .item-submit button span{float:left;display:block;height:35px;}
+.bigform .item-submit button span.backbutton, #content.signup .bloccenter form .item-submit button span.backbutton{background:url(/public/images/btn-vert1.png) no-repeat 0 0;width:10px;}
+.bigform .item-submit button span.txtbutton, #content.signup .bloccenter form .item-submit button span.txtbutton{height:27px;background:url(/public/images/btn-vert2.png) no-repeat right top;width:170px;font-size:14px;color:#fff;text-transform:uppercase;padding:8px 12px 0 0;}
+.bigform .item-submit button:hover span, #content.signup .bloccenter form .item-submit button:hover span{background-position:right bottom;}
 
 
 #content.signup .pushsign{width:180px;position:relative;text-align:center;padding:115px 25px 0 25px;font-size:12px;color:#fff;line-height:16px;}
