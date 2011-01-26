@@ -47,15 +47,15 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Application extends Controller {
 
-	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 20;
+	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 12;
 	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 8;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 6;
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 16;
-	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 20;
-	public static final int NUMBER_EXPERTS_SEARCHPAGE = 20;
+	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 12;
+	public static final int NUMBER_EXPERTS_SEARCHPAGE = 12;
 
 	public static final int NUMBER_SUGGESTED_USERS = 10;
-	public static final int NUMBER_SUGGESTED_TAGS = 20;
+	public static final int NUMBER_SUGGESTED_TAGS = 10;
 	
 	public static final double INSIGHT_VALIDATED_TRUE_MINVAL = 0.7;
 	public static final double INSIGHT_VALIDATED_FALSE_MAXVAL = 0.3;
