@@ -157,9 +157,11 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .listinsights ul.menulistinsights li.selectme a{border:solid #ededed 1px;padding-right:15px;width:110px;background:url(/public/images/puce-flech-bas.png) no-repeat 120px 10px;}
 #contentcenter .listinsights ul.menulistinsights li.selectme a:hover{background:transparent url(/public/images/puce-flech-bas.png) no-repeat 120px 10px;color:#228392;}
 #contentcenter .listinsights ul.menulistinsights li.langme{height:23px;}
-#contentcenter .listinsights ul.menulistinsights li.langme .languageFlag{display:block;width:16px;height:11px;float:left;text-indent:-9999px;margin:5px 8px 0 0;padding:0;}
+#contentcenter .listinsights ul.menulistinsights li.langme .languageFlag{display:block;width:16px;height:11px;float:left;text-indent:-9999px;margin:5px 8px 0 0;}
 #contentcenter .listinsights ul.menulistinsights li.langme .languageFlag.french{background:url(/public/images/flag-fr.png) no-repeat 0 0;}
 #contentcenter .listinsights ul.menulistinsights li.langme .languageFlag.english{background:url(/public/images/flag-en.png) no-repeat 0 0;}
+#contentcenter .listinsights ul.menulistinsights li.langme .languageFlag.french.selected{background:url(/public/images/flag-fr-selected.png) no-repeat 0 0;}
+#contentcenter .listinsights ul.menulistinsights li.langme .languageFlag.english.selected{background:url(/public/images/flag-en-selected.png) no-repeat 0 0;}
 #contentcenter .listinsights ul.menulistinsights li a{display:block;color:#228392;padding:5px;background:none transparent;-moz-border-radius:2px;-webkit-border-radius:2px;}
 #contentcenter .listinsights ul.menulistinsights li a:hover, #contentcenter .listinsights ul.menulistinsights li a.current{color:#fff;background-color:#228392;}
 #contentcenter .listinsights ul.menulistinsights li ul{overflow:hidden;position:absolute;width:132px;background-color:#fff;border-bottom:solid #ededed 1px;-webkit-border-bottom-left-radius:3px;-moz-border-radius-bottomleft:3px;-webkit-border-bottom-right-radius:3px;-moz-border-radius-bottomright:3px;}
