@@ -457,15 +457,27 @@ public class Application extends Controller {
 	public static void showAvatar(Long userId, String size) {
 		User user = User.findById(userId);
 		if (user != null) {
-			if (size.equalsIgnoreCase("small") && user.avatarSmall.exists()) {
-				renderBinary(user.avatarSmall.get());
-			} else if (size.equalsIgnoreCase("medium") && user.avatarMedium.exists()) {
-				renderBinary(user.avatarMedium.get());
-			} else if (size.equalsIgnoreCase("large") && user.avatarLarge.exists()) {
-				renderBinary(user.avatarLarge.get());
+			if (size.equalsIgnoreCase("small")) {
+				if (user.avatarSmall.exists()) {
+					renderBinary(user.avatarSmall.get());
+				} else {
+					renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-small.jpg"));
+				}
+			} else if (size.equalsIgnoreCase("medium")) {
+				if (user.avatarMedium.exists()) {
+					renderBinary(user.avatarMedium.get());
+				} else {
+					renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-medium.jpg"));
+				}
+			} else if (size.equalsIgnoreCase("large")) {
+				if (user.avatarLarge.exists()) {
+					renderBinary(user.avatarLarge.get());
+				} else {
+					renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-large.jpg"));
+				}
 			}
 		}
-		renderBinary(new File(Play.getFile("public/images") + "/unknown.jpg"));
+		
 		notFound();
 	}
 

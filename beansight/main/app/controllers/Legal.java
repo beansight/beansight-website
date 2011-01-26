@@ -51,7 +51,7 @@ public class Legal extends Controller {
 		renderTemplate("Legal/privacyPolicy.html");
 	}
 	
-	public static void termsOfUse() {
-		renderTemplate("Legal/termsOfUse.html");
+	public static void termsOfService() {
+		renderTemplate("Legal/termsOfService.html");
 	}
 }
