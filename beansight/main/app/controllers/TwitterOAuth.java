@@ -44,14 +44,14 @@ public class TwitterOAuth extends Controller {
 			"https://twitter.com/oauth/access_token",
 			"http://twitter.com/oauth/authorize", "X6T56rx0w0wU4wIWGPIA",
 			"geSJ4hc36jWhNaWf1UDY3apuWlJVK04fxmP3jG8xdM");
-
 	public static void loginWithTwitter() throws Exception {
 		ICredentials creds = new Credentials();
 
 		String callbackURL = Router
 				.getFullUrl(request.controller + ".callback");
 
-		client.authenticate(creds, callbackURL);
+		// Uncomment this to enable twitter login
+		// client.authenticate(creds, callbackURL);
 	}
 
 	public static void callback(String oauth_token, String oauth_verifier)

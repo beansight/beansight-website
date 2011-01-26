@@ -40,27 +40,28 @@ public class FacebookOAuth extends Controller {
     
     
     public static void authenticate() {
-		StringBuilder fbAuthenticateUrl = new StringBuilder();
-		fbAuthenticateUrl
-				.append("https://graph.facebook.com/oauth/authorize?client_id=")
-				.append(FB_CLIENT_ID).append("&redirect_uri=")
-				.append(Router.getFullUrl(request.controller + ".callback"));
-				
-		// request extended permissions (email, ...)
-		String extendedPermissions = null;
-		try {
-			extendedPermissions = (String) FacebookOAuthDelegate
-					.invoke("getExtendedPermissions");
-		} catch (Throwable e) {
-			Logger.error("Failed calling getExtendedPermissions", e);
-		}
-		if (extendedPermissions != null
-				&& extendedPermissions.trim().length() != 0) {
-			fbAuthenticateUrl.append("&scope=");
-			fbAuthenticateUrl.append(extendedPermissions);
-		}
-		
-        throw new Redirect(fbAuthenticateUrl.toString());
+    	// uncomment this to enable facebook login
+//		StringBuilder fbAuthenticateUrl = new StringBuilder();
+//		fbAuthenticateUrl
+//				.append("https://graph.facebook.com/oauth/authorize?client_id=")
+//				.append(FB_CLIENT_ID).append("&redirect_uri=")
+//				.append(Router.getFullUrl(request.controller + ".callback"));
+//				
+//		// request extended permissions (email, ...)
+//		String extendedPermissions = null;
+//		try {
+//			extendedPermissions = (String) FacebookOAuthDelegate
+//					.invoke("getExtendedPermissions");
+//		} catch (Throwable e) {
+//			Logger.error("Failed calling getExtendedPermissions", e);
+//		}
+//		if (extendedPermissions != null
+//				&& extendedPermissions.trim().length() != 0) {
+//			fbAuthenticateUrl.append("&scope=");
+//			fbAuthenticateUrl.append(extendedPermissions);
+//		}
+//		
+//        throw new Redirect(fbAuthenticateUrl.toString());
     }
     
     /**

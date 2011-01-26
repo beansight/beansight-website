@@ -8,8 +8,10 @@
         <div class="listlogin">
             <ul>
                 <li class="log-b"><a href="#" class="current" id="log-bean">Beansight</a></li>
+*{                
                 <li class="log-t"><a href="#" id="log-twit">Twitter</a></li>
                 <li class="log-f"><a href="#" id="log-fb">Facebook</a></li>
+}*                
             </ul>
         </div>
 
@@ -34,7 +36,7 @@
 
                 #{/form}
             </div>
-
+*{
             <div class="item-loginbox nojavascript" id="boxlog-twit">
                 <a href="@{TwitterOAuth.loginWithTwitter}"><img src="/public/images/twitter-login-button.png" height="20px" style="margin-top: 5px;"/></a>
             </div>
@@ -42,6 +44,7 @@
             <div class="item-loginbox nojavascript" id="boxlog-fb">
                 <a href="@{FaceBookOAuth.authenticate}"><img src="/public/images/facebook-login-button.png" height="20px"/></a>
             </div>
+}*
         </div>
     </div>
 </div>
