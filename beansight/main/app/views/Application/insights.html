@@ -42,8 +42,10 @@
     <ul class="menulistinsights">
         <li class="sortby">Sort by</li>
         <li class="first"><a href="#">suggested</a></li>
+    *{
         <li><a href="#">trending</a></li>
         <li><a href="#">incoming</a></li>
+     }*
         <li class="selectme"><a href="#" id="select-tri">select a category</a>
             <ul class="nojavascript" id="ulselect-tri">
                 <li><a href="@{Application.insights(null, langsEn)}"     class="categoryFilter #{if category == null}selected#{/if}" >All</a></li>
@@ -53,8 +55,9 @@
                 <!-- TODO COLORZ class="last" -->
             </ul>
         </li>
+      *{
         <li><a href="#">Favorites</a></li>
-        
+       }* 
         <li class="langme">
         
         #{if clickableEn}<a href="@{Application.insights(category?.id, langsEn)}"#{/if}#{else}<span #{/else}
