@@ -34,8 +34,8 @@ function refreshAvatarImage() {
         <p>
             <label for="uiLanguage">&{'uiLanguage'}</label>
             <select name="uiLanguage">
-                <option value="en" #{if user.uiLanguage.equals("en")}selected#{/if}>en</option>
-                <option value="fr" #{if user.uiLanguage.equals("fr")}selected#{/if}>fr</option>
+                <option value="en" #{if user.uiLanguage.label.equals("en")}selected#{/if}>en</option>
+                <option value="fr" #{if user.uiLanguage.label.equals("fr")}selected#{/if}>fr</option>
             </select>
         </p>
     	<p>
