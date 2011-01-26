@@ -3,9 +3,9 @@
 <div class="formsearch">
 #{form @Application.search()}
     <div class="searchinput">
-        <label for="query" class="cuf-grb">Search the future</label>
+        <label for="query" class="cuf-grb">&{'searchinput.searchthefuture'}</label>
         <div class="inputstyle">
-            <input type="text" name="query" id="txtseach" value="" class="inputtxt" placeholder="Search"/>
+            <input type="text" name="query" id="txtseach" value="" class="inputtxt" placeholder="&{'searchinput.placeholder'}"/>
             <input type="submit" id="searchsubmit" class="inputsubmit"/>
         </div>
     </div>

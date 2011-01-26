@@ -26,6 +26,10 @@ inviteconfirm=Invitation sent
 browsecategory=Browse Category
 trendinginsights=Trending Insights
 
+# searchinput.tag
+searchinput.searchthefuture=Search the future
+searchinput.placeholder=Search
+
 # Create Insight
 createInsightTitle=What is going to happen?
 createInsightMessage=What?
