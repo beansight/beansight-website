@@ -85,6 +85,8 @@ public class Insight extends Model {
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
 	public List<Comment> comments;
 
+	public boolean hidden;
+	
 	// model denormalization :
 	// having to count agree and disagree each time you need to access an
 	// insight is a performance killer
@@ -139,6 +141,7 @@ public class Insight extends Model {
 		this.validated = false;
 		this.validationScore = 0.5;
 		this.occurenceScore = 0.5;
+		this.hidden = false;
 	}
 
 	
