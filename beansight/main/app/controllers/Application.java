@@ -487,8 +487,8 @@ public class Application extends Controller {
 	public static void displayOriginalUncropedImage() {
 		User user = CurrentUser.getCurrentUser();
 		if (!user.avatarUnchanged.exists()) {
-			renderBinary(new File(Play.getFile("public/images")
-					+ "/unknown.jpg"));
+			renderBinary(new File(Play.getFile("public/images/avatar")
+					+ "/unknown-large.jpg"));
 		}
 		renderBinary(user.avatarUnchanged.get());
 	}

@@ -13,7 +13,7 @@ var showAvatarMediumAction = #{jsAction @Application.showAvatar(user.id, 'medium
 
 function refreshAvatarImage() {
     var timestamp = new Date().getTime();
-    $("#userAvatarImage").attr('src', showAvatarMediumAction());
+    $("#userAvatarImage").attr('src', showAvatarMediumAction() + "&t=" + timestamp);
 }
 </script>
 
