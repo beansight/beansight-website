@@ -29,6 +29,7 @@ import models.WaitingEmail;
 import play.Logger;
 import play.Play;
 import play.data.validation.Email;
+import play.data.validation.InFuture;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
@@ -225,7 +226,7 @@ public class Application extends Controller {
 	 */
 	public static void createInsight(
 			@Required @MinSize(6) @MaxSize(140) String insightContent,
-			@Required Date endDate, @MaxSize(100) String tagLabelList,
+			@Required @InFuture Date endDate, @MaxSize(100) String tagLabelList,
 			@Required long categoryId, String lang) {
 		
 		// Check if the given category Id corresponds to a category
