@@ -52,11 +52,11 @@ function toggleFollowingInsight(insightUniqueId) {
 
 /** Callback after a follow of insight is done */
 function onToggleFollowingInsightSuccess(data) {
-	var favicon = $(".icon.favorite", ".insight_" + data.uniqueId);
+	var favicon = $(".addfav", ".insight_" + data.uniqueId);
 	if(data.follow) {
-		favicon.addClass("active").removeClass("inactive");
+		favicon.addClass("active");
 	} else {
-		favicon.addClass("inactive").removeClass("active");
+		favicon.removeClass("active");
 	}
 	
 }
@@ -68,11 +68,11 @@ function toggleFollowingUser(userId) {
 
 /** Callback after a follow of user is done */
 function onToggleFollowingUserSuccess(data) {
-	var favicon = $(".icon.favorite", ".user_" + data.id);
+	var favicon = $(".addfav", ".user_" + data.id);
 	if(data.follow) {
-		favicon.addClass("active").removeClass("inactive");
+		favicon.addClass("active");
 	} else {
-		favicon.addClass("inactive").removeClass("active");
+		favicon.removeClass("active");
 	}
 	
 }
