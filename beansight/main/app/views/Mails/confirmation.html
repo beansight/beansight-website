@@ -2,6 +2,6 @@
 <p>&{'emailhellouser', user.userName}</p>
 <p>&{'emailconfirmtext'}</p>
 *{it seams we cannot use @@{} }*
-<p><a href="http://www.beansight.com@{Register.confirm(user.uuid)}">http://www.beansight.com@{Register.confirm(user.uuid)}</a></p>
+<p><a href='${play.configuration.getProperty("domain.name")}@{Register.confirm(user.uuid)}'>http://www.beansight.com@{Register.confirm(user.uuid)}</a></p>
 <p>&{'emailsignature'}</p>
 </body></html>
