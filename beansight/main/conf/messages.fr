@@ -12,7 +12,7 @@ trendinginsights=Prédictions montantes :
 # indexConnected
 newandtrending=Nouveaux
 needemailconfirm=Vous avez besoin de confirmer votre adresse email. Faites le prochainement. Vérifiez votre boîte de réception.
-activityaroundme=Activité autour de mes prédictions
+activityaroundme=Activité
 favorites=Favoris
 exploremore=Explorer plus...
 activityreset=Vider le flux d'activité
