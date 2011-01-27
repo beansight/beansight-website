@@ -472,16 +472,15 @@ $(document).ready(function() {
 			content: i18n.newCommentMinSize
 		}
 	});	
-	/*
-	$('#addCommentForm').submit(function() {
-        $.ajax( {
-            url: addCommentAction(),
-            data: $(this).serialize(),
-            success: onAddCommentSuccess
-        } );
-	    return false;
-	});
-	*/
+
+	$.ajax({
+        url: 'http://api.twitter.com/1/users/show.json',
+        data: {screen_name: 'beansight'},
+        dataType: 'jsonp',
+        success: function(data) {
+            $('#twitterFollowers').html(data.followers_count);
+        }
+    });
 
 	$( "#userToShareTo" ).autocomplete({
 	    source: favoriteUserSuggestAction(),

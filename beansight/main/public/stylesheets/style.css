@@ -502,10 +502,10 @@ a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;h
 #footer .contentfooter .colfooter .sociallinks{display:block;width:115px;height:34px;padding:5px 0 0 45px;}
 #footer .contentfooter .colfooter .sociallinks.facebooklinks{border-bottom:solid #217c8b 1px;background:url(/public/images/icon-facebook.png) no-repeat 13px 8px;}
 #footer .contentfooter .colfooter .sociallinks.twitterlinks{border-top:solid #3593a1 1px;background:url(/public/images/icon-twitter.png) no-repeat left center;}
-#footer .contentfooter .colfooter .sociallinks span{display:block;color:#f7f7f7;font-size:12px;font-weight:bold;}
+#footer .contentfooter .colfooter .sociallinks .item{display:block;color:#f7f7f7;font-size:12px;font-weight:bold;}
 #footer .contentfooter .colfooter .sociallinks.facebooklinks .likefb{float:right;text-indent:-9999px;background:url(../images/content/sample-likefacebook.png) no-repeat 0 0;display:block;width:51px;height:23px;}
-#footer .contentfooter .colfooter .sociallinks span.nbsocial{font-weight:normal;}
-#footer .contentfooter .colfooter .sociallinks:hover span.nbsocial{color:#0B5667;}
+#footer .contentfooter .colfooter .sociallinks .nbsocial{font-weight:normal;}
+#footer .contentfooter .colfooter .sociallinks:hover .item.nbsocial{color:#0B5667;}
 #footer .copyright{float:right;}
 #footer .copyright p{display:block;color:#ffffff;font-size:12px;text-align:right;line-height:18px;width:194px;}
 #footer .copyright .rights{border-bottom:solid #217c8b 1px;padding:0 0 10px 0;}
