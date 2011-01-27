@@ -382,7 +382,11 @@ public class Application extends Controller {
 	 * @param content
 	 *            : text content of the insight
 	 */
-	public static void addComment(String uniqueId, String content) {
+	public static void addComment(@Required String uniqueId, @MinSize(5) String content) {
+    	if(validation.hasErrors()) {
+    		return;
+	   	}
+		
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = Insight.findByUniqueId(uniqueId);
 		Comment comment = insight.addComment(content, currentUser);
