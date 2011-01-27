@@ -27,7 +27,7 @@ browsecategory=Catégories
 trendinginsights=Prédictions montantes
 
 # searchinput.tag
-searchinput.searchthefuture=Fouillez le futur
+searchinput.searchthefuture=Explorez le futur
 searchinput.placeholder=Recherche
 
 # Create Insight
@@ -140,6 +140,10 @@ promocode=Code d'accès
 registernotvalidpromocode=Code non valide
 registeremailexist=Cet email est déjà pris
 registerusernameexist=Ce nom existe déjà
+register.banner.explore=Explorer
+register.banner.exploretext=Avec Beansight, explorez les prédictions partagées par la communauté et découvrez ce qu’il peut probablement arriver demain.
+register.banner.participate=Participer
+register.banner.participatetext=Anticipez correctement des évènements et soyez reconnus par la communauté pour votre expertise.
 
 # confirm
 emailconfirmed=Email confirmé

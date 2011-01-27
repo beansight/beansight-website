@@ -139,6 +139,10 @@ promocode=Access code
 registernotvalidpromocode=Not a valid code
 registeremailexist=This email already exists
 registerusernameexist=This name already exists
+register.banner.explore=Explore
+register.banner.exploretext=With Beansight, explore predictions shared by our community and find out what is likely to happen tomorrow.
+register.banner.participate=Participate
+register.banner.participatetext=Correctly anticipate events and get recognition from the community for your expertise.
 
 # confirm
 emailconfirmed=Email confirmed
