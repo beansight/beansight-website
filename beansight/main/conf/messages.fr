@@ -88,7 +88,7 @@ contact.message=Message
 
 # Welcome page
 welcome.title=Bienvenue
-welcome.leaveYourEmailMsg=Beansight est actuellement en beta privée. Laissez votre email pour recevoir une invitation dès que possible :
+welcome.leaveYourEmailMsg=Beansight est actuellement en beta privée.<br/> Laissez votre email pour recevoir une invitation dès que possible :
 welcome.leaveYourEmailSubmit=Ok
 welcome.leaveYourEmailSuccess=Merci pour l'intérêt que vous portez à Beansight. A très bientôt dans votre mail box pour des nouvelles de Beansight.
 
