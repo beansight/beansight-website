@@ -19,7 +19,7 @@ public class Register extends Controller {
 		render(email, username, promocode);
 	}
 	
-	public static void registerNew(@Required @Email String email, @Required String username, @Required String password, @Required @Equals("password") String passwordconfirm, String promocode) {
+	public static void registerNew(@Required @Email String email, @Required String username, @Required String password, @Required @Equals("password") String passwordconfirm, String promocode) throws Throwable {
 		// See if promocode is ok:
 		Promocode code = Promocode.find("byCode", promocode).first();
 		if(code != null && code.nbUsageLeft > 0 && code.endDate.after(new Date())) {
@@ -49,10 +49,10 @@ public class Register extends Controller {
 		// send a password confirmation mail
 		Mails.confirmation(user);
 		
-		Application.index();
+		Secure.authenticate(email, password, false);
 	}
 	
-	/** Confirm that the email adress of the user is a real one */
+	/** Confirm that the email address of the user is a real one */
 	public static void confirm(String uuid) {
 		if(uuid == null || uuid.isEmpty()) {
 			notFound();
