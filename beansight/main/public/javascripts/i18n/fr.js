@@ -4,7 +4,7 @@ var i18n = {
 		validateEndDate : 			'Vous devez vraiment définir une date de fin.',
 		validateInsightContent : 	'Vous avez oublié quelque chose non ?',
 		validateInsightContentMin : 'Nous savons tous les deux que cette prédiction est trop courte',
-		validateInsightContentMax : 'La taille d\'une prédiction est limitée à 140 lettres.',
+		validateInsightContentMax : 'La taille d\'une prédiction est limitée à 100 lettres.',
 		validateInsightCreationLang : 'Choisissez une langue.',
 		validateCategoryId :		'Choisissez une catégorie pour cette prédiction.',
 		insightAlreadyShared :		'Vous avez déjà partagé cette prédiction avec cet utilisateur.',
@@ -14,5 +14,6 @@ var i18n = {
 		validateContactName :		'un nom est nécessaire',
 		validateContactEmail :		'un email est nécessaire',
 		validateContactsubject :	'un sujet est nécessaire',
-		validateContactMessage :	'un message is nécessaire'
+		validateContactMessage :	'un message est nécessaire',
+		newCommentMinSize :			'Votre commentaire doit faire 5 caractères au moins'
 }

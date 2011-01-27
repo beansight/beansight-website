@@ -453,6 +453,26 @@ $(document).ready(function() {
 	});
 	
 	/** Submit action for add comment form */
+	$("#addCommentForm").validate({
+		submitHandler: function(form) {
+	        $.ajax( {
+	            url: addCommentAction(),
+	            data: $("#addCommentForm").serialize(),
+	            success: onAddCommentSuccess
+	        } );
+		    return false;
+		},
+		rules: {
+			content: {
+		        required: true,
+		        minlength: 5
+		      }
+		},
+		messages: {
+			content: i18n.newCommentMinSize
+		}
+	});	
+	/*
 	$('#addCommentForm').submit(function() {
         $.ajax( {
             url: addCommentAction(),
@@ -461,6 +481,7 @@ $(document).ready(function() {
         } );
 	    return false;
 	});
+	*/
 
 	$( "#userToShareTo" ).autocomplete({
 	    source: favoriteUserSuggestAction(),

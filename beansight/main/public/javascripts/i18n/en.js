@@ -4,7 +4,7 @@ var i18n = {
 		validateEndDate : 			'You have to provide an End Date.',
 		validateInsightContent : 	'I think you forgot something...',
 		validateInsightContentMin : 'You and me know that this insight is too short.',
-		validateInsightContentMax : 'Insight length is limited to 140 characters.',
+		validateInsightContentMax : 'Insight length is limited to 100 characters.',
 		validateInsightCreationLang : 'Choose a language.',
 		validateCategoryId :		'Put this insight in a category.',
 		insightAlreadyShared :		'Insight already shared with this user.',
@@ -14,5 +14,6 @@ var i18n = {
 		validateContactName :		'name is required',
 		validateContactEmail :		'no a valid email',
 		validateContactsubject :	'subject is required',
-		validateContactMessage :	'message is required'
+		validateContactMessage :	'message is required',
+		newCommentMinSize :			'your comment should be 5 characters at least'
 }
