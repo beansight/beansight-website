@@ -76,9 +76,8 @@
         #{listInsights insights:insights /}
     </ul>
 
-    <!-- TODO COLORZ : display a bottom even in there is no more insight to load -->
     <div id="moreResults" *{style="display:none;"}* class="seeall">
-        <p><a onClick="moreInsights()" href="#">more</a></p>
+        <p><a id="moreInsights" href="#">more</a></p>
     </div>
 </div>
 
@@ -92,14 +91,14 @@
 var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
 
 /** get more insights */
-function moreInsights() {
+$('#moreInsights').click( function() {
     $.ajax( {
         url: moreInsightsAction(),
         data: {"from":insightsFrom#{if category}, "cat": ${category.id}#{/if}#{if langs}, "lang": [#{list items:langs, as:'langstring'}"${langstring}"#{if !langstring_isLast}, #{/if}#{/list}]#{/if} },
         success: onMoreInsightsSuccess
     } );
     return false;
-}
+});
 
 function onMoreInsightsSuccess(content) {
     $("#insightList").append(content);
