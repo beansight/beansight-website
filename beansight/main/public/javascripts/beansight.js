@@ -321,14 +321,19 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".datePicker").datepicker({ 
+    $( ".datePicker" ).datepicker({
+        //showOn: "button",
+    	//buttonImageOnly: true,
+        //buttonImage: "/public/images/icon-calendar.png",
         dateFormat: 'yy-mm-dd',
         showOtherMonths: true,
         selectOtherMonths: true,
-        minDate: 0
-	} );
+        minDate: 1
+	});
+    // Add a special class to our datepickers
+    //$(".ui-datepicker").addClass("insightCreationPicker");
 
-	$( "#progressbar" ).progressbar({
+    $( "#progressbar" ).progressbar({
 		value: 0
 	});
 

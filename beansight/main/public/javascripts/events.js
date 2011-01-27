@@ -166,6 +166,9 @@ $(document).ready(function() {
             }
         });
     }
+    
+
+    
     //Fin de création de compte formulaire
 
 

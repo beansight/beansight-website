@@ -348,16 +348,24 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 .newinsight .item-input input{border:0 none;font-size:16px;color:#6e7677;width:100%;}
 .newinsight .item-input input#c_date{width:245px;}
 .newinsight .item-input .ui-datepicker-trigger{cursor:pointer;}
+
 /* datepicker */
-#ui-datepicker-div{display:none;padding:13px;width:254px;color:#6E7677;margin:6px 0 0 -9px;-webkit-border-bottom-left-radius:6px;-moz-border-radius-bottomleft:6px;-webkit-border-bottom-right-radius:6px;-moz-border-radius-bottomright:6px;background-color:#fff;border:solid #eeeeee 3px;}
-.ui-datepicker-title, .ui-datepicker-title span{text-align:center;font-size:14px; color:#6E7677;font-weight:bold;margin:0 0 10px 0;}
-.ui-datepicker-calendar{width:230px;margin:0 auto;}
-.ui-datepicker-calendar th, .ui-datepicker-calendar th span{color:#6E7677;font-weight:bold;font-size:12px;text-align:center;}
-.ui-datepicker-calendar td{text-align:center;}
-.ui-datepicker-calendar a{color:#6E7677;font-size:12px;}
-.ui-datepicker-calendar a:hover{color:#8B8F90;}
-a.ui-datepicker-prev{text-indent:-9999px;display:block;float:left;width:15px;;height:15px;background:url(/public/images/selectmoreleft.png) no-repeat 0 0;}
-a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;height:15px;background:url(/public/images/selectmoreright.png) no-repeat 0 0;}
+#ui-datepicker-div { font-size: 14px; }
+
+/* Custom style created by Colorz, unfortunately, it doesn't supperpose to jquery UI's theme */
+#ui-datepicker-div .insightCreationPicker {display:none;padding:13px;width:254px;color:#6E7677;margin:6px 0 0 -9px;-webkit-border-bottom-left-radius:6px;-moz-border-radius-bottomleft:6px;-webkit-border-bottom-right-radius:6px;-moz-border-radius-bottomright:6px;background-color:#fff;border:solid #eeeeee 3px;}
+.insightCreationPicker .ui-datepicker-title,
+.insightCreationPicker .ui-datepicker-title span{text-align:center;font-size:14px; color:#6E7677;font-weight:bold;margin:0 0 10px 0;}
+.insightCreationPicker .ui-datepicker-calendar{width:230px;margin:0 auto;}
+.insightCreationPicker .ui-datepicker-calendar th,
+.insightCreationPicker .ui-datepicker-calendar th span{color:#6E7677;font-weight:bold;font-size:12px;text-align:center;}
+.insightCreationPicker .ui-datepicker-calendar td{text-align:center;}
+.insightCreationPicker .ui-datepicker-calendar a{color:#6E7677;font-size:12px;}
+.insightCreationPicker .ui-datepicker-calendar a:hover{color:#8B8F90;}
+.insightCreationPicker a.ui-datepicker-prev{text-indent:-9999px;display:block;float:left;width:15px;;height:15px;background:url(/public/images/selectmoreleft.png) no-repeat 0 0;}
+.insightCreationPicker a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;height:15px;background:url(/public/images/selectmoreright.png) no-repeat 0 0;}
+
+
 .newinsight .item-select{width:268px;height:19px;float:left;padding:10px 6px 6px 6px;-moz-border-radius:6px;-webkit-border-radius:6px;background-color:#fff;border:solid #eeeeee 3px;}
 .newinsight .item-select select{border:0 none;font-size:16px;color:#6e7677;width:100%;}
 .newinsight .item-textarea textarea{border:0 none;font-size:20px;color:#6e7677;width:100%;line-height:20px;height:100%;font-family:Arial, serif;}
