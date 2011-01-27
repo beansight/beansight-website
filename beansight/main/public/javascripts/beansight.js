@@ -488,4 +488,11 @@ $(document).ready(function() {
 	    minLength: 2
 	});
 	
+	$.ajax({
+	       url: 'https://graph.facebook.com/Beansight',
+	       dataType: 'jsonp',
+	       success: function(data) {
+	    	   $("#facebookFans").html(data.likes);
+	       }
+	   });
 });
