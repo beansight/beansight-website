@@ -45,15 +45,6 @@
 	var leaveYourEmailAction = #{jsAction @Application.leaveYourEmail() /};
 	var sendToContactAction = #{jsAction @Contact.sendToContact() /};
 	var addCommentAction = #{jsAction @Application.addComment() /};
-	
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-16319303-1']);
-	_gaq.push(['_trackPageview']);
-	(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
 	</script>
 </head>
 <body>
@@ -160,6 +151,15 @@
   feedback_widget_options.color = "#222";
   feedback_widget_options.style = "idea";
   var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+  
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16319303-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
 </script>
 
 </body>
