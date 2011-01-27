@@ -152,6 +152,29 @@ activityand= et
 activitywith= avec 
 activityfavorited= %s favorited 
 
+# footer
+footer.extra=Extra
+footer.blog=Lisez le blog
+footer.about=A propos
+footer.api=API
+footer.jobs=Jobs
+footer.terms=Terms
+footer.privacy=Privacy
+footer.help=Aide
+footer.contact=Contactez nous
+footer.getsatisfaction=Votre avis
+footer.faq=Lisez la FAQ
+footer.links=Issu de
+footer.startupweekend=Startup Weekend
+footer.lecamping=Le Camping
+footer.social=Retrouvez nous
+footer.facebook=Facebook
+footer.twitter=Twitter
+footer.copyright=Copyright &copy; 2010 Beansight, Inc.
+footer.allright=Tous droits réservés.
+footer.website=Design par <a href="http://www.colorz.fr/">Colorz</a>
+
+
 # Error
 errornotfound=Page non trouvée
 errorserver=Erreur

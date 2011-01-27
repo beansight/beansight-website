@@ -87,48 +87,49 @@
             <div class="contentfooter">
                 <div class="menufooter">
                     <div class="colfooter">
-                        <h2 class="cuf-grm">Extra</h2>
+                        <h2 class="cuf-grm">&{'footer.extra'}</h2>
                         <ul>
-                            <li><a href="http://beansight.tumblr.com">Read the blog</a></li>
-                            <!--li><a href="#">About us</a></li>
-                            <li><a href="#">API</a></li>
-                            <li><a href="#">Jobs</a></li-->
-                            <li><a href="@{Legal.termsOfService()}">Terms</a></li>
-                            <li><a href="@{Legal.privacyPolicy()}">Privacy</a></li>
+                            <li><a href="http://blog.beansight.com">&{'footer.blog'}</a></li>
+                            *{<li><a href="#">&{'footer.about'}</a></li>
+                            <li><a href="#">&{'footer.api'}</a></li>
+                            <li><a href="#">&{'footer.jobs'}</a></li>}*
+                            <li><a href="@{Legal.termsOfService()}">&{'footer.terms'}</a></li>
+                            <li><a href="@{Legal.privacyPolicy()}">&{'footer.privacy'}</a></li>
                         </ul>
                     </div>
                     <div class="colfooter">
-                        <h2 class="cuf-grm">Help</h2>
+                        <h2 class="cuf-grm">&{'footer.help'}</h2>
                         <ul>
-                            <li><a href="@{Contact.contact()}">Contact us</a></li>
-                            <!-- li><a href="#">Read the FAQ</a></li-->
+                            *{<li><a href="#">&{'footer.faq'}</a></li>}*
+                            <li><a href="@{Contact.contact()}">&{'footer.contact'}</a></li>
+                            <li><a href="http://getsatisfaction.com/beansight">&{'footer.getsatisfaction'}</a></li>
                         </ul>
                     </div>
                     <div class="colfooter">
-                        <h2 class="cuf-grm">Links</h2>
+                        <h2 class="cuf-grm">&{'footer.links'}</h2>
                         <ul>
-                        	<li><a href="http://www.startupweekend.org">Startup Weekend</a></li>
-                        	<li><a href="http://www.lecamping.org">Le Camping</a></li>
+                        	<li><a href="http://www.startupweekend.org">&{'footer.startupweekend'}</a></li>
+                        	<li><a href="http://www.lecamping.org">&{'footer.lecamping'}</a></li>
                         </ul>
                     </div>
                     <div class="colfooter">
-                        <h2 class="cuf-grm">We are social</h2>
+                        <h2 class="cuf-grm">&{'footer.social'}</h2>
                         <a href="#" class="sociallinks facebooklinks">
                             <span class="likefb">Like facebook</span>
-                            <span class="titlesocial">Facebook</span>
+                            <span class="titlesocial">&{'footer.facebook'}</span>
                             <span class="nbsocial">950 Fans</span>
                         </a>
                         <a href="#" class="sociallinks twitterlinks">
-                            <span class="titlesocial">Twitter</span>
+                            <span class="titlesocial">&{'footer.twitter'}</span>
                             <span class="nbsocial">950 followers</span>
                         </a>
                     </div>
 
 
                     <div class="copyright">
-                        <p>Copyright &copy; 2010 Beansight, Inc.</p>
-                        <p class="rights">All rights reserved.</p>
-                        <p class="authorwebsite">Website by <a href="http://www.colorz.fr/">Colorz</a></p>
+                        <p>&{'footer.copyright'}</p>
+                        <p class="rights">&{'footer.allright'}</p>
+                        <p class="authorwebsite">&{'footer.website'}</p>
                     </div>
                 </div>
             </div>
