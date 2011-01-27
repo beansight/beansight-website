@@ -31,7 +31,7 @@ searchinput.searchthefuture=Explorez le futur
 searchinput.placeholder=Recherche
 
 # Create Insight
-createInsightTitle=Que va-i-il se passer ?
+createInsightTitle=Que va-t-il se passer ?
 createInsightMessage=Quoi ?
 createInsightDate=Quand ?
 createInsightTags=Tags
@@ -72,7 +72,7 @@ incategory=dans
 #showUser
 userinsights=Prédictions de l'utilisateur
 myinsights=Mes prédictions
-userratings=Expetise
+userratings=Expertise
 
 #Contact
 followus=Suivez nous
