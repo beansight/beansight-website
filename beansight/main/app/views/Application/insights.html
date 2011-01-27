@@ -77,7 +77,7 @@
     </ul>
 
     <!-- TODO COLORZ : display a bottom even in there is no more insight to load -->
-    <div id="moreResults" style="display:none;" class="seeall">
+    <div id="moreResults" *{style="display:none;"}* class="seeall">
         <p><a onClick="moreInsights()" href="#">more</a></p>
     </div>
 </div>
@@ -85,16 +85,17 @@
 
 
 <script type="text/javascript">
-// check if a "more" button should be displayed
-if( $("#insightList li").length >= ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
-        $("#moreResults").fadeIn(2000);
-   }
+// TODO check if a "more" button should be displayed
+//if( $("#insightList li").length >= ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
+//        $("#moreResults").fadeIn(2000);
+//   }
 var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
 
 /** get more insights */
 function moreInsights() {
     $.ajax( {
-        url: moreInsightsAction({"from": insightsFrom #{if category}, "cat": ${category.id}#{/if}#{if language}, "lang": ${language.label}#{/if} }),
+        url: moreInsightsAction(),
+        data: {"from":insightsFrom#{if category}, "cat": ${category.id}#{/if}#{if langs}, "lang": [#{list items:langs, as:'langstring'}"${langstring}"#{if !langstring_isLast}, #{/if}#{/list}]#{/if} },
         success: onMoreInsightsSuccess
     } );
     return false;
@@ -103,9 +104,9 @@ function moreInsights() {
 function onMoreInsightsSuccess(content) {
     $("#insightList").append(content);
     insightsFrom += ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
-    // disable the "more button" if less results than the number to display
-    if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
-        $("#moreResults").fadeOut(1000);
-    }
+    // TODO disable the "more button" if less results than the number to display
+    //if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
+    //    $("#moreResults").fadeOut(1000);
+    //}
 }
 </script>

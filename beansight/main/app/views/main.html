@@ -34,8 +34,8 @@
 	var resetInsightActivityAction = #{jsAction @Application.resetInsightActivity() /};
 	var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
 	var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
-	var moreInsightsAction = #{jsAction @Application.moreInsights(':from', ':categoryId') /};
-	var moreSearchAction = #{jsAction @Application.moreSearch(':query', ':from', ':categoryId') /};
+	var moreInsightsAction = #{jsAction @Application.moreInsights() /};
+	var moreSearchAction = #{jsAction @Application.moreSearch() /};
 	var inviteAction = #{jsAction @Application.invite() /};
 	var sendMessageAction = #{jsAction @Application.sendMessage() /};
 	var shareInsightAction = #{jsAction @Application.shareInsight() /};

@@ -3,4 +3,4 @@
         #{insightLine insight:insight /}
     </li>
 #{/list}
-<!--  TODO COLORZ : insight pairs et impairs -->
+*{ TODO COLORZ : insight pairs et impairs }*

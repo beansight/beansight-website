@@ -192,14 +192,18 @@ public class Application extends Controller {
 	 * @param from : the index of the first insight to return
 	 * @param cat
 	 */
-	public static void moreInsights(int from, long cat, String lang) {
+	public static void moreInsights(int from, long cat, Set<String> lang) {
 		Category category = Category.findById(cat);
-		Language language = Language.findByLabel(lang);
+
 		Filter filter = new Filter();
 		if(category != null) {
 			filter.categories.add(category);
 		}
-		filter.languages.add(language);
+		if(lang == null) {
+			lang = new HashSet<String>();
+			lang.add("en");
+		}
+		filter.languages = Language.toLanguageSet(lang);
 		
 		InsightResult result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		renderArgs.put("insights", result.results);
