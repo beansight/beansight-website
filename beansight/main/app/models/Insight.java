@@ -342,8 +342,17 @@ public class Insight extends Model {
 	 * @param page : the page number to start from
 	 * @param number : number of items per page
 	 */
-	public static List<Insight> findNotValidated(int page, int number) {
+	public static List<Insight> findNotValidatedAndEndDateOver(int page, int number) {
 		List<Insight> insights = Insight.find("validated is false and endDate < ?", new Date()).fetch(page, number);
+		return insights;
+	}
+	
+	/**
+	 * @param page : the page number to start from
+	 * @param number : number of items per page
+	 */
+	public static List<Insight> findEndDateNotOver(int page, int number) {
+		List<Insight> insights = Insight.find("endDate > ?", new Date()).fetch(page, number);
 		return insights;
 	}
 	

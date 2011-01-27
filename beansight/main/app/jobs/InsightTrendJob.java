@@ -8,8 +8,10 @@ import models.Trend;
 import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
+import play.jobs.On;
 
-@Every("24h")
+// job start every days at midnight
+@On("0 0 0 * * ?")
 public class InsightTrendJob extends Job {
 
 	public static final int INSIGHT_NUMBER_TO_PROCESS = 100;
@@ -19,7 +21,7 @@ public class InsightTrendJob extends Job {
     	Logger.info("InsightTrendJob begin");
     	
     	int page = 1;
-    	List<Insight> insights = Insight.findNotValidated(page, INSIGHT_NUMBER_TO_PROCESS);
+    	List<Insight> insights = Insight.findEndDateNotOver(page, INSIGHT_NUMBER_TO_PROCESS);
     	
     	while(insights.size() > 0) {
     		processInsights(insights);

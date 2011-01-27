@@ -20,12 +20,12 @@ public class InsightValidationJob extends Job {
     	Logger.info("InsightValidationJob begin");
     	
     	int page = 1;
-    	List<Insight> insights = Insight.findNotValidated(page, INSIGHT_NUMBER_TO_PROCESS);
+    	List<Insight> insights = Insight.findNotValidatedAndEndDateOver(page, INSIGHT_NUMBER_TO_PROCESS);
     	while(insights.size() > 0) {
     		validateInsights(insights);
             Logger.info("InsightValidationJob: page " + page);
     		page++;
-    		insights = Insight.findNotValidated(page, INSIGHT_NUMBER_TO_PROCESS);
+    		insights = Insight.findNotValidatedAndEndDateOver(page, INSIGHT_NUMBER_TO_PROCESS);
     	}
     	
         Logger.info("InsightValidationJob end");
