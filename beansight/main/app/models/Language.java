@@ -16,12 +16,13 @@ public class Language extends Model {
 	}
 	
 	/**
-	 * Find a language from its label, if nothing is found, return English
+	 * Find a language from its label, if nothing is found creates it.
 	 */
-	public static Language findByLabel(String label) {
+	public static Language findByLabelOrCreate(String label) {
 		Language language = Language.find("byLabel", label).first();
 		if (language == null) {
-			language = Language.find("byLabel", "en").first();
+			language = new Language(label);
+			language.save();
 		}
 		return language;
 	}
@@ -33,7 +34,7 @@ public class Language extends Model {
 	public static Set<Language> toLanguageSet( Set<String> langStrings ) {
 		Set<Language> languages = new HashSet<Language>();
 		for(String lang : langStrings) {
-			languages.add(Language.findByLabel(lang));	
+			languages.add(Language.findByLabelOrCreate(lang));	
 		}
 		return languages;
 	}

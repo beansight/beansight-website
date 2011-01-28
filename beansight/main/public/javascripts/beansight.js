@@ -183,15 +183,6 @@ $(document).ready(function() {
 	//////////////////////
 	// User Options
 	//////////////////////
-    $("#loginLink").click(function() {
-        var box = $("#loginBox");
-        if (box.is(":visible")) {
-            box.fadeOut();
-        } else {
-            box.fadeIn();
-        }
-        return false;
-    });
     
 	//////////////////////
 	// Settings
@@ -321,6 +312,32 @@ $(document).ready(function() {
 		}
 	});
 	
+	// Language detection
+	$("#insightContent").blur(function() {
+		$.ajax({
+	        url: 'https://ajax.googleapis.com/ajax/services/language/detect',
+	        data: {v: '1.0', q: $("#insightContent").val() },
+	        dataType: 'jsonp',
+	        success: function(data) {
+	        	try {
+	        		console.log(data.responseData.language);
+	        		// if this user doesn't speak this language, it's strange.
+	        		if( $('#userWrittingLanguage').html() != data.responseData.language) {
+	        			// TODO
+	        			// tell him we detected this insight in this language.
+	        			// ask him if this language is right, and if so, does he speak this language?
+	        			//$('#strangeLanguage').slideDown();
+	        		} 
+	        		$('#insightLang').val(data.responseData.language);
+	        		$('#insightLangConfidence').val(data.responseData.confidence);
+	        	} catch(e) {
+	        		console.log('Cannot detect language');
+	        	}
+	        }
+	    });	
+	})
+	
+	// Date selection
     $( ".datePicker" ).datepicker({
         //showOn: "button",
     	//buttonImageOnly: true,
@@ -333,13 +350,13 @@ $(document).ready(function() {
     // Add a special class to our datepickers
     //$(".ui-datepicker").addClass("insightCreationPicker");
 
-    $( "#progressbar" ).progressbar({
-		value: 0
-	});
 
 	// Progress bar 
-	updateCharacterCount();
-	$("#insightContent").keyup(function() { // cannot use change(), keypress()
+    $( "#progressbar" ).progressbar({
+    	value: 0
+    });
+    updateCharacterCount();
+    $("#insightContent").keyup(function() { // cannot use change(), keypress()
 		updateCharacterCount();
 	});
 	

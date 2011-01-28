@@ -445,7 +445,7 @@ public class Application extends Controller {
 		user.userName = userName;
 		user.realName = realName;
 		user.description = description;
-		user.uiLanguage = Language.findByLabel(uiLanguage);
+		user.uiLanguage = Language.findByLabelOrCreate(uiLanguage);
 
 		user.save();
 

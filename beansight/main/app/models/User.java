@@ -150,7 +150,7 @@ public class User extends Model {
 		// if no language, then english
 		if( lang == null || lang.equals("") ) { lang = "en"; }
 
-		Language language = Language.findByLabel(lang);
+		Language language = Language.findByLabelOrCreate(lang);
 
 		this.uiLanguage = language;
 		this.writtingLanguage = language;
@@ -174,14 +174,14 @@ public class User extends Model {
 
 	public void setUiLanguage(Language language) {
 		if(language == null) {
-			language = Language.findByLabel("en");
+			language = Language.findByLabelOrCreate("en");
 		}
 		this.uiLanguage = language;
 	}
 
 	public void setWrittingLanguage(Language language) {
 		if(language == null) {
-			language = Language.findByLabel("en");
+			language = Language.findByLabelOrCreate("en");
 		}
 		this.writtingLanguage = language;
 	}
@@ -301,7 +301,7 @@ public class User extends Model {
 		Category category = Category.findById(cateopryId);
 		// TODO exception if null
 		
-		Language language = Language.findByLabel(lang);
+		Language language = Language.findByLabelOrCreate(lang);
 
 		Insight i = new Insight(this, insightContent, endDate, category, language);
 		try {
@@ -326,9 +326,6 @@ public class User extends Model {
 			
 		}
 
-		// store the given language as the default language for the user
-		this.writtingLanguage = language;
-		
 		this.save();
 
 		return i;
