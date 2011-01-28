@@ -183,7 +183,33 @@ $(document).ready(function() {
 	//////////////////////
 	// User Options
 	//////////////////////
+    $('#btnlogin').addClass('open');
+    $('#btnlogin').click(function(e) {
+        if($('#btnlogin').hasClass('open')){
+            $('#btnlogin').removeClass('open');
+            $('#boxlogin').slideDown(500);
+        }else{
+            $('#btnlogin').addClass('open');
+            $('#boxlogin').slideUp(500);
+        }
+        return false;
+    });
     
+    // zone identification fade 
+    $('.item-loginbox').fadeOut(200);
+    $('#boxlog-bean').fadeIn(200);
+    $('.listlogin li a').click(function(e) {
+        $('.listlogin li a').removeClass('current');
+        $(this).addClass('current');
+        $('.item-loginbox').fadeOut(200);
+        $('#box'+$(this).attr('id')).delay(400).fadeIn(200);
+        $('#boxlogin .list-logins').animate({
+            height: $('#box'+$(this).attr('id')).height()
+            }, 500
+        );
+        return false;
+    });
+
 	//////////////////////
 	// Settings
 	//////////////////////

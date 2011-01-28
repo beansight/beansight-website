@@ -3,62 +3,6 @@ $(document).ready(function() {
     // Supprime les class nojavascript qui ne servent que pour ceux qui n'ont pas javascript
     $('.nojavascript').removeClass('nojavascript');
 
-    // zone d'identification
-    if($('#boxlogin') && $('#btnlogin') && $('#zonelogin')){
-        var heightlogbox = $('#boxlogin').height();
-        $('#boxlogin').animate({
-            height: '0'
-            }, 10
-        );
-        $('#btnlogin').addClass('open');
-        $('#btnlogin').click(function(e) {
-            if($('#btnlogin').hasClass('open')){
-                $('#btnlogin').removeClass('open');
-                $('#boxlogin').animate({
-                    height: heightlogbox+10
-                }, 500
-                );
-            }else{
-                $('#btnlogin').addClass('open');
-                $('#boxlogin').animate({
-                    height: '0'
-                    }, 500
-                );
-            }
-            return false;
-        });
-        $('#zonelogin').live('mouseleave', function() {
-            $.data(this, 'timer', setTimeout(function() {
-                $('#btnlogin').addClass('open');
-                $('#boxlogin').animate({
-                    height: '0'
-                    }, 500
-                );
-            }, 800));
-
-        }).live('mouseenter', function() {
-          clearTimeout($.data(this, 'timer'));
-        });
-
-        // zone identification fade 
-        if($('#boxlog-bean') && $('#log-bean')){
-            $('.item-loginbox').fadeOut(200);
-            $('#boxlog-bean').fadeIn(200);
-            $('.listlogin li a').click(function(e) {
-                $('.listlogin li a').removeClass('current');
-                jQuery(this).addClass('current');
-                $('.item-loginbox').fadeOut(200);
-                $('#box'+jQuery(this).attr('id')).delay(400).fadeIn(200);
-                $('#boxlogin .list-logins').animate({
-                    height: $('#box'+jQuery(this).attr('id')).height()
-                    }, 500
-                );
-                return false;
-            });
-        }
-
-    }
-
 
     // select de tri des insights
     $(".selectme").each(function(i){

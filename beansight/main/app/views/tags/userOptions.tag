@@ -4,7 +4,7 @@
 </div>
 <div class="logbtn" id="zonelogin">
     <a href="#" class="cuf-grb" id="btnlogin">&{'loginlink'}</a>
-    <div id="boxlogin">
+    <div id="boxlogin" style="display:none;">
         <div class="listlogin">
             <ul>
                 <li class="log-b"><a href="#" class="current" id="log-bean">Beansight</a></li>
