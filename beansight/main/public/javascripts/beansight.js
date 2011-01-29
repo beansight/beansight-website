@@ -49,6 +49,13 @@ function updateAgreeDisagreeCount(uniqueId, agreeCount, disagreeCount, voteState
 
 function toggleFollowingInsight(insightUniqueId) {
 	$.getJSON(toggleFollowingInsightAction({'insightUniqueId': insightUniqueId}), onToggleFollowingInsightSuccess);
+	// Change the color of the icon, before receiving any response.
+	var favicon = $(".addfav", ".insight_" + insightUniqueId);
+	if(favicon.hasClass("active")) {
+		favicon.removeClass("active");
+	} else {
+		favicon.addClass("active");
+	}
 	return false;
 }
 
@@ -60,11 +67,16 @@ function onToggleFollowingInsightSuccess(data) {
 	} else {
 		favicon.removeClass("active");
 	}
-	
 }
 
 function toggleFollowingUser(userId) {
 	$.getJSON(toggleFollowingUserAction({'userId': userId}), onToggleFollowingUserSuccess);
+	var favicon = $(".addfav", ".user_" + userId);
+	if(favicon.hasClass("active")) {
+		favicon.removeClass("active");
+	} else {
+		favicon.addClass("active");
+	}
 	return false;
 }
 
@@ -76,7 +88,6 @@ function onToggleFollowingUserSuccess(data) {
 	} else {
 		favicon.removeClass("active");
 	}
-	
 }
 
 /** Callback after a resetInsightActivity is done*/
