@@ -20,7 +20,7 @@
         </div>
         <div class="linksprofil">
             #{isConnected}
-            <a href="#" onClick="toggleFollowingUser(${user.id})" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
+            <a href="#" onClick="return toggleFollowingUser(${user.id});" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
             #{/isConnected}
             <a href="#" class="sendmail" id="link-sendmail">Send a message</a>
         </div>

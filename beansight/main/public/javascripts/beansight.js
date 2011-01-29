@@ -15,6 +15,8 @@ Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowfb', {textShadow: '#22397
 // Actions on insights
 //////////////////////
 
+function testtesttest() {return false;}
+
 /** Current user agree an insight */
 function agree(insightUniqueId) {
     $.getJSON(agreeAction({'insightUniqueId': insightUniqueId}), onVoteSuccess);
@@ -75,11 +77,6 @@ function onToggleFollowingUserSuccess(data) {
 		favicon.removeClass("active");
 	}
 	
-}
-
-/** Current user reset his activity feed*/
-function resetInsightActivity() {
-	$.get(resetInsightActivityAction(), onResetInsightActivitySuccess);
 }
 
 /** Callback after a resetInsightActivity is done*/
@@ -180,6 +177,13 @@ $("#error").ajaxError(function(event, request, settings){
 
 // Execute scripts after the document creation
 $(document).ready(function() {
+	
+	/** Current user reset his activity feed*/
+	$("#resetActivity").click( function() {
+		$.get(resetInsightActivityAction(), onResetInsightActivitySuccess);
+		return false;
+	})
+	
 	//////////////////////
 	// User Options
 	//////////////////////
