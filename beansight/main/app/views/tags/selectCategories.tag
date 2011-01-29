@@ -1,8 +1,8 @@
 *{Generates a <select> element populated with the categories of the website}*
 *{param none: should a "None" option be available }*
 *{param all: should a "All" option be available }*
-
-<select name="categoryId" id="categoryId">
+<div class="item-select">
+<select name="categoryId" id="c_category">
    #{if _none==true }
         <option value="" selected >None</option>
    #{/if}
@@ -13,3 +13,4 @@
        <option value="${category.id}">${category.label}</option>
    #{/list}
 </select>
+</div>
