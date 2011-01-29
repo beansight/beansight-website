@@ -234,7 +234,7 @@ public class Application extends Controller {
 	 *            : the ID of the category of the insight
 	 */
 	public static void createInsight(
-			@Required @MinSize(6) @MaxSize(140) String insightContent,
+			@Required @MinSize(6) @MaxSize(120) String insightContent,
 			@Required @InFuture Date endDate, @MaxSize(100) String tagLabelList,
 			@Required long categoryId, String lang) {
 		
