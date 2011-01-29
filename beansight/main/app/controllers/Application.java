@@ -155,11 +155,16 @@ public class Application extends Controller {
 		if(category != null) {
 			filter.categories.add(category);
 		}
-
-		if(lang == null) {
-			lang = new HashSet<String>();
-			lang.add("en");
-		}
+		
+		// TODO For now, add French and English. Later get from the user's spoken languages:
+		lang = new HashSet<String>();
+		lang.add("en");
+		lang.add("fr");
+		
+		//if(lang == null) {
+		//	lang = new HashSet<String>();
+		//	lang.add("en");
+		//}
 		
 		filter.languages = Language.toLanguageSet(lang);
 

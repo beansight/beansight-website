@@ -58,8 +58,8 @@
       *{
         <li><a href="#">Favorites</a></li>
        }* 
+       *{
         <li class="langme">
-        
         #{if clickableFr}<a href="@{Application.insights(category?.id, langsFr)}"#{/if}#{else}<span #{/else}
                class="languageFlag french #{if selectedFr}selected#{/if}" >french
         #{if clickableFr}</a>#{/if}#{else}</span>#{/else}
@@ -67,9 +67,9 @@
         #{if clickableEn}<a href="@{Application.insights(category?.id, langsEn)}"#{/if}#{else}<span #{/else}
                class="languageFlag english #{if selectedEn}selected#{/if}" >english
         #{if clickableEn}</a>#{/if}#{else}</span>#{/else}
-        
         <hr class="clear"/>
         </li>
+        }*
     </ul>
     
     <ul id="insightList">
