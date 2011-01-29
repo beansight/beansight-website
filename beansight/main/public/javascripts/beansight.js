@@ -290,9 +290,10 @@ $(document).ready(function() {
 			$.getJSON(leaveYourEmailAction(), $("#leaveYourEmailForm").serialize(), function(data) { 
 	        	$('#leaveYourEmailCallBackMsg').text(data.msg);
 	        	if (data.hasError == false) {
-	        		$('#leaveYourEmail').slideUp();
+	        		$('#leaveYourEmailForm').slideUp();
 	        	}
 	        });
+			$('#leaveYourEmailCallBackMsg').text(i18n.sendingEmail);
 		},
 		rules: {
 			email : "required email"

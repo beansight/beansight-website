@@ -12,8 +12,9 @@ var i18n = {
 		insightShared :				'Insight shared',
 		cannotFindUser :			'user cannot be found',
 		validateContactName :		'name is required',
-		validateContactEmail :		'no a valid email',
+		validateContactEmail :		'not a valid email',
 		validateContactsubject :	'subject is required',
 		validateContactMessage :	'message is required',
-		newCommentMinSize :			'your comment should be 5 characters at least'
+		newCommentMinSize :			'your comment should be 5 characters at least',
+		sendingEmail :				'sending...'
 }
