@@ -370,8 +370,11 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 .newinsight .item-select select{border:0 none;font-size:16px;color:#6e7677;width:100%;}
 .newinsight .item-textarea textarea{border:0 none;font-size:20px;color:#6e7677;width:100%;line-height:20px;height:100%;font-family:Arial, serif;}
 .newinsight .compteur-carac{clear:both;margin:0 0 0 72px;-moz-border-radius:5px;-webkit-border-radius:5px;border:solid #eeeeee 1px;width:200px;height:14px;background-color:#fff;overflow:hidden;float:left;}
+.newinsight .compteur-carac #progressbar{height:12px}
+/* TODO : use Jquery UI theme  
 .newinsight .compteur-carac .progressbar{text-align:right;width:80%;height:14px;background:url(/public/images/progressbar.png) no-repeat 0 0;}
 .newinsight .compteur-carac .progressbar p{text-align:right;color:#fff;font-weight:bold;font-size:11px;padding:1px 10px 0 0;}
+*/
 .newinsight .progressnb{float:left;color:#b8bbbc;font-size:11px;padding:1px 0 0 5px;}
 .newinsight .listtags{clear:both;margin:0px 0 0 72px;padding-top:5px;}
 .newinsight .listtags a{float:left;font-size:12px;display:block;margin:0 5px 0 0;color:#fff;-moz-border-radius:2px;-webkit-border-radius:2px;background:url(/public/images/icon-delete.png) no-repeat right center #bcbfc0;padding:5px 15px 5px 5px;}

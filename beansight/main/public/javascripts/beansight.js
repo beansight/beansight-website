@@ -406,7 +406,7 @@ $(document).ready(function() {
 			insightContent: {
 				required: true,
 				minlength: 5,
-				maxlength: 140
+				maxlength: 120
 			},
 			insightCreationLang: "required",
 			categoryId: "required"
