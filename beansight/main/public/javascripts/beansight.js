@@ -1,5 +1,5 @@
 // Size of an insight
-var MAX_CHARACTERS_INSIGHT = 100;
+var MAX_CHARACTERS_INSIGHT = 120;
 
 //////////////////////
 // Cufon Settings
@@ -406,7 +406,7 @@ $(document).ready(function() {
 			insightContent: {
 				required: true,
 				minlength: 5,
-				maxlength: 120
+				maxlength: MAX_CHARACTERS_INSIGHT
 			},
 			insightCreationLang: "required",
 			categoryId: "required"
