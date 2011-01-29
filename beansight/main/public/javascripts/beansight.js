@@ -130,6 +130,67 @@ function onAddCommentSuccess(content) {
 }
 
 //////////////////////
+// Create Insight
+//////////////////////
+    /* associate the click action to tags */
+    function clicktags(){
+        $(".listtags a").each(function(i){
+            $(this).click(function(e) {
+                $(this).remove();
+                registertags();
+                return false;
+            });
+        });
+    }
+    clicktags();
+
+	/* make sure the taginput in not a single comma, then clear it */
+    function validetag(){
+        if($('#taginput').val() != ',' && $('#taginput').val() != ';' && $('#taginput').val().replace(/( |,|;)/ig, '').length > 0 ) {
+            $('#newtag').attr('id', '');
+            $('#taginput').val('');
+        }
+    }
+
+	/* transform tags in a tag string to store in the tagresult */
+    function registertags(){
+        // reset the tagresult content.
+        var tagresult = $('#tagresult');
+        tagresult.val('');
+		// for each tag, add it to the value field.
+        $(".listtags a span").each(function(i){
+        	// if first do not add a comma
+            if(i > 0) {
+                tagresult.val( tagresult.val() + ', ');
+            }
+            tagresult.val( tagresult.val() + $(this).html() );
+        });
+    }
+
+	/* updates the newtag */
+	function updateTags() {
+		var taginput = $('#taginput');
+		// if taginput has a value
+		if( taginput.val() != '' ){
+			// if no new tag is currently constructing, create it
+		    if( ! $('#newtag').length ){
+		        $('<a href="#" id="newtag">'+$('#taginput').val().replace(/(;|,)/ig, '')+'</a>').appendTo(".listtags");
+		        clicktags();
+		    }
+		    // if a comma has been entered, then delete the newtag
+		    if(taginput.val().indexOf(',')!=-1 || taginput.val().indexOf(';')!=-1){ // if a comma is entered,
+		        validetag();
+        	}else{ // in any other case, update the newtag
+            	$('#newtag').html('<span>'+taginput.val().replace(/(;|,)/ig, '')+'</span>');
+        	}
+	        registertags();
+        } else {
+        	$('#newtag').remove();
+    	}
+	}
+
+
+//////////////////////
 // Settings
 //////////////////////
 
@@ -429,9 +490,10 @@ $(document).ready(function() {
 		return split( term ).pop();
 	}
 
+	// Tags
 	
 	// Autocomplete tags
-	$( "#tagLabelList" )
+	$( "#taginput" )
 	// don't navigate away from the field on tab when selecting an item
 	.bind( "keydown", function( event ) {
 		if ( event.keyCode === $.ui.keyCode.TAB &&
@@ -457,18 +519,22 @@ $(document).ready(function() {
 			}
 		},
 		select: function( event, ui ) {
-			var terms = split( this.value );
-			// remove the current input
-			terms.pop();
-			// add the selected item
-			terms.push( ui.item.value );
-			// add placeholder to get the comma-and-space at the end
-			terms.push( "" );
-			this.value = terms.join( ", " );
+			this.value = ui.item.value;
+			updateTags();
+	        validetag();
+	        registertags();
 			return false;
 		}
-
+	})
+	.keyup( function(event) { updateTags() })
+	.keypress(function(event) {     // if "Return" is pressed, validate the tag.
+	    if(event.keyCode=='13'){
+	        validetag();
+	        registertags();
+	        return false;
+	    }
 	});
+
 
     //////////////////////
     // Registration

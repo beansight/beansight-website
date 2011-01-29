@@ -47,75 +47,14 @@ $(document).ready(function() {
     });
 
 
-    //Création de compte formulaire
     //drapeau
     $('.item-radio label').click(function(e) {
         $('.item-radio label').removeClass('current');
         $(this).addClass('current');
     });
+    
     //select custom
     $(".item-select select").selectbox();
-    //tags
-    function clicktags(){
-        $(".listtags a").each(function(i){
-            $(this).click(function(e) {
-                $(this).remove();
-                registertags();
-                return false;
-            });
-        });
-    }
-    function validetag(){
-        if($('#taginput').attr('value')!=',' && $('#taginput').attr('value')!=';' && $('#taginput').attr('value').replace(/( |,|;)/ig, '').length>0){
-            $('#newtag').attr('id', '');
-            $('#taginput').attr('value', '');
-        }
-    }
-    function registertags(){
-        var compteur = 0;
-        $('#tagresult').attr('value', '');
-        $(".listtags a span").each(function(i){
-            if($(this).html().replace(/( |,|;)/ig, '').length>0 && $(this).html()!=';' && $(this).html()!=','){
-                if(compteur>0)
-                    $('#tagresult').attr('value', $('#tagresult').attr('value')+', ');
-                $('#tagresult').attr('value', $('#tagresult').attr('value')+$(this).html());;
-                compteur++;
-            }
-        });
-    }
-    if($('#taginput')){
-        clicktags();
-        registertags();
-        $('#taginput').keyup(function(event) {
-            if($('#newtag').length){
-                if($('#taginput').attr('value').indexOf(',')!=-1 || $('#taginput').attr('value').indexOf(';')!=-1){
-                    validetag();
-                    registertags();
-                }else if($('#taginput').attr('value')==''){
-                    $('#newtag').remove();
-                }else{
-                    $('#newtag').html('<span>'+$('#taginput').attr('value').replace(/(;|,)/ig, '')+'</span>');
-                }
-            }else if($('#taginput').attr('value')!=''){
-                $('<a href="#" id="newtag">'+$('#taginput').attr('value').replace(/(;|,)/ig, '')+'</a>').appendTo(".listtags");
-                clicktags();
-                //$('.listtags').add('a').attr('href', '').attr('id', 'newtag');
-            }
-        });
-        $('#taginput').keypress(function(event) {
-            if(event.keyCode=='13'){
-                validetag();
-                registertags();
-                return false;
-            }
-        });
-    }
-    
-
-    
-    //Fin de création de compte formulaire
-
-
 
 
     /* ENVOI DE MAIL */
