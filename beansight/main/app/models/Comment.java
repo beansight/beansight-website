@@ -8,6 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Index;
+
 import play.db.jpa.Model;
 
 @Entity
@@ -23,6 +25,7 @@ public class Comment extends Model {
 	public Insight insight;
 
 	/** the date this comment has been made */
+	@Index (name = "COMMENTS_CRDATE_IDX")
 	public Date creationDate;
 
 	public Comment(User user, Insight insight, String content) {

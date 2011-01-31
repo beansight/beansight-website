@@ -85,6 +85,7 @@ public class Insight extends Model {
 
 	/** Comments made to current insight */
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
+	@OrderBy("creationDate DESC")
 	public List<Comment> comments;
 
 	public boolean hidden;

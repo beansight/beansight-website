@@ -443,10 +443,22 @@ public class Application extends Controller {
 
 	public static void saveSettings(Long id, String userName, String realName,
 			String description, String uiLanguage, File originalImage) {
+		// check if it's a valid image
+		try {
+			if (ImageIO.read(originalImage) == null) {
+				flash.error(Messages.get("Error while reading image : is it a valid image ?")); // TODO: internationalize text
+				settings();
+			}
+		} catch (IOException e1) {
+			flash.error(Messages.get("Error while reading image : is it a valid image ?")); // TODO: internationalize text
+			settings();
+		}
+		
 		User user = CurrentUser.getCurrentUser();
 		// User should be the same as the one connected
 		if (user.id.equals(id) == false) {
 			forbidden("It seems you are trying to hack someone else settings");
+			settings();
 		}
 		// check if a new image has been uploaded
 		if (originalImage != null) {
@@ -455,6 +467,7 @@ public class Application extends Controller {
 				user.updateAvatar(originalImage, true);
 			} catch (FileNotFoundException e) {
 				flash.error(Messages.get("saveSettingImageNotFoundException"));
+				settings();
 			}
 		}
 
@@ -620,7 +633,12 @@ public class Application extends Controller {
 	 */
 	public static void invite(@Email @Required String email, String message) {
 		if (validation.hasErrors()) {
-			flash.error("Not a valid email");
+			flash.error(Messages.get("validation.email"));
+			renderText("false");
+		}
+		
+		if (User.findByEmail(email) != null) {
+			flash.error(Messages.get("invitation.user.already.registered"));
 			renderText("false");
 		}
 		
@@ -658,6 +676,12 @@ public class Application extends Controller {
 		}
 		
 		User currentUser = CurrentUser.getCurrentUser();
+		
+		// block send message to itself ... 
+		if (currentUser.id.equals(id)) {
+			renderText("false");
+		}
+		
 		User user = User.findById(id);
 		if(currentUser.sendMessage(user, content)) {
 			renderText("true");

@@ -223,6 +223,7 @@ emailinvitationmarketing=Beansight est une plateforme où vous pourrez partager 
 emailinvitationinvitor=%s a ajouté :
 emailinvitationbeta=Beansight est actuellement en bêta privée.
 clickheretoregistrationpage=Il vous faut suivre ce lien pour vous créer un compte.
+invitation.user.already.registered=L'utilisateur invité est déjà membre de Beansight
 
 # message
 emailmessagesubject=Beansight : Message de %s

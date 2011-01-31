@@ -219,6 +219,7 @@ emailinvitationmarketing=Beansight is a place to share predictions about the fut
 emailinvitationinvitor=%s is saying:
 emailinvitationbeta=Beansight is currently in closed beta.
 clickheretoregistrationpage=You have to follow this link to create your account.
+invitation.user.already.registered=User your are inviting is already a Beansight registred user
 
 # message
 emailmessagesubject=Beansight: Private message from %s

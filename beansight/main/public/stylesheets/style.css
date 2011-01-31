@@ -16,6 +16,8 @@ ol,ul{list-style:none;}
 hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 .nodisplay{display:none;}
 
+.ajaxloader{background:url(/public/images/ajax-loader.gif) no-repeat 0 0; width:16px;}
+
 /* HEADER */
 #header{background-color:#ededed;height:79px;border-bottom:solid #e4e4e4 1px;margin:0 0 31px 0;}
 #header .contentheader{width:960px;margin:0 auto;}
@@ -230,6 +232,7 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .myprofil .leftprofil .linksprofil .sendmail{background:url(/public/images/profil-sendmail.png) no-repeat 0 0;}
 #contentcenter .myprofil .leftprofil .linksprofil a:hover{background-position:left center;}
 #contentcenter .myprofil .leftprofil .linksprofil a.open, #contentcenter .myprofil .leftprofil .linksprofil a.active{background-position:left bottom;}
+#contentcenter .myprofil .leftprofil .linksprofil .voidSpace{height: 23px;}
 #contentcenter .myprofil .info-profil{float:left;width:240px;/*a changer quand il y aura les badges*/margin:0 0 0 20px;}
 #contentcenter .myprofil .info-profil h2{color:#7aa13d;font-size:16px;font-weight:bold;text-transform:none;float:left;width:auto;background:none transparent;padding:0;margin:0;border:0 none;}
 #contentcenter .myprofil .info-profil p{clear:both;width:240px;float:left;font-size:12px;color:#8b8f90;margin:12px 0 0 0;}
@@ -247,6 +250,8 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .myprofil .boxmail .item-submit button span.backbutton{background:url(/public/images/btn-vert1.png) no-repeat 0 0;width:10px;}
 #contentcenter .myprofil .boxmail .item-submit button span.txtbutton{height:28px;background:url(/public/images/btn-vert2.png) no-repeat right top;font-size:14px;color:#fff;text-transform:uppercase;padding:7px 12px 0 0;}
 #contentcenter .myprofil .boxmail .item-submit button:hover span{background-position:right bottom;}
+
+
 
 #contentcenter .mybadges{float:right;width:270px;}
 #contentcenter .mybadges h2{width:246px;margin:0;background-image:url(/public/images/icon-title2.png);}
@@ -464,6 +469,7 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #content .single .s-content .commentzone .newcomment .input-submit button span.backbutton{background:url(/public/images/btn-vert1.png) no-repeat 0 0;width:10px;}
 #content .single .s-content .commentzone .newcomment .input-submit button span.txtbutton{height:28px;background:url(/public/images/btn-vert2.png) no-repeat right top;font-size:14px;color:#fff;text-transform:uppercase;padding:7px 10px 0 0;}
 #content .single .s-content .commentzone .newcomment .input-submit button:hover span{background-position:right bottom;}
+
 
 #content .single .s-content .commentzone .list-comments{padding:5px 0;}
 #content .single .s-content .commentzone .list-comments .item-comment{height:auto;padding:10px 0 15px 0;border-top:solid #f7f7f7 1px;}

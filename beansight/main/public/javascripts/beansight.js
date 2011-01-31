@@ -125,6 +125,7 @@ function updateCharacterCount() {
 
 /** callback for comment addition */
 function onAddCommentSuccess(content) {
+	$(".ajaxloader").hide();
     $("#commentList").prepend( content );
     clearForm('#addCommentForm');
 }
@@ -593,6 +594,7 @@ $(document).ready(function() {
 	/** Submit action for add comment form */
 	$("#addCommentForm").validate({
 		submitHandler: function(form) {
+			$(".ajaxloader").show();
 	        $.ajax( {
 	            url: addCommentAction(),
 	            data: $("#addCommentForm").serialize(),

@@ -20,9 +20,14 @@
         </div>
         <div class="linksprofil">
             #{isConnected}
-            <a href="#" onClick="return toggleFollowingUser(${user.id});" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
+            	#{ifnot controllers.CurrentUser.getCurrentUser().id.equals(user.id)}
+		            <a href="#" onClick="return toggleFollowingUser(${user.id});" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
+		            <a href="#" class="sendmail" id="link-sendmail">Send a message</a>
+            	#{/ifnot}
+            	#{if controllers.CurrentUser.getCurrentUser().id.equals(user.id)}
+            		<div class="voidSpace"></div>
+            	#{/if}
             #{/isConnected}
-            <a href="#" class="sendmail" id="link-sendmail">Send a message</a>
         </div>
     </div>
     <div class="info-profil">
