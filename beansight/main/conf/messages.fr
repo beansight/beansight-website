@@ -67,10 +67,11 @@ shareonbeansight=Utilisateur Beansight
 
 
 #experts
-explore=Explorer les experts
+experts.explore=Explorer les experts
 expertstitle=Experts
 expertssearch=Rechercher parmi les experts
 expertssearchbutton=Rechercher
+experts.loadmore=plus d'experts
 
 #insights
 exploreinsights=Explorer les prédictions

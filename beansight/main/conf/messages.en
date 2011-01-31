@@ -66,10 +66,11 @@ sharethisinsight=Share
 shareonbeansight=Beansight user
 
 #experts
-explore=Explore experts
+experts.explore=Explore experts
 expertstitle=Experts
 expertssearch=Search experts
 expertssearchbutton=Search
+experts.loadmore=more experts
 
 #insights
 exploreinsights=Explore insights

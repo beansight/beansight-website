@@ -171,6 +171,13 @@ public class User extends Model {
 	public String toString() {
 		return userName;
 	}
+	
+	/**
+	 * Return the Best users (comparing their scores)
+	 */
+	public static List<User> findBest(int from, int number) {
+		return User.find("order by crdate DESC").from( from ).fetch( number );
+	}
 
 	public void setUiLanguage(Language language) {
 		if(language == null) {

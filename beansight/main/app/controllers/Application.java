@@ -217,8 +217,12 @@ public class Application extends Controller {
 	}
 
 	public static void experts() {
-		// TODO order by score
-		List<User> experts = User.find("order by crdate DESC").fetch( NUMBER_EXPERTS_EXPERTPAGE);
+		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
+		render(experts);
+	}
+
+	public static void moreExperts(int from) {
+		List<User> experts = User.findBest(from, NUMBER_EXPERTS_EXPERTPAGE );
 		render(experts);
 	}
 
