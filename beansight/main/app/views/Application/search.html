@@ -1,45 +1,60 @@
 #{extends 'content.html' /}
-#{set title:'Search' /}
+#{set 'title'}
+    &{'search.pagetitle'}
+#{/set}
 
-<div>
-    <ul class="filters">
-          <a href="@{Application.search(query, 0)}"         class="categoryFilter #{if category == null}selected#{/if}">All</a>
-       #{list items:controllers.Application.getCategories(), as:'cat'}
-          <a href="@{Application.search(query, 0, cat.id)}" class="categoryFilter #{if category?.id == cat.id}selected#{/if}">${cat.label}</a>
-       #{/list}
-    </ul>
+#{set contentCenterClass:'large' /}
 
-	<h2>Found ${count} insight${count.pluralize()} for "${query}" #{if category}in category ${category.label}#{/if}:</h2>
-    
-    <ul id="searchResults">
-        #{listInsights insights:insights /}
-    </ul>
-    
-    <div><span onClick="moreSearch()" id="moreResults" style="display:none;"><a href="" onClick="return false;">more</a></span></div>
-    
-    <script type="text/javascript">
-    // check if a "more" button soulg be displayed
-    if( $("#searchResults li").length >= ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
-            $("#moreResults").fadeIn(2000);
-       }
-    
-    var searchFrom = ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE};
+<h2>${count} &{'search.foundtitle.insight'}${count.pluralize()} &{'search.foundtitle.found'} &{'search.foundtitle.for'} "${query}" #{if category} &{'search.foundtitle.incategory'} ${category.label}#{/if}</h2>
 
-    /** get more search results */
-    function moreSearch() {
-        $.ajax( {
-            url: moreSearchAction({"query": "${query}", "from": searchFrom #{if category}, "cat": ${category.id}#{/if} }),
-            success: onMoreSearchSuccess
-        } );
-    }
-    
-    function onMoreSearchSuccess(content) {
-        $("#searchResults").append(content);
-        searchFrom += ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE};
-        // disable the "more button" if less results than the number to display
-        if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
-            $("#moreResults").fadeOut(1000);
-        }
-    }
-    </script>
+<div class="listinsights">   
+	<ul class="menulistinsights">
+	        <li class="selectme"><a href="#" id="select-tri">select a category</a> *{ TODO : pre select the current category }*
+		        <ul class="nojavascript" id="ulselect-tri">
+			  		<li><a href="@{Application.search(query, 0)}"         class="categoryFilter #{if category == null}selected#{/if}">All</a></li>
+		   			#{list items:controllers.Application.getCategories(), as:'cat'}
+			  		<li><a href="@{Application.search(query, 0, cat.id)}" class="categoryFilter #{if category?.id == cat.id}selected#{/if}">${cat.label}</a></li>
+		   			#{/list}
+	   			</ul>
+   			</li>
+	</ul>
+
+	<ul id="searchResults">
+	    #{listInsights insights:insights /}
+	</ul>
+
+	<div id="moreResults" *{style="display:none;"}* class="seeall">
+	    <p><a id="moreSearch" href="#">&{'search.moreresult'}</a></p>
+	</div>
 </div>
+
+
+<script type="text/javascript">
+// check if a "more" button soulg be displayed
+//if( $("#searchResults li").length >= ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
+//        $("#moreResults").fadeIn(2000);
+//   }
+
+var searchFrom = ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE};
+
+/** get more search results */
+$('#moreSearch').click( function() {
+    $.ajax( {
+        url: moreSearchAction(),
+        data: {"query": "${query}", "from": searchFrom #{if category}, "cat": ${category.id}#{/if} },
+        success: onMoreSearchSuccess
+    } );
+    return false;
+});
+
+function onMoreSearchSuccess(content) {
+    $("#searchResults").append(content);
+    searchFrom += ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE};
+    *{
+    // disable the "more button" if less results than the number to display
+    if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE} ) {
+        $("#moreResults").fadeOut(1000);
+    }
+    }*
+}
+</script>

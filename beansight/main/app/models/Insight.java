@@ -18,6 +18,7 @@ import models.Vote.Status;
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
 
+import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
@@ -249,12 +250,9 @@ public class Insight extends Model {
 	 * @param query : the search query
 	 * @param from : index of the first item to be returned
 	 * @param number : number of items to return
-	 * @param category : the category to restrict the search to (null
 	 * @return an object containing the result list and the total result
 	 */
 	public static InsightResult search(String query, int from, int number, Filter filter) {
-		// TODO : search in multiple categories ?
-		
 		Category cat = null;
 		if( ! filter.categories.isEmpty()) {
 			for(Category catego : filter.categories) {
@@ -263,11 +261,11 @@ public class Insight extends Model {
 		}
 		
 		// TODO Steren : this query string construction is temporary, we should better handle this
-		String fullQueryString = "(content:" + query + " OR tags:" + query
-				+ ") ";
+		String fullQueryString = "(content:" + query + " OR tags:" + query + ") ";
 		if (cat != null) {
-			fullQueryString += " AND category:" + cat.label;
+			fullQueryString += " AND category:" + cat.id;
 		}
+		Logger.info( "SEARCH:" + fullQueryString );
 
 		Query q = Search.search(fullQueryString, Insight.class);
 

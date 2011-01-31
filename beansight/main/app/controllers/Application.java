@@ -52,6 +52,7 @@ public class Application extends Controller {
 	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 8;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 10;
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 16;
+
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 12;
 	public static final int NUMBER_EXPERTS_SEARCHPAGE = 12;
 
@@ -559,7 +560,7 @@ public class Application extends Controller {
 
 	}
 
-	public static void search(String query, int offset, long cat) {
+	public static void search(String query, int from, long cat) {
 		if (query == null || query.isEmpty()) {
 			insights(0, null);
 		}
@@ -569,11 +570,11 @@ public class Application extends Controller {
 		if(category != null) {
 			filter.categories.add(category);
 		}
-		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, filter);
+		InsightResult result = Insight.search(query, from, NUMBER_INSIGHTS_SEARCHPAGE, filter);
 
 		renderArgs.put("count", result.count);
 		renderArgs.put("insights", result.results);
-		render(query, category, offset);
+		render(query, category, from);
 	}
 
 	/**
@@ -581,13 +582,13 @@ public class Application extends Controller {
 	 * 
 	 * @return: the HTML containing the lines to add to the search results
 	 */
-	public static void moreSearch(String query, int offset, long cat) {
+	public static void moreSearch(String query, int from, long cat) {
 		Category category = Category.findById(cat);
 		Filter filter = new Filter();
 		if(category != null) {
 			filter.categories.add(category);
 		}
-		InsightResult result = Insight.search(query, offset, NUMBER_INSIGHTS_SEARCHPAGE, filter);
+		InsightResult result = Insight.search(query, from, NUMBER_INSIGHTS_SEARCHPAGE, filter);
 
 		renderArgs.put("insights", result.results);
 		render("Application/moreInsights.html");

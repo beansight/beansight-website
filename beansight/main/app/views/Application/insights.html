@@ -17,7 +17,7 @@
         <li><a href="#">trending</a></li>
         <li><a href="#">incoming</a></li>
      }*
-        <li class="selectme"><a href="#" id="select-tri">select a category</a>
+        <li class="selectme"><a href="#" id="select-tri">select a category</a> *{ TODO : pre select the current category }*
             <ul class="nojavascript" id="ulselect-tri">
                 <li><a href="@{Application.insights(null, langs)}"     class="categoryFilter #{if category == null}selected#{/if}" >All</a></li>
                 #{list items:controllers.Application.getCategories(), as:'cat'}
@@ -47,7 +47,7 @@
 //if( $("#insightList li").length >= ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
 //        $("#moreResults").fadeIn(2000);
 //   }
-var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
+var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_SEARCHPAGE};
 
 /** get more insights */
 $('#moreInsights').click( function() {

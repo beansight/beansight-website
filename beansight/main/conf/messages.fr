@@ -26,6 +26,14 @@ inviteconfirm=Invitation envoyée
 browsecategory=Catégories
 trendinginsights=Prédictions montantes
 
+# search page
+search.pagetitle=Recherche
+search.moreresult=plus de résultats
+search.foundtitle.insight=prédiction
+search.foundtitle.found=trouvées
+search.foundtitle.for=pour
+search.foundtitle.incategory=dans la catégorie
+
 # searchinput.tag
 searchinput.searchthefuture=Explorez le futur
 searchinput.placeholder=Recherche

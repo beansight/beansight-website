@@ -26,6 +26,14 @@ inviteconfirm=Invitation sent
 browsecategory=Browse Category
 trendinginsights=Trending Insights
 
+# search page
+search.pagetitle=Search
+search.moreresult=more results
+search.foundtitle.insight=insight
+search.foundtitle.found=found 
+search.foundtitle.for=for
+search.foundtitle.incategory=in category
+
 # searchinput.tag
 searchinput.searchthefuture=Search the future
 searchinput.placeholder=Search
