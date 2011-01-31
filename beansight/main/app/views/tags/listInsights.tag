@@ -1,6 +1,5 @@
 #{list items:_insights, as:'insight' }
-    <li>
+    <li class="insightItem">
         #{insightLine insight:insight /}
     </li>
 #{/list}
-*{ TODO COLORZ : insight pairs et impairs }*

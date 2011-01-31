@@ -174,30 +174,30 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .listinsights ul.menulistinsights li.selectme ul li.last a span{border-bottom:0 none;}
 #contentcenter .listinsights .item-insight{clear:both;width:420px;padding:0 20px;background:url(/public/images/back-insight.png) repeat-y 0 0;}
 #contentcenter.large .listinsights .item-insight{width:690px;background-image:url(/public/images/back-insight-large.png);}
-#contentcenter .listinsights .item-insight .content-insight{background-color:#fff;border-bottom:solid #f3f3f3 1px;padding:13px 0 0 0;}
-#contentcenter .listinsights .item-insight.greyline .content-insight{background-color:#f7f7f7;}
-#contentcenter .listinsights .item-insight.firstline{background-image:url(/public/images/insight-firstline-white.png);}
-#contentcenter .listinsights .item-insight.greyline.firstline{background-image:url(/public/images/insight-firstline-grey.png);}
-#contentcenter .listinsights .item-insight.firstline .content-insight{padding-top:16px;background-color:transparent;}
-#contentcenter .listinsights .item-insight.firstline:hover{background-image:url(/public/images/insight-firstline-hover.png);}
-#contentcenter .listinsights .item-insight.firstline:hover .content-insight{background-color:transparent;}
-#contentcenter .listinsights .item-insight.last-insight .content-insight{border-bottom:solid #b3babb 1px;}
-#contentcenter .listinsights .item-insight .content-insight:hover{background-color:#ebebeb;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight{float:left;width:34px;margin:4px 0 11px 10px;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight p{display:block;width:34px;height:18px;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight a{display:block;width:20px;height:14px;padding:0 14px 0 0;color:#aaaeaf;font-size:12px;font-weight:bold;text-align:right;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-more{border-bottom:solid #bfbfbf 1px;margin:0 0 4px 0;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus.png) no-repeat right top;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins.png) no-repeat right top;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-less a:hover,
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-more a:hover,
-#contentcenter .listinsights .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a,
-#contentcenter .listinsights .insightContainer.voteAgree .item-insight .vote-insight .vote-more a
+#contentcenter .listinsights .insightItem .item-insight .content-insight{background-color:#fff;border-bottom:solid #f3f3f3 1px;padding:13px 0 0 0;}
+#contentcenter .listinsights .insightItem:nth-child(odd) .item-insight .content-insight{background-color:#f7f7f7;}
+#contentcenter .listinsights .insightItem .item-insight.firstline{background-image:url(/public/images/insight-firstline-white.png);}
+#contentcenter .listinsights .insightItem:nth-child(odd) .item-insight.firstline{background-image:url(/public/images/insight-firstline-grey.png);}
+#contentcenter .listinsights .insightItem .item-insight.firstline .content-insight{padding-top:16px;background-color:transparent;}
+#contentcenter .listinsights .insightItem .item-insight.firstline:hover{background-image:url(/public/images/insight-firstline-hover.png);}
+#contentcenter .listinsights .insightItem .item-insight.firstline:hover .content-insight{background-color:transparent;}
+#contentcenter .listinsights .insightItem .item-insight.last-insight .content-insight{border-bottom:solid #b3babb 1px;}
+#contentcenter .listinsights .insightItem .item-insight .content-insight:hover{background-color:#ebebeb;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight{float:left;width:34px;margin:4px 0 11px 10px;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight p{display:block;width:34px;height:18px;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight a{display:block;width:20px;height:14px;padding:0 14px 0 0;color:#aaaeaf;font-size:12px;font-weight:bold;text-align:right;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more{border-bottom:solid #bfbfbf 1px;margin:0 0 4px 0;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus.png) no-repeat right top;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins.png) no-repeat right top;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a:hover,
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a:hover,
+#contentcenter .listinsights .insightItem .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a,
+#contentcenter .listinsights .insightItem .insightContainer.voteAgree .item-insight .vote-insight .vote-more a
 {background-position:right bottom;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-less a:hover,
-#contentcenter .listinsights .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a{color:#a13d3d;}
-#contentcenter .listinsights .insightContainer .item-insight .vote-insight .vote-more a:hover,
-#contentcenter .listinsights .insightContainer.voteAgree .item-insight .vote-insight .vote-more a{color:#7aa13d;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a:hover,
+#contentcenter .listinsights .insightItem .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a{color:#a13d3d;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a:hover,
+#contentcenter .listinsights .insightItem .insightContainer.voteAgree .item-insight .vote-insight .vote-more a{color:#7aa13d;}
 /* liste experts */
 #contentcenter .listexperts .searchexp{display:block;-moz-border-radius:3px;-webkit-border-radius:3px;border-top:solid #b3b3b3 1px;background-color:#f6f6f6;width:209px;height:19px;padding:2px 3px 0px 8px;}
 #contentcenter .listexperts .txtinput{font-size:12px;color:#aaaeaf;display:block;background-color:#f6f6f6;width:180px;float:left;margin:0 9px 0 0;border:0 none;}
