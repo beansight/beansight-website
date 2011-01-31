@@ -26,6 +26,7 @@ import play.modules.search.Field;
 import play.modules.search.Indexed;
 import play.modules.search.Query;
 import play.modules.search.Search;
+import play.templates.JavaExtensions;
 
 
 @Indexed
@@ -127,7 +128,7 @@ public class Insight extends Model {
 	 *            : the category of the insight
 	 */
 	public Insight(User creator, String content, Date endDate, Category category, Language lang) {
-		this.uniqueId = generateUniqueId(); 
+		this.uniqueId = JavaExtensions.slugify(content);
 		this.creator = creator;
 		this.creationDate = new Date();
 		this.endDate = endDate;
@@ -142,11 +143,6 @@ public class Insight extends Model {
 		this.validationScore = 0.5;
 		this.occurenceScore = 0.5;
 		this.hidden = false;
-	}
-
-	
-	public static String generateUniqueId() {
-		return RandomStringUtils.randomAlphanumeric(10);
 	}
 	
 	/**

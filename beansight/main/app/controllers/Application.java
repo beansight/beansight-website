@@ -61,7 +61,7 @@ public class Application extends Controller {
 	public static final double INSIGHT_VALIDATED_TRUE_MINVAL = 0.7;
 	public static final double INSIGHT_VALIDATED_FALSE_MAXVAL = 0.3;
 	
-    @Before(unless={"welcome", "leaveYourEmail"})
+    @Before(unless={"welcome", "leaveYourEmail", "applicationPath"})
     /**
      * Make sure the language is the one the user has chosen.
      */
@@ -72,8 +72,8 @@ public class Application extends Controller {
         } 
     }
 
-    // TODO Play 1.1 : use "only" to only call this function on website pages (or move not-pages actions to another controller).
-    @Before(unless={"welcome", "leaveYourEmail"})
+    // TODO : add all the ajax method here so that we don't load  data not useful during ajax call
+    @Before(unless={"welcome", "leaveYourEmail", "applicationPath"})
     /**
      * If the user is connected, load the needed info into the menu
      */
@@ -90,13 +90,13 @@ public class Application extends Controller {
         }    	
     }
     
-    @Before(unless={"welcome", "leaveYourEmail"})
+    @Before(unless={"welcome", "leaveYourEmail", "applicationPath"})
     static void checkAuthentication() {
     	if(!Security.isConnected()) {
     		welcome();
     	}    
     }
-
+    
     public static void welcome() {
     	if(!Security.isConnected()) {
     		render();
@@ -225,7 +225,7 @@ public class Application extends Controller {
 	 * create an insight for the current user
 	 * 
 	 * @param insightContent
-	 *            : the content of this insight (min 6, max 140 characters)
+	 *            : the content of this insight (min 6, max 120 characters)
 	 * @param endDate
 	 *            : the end date chosen by the user
 	 * @param tagLabelList
@@ -363,6 +363,12 @@ public class Application extends Controller {
 	 */
 	public static void toggleFollowingUser(Long userId) {
 		User currentUser = CurrentUser.getCurrentUser();
+		// user can't follow itself
+		if (userId.equals(currentUser.id)) {
+			renderArgs.put("follow", false);
+			render("Application/followUser.json", userId);
+		} 
+		
 		User user = User.findById(userId);
 		if (currentUser.isFollowingUser(user) == true) {
 			currentUser.stopFollowingThisUser(user);
@@ -461,37 +467,59 @@ public class Application extends Controller {
 		User user = CurrentUser.getCurrentUser();
 		render(user);
 	}
-
+	
 	/**
-	 * Render the user avatar
+	 * Render the small avatar
 	 * 
 	 * @param userId
 	 */
-	public static void showAvatar(Long userId, String size) {
-		User user = User.findById(userId);
+	public static void showAvatarSmall(String userName) {
+		User user = User.findByUserName(userName);
+		notFoundIfNull(user);
+		
 		if (user != null) {
-			if (size.equalsIgnoreCase("small")) {
-				if (user.avatarSmall.exists()) {
-					renderBinary(user.avatarSmall.get());
-				} else {
-					renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-small.jpg"));
-				}
-			} else if (size.equalsIgnoreCase("medium")) {
-				if (user.avatarMedium.exists()) {
-					renderBinary(user.avatarMedium.get());
-				} else {
-					renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-medium.jpg"));
-				}
-			} else if (size.equalsIgnoreCase("large")) {
-				if (user.avatarLarge.exists()) {
-					renderBinary(user.avatarLarge.get());
-				} else {
-					renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-large.jpg"));
-				}
+			if (user.avatarSmall.exists()) {
+				renderBinary(user.avatarSmall.get());
+			} else {
+				renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-small.jpg"));
 			}
 		}
+	}
+	
+	/**
+	 * Render the medium avatar
+	 * 
+	 * @param userId
+	 */
+	public static void showAvatarMedium(String userName) {
+		User user = User.findByUserName(userName);
+		notFoundIfNull(user);
 		
-		notFound();
+		if (user != null) {
+			if (user.avatarMedium.exists()) {
+				renderBinary(user.avatarMedium.get());
+			} else {
+				renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-medium.jpg"));
+			}
+		}
+	}
+	
+	/**
+	 * Render the large avatar
+	 * 
+	 * @param userId
+	 */
+	public static void showAvatarLarge(String userName) {
+		User user = User.findByUserName(userName);
+		notFoundIfNull(user);
+		
+		if (user != null) {
+			if (user.avatarLarge.exists()) {
+				renderBinary(user.avatarLarge.get());
+			} else {
+				renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-large.jpg"));
+			}
+		}
 	}
 
 	/**
@@ -607,11 +635,19 @@ public class Application extends Controller {
 	}
 
 	/**
+	 * @return the play id
+	 */
+	public static void applicationPath() {
+		renderText(System.getProperty("application.path"));
+	}
+	
+	
+	/**
 	 * AJAX Send a message to a given user
 	 * @param id : id of the user to send the invite
 	 * @param content : message to send
 	 */
-	public static void sendMessage(@Required long id, @Required String content) {
+	public static void sendMessage(@Required Long id, @Required String content) {
 		if (validation.hasErrors()) {
 			renderText("false");
 		}

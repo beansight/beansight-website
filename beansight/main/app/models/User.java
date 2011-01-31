@@ -304,18 +304,8 @@ public class User extends Model {
 		Language language = Language.findByLabelOrCreate(lang);
 
 		Insight i = new Insight(this, insightContent, endDate, category, language);
-		try {
-			i.save();
-		} catch(Throwable t) {
-			Logger.error("Error when saving insight. The handler supposes that it's the uniqueId being not unique, so trying again", t.getMessage());
-			// TODO ? how to be sure that the exception was thrown because of the random uniqueId not being ... unique
-			i.uniqueId = Insight.generateUniqueId();
-			try {
-				i.save();
-			} catch (Throwable e) {
-				Logger.fatal("Cannot save Insight : ", e);
-			}
-		}
+		i.save();
+
 		i.addTags(tagLabelList, this);
 
 		this.createdInsights.add(i);
