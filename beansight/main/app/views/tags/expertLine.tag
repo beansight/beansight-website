@@ -17,7 +17,6 @@
         </div>
     </div>
 	
-	<!-- TODO COLORZ -->
-	<!-- enlever la class borderme pour le dernier -->
+	*{ TODO COLORZ : utiliser CSS nth-child pour que le dernier n'ait pas de bordure (à la base le dernie n'avait pas de classe borderme}*
     <hr class="clear"/>
 #{/userContainer}
