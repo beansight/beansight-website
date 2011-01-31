@@ -7,37 +7,8 @@
 
 #{set contentCenterClass:'large' /}
 
-%{
-    // What URL should the language button go to ?
-    // Should they be selected ?
-    // Should they be clickable ? (if only one language is selected, this language button shouldn't be clickable)
-
-    langsEn = new ArrayList<String>(langs);
-    boolean selectedEn = false;
-    boolean clickableEn = true;
-    
-    langsFr = new ArrayList<String>(langs);
-    selectedFr = false;
-    clickableFr = true;
-    
-    if( langsEn.contains("en") ) {
-        langsEn.remove("en");
-        selectedEn = true;
-        if(langs.size() < 2) { clickableEn = false; }
-    } else {
-       langsEn.add("en");
-    }
-    
-    if( langsFr.contains("fr") ) {
-        langsFr.remove("fr");
-        selectedFr = true;
-        if(langs.size() < 2) { clickableFr = false; }
-    } else {
-       langsFr.add("fr");
-    }
-}%
-
 <h2 class="cuf-grb">&{'insightstitle'} #{if category} &{'incategory'} ${category}#{/if}</h2>
+
 <div class="listinsights">
     <ul class="menulistinsights">
         <li class="sortby">Sort by</li>
@@ -58,18 +29,6 @@
       *{
         <li><a href="#">Favorites</a></li>
        }* 
-       *{
-        <li class="langme">
-        #{if clickableFr}<a href="@{Application.insights(category?.id, langsFr)}"#{/if}#{else}<span #{/else}
-               class="languageFlag french #{if selectedFr}selected#{/if}" >french
-        #{if clickableFr}</a>#{/if}#{else}</span>#{/else}
-        
-        #{if clickableEn}<a href="@{Application.insights(category?.id, langsEn)}"#{/if}#{else}<span #{/else}
-               class="languageFlag english #{if selectedEn}selected#{/if}" >english
-        #{if clickableEn}</a>#{/if}#{else}</span>#{/else}
-        <hr class="clear"/>
-        </li>
-        }*
     </ul>
     
     <ul id="insightList">
