@@ -195,6 +195,12 @@ function onAddCommentSuccess(content) {
 // Settings
 //////////////////////
 
+	$("#userSettingsForm").validate({
+		rules: {
+			userName: "username"
+		}
+	});
+	
 var imgAreaSelect;
 function onOpenModalCrop(event, ui) {
     imgAreaSelect = $('#uploadedImage').imgAreaSelect({ 
@@ -259,7 +265,19 @@ $("#error").ajaxError(function(event, request, settings){
 // Execute scripts after the document creation
 $(document).ready(function() {
 	
-	/** Current user reset his activity feed*/
+    //////////////////////
+    // Validator methods
+    //////////////////////
+	$.validator.addMethod("username",
+			function(value,element) {
+				return this.optional(element) || /^[a-zA-Z0-9_]{3,16}$/.test(value);
+			},
+			"Username are 3-16 characters and no space"
+		);
+	
+    //////////////////////
+    // Current user reset his activity feed
+    //////////////////////	
 	$("#resetActivity").click( function() {
 		$.get(resetInsightActivityAction(), onResetInsightActivitySuccess);
 		return false;
@@ -546,10 +564,7 @@ $(document).ready(function() {
 				required: true,
 				email: true
 			},
-			username: {
-				required: true,
-				minlength: 3
-			},
+			username: "username",
 			password: {
 				required: true,
 				minlength: 5
@@ -634,4 +649,5 @@ $(document).ready(function() {
 	    	   $("#facebookFans").html(data.likes);
 	       }
 	   });
+	
 });

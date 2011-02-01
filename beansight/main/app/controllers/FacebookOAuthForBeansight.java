@@ -41,7 +41,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         if (facebookUser == null) {
         	// if the username is already in use on beansight we add @facebook to the initial userName
 			if (!User.isUsernameAvailable(facebookScreenName)) {
-				facebookScreenName = facebookScreenName + "@facebook";
+				facebookScreenName = facebookScreenName + "_facebook";
 			}
             facebookUser = new User(facebookModelObject.getEmail(), facebookScreenName, "");
             facebookUser.facebookUserId = facebookUserId;

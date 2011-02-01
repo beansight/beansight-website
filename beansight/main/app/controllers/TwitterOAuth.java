@@ -73,7 +73,7 @@ public class TwitterOAuth extends Controller {
 		// then create a beansight account linked to his twitter account
 		if (null == twitterUser) {
 			if (!User.isUsernameAvailable(twitterScreenName)) {
-				twitterScreenName = twitterScreenName + "@twitter";
+				twitterScreenName = twitterScreenName + "_twitter";
 			}
 			twitterUser = new User("", twitterScreenName, "");
 			twitterUser.twitterScreenName = twitterScreenName;

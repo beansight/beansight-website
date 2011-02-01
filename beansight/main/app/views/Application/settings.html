@@ -17,11 +17,11 @@ function refreshAvatarImage() {
 
 <div class="userDetail">
 
-    #{form @Application.saveSettings(), enctype:'multipart/form-data'}
+    #{form @Application.saveSettings(), enctype:'multipart/form-data', id:'userSettingsForm', name:'userSettingsForm'}
     	<p>
     		<label for="userName">&{'userName'}</label>
-        	<input type="text" name="userName" value="${user.userName}"/>
-        	#{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
+        	<input type="text" name="userName" id="userName" value="${user.userName}"/>
+        	#{if errors.forKey('userName')}<span class="error">#{error 'userName' /}</span>#{/if}
         </p>
         <p>
             <label for="userName">&{'realName'}</label>

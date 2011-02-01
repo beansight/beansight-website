@@ -30,6 +30,7 @@ import play.Logger;
 import play.Play;
 import play.data.validation.Email;
 import play.data.validation.InFuture;
+import play.data.validation.Match;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
@@ -441,23 +442,31 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
-	public static void saveSettings(Long id, String userName, String realName,
+	public static void saveSettings(Long id, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String userName, String realName,
 			String description, String uiLanguage, File originalImage) {
+		if (validation.hasErrors()) {
+			params.flash();
+	        validation.keep();
+	        settings();
+	    }
+		
 		// check if it's a valid image
-		try {
-			if (ImageIO.read(originalImage) == null) {
+		if (originalImage != null) {
+			try {
+				if (ImageIO.read(originalImage) == null) {
+					flash.error(Messages.get("Error while reading image : is it a valid image ?")); // TODO: internationalize text
+					settings();
+				}
+			} catch (IOException e1) {
 				flash.error(Messages.get("Error while reading image : is it a valid image ?")); // TODO: internationalize text
 				settings();
 			}
-		} catch (IOException e1) {
-			flash.error(Messages.get("Error while reading image : is it a valid image ?")); // TODO: internationalize text
-			settings();
 		}
 		
 		User user = CurrentUser.getCurrentUser();
 		// User should be the same as the one connected
 		if (user.id.equals(id) == false) {
-			forbidden("It seems you are trying to hack someone else settings");
+			forbidden("It seems you are trying to hack someone else settings"); // TODO: internationalize text
 			settings();
 		}
 		// check if a new image has been uploaded
@@ -489,7 +498,7 @@ public class Application extends Controller {
 	/**
 	 * Render the small avatar
 	 * 
-	 * @param userId
+	 * @param userName
 	 */
 	public static void showAvatarSmall(String userName) {
 		User user = User.findByUserName(userName);
@@ -507,7 +516,7 @@ public class Application extends Controller {
 	/**
 	 * Render the medium avatar
 	 * 
-	 * @param userId
+	 * @param userName
 	 */
 	public static void showAvatarMedium(String userName) {
 		User user = User.findByUserName(userName);
@@ -525,7 +534,7 @@ public class Application extends Controller {
 	/**
 	 * Render the large avatar
 	 * 
-	 * @param userId
+	 * @param userName
 	 */
 	public static void showAvatarLarge(String userName) {
 		User user = User.findByUserName(userName);
