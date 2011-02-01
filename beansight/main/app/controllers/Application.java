@@ -382,7 +382,7 @@ public class Application extends Controller {
 		} else {
 			currentUser.startFollowingThisUser(user);
 			
-			FollowNotificationTask mail = new FollowNotificationTask(user.email, currentUser, user);
+			FollowNotificationTask mail = new FollowNotificationTask(currentUser, user);
 			mail.save();
 			
 			renderArgs.put("follow", true);

@@ -13,8 +13,8 @@ public class InvitationMailTask extends MailTask {
 	@OneToOne
 	public Invitation invitation;
 	
-	public InvitationMailTask(Invitation invitation) {
-		super(invitation.invitedEmail);
+	public InvitationMailTask(Invitation invitation, String lang) {
+		super(invitation.invitedEmail, lang);
 		this.invitation = invitation;
 	}
 }

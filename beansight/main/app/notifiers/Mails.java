@@ -3,6 +3,7 @@ package notifiers;
 import play.*;
 import play.mvc.*;
 import play.i18n.*;
+import play.Logger;
 
 import java.util.*;
 
@@ -49,6 +50,8 @@ public class Mails extends Mailer {
 		setSubject(subject);
 		addRecipient(task.sendTo);
 		setFrom("notification@beansight.com");
+		
+		Lang.set(task.language);	
 
 		send(templateName, task);
 	}

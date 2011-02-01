@@ -24,8 +24,21 @@ public class MailTask extends Model {
 	/** email address this mail should be sent to */
 	public String sendTo;
 	
+	/** language in which teh mail should be sent */
+	public String language;
+	
+	
 	public MailTask(String to) {
 		this.sendTo = to;
+		this.language = "";
+		this.attempt = 0;
+		this.sent = false;
+		this.created = new Date();
+	}
+	
+	public MailTask(String to, String lang) {
+		this.sendTo = to;
+		this.language = lang;
 		this.attempt = 0;
 		this.sent = false;
 		this.created = new Date();

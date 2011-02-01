@@ -292,6 +292,7 @@ public class User extends Model {
         return find("facebookUserId = ?", facebookUserId).first();
     }
     
+
 	/**
 	 * Call this method to create a new insight that will be automatically owned
 	 * by the current user.
@@ -604,7 +605,7 @@ public class User extends Model {
 			invitation.save();
 
 			// create the task for mail sending
-			InvitationMailTask task = new InvitationMailTask(invitation);
+			InvitationMailTask task = new InvitationMailTask(invitation, this.uiLanguage.label);
 			task.save();
 			
 			invitationsLeft--;

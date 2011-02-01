@@ -15,8 +15,8 @@ public class FollowNotificationTask extends MailTask {
 	@ManyToOne
 	public User followed;
 	
-	public FollowNotificationTask(String to, User follower, User followed) {
-		super(to);
+	public FollowNotificationTask(User follower, User followed) {
+		super(followed.email, followed.uiLanguage.label );
 		this.follower = follower;
 		this.followed = followed;
 	}

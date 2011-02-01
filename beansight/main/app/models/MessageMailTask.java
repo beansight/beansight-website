@@ -14,7 +14,7 @@ public class MessageMailTask extends MailTask {
 	public Message message;
 	
 	public MessageMailTask(Message message) {
-		super(message.toUser.email);
+		super(message.toUser.email, message.toUser.uiLanguage.label);
 		this.message = message;
 	}
 }
