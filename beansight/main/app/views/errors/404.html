@@ -1,14 +1,16 @@
+#{if play.mode.name() == 'DEV'}
+	#{404 result /}
+#{/if}
+#{else}
+
 #{extends 'main.html' /}
 #{set 'title'}
     &{'errornotfound'}
 #{/set}
 
-#{if play.mode.name() == 'DEV'}
-	#{404 result /}
-#{/if}
-#{else}
 <h1>&{'errornotfound'}</h1>
 <p>
 	${result.message}
 </p>
+
 #{/else}
