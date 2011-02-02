@@ -194,12 +194,6 @@ function onAddCommentSuccess(content) {
 //////////////////////
 // Settings
 //////////////////////
-
-	$("#userSettingsForm").validate({
-		rules: {
-			userName: "username"
-		}
-	});
 	
 var imgAreaSelect;
 function onOpenModalCrop(event, ui) {
@@ -244,7 +238,6 @@ function preview(img, selection) {
      $('#imageW').val(300);
      $('#imageH').val($("#uploadedImage").height());
 }
-
 
 
 // Tools
@@ -338,6 +331,32 @@ $(document).ready(function() {
 		return false;
 	});
     
+	$("#userSettingsForm").validate({
+		rules: {
+			userName: "username"
+		}
+	});
+
+	//////////////////////
+	//Change Password
+	//////////////////////	
+	$("#changePasswordForm").validate({
+		rules: {
+			oldPassword: {
+				required: true,
+			},
+			newPassword: {
+				required: true,
+				minlength: 5
+			},
+			newPasswordConfirm: {
+				required: true,
+				minlength: 5,
+				equalTo: "#newPassword"
+			}
+		}
+	});
+	
 	//////////////////////
 	// Invitation System
 	//////////////////////

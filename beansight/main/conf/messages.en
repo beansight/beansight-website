@@ -117,6 +117,14 @@ selectionPreview=Selection Preview
 settingsSubmit=Save
 imageCropSubmit=Save
 saveSettingImageNotFoundException=We are sorry an unexcepted error prevents us to save you avatar image
+settings.changePassword=Change password
+
+# change password
+changePassword.oldPassword=Current password
+changePassword.newPassword=New password
+changePassword.newPasswordConfirm=Confirm new password
+changePassword.cancel=Cancel
+changePassword.submit=Submit
 
 # menu
 menutitle=Menu

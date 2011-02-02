@@ -9,6 +9,7 @@ import play.Logger;
 import play.data.validation.Email;
 import play.data.validation.Equals;
 import play.data.validation.Match;
+import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.i18n.Messages;
 import play.libs.Crypto;
@@ -20,7 +21,7 @@ public class Register extends Controller {
 		render(email, username, promocode);
 	}
 	
-	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String username, @Required String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
+	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
 		// See if promocode is ok:
 		Promocode code = Promocode.find("byCode", promocode).first();
 		if(code != null && code.nbUsageLeft > 0 && code.endDate.after(new Date())) {

@@ -685,6 +685,12 @@ public class User extends Model {
 		return true;
 	}
 	
+	/** change this user's password */
+	public void changePassword(String newPassword) {
+		this.password = Crypto.passwordHash(newPassword);
+		this.save();
+	}
+	
 	public static UserResult search(String userNameQuery, int from, int pageSize) {
 		Query q = Search.search("userName:" + userNameQuery + "*" , User.class);
 		q.page(from, pageSize);
@@ -706,4 +712,5 @@ public class User extends Model {
 			this.count = count;
 		}
 	}
+
 }

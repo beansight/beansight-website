@@ -118,7 +118,14 @@ selectionPreview=Previsualisation du résultat
 settingsSubmit=Valider
 imageCropSubmit=Valider
 saveSettingImageNotFoundException=Oups un problème nous empêche de sauver l'image de votre avatar
+settings.changePassword=Changer de mot de passe
 
+# change password
+changePassword.oldPassword=Mot de passe actuel
+changePassword.newPassword=Nouveau mot de passe
+changePassword.newPasswordConfirm=Confirmez le nouveau mot de passe
+changePassword.cancel=Annuler
+changePassword.submit=Envoyer
 # menu
 menutitle=Menu
 menuprofile=Profil

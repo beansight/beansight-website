@@ -30,6 +30,7 @@ import models.WaitingEmail;
 import play.Logger;
 import play.Play;
 import play.data.validation.Email;
+import play.data.validation.Equals;
 import play.data.validation.InFuture;
 import play.data.validation.Match;
 import play.data.validation.MaxSize;
@@ -38,6 +39,7 @@ import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.i18n.Lang;
 import play.i18n.Messages;
+import play.libs.Crypto;
 import play.libs.Images;
 import play.modules.search.Query;
 import play.modules.search.Search;
@@ -449,6 +451,12 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
+	
+	public static void settings() {
+		User user = CurrentUser.getCurrentUser();
+		render(user);
+	}
+	
 	public static void saveSettings(Long id, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String userName, String realName,
 			String description, String uiLanguage, File originalImage) {
 		if (validation.hasErrors()) {
@@ -496,12 +504,31 @@ public class Application extends Controller {
 
 		settings();
 	}
-
-	public static void settings() {
+	
+	public static void changePassword() {
 		User user = CurrentUser.getCurrentUser();
 		render(user);
 	}
-	
+
+	public static void saveNewPassword(@Required String oldPassword, @Required @MinSize(5) String newPassword, @Required @MinSize(5) @Equals("newPassword") String newPasswordConfirm) {
+		User user = CurrentUser.getCurrentUser();
+		if( !user.password.equals( Crypto.passwordHash(oldPassword) )) {
+			validation.addError("oldPassword", "Old password not valid");
+		}
+
+		if (validation.hasErrors()) {
+			params.flash();
+	        validation.keep();
+	        changePassword();
+	    }
+		
+		user.changePassword(newPassword);
+		
+		settings();
+		
+	}
+
+
 	/**
 	 * Render the small avatar
 	 * 
