@@ -22,6 +22,7 @@ import models.Insight.InsightResult;
 import models.Vote.State;
 import models.Vote.Status;
 
+import org.apache.commons.lang.text.StrSubstitutor;
 import org.hibernate.annotations.Index;
 
 import play.Logger;
@@ -34,6 +35,10 @@ import play.libs.Codec;
 import play.libs.Crypto;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
+import play.modules.search.Query;
+import play.modules.search.Search;
+import play.mvc.Scope.Params;
+import play.utils.Utils.Maps;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
 import exceptions.NotFollowingUserException;
@@ -680,4 +685,25 @@ public class User extends Model {
 		return true;
 	}
 	
+	public static UserResult search(String userNameQuery, int from, int pageSize) {
+		Query q = Search.search("userName:" + userNameQuery + "*" , User.class);
+		q.page(from, pageSize);
+		List<User> usersResult = q.fetch();
+		UserResult userResult = new UserResult(usersResult, usersResult.size());
+		
+		return userResult;
+	}
+	
+	public static class UserResult {
+		/** users search's results */
+		public List<User> results;
+		/** the total number of results */
+		public long count;
+		
+		public UserResult(List<User> results, long count) {
+			super();
+			this.results = results;
+			this.count = count;
+		}
+	}
 }

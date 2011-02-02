@@ -23,6 +23,7 @@ import models.Insight.InsightResult;
 import models.Language;
 import models.Tag;
 import models.User;
+import models.User.UserResult;
 import models.Vote;
 import models.Vote.State;
 import models.WaitingEmail;
@@ -52,10 +53,10 @@ public class Application extends Controller {
 	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 12;
 	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 8;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 10;
-	public static final int NUMBER_EXPERTS_EXPERTPAGE = 16;
+	public static final int NUMBER_EXPERTS_EXPERTPAGE = 2;
 
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 12;
-	public static final int NUMBER_EXPERTS_SEARCHPAGE = 12;
+	public static final int NUMBER_EXPERTS_SEARCHPAGE = 2;
 
 	public static final int NUMBER_SUGGESTED_USERS = 10;
 	public static final int NUMBER_SUGGESTED_TAGS = 10;
@@ -222,9 +223,15 @@ public class Application extends Controller {
 		render(experts);
 	}
 
-	public static void moreExperts(int from) {
-		List<User> experts = User.findBest(from, NUMBER_EXPERTS_EXPERTPAGE );
-		render(experts);
+	public static void searchExperts(String query, int from) {
+		if (query == null || query.isEmpty()) {
+			experts();
+		}
+		
+		UserResult userSearchResult = User.search(query, from, NUMBER_EXPERTS_SEARCHPAGE);
+		List<User> experts = userSearchResult.results;
+		renderArgs.put("query", query);
+		renderTemplate("Application/expertsSerachResult.html", experts);
 	}
 
 	/**
@@ -544,7 +551,7 @@ public class Application extends Controller {
 			if (user.avatarLarge.exists()) {
 				renderBinary(user.avatarLarge.get());
 			} else {
-				renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-large.jpg"));
+				renderBinary(new File(Play.getFile("public/images/avatar").getPath() + "/unknown-large.jpg"));
 			}
 		}
 	}
@@ -618,12 +625,6 @@ public class Application extends Controller {
 
 		renderArgs.put("insights", result.results);
 		render("Application/moreInsights.html");
-	}
-
-	public static void userSearch(String query) {
-		Query q = Search.search(query, User.class);
-		List<User> users = q.fetch();
-		render(users);
 	}
 	
 	/**
@@ -760,4 +761,19 @@ public class Application extends Controller {
 	public static void termsOfUse() {
 		renderTemplate("Legal/termsOfUse.html");
 	}
+	
+	public static void rebuildAllIndexes() {
+		if (CurrentUser.isAdmin() == true) {
+			try {
+				Search.rebuildAllIndexes();
+			} catch (Exception e) {
+				renderText(e.getMessage());
+			}
+			renderText("rebuilt all indexes : ok");
+		} else {
+			renderText("you cannot do that");
+		}
+		
+	}
+
 }

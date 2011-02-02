@@ -25,18 +25,18 @@
         }*
     </ul>
     
-    *{
     <!-- expert search -->
     <div class="item-expert">
         <div class="content-expert">
-            <form action="#" method="post" class="searchexp">
-                <label for="searchexp" class="nodisplay">&{'expertssearch'}</label>
-                <input type="text" value="" name="" id="searchexp" class="txtinput"  placeholder="&{'expertssearch'}"/>
+        	#{form @Application.searchExperts(), class:"searchexp"}
+            *{<form action="#" method="post" class="searchexp">}*
+                <label for="query" class="nodisplay">&{'expertssearch'}</label>
+                <input type="text" value="${query}" name="query" id="query" class="txtinput"  placeholder="&{'expertssearch'}"/>
                 <input type="submit" name="sub-expert" value="&{expertssearchbutton}" class="subinput"/>
-            </form>
+            *{</form>}*
+            #{/form}
         </div>
     </div>
-    }*
     
 	<ul id="expertsList">
 	    #{listExperts experts:experts /}
@@ -53,8 +53,8 @@ var expertsFrom = ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE};
 /** get more insights */
 $('#moreExperts').click( function() {
     $.ajax( {
-        url: moreExpertsAction(),
-        data: {"from":expertsFrom },
+        url: searchExpertsAction(),
+        data: {"from":expertsFrom, "query":$("#query").value() },
         success: onMoreExpertsSuccess
     } );
     return false;

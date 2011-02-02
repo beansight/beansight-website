@@ -14,6 +14,9 @@ GET     /experts                                Application.experts
 GET     /search                                 Application.search
 GET     /profile		            			Application.profile
 GET     /settings                               Application.settings
+GET     /profile/{userName}/large               Application.showAvatarLarge
+GET     /profile/{userName}/medium              Application.showAvatarMedium
+GET     /profile/{userName}/small               Application.showAvatarSmall
 
 GET     /contact                                Contact.contact
 GET		/legal/privacy-policy					Legal.privacyPolicy

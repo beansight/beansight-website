@@ -10,7 +10,6 @@
 
 <script language="Javascript">
 function refreshAvatarImage() {
-    var timestamp = new Date().getTime();
     $("#userAvatarImage").attr('src', '@{Application.showAvatarMedium(user.userName)}');
 }
 </script>
