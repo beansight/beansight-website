@@ -7,4 +7,7 @@
     #{if _lastUserVote != null}
     <p>#{if _lastUserVote.state.equals(models.Vote.State.AGREE)} &{'youagree'} #{/if} #{else} &{'youdisagree'} #{/else} <span class="timevote">${_lastUserVote.creationDate.format("dd MMMM yyyy")}</span></p>
     #{/if}
+    #{else}
+    <p>&{'agree-disagree.youhavenotvotedyet'}</p>
+    #{/else}
 </div>

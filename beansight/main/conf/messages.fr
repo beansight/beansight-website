@@ -64,7 +64,8 @@ youagree=Vous êtes d'accord depuis le
 youdisagree=Vous n'êtes pas d'accord depuis le
 sharethisinsight=Share
 shareonbeansight=Utilisateur Beansight
-
+# agree-disagree widget
+agree-disagree.youhavenotvotedyet=Vous n'avez pas encore voté.
 
 #experts
 experts.explore=Explorer les experts
