@@ -55,7 +55,7 @@
     <a href="@{Secure.logout()}" class="cuf-grb">&{'logoutlink'}</a>
 </div>
 <div class="welcome">
-    <p>&{'welcomeusername'} <a href="@{Application.settings()}" class="pseudo-link">${controllers.CurrentUser.getCurrentUserName()}</a></p>
+    <p>&{'welcomeusername'} <a href="@{Application.profile()}" class="pseudo-link">${controllers.CurrentUser.getCurrentUserName()}</a></p>
     <p><a href="@{Application.settings()}" class="setting-link">&{'settingslink'}</a></p>
 </div>
 #{/isConnected}
