@@ -30,7 +30,7 @@ public class Security extends Secure.Security {
     /**
      * Just render the page to edit user email used to connect to Beansight
      */
-    public static void forgotPasswordAskEMail() {
+    public static void forgotPasswordAskEmail() {
     	render();
     }
     
