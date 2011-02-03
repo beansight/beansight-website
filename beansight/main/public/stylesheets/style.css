@@ -155,9 +155,6 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .listinsights ul.menulistinsights li.sortby{padding:5px 10px 0 10px;background:none;margin:5px 0 5px 0;}
 #contentcenter.large .listinsights ul.menulistinsights li.sortby{padding-left:20px;}
 #contentcenter .listinsights ul.menulistinsights li.first{background:none;padding:0;}
-#contentcenter .listinsights ul.menulistinsights li.selectme{}
-#contentcenter .listinsights ul.menulistinsights li.selectme a{border:solid #ededed 1px;padding-right:15px;width:110px;background:url(/public/images/puce-flech-bas.png) no-repeat 120px 10px;}
-#contentcenter .listinsights ul.menulistinsights li.selectme a:hover{background:transparent url(/public/images/puce-flech-bas.png) no-repeat 120px 10px;color:#228392;}
 #contentcenter .listinsights ul.menulistinsights li.langme{height:23px;}
 #contentcenter .listinsights ul.menulistinsights li.langme .languageFlag{display:block;width:16px;height:11px;float:left;text-indent:-9999px;margin:5px 8px 0 0;}
 #contentcenter .listinsights ul.menulistinsights li.langme .languageFlag.french{background:url(/public/images/flag-fr.png) no-repeat 0 0;}
@@ -169,11 +166,25 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .listinsights ul.menulistinsights li ul{overflow:hidden;position:absolute;width:132px;background-color:#fff;border-bottom:solid #ededed 1px;-webkit-border-bottom-left-radius:3px;-moz-border-radius-bottomleft:3px;-webkit-border-bottom-right-radius:3px;-moz-border-radius-bottomright:3px;}
 #contentcenter .listinsights ul.menulistinsights li ul.nojavascript{display:none;}
 #contentcenter .listinsights ul.menulistinsights li ul.open{border:0 none;}
+
+#contentcenter .listinsights ul.menulistinsights li.selectme{}
+#contentcenter .listinsights ul.menulistinsights li.selectme a{border:solid #ededed 1px;padding-right:15px;width:110px;background:url(/public/images/puce-flech-bas.png) no-repeat 120px 10px;}
+#contentcenter .listinsights ul.menulistinsights li.selectme a:hover{background:transparent url(/public/images/puce-flech-bas.png) no-repeat 120px 10px;color:#228392;}
 #contentcenter .listinsights ul.menulistinsights li.selectme ul li{width:130px;margin:0;padding:0;height:28px;border:0 none;border-left:solid #ededed 1px;border-right:solid #ededed 1px;}
 #contentcenter .listinsights ul.menulistinsights li.selectme ul li a{width:130px;background:none transparent;color:#a1a5a6;height:28px;padding:0;border:0 none;-moz-border-radius:0px;-webkit-border-radius:0px;}
 #contentcenter .listinsights ul.menulistinsights li.selectme ul li a:hover{background:#eeeeee;color:#696f70;}
 #contentcenter .listinsights ul.menulistinsights li.selectme ul li a span{display:block;margin:0 auto;width:121px;height:20px;padding:8px 0 0 0;border:0 none;border-bottom:solid #e5e5e5 1px;}
 #contentcenter .listinsights ul.menulistinsights li.selectme ul li.last a span{border-bottom:0 none;}
+
+.filterDropDown{color:#228392; float:left;border:solid #ededed 1px;width:110px;background:url(/public/images/puce-flech-bas.png) no-repeat 120px 10px; padding:5px;}
+.filterDropDown select{border:0 none;width:100%;}
+.filterDropDown .jquery-selectbox{position:relative;}
+.filterDropDown .jquery-selectbox .jquery-selectbox-moreButton{background: url(/public/images/selectmore.png) no-repeat 0 0;cursor: pointer;float:right;height: 15px;width: 15px; padding-right:5px;}
+.filterDropDown .jquery-selectbox .jquery-selectbox-list{display:none;position:absolute;top:21px;left:-6px;background-color:#fff;}
+.filterDropDown .jquery-selectbox .jquery-selectbox-list span{background-color:#fff;display:block;border:1px solid #EEEEEE;padding:5px 10px;border-top:0;cursor:pointer; }
+.filterDropDown .jquery-selectbox .jquery-selectbox-list span:hover{background:#eeeeee;}
+.filterDropDown .jquery-selectbox .jquery-selectbox-currentItem{display:block;float:left;}
+
 #contentcenter .listinsights .item-insight{clear:both;width:420px;padding:0 20px;background:url(/public/images/back-insight.png) repeat-y 0 0;}
 #contentcenter.large .listinsights .item-insight{width:690px;background-image:url(/public/images/back-insight-large.png);}
 #contentcenter .listinsights .insightItem .item-insight .content-insight{background-color:#fff;border-bottom:solid #f3f3f3 1px;padding:13px 0 0 0;}
@@ -370,9 +381,6 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 .insightCreationPicker a.ui-datepicker-prev{text-indent:-9999px;display:block;float:left;width:15px;;height:15px;background:url(/public/images/selectmoreleft.png) no-repeat 0 0;}
 .insightCreationPicker a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;height:15px;background:url(/public/images/selectmoreright.png) no-repeat 0 0;}
 
-
-.newinsight .item-select{width:268px;height:19px;float:left;padding:10px 6px 6px 6px;-moz-border-radius:6px;-webkit-border-radius:6px;background-color:#fff;border:solid #eeeeee 3px;}
-.newinsight .item-select select{border:0 none;font-size:16px;color:#6e7677;width:100%;}
 .newinsight .item-textarea textarea{border:0 none;font-size:20px;color:#6e7677;width:100%;line-height:20px;height:100%;font-family:Arial, serif;}
 .newinsight .compteur-carac{clear:both;margin:0 0 0 72px;-moz-border-radius:5px;-webkit-border-radius:5px;border:solid #eeeeee 1px;width:200px;height:14px;background-color:#fff;overflow:hidden;float:left;}
 .newinsight .compteur-carac #progressbar{height:12px}
@@ -401,12 +409,14 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 .newinsight .item-submit button span.txtbutton{height:28px;background:url(/public/images/btn-bleu2.png) no-repeat right top;font-size:14px;color:#fff;text-transform:uppercase;padding:7px 10px 0 0;}
 .newinsight .item-submit button:hover span{background-position:right bottom;}
 
-.jquery-selectbox{width:273px !important;position:relative;}
-.jquery-selectbox .jquery-selectbox-moreButton{margin:0 10px 0 0;background: url(/public/images/selectmore.png) no-repeat 0 0;cursor: pointer;float:right;height: 15px;width: 15px;}
-.jquery-selectbox .jquery-selectbox-list{border-top:3px solid #EEEEEE;border-bottom:2px solid #EEEEEE;display:none;position:absolute;width:286px !important;top:24px;left:-9px;background-color:#fff;-webkit-border-bottom-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-border-bottom-right-radius:5px;-moz-border-radius-bottomright:5px;}
-.jquery-selectbox .jquery-selectbox-list span{background-color:#fff;color:#a1a5a6;display:block;border-bottom:1px solid #EEEEEE;padding:5px 10px;border-right:3px solid #EEEEEE;border-left:3px solid #EEEEEE;cursor:pointer; }
-.jquery-selectbox .jquery-selectbox-list span:hover{background:#eeeeee;color:#696f70;}
-.jquery-selectbox .jquery-selectbox-currentItem{display:block;width:245px;float:left;}
+.newinsight .item-select{width:268px;height:19px;float:left;padding:10px 6px 6px 6px;-moz-border-radius:6px;-webkit-border-radius:6px;background-color:#fff;border:solid #eeeeee 3px;}
+.newinsight .item-select select{border:0 none;font-size:16px;color:#6e7677;width:100%;}
+.newinsight .jquery-selectbox{width:273px !important;position:relative;}
+.newinsight .jquery-selectbox .jquery-selectbox-moreButton{margin:0 10px 0 0;background: url(/public/images/selectmore.png) no-repeat 0 0;cursor: pointer;float:right;height: 15px;width: 15px;}
+.newinsight .jquery-selectbox .jquery-selectbox-list{border-top:3px solid #EEEEEE;border-bottom:2px solid #EEEEEE;display:none;position:absolute;width:286px !important;top:24px;left:-9px;background-color:#fff;-webkit-border-bottom-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-border-bottom-right-radius:5px;-moz-border-radius-bottomright:5px;}
+.newinsight .jquery-selectbox .jquery-selectbox-list span{background-color:#fff;color:#a1a5a6;display:block;border-bottom:1px solid #EEEEEE;padding:5px 10px;border-right:3px solid #EEEEEE;border-left:3px solid #EEEEEE;cursor:pointer; }
+.newinsight .jquery-selectbox .jquery-selectbox-list span:hover{background:#eeeeee;color:#696f70;}
+.newinsight .jquery-selectbox .jquery-selectbox-currentItem{display:block;width:245px;float:left;}
 
 /* single insight */
 #content .single{margin:0 0 0 27px;width:696px;}

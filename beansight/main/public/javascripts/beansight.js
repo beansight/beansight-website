@@ -258,6 +258,12 @@ $("#error").ajaxError(function(event, request, settings){
 // Execute scripts after the document creation
 $(document).ready(function() {
 	
+    // delete nojavascript class for those who have javascript
+    $('.nojavascript').removeClass('nojavascript');
+	
+    //select custom
+    $(".item-select select").selectbox();
+	
     //////////////////////
     // Validator methods
     //////////////////////
@@ -678,7 +684,6 @@ $(document).ready(function() {
 	    	   $("#facebookFans").html(data.likes);
 	       }
 	   });
-	
 	
     //////////////////////
     // User Page
