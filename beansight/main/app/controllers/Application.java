@@ -689,21 +689,6 @@ public class Application extends Controller {
 	}
 
 	/**
-	 * @return the play id
-	 */
-	public static void playId() {
-		renderText(Play.id);
-	}
-
-	/**
-	 * @return the play id
-	 */
-	public static void applicationPath() {
-		renderText(System.getProperty("application.path"));
-	}
-	
-	
-	/**
 	 * AJAX Send a message to a given user
 	 * @param id : id of the user to send the invite
 	 * @param content : message to send
@@ -788,20 +773,6 @@ public class Application extends Controller {
 	
 	public static void termsOfUse() {
 		renderTemplate("Legal/termsOfUse.html");
-	}
-	
-	public static void rebuildAllIndexes() {
-		if (CurrentUser.isAdmin() == true) {
-			try {
-				Search.rebuildAllIndexes();
-			} catch (Exception e) {
-				renderText(e.getMessage());
-			}
-			renderText("rebuilt all indexes : ok");
-		} else {
-			renderText("you cannot do that");
-		}
-		
 	}
 
 }

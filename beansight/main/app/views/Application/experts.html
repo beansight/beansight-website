@@ -48,12 +48,14 @@
 
 <script type="text/javascript">
 var expertsFrom = ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE}; 
+var searchQuery = '';
 
 $('#searchExpForm').submit( function() {
 	expertsFrom = 0; 
+	searchQuery = $('#query').val();
     $.ajax( {
         url: searchExpertsAction(),
-        data: {"from":expertsFrom, "query":$('#query').val() },
+        data: {"from":expertsFrom, "query":searchQuery },
         success: onSearchExpertsSuccess
     } );
     return false;
@@ -77,7 +79,7 @@ function onSearchExpertsSuccess(content) {
 $('#moreExperts').click( function() {
     $.ajax( {
         url: searchExpertsAction(),
-        data: {"from":expertsFrom, "query":$("#query").val() },
+        data: {"from":expertsFrom, "query":searchQuery },
         success: onMoreExpertsSuccess
     } );
     return false;
