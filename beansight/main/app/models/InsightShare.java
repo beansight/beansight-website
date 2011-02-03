@@ -38,4 +38,12 @@ public class InsightShare extends Model {
 		this.fromUser = fromUser;
 		this.hasBeenRead = false;
 	}
+
+	public static InsightShare findByUserAndInsight(User user, Insight insight) {
+		return InsightShare.find("toUser = ? and insight = ? and hasBeenRead is false", user, insight).first();
+	}
+
+	public static List<InsightShare> findSharedToUser(User user, int number) {
+		return InsightShare.find("toUser = ? and hasBeenRead is false order by created DESC", user).fetch(number);
+	}
 }

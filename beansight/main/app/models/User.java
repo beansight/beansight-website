@@ -389,12 +389,8 @@ public class User extends Model {
 			activity.save();
 		}
 		
-		// remove this insight from shared insights
-		List<InsightShare> shares = InsightShare.find("insight = ? and toUser = ?", insight, this).fetch();
-		for( InsightShare share : shares ) {
-			share.hasBeenRead = true;
-			share.save();
-		}
+		// the user has seen this insight (remove it from shared ones)
+		this.readInsight(insight);
 		
 		// update the activities around this insight
 		List<InsightActivity> activities = InsightActivity.find("insight = ? and user != ?", insight, this).fetch();
@@ -592,6 +588,17 @@ public class User extends Model {
 			activity.save();
 		}
 	}
+	
+	/**
+	 * the user reads this insight (if it has been shared, remove it from shared insights)
+	 */
+	public void readInsight(Insight insight) {
+		InsightShare insightShare = InsightShare.findByUserAndInsight(this, insight);
+		if(insightShare != null) {
+			insightShare.hasBeenRead = true;
+			insightShare.save();
+		}
+	}
 
 	public boolean invite(String email, String message) {
 		if(invitationsLeft != 0) {
@@ -656,7 +663,7 @@ public class User extends Model {
 	 * @param number : maximum number to return
 	 */
 	public List<Insight> getSharedInsights(int number) {
-		List<InsightShare> shares = InsightShare.find("toUser = ? and hasBeenRead is false order by created DESC", this).fetch(number);
+		List<InsightShare> shares = InsightShare.findSharedToUser(this, number);
 		List<Insight> sharedInsights = new ArrayList<Insight>();
 		for(InsightShare share : shares) {
 			sharedInsights.add(share.insight);

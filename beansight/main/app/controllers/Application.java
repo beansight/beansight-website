@@ -314,8 +314,10 @@ public class Application extends Controller {
 		
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(
-					currentUser.id, insight.uniqueId);
+			Vote lastUserVote = Vote.findLastVoteByUserAndInsight( currentUser.id, insight.uniqueId );
+			
+			// the user has read this insight (if it has been shared, removed from shared insights
+			currentUser.readInsight(insight);
 			
 			renderArgs.put("currentUser", currentUser);
 			renderArgs.put("lastUserVote", lastUserVote);
