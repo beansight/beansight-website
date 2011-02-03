@@ -372,15 +372,6 @@ $(document).ready(function() {
         return false;
     });
     
-    $('#sendMessageForm').submit(function() {
-        $.getJSON(sendMessageAction(), $(this).serialize(), function() { 
-        	$('#messageUserContent').val('');
-        	$('#messagesentconfirm').show();
-            }
-        );
-        return false;
-    });
-    
 	//////////////////////
 	// Leave your email
 	//////////////////////
@@ -668,5 +659,30 @@ $(document).ready(function() {
 	    	   $("#facebookFans").html(data.likes);
 	       }
 	   });
+	
+	
+    //////////////////////
+    // User Page
+    //////////////////////
+    $('#link-sendmail').click(function() {
+    	toggleSendMessage()
+        return false;
+    });
+    
+    $('#sendMessageForm').submit(function() {
+    	toggleSendMessage()
+        $.getJSON(sendMessageAction(), $(this).serialize(), function() { 
+        	$('#messageUserContent').val('');
+        	// TODO use a generic confirmation method
+        	$('#messagesentconfirm').show();
+            }
+        );
+        return false;
+    });
+    
+    function toggleSendMessage() {
+    	$('#link-sendmail').toggleClass('open');
+        $('#boxlink-sendmail').slideToggle(500);
+    }
 	
 });

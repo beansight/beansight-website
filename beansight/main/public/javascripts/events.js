@@ -55,38 +55,6 @@ $(document).ready(function() {
     
     //select custom
     $(".item-select select").selectbox();
-
-
-    /* ENVOI DE MAIL */
-    if($('#link-sendmail')){
-        var heightmailbox = $('#boxlink-sendmail').height();
-        $('#boxlink-sendmail').animate({
-            height: '0'
-            }, 10
-        );
-        $('#link-sendmail').removeClass('open');
-        $('#link-sendmail').click(function(e) {
-            if(!$('#link-sendmail').hasClass('open')){
-                $('#link-sendmail').addClass('open');
-                $('#boxlink-sendmail').animate({
-                    height: heightmailbox
-                }, 500
-                );
-            }else{
-                $('#link-sendmail').removeClass('open');
-                $('#boxlink-sendmail').animate({
-                    height: '0'
-                    }, 500
-                );
-            }
-            return false;
-        });
-    }
-
-
-
-
-
 });
 
 
