@@ -55,10 +55,10 @@ public class Application extends Controller {
 	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 12;
 	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 8;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 10;
-	public static final int NUMBER_EXPERTS_EXPERTPAGE = 2;
+	public static final int NUMBER_EXPERTS_EXPERTPAGE = 5;
 
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 12;
-	public static final int NUMBER_EXPERTS_SEARCHPAGE = 2;
+	public static final int NUMBER_EXPERTS_SEARCHPAGE = 5;
 
 	public static final int NUMBER_SUGGESTED_USERS = 10;
 	public static final int NUMBER_SUGGESTED_TAGS = 10;
@@ -227,13 +227,14 @@ public class Application extends Controller {
 
 	public static void searchExperts(String query, int from) {
 		if (query == null || query.isEmpty()) {
-			experts();
+			List<User> experts = User.findBest(from, NUMBER_EXPERTS_EXPERTPAGE );
+			renderTemplate("Application/expertsSearchResult.html", experts);
 		}
 		
 		UserResult userSearchResult = User.search(query, from, NUMBER_EXPERTS_SEARCHPAGE);
 		List<User> experts = userSearchResult.results;
 		renderArgs.put("query", query);
-		renderTemplate("Application/expertsSerachResult.html", experts);
+		renderTemplate("Application/expertsSearchResult.html", experts);
 	}
 
 	/**

@@ -28,40 +28,72 @@
     <!-- expert search -->
     <div class="item-expert">
         <div class="content-expert">
-        	#{form @Application.searchExperts(), class:"searchexp"}
-            *{<form action="#" method="post" class="searchexp">}*
+            <form action="#" class="searchexp" id="searchExpForm">
                 <label for="query" class="nodisplay">&{'expertssearch'}</label>
                 <input type="text" value="${query}" name="query" id="query" class="txtinput"  placeholder="&{'expertssearch'}"/>
                 <input type="submit" name="sub-expert" value="&{expertssearchbutton}" class="subinput"/>
-            *{</form>}*
-            #{/form}
+            </form>
         </div>
     </div>
     
-	<ul id="expertsList">
-	    #{listExperts experts:experts /}
-	</ul>
-
+	<div id="expertSearchResult">
+		<ul id="expertsList">
+	    	#{listExperts experts:experts /}
+		</ul>
+	</div>
     <div class="seeall">
         <p><a id="moreExperts" href="#">&{'experts.loadmore'}</a></p>
     </div>
 </div>
 
 <script type="text/javascript">
-var expertsFrom = ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE};
+var expertsFrom = ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE}; 
+
+$('#searchExpForm').submit( function() {
+	expertsFrom = 0; 
+    $.ajax( {
+        url: searchExpertsAction(),
+        data: {"from":expertsFrom, "query":$('#query').val() },
+        success: onSearchExpertsSuccess
+    } );
+    return false;
+});
+
+function onSearchExpertsSuccess(content) {
+	//$("#expertSearchResult").hide('slide', {direction: 'left'}, 500);
+	/*
+	$("#expertSearchResult").hide('slide', {direction: 'left'}, 500);
+	$("#expertSearchResult").empty();
+	$("#expertSearchResult").append(content);
+	$("#expertSearchResult").show('slide', {direction: 'right'}, 500);
+	*/
+	$("#expertSearchResult").empty();
+	$("#expertSearchResult").append(content);
+	
+	expertsFrom += ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE};
+}
 
 /** get more insights */
 $('#moreExperts').click( function() {
     $.ajax( {
         url: searchExpertsAction(),
-        data: {"from":expertsFrom, "query":$("#query").value() },
+        data: {"from":expertsFrom, "query":$("#query").val() },
         success: onMoreExpertsSuccess
     } );
     return false;
 });
 
 function onMoreExpertsSuccess(content) {
-    $("#expertsList").append(content);
+	/*
+	$("#expertSearchResult").hide('slide', {direction: 'left'}, 500);
+	$("#expertSearchResult").empty();
+	$("#expertSearchResult").append(content);
+	$("#expertSearchResult").show('slide', {direction: 'right'}, 500);
+	*/
+	//$("#expertSearchResult").empty();
+	$("#expertSearchResult").append(content);
+	
+    //$("#expertsList").append(content);
     expertsFrom += ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE};
 }
 </script>
