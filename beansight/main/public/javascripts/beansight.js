@@ -358,6 +358,24 @@ $(document).ready(function() {
 	});
 	
 	//////////////////////
+	//Change Forgot Password
+	//////////////////////	
+	$("#changeForgotPasswordForm").validate({
+		rules: {
+			password: {
+				required: true,
+				minlength: 5
+			},
+			passwordConfirm: {
+				required: true,
+				minlength: 5,
+				equalTo: "#password"
+			}
+		}
+	});
+	
+	
+	//////////////////////
 	// Invitation System
 	//////////////////////
     $('#emailInvite').focus(function() { $('#inviteMessage').slideDown('normal');});
@@ -587,6 +605,7 @@ $(document).ready(function() {
 		}
 	});
 
+	
     //////////////////////
     // Insight Page
     //////////////////////

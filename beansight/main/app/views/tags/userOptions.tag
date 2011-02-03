@@ -33,7 +33,6 @@
                     <div class="inputsubmit">
                         <button><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'loginbutton'}</span></button>
                     </div>
-
                 #{/form}
             </div>
 *{

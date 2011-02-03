@@ -719,5 +719,5 @@ public class User extends Model {
 			this.count = count;
 		}
 	}
-
+	
 }

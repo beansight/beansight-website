@@ -56,4 +56,14 @@ public class Mails extends Mailer {
 		send(templateName, task);
 	}
 	
+	
+	public static void forgotPassword(String forgotPasswordId, String email, String subject, String templateName, String language) {
+		setSubject(subject);
+		addRecipient(email);
+		setFrom("notification@beansight.com");
+		
+		Lang.set(language);	
+
+		send(templateName, forgotPasswordId);
+	}
 }
