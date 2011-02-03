@@ -26,7 +26,7 @@ GET     /welcome                                Application.welcome
 GET     /confirm/{hash}                         Register.confirm
 
 # Insight page
-GET     /insight/{insightUniqueId}             Application.showInsight                   
+GET     /prediction/{insightUniqueId}           Application.showInsight                   
 
 # Expert page
 GET     /expert/{<[A-Za-z0-9]+>userName}        Application.showUser

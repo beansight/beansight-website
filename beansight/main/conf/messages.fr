@@ -76,7 +76,7 @@ experts.loadmore=plus d'experts
 
 #insights
 exploreinsights=Explorer les prédictions
-insightstitle=Prévisions
+insightstitle=Prédictions
 incategory=dans
 
 #showUser
@@ -131,7 +131,7 @@ changePassword.submit=Envoyer
 menutitle=Menu
 menuprofile=Profil
 menucreate=Créer
-menuinsights=Prévisions
+menuinsights=Prédictions
 menuexperts=Experts
 
 # userOptions

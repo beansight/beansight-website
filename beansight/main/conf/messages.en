@@ -7,12 +7,12 @@ vvalidation.required = %s is required
 
 # indexNotConnected
 home=Home
-trendinginsights=Trending insights:
+trendinginsights=Trending predictions:
 
 # indexConnected
 newandtrending=New and trending
 needemailconfirm=You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.
-activityaroundme=Activity on my insights
+activityaroundme=Activity
 favorites=Favorites
 exploremore=Explore more...
 activityreset=Clear activity feed.
@@ -24,12 +24,12 @@ addmessage=Add a message
 invitesubmit=Send
 inviteconfirm=Invitation sent
 browsecategory=Browse Category
-trendinginsights=Trending Insights
+trendinginsights=Trending Predictions
 
 # search page
 search.pagetitle=Search
 search.moreresult=more results
-search.foundtitle.insight=insight
+search.foundtitle.insight=prediction
 search.foundtitle.found=found 
 search.foundtitle.for=for
 search.foundtitle.incategory=in category
@@ -45,7 +45,7 @@ createInsightDate=When?
 createInsightTags=Tags
 createInsightCategory=Category
 createInsightSubmit=Create
-createinsight=Create insight
+createinsight=Create prediction
 createInsightLang=Language
 
 #showInsight
@@ -75,13 +75,13 @@ expertssearchbutton=Search
 experts.loadmore=more experts
 
 #insights
-exploreinsights=Explore insights
-insightstitle=Insights
+exploreinsights=Explore predictions
+insightstitle=Predictions
 incategory=in
 
 #showUser
-userinsights=User insights
-myinsights=My insights
+userinsights=User predictions
+myinsights=My predictions
 userratings=Expertise
 
 #Contact
@@ -132,7 +132,7 @@ changePassword.submit=Submit
 menutitle=Menu
 menuprofile=Profile
 menucreate=Create
-menuinsights=Insights
+menuinsights=Predictions
 menuexperts=Experts
 
 # userOptions
