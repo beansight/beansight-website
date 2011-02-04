@@ -127,6 +127,28 @@ changePassword.newPassword=Nouveau mot de passe
 changePassword.newPasswordConfirm=Confirmez le nouveau mot de passe
 changePassword.cancel=Annuler
 changePassword.submit=Envoyer
+
+# forgot password
+# Security/changePassword.html :
+password.forgot.set.new.password.title=Changer votre mot de passe
+# Security/changePasswordCodeError.html :
+password.forgot.code.error.title=Mot de passe oublié
+password.forgot.code.error.h2=Oops
+password.forgot.code.error.msg=Nous sommes désolé mais ce lien pour changer votre mot de passe n'est plus actif
+# Security/forgotPasswordAskEmail.html
+password.forgot.ask.email.title=Mot de passe oublié
+password.forgot.ask.email.h2=Mot de passe oublié
+password.forgot.ask.email.msg=Pour vous permettre de créer un nouveau mot de passe, saisissez l'email utilisé pour vous enregistrer sur Beansight afin de vérifier votre identité : 
+password.forgot.ask.email.submit=Mot de passe oublié
+# Security/provideEmailToChangePassword.html
+password.forgot.email.sent.title=Mot de passe oublié
+password.forgot.email.sent.h2=Mot de passe oublié
+password.forgot.email.sent.msg=Un email vous a été envoyé sur votre messagerie (%s), cliquer sur le lien quelle contient pour créer un nouveau mot de passe.
+# Security/saveChangedPassword.html
+password.forgot.new.pwd.saved.title=Nouveau mot de passe sauvegardé
+password.forgot.new.pwd.saved.h2=Nouveau mot de passe sauvegardé
+password.forgot.new.pwd.saved.msg=Votre nouveau mot de passe est sauvegardé
+
 # menu
 menutitle=Menu
 menuprofile=Profil

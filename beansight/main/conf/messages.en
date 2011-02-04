@@ -128,6 +128,27 @@ changePassword.newPasswordConfirm=Confirm new password
 changePassword.cancel=Cancel
 changePassword.submit=Submit
 
+# forgot password
+# Security/changePassword.html :
+password.forgot.set.new.password.title=Change your password
+# Security/changePasswordCodeError.html :
+password.forgot.code.error.title=Forgot password
+password.forgot.code.error.h2=Oops
+password.forgot.code.error.msg=We are sorry but this link to change your password doesn't exists anymore
+# Security/forgotPasswordAskEmail.html
+password.forgot.ask.email.title=Forgot password
+password.forgot.ask.email.h2=Forgot password
+password.forgot.ask.email.msg=Please give us the email used to connect on Beansight and we'll send you an email allowing you to create a new password
+password.forgot.ask.email.submit=Forgot password
+# Security/provideEmailToChangePassword.html
+password.forgot.email.sent.title=Forgot password
+password.forgot.email.sent.h2=Forgot password
+password.forgot.email.sent.msg=Please check your mailbox, we have sent you an email to %s containing a link to allow you to create a new password on Beansight.
+# Security/saveChangedPassword.html
+password.forgot.new.pwd.saved.title=New password saved
+password.forgot.new.pwd.saved.h2=New password saved
+password.forgot.new.pwd.saved.msg=Your new password is set you can now login.
+
 # menu
 menutitle=Menu
 menuprofile=Profile
