@@ -112,7 +112,7 @@ userName=Alias
 realName=Prénom Nom
 description=Description
 uiLanguage=Langue de l'interface
-avatar=Avatar
+avatar=Avatar (taille < 512 ko)
 cropAvatarImage=Ajuster l'image de l'avatar
 selectArea=Cliquer et déplacer en maintenant appuyer le curseur pour sélectionner une zone
 selectionPreview=Previsualisation du résultat
@@ -120,6 +120,8 @@ settingsSubmit=Valider
 imageCropSubmit=Valider
 saveSettingImageNotFoundException=Oups un problème nous empêche de sauver l'image de votre avatar
 settings.changePassword=Changer de mot de passe
+settings.image.invalid.format=Format d'image incorrect
+settings.image.size.too.big=L'image doit faire moins de 512 ko
 
 # change password
 changePassword.oldPassword=Mot de passe actuel

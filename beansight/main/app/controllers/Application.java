@@ -471,12 +471,21 @@ public class Application extends Controller {
 		// check if it's a valid image
 		if (originalImage != null) {
 			try {
+				
 				if (ImageIO.read(originalImage) == null) {
-					flash.error(Messages.get("Error while reading image : is it a valid image ?")); // TODO: internationalize text
+					flash.error(Messages.get("settings.image.invalid.format")); // TODO: internationalize text
+					originalImage.delete();
 					settings();
+				} else {
+					// check the image size 
+					if (originalImage.length() > 512000) {
+						flash.error(Messages.get("settings.image.size.too.big"));
+						originalImage.delete();
+					}
 				}
 			} catch (IOException e1) {
-				flash.error(Messages.get("Error while reading image : is it a valid image ?")); // TODO: internationalize text
+				flash.error(Messages.get("settings.image.invalid.format")); // TODO: internationalize text
+				originalImage.delete();
 				settings();
 			}
 		}

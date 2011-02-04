@@ -112,7 +112,7 @@ userName=User name
 realName=Real name
 description=Description
 uiLanguage=Interface language
-avatar=Avatar
+avatar=Avatar (size < 512 ko)
 cropAvatarImage=Crop avatar image
 selectArea=Click and drag on the image to select an area. 
 selectionPreview=Selection Preview
@@ -120,6 +120,8 @@ settingsSubmit=Save
 imageCropSubmit=Save
 saveSettingImageNotFoundException=We are sorry an unexcepted error prevents us to save you avatar image
 settings.changePassword=Change password
+settings.image.invalid.format=Error while reading image : is it a valid image ?
+settings.image.size.too.big=Image size should be less than 512 ko
 
 # change password
 changePassword.oldPassword=Current password

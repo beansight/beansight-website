@@ -8,6 +8,7 @@ GET     /                                       Application.insights
 GET     /signup                                 Register.register
 GET     /login                                 	Secure.login
 GET     /logout                                 Secure.logout
+GET     /forgotpassword                         Security.forgotPasswordAskEmail
 
 GET     /create                                 Application.create
 GET     /experts                                Application.experts
