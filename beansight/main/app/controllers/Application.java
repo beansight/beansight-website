@@ -375,6 +375,10 @@ public class Application extends Controller {
 		render("Application/followInsight.json", insight);
 	}
 
+	public static void getFavoriteInsight(String insightUniqueId) {
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
+		render(insight);
+	}
 
 	/**
 	 * AJAX: Change the follow state for the connected user toward this user

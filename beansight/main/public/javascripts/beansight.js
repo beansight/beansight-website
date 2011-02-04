@@ -61,6 +61,7 @@ function toggleFollowingInsight(insightUniqueId) {
 	var favicon = $(".addfav", ".insight_" + insightUniqueId);
 	if(favicon.hasClass("active")) {
 		favicon.removeClass("active");
+		$(".item-fav .insight_" + insightUniqueId).remove();
 	} else {
 		favicon.addClass("active");
 	}
@@ -72,6 +73,13 @@ function onToggleFollowingInsightSuccess(data) {
 	var favicon = $(".addfav", ".insight_" + data.uniqueId);
 	if(data.follow) {
 		favicon.addClass("active");
+		$.ajax({
+	        url: getFavoriteInsightAction({'insightUniqueId':data.uniqueId}),
+	        dataType: 'html',
+	        success: function(data) {
+	        	$(".list-fav .clear").before(data);
+	        }
+	    });
 	} else {
 		favicon.removeClass("active");
 	}
@@ -254,6 +262,13 @@ function clearForm( context ) {
 $("#error").ajaxError(function(event, request, settings){
     $(this).text('Sorry, an error occured during last action.');
 });
+
+function abbreviate(str, size) {
+	if (str.length <= size) {
+		return str;
+	}
+	return str.substring(0,size) + "...";
+}
 
 // Execute scripts after the document creation
 $(document).ready(function() {

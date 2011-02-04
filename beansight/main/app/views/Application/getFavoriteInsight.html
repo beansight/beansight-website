@@ -1,6 +1,4 @@
-<div class="list-fav">
-#{list items:_followedInsights , as:'insight'}
-    <div class="item-fav .insight_${insight.uniqueId} }">
+    <div class="item-fav">
     <!-- TODO COLORZ "first"-->
         *{
 	    <a href="#">
@@ -10,8 +8,5 @@
 	        <p class="title-fav"></p>
 	    </a>
 	    }*
-    #{insight insight:insight /}
+    	#{insight insight:insight /}
     </div>
-#{/list}
-    <hr class="clear"/>
-</div>

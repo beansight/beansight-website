@@ -22,6 +22,7 @@ import models.Insight.InsightResult;
 import models.Vote.State;
 import models.Vote.Status;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
 import org.hibernate.annotations.Index;
 
@@ -603,7 +604,7 @@ public class User extends Model {
 	public boolean invite(String email, String message) {
 		if(invitationsLeft != 0) {
 			// Create a promocode
-			String uuid = Codec.UUID();
+			String uuid = RandomStringUtils.randomAlphanumeric(6);
 			try {
 				Promocode code = new Promocode(uuid, 1, (new SimpleDateFormat("yyyy/MM/dd")).parse("2012/12/31") );
 				code.save();

@@ -11,7 +11,7 @@
 %{ 
       if(_tag == null ) { _tag = "div" }
 /}%
-<${_tag} class="insightContainer insight_${_insight.uniqueId} 
+<${_tag} class='insightContainer insight_${_insight.uniqueId} 
 #{if vote && vote.state.equals(models.Vote.State.AGREE) } voteAgree #{/if } 
 #{elseif vote && vote.state.equals(models.Vote.State.DISAGREE)} voteDisagree #{/elseif}
 #{if _insight.validated }
@@ -20,6 +20,6 @@
     #{elseif _insight.validationScore < controllers.Application.INSIGHT_VALIDATED_TRUE_MINVAL} validatedFalse #{/elseif}
     #{else} validatedUnknow #{/else}
 #{/if }
-">
+'>
 #{doBody /}
 </${_tag}>
