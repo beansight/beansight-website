@@ -37,27 +37,31 @@ public class InsightValidationJob extends Job {
             Logger.info("Validation of Insight: " + insight.content);
 
             double score = 0.5;
-            
-            try {
-	            // score = ( sum position * DT ) / ( sum DT )
-	            // DT = (timestamp position) - (timestamp creation) 
-	            // position = 1 if agree, 0 if disagree
 
-            	double num = 0;
-	        	double denum = 0;
-	        	
-	            for(Vote vote : insight.votes) {
-	            	double dt = vote.creationDate.getTime() - insight.creationDate.getTime();
-	            	if(vote.state.equals(Vote.State.AGREE)) {
-	            		num += dt;
-	            	}
-	            	denum += dt;
+            // if this insight has votes
+            if(insight.votes.size() > 0) {
+	            try {
+	            	// Algorithm:
+		            // score = ( sum position * DT ) / ( sum DT )
+		            // DT = (timestamp position) - (timestamp creation) 
+		            // position = 1 if agree, 0 if disagree
+	
+	            	double num = 0;
+		        	double denum = 0;
+		        	
+		            for(Vote vote : insight.votes) {
+		            	double dt = vote.creationDate.getTime() - insight.creationDate.getTime();
+		            	if(vote.state.equals(Vote.State.AGREE)) {
+		            		num += dt;
+		            	}
+		            	denum += dt;
+		            }
+		            
+		            score = num / denum;
+	            } catch(Exception e) {
+	            	// if something goes wrong, result = cannot decide.
+	            	score = 0.5;
 	            }
-	            
-	            score = num / denum;
-            } catch(Exception e) {
-            	// if something goes wrong, result = cannot decide.
-            	score = 0.5;
             }
             
             insight.validationScore = score;
