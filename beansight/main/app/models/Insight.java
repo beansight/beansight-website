@@ -393,7 +393,8 @@ public class Insight extends Model {
             agreeTrends = find("select t.agreeRatio from Trend t join t.insight i where i.id = :insightId order by t.trendDate").bind("insightId", this.id)
                     .fetch();
         } else {
-            long incrementSize = (trendsCount - 2) / horizontalDefinition;
+        	// FIXME : be careful, the "-2" make it possible for the value to be 0
+        	long incrementSize = (trendsCount - 2) / horizontalDefinition;
             List<Long> indexList = new ArrayList<Long>((int)horizontalDefinition);
             for (int i = 1 ; i<horizontalDefinition ; i++) {
                 indexList.add(i * incrementSize + 1);
