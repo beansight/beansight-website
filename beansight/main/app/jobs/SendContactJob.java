@@ -10,6 +10,7 @@ import models.MessageMailTask;
 import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
+import play.mvc.Scope;
 
 // FIXME : all mail jobs start at the same time : not good 
 @Every("10min")
@@ -22,6 +23,9 @@ public class SendContactJob extends Job {
 	
     @Override
     public void doJob() throws Exception {
+    	// TODO : this is a hack to make the reverse rout work when calling a mail from Job (http://groups.google.com/group/play-framework/browse_thread/thread/2127472d7df42aff)
+    	Scope.RouteArgs.current.set(new Scope.RouteArgs());
+    	
     	List<ContactMailTask> tasks = ContactMailTask.find("sent is false and attempt < 5").fetch(NUM_TASK);
 
     	for( ContactMailTask task : tasks) {
