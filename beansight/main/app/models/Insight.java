@@ -18,6 +18,8 @@ import models.Vote.Status;
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
 
+import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
+
 import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
@@ -129,8 +131,14 @@ public class Insight extends Model {
 	 * @param category
 	 *            : the category of the insight
 	 */
-	public Insight(User creator, String content, Date endDate, Category category, Language lang) {
+	public Insight(User creator, String content, Date endDate, Category category, Language lang) throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
 		this.uniqueId = JavaExtensions.slugify(content);
+		// We insure that there's no insight having the same uniqueId
+		// (This can happen since the uniqueId is the "slugified" of the insight content)
+		Insight existingInsight = Insight.findByUniqueId(uniqueId);
+		if (existingInsight != null && existingInsight.endDate.equals(endDate)) {
+			throw new InsightWithSameUniqueIdAndEndDateAlreadyExistsException();
+		}
 		this.creator = creator;
 		this.creationDate = new Date();
 		this.endDate = endDate;

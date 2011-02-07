@@ -42,6 +42,8 @@ import play.mvc.Scope.Params;
 import play.utils.Utils.Maps;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
+import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
+import exceptions.InvitationException;
 import exceptions.NotFollowingUserException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
@@ -309,14 +311,17 @@ public class User extends Model {
 	 * @param insightContent : the content text of this insight
 	 * @param endDate : date this insight should end
 	 * @param tagLabelList : a comma separated list of tags
+	 * @throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException 
 	 */
-	public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long cateopryId, String lang) {
+	public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long categoryId, String lang) throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
 		if(lang == null) { // if lang is not specified, use the language from the user's preferred insight language
 			lang = this.writtingLanguage.label;
 		}
 		
-		Category category = Category.findById(cateopryId);
-		// TODO exception if null
+		Category category = Category.findById(categoryId);
+		if (category == null) {
+			throw new RuntimeException("Category with id" + categoryId + " doesn't exist.");
+		}
 		
 		Language language = Language.findByLabelOrCreate(lang);
 
@@ -604,20 +609,18 @@ public class User extends Model {
 		}
 	}
 
-	public boolean invite(String email, String message) {
+	public void invite(String email, String message) throws InvitationException {
 		if(invitationsLeft != 0) {
-			// Create a promocode
-			String uuid = RandomStringUtils.randomAlphanumeric(6);
+			Promocode promocode = null;
 			try {
-				Promocode code = new Promocode(uuid, 1, (new SimpleDateFormat("yyyy/MM/dd")).parse("2012/12/31") );
-				code.save();
-			} catch (ParseException e) {
-				Logger.error("Cannot create promocode");
-				return false;
+				promocode = new Promocode(1, (new SimpleDateFormat("yyyy/MM/dd")).parse("2012/12/31") );
+				promocode.save();
+			} catch (Throwable e) {
+				throw new InvitationException("Invitation could not be sent", e);
 			}
 			
 			// Create the invitation
-			Invitation invitation = new Invitation(this, email, message, uuid);
+			Invitation invitation = new Invitation(this, email, message, promocode.code);
 			invitation.save();
 
 			// create the task for mail sending
@@ -626,9 +629,9 @@ public class User extends Model {
 			
 			invitationsLeft--;
 			save();
-			return true;
+		} else {
+			throw new InvitationException("You don't have any available invitation");
 		}
-		return false;
 	}
 	
 	/**

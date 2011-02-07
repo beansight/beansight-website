@@ -3,7 +3,7 @@ package exceptions;
 public class CannotVoteTwiceForTheSameInsightException extends Exception {
 
 	public CannotVoteTwiceForTheSameInsightException() {
-		super("You cannot vote twice for the same insight");
+		super("You cannot vote twice for the same insight"); // TODO : I18N ?
 	}
 
 	public CannotVoteTwiceForTheSameInsightException(String message) {

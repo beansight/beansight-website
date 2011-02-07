@@ -1,3 +1,4 @@
+package application;
 import org.junit.Test;
 
 import play.mvc.Http.Response;

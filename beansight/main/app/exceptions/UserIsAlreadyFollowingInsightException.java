@@ -3,7 +3,7 @@ package exceptions;
 public class UserIsAlreadyFollowingInsightException extends Exception {
 
 	public UserIsAlreadyFollowingInsightException() {
-		super("You are already following this insight");
+		super("You are already following this insight"); // TODO : I18N ?
 	}
 
 	public UserIsAlreadyFollowingInsightException(String message) {

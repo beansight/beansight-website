@@ -3,7 +3,7 @@ package exceptions;
 public class NotFollowingUserException extends Exception {
 
 	public NotFollowingUserException() {
-		super("You must follow this user");
+		super("You must follow this user"); // TODO : I18N ?
 	}
 
 	public NotFollowingUserException(String message) {

@@ -48,6 +48,8 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
+import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
+import exceptions.InvitationException;
 import exceptions.NotFollowingUserException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
@@ -258,16 +260,22 @@ public class Application extends Controller {
 		// Check if the given category Id corresponds to a category
 		Category category = Category.findById(categoryId);
 		if (category == null) {
-			validation.addError("categoryId", "Not a valid Category");
+			validation.addError("categoryId", "Not a valid Category"); // TODO : I18N
 			// FIXME: This error doesn't display
 		}
 		if (validation.hasErrors()) {
-			flash.error("Error creating the insight");
+			flash.error("Error creating the insight"); // TODO : I18N
 			create(insightContent, endDate, tagLabelList, categoryId, lang);
 		}
 
 		User currentUser = CurrentUser.getCurrentUser();
-		Insight insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId, lang);
+		Insight insight = null;
+		try {
+			insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId, lang);
+		} catch (Throwable t) {
+			flash.error("Error creating the insight : " + t.getMessage()); // TODO : I18N
+			create(insightContent, endDate, tagLabelList, categoryId, lang);
+		}
 
 		showInsight(insight.uniqueId);
 	}
@@ -659,11 +667,14 @@ public class Application extends Controller {
 		}
 		
 		User currentUser = CurrentUser.getCurrentUser();
-		if(currentUser.invite(email, message)) {
-			renderText("true");
-		} else  {
+		try {
+			currentUser.invite(email, message);
+		} catch (InvitationException e) {
 			renderText("false");
+			Logger.error(e, e.getMessage());
 		}
+		renderText("true");
+			
 	}
 
 	/**

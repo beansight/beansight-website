@@ -3,7 +3,7 @@ package exceptions;
 public class InsightAlreadySharedException extends Exception {
 
 	public InsightAlreadySharedException() {
-		super("Insight already shared");
+		super("Insight already shared"); // TODO : I18N ?
 	}
 
 	public InsightAlreadySharedException(String message) {

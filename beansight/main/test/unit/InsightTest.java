@@ -1,3 +1,5 @@
+package unit;
+import java.util.Date;
 import java.util.List;
 
 import models.Category;
@@ -16,6 +18,7 @@ import play.Logger;
 import play.test.Fixtures;
 import play.test.UnitTest;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
+import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
 import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class InsightTest extends UnitTest {
@@ -28,7 +31,7 @@ public class InsightTest extends UnitTest {
 	}
     
     @Test
-    public void createAnInsight() {
+    public void createAnInsight() throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
     	Category categoryWeb = Category.find("byLabel", "Web").first();
         assertNotNull(categoryWeb);
         Insight insight = TestHelper.getTestUser().createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id, "en");
@@ -40,7 +43,7 @@ public class InsightTest extends UnitTest {
     
     
     @Test
-    public void startStopFollowingAnInsight() {
+    public void startStopFollowingAnInsight() throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
    		User user = new User("john.do@usa.com", "john", "24hours");
         user.save();
         
@@ -62,7 +65,7 @@ public class InsightTest extends UnitTest {
     }
     
     @Test
-    public void votingTwiceSameSideForAnInsightIsNotPossible() {
+    public void votingTwiceSameSideForAnInsightIsNotPossible() throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
     	// create a user and make him post a new insight
     	User user = new User("john.doe@usa.com", "john", "thepassword");
         user.save();
@@ -108,7 +111,7 @@ public class InsightTest extends UnitTest {
     
     
     @Test
-    public void testFindLastVote() throws CannotVoteTwiceForTheSameInsightException {
+    public void testFindLastVote() throws CannotVoteTwiceForTheSameInsightException, InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
     	User user = new User("john.doe@usa.com", "john", "thepassword");
         user.save();
         Category categoryWeb = Category.findByLabel("Web");
@@ -136,17 +139,20 @@ public class InsightTest extends UnitTest {
     }
     
     @Test
-    public void testDuplicatedUniqueId() throws CannotVoteTwiceForTheSameInsightException {
+    public void testDuplicatedUniqueId() throws CannotVoteTwiceForTheSameInsightException, InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
     	// We test that when the same Insight uniqueId is used more than once 
     	// then another unique should be automatically searched again :
     	Logger.debug("testing InsightTest.testDuplicatedUniqueId");
-    	Insight i = new Insight(TestHelper.getTestUser(), "Insight 1", TestHelper.getDateWithXMonthFromNow(2), Category.findByLabel("Web"), Language.findByLabelOrCreate("fr"));
-    	i.uniqueId = "1";
+    	Date date = TestHelper.getDateWithXMonthFromNow(2);
+    	Insight i = new Insight(TestHelper.getTestUser(), "Insight Test", date, Category.findByLabel("Web"), Language.findByLabelOrCreate("fr"));
     	i.save();
-    	i = new Insight(TestHelper.getTestUser(), "Insight 2", TestHelper.getDateWithXMonthFromNow(2), Category.findByLabel("Web"), Language.findByLabelOrCreate("fr"));
-    	i.uniqueId = "1";
-    	i.save();
-    	assertEquals(Insight.count(), 2); 
+    	try {
+			i = new Insight(TestHelper.getTestUser(), "Insight Test", date,
+					Category.findByLabel("Web"),
+					Language.findByLabelOrCreate("fr"));
+		} catch (InsightWithSameUniqueIdAndEndDateAlreadyExistsException e) {
+			// this is the exception we were waiting for
+		}
     }
  
 }
