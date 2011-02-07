@@ -45,6 +45,7 @@ public class Mails extends Mailer {
 	
 	private static void sendMailTask(MailTask task, String subject, String templateName) {
 		task.attempt++;
+		task.save();
 		Logger.info("MailTask " + task.getClass().getSimpleName() + " to: " + task.sendTo);
 
 		setSubject(subject);
