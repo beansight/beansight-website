@@ -59,11 +59,6 @@ $('#moreInsights').click( function() {
     return false;
 });
 
-// on category selection, click the link
-$('#c_category').selectbox().bind('change', function() {
-    window.location.href = $(this).val();
-})
-
 function onMoreInsightsSuccess(content) {
     $("#insightList").append(content);
     insightsFrom += ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};

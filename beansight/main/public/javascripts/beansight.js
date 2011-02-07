@@ -279,6 +279,11 @@ $(document).ready(function() {
     //select custom
     $(".item-select select").selectbox();
 	
+    // on category selection, click the link
+    $('#c_category').selectbox().bind('change', function() {
+        window.location.href = $(this).val();
+    })
+    
     //////////////////////
     // Validator methods
     //////////////////////
