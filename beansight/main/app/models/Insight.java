@@ -1,5 +1,7 @@
 package models;
 
+import helpers.FormatHelper;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -136,9 +138,16 @@ public class Insight extends Model {
 		// We insure that there's no insight having the same uniqueId
 		// (This can happen since the uniqueId is the "slugified" of the insight content)
 		Insight existingInsight = Insight.findByUniqueId(uniqueId);
-		if (existingInsight != null && existingInsight.endDate.equals(endDate)) {
-			throw new InsightWithSameUniqueIdAndEndDateAlreadyExistsException();
+		
+		if (existingInsight != null) {
+			if (existingInsight.endDate.getTime() == endDate.getTime()) {
+				throw new InsightWithSameUniqueIdAndEndDateAlreadyExistsException();
+			} else {
+				// adding the date at the end of the uniqueId :
+				this.uniqueId += "-" + FormatHelper.formatDate(endDate);
+			}
 		}
+ 
 		this.creator = creator;
 		this.creationDate = new Date();
 		this.endDate = endDate;
