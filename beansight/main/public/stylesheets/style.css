@@ -18,6 +18,9 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 
 .ajaxloader{background:url(/public/images/ajax-loader.gif) no-repeat 0 0; width:16px;}
 
+a{color:#8b8f90}
+a:hover{color:#228392;}
+
 /* HEADER */
 #header{background-color:#ededed;height:79px;border-bottom:solid #e4e4e4 1px;margin:0 0 31px 0;}
 #header .contentheader{width:960px;margin:0 auto;}
@@ -127,7 +130,7 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #content #sidebarleft .list-fav{padding:0 0 10px 0;border-bottom:solid #efefef 4px;}
 #content #sidebarleft .list-fav .item-fav{border-top:solid #efefef 1px;clear:both;}
 #content #sidebarleft .list-fav .item-fav:first-child{border-top:0 none;}
-#content #sidebarleft .list-fav .item-fav a{font-size:12px;color:#8b8f90;padding:5px 0;display:block;height:12px;overflow:hidden;}
+#content #sidebarleft .list-fav .item-fav a{font-size:12px;padding:5px 0;display:block;height:12px;overflow:hidden;}
 #content #sidebarleft .list-fav .item-fav a .date-fav{float:left;width:35px;font-size:12px;color:#eeeeee;font-weight:bold;}
 #content #sidebarleft .list-fav .item-fav a .date-fav .date-day{color:#7aa13d;font-weight:bold;}
 #content #sidebarleft .list-fav .item-fav a .date-fav .date-month{color:#8c9091;font-weight:bold;}
@@ -243,10 +246,12 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 #contentcenter .myprofil .leftprofil .linksprofil .sendmail{background:url(/public/images/profil-sendmail.png) no-repeat 0 0;}
 #contentcenter .myprofil .leftprofil .linksprofil a:hover{background-position:left center;}
 #contentcenter .myprofil .leftprofil .linksprofil a.open, #contentcenter .myprofil .leftprofil .linksprofil a.active{background-position:left bottom;}
-#contentcenter .myprofil .leftprofil .linksprofil .voidSpace{height: 23px;}
+#contentcenter .myprofil .leftprofil #editAvatar{ padding-top:10px; height: 13px;}
 #contentcenter .myprofil .info-profil{float:left;width:240px;/*a changer quand il y aura les badges*/margin:0 0 0 20px;}
 #contentcenter .myprofil .info-profil h2{color:#7aa13d;font-size:16px;font-weight:bold;text-transform:none;float:left;width:auto;background:none transparent;padding:0;margin:0;border:0 none;}
-#contentcenter .myprofil .info-profil p{clear:both;width:240px;float:left;font-size:12px;color:#8b8f90;margin:12px 0 0 0;}
+#contentcenter .myprofil .info-profil .resume{clear:both;width:240px;float:left;font-size:12px;color:#8b8f90;margin:12px 0 0 0;}
+#contentcenter .myprofil .edit {font-size:12px; clear:both; float:left;}
+#contentcenter .myprofil .edit .descriptionTextArea{width:100%;}
 #contentcenter .myprofil .boxmail{overflow:hidden;}
 #contentcenter .myprofil .boxmail .item-textarea{margin:20px 0 0 0;padding:6px;height:90px;-moz-border-radius:6px;-webkit-border-radius:6px;background-color:#fff;border:solid #eeeeee 3px;}
 #contentcenter .myprofil .boxmail .item-textarea textarea{width:100%;font-size:20px;color:#6e7677;width:100%;line-height:20px;height:100%;font-family:Arial, serif;border:0 none;}

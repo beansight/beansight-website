@@ -83,6 +83,16 @@ incategory=dans
 userinsights=Prédictions de l'utilisateur
 myinsights=Mes prédictions
 userratings=Expertise
+showUser.addDescription=Ajouter une description
+showUser.editDescription=Modifier
+showUser.addRealName=Ajouter prénom et nom
+showUser.editRealName=Modifier
+showUser.editAvatar=Changer d'image
+showUser.cropAvatarImage=Editer l'image
+showUser.sendMessage=Envoyer un message
+showUser.edit.realName=Prénom et nom
+showUser.edit.description=Description
+showUser.edit.avatar=Nouvel avatar
 
 #Contact
 followus=Suivez nous
@@ -108,20 +118,16 @@ messagesubmit=Envoyer
 messagesentconfirm=Message envoyé
 
 # settings
-userName=Alias
-realName=Prénom Nom
-description=Description
 uiLanguage=Langue de l'interface
-avatar=Avatar (taille < 512 ko)
-cropAvatarImage=Ajuster l'image de l'avatar
 selectArea=Cliquer et déplacer en maintenant appuyer le curseur pour sélectionner une zone
 selectionPreview=Previsualisation du résultat
 settingsSubmit=Valider
 imageCropSubmit=Valider
 saveSettingImageNotFoundException=Oups un problème nous empêche de sauver l'image de votre avatar
 settings.changePassword=Changer de mot de passe
-settings.image.invalid.format=Format d'image incorrect
-settings.image.size.too.big=L'image doit faire moins de 512 ko
+settings.imageInvalidFormat=Format d'image incorrect
+settings.imageSizeTooBig=L'image doit faire moins de 512 ko
+settings.userName=Nom d'utilisateur
 
 # change password
 changePassword.oldPassword=Mot de passe actuel

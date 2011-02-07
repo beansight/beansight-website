@@ -8,30 +8,82 @@
     #{set currentMenu:'menuExperts' /}
 #{/else}
 
+#{if currentUserProfilePage}
+	#{set 'moreScripts'}    
+	    <script src="@{'/public/javascripts/jquery.imgareaselect.pack.js'}" type="text/javascript" charset="utf-8"></script>
+	#{/set}
+	#{set 'moreStyles'}
+	    <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
+	#{/set}
+	<script language="Javascript">
+        function refreshAvatarImage() {
+        var now = new Date();
+	       $("#userAvatarImage").attr('src', '@{Application.showAvatarLarge(user.userName)}?' + now.getTime());
+	    }
+	</script>
+#{/if}
+
 #{set contentCenterClass:'large' /}
 
 #{userContainer user:user}
-
 <div class="myprofil">
     <div class="leftprofil">
         <div class="avatar-profil">
-                <img src="@{Application.showAvatarLarge(user.userName)}" id="cropbox" />
+                <img src="@{Application.showAvatarLarge(user.userName)}" id="userAvatarImage" />
+                #{if currentUserProfilePage}
+                <a id="cropAvatar" href="#" class="edit">&{'showUser.cropAvatarImage'}</a>
+                #{/if}
         </div>
         <div class="linksprofil">
             #{isConnected}
-            	#{ifnot controllers.CurrentUser.getCurrentUser().id.equals(user.id)}
+            	#{ifnot currentUserProfilePage}
 		            <a href="#" onClick="return toggleFollowingUser(${user.id});" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
-		            <a href="#" class="sendmail" id="link-sendmail">Send a message</a>
+		            <a href="#" class="sendmail" id="link-sendmail">&{'showUser.sendMessage'}</a>
             	#{/ifnot}
-            	#{if controllers.CurrentUser.getCurrentUser().id.equals(user.id)}
-            		<div class="voidSpace"></div>
-            	#{/if}
             #{/isConnected}
         </div>
+        #{if currentUserProfilePage}
+           <a href="" id="editAvatar" class="edit leftProfileButton">&{'showUser.editAvatar'}</a>
+            <div id="editAvatarZone" style="display:none;" class="edit">
+            #{form @Settings.updateUserAvatar(), enctype:'multipart/form-data', id:'updateUserAvatarForm' }
+                <label for="avatar">&{'showUser.edit.avatar'}</label>
+                <input type="file" id="avatar" name="originalImage">
+                <input type="submit">
+            #{/form}
+            </div>
+        #{/if}
     </div>
     <div class="info-profil">
-        <h2>${user.userName} #{if user.realName}(${user.realName})#{/if}</h2>
-        <p class="resume">${user.description}</p>
+        <h2>${user.userName} <span id="userRealName">#{if user.realName}(#{/if}${user.realName}#{if user.realName})#{/if}</span></h2>
+        #{if currentUserProfilePage}
+	        #{if user.realName == null || user.realName.equals("")}
+	            <a href="" id="editRealName" class="edit">&{'showUser.addRealName'}</a>
+	        #{/if} #{else}
+	            <a href="" id="editRealName" class="edit">&{'showUser.editRealName'}</a>
+	        #{/else}
+	        <div id="editRealNameZone" style="display:none;" class="edit">
+	        <form id="updateUserRealNameForm">
+	            <label for="userName">&{'showUser.edit.realName'}</label>
+	            <input type="text" name="realName" value="${user.realName}"/>
+	            <input type="submit">
+	        </form>
+	        </div>
+        #{/if}
+        <p class="resume" id="userDesctiption">${user.description}</p>
+        #{if currentUserProfilePage}
+        #{if user.description == null || user.description.equals("")}
+        <a href="" id="editDescription" class="edit">&{'showUser.addDescription'}</a>
+        #{/if} #{else}
+        <a href="" id="editDescription" class="edit">&{'showUser.editDescription'}</a>
+        #{/else}
+        <div id="editDescriptionZone" style="display:none;" class="edit">
+        <form id="updateUserDescriptionForm">
+            <label for="description">&{'showUser.edit.description'}</label>
+            <textarea name="description" class="descriptionTextArea">${user.description}</textarea>
+            <input type="submit">
+        </form>
+        </div>
+        #{/if}
     </div>
     <hr class="clear"/>
     <div class="boxmail" id="boxlink-sendmail" style="display:none;">
@@ -94,5 +146,37 @@
 </div>
 #{/secure.check}
 #{/isConnected}
+
+#{if currentUserProfilePage}
+<!-- HTML for the modal dialog used to crop user original image -->
+<div id="modal-crop" title="Crop image">
+    <div style="float: left; width: 75%;">
+        <p class="instructions">&{'selectArea'}</p>
+ 
+        <div style="margin: 0pt 0.3em; width: 300px; height: auto;" class="frame">
+            <img src="@{Application.displayOriginalUncropedImage()}" id="uploadedImage" style="width:300px;height:auto;">
+        </div>  
+    </div>      
+    
+    <div style="float: left; width: 25%;">
+        <p>&{'selectionPreview'}</p>
+    
+        <div style="margin: 0pt 1em; width: 100px; height: 100px;" class="frame">
+            <div style="width: 100px; height: 100px; overflow: hidden;" id="preview">
+                <img src="@{Application.displayOriginalUncropedImage()}" id="preview" style="width:100px;height:100px;"/>
+            </div>
+        </div>  
+        <form id="cropForm">
+            <input type="hidden" id="x1" name="x1"/>
+            <input type="hidden" id="y1" name="y1"/>
+            <input type="hidden" id="x2" name="x2"/>
+            <input type="hidden" id="y2" name="y2"/>
+            <input type="hidden" id="imageW" name="imageW"/>
+            <input type="hidden" id="imageH" name="imageH"/>                
+            <input type="submit" value="&{'imageCropSubmit'}"/> 
+        </form> 
+    </div>
+</div>
+#{/if}
 
 #{/userContainer}

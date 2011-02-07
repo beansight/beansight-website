@@ -50,6 +50,9 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 public class User extends Model {
 
 	public static final int NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS = 2;
+
+	public static final int DESCRIPTION_MAXLENGTH = 120;
+	public static final int REALNAME_MAXLENGTH = 30;
 	
 	@Field
 	@Index (name = "USER_USERNAME_IDX")

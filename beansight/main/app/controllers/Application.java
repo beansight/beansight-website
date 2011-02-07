@@ -22,6 +22,7 @@ import models.Insight;
 import models.Insight.InsightResult;
 import models.Language;
 import models.Tag;
+import models.Trend;
 import models.User;
 import models.User.UserResult;
 import models.Vote;
@@ -424,6 +425,9 @@ public class Application extends Controller {
 		Insight insight = Insight.findByUniqueId(uniqueId);
 		Comment comment = insight.addComment(content, currentUser);
 
+		Trend.findAll();
+		
+		
 		render(comment);
 	}
 
@@ -464,68 +468,23 @@ public class Application extends Controller {
 		render(user);
 	}
 	
-	public static void saveSettings(Long id, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String userName, String realName,
-			String description, String uiLanguage, File originalImage) {
+	public static void updateUserName(@Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String userName) {
 		if (validation.hasErrors()) {
-			params.flash();
-	        validation.keep();
-	        settings();
+			flash.error(Messages.get("updateUserName.validation"));
 	    }
-		
-		// check if it's a valid image
-		if (originalImage != null) {
-			try {
-				
-				if (ImageIO.read(originalImage) == null) {
-					flash.error(Messages.get("settings.image.invalid.format")); // TODO: internationalize text
-					originalImage.delete();
-					settings();
-				} else {
-					// check the image size 
-					if (originalImage.length() > 512000) {
-						flash.error(Messages.get("settings.image.size.too.big"));
-						originalImage.delete();
-					}
-				}
-			} catch (IOException e1) {
-				flash.error(Messages.get("settings.image.invalid.format")); // TODO: internationalize text
-				originalImage.delete();
-				settings();
-			}
-		}
-		
 		User user = CurrentUser.getCurrentUser();
-		// User should be the same as the one connected
-		if (user.id.equals(id) == false) {
-			forbidden("It seems you are trying to hack someone else settings"); // TODO: internationalize text
-			settings();
-		}
-		// check if a new image has been uploaded
-		if (originalImage != null) {
-			try {
-				// and save it if so
-				user.updateAvatar(originalImage, true);
-			} catch (FileNotFoundException e) {
-				flash.error(Messages.get("saveSettingImageNotFoundException"));
-				settings();
-			}
-		}
-
 		user.userName = userName;
-		user.realName = realName;
-		user.description = description;
-		user.uiLanguage = Language.findByLabelOrCreate(uiLanguage);
-
 		user.save();
-
-		settings();
 	}
 	
-	public static void changePassword() {
+	public static void saveSettings(String uiLanguage) {
 		User user = CurrentUser.getCurrentUser();
-		render(user);
+		user.uiLanguage = Language.findByLabelOrCreate(uiLanguage);
+		user.save();
+		
+		Application.settings();
 	}
-
+	
 	public static void saveNewPassword(@Required String oldPassword, @Required @MinSize(5) String newPassword, @Required @MinSize(5) @Equals("newPassword") String newPasswordConfirm) {
 		User user = CurrentUser.getCurrentUser();
 		if( !user.password.equals( Crypto.passwordHash(oldPassword) )) {
@@ -541,7 +500,11 @@ public class Application extends Controller {
 		user.changePassword(newPassword);
 		
 		settings();
-		
+	}
+	
+	public static void changePassword() {
+		User user = CurrentUser.getCurrentUser();
+		render(user);
 	}
 
 

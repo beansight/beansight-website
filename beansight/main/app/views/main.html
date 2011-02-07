@@ -45,6 +45,8 @@
 	var leaveYourEmailAction = #{jsAction @Application.leaveYourEmail() /};
 	var sendToContactAction = #{jsAction @Contact.sendToContact() /};
 	var addCommentAction = #{jsAction @Application.addComment() /};
+    var updateUserRealNameAction = #{jsAction @Settings.updateUserRealName() /};
+    var updateUserDescriptionAction = #{jsAction @Settings.updateUserDescription() /};
 	var getFavoriteInsightAction = #{jsAction @Application.getFavoriteInsight(':insightUniqueId') /};
 	</script>
 </head>

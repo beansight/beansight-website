@@ -1,37 +1,15 @@
 #{extends 'content.html' /}
 #{set title:user.userName + ' Settings'/}
-
-#{set 'moreScripts'}	
-	<script src="@{'/public/javascripts/jquery.imgareaselect.pack.js'}" type="text/javascript" charset="utf-8"></script>
-#{/set}
-#{set 'moreStyles'}
-    <link rel="stylesheet" href="@{'/public/stylesheets/css/imgareaselect-default.css'}" type="text/css" />
-#{/set}
-
-<script language="Javascript">
-function refreshAvatarImage() {
-    $("#userAvatarImage").attr('src', '@{Application.showAvatarMedium(user.userName)}');
-}
-</script>
-
 <div class="userDetail">
 
     #{form @Application.saveSettings(), enctype:'multipart/form-data', id:'userSettingsForm', name:'userSettingsForm'}
     	<p>
-    		<label for="userName">&{'userName'}</label>
+    		<label for="userName">&{'settings.userName'}</label>
         	<input type="text" name="userName" id="userName" value="${user.userName}"/>
         	#{if errors.forKey('userName')}<span class="error">#{error 'userName' /}</span>#{/if}
         </p>
         <p>
-            <label for="userName">&{'realName'}</label>
-            <input type="text" name="realName" value="${user.realName}"/>
-        </p>
-        <p>
             <a href="@{Application.changePassword()}">&{'settings.changePassword'}</a>
-        </p>
-        <p>
-            <label for="description">&{'description'}</label>
-            <input type="text" name="description" value="${user.description}"/>
         </p>
         <p>
             <label for="uiLanguage">&{'uiLanguage'}</label>
@@ -40,52 +18,9 @@ function refreshAvatarImage() {
                 <option value="fr" #{if user.uiLanguage.label.equals("fr")}selected#{/if}>fr</option>
             </select>
         </p>
-    	<p>
-	        <label for="avatar">&{'avatar'} :</label>
-	        <input type="hidden" name="id" value="${user.id}"/>
-	        <input type="file" id="avatar" name="originalImage">
-	    </p>
-    	<p>
-	        <img id="userAvatarImage" src="@{Application.showAvatarLarge(user.userName)}" width="60px" />
-        </p>
-		<p>
-        	<a id="cropAvatar" href="#" >&{'cropAvatarImage'}</a>
-        </p>
         <p>
         	<input type="submit" value="&{'settingsSubmit'}"/>
         </p>
     #{/form}
-
-</div>
-
-
-<!-- HTML for the modal dialog used to crop user original image -->
-<div id="modal-crop" title="Crop image">
- 	<div style="float: left; width: 75%;">
-  		<p class="instructions">&{'selectArea'}</p>
- 
-		<div style="margin: 0pt 0.3em; width: 300px; height: auto;" class="frame">
-	   		<img src="@{Application.displayOriginalUncropedImage()}" id="uploadedImage" style="width:300px;height:auto;">
-	  	</div>	
-	</div>		
-	
-	<div style="float: left; width: 25%;">
-		<p>&{'selectionPreview'}</p>
-	
-		<div style="margin: 0pt 1em; width: 100px; height: 100px;" class="frame">
-	   		<div style="width: 100px; height: 100px; overflow: hidden;" id="preview">
-				<img src="@{Application.displayOriginalUncropedImage()}" id="preview" style="width:100px;height:100px;"/>
-	   		</div>
-		</div>	
-		<form id="cropForm">
-			<input type="hidden" id="x1" name="x1"/>
-			<input type="hidden" id="y1" name="y1"/>
-			<input type="hidden" id="x2" name="x2"/>
-			<input type="hidden" id="y2" name="y2"/>
-			<input type="hidden" id="imageW" name="imageW"/>
-			<input type="hidden" id="imageH" name="imageH"/>				
-			<input type="submit" value="&{'imageCropSubmit'}"/> 
-		</form>	
-	</div>
 
 </div>

@@ -16,5 +16,7 @@ var i18n = {
 		validateContactsubject :	'un sujet est nécessaire',
 		validateContactMessage :	'un message est nécessaire',
 		newCommentMinSize :			'Votre commentaire doit faire 5 caractères au moins',
-		sendingEmail :				'envoi ...'
+		sendingEmail :				'envoi ...',
+		validationDescription:		'Limité à 120 caractères',
+		validationRealName:			'Limité à 30 caractères'
 }

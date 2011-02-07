@@ -1,0 +1,7 @@
+{
+    "description":"${user.description.escape().nl2br()}"
+#{if flash.error}
+,
+    "error":"${flash.error}"
+#{/if}
+}

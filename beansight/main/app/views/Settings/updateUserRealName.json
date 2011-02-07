@@ -1,0 +1,7 @@
+{
+    "realName":"${user.realName}"
+#{if flash.error}
+,
+    "error":"${flash.error}"
+#{/if}
+}

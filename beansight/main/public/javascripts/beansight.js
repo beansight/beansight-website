@@ -330,34 +330,13 @@ $(document).ready(function() {
 	//////////////////////
 	// Settings
 	//////////////////////
-	$( "#modal-crop" ).dialog({
-		height: 	500,
-		width:		600,
-		modal: 		true,
-		open:		onOpenModalCrop,
-		beforeclose:onCloseModalCrop,
-		autoOpen: 	false,
-		resizable:	false,
-		draggable:	false
-	});
-	
-	$('#cropAvatar').click(function() {  
-		$('#modal-crop').dialog('open');
-		return false;
-    }); 
-
-	$("#cropForm").submit(function() {
-		$.post(cropImageAction(), $("#cropForm").serialize(), refreshAvatarImage);
-		$('#modal-crop').dialog('close');
-		return false;
-	});
-    
 	$("#userSettingsForm").validate({
 		rules: {
 			userName: "username"
 		}
 	});
 
+    
 	//////////////////////
 	//Change Password
 	//////////////////////	
@@ -723,5 +702,77 @@ $(document).ready(function() {
     	$('#link-sendmail').toggleClass('open');
         $('#boxlink-sendmail').slideToggle(500);
     }
+    
+	$("#updateUserRealNameForm").validate({
+		submitHandler: function(form) {
+			$.getJSON(updateUserRealNameAction(), $("#updateUserRealNameForm").serialize(), function(data) {
+				if(data.realName !== "") {
+					data.realName = "(" + data.realName + ")";
+				}
+	        	$("#userRealName").html(data.realName);
+	        });
+			$("#editRealNameZone").hide('normal');
+		},
+		rules: {
+			realName: {
+				maxlength: 30
+			}
+		},
+		messages: {
+			realName: i18n.validationRealName
+		}
+	});
+	
+	$("#updateUserDescriptionForm").validate({
+		submitHandler: function(form) {
+			$.getJSON(updateUserDescriptionAction(), $("#updateUserDescriptionForm").serialize(), function(data) { 
+	        	$("#userDesctiption").html(data.description);
+	        });
+			$("#editDescriptionZone").hide('normal');
+		},
+		rules: {
+			description: {
+				maxlength: 120
+			}
+		},
+		messages: {
+			description: i18n.validationDescription
+		}
+	});
+	
+	$( "#modal-crop" ).dialog({
+		height: 	500,
+		width:		600,
+		modal: 		true,
+		open:		onOpenModalCrop,
+		beforeclose:onCloseModalCrop,
+		autoOpen: 	false,
+		resizable:	false,
+		draggable:	false
+	});
+	
+	$('#cropAvatar').click(function() {  
+		$('#modal-crop').dialog('open');
+		return false;
+    }); 
+
+	$("#cropForm").submit(function() {
+		$.post(cropImageAction(), $("#cropForm").serialize(), refreshAvatarImage);
+		$('#modal-crop').dialog('close');
+		return false;
+	});
+	
+	$("#editRealName").click(function() {
+		$("#editRealNameZone").toggle('normal');
+		return false;
+	});
+	$("#editDescription").click(function() {
+		$("#editDescriptionZone").toggle('normal');
+		return false;
+	});
+	$("#editAvatar").click(function() {
+		$("#editAvatarZone").toggle('normal');
+		return false;
+	});
 	
 });
