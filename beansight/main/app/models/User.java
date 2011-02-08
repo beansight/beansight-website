@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import models.Insight.InsightResult;
 import models.Vote.State;
 import models.Vote.Status;
+import models.analytics.UserInsightVisit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
@@ -607,6 +608,18 @@ public class User extends Model {
 			insightShare.hasBeenRead = true;
 			insightShare.save();
 		}
+	}
+	
+	/**
+	 * This user visists the page of this insight
+	 * @param insight : the insight
+	 * @param ip : the current IP of this user
+	 * @param userAgent : tge current user-agent of this user
+	 * @param application : the application id of this user
+	 */
+	public void visitInsight(Insight insight, String ip, String userAgent, String application) {
+		UserInsightVisit visit = new UserInsightVisit(new Date(), this, ip, userAgent, application, insight);
+		visit.save();
 	}
 
 	public void invite(String email, String message) throws InvitationException {

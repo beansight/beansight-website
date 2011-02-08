@@ -69,6 +69,8 @@ public class Application extends Controller {
 	public static final double INSIGHT_VALIDATED_TRUE_MINVAL = 0.7;
 	public static final double INSIGHT_VALIDATED_FALSE_MAXVAL = 0.3;
 	
+	public static final String APPLICATION_ID = "web-desktop";
+	
     @Before(unless={"welcome", "leaveYourEmail", "applicationPath"})
     /**
      * Make sure the language is the one the user has chosen.
@@ -327,6 +329,17 @@ public class Application extends Controller {
 			
 			// the user has read this insight (if it has been shared, removed from shared insights
 			currentUser.readInsight(insight);
+			
+			String ip = "";
+			String userAgent = "";
+			try {
+				ip = request.remoteAddress;
+				userAgent = request.headers.get("user-agent").toString();
+			} catch(Exception e) {
+				Logger.warn("Cannot get user ip or user-agent");
+			}
+			
+			currentUser.visitInsight(insight, ip , userAgent , APPLICATION_ID);
 			
 			renderArgs.put("currentUser", currentUser);
 			renderArgs.put("lastUserVote", lastUserVote);
