@@ -21,7 +21,12 @@ import javax.persistence.OneToMany;
 import models.Insight.InsightResult;
 import models.Vote.State;
 import models.Vote.Status;
+import models.analytics.UserClientInfo;
+import models.analytics.UserExpertVisit;
+import models.analytics.UserInsightSearchVisit;
 import models.analytics.UserInsightVisit;
+import models.analytics.UserListExpertsVisit;
+import models.analytics.UserListInsightsVisit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
@@ -611,17 +616,63 @@ public class User extends Model {
 	}
 	
 	/**
-	 * This user visists the page of this insight
+	 * This user visits the page of this insight
 	 * @param insight : the insight
-	 * @param ip : the current IP of this user
-	 * @param userAgent : tge current user-agent of this user
-	 * @param application : the application id of this user
+	 * @param ip : the current IP of this connected user
+	 * @param userAgent : the current user-agent of this connected user
+	 * @param application : the application id of this connected user
 	 */
-	public void visitInsight(Insight insight, String ip, String userAgent, String application) {
-		UserInsightVisit visit = new UserInsightVisit(new Date(), this, ip, userAgent, application, insight);
+	public void visitInsight(Insight insight, UserClientInfo userClientInfo) {
+		UserInsightVisit visit = new UserInsightVisit(new Date(), this, userClientInfo, insight);
 		visit.save();
 	}
 
+	/**
+	 * This user visits the insights list page
+	 * @param ip : the current IP of this connected user
+	 * @param userAgent : the current user-agent of this connected user
+	 * @param application : the application id of this connected user
+	 */
+	public void visitInsightsList(UserClientInfo userClientInfo) {
+		UserListInsightsVisit visit = new UserListInsightsVisit(new Date(), this, userClientInfo);
+		visit.save();
+	}
+	
+	/**
+	 * This user visits the profil's page of this expert
+	 * @param expert : the expert
+	 * @param ip : the current IP of this connected user
+	 * @param userAgent : the current user-agent of this connected user
+	 * @param application : the application id of this connected user
+	 */
+	public void visitExpert(User expert, UserClientInfo userClientInfo) {
+		UserExpertVisit visit = new UserExpertVisit(new Date(), this, userClientInfo, expert);
+		visit.save();
+	}
+	
+	/**
+	 * This user visits the experts list page
+	 * @param ip : the current IP of this connected user
+	 * @param userAgent : the current user-agent of this connected user
+	 * @param application : the application id of this connected user
+	 */
+	public void visitExpertsList(UserClientInfo userClientInfo) {
+		UserListExpertsVisit visit = new UserListExpertsVisit(new Date(), this, userClientInfo);
+		visit.save();
+	}
+
+	/**
+	 * This user searchs for insight
+	 * @param ip : the current IP of this connected user
+	 * @param userAgent : the current user-agent of this connected user
+	 * @param application : the application id of this connected user
+	 * @param searchKeyWords : the key words used to search insights
+	 */
+	public void visitInsightsSearch(String searchKeyWords, UserClientInfo userClientInfo) {
+		UserInsightSearchVisit visit = new UserInsightSearchVisit(new Date(), this, userClientInfo, searchKeyWords);
+		visit.save();
+	}
+	
 	public void invite(String email, String message) throws InvitationException {
 		if(invitationsLeft != 0) {
 			Promocode promocode = null;

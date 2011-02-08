@@ -28,6 +28,7 @@ import models.User.UserResult;
 import models.Vote;
 import models.Vote.State;
 import models.WaitingEmail;
+import models.analytics.UserClientInfo;
 import play.Logger;
 import play.Play;
 import play.data.validation.Email;
@@ -184,6 +185,8 @@ public class Application extends Controller {
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			// log for analytics
+			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
 		} else {
 			result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		}
@@ -227,6 +230,14 @@ public class Application extends Controller {
 
 	public static void experts() {
 		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
+		
+		// If connected, log analytic
+		if (Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			// log for analytics
+			currentUser.visitExpertsList(new UserClientInfo(request, APPLICATION_ID));
+		}
+		
 		render(experts);
 	}
 
@@ -330,6 +341,7 @@ public class Application extends Controller {
 			// the user has read this insight (if it has been shared, removed from shared insights
 			currentUser.readInsight(insight);
 			
+			
 			String ip = "";
 			String userAgent = "";
 			try {
@@ -339,7 +351,9 @@ public class Application extends Controller {
 				Logger.warn("Cannot get user ip or user-agent");
 			}
 			
-			currentUser.visitInsight(insight, ip , userAgent , APPLICATION_ID);
+			// log for analytics 
+			UserClientInfo userClientInfo = new UserClientInfo(request, APPLICATION_ID);
+			currentUser.visitInsight(insight, userClientInfo);
 			
 			renderArgs.put("currentUser", currentUser);
 			renderArgs.put("lastUserVote", lastUserVote);
@@ -367,7 +381,10 @@ public class Application extends Controller {
 			User currentUser = CurrentUser.getCurrentUser();
 			if(currentUser.id == user.id ) {
 				currentUserProfilePage = true;
-			}
+			} 
+			// log for analytics 
+			UserClientInfo userClientInfo = new UserClientInfo(request, APPLICATION_ID);
+			currentUser.visitExpert(user, userClientInfo);
 		}
 
 		List<Insight> lastInsights = user.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
@@ -631,6 +648,12 @@ public class Application extends Controller {
 
 		renderArgs.put("count", result.count);
 		renderArgs.put("insights", result.results);
+		
+		if(Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			currentUser.visitInsightsSearch(query, new UserClientInfo(request, APPLICATION_ID));
+		}
+		
 		render(query, category, from);
 	}
 

@@ -1,13 +1,12 @@
 package models.analytics;
 
-import play.*;
-import play.db.jpa.*;
+import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import models.User;
-
-import java.util.*;
+import play.db.jpa.Model;
 
 @MappedSuperclass
 public class UserVisit extends Model {
@@ -28,13 +27,13 @@ public class UserVisit extends Model {
 	/** the id of the application used (example: web-desktop if used from beansight.com) */
 	public String application;
 	
-	public UserVisit(Date timestamp, User user, String ip, String userAgent, String application) {
+	public UserVisit(Date timestamp, User user, UserClientInfo userClientInfo) {
 		super();
 		this.timestamp = timestamp;
 		this.user = user;
-		this.ip = ip;
-		this.userAgent = userAgent;
-		this.application = application;
+		this.ip = userClientInfo.ip;
+		this.userAgent = userClientInfo.userAgent;
+		this.application = userClientInfo.application;
 	}
 	
 }
