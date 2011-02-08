@@ -446,9 +446,6 @@ public class Application extends Controller {
 		Insight insight = Insight.findByUniqueId(uniqueId);
 		Comment comment = insight.addComment(content, currentUser);
 
-		Trend.findAll();
-		
-		
 		render(comment);
 	}
 
