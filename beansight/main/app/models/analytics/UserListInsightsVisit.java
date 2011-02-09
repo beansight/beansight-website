@@ -9,8 +9,8 @@ import models.User;
 @Entity
 public class UserListInsightsVisit extends UserVisit {
 
-	public UserListInsightsVisit(Date timestamp, User user, UserClientInfo userClientInfo) {
-		super(timestamp, user, userClientInfo);
+	public UserListInsightsVisit(Date creationDate, User user, UserClientInfo userClientInfo) {
+		super(creationDate, user, userClientInfo);
 	}
 	
 }

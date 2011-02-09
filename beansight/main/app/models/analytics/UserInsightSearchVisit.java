@@ -11,8 +11,8 @@ public class UserInsightSearchVisit extends UserVisit {
 
 	public String searchKeyWords;
 	
-	public UserInsightSearchVisit(Date timestamp, User user, UserClientInfo userClientInfo, String searchKeyWords) {
-		super(timestamp, user, userClientInfo);
+	public UserInsightSearchVisit(Date creationDate, User user, UserClientInfo userClientInfo, String searchKeyWords) {
+		super(creationDate, user, userClientInfo);
 		this.searchKeyWords = searchKeyWords;
 	}
 	

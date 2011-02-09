@@ -13,8 +13,8 @@ public class UserExpertVisit extends UserVisit {
 	@ManyToOne
 	public User expert;
 
-	public UserExpertVisit(Date timestamp, User user, UserClientInfo userClientInfo, User expert) {
-		super(timestamp, user, userClientInfo);
+	public UserExpertVisit(Date creationDate, User user, UserClientInfo userClientInfo, User expert) {
+		super(creationDate, user, userClientInfo);
 		this.expert = expert;
 	}
 	

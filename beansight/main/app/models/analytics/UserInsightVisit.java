@@ -14,8 +14,8 @@ public class UserInsightVisit extends UserVisit {
 	@ManyToOne
 	public Insight insight;
 
-	public UserInsightVisit(Date timestamp, User user, UserClientInfo userClientInfo, Insight insight) {
-		super(timestamp, user, userClientInfo);
+	public UserInsightVisit(Date creationDate, User user, UserClientInfo userClientInfo, Insight insight) {
+		super(creationDate, user, userClientInfo);
 		this.insight = insight;
 	}
 	

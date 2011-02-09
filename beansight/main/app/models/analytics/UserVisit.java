@@ -12,7 +12,7 @@ import play.db.jpa.Model;
 public class UserVisit extends Model {
 
 	/** the date of the visit on the page */
-	public Date timestamp;
+	public Date creationDate;
 	
 	/** user visiting the page */
 	@ManyToOne
@@ -27,9 +27,9 @@ public class UserVisit extends Model {
 	/** the id of the application used (example: web-desktop if used from beansight.com) */
 	public String application;
 	
-	public UserVisit(Date timestamp, User user, UserClientInfo userClientInfo) {
+	public UserVisit(Date creationDate, User user, UserClientInfo userClientInfo) {
 		super();
-		this.timestamp = timestamp;
+		this.creationDate = creationDate;
 		this.user = user;
 		this.ip = userClientInfo.ip;
 		this.userAgent = userClientInfo.userAgent;
