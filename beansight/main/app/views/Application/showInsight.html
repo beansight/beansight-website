@@ -59,6 +59,18 @@
             <hr class="clear"/>
         </div>
         
+        #{isConnected}
+		#{secure.check 'admin'}
+		<div class="admin">
+		    <h3>admin box</h3>
+		    <form id="hideInsightForm">
+		    	<input type='hidden' id='insightId' value='${insight.id}'/>
+		    	<button id='hideInsightBtn'>Hide this prediction</button>
+		    </form>
+		</div>
+		#{/secure.check}
+		#{/isConnected}
+        
         #{shareInsight insight:insight /}
         
         <div class="commentzone">

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Insight;
 import models.User;
 import play.Play;
 import play.data.validation.Email;
@@ -48,4 +49,13 @@ public class Admin extends Controller {
 		renderText(System.getProperty("application.path"));
 	}	
 	
+	/**
+	 * 
+	 * @param insightId
+	 */
+	public static void hideInsight(Long insightId) {
+		Insight insight = Insight.findById(insightId);
+		insight.hidden = true;
+		insight.save();
+	}
 }

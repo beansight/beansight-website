@@ -198,7 +198,7 @@ function onAddCommentSuccess(content) {
     	}
 	}
 
-
+	
 //////////////////////
 // Settings
 //////////////////////
@@ -779,5 +779,13 @@ $(document).ready(function() {
 		$("#editAvatarZone").toggle('normal');
 		return false;
 	});
+	$("#hideInsightBtn").click(function() {
+		$.ajax({
+	        url: hideInsightAction({'insightId':$("#hideInsightForm #insightId").val()}),
+	        dataType: 'html'
+	    });
+	    return false;
+	});
+	
 	
 });

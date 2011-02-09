@@ -226,7 +226,6 @@ public class Insight extends Model {
 				Tag newTag = new Tag(label, this, user);
 				newTag.save();
 			} else {
-				System.out.println("FFFOUND:" + existTag.label);
 				// if found, then associate with this insight and this user.
 				existTag.insights.add(this);
 				existTag.users.add(user);
@@ -335,7 +334,10 @@ public class Insight extends Model {
 				}
 				query += " i.lang.id in (" + languageIds + ") ";
 			}
-
+			query += " and i.hidden is false";
+			
+		} else {
+			query += " where i.hidden is false";
 		}
 
 		query += " order by lastUpdated DESC";
@@ -355,7 +357,7 @@ public class Insight extends Model {
 	 * @param number : number of items per page
 	 */
 	public static List<Insight> findNotValidatedAndEndDateOver(int page, int number) {
-		List<Insight> insights = Insight.find("validated is false and endDate < ?", new Date()).fetch(page, number);
+		List<Insight> insights = Insight.find("hidden is false and validated is false and endDate < ?", new Date()).fetch(page, number);
 		return insights;
 	}
 	
@@ -364,7 +366,7 @@ public class Insight extends Model {
 	 * @param number : number of items per page
 	 */
 	public static List<Insight> findEndDateNotOver(int page, int number) {
-		List<Insight> insights = Insight.find("endDate > ?", new Date()).fetch(page, number);
+		List<Insight> insights = Insight.find("hidden is false and endDate > ?", new Date()).fetch(page, number);
 		return insights;
 	}
 	
