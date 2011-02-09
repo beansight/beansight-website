@@ -1,0 +1,43 @@
+# you describe your data using the YAML notation here
+# and then load them using Fixtures.load("data.yml")
+
+Category(TestcatCelebrities):
+    label:  Celebrities
+
+Category(TestcatFinance):
+    label:  Finance
+
+Category(TestcatFun):
+    label:  Fun
+
+Category(TestcatPolitics):
+    label:  Politics
+
+Category(TestcatSport):
+    label:  Sport
+
+Category(TestcatTechnology):
+    label:  Technology
+
+Category(TestcatWeb):
+    label:  Web
+    
+
+Language(TestEnglish):
+    label:  en
+    
+Language(TestFrench):
+    label: fr
+
+User(TestBob):
+    email: bob@gmail.com
+    userName: BobUserTest
+    password:   Xr4ilOzQ4PCOq3aQ0qbuaQ==
+    uiLanguage:             TestFrench
+    writtingLanguage:       TestFrench
+
+Promocode(TestaPromocode):
+    code:   test
+    crDate: 2011-01-01
+    endDate:    2012-01-01
+    nbUsageLeft:    4    

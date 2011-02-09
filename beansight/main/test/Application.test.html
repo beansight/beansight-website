@@ -1,8 +1,23 @@
 *{ You can use plain selenium command using the selenium tag }*
 
 #{selenium}
+    clearSession()
     // Open the home page, and check that no error occured
     open('/')
     waitForPageToLoad(1000)
     assertNotTitle('Application error')
+#{/selenium}
+
+#{fixture delete:'all', load:'testdata.yml' /}
+
+#{selenium}
+    clearSession()
+    // Open the home page, log in
+    open('/welcome')
+    waitForPageToLoad(1000)
+    click('btnlogin')
+    type('pseudologin', 'bob@gmail.com')
+    type('passlogin', 'secret')
+    clickAndWait('buttonlogin')
+    assertTextPresent('BobUserTest')
 #{/selenium}

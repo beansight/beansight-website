@@ -31,7 +31,7 @@
                     <label for="remember">&{'remember'}</label>
                     
                     <div class="inputsubmit">
-                        <button><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'loginbutton'}</span></button>
+                        <button id="buttonlogin"><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'loginbutton'}</span></button>
                     </div>
                 #{/form}
             </div>
