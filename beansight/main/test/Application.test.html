@@ -1,8 +1,8 @@
 *{ You can use plain selenium command using the selenium tag }*
 
 #{selenium}
-    clearSession()
     // Open the home page, and check that no error occured
+    clearSession()
     open('/')
     waitForPageToLoad(1000)
     assertNotTitle('Application error')
@@ -11,8 +11,8 @@
 #{fixture delete:'all', load:'testdata.yml' /}
 
 #{selenium}
-    clearSession()
     // Open the home page, log in
+    clearSession()
     open('/welcome')
     waitForPageToLoad(1000)
     click('btnlogin')
@@ -20,4 +20,17 @@
     type('passlogin', 'secret')
     clickAndWait('buttonlogin')
     assertTextPresent('BobUserTest')
+#{/selenium}
+
+#{selenium}
+    // Create an insight (with a content, a date, a category, but no tags)
+    open('/create')
+    waitForPageToLoad(1000)
+    type('insightContent', 'I will simply test Beansight. this is my prediction')
+    type('endDate', '2020-01-01')
+    click('//form[@id='insightCreationForm']/div[3]/div/div/div[1]')
+    click('//form[@id='insightCreationForm']/div[3]/div/div/div[2]/span[4]')
+    clickAndWait('submitcreate')
+    assertLocation('*/prediction/i-will-simply-test-beansight-this-is-my-prediction')
+    assertTextPresent('I will simply test Beansight. this is my prediction')
 #{/selenium}
