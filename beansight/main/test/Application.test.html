@@ -28,9 +28,19 @@
     waitForPageToLoad(1000)
     type('insightContent', 'I will simply test Beansight. this is my prediction')
     type('endDate', '2020-01-01')
-    click('//form[@id='insightCreationForm']/div[3]/div/div/div[1]')
-    click('//form[@id='insightCreationForm']/div[3]/div/div/div[2]/span[4]')
+    click('css=.jquery-selectbox-moreButton')
+    click('css=.jquery-selectbox-item.item-3')
     clickAndWait('submitcreate')
     assertLocation('*/prediction/i-will-simply-test-beansight-this-is-my-prediction')
     assertTextPresent('I will simply test Beansight. this is my prediction')
+    assertTextPresent('BobUserTest')
+#{/selenium}
+
+#{selenium}
+    // Vote on this insight
+    open('/prediction/i-will-simply-test-beansight-this-is-my-prediction')
+    waitForPageToLoad(1000)
+    click('css=.linkvote.disagreeaction a')
+    waitForCondition('var value = selenium.getText("css=.voteCount.disagreeCount"); value == "1"', 1000)
+    waitForCondition('var value = selenium.getText("css=.voteCount.agreeCount"); value == "0"', 1000) 
 #{/selenium}
