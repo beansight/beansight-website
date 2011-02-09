@@ -11,7 +11,7 @@
 	<ul class="menulistinsights">
    		<li>
 	        <div class="filterDropDown">
-	        <select name="categoryId" id="c_category">
+	        <select name="categoryId" id="filterCategory">
 	           <option value="@{Application.search(query, 0)}" #{if category == null}selected#{/if}>All</option>
 	           #{list items:controllers.Application.getCategories(), as:'cat'}
 	               <option value="@{Application.search(query, 0, cat.id)}" #{if category && category.id == cat.id}selected#{/if}>${cat.label}</option>
