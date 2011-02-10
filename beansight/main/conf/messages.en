@@ -78,6 +78,10 @@ experts.loadmore=more experts
 exploreinsights=Explore predictions
 insightstitle=Predictions
 incategory=in
+insights.sortby=Sort:
+insights.latest=Updated
+insights.trending=Trending
+insights.more=more
 
 #showUser
 userinsights=User predictions

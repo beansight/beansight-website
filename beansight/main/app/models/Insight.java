@@ -304,44 +304,9 @@ public class Insight extends Model {
 	 * @param number : number of items to return
 	 */
 	public static InsightResult findLatest(int from, int number, Filter filter) {
-		String query = "select i from Insight i join i.category c";
-		
-		// Category Ids
-        StringBuffer bufferCat = new StringBuffer();
-        Iterator<Category> iterCat = filter.categories.iterator();
-        while (iterCat.hasNext()) {
-        	bufferCat.append("'");
-            bufferCat.append(iterCat.next().id);
-            bufferCat.append("'");
-            if (iterCat.hasNext()) {
-                bufferCat.append(",");
-            }
-        }
-        String categoryIds = bufferCat.toString();
-
-		// Lang Ids
-        String languageIds = Language.listToIdString(filter.languages);
-        
-		if (!filter.categories.isEmpty() || !filter.languages.isEmpty()) {
-			query += " where ";
-
-			if (!filter.categories.isEmpty()) {
-				query += " c.id in (" + categoryIds + ") ";
-			}
-			
-			if (!filter.languages.isEmpty()) {
-				if(!filter.categories.isEmpty()) {
-					query += " and ";
-				}
-				query += " i.lang.id in (" + languageIds + ") ";
-			}
-			query += " and i.hidden is false";
-			
-		} else {
-			query += " where i.hidden is false";
-		}
-
-		query += " order by lastUpdated DESC";
+        String query = "select i from Insight i where i.hidden is false "
+				        + filter.generateJPAQueryWhereClause()
+						+ " order by lastUpdated DESC";
 
 		InsightResult result = new InsightResult();
 		// TODO : return total number using count ?
@@ -354,18 +319,22 @@ public class Insight extends Model {
 	
 	/**
 	 * Return the most voted insights from the previous 24 hours
-	 * @param page
+	 * @param from
 	 * @param length
+	 * @param filter 
 	 * @return
 	 */
-	public static InsightResult findTrending(int page, int length) {
+	public static InsightResult findTrending(int from, int length, Filter filter) {
 		InsightResult result = new InsightResult();
 		String query = "select v.insight from Vote v "
-						+ "where v.creationDate > ? " // Of course, do not check the status of the vote.
+						+ "join v.insight i "
+						+ "where i.hidden is false "
+						+ "and v.creationDate > ? " // Of course, do not check the status of the vote.
+						+ filter.generateJPAQueryWhereClause()
 						+ "group by v.insight.id "
 						+ "order by count(v) desc";
 		
-		result.results = Insight.find(query, new DateTime().minusHours(24) ).fetch(page, length);	
+		result.results = Insight.find(query, new DateTime().minusHours(24).toDate() ).from(from).fetch(length);	
 		return result;
 	}
 

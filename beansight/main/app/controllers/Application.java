@@ -128,7 +128,7 @@ public class Application extends Controller {
     
     
     public static void index() {
-    	insights(0,null);
+    	insights("trending", 0, null);
     }
     
     /**
@@ -153,7 +153,7 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
-	public static void insights(long cat, Set<String> lang) {
+	public static void insights(String sortBy, long cat, Set<String> lang) {
 		Filter filter = new Filter();
 
 		Category category = Category.findById(cat);
@@ -175,17 +175,23 @@ public class Application extends Controller {
 
 		InsightResult result;
 		
-		// If connected, get suggested insights
+		// depending on the sortBy
+		if(sortBy != null && sortBy.equals("updated")) {
+			// If connected, get suggested insights
+			if (Security.isConnected()) {
+				User currentUser = CurrentUser.getCurrentUser();
+				result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			} else {
+				result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			}
+		} else {
+			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		}
+		
+		// log for analytics
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-			// WIP
-			//result = Insight.findTrending(1, 10);
-			
-			// log for analytics
 			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
-		} else {
-			result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		}
 
 		renderArgs.put("insights", result.results);
@@ -198,7 +204,7 @@ public class Application extends Controller {
 			langs = new ArrayList<String>(lang);
 		}
 		
-		render(category, langs);
+		render(sortBy, category, langs);
 	}
 
 	/**
@@ -207,9 +213,8 @@ public class Application extends Controller {
 	 * @param from : the index of the first insight to return
 	 * @param cat
 	 */
-	public static void moreInsights(int from, long cat, Set<String> lang) {
+	public static void moreInsights(String sortBy, int from, long cat, Set<String> lang) {
 		Category category = Category.findById(cat);
-
 		Filter filter = new Filter();
 		if(category != null) {
 			filter.categories.add(category);
@@ -220,7 +225,14 @@ public class Application extends Controller {
 		}
 		filter.languages = Language.toLanguageSet(lang);
 		
-		InsightResult result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		InsightResult result = null;
+		
+		if(sortBy != null && sortBy.equals("updated")) {
+			result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		} else {
+			result = Insight.findTrending(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		}
+		
 		renderArgs.put("insights", result.results);
 		render();
 	}
@@ -633,7 +645,7 @@ public class Application extends Controller {
 
 	public static void search(String query, int from, long cat) {
 		if (query == null || query.isEmpty()) {
-			insights(0, null);
+			insights("trending", 0, null);
 		}
 		
 		Category category = Category.findById(cat);

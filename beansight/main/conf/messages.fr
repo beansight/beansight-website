@@ -78,6 +78,10 @@ experts.loadmore=plus d'experts
 exploreinsights=Explorer les prédictions
 insightstitle=Prédictions
 incategory=dans
+insights.sortby=Tri:
+insights.latest=Dernières
+insights.trending=Montantes
+insights.more=plus
 
 #showUser
 userinsights=Prédictions de l'utilisateur

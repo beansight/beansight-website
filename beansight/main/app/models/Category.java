@@ -40,7 +40,7 @@ public class Category extends Model {
 	}
 	
 	public static String listToIdString(Set<Category> categories) {
-        StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer();
         Iterator<Category> iter = categories.iterator();
         while (iter.hasNext()) {
         	buffer.append("'");
