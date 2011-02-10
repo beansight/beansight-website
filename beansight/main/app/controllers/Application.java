@@ -192,6 +192,9 @@ public class Application extends Controller {
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			// WIP
+			//result = Insight.findTrending(1, 10);
+			
 			// log for analytics
 			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
 		} else {

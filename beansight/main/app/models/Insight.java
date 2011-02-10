@@ -19,6 +19,7 @@ import models.Vote.Status;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
+import org.joda.time.DateTime;
 
 import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
 
@@ -346,9 +347,25 @@ public class Insight extends Model {
 		// TODO : return total number using count ?
 		// result.count = Insight.count(query);
 
-		List<Insight> insights = Insight.find(query).from(from).fetch(number);
-		result.results = insights;
+		result.results = Insight.find(query).from(from).fetch(number);
 
+		return result;
+	}
+	
+	/**
+	 * Return the most voted insights from the previous 24 hours
+	 * @param page
+	 * @param length
+	 * @return
+	 */
+	public static InsightResult findTrending(int page, int length) {
+		InsightResult result = new InsightResult();
+		String query = "select v.insight from Vote v "
+						+ "where v.creationDate > ? " // Of course, do not check the status of the vote.
+						+ "group by v.insight.id "
+						+ "order by count(v) desc";
+		
+		result.results = Insight.find(query, new DateTime().minusHours(24) ).fetch(page, length);	
 		return result;
 	}
 
