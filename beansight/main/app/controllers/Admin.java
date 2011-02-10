@@ -1,7 +1,9 @@
 package controllers;
 
+import jobs.UsersAnalyticsJob;
 import models.Insight;
 import models.User;
+import play.Logger;
 import play.Play;
 import play.data.validation.Email;
 import play.data.validation.Required;
@@ -57,5 +59,18 @@ public class Admin extends Controller {
 		Insight insight = Insight.findById(insightId);
 		insight.hidden = true;
 		insight.save();
+	}
+	
+	/**
+	 * TODO : temporary method to create the user analytics without waiting for the job to start the first time we'll release it !
+	 */
+	public static void usersAnalyticsJob() {
+		try {
+			new UsersAnalyticsJob().doJob();
+		} catch (Throwable e) {
+			renderText("UsersAnalyticsJob finished with error : " + e.getMessage());
+			Logger.error(e, "UsersAnalyticsJob finished with error");
+		}
+		renderText("UsersAnalyticsJob finished : ok");
 	}
 }

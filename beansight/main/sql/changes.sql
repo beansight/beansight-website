@@ -72,3 +72,14 @@ CREATE TABLE `UserListInsightsVisit` (
   KEY `FK1A0C198747140EFE` (`user_id`),
   CONSTRAINT `FK1A0C198747140EFE` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `UserInsightDailyCreation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `count` int(11) NOT NULL,
+  `forDate` datetime DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK52A83EB47140EFE` (`user_id`),
+  CONSTRAINT `FK52A83EB47140EFE` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;

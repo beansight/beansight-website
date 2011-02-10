@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.FormatHelper;
 import helpers.ImageHelper;
 
 import java.awt.image.BufferedImage;
@@ -10,9 +11,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+
+import jobs.UsersAnalyticsJob;
+
+import org.joda.time.DateTime;
 
 import models.Category;
 import models.Comment;
@@ -29,6 +35,7 @@ import models.Vote;
 import models.Vote.State;
 import models.WaitingEmail;
 import models.analytics.UserClientInfo;
+import models.analytics.UserInsightDailyCreation;
 import play.Logger;
 import play.Play;
 import play.data.validation.Email;
