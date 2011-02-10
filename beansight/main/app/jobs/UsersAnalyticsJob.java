@@ -12,6 +12,7 @@ import models.Insight;
 import models.Trend;
 import models.User;
 import models.analytics.UserInsightDailyCreation;
+import models.analytics.UserInsightDailyVote;
 import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
@@ -30,15 +31,17 @@ public class UsersAnalyticsJob extends Job {
     	// it's the first time the job running ...)
     	DateTime startOfDayForCalculation = new DateTime(new DateMidnight()).minusDays(1);
     	
-    	doCalculation(startOfDayForCalculation);
+    	doCalculationForUserInsightDailyCreation(startOfDayForCalculation);
 		
+    	doCalculationForUserInsightDailyVote(startOfDayForCalculation);
+    	
         Logger.info("UsersAnalyticsJob end");
     }
     
     
-    private void doCalculation(DateTime startOfDayForCalculation) {
+    private void doCalculationForUserInsightDailyCreation(DateTime startOfDayForCalculation) {
     	if (UserInsightDailyCreation.findIfAnalyticExistsForDate(startOfDayForCalculation.toDate()) == true) {
-    		return;
+    		return; // stop
     	}
     	DateTime endOfDayForCalculation = startOfDayForCalculation.plusDays(1).minusSeconds(1);
 		List<Object[]> rows = User.find("select i.creator, count(i.id) from Insight i where i.creationDate between ? and  ? group by i.creator.id", startOfDayForCalculation.toDate(), endOfDayForCalculation.toDate()).fetch();
@@ -50,6 +53,24 @@ public class UsersAnalyticsJob extends Job {
 		
 		// recursive call to create previous records if they don't exist yet
 		startOfDayForCalculation = startOfDayForCalculation.minusDays(1);
-		doCalculation(startOfDayForCalculation);
+		doCalculationForUserInsightDailyCreation(startOfDayForCalculation);
+    }
+    
+    
+    private void doCalculationForUserInsightDailyVote(DateTime startOfDayForCalculation) {
+    	if (UserInsightDailyVote.findIfAnalyticExistsForDate(startOfDayForCalculation.toDate()) == true) {
+    		return; // stop
+    	}
+    	DateTime endOfDayForCalculation = startOfDayForCalculation.plusDays(1).minusSeconds(1);
+		List<Object[]> rows = User.find("select v.user, count(v.id) from Vote v where v.creationDate between ? and  ? group by v.user.id", startOfDayForCalculation.toDate(), endOfDayForCalculation.toDate()).fetch();
+		
+		for (Object[] row : rows) {
+			UserInsightDailyVote analytic = new UserInsightDailyVote(startOfDayForCalculation.toDate(), (User)row[0], (Long)row[1]);
+			analytic.save();
+		}
+		
+		// recursive call to create previous records if they don't exist yet
+		startOfDayForCalculation = startOfDayForCalculation.minusDays(1);
+		doCalculationForUserInsightDailyVote(startOfDayForCalculation);
     }
 }

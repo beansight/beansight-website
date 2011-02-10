@@ -228,6 +228,7 @@ footer.twitter=Twitter
 footer.copyright=Copyright &copy; 2010 Beansight, Inc.
 footer.allright=All rights reserved.
 footer.website=Design by <a href="http://www.colorz.fr/">Colorz</a>
+footer.forgotPassword=Forgot password ?
 
 # Error
 errornotfound=Not found
