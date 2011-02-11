@@ -95,3 +95,14 @@ CREATE TABLE `UserInsightDailyVote` (
   CONSTRAINT `FK756CCDF647140EFE` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE `InsightDailyVote` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `agreeCount` bigint(20) DEFAULT NULL,
+  `disagreeCount` bigint(20) DEFAULT NULL,
+  `forDate` datetime DEFAULT NULL,
+  `insight_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKAFF3A40B7BBEB316` (`insight_id`),
+  CONSTRAINT `FKAFF3A40B7BBEB316` FOREIGN KEY (`insight_id`) REFERENCES `Insight` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;

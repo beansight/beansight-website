@@ -9,11 +9,12 @@ import javax.persistence.Transient;
 
 import org.joda.time.DateMidnight;
 
+import models.Insight;
 import models.User;
 import play.db.jpa.Model;
 
 @Entity
-public class UserInsightDailyVote extends Model {
+public class InsightDailyVote extends Model {
 
 	@Transient
 	private static Date NO_ANALYTIC_BEFORE_DATE = new DateMidnight(2011, 1, 26).toDate();
@@ -22,16 +23,22 @@ public class UserInsightDailyVote extends Model {
 	public Date forDate;
 	
 	@ManyToOne
-	public User user;
+	public Insight insight;
 	
-	// total number of vote the "user" has made for date "forDate"
-	public long count;
+	public Long agreeCount;
 	
-	public UserInsightDailyVote(Date forDate, User user, long count) {
+	public Long disagreeCount;
+	
+	public InsightDailyVote(Date forDate, Insight insight, long agreeCount, long disagreeCount) {
 		super();
 		this.forDate = forDate;
-		this.user = user;
-		this.count = count;
+		this.insight = insight;
+		this.agreeCount = agreeCount;
+		this.disagreeCount = disagreeCount;
+	}
+	
+	public Long getTotalVote() {
+		return agreeCount + disagreeCount;
 	}
 	
 	public static boolean findIfAnalyticExistsForDate(Date date) {
@@ -39,7 +46,7 @@ public class UserInsightDailyVote extends Model {
 		if (date.before(NO_ANALYTIC_BEFORE_DATE)) {
 			return true;
 		}
-		if (UserInsightDailyVote.count("forDate = ?", date) > 0) {
+		if (InsightDailyVote.count("forDate = ?", date) > 0) {
 			return true;
 		}
 		return false;
