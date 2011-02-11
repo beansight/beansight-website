@@ -69,3 +69,20 @@ function onMoreInsightsSuccess(content) {
     //}
 }
 </script>
+
+<script type="text/javascript" charset="utf-8">
+// keyboard shortcuts
+var shortcutCurrentInsight = 1;
+$(document).bind("keydown", "j", function () {
+    shortcutCurrentInsight++;
+}).bind("keydown", "k", function () {
+    if(shortcutCurrentInsight > 1) {
+        shortcutCurrentInsight--;
+    }
+}).bind("keydown", "Return", function () {
+    var shortcutTarget = $("a.permalink", "#insightList .insightItem:nth-child(" + shortcutCurrentInsight + ")").attr("href");
+    if (shortcutTarget != null && shortcutTarget != "") {
+        window.location.href = shortcutTarget;
+    }
+});
+</script>

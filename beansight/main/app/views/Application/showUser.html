@@ -180,3 +180,10 @@
 #{/if}
 
 #{/userContainer}
+
+<script type="text/javascript" charset="utf-8">
+// keyboard shortcuts
+$(document).bind("keydown", "u", function () {
+    window.location.href = "@{Application.experts()}";
+});
+</script>
