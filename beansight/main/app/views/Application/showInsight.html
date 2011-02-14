@@ -74,7 +74,7 @@
         #{shareInsight insight:insight /}
         
         <div class="commentzone">
-            <p class="nbcomments"><span class="cuf-grm">${insight.comments.size()}</span> <span class="cuf-grb">&{'comments'}</span></p>
+            <p class="nbcomments"><span class="cuf-grm">${comments?.size()}</span> <span class="cuf-grb">&{'comments'}</span></p>
             #{isConnected}
             <form class="newcomment" id="addCommentForm">
                 
@@ -102,7 +102,7 @@
             #{/isConnected}
 
             <div id="commentList" class="list-comments">
-            #{list items:insight.comments, as:'comment' }
+            #{list items:comments, as:'comment' }
             #{comment comment:comment /}
             #{/list}
             </div>

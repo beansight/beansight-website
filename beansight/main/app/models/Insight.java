@@ -4,7 +4,6 @@ import helpers.FormatHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,11 +16,8 @@ import javax.persistence.OrderBy;
 
 import models.Vote.Status;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
 import org.joda.time.DateTime;
-
-import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
 
 import play.Logger;
 import play.data.validation.MaxSize;
@@ -33,6 +29,7 @@ import play.modules.search.Indexed;
 import play.modules.search.Query;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
+import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
 
 
 @Indexed
@@ -403,6 +400,10 @@ public class Insight extends Model {
      */
     public static Insight findByUniqueId(String uniqueId) {
     	return find("select i from Insight i where i.uniqueId = :uniqueId").bind("uniqueId", uniqueId).first();
+    }
+    
+    public List<Comment> findDisplayableComments() {
+    	return Comment.find("select c from Comment c where c.insight.id = :insightId and c.hidden is false order by c.creationDate").bind("insightId", this.id).fetch();
     }
     
 	public static class InsightResult {
