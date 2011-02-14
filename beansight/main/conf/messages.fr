@@ -1,6 +1,9 @@
 # used for javascript i18n
 i18n=fr
 
+# main
+beansightDescription=Sur Beansight, parcourez les opinions et découvrez ce qui va probablement se produire demain. Partagez vos prédictions et devenez un expert.
+
 # validation
 validation.email=L'e-mail saisi n'est pas valide
 validation.required = %s doit être rempli
