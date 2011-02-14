@@ -1,4 +1,4 @@
-<div class="item-comment first">
+<div class="item-comment first" id="insightComment_${_comment.id}">
     <div class="user-comment">
         <a href="#" class="name-comment">${_comment.user.userName}</a>
         <span class="date-comment">${_comment.creationDate.since(true)}</span>
@@ -8,6 +8,14 @@
         }*
         <hr class="clear"/>
     </div>
-    <p class="txt-comment">${_comment.content.escape().nl2br()}</p>
+    <p class="txt-comment">${_comment.content.escape().nl2br()}    
+    #{isConnected}
+    	#{secure.check 'admin'}
+    	<br>
+		<a href="#" onclick="insightHideComment(${_comment.id}); return false;" style="color: red;">hide this comment</a>
+		#{/secure.check}
+	#{/isConnected}
+	</p>
+
     <hr class="clear"/>
 </div>

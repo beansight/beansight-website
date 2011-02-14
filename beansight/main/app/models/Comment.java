@@ -28,11 +28,15 @@ public class Comment extends Model {
 	@Index (name = "COMMENTS_CRDATE_IDX")
 	public Date creationDate;
 
+	/** is this comment hidden ? */
+	public boolean hidden;
+	
 	public Comment(User user, Insight insight, String content) {
 		this.user = user;
 		this.insight = insight;
 		this.content = content;
 		this.creationDate = new Date();
+		this.hidden = false;
 	}
 	
 	public String toString() {

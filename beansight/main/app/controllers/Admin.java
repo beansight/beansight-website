@@ -1,6 +1,13 @@
 package controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import jobs.UsersAnalyticsJob;
+import models.Comment;
 import models.Insight;
 import models.User;
 import play.Logger;
@@ -59,6 +66,25 @@ public class Admin extends Controller {
 		Insight insight = Insight.findById(insightId);
 		insight.hidden = true;
 		insight.save();
+	}
+	
+	/**
+	 * 
+	 * @param insightId
+	 */
+	public static void insightHideComment(final Long commentId) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			Comment comment = Comment.findById(commentId);
+			comment.hidden = true;
+			comment.save();
+			
+			result.put("error", "");
+			result.put("id", commentId);
+		} catch (Throwable e) {
+			result.put("error", e.getMessage());
+		}
+		renderJSON(result);
 	}
 	
 	/**
