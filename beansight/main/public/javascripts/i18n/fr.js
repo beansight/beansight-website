@@ -18,5 +18,7 @@ var i18n = {
 		newCommentMinSize :			'Votre commentaire doit faire 5 caractères au moins',
 		sendingEmail :				'envoi ...',
 		validationDescription:		'Limité à 120 caractères',
-		validationRealName:			'Limité à 30 caractères'
+		validationRealName:			'Limité à 30 caractères',
+		voteAgree:					"Vous êtes d'accord avec cette prédiction",
+		voteDisagree:				"Vous n'êtes pas d'accord avec cette prédiction"
 }

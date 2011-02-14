@@ -24,6 +24,8 @@ function agree(insightUniqueId) {
     var insightContainer = $(".insight_" + insightUniqueId);
    	insightContainer.removeClass("voteDisagree").addClass("voteAgree");
 
+   	$(".voteWidgetLarge #lastVote").replaceWith(i18n.voteAgree);
+   	
    	return false;
 }
 
@@ -34,6 +36,8 @@ function disagree(insightUniqueId) {
     var insightContainer = $(".insight_" + insightUniqueId);
    	insightContainer.addClass("voteDisagree").removeClass("voteAgree");
 
+   	$(".voteWidgetLarge #lastVote").replaceWith(i18n.voteDisagree);
+   	
     return false;
 }
 

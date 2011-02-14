@@ -18,5 +18,7 @@ var i18n = {
 		newCommentMinSize :			'your comment should be 5 characters at least',
 		sendingEmail :				'sending...',
 		validationDescription:		'120 characters max',
-		validationRealName:			'30 characters max'
+		validationRealName:			'30 characters max',
+		voteAgree:					"You agree with this prediction",
+		voteDisagree:				"You disagree with this prediction"
 }

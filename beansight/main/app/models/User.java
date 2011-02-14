@@ -337,12 +337,6 @@ public class User extends Model {
 		i.addTags(tagLabelList, this);
 
 		this.createdInsights.add(i);
-		// agree with this insight
-		try {
-			this.voteToInsight(i.uniqueId, State.AGREE);
-		} catch (CannotVoteTwiceForTheSameInsightException e) {
-			
-		}
 
 		this.save();
 

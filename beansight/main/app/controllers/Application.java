@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -111,19 +113,22 @@ public class Application extends Controller {
     }
     
     public static void leaveYourEmail(@Required @Email String email) {
-    	String msg = "";
-    	boolean hasError = false;
+    	Map<String, Object> jsonResult = new HashMap<String, Object>();
+    	jsonResult.put("msg", "");
+    	jsonResult.put("hasError", Boolean.FALSE);
+    	
     	if(validation.hasErrors()) {
-    		hasError = true;
+    		jsonResult.put("hasError", Boolean.TRUE);
     		for (play.data.validation.Error error : validation.errors()) {
-    			msg += error.message();
+    			jsonResult.put("msg",  jsonResult.get("msg") + error.message());
     		}
-    		render("Application/leaveYourEmail.json", msg, hasError);
+    		renderJSON(jsonResult);
 	   	}
     	WaitingEmail waitingEmail = new WaitingEmail(email);
     	waitingEmail.save();
-    	msg = Messages.get("welcome.leaveYourEmailSuccess");
-    	render("Application/leaveYourEmail.json", msg, hasError);
+    	
+    	jsonResult.put("msg", Messages.get("welcome.leaveYourEmailSuccess"));
+    	renderJSON(jsonResult);
     }
     
     
@@ -309,6 +314,7 @@ public class Application extends Controller {
 	 */
 	public static void agree(String insightUniqueId) {
 		vote(insightUniqueId, State.AGREE);
+		
 	}
 
 	/**
@@ -330,8 +336,18 @@ public class Application extends Controller {
 		}
 
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
-		renderArgs.put("agree", voteState == State.AGREE);
-		render("Application/vote.json", insight);
+		
+		Map<String, Object> jsonResult = new HashMap<String, Object>();
+		jsonResult.put("uniqueId", insight.uniqueId);
+		jsonResult.put("updatedAgreeCount", insight.agreeCount);
+		jsonResult.put("updatedDisagreeCount", insight.disagreeCount);
+		if (voteState.equals(State.AGREE)) {
+			jsonResult.put("voteState", "agree");
+		} else {
+			jsonResult.put("voteState", "disagree");
+		}
+		
+		renderJSON(jsonResult);
 	}
 
 	/**

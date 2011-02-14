@@ -1,6 +1,0 @@
-{
-    "uniqueId": "${insight.uniqueId}",
-    "updatedAgreeCount": ${insight.agreeCount},
-    "updatedDisagreeCount": ${insight.disagreeCount},
-    "voteState": #{if agree}"agree"#{/if} #{else}"disagree"#{/else}
-}
