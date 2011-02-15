@@ -22,6 +22,14 @@ public class Register extends Controller {
 	}
 	
 	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
+		// Check if username or email not already in use, because username and email must be unique !
+		if(!User.isEmailAvailable(email)) {
+			validation.addError("email", Messages.get("registeremailexist")); 
+		}
+		if(!User.isUsernameAvailable(username)) {
+			validation.addError("username", Messages.get("registerusernameexist")); 
+		}
+		
 		// See if promocode is ok:
 		Promocode code = Promocode.findbyCode(promocode);
 		if(code != null && code.nbUsageLeft > 0 && code.endDate.after(new Date())) {
@@ -32,14 +40,6 @@ public class Register extends Controller {
 			}
 		} else {
 			validation.addError("promocode", Messages.get("registernotvalidpromocode"));
-		}
-		
-		// Check if username or email not already in use, because username and email must be unique !
-		if(!User.isEmailAvailable(email)) {
-			validation.addError("email", Messages.get("registeremailexist")); 
-		}
-		if(!User.isUsernameAvailable(username)) {
-			validation.addError("username", Messages.get("registerusernameexist")); 
 		}
 		
 		if (validation.hasErrors()) {
