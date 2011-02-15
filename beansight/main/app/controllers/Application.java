@@ -471,6 +471,13 @@ public class Application extends Controller {
 		render("Application/followUser.json", userId);
 	}
 
+	public static void loadFollowedUsers(Long userId) {
+		User currentUser = CurrentUser.getCurrentUser();
+
+		renderArgs.put("_followedUsers", currentUser.followedUsers);
+		renderTemplate("tags/followedUsers.tag");
+	}
+	
 	/**
 	 * AJAX
 	 * Add a comment to a specific insight for the current user

@@ -10,7 +10,7 @@ validation.required = %s doit être rempli
 
 # indexNotConnected
 home=Accueil
-trendinginsights=Prédictions montantes :
+trendinginsights=Prédictions populaires :
 
 # indexConnected
 newandtrending=Nouveaux
@@ -27,7 +27,7 @@ addmessage=Ajoutez un message
 invitesubmit=Envoyer
 inviteconfirm=Invitation envoyée
 browsecategory=Catégories
-trendinginsights=Prédictions montantes
+trendinginsights=Prédictions populaires
 
 # search page
 search.pagetitle=Recherche
@@ -82,8 +82,9 @@ exploreinsights=Explorer les prédictions
 insightstitle=Prédictions
 incategory=dans
 insights.sortby=Tri:
-insights.latest=Dernières
-insights.trending=Montantes
+insights.category=Catégorie:
+insights.latest=Mis à jour
+insights.trending=Popularité
 insights.more=plus
 
 #showUser

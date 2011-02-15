@@ -82,6 +82,7 @@ exploreinsights=Explore predictions
 insightstitle=Predictions
 incategory=in
 insights.sortby=Sort:
+insights.category=Category:
 insights.latest=Updated
 insights.trending=Trending
 insights.more=more

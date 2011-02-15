@@ -41,6 +41,7 @@
 	var resetInsightActivityAction = #{jsAction @Application.resetInsightActivity() /};
 	var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
 	var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
+	var loadFollowedUsersBlockAction = #{jsAction @Application.loadFollowedUsers(':userId') /};
 	var moreInsightsAction = #{jsAction @Application.moreInsights() /};
 	var searchExpertsAction = #{jsAction @Application.searchExperts() /};
 	var moreSearchAction = #{jsAction @Application.moreSearch() /};

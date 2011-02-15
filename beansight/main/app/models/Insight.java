@@ -315,7 +315,7 @@ public class Insight extends Model {
 	}
 	
 	/**
-	 * Return the most voted insights from the previous 24 hours
+	 * Return the most voted insights from the previous 48 hours
 	 * @param from
 	 * @param length
 	 * @param filter 
@@ -331,7 +331,7 @@ public class Insight extends Model {
 						+ "group by v.insight.id "
 						+ "order by count(v) desc";
 		
-		result.results = Insight.find(query, new DateTime().minusHours(24).toDate() ).from(from).fetch(length);	
+		result.results = Insight.find(query, new DateTime().minusHours(48).toDate() ).from(from).fetch(length);	
 		return result;
 	}
 

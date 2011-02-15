@@ -24,7 +24,7 @@ function agree(insightUniqueId) {
     var insightContainer = $(".insight_" + insightUniqueId);
    	insightContainer.removeClass("voteDisagree").addClass("voteAgree");
 
-   	$(".voteWidgetLarge #lastVote").replaceWith(i18n.voteAgree);
+   	$(".voteWidgetLarge #lastVote").html(i18n.voteAgree);
    	
    	return false;
 }
@@ -36,7 +36,7 @@ function disagree(insightUniqueId) {
     var insightContainer = $(".insight_" + insightUniqueId);
    	insightContainer.addClass("voteDisagree").removeClass("voteAgree");
 
-   	$(".voteWidgetLarge #lastVote").replaceWith(i18n.voteDisagree);
+   	$(".voteWidgetLarge #lastVote").html(i18n.voteDisagree);
    	
     return false;
 }
@@ -91,6 +91,7 @@ function onToggleFollowingInsightSuccess(data) {
 
 function toggleFollowingUser(userId) {
 	$.getJSON(toggleFollowingUserAction({'userId': userId}), onToggleFollowingUserSuccess);
+	$.get(loadFollowedUsersBlockAction({'userId': userId}), onLoadFollowedUsersSuccess);
 	var favicon = $(".addfav", ".user_" + userId);
 	if(favicon.hasClass("active")) {
 		favicon.removeClass("active");
@@ -108,6 +109,11 @@ function onToggleFollowingUserSuccess(data) {
 	} else {
 		favicon.removeClass("active");
 	}
+}
+
+/** Callback  */
+function onLoadFollowedUsersSuccess(data) {
+	$(".list-avatars").replaceWith(data);
 }
 
 /** Callback after a resetInsightActivity is done*/
@@ -801,15 +807,5 @@ $(document).ready(function() {
 	    });
 	    return false;
 	});
-	
-	$("#hideInsightBtn").click(function() {
-		$.ajax({
-	        url: hideInsightAction({'insightId':$("#hideInsightForm #insightId").val()}),
-	        dataType: 'html'
-	    });
-	    return false;
-	});
-	
-
 	
 });
