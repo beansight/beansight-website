@@ -536,18 +536,14 @@ public class Application extends Controller {
 		render(user);
 	}
 	
-	public static void updateUserName(@Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String userName) {
+	public static void saveSettings(String uiLanguage, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String userName) {
 		if (validation.hasErrors()) {
 			flash.error(Messages.get("updateUserName.validation"));
 	    }
-		User user = CurrentUser.getCurrentUser();
-		user.userName = userName;
-		user.save();
-	}
-	
-	public static void saveSettings(String uiLanguage) {
+		
 		User user = CurrentUser.getCurrentUser();
 		user.uiLanguage = Language.findByLabelOrCreate(uiLanguage);
+		user.userName = userName;
 		user.save();
 		
 		Application.settings();
