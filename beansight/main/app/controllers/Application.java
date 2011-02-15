@@ -388,7 +388,7 @@ public class Application extends Controller {
 		
         renderArgs.put("lastVotes", lastVotes);
         renderArgs.put("agreeTrends", insight.getAgreeRatioTrends(100));
-        renderArgs.put("comments", insight.findDisplayableComments());
+        renderArgs.put("comments", insight.comments);
 		render(insight);
 	}
 
