@@ -281,13 +281,15 @@ function abbreviate(str, size) {
 }
 
 function insightHideComment(commentId) {
-	$.get(insightHideCommentAction({'commentId':commentId}), function(data) {
-		if(data.error=="") {
-			$('#insightComment_' + data.id).remove();
-		} else {
-			alert(data.error);
-		}
-	});
+	if(confirm('confirm ?')) {
+		$.get(insightHideCommentAction({'commentId':commentId}), function(data) {
+			if(data.error=="") {
+				$('#insightComment_' + data.id).remove();
+			} else {
+				alert(data.error);
+			}
+		});
+	}
 }
 
 // Execute scripts after the document creation
@@ -799,13 +801,4 @@ $(document).ready(function() {
 		$("#editAvatarZone").toggle('normal');
 		return false;
 	});
-	
-	$("#hideInsightBtn").click(function() {
-		$.ajax({
-	        url: hideInsightAction({'insightId':$("#hideInsightForm #insightId").val()}),
-	        dataType: 'html'
-	    });
-	    return false;
-	});
-	
 });

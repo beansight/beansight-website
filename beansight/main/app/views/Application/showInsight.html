@@ -62,11 +62,7 @@
         #{isConnected}
 		#{secure.check 'admin'}
 		<div class="admin">
-		    <h3>admin box</h3>
-		    <form id="hideInsightForm">
-		    	<input type='hidden' id='insightId' value='${insight.id}'/>
-		    	<button id='hideInsightBtn'>Hide this prediction</button>
-		    </form>
+		    <a href="@{Admin.hideInsight( insight.id )}" onclick="return confirm('confirm ?');" style="color: red;">hide this prediction</a>
 		</div>
 		#{/secure.check}
 		#{/isConnected}

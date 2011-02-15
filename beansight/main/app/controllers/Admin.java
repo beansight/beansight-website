@@ -66,6 +66,7 @@ public class Admin extends Controller {
 		Insight insight = Insight.findById(insightId);
 		insight.hidden = true;
 		insight.save();
+		renderText("Insight deleted");
 	}
 	
 	/**
