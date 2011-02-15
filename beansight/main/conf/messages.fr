@@ -83,7 +83,7 @@ insightstitle=Prédictions
 incategory=dans
 insights.sortby=Tri:
 insights.category=Catégorie:
-insights.latest=Mis à jour
+insights.latest=Mise à jour
 insights.trending=Popularité
 insights.more=plus
 
