@@ -399,7 +399,7 @@ public class Insight extends Model {
      * @return
      */
     public static Insight findByUniqueId(String uniqueId) {
-    	return find("select i from Insight i where i.uniqueId = :uniqueId").bind("uniqueId", uniqueId).first();
+    	return find("select i from Insight i where i.uniqueId = :uniqueId and i.hidden is false").bind("uniqueId", uniqueId).first();
     }
     
     public List<Comment> findDisplayableComments() {
