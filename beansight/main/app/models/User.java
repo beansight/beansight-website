@@ -776,7 +776,7 @@ public class User extends Model {
 	 * override default behavior to remove from results navigation the hidden insights
 	 * @return
 	 */
-	public List<Insight> getFollowedInsights() {
+	public List<Insight> getNotHiddenFollowedInsights() {
 		List<Insight> fInsights = Insight.find("select i from User u join u.followedInsights i where u.id = ? and i.hidden is false", this.id).fetch();
 		return fInsights;
 	}

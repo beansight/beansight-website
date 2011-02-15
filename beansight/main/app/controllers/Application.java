@@ -89,7 +89,7 @@ public class Application extends Controller {
 			User currentUser = CurrentUser.getCurrentUser();
 			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
 			// TODO limit the number and order by update
-			renderArgs.put("followedInsights", currentUser.followedInsights);
+			renderArgs.put("followedInsights", currentUser.getNotHiddenFollowedInsights());
 			renderArgs.put("followedUsers", currentUser.followedUsers);
 			
 			renderArgs.put("emailConfirmed", currentUser.emailConfirmed);
@@ -388,7 +388,7 @@ public class Application extends Controller {
 		
         renderArgs.put("lastVotes", lastVotes);
         renderArgs.put("agreeTrends", insight.getAgreeRatioTrends(100));
-        renderArgs.put("comments", insight.comments);
+        renderArgs.put("comments", insight.getNotHiddenComments());
 		render(insight);
 	}
 
