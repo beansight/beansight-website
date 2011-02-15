@@ -91,7 +91,6 @@ function onToggleFollowingInsightSuccess(data) {
 
 function toggleFollowingUser(userId) {
 	$.getJSON(toggleFollowingUserAction({'userId': userId}), onToggleFollowingUserSuccess);
-	$.get(loadFollowedUsersBlockAction({'userId': userId}), onLoadFollowedUsersSuccess);
 	var favicon = $(".addfav", ".user_" + userId);
 	if(favicon.hasClass("active")) {
 		favicon.removeClass("active");
@@ -109,6 +108,7 @@ function onToggleFollowingUserSuccess(data) {
 	} else {
 		favicon.removeClass("active");
 	}
+	$.get(loadFollowedUsersBlockAction({'userId': data.id}), onLoadFollowedUsersSuccess);
 }
 
 /** Callback  */
