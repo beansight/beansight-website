@@ -126,6 +126,7 @@ messagesubmit=Envoyer
 messagesentconfirm=Message envoyé
 
 # settings
+settings.title=Paramètres
 uiLanguage=Langue de l'interface
 selectArea=Cliquer et déplacer en maintenant appuyer le curseur pour sélectionner une zone
 selectionPreview=Previsualisation du résultat

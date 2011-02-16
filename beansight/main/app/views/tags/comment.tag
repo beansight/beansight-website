@@ -1,8 +1,8 @@
 <div class="item-comment first" id="insightComment_${_comment.id}">
     <div class="user-comment">
-        <a href="#" class="name-comment">${_comment.user.userName}</a>
+        <a href="@{Application.showUser(_comment.user.userName)}" class="name-comment">${_comment.user.userName}</a>
         <span class="date-comment">${_comment.creationDate.since(true)}</span>
-        <a href="#" class="avatar-comment"><img src="@{Application.showAvatarSmall(_comment.user.userName, _comment.user.avatarHashCode())}" alt=""/></a>
+        <a href="@{Application.showUser(_comment.user.userName)}" class="avatar-comment"><img src="@{Application.showAvatarSmall(_comment.user.userName, _comment.user.avatarHashCode())}" alt=""/></a>
         *{ TODO COLORZ : display the user vote 
         <span class="vote-comment agreeaction">Vote</span>
         }*

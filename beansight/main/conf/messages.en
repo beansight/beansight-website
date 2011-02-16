@@ -126,6 +126,7 @@ messagesubmit=Send
 messagesentconfirm=Message sent
 
 # settings
+settings.title=Settings
 uiLanguage=Interface language
 selectArea=Click and drag on the image to select an area. 
 selectionPreview=Selection Preview

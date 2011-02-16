@@ -1,26 +1,32 @@
 #{extends 'content.html' /}
 #{set title:user.userName + ' Settings'/}
-<div class="userDetail">
 
-    #{form @Application.saveSettings(), enctype:'multipart/form-data', id:'userSettingsForm', name:'userSettingsForm'}
-    	<p>
+#{set contentCenterClass:'settings' /}
+
+<div class="bloccontent" style="margin-left:10px;">
+    #{form @Application.saveSettings(), enctype:'multipart/form-data', id:'userSettingsForm', name:'userSettingsForm',  class:'bigform'}
+    	<h2 class="cuf-grb">&{'settings.title'}</h2>
+    	<div class="item-input">
     		<label for="userName">&{'settings.userName'}</label>
         	<input type="text" name="userName" id="userName" value="${user.userName}"/>
         	#{if errors.forKey('userName')}<span class="error">#{error 'userName' /}</span>#{/if}
-        </p>
-        <p>
-            <a href="@{Application.changePassword()}">&{'settings.changePassword'}</a>
-        </p>
-        <p>
+        </div>
+        <div class="item-input">
             <label for="uiLanguage">&{'uiLanguage'}</label>
             <select name="uiLanguage">
                 <option value="en" #{if user.uiLanguage.label.equals("en")}selected#{/if}>en</option>
                 <option value="fr" #{if user.uiLanguage.label.equals("fr")}selected#{/if}>fr</option>
             </select>
-        </p>
-        <p>
-        	<input type="submit" value="&{'settingsSubmit'}"/>
-        </p>
-    #{/form}
+        </div
+        
+        <div class="item-checkbox" style="float: left;">
+            <a href="@{Application.changePassword()}">&{'settings.changePassword'}</a>
+        </div>
+        
+        <div class="item-submit line-form">
+            <button id="submitcreate"><span class="backbutton"></span><span class="txtbutton cuf-create">&{'settingsSubmit'}</span></button>
+        </div>
+        
 
+    #{/form}
 </div>
