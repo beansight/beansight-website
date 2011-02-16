@@ -17,6 +17,8 @@ import play.mvc.*;
 
 public class Settings extends Controller {
 	
+	public static final int AVATAR_MAX_SIZE = 3000000;
+	
 	public static void updateUserRealName(@MaxLength(User.REALNAME_MAXLENGTH) String realName) {
 		if (validation.hasErrors()) {
 			flash.error(Messages.get("updateUserRealName.validation"));
@@ -52,7 +54,7 @@ public class Settings extends Controller {
 					originalImage.delete();
 				} else {
 					// check the image size 
-					if (originalImage.length() > 512000) {
+					if (originalImage.length() > AVATAR_MAX_SIZE) {
 						flash.error(Messages.get("settings.imageSizeTooBig"));
 						originalImage.delete();
 					}

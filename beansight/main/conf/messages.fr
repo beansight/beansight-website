@@ -134,7 +134,7 @@ imageCropSubmit=Valider
 saveSettingImageNotFoundException=Oups un problème nous empêche de sauver l'image de votre avatar
 settings.changePassword=Changer de mot de passe
 settings.imageInvalidFormat=Format d'image incorrect
-settings.imageSizeTooBig=L'image doit faire moins de 512 ko
+settings.imageSizeTooBig=L'image doit faire moins de 3 Mo
 settings.userName=Nom d'utilisateur
 
 # change password

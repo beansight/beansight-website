@@ -134,7 +134,7 @@ imageCropSubmit=Save
 saveSettingImageNotFoundException=We are sorry an unexcepted error prevents us to save you avatar image
 settings.changePassword=Change password
 settings.imageInvalidFormat=Error while reading image : is it a valid image ?
-settings.imageSizeTooBig=Image size should be less than 512 ko
+settings.imageSizeTooBig=Image size should be less than 3 Mo
 settings.userName=User name
 
 # change password
