@@ -13,6 +13,8 @@ public class Message extends Model {
 	public User toUser;
 	@ManyToOne
 	public User fromUser;
+	
+	@Lob
 	public String content;
 	
 	public Message(User from, User to, String content) {
