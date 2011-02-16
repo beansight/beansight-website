@@ -78,7 +78,7 @@
                     <a href="#">
                         ${controllers.CurrentUser.getCurrentUserName()}
                         <span class="img-author">
-                            <img src="@{Application.showAvatarSmall( controllers.CurrentUser.getCurrentUser().userName)}"/>
+                            <img src="@{Application.showAvatarSmall( controllers.CurrentUser.getCurrentUser().userName, controllers.CurrentUser.getCurrentUser().avatarHashCode())}"/>
                         </span>
                     </a>
                 </div>

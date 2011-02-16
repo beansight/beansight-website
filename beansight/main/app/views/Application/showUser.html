@@ -18,7 +18,9 @@
 	<script language="Javascript">
         function refreshAvatarImage() {
         var now = new Date();
-	       $("#userAvatarImage").attr('src', '@{Application.showAvatarLarge(user.userName)}?' + now.getTime());
+	       $("#userAvatarImage").attr('src', '@{Application.showAvatarLarge(user.userName, user.avatarHashCode())}?' + now.getTime());
+	       $("#uploadedImage").attr('src', '@{Application.displayOriginalUncropedImage(user.avatarHashCode())}?' + now.getTime());
+	       $("#preview").attr('src', '@{Application.displayOriginalUncropedImage(user.avatarHashCode())}?' + now.getTime());
 	    }
 	</script>
 #{/if}
@@ -29,7 +31,7 @@
 <div class="myprofil">
     <div class="leftprofil">
         <div class="avatar-profil">
-                <img src="@{Application.showAvatarLarge(user.userName)}" id="userAvatarImage" />
+                <img src="@{Application.showAvatarLarge(user.userName, user.avatarHashCode())}" id="userAvatarImage" />
                 #{if currentUserProfilePage}
                 <a id="cropAvatar" href="#" class="edit">&{'showUser.cropAvatarImage'}</a>
                 #{/if}
@@ -154,7 +156,7 @@
         <p class="instructions">&{'selectArea'}</p>
  
         <div style="margin: 0pt 0.3em; width: 300px; height: auto;" class="frame">
-            <img src="@{Application.displayOriginalUncropedImage()}" id="uploadedImage" style="width:300px;height:auto;">
+            <img src="@{Application.displayOriginalUncropedImage(user.avatarHashCode())}"  id="uploadedImage" style="width:300px;height:auto;">
         </div>  
     </div>      
     
@@ -163,7 +165,7 @@
     
         <div style="margin: 0pt 1em; width: 100px; height: 100px;" class="frame">
             <div style="width: 100px; height: 100px; overflow: hidden;" id="preview">
-                <img src="@{Application.displayOriginalUncropedImage()}" id="preview" style="width:100px;height:100px;"/>
+                <img src="@{Application.displayOriginalUncropedImage(user.avatarHashCode())}" id="preview" style="width:100px;height:100px;"/>
             </div>
         </div>  
         <form id="cropForm">

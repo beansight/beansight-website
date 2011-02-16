@@ -577,7 +577,7 @@ public class Application extends Controller {
 	 * 
 	 * @param userName
 	 */
-	public static void showAvatarSmall(String userName) {
+	public static void showAvatarSmall(String userName, String code) {
 		User user = User.findByUserName(userName);
 		notFoundIfNull(user);
 		
@@ -595,7 +595,7 @@ public class Application extends Controller {
 	 * 
 	 * @param userName
 	 */
-	public static void showAvatarMedium(String userName) {
+	public static void showAvatarMedium(String userName, String code) {
 		User user = User.findByUserName(userName);
 		notFoundIfNull(user);
 		
@@ -613,7 +613,7 @@ public class Application extends Controller {
 	 * 
 	 * @param userName
 	 */
-	public static void showAvatarLarge(String userName) {
+	public static void showAvatarLarge(String userName, String code) {
 		User user = User.findByUserName(userName);
 		notFoundIfNull(user);
 		
@@ -629,7 +629,7 @@ public class Application extends Controller {
 	/**
 	 * Render the uploaded image so that the user crop his avatar from it
 	 */
-	public static void displayOriginalUncropedImage() {
+	public static void displayOriginalUncropedImage(String code) {
 		User user = CurrentUser.getCurrentUser();
 		if (!user.avatarUnchanged.exists()) {
 			renderBinary(new File(Play.getFile("public/images/avatar")

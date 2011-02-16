@@ -781,6 +781,13 @@ public class User extends Model {
 		return fInsights;
 	}
 	
+	public String avatarHashCode() {
+		if (avatarSmall != null) {
+			return String.valueOf(avatarSmall.hashCode());
+		} 
+		return "0";
+	}
+	
 	public static class UserResult {
 		/** users search's results */
 		public List<User> results;

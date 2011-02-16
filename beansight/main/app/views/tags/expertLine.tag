@@ -6,7 +6,7 @@
         <div class="content-expert">
             <a href="@{Application.showUser(_expert.userName)}">
                 <div class="avatar-expert">
-                    <img src="@{Application.showAvatarMedium(_expert.userName)}" alt="${_expert.userName}"/>
+                    <img src="@{Application.showAvatarMedium(_expert.userName, _expert.avatarHashCode())}" alt="${_expert.userName}"/>
                 </div>
                 <div class="resume-expert">
                     <h3>${_expert.userName}</h3>
