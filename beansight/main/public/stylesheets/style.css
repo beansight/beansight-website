@@ -38,7 +38,7 @@ a:hover{color:#228392;}
 #header .contentheader .colhead.searchcol .formsearch .searchinput .inputstyle input.inputsubmit{text-indent:-9999px;text-align:left;display:block;position:absolute;right:3px;top:2px;background:url(/public/images/searchsubmit.png) no-repeat 0 0;width:28px;height:27px;border:0 none;font-size:0;line-height:0;display:block;float:left;margin:0;cursor:pointer;}
 #header .contentheader .colhead.searchcol .formsearch .searchinput .inputstyle input.inputsubmit:hover{background-position:left bottom;}
 
-#header .contentheader .colhead.collogin{width:260px;padding:28px 0 0 0;position:relative;}
+#header .contentheader .colhead.collogin{width:260px;position:relative;}
 /* pas connecté */
 #header .contentheader .colhead.collogin .logbtn{width:138px;right:left;margin:0 0 0 0;background:url(/public/images/separator-blancgris.png) no-repeat right center;}
 #header .contentheader .colhead.collogin .logbtn a{width:120px;height:21px;display:block;background:url(/public/images/back-login.png) no-repeat 0 0;color:#fff;padding:5px 0 0 6px;font-size:14px;}
@@ -50,6 +50,32 @@ a:hover{color:#228392;}
 #header .contentheader .colhead.collogin .welcome p a.pseudo-link:hover{color:#5D7F2C;}
 #header .contentheader .colhead.collogin .welcome p a.setting-link{color:#696f70;}
 #header .contentheader .colhead.collogin .welcome p a.setting-link:hover{color:#424748;}
+
+#loginbox{background-color:#fff;width:250px;height:59px;margin:10px 0 0 9px;-moz-border-radius:2px;-webkit-border-radius:2px;}
+#loginbox p{color:#228392;letter-spacing:-0.1px;width:100%;text-align:center;text-transform:uppercase;font-size:10px;height:16px;padding:6px 0 0 0;}
+#loginbox ul{padding:0 0 0 8px;}
+#loginbox ul li{float:left;display:block;margin:0 2px 0 0;position:relative;}
+#loginbox ul li a{display:block;height:32px;text-indent:-9999px;}
+#loginbox ul li.log-b a#log-bean{width:88px;background:url(../images/login-b.png) no-repeat 0 0;}
+#loginbox ul li.log-t a{width:65px;background:url(../images/login-t.png) no-repeat 0 0;}
+#loginbox ul li.log-f a{width:78px;background:url(../images/login-f.png) no-repeat 0 0;}
+#loginbox ul li a:hover, #loginbox ul li a.open, #loginbox ul li a#log-bean:hover, #loginbox ul li a#log-bean.open{background-position:left bottom;}
+.listlogs #boxlog-bean{position:absolute;left:-8px;top:32px;z-index:40;overflow:hidden;width:231px;height:175px;}
+.listlogs #boxlog-bean form{display:block;padding:35px 0 0 20px;width:211px;height:140px;background:url(../images/loginback.png) no-repeat left bottom;}
+#header #boxlog-bean.item-loginbox label{font-size:14px;color:#aaaeaf;}
+#header #boxlog-bean.item-loginbox .inputlogin{-moz-border-radius:5px;-webkit-border-radius:5px;width:140px;border:solid #eeeeee 1px;background-color:#fff;padding:5px;margin:1px 0 6px 0;}
+#header #boxlog-bean.item-loginbox .inputlogin input{border:0 none;font-size:12px;color:#6e7677;width:100%;}
+#header #boxlog-bean.item-loginbox .avatarlogin{position:absolute;top:53px;right:18px;width:26px;height:26px;padding:1px;background-color:#fff;border:solid #f0f0f0 1px;}
+#header #boxlog-bean.item-loginbox .inputsubmit{clear:both;padding-bottom:20px;}
+#header #boxlog-bean.item-loginbox .inputsubmit button{float:left;display:block;border:0 none;cursor:pointer;height:25px;background:none transparent;}
+#header #boxlog-bean.item-loginbox .inputsubmit button span{float:left;display:block;height:20px;}
+#header #boxlog-bean.item-loginbox .inputsubmit button span.backbutton{background:url(../images/btn-connect1.png) no-repeat 0 0;width:6px;}
+#header #boxlog-bean.item-loginbox .inputsubmit button span.txtbutton{height:19px;background:url(../images/btn-connect2.png) no-repeat right top;font-size:12px;color:#fff;text-transform:uppercase;padding:1px 8px 0 0;}
+#header #boxlog-bean.item-loginbox .inputsubmit button:hover span{background-position:right bottom;}
+#loginbox ul li a.forgotten{float:left;text-indent:0;font-size:11px;color:#aaaeaf;margin:8px 0 0 5px;}
+
+.signedInUserOption {margin-top: 27px;}
+
 /* btn login/logout */
 #header .contentheader .colhead.collogin .signbtn{float:right;margin:0 0 0 10px;}
 #header .contentheader .colhead.collogin .signbtn a{display:block;color:#fff;font-size:14px;background:url(/public/images/backdegrad-vert.png) repeat-x 0 0;height:21px;padding:5px 6px 0 6px;-moz-border-radius:2px;-webkit-border-radius:2px;color:#fff;}
@@ -84,7 +110,6 @@ a:hover{color:#228392;}
 #header #boxlogin .list-logins .inputsubmit button span.backbutton{background:url(/public/images/btn-vert2-1.png) no-repeat 0 0;width:10px;}
 #header #boxlogin .list-logins .inputsubmit button span.txtbutton{height:23px;background:url(/public/images/btn-vert2-2.png) no-repeat right top;font-size:14px;color:#fff;text-transform:uppercase;padding:2px 10px 0 0;}
 #header #boxlogin .list-logins .inputsubmit button:hover span{background-position:right bottom;}
-
 
 /* CONTENU */
 #content{width:966px;margin:0 auto;}

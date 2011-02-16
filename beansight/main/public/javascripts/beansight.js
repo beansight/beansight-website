@@ -10,6 +10,8 @@ Cufon.set('fontFamily', 'got-rnd-bold').replace('.cuf-grs', {hover: true});
 Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowtwit', {textShadow: '#54d5f6 1px 1px'}, {hover: true});
 Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowfb', {textShadow: '#223974 1px 1px'}, {hover: true});
 //Cufon.set('fontFamily', 'myriad pro').replace('#sidebar-signup h4', {textShadow: '#ee7c63 1px 1px'}, {fontWeight:'400'});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-connect', {textShadow: '#186877 0px -1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-loginwidth', {hover: true});
 
 //////////////////////
 // Actions on insights
@@ -327,6 +329,7 @@ $(document).ready(function() {
 	//////////////////////
 	// User Options
 	//////////////////////
+	/*
     $('#btnlogin').addClass('open');
     $('#btnlogin').click(function(e) {
         if($('#btnlogin').hasClass('open')){
@@ -338,21 +341,19 @@ $(document).ready(function() {
         }
         return false;
     });
-    
-    // zone identification fade 
-    $('.item-loginbox').fadeOut(200);
-    $('#boxlog-bean').fadeIn(200);
-    $('.listlogin li a').click(function(e) {
-        $('.listlogin li a').removeClass('current');
-        $(this).addClass('current');
-        $('.item-loginbox').fadeOut(200);
-        $('#box'+$(this).attr('id')).delay(400).fadeIn(200);
-        $('#boxlogin .list-logins').animate({
-            height: $('#box'+$(this).attr('id')).height()
-            }, 500
-        );
+    */
+
+	$('#log-bean').addClass('closed');
+    $('#log-bean').click(function(e) {
+        if($('#log-bean').hasClass('closed')){
+            $('#log-bean').removeClass('closed');
+            $('#boxlog-bean').slideDown(500);
+        }else{
+            $('#log-bean').addClass('closed');
+            $('#boxlog-bean').slideUp(500);
+        }
         return false;
-    });
+        });
 
 	//////////////////////
 	// Settings
