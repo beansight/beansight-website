@@ -358,7 +358,7 @@ a:hover{color:#228392;}
 #content.signup .pushsign.participatepush span{color:#0d5365;}
 #content.signup .pushsign.explorepush span{color:#85a948;}
 
-#content .contentlarge{width:670px;margin:0 0 0px 20px;background-color:#fff;padding:10px;-moz-border-radius:3px;-webkit-border-radius:3px;}
+#content .contentlarge{width:670px;margin:0 0 20px 20px;background-color:#fff;padding:10px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 .newinsight{display:block;width:670px;background-color:#f7f7f7;padding:0;-moz-border-radius:3px;-webkit-border-radius:3px;}
 .newinsight .line-form{clear:both;padding:20px 0 0 20px;}
 .newinsight label, .newinsight .label{float:left;margin:0 0 0 0px;width:72px;padding:12px 0 0 0;font-size:14px;color:#aaaeaf;}
