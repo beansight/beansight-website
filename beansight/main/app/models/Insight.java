@@ -323,19 +323,25 @@ public class Insight extends Model {
 	 */
 	public static InsightResult findTrending(int from, int length, Filter filter) {
 		InsightResult result = new InsightResult();
-		String query = "select v.insight from Vote v "
+
+		// First select the ids.
+		String query = "select v.insight.id from Vote v "
 						+ "join v.insight i "
 						+ "where i.hidden is false "
 						+ "and v.creationDate > ? " // Of course, do not check the status of the vote.
 						+ filter.generateJPAQueryWhereClause()
 						+ "group by v.insight.id "
 						+ "order by count(v) desc";
+		List<Long> insightIds = Insight.find(query, new DateTime().minusHours(48).toDate() ).from(from).fetch(length);
 		
-		result.results = Insight.find(query, new DateTime().minusHours(48).toDate() ).from(from).fetch(length);	
+		// Then get the insights
+		if(!insightIds.isEmpty()) {
+			result.results = Insight.find("select i from Insight i where i.id in (:listparam)").bind("listparam", insightIds).fetch();
+		}
 		return result;
 	}
 
-	/**
+	/**	
 	 * @param page : the page number to start from
 	 * @param number : number of items per page
 	 */
