@@ -15,7 +15,7 @@
                         <input type="password" name="password" value="" id="passlogin" class="clearinput"/>
                     </div>
                     <div class="avatarlogin">
-                        <img src="images/content/sample-26x26.jpg" alt=""/>
+                        <img id="avatarlogin" src="/public/images/avatar/empty-small.jpg" />
                     </div>
                     <input style="display:none;" type="checkbox" name="remember" id="remember" value="true" checked="true" />
                     <div class="inputsubmit">

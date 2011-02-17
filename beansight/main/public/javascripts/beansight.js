@@ -362,6 +362,7 @@ $(document).ready(function() {
         return false;
     });
     
+    // validate the form
 	$("#logBeanForm").validate({
 		rules: {
 			username: {
@@ -371,6 +372,13 @@ $(document).ready(function() {
 			password: {
 				required: true
 			}
+		}
+	});
+	
+	// load the user avatar when email filled
+	$("#passlogin").focus(function() {
+		if($("#pseudologin").valid()) {
+			$("#avatarlogin").attr('src', showAvatarSmallFromEmailAction({"email": $("#pseudologin").val()}));
 		}
 	});
     

@@ -97,7 +97,7 @@ public class Application extends Controller {
         }    	
     }
     
-    @Before(unless={"welcome", "leaveYourEmail", "applicationPath"})
+    @Before(unless={"welcome", "leaveYourEmail", "applicationPath", "showAvatarSmallFromEmail"})
     static void checkAuthentication() {
     	if(!Security.isConnected()) {
     		welcome();
@@ -623,6 +623,19 @@ public class Application extends Controller {
 			} else {
 				renderBinary(new File(Play.getFile("public/images/avatar").getPath() + "/unknown-large.jpg"));
 			}
+		}
+	}
+	
+	/**
+	 * show the small avatar of the user from his email address.
+	 */
+	public static void showAvatarSmallFromEmail(String email) {
+		User user = User.findByEmail(email);
+		
+		if (user.avatarSmall.exists()) {
+			renderBinary(user.avatarSmall.get());
+		} else {
+			renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-small.jpg"));
 		}
 	}
 

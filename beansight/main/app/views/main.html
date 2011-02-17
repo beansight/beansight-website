@@ -58,6 +58,7 @@
     var updateUserDescriptionAction = #{jsAction @Settings.updateUserDescription() /};
 	var getFavoriteInsightAction = #{jsAction @Application.getFavoriteInsight(':insightUniqueId') /};
 	var insightHideCommentAction = #{jsAction @Admin.insightHideComment(':commentId') /};
+	var showAvatarSmallFromEmailAction = #{jsAction @Application.showAvatarSmallFromEmail(':email') /};
 	</script>
 </head>
 <body>
