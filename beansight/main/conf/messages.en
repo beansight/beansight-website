@@ -179,7 +179,7 @@ logintitle=Log in
 signuplink=Sign up
 loginlink=Log In with
 twitterloginlink=Log in with your Twitter account
-userOptions.forgotPassword=Forgot password?
+userOptions.forgotPassword=Password forgotten
 settingslink=Settings
 logoutlink=Log out
 signupbutton=Sign up
@@ -189,6 +189,8 @@ password=Password
 remember=remember?
 loginbutton=Log in
 welcomeusername=Welcome 
+userOptions.confirmHavingPromocode=Ok, continue
+userOptions.makesureHavingPromocode=Warning<br/>Beansight is in private beta.<br/>Continue only if you already have a Beansight username or if you have a access code.
 
 # register
 register=Sign up

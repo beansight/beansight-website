@@ -179,7 +179,7 @@ logintitle=Connexion
 signuplink=S'enregistrer
 loginlink=Se connecter avec
 twitterloginlink=Se connecter à l'aide d'un compte twitter
-userOptions.forgotPassword=Mot de passe perdu?
+userOptions.forgotPassword=Mot de passe perdu
 settingslink=Paramètres
 logoutlink=Se déconnecter
 signupbutton=Envoyer
@@ -189,6 +189,8 @@ password=Mot de passe
 remember=se souvenir ?
 loginbutton=Connexion
 welcomeusername=Bonjour 
+userOptions.confirmHavingPromocode=Ok, continuer
+userOptions.makesureHavingPromocode=Attention<br/>Beansight est en beta privée.<br/>Continuez seulement si vous avez déjà un nom d'utilisateur sur Beansight ou si vous possédez un code d'accès.
 
 # register
 register=Création de compte

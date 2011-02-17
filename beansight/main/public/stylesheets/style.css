@@ -56,23 +56,25 @@ a:hover{color:#228392;}
 #loginbox ul{padding:0 0 0 8px;}
 #loginbox ul li{float:left;display:block;margin:0 2px 0 0;position:relative;}
 #loginbox ul li a{display:block;height:32px;text-indent:-9999px;}
-#loginbox ul li.log-b a#log-bean{width:88px;background:url(../images/login-b.png) no-repeat 0 0;}
-#loginbox ul li.log-t a{width:65px;background:url(../images/login-t.png) no-repeat 0 0;}
-#loginbox ul li.log-f a{width:78px;background:url(../images/login-f.png) no-repeat 0 0;}
-#loginbox ul li a:hover, #loginbox ul li a.open, #loginbox ul li a#log-bean:hover, #loginbox ul li a#log-bean.open{background-position:left bottom;}
-.listlogs #boxlog-bean{position:absolute;left:-8px;top:32px;z-index:40;overflow:hidden;width:231px;height:175px;}
-.listlogs #boxlog-bean form{display:block;padding:35px 0 0 20px;width:211px;height:140px;background:url(../images/loginback.png) no-repeat left bottom;}
-#header #boxlog-bean.item-loginbox label{font-size:14px;color:#aaaeaf;}
-#header #boxlog-bean.item-loginbox .inputlogin{-moz-border-radius:5px;-webkit-border-radius:5px;width:140px;border:solid #eeeeee 1px;background-color:#fff;padding:5px;margin:1px 0 6px 0;}
-#header #boxlog-bean.item-loginbox .inputlogin input{border:0 none;font-size:12px;color:#6e7677;width:100%;}
-#header #boxlog-bean.item-loginbox .avatarlogin{position:absolute;top:53px;right:18px;width:26px;height:26px;padding:1px;background-color:#fff;border:solid #f0f0f0 1px;}
-#header #boxlog-bean.item-loginbox .inputsubmit{clear:both;padding-bottom:20px;}
-#header #boxlog-bean.item-loginbox .inputsubmit button{float:left;display:block;border:0 none;cursor:pointer;height:25px;background:none transparent;}
-#header #boxlog-bean.item-loginbox .inputsubmit button span{float:left;display:block;height:20px;}
-#header #boxlog-bean.item-loginbox .inputsubmit button span.backbutton{background:url(../images/btn-connect1.png) no-repeat 0 0;width:6px;}
-#header #boxlog-bean.item-loginbox .inputsubmit button span.txtbutton{height:19px;background:url(../images/btn-connect2.png) no-repeat right top;font-size:12px;color:#fff;text-transform:uppercase;padding:1px 8px 0 0;}
-#header #boxlog-bean.item-loginbox .inputsubmit button:hover span{background-position:right bottom;}
+#loginbox ul li.log-b .logbutton{width:88px;background:url(../images/login-b.png) no-repeat 0 0;}
+#loginbox ul li.log-t .logbutton{width:65px;background:url(../images/login-t.png) no-repeat 0 0;}
+#loginbox ul li.log-f .logbutton{width:78px;background:url(../images/login-f.png) no-repeat 0 0;}
+#loginbox ul li .logbutton:hover, #loginbox ul li .logbutton.opened{background-position:left bottom;}
 #loginbox ul li a.forgotten{float:left;text-indent:0;font-size:11px;color:#aaaeaf;margin:8px 0 0 5px;}
+
+.item-loginbox{position:absolute;left:-8px;top:32px;z-index:40;overflow:hidden;width:231px;height:175px;}
+.item-loginbox .boxlogContent{display:block;padding:35px 10px 0 20px;width:201px;height:140px;background:url(../images/loginback.png) no-repeat left bottom;}
+
+.item-loginbox label{font-size:14px;color:#aaaeaf;}
+.item-loginbox .inputlogin{-moz-border-radius:5px;-webkit-border-radius:5px;width:140px;border:solid #eeeeee 1px;background-color:#fff;padding:5px;margin:1px 0 6px 0;}
+.item-loginbox .inputlogin input{border:0 none;font-size:12px;color:#6e7677;width:100%;}
+.item-loginbox .avatarlogin{position:absolute;top:53px;right:18px;width:26px;height:26px;padding:1px;background-color:#fff;border:solid #f0f0f0 1px;}
+.item-loginbox .inputsubmit{clear:both;padding-bottom:20px;}
+.item-loginbox .inputsubmit .goButton{float:left;display:block;border:0 none;cursor:pointer;height:25px;background:none transparent;}
+.item-loginbox .inputsubmit .goButton span{float:left;display:block;height:20px;}
+.item-loginbox .inputsubmit .goButton span.backbutton{background:url(../images/btn-connect1.png) no-repeat 0 0;width:6px;}
+.item-loginbox .inputsubmit .goButton span.txtbutton{height:19px;background:url(../images/btn-connect2.png) no-repeat right top;font-size:12px;color:#fff;text-transform:uppercase;padding:1px 8px 0 0;}
+.item-loginbox .inputsubmit .goButton:hover span{background-position:right bottom;}
 
 .signedInUserOption {margin-top: 27px;}
 

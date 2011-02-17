@@ -329,32 +329,39 @@ $(document).ready(function() {
 	//////////////////////
 	// User Options
 	//////////////////////
-	/*
-    $('#btnlogin').addClass('open');
-    $('#btnlogin').click(function(e) {
-        if($('#btnlogin').hasClass('open')){
-            $('#btnlogin').removeClass('open');
-            $('#boxlogin').slideDown(500);
+    $('#log-bean').click(function(e) {
+        if($('#log-bean').hasClass('opened')){
+            $('#log-bean').removeClass('opened');
+            $('#boxlog-bean').slideUp(500);
         }else{
-            $('#btnlogin').addClass('open');
-            $('#boxlogin').slideUp(500);
+            $('#log-bean').addClass('opened');
+            $('#boxlog-bean').slideDown(500);
         }
         return false;
     });
-    */
-
-	$('#log-bean').addClass('closed');
-    $('#log-bean').click(function(e) {
-        if($('#log-bean').hasClass('closed')){
-            $('#log-bean').removeClass('closed');
-            $('#boxlog-bean').slideDown(500);
+    
+    $('#log-twit').click(function(e) {
+        if($('#log-twit').hasClass('opened')){
+            $('#log-twit').removeClass('opened');
+            $('#boxlog-twit').slideUp(500);
         }else{
-            $('#log-bean').addClass('closed');
-            $('#boxlog-bean').slideUp(500);
+            $('#log-twit').addClass('opened');
+            $('#boxlog-twit').slideDown(500);
         }
         return false;
-        });
+    });
 
+    $('#log-fb').click(function(e) {
+        if($('#log-fb').hasClass('opened')){
+            $('#log-fb').removeClass('opened');
+            $('#boxlog-fb').slideUp(500);
+        }else{
+            $('#log-fb').addClass('opened');
+            $('#boxlog-fb').slideDown(500);
+        }
+        return false;
+    });
+    
 	//////////////////////
 	// Settings
 	//////////////////////
