@@ -21,7 +21,7 @@ public class Register extends Controller {
 		render(email, username, promocode);
 	}
 	
-	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="user name has to be 3-16 chars and no space") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
+	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no puncuation") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
 		// Check if username or email not already in use, because username and email must be unique !
 		if(!User.isEmailAvailable(email)) {
 			validation.addError("email", Messages.get("registeremailexist")); 
