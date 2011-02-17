@@ -362,6 +362,18 @@ $(document).ready(function() {
         return false;
     });
     
+	$("#logBeanForm").validate({
+		rules: {
+			username: {
+				required: true,
+				email: true
+			},
+			password: {
+				required: true
+			}
+		}
+	});
+    
 	//////////////////////
 	// Settings
 	//////////////////////
@@ -378,7 +390,7 @@ $(document).ready(function() {
 	$("#changePasswordForm").validate({
 		rules: {
 			oldPassword: {
-				required: true,
+				required: true
 			},
 			newPassword: {
 				required: true,

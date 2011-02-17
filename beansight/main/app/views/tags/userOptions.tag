@@ -5,7 +5,7 @@
         <li class="log-b" id="lilogb">
             <a href="#" class="current logbutton" id="log-bean">Beansight</a>
             <div class="item-loginbox" id="boxlog-bean" style="display:none;">
-                #{form @Secure.authenticate(), class:'boxlogContent'}
+                #{form @Secure.authenticate(), class:'boxlogContent', id:'logBeanForm'}
                     <label for="username">&{'email'}</label>
                     <div class="inputlogin">
                         <input type="email" name="username" value="${flash.username}" id="pseudologin" class="clearinput"/>
