@@ -8,6 +8,10 @@ beansightDescription=Avec Beansight, parcourez les opinions et découvrez ce qui
 validation.email=L'e-mail saisi n'est pas valide
 validation.required = %s doit être rempli
 
+# secure
+secure.error=E-mail ou mot-de-passe inconnu
+secure.title=Se connecter
+
 # indexNotConnected
 home=Accueil
 trendinginsights=Prédictions populaires :

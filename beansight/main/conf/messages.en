@@ -6,7 +6,11 @@ beansightDescription=Browse Beansight to know what people think and what is like
 
 # validation
 validation.email=E-mail invalid
-vvalidation.required = %s is required
+validation.required = %s is required
+
+# secure
+secure.error=E-mail or password unknown
+secure.title=Log In
 
 # indexNotConnected
 home=Home
