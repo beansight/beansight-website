@@ -5,50 +5,77 @@
 
 #{set contentClass:'signup' /}
 
-<div class="bloccontent bloccenter">
-    #{form @Register.registerNew(), id:'registerForm'}
-        <h2 class="cuf-grb">&{'signuptitle'}</h2>
 
-        <label for="s_email">&{'email'}</label>
-        <div class="item-input">
-            <input type="email" name="email" id="email" value="${email}" />
-            #{if errors.forKey('email')}<span class="error">#{error 'email' /}</span>#{/if}
-        </div>
 
-        <label for="s_username">&{'username'}</label>
-        <div class="item-input">
-            <input type="text" name="username" id="username" value="${username}" />
-            #{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
-        </div>
+<div class="bloccontent bloccenter" id="withBeansight">
+	<ul>
+		<li><a href="#" onclick="javascript:showRegisterForm('beansight');">beansight</a></li>
+		<li><a href="#" onclick="javascript:showRegisterForm('twitter');">twitter</a></li>
+		<li><a href="#" onclick="javascript:showRegisterForm('facebook');">facebook</a></li>
+	</ul>
 
-        <label for="s_pass1">&{'password'}</label>
-        <div class="item-input">
-            <input type="password" name="password" id="registerPassword" value="" />
-            #{if errors.forKey('password')}<span class="error">#{error 'password' /}</span>#{/if}
-        </div>
+	<div id="beansightRegisterBlock">
+	    #{form @Register.registerNew(), id:'registerForm'}
+	    	<input type="hidden" name="connectWith" id="connectWith"/>
+	        <h2 class="cuf-grb">Signup with beansight</h2>
+	
+	        <label for="s_email">&{'email'}</label>
+	        <div class="item-input">
+	            <input type="email" name="email" id="email" value="${email}" />
+	            #{if errors.forKey('email')}<span class="error">#{error 'email' /}</span>#{/if}
+	        </div>
+	
+	        <label for="s_username">&{'username'}</label>
+	        <div class="item-input">
+	            <input type="text" name="username" id="username" value="${username}" />
+	            #{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
+	        </div>
+	
+	        <label for="s_pass1">&{'password'}</label>
+	        <div class="item-input">
+	            <input type="password" name="password" id="registerPassword" value="" />
+	            #{if errors.forKey('password')}<span class="error">#{error 'password' /}</span>#{/if}
+	        </div>
+	
+	        <label for="s_pass2">&{'passwordconfirm'}</label>
+	        <div class="item-input">
+	            <input type="password" name="passwordconfirm" id="passwordconfirm" value="" />
+	            #{if errors.forKey('passwordconfirm')}<span class="error">#{error 'passwordconfirm' /}</span>#{/if}
+	        </div>
+	
+	        <label for="s_username">&{'promocode'}</label>
+	        <div class="item-input">
+	            <input type="text" name="promocode" id="promocode" value="${promocode}" />
+	            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
+	        </div>
+	
+	        <div class="item-checkbox">
+	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
+	        </div>
+	        
+	        <div class="item-submit">
+	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
+	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">Signup</span></button>
+	        </div>
+	    #{/form}
+    </div>
 
-        <label for="s_pass2">&{'passwordconfirm'}</label>
-        <div class="item-input">
-            <input type="password" name="passwordconfirm" id="passwordconfirm" value="" />
-            #{if errors.forKey('passwordconfirm')}<span class="error">#{error 'passwordconfirm' /}</span>#{/if}
-        </div>
-
-        <label for="s_username">&{'promocode'}</label>
-        <div class="item-input">
-            <input type="text" name="promocode" id="promocode" value="${promocode}" />
-            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
-        </div>
-
-        <div class="item-checkbox">
-            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
-        </div>
-        
-        <div class="item-submit">
-            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
-            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'signupbutton'}</span></button>
-        </div>
-    #{/form}
+	<div id="facebookRegisterBlock">
+	    #{form @FacebookOAuth.authenticate(), id:'registerForm'}
+	        <h2 class="cuf-grb">signup with facebook</h2>
+	
+	        <div class="item-checkbox">
+	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
+	        </div>
+	        
+	        <div class="item-submit">
+	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
+	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">Signup with Facebook</span></button>
+	        </div>
+	    #{/form}
+	</div>
 </div>
+
 <div class="bloccontent blocright">
     <h2 class="cuf-grs">Why register ?</h2>
     <div class="pushsign explorepush">

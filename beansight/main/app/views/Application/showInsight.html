@@ -77,7 +77,7 @@
             <form class="newcomment" id="addCommentForm">
                 
                 <div class="comment-author">
-                    <a href="#">
+                    <a href="@{Application.showUser(controllers.CurrentUser.getCurrentUser().userName)}">
                         ${controllers.CurrentUser.getCurrentUserName()}
                         <span class="img-author">
                             <img src="@{Application.showAvatarSmall( controllers.CurrentUser.getCurrentUser().userName, controllers.CurrentUser.getCurrentUser().avatarHashCode())}"/>

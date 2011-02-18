@@ -2,17 +2,17 @@ package controllers;
 
 import java.util.Date;
 
-import notifiers.Mails;
 import models.Promocode;
 import models.User;
+import notifiers.Mails;
 import play.Logger;
+import play.cache.Cache;
 import play.data.validation.Email;
 import play.data.validation.Equals;
 import play.data.validation.Match;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.i18n.Messages;
-import play.libs.Crypto;
 import play.mvc.Controller;
 
 public class Register extends Controller {
@@ -21,6 +21,7 @@ public class Register extends Controller {
 		render(email, username, promocode);
 	}
 	
+	// TODO : I18N
 	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no puncuation") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
 		// Check if username or email not already in use, because username and email must be unique !
 		if(!User.isEmailAvailable(email)) {
@@ -50,11 +51,73 @@ public class Register extends Controller {
 		Logger.info("Register: " + email + "/" + username);
 		User user = new User(email, username, password);
 		user.save();
-		
+			
 		// send a password confirmation mail
 		Mails.confirmation(user);
 		
+		// connect immediately the user
 		Secure.authenticate(email, password, false);
+	}
+	
+	
+	
+	public static void facebookFirstTimeConnectPage() {
+		if(Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			renderArgs.put("email", currentUser.email);
+			renderArgs.put("username", currentUser.userName);
+			render();
+		} else {
+			Application.index();
+		}
+	}
+	
+	
+	public static void facebookFirstTimeConnect(
+		@Required @Email String email, 
+		@Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no puncuation") String username, 
+		@Required String promocode) {
+		
+		if(Security.isConnected()) {
+			Promocode code = Promocode.findbyCode(promocode);
+			if(code != null && code.nbUsageLeft > 0 && code.endDate.after(new Date())) {
+				// remove one to the promocode only if no validation error remaining
+				if (!validation.hasErrors()) {
+					code.nbUsageLeft--;
+					code.save();
+				}
+			} else {
+				validation.addError("promocode", Messages.get("registernotvalidpromocode"));
+			}
+			
+			User currentUser = CurrentUser.getCurrentUser();
+			
+			// if the user have change its username check that it's available
+			if (!username.equalsIgnoreCase(currentUser.userName)) {
+				if (!User.isUsernameAvailable(username)) {
+					validation.addError("username", Messages.get("registerusernameexist")); 
+				}
+			}
+			
+			// if the user have change its email check that it's available
+			if (!email.equalsIgnoreCase(currentUser.email)) {
+				if (!User.isEmailAvailable(email)) {
+					validation.addError("email", Messages.get("registeremailexist")); 
+				}
+			}
+			
+			if (validation.hasErrors()) {
+				renderArgs.put("email", email);
+				renderArgs.put("username", username);
+				renderArgs.put("promocode", promocode);
+		        renderTemplate("Register/facebookFirstTimeConnectPage.html");
+		    }
+			
+			currentUser.isPromocodeValidated = true;
+			currentUser.save();
+		} 
+		
+		Application.index();
 	}
 	
 	/** Confirm that the email address of the user is a real one */

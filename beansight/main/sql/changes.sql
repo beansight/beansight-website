@@ -2,3 +2,5 @@
 -- Reset this page after each release and after having created a SVN tag
 --
 
+ALTER TABLE `User`
+ADD COLUMN `isPromocodeValidated` bit(1) NOT NULL;

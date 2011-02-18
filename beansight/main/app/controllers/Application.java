@@ -87,6 +87,12 @@ public class Application extends Controller {
     public static void loadMenuData() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
+			
+			// if this is facebook user and he hasn't validated its promocode the redirect  
+			if (currentUser.facebookUserId != null && !currentUser.isPromocodeValidated) {
+				Register.facebookFirstTimeConnectPage();
+			}
+			
 			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
 			// TODO limit the number and order by update
 			renderArgs.put("followedInsights", currentUser.getNotHiddenFollowedInsights());
@@ -570,8 +576,7 @@ public class Application extends Controller {
 		User user = CurrentUser.getCurrentUser();
 		render(user);
 	}
-
-
+	
 	/**
 	 * Render the small avatar
 	 * 

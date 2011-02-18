@@ -40,6 +40,7 @@ import play.i18n.Lang;
 import play.i18n.Messages;
 import play.libs.Codec;
 import play.libs.Crypto;
+import play.libs.OAuth.TokenPair;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
 import play.modules.search.Query;
@@ -85,10 +86,16 @@ public class User extends Model {
 	/** twitter specific informations */
 	public String twitterUserId;
 	public String twitterScreenName;
+	
+//	public String oauthToken;
+//	public String oauthSecret;
 
 	/** facebook specific informations */
     public Long facebookUserId;
     public String facebookScreenName;
+    
+    /** in case of facebook (and twitter ?) signup users need to validate their promocode */
+    public boolean isPromocodeValidated;
     
 	@Lob
     public String description;
@@ -788,6 +795,10 @@ public class User extends Model {
 		return "0";
 	}
 	
+//	public TokenPair getTokenPair() {
+//		return new TokenPair(this.oauthToken, this.oauthSecret);
+//	}
+	
 	public static class UserResult {
 		/** users search's results */
 		public List<User> results;
@@ -800,5 +811,10 @@ public class User extends Model {
 			this.count = count;
 		}
 	}
+
+//	public void setTokenPair(TokenPair tokens) {
+//		this.oauthSecret = tokens.secret;
+//		this.oauthToken = tokens.token;
+//	}
 	
 }

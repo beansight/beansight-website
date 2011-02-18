@@ -1,9 +1,10 @@
 package controllers;
 
+import gson.FacebookModelObject;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import gson.FacebookModelObject;
 import play.Logger;
 import play.Play;
 import play.libs.WS;
@@ -13,8 +14,6 @@ import play.mvc.results.Redirect;
 import play.utils.Java;
 
 import com.google.gson.Gson;
-
-import controllers.Secure.Security;
 
 /**
  * 
@@ -41,27 +40,27 @@ public class FacebookOAuth extends Controller {
     
     public static void authenticate() {
     	// uncomment this to enable facebook login
-//		StringBuilder fbAuthenticateUrl = new StringBuilder();
-//		fbAuthenticateUrl
-//				.append("https://graph.facebook.com/oauth/authorize?client_id=")
-//				.append(FB_CLIENT_ID).append("&redirect_uri=")
-//				.append(Router.getFullUrl(request.controller + ".callback"));
-//				
-//		// request extended permissions (email, ...)
-//		String extendedPermissions = null;
-//		try {
-//			extendedPermissions = (String) FacebookOAuthDelegate
-//					.invoke("getExtendedPermissions");
-//		} catch (Throwable e) {
-//			Logger.error("Failed calling getExtendedPermissions", e);
-//		}
-//		if (extendedPermissions != null
-//				&& extendedPermissions.trim().length() != 0) {
-//			fbAuthenticateUrl.append("&scope=");
-//			fbAuthenticateUrl.append(extendedPermissions);
-//		}
-//		
-//        throw new Redirect(fbAuthenticateUrl.toString());
+		StringBuilder fbAuthenticateUrl = new StringBuilder();
+		fbAuthenticateUrl
+				.append("https://graph.facebook.com/oauth/authorize?client_id=")
+				.append(FB_CLIENT_ID).append("&redirect_uri=")
+				.append(Router.getFullUrl(request.controller + ".callback"));
+				
+		// request extended permissions (email, ...)
+		String extendedPermissions = null;
+		try {
+			extendedPermissions = (String) FacebookOAuthDelegate
+					.invoke("getExtendedPermissions");
+		} catch (Throwable e) {
+			Logger.error("Failed calling getExtendedPermissions", e);
+		}
+		if (extendedPermissions != null
+				&& extendedPermissions.trim().length() != 0) {
+			fbAuthenticateUrl.append("&scope=");
+			fbAuthenticateUrl.append(extendedPermissions);
+		}
+		
+        throw new Redirect(fbAuthenticateUrl.toString());
     }
     
     /**
@@ -75,9 +74,9 @@ public class FacebookOAuth extends Controller {
 				.append(FB_CLIENT_ID).append("&redirect_uri=")
 				.append(Router.getFullUrl(request.controller + ".callback"))
 				.append("&client_secret=").append(FB_APPLICATION_SECRET)
-				.append("&code=").append(WS.encode(code));
+				.append("&code=").append(WS.encode(code.replace("|","%7C")));
         
-        String response = WS.url(fbAccessTokenUrl.toString()).get().getString();
+        String response = WS.url(fbAccessTokenUrl.toString()).post().getString();
         
         String accessToken = response.split("=")[1].split("&")[0];
         session.put("fb", accessToken);
@@ -89,6 +88,8 @@ public class FacebookOAuth extends Controller {
 
         FacebookOAuthDelegate.invoke("onFacebookAuthentication", facebookModelObject);
     }
+    
+     
     
     public static void acccessTokenCallback(String accessToken) {
         throw new Redirect(Router.getFullUrl("Application.index"));

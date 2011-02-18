@@ -294,6 +294,16 @@ function insightHideComment(commentId) {
 	}
 }
 
+function showRegisterForm(formToShow) {
+	if (formToShow == 'beansight') {
+		$("#beansightRegisterBlock").show();
+		$("#facebookRegisterBlock").hide();
+	} else if(formToShow == 'facebook') {
+		$("#beansightRegisterBlock").hide();
+		$("#facebookRegisterBlock").show();
+	}
+}
+
 // Execute scripts after the document creation
 $(document).ready(function() {
 	
@@ -841,4 +851,10 @@ $(document).ready(function() {
 		$("#editAvatarZone").toggle('normal');
 		return false;
 	});
+	
+	//////////////
+	// show beansight connect by default in register page
+	//////////////
+	showRegisterForm('beansight');
 });
+

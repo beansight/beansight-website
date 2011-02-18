@@ -1,0 +1,45 @@
+#{extends 'main.html' /}
+#{set 'title'}
+    &{'register'}
+#{/set}
+
+#{set contentClass:'signup' /}
+
+
+
+<div class="bloccontent bloccenter" id="withBeansight">
+
+	<div id="beansightRegisterBlock">
+	    #{form @Register.facebookFirstTimeConnect(), id:'registerForm'}
+	        <h2 class="cuf-grb">Please confirm your informations to complete signup</h2>
+	
+	        <label for="s_email">&{'email'}</label>
+	        <div class="item-input">
+	            <input type="email" name="email" id="email" value="${email}" />
+	            #{if errors.forKey('email')}<span class="error">#{error 'email' /}</span>#{/if}
+	        </div>
+	
+	        <label for="s_username">&{'username'}</label>
+	        <div class="item-input">
+	            <input type="text" name="username" id="username" value="${username}" />
+	            #{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
+	        </div>
+	
+		    <label for="s_username">&{'promocode'}</label>
+	        <div class="item-input">
+	            <input type="text" name="promocode" id="promocode" value="${promocode}" />
+	            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
+	        </div>
+			
+	        
+	        <div class="item-submit">
+	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">Ok</span></button>
+	        </div>
+	    #{/form}
+    </div>
+
+</div>
+
+<div class="bloccontent blocright">
+
+</div>
