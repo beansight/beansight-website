@@ -68,10 +68,10 @@ public class Application extends Controller {
 	
 	public static final String APPLICATION_ID = "web-desktop";
 	
-    @Before(unless={"welcome", "leaveYourEmail", "applicationPath"})
     /**
      * Make sure the language is the one the user has chosen.
      */
+	@Before(unless={"welcome", "leaveYourEmail", "showInsight"})
     static void setLanguage() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -80,10 +80,10 @@ public class Application extends Controller {
     }
 
     // TODO : add all the ajax method here so that we don't load  data not useful during ajax call
-    @Before(unless={"welcome", "leaveYourEmail", "applicationPath"})
     /**
      * If the user is connected, load the needed info into the menu
      */
+    @Before
     public static void loadMenuData() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -97,7 +97,7 @@ public class Application extends Controller {
         }    	
     }
     
-    @Before(unless={"welcome", "leaveYourEmail", "applicationPath", "showAvatarSmallFromEmail"})
+    @Before(unless={"welcome", "leaveYourEmail", "showInsight", "showAvatarSmallFromEmail", "showAvatarSmall"})
     static void checkAuthentication() {
     	if(!Security.isConnected()) {
     		welcome();
