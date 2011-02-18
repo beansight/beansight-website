@@ -2,7 +2,7 @@
 *{ @param insight : the insight to share }*
 
 <div class="sharezone">
-	<div><a href="#" class="uiButton" id="shareInsight">&{'shareInsight.sharethisinsight'}</a></div>
+    <input type="checkbox" id="shareInsight" /><label for="shareInsight">&{'shareInsight.sharethisinsight'}</label>
 	
 	<div class="sharebox" id="sharezone" style="display:none;">
 	       #{isConnected}

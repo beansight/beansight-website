@@ -688,7 +688,7 @@ $(document).ready(function() {
     // Insight Page
     //////////////////////
 	// Share
-	$('#shareInsight').click(function() {
+	$('#shareInsight').button().click(function() {
 		$("#sharezone").slideToggle();
 		return false;
 	});
