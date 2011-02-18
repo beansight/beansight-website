@@ -308,6 +308,29 @@ $(document).ready(function() {
         window.location.href = $(this).val();
     })
     
+    // every .uiButton is transformed in a button with jQuery UI
+    $('.uiButton').button();
+
+    //////////////////////
+    // Footer
+    //////////////////////
+	$.ajax({
+        url: 'http://api.twitter.com/1/users/show.json',
+        data: {screen_name: 'beansight'},
+        dataType: 'jsonp',
+        success: function(data) {
+            $('#twitterFollowers').html(data.followers_count);
+        }
+    });
+	
+	$.ajax({
+	       url: 'https://graph.facebook.com/Beansight',
+	       dataType: 'jsonp',
+	       success: function(data) {
+	    	   $("#facebookFans").html(data.likes);
+	       }
+   });
+    
     //////////////////////
     // Validator methods
     //////////////////////
@@ -664,10 +687,17 @@ $(document).ready(function() {
     //////////////////////
     // Insight Page
     //////////////////////
-	$('#shareOnBeansight').click(function() {
-		$('#shareOnBeansightForm').slideDown();
+	// Share
+	$('#shareInsight').click(function() {
+		$("#sharezone").slideToggle();
 		return false;
 	});
+
+	// Share on Beansight
+	$('#shareOnBeansight-link').click(function() {
+		$('#shareOnBeansight-box').slideToggle();
+		return false;
+	})
 	$('#shareOnBeansightForm').submit(function() {
         $.getJSON(shareInsightAction(), $(this).serialize(), function(data) {
         	clearForm($('#shareOnBeansightForm'));
@@ -682,15 +712,19 @@ $(document).ready(function() {
             }
         );
         return false;
-	})
+	});
+		$( "#userToShareTo" ).autocomplete({
+	    source: favoriteUserSuggestAction(),
+	    minLength: 1
+	});
 	
-	/** Sugest tags */
+	// Sugest tags
 	$('#showMoreTags').click( function() {
 		$('#moreTags').show();
 		return false;
 	});
 	
-	/** Submit action for add comment form */
+	// Submit action for add comment form
 	$("#addCommentForm").validate({
 		submitHandler: function(form) {
 			$(".ajaxloader").show();
@@ -711,28 +745,6 @@ $(document).ready(function() {
 			content: i18n.newCommentMinSize
 		}
 	});	
-
-	$.ajax({
-        url: 'http://api.twitter.com/1/users/show.json',
-        data: {screen_name: 'beansight'},
-        dataType: 'jsonp',
-        success: function(data) {
-            $('#twitterFollowers').html(data.followers_count);
-        }
-    });
-
-	$( "#userToShareTo" ).autocomplete({
-	    source: favoriteUserSuggestAction(),
-	    minLength: 2
-	});
-	
-	$.ajax({
-	       url: 'https://graph.facebook.com/Beansight',
-	       dataType: 'jsonp',
-	       success: function(data) {
-	    	   $("#facebookFans").html(data.likes);
-	       }
-	   });
 	
     //////////////////////
     // User Page

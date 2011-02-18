@@ -59,15 +59,15 @@
             <hr class="clear"/>
         </div>
         
-        #{isConnected}
-		#{secure.check 'admin'}
-		<div class="admin">
-		    <a href="@{Admin.hideInsight( insight.id )}" onclick="return confirm('confirm ?');" style="color: red;">hide this prediction</a>
-		</div>
-		#{/secure.check}
-		#{/isConnected}
-        
         #{shareInsight insight:insight /}
+
+        #{isConnected}
+        #{secure.check 'admin'}
+        <div class="admin">
+            <a href="@{Admin.hideInsight( insight.id )}" onclick="return confirm('confirm ?');" style="color: red;">hide this prediction</a>
+        </div>
+        #{/secure.check}
+        #{/isConnected}
         
         <div class="commentzone">
             <p class="nbcomments"><span class="cuf-grm">${comments?.size()}</span> <span class="cuf-grb">&{'comments'}</span></p>

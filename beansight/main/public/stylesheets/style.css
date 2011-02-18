@@ -470,6 +470,7 @@ a:hover{color:#228392;}
 #content .single .s-content h2{border:0;width:620px;text-transform:none;height:auto;padding:10px 15px;margin:0 23px 5px 23px;background-image:none;background-color: #f7f7f7;font-size:20px;color:#00505c;font-weight:bold;}
 #content .single .s-content .insightdate{margin:0 38px 10px;}
 #content .single .s-content .graphzone{margin:0 23px;}
+#content .single .s-content .sharezone{margin-left:23px;}
 #content .single .s-content .graphzone .leftgraph{float:left;width:315px;}
 .insightContainer .voteWidgetLarge{background-color:#f7f7f7;-moz-border-radius:2px;-webkit-border-radius:2px;padding:10px 32px 8px 32px;margin:0 0 10px 0;}
 .insightContainer .voteWidgetLarge .linkvote{float:left;width:125px;height:34px;margin:0 0 12px 0;}
@@ -501,6 +502,10 @@ a:hover{color:#228392;}
 #content .single .s-content .commentzone .newcomment .input-textarea{float:right;width:504px;padding:6px;margin:0;-moz-border-radius:6px;-webkit-border-radius:6px;border:solid #eeeeee 3px;background-color:#fff;}
 #content .single .s-content .commentzone .newcomment .input-textarea textarea{width:504px;height:54px;font-size:12px;padding:0;margin:0;color:#a1a5a6;font-family:Arial, serif;border:0 none;}
 
+.pinnedBox{position:absolute; z-index:40; overflow:hidden; padding:35px 10px 0 20px;width:201px;height:140px; background:url(../images/loginback.png) no-repeat left bottom;}
+
+.sharezone .sharebox{ padding: 20px; background-color: #F5F5F5; border-bottom: 1px solid #EDEDED; border-top: 1px solid #EDEDED;
+}
 /*#content .single .s-content .commentzone .newcomment .input-submit{margin:10px 0 0 0;width:157px;height:35px;position:absolute;top:94px;left:474px;}
 #content .single .s-content .commentzone .newcomment .input-submit input{text-indent:-9999px;text-align:left;display:block;cursor:pointer;border:0 none;background:url(/public/images/btn-addcomment.png) no-repeat 0 0;width:157px;height:35px;font-size:0;line-height:0;margin:0;}
 #content .single .s-content .commentzone .newcomment .input-submit input:hover{background-position:left bottom;}*/
@@ -511,7 +516,6 @@ a:hover{color:#228392;}
 #content .single .s-content .commentzone .newcomment .input-submit button span.backbutton{background:url(/public/images/btn-vert1.png) no-repeat 0 0;width:10px;}
 #content .single .s-content .commentzone .newcomment .input-submit button span.txtbutton{height:28px;background:url(/public/images/btn-vert2.png) no-repeat right top;font-size:14px;color:#fff;text-transform:uppercase;padding:7px 10px 0 0;}
 #content .single .s-content .commentzone .newcomment .input-submit button:hover span{background-position:right bottom;}
-
 
 #content .single .s-content .commentzone .list-comments{padding:5px 0;}
 #content .single .s-content .commentzone .list-comments .item-comment{height:auto;padding:10px 0 15px 0;border-top:solid #f7f7f7 1px;}

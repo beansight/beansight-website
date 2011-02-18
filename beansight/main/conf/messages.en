@@ -65,8 +65,9 @@ createdby=by
 createdin=in
 youagree=You agree since
 youdisagree=You disagree since
-sharethisinsight=Share
-shareonbeansight=Beansight user
+shareInsight.sharethisinsight=Share
+shareInsight.shareonbeansight=beansight
+shareInsight.searchBeansightUser=Type the username of a user you put in your favorites:
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=You haven't voted yet.
 
