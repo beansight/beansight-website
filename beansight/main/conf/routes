@@ -31,7 +31,7 @@ GET     /prediction/{insightUniqueId}           Application.showInsight
 GET     /insight/{insightUniqueId}              Application.showInsight               
 
 # Expert page
-GET     /expert/{<[A-Za-z0-9]+>userName}        Application.showUser
+GET     /expert/{<[a-zA-Z0-9_]{3,16}>userName}  Application.showUser
 
 # Import CRUD routes
 *       /admin                                  module:crud
