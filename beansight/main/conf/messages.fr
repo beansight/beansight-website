@@ -12,6 +12,14 @@ validation.required = %s doit être rempli
 secure.error=E-mail ou mot-de-passe inconnu
 secure.title=Se connecter
 
+# since
+since.seconds=il y a %s secondes
+since.minutes=il y a %s minutes
+since.hours=il y a %s heures
+since.days=il y a %s jours
+since.months=il y a %s mois
+since.years=il y a %s années
+
 # indexNotConnected
 home=Accueil
 trendinginsights=Prédictions populaires :
