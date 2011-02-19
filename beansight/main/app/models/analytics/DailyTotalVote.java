@@ -16,8 +16,12 @@ import models.User;
 import models.Vote;
 import play.db.jpa.Model;
 
+/**
+ * The total number of Vote that has been done in a certain day
+ *
+ */
 @Entity
-public class TotalDailyVote extends Model {
+public class DailyTotalVote extends Model {
 
 	@Transient
 	private static Date NO_ANALYTIC_BEFORE_DATE = new DateMidnight(2011, 1, 26).toDate();
@@ -27,7 +31,7 @@ public class TotalDailyVote extends Model {
 	
 	public long voteCount;
 	
-	public TotalDailyVote(Date forDate, long voteCount) {
+	public DailyTotalVote(Date forDate, long voteCount) {
 		super();
 		this.forDate = forDate;
 		this.voteCount = voteCount;
@@ -45,20 +49,20 @@ public class TotalDailyVote extends Model {
 	}
 	
 	
-    public static void doCalculationForTotalDailyVote(DateTime startOfDayForCalculation) {
-    	if (TotalDailyVote.findIfAnalyticExistsForDate(startOfDayForCalculation.toDate()) == true) {
+    public static void compute(DateTime startOfDayForCalculation) {
+    	if (DailyTotalVote.findIfAnalyticExistsForDate(startOfDayForCalculation.toDate()) == true) {
     		return; // stop
     	}
     	DateTime endOfDayForCalculation = startOfDayForCalculation.plusDays(1).minusSeconds(1);
 		
     	long dailyCount = Vote.count("creationDate between ? and  ?", startOfDayForCalculation.toDate(), endOfDayForCalculation.toDate());
 		
-		TotalDailyVote analytic = new TotalDailyVote(startOfDayForCalculation.toDate(), dailyCount);
+    	DailyTotalVote analytic = new DailyTotalVote(startOfDayForCalculation.toDate(), dailyCount);
 		analytic.save();
 		
 		// recursive call to create previous records if they don't exist yet
 		startOfDayForCalculation = startOfDayForCalculation.minusDays(1);
-		doCalculationForTotalDailyVote(startOfDayForCalculation);
+		compute(startOfDayForCalculation);
     }
 	
 }

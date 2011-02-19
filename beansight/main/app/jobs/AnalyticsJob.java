@@ -8,8 +8,8 @@ import java.util.Map;
 import models.Insight;
 import models.User;
 import models.Vote;
+import models.analytics.DailyTotalVote;
 import models.analytics.InsightDailyVote;
-import models.analytics.TotalDailyVote;
 import models.analytics.UserInsightDailyCreation;
 import models.analytics.UserInsightDailyVote;
 
@@ -22,8 +22,7 @@ import play.jobs.Job;
 import play.jobs.On;
 
 // job starts every days at midnight
-//@On("0 30 0 * * ?")
-@Every("10s")
+@On("0 30 0 * * ?")
 public class AnalyticsJob extends Job {
 
     @Override
@@ -41,7 +40,7 @@ public class AnalyticsJob extends Job {
     	
     	doCalculationForInsightDailyVote(startOfDayForCalculation);
     	
-    	TotalDailyVote.doCalculationForTotalDailyVote(startOfDayForCalculation);
+    	DailyTotalVote.compute(startOfDayForCalculation);
     	
         Logger.info("AnalyticsJob end");
     }

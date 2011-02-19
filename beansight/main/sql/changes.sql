@@ -4,3 +4,10 @@
 
 ALTER TABLE `User`
 ADD COLUMN `isPromocodeValidated` bit(1) NOT NULL;
+
+CREATE TABLE  `DailyTotalVote` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `forDate` datetime DEFAULT NULL,
+  `voteCount` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8
