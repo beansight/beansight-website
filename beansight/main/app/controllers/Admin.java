@@ -6,7 +6,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import jobs.UsersAnalyticsJob;
+import jobs.AnalyticsJob;
 import models.Comment;
 import models.Insight;
 import models.User;
@@ -93,7 +93,7 @@ public class Admin extends Controller {
 	 */
 	public static void usersAnalyticsJob() {
 		try {
-			new UsersAnalyticsJob().doJob();
+			new AnalyticsJob().doJob();
 		} catch (Throwable e) {
 			renderText("UsersAnalyticsJob finished with error : " + e.getMessage());
 			Logger.error(e, "UsersAnalyticsJob finished with error");

@@ -9,6 +9,7 @@ import models.Insight;
 import models.User;
 import models.Vote;
 import models.analytics.InsightDailyVote;
+import models.analytics.TotalDailyVote;
 import models.analytics.UserInsightDailyCreation;
 import models.analytics.UserInsightDailyVote;
 
@@ -16,16 +17,18 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
+import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
 
 // job starts every days at midnight
-@On("0 30 0 * * ?")
-public class UsersAnalyticsJob extends Job {
+//@On("0 30 0 * * ?")
+@Every("10s")
+public class AnalyticsJob extends Job {
 
     @Override
     public void doJob() {
-    	Logger.info("UsersAnalyticsJob begin");
+    	Logger.info("AnalyticsJob begin");
     	
     	// since this job starts after midnight we are calculating how many insights 
     	// have been created for yesterday (and potentially for previous days if 
@@ -38,7 +41,9 @@ public class UsersAnalyticsJob extends Job {
     	
     	doCalculationForInsightDailyVote(startOfDayForCalculation);
     	
-        Logger.info("UsersAnalyticsJob end");
+    	TotalDailyVote.doCalculationForTotalDailyVote(startOfDayForCalculation);
+    	
+        Logger.info("AnalyticsJob end");
     }
     
     

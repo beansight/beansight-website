@@ -7,7 +7,7 @@ import play.mvc.Http.Request;
  * This class aims to be used to have information about the user's client, 
  * like its ip, user agent, ...
  * 
- * But it's not a JPA entity and is'nt stored directly in DB
+ * But it's not a JPA entity and isn't stored directly in DB
  * 
  * @author jb
  *
