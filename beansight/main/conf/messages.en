@@ -257,6 +257,7 @@ errorservermessage=This error has been logged with id <strong>%s</strong>.
 # E MAILs
 ####################
 emailhellouser=Hi %s
+emailhello=Hello,
 emailsignature=Beansight team<br/>http://www.beansight.com
 
 # confirmation
@@ -270,7 +271,6 @@ emailuserstartfollowing1=The user
 emailuserstartfollowing2= added you in his favorites on Beansight. You can check his page to learn more about him.
 
 # invitation
-emailhello=Hello,
 emailinvitationsubject=%s presents you Beansight
 emailinvitationmarketing=Beansight is a place to share predictions about the future.
 emailinvitationinvitor=%s is saying:
@@ -288,4 +288,9 @@ email.contact.from.name=Contact name : %s
 email.contact.from.email=Contact mail : %s
 email.contact.subject=Subject : %s
 email.contact.message=Message :
+
+# forgotPassword
+forgotPassword.receiveemail=You received this message because you or someone else requested a new password for this e-mail. If you do not want to change your password, just ignore this message.
+forgotPassword.clickhere=Click here to choose a new password on beansight.com
+
 

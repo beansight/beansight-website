@@ -259,6 +259,7 @@ errorservermessage=L'erreur a été enregistrée avec l'identifiant <strong>%s</
 ####################
 
 emailhellouser=Bonjour %s
+emailhello=Bonjour,
 emailsignature=L'équipe Beansight<br/>http://www.beansight.com
 
 # confirmation
@@ -272,7 +273,6 @@ emailuserstartfollowing1=L'utilisateur
 emailuserstartfollowing2= vous a ajouté a ses favoris sur Beansight. Vous pouvez consulter sa page pour en apprendre plus sur lui.
 
 # invitation
-emailhello=Bonjour,
 emailinvitationsubject=%s vous présente Beansight
 emailinvitationmarketing=Beansight est une plateforme où vous pourrez partager vos intuitions sur l'avenir.
 emailinvitationinvitor=%s a ajouté :
@@ -290,4 +290,9 @@ email.contact.from.name=Nom du contact : %s
 email.contact.from.email=Mail du contact : %s
 email.contact.subject=Subject : %s
 email.contact.message=Message :
+
+# forgotPassword
+forgotPassword.receiveemail=Vous recevez ce message car vous ou quelqu'un d'autre a demandé un changement de mot de passe pour le compte associé à cette adresse sur beansight.com. Si vous ne voulez pas changer votre mot de passe, ignorez ce message. 
+forgotPassword.clickhere=Cliquez ici pour choisir un nouveau mot de passe sur beansight.com
+
 
