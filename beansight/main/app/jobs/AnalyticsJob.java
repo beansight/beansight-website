@@ -8,6 +8,8 @@ import java.util.Map;
 import models.Insight;
 import models.User;
 import models.Vote;
+import models.analytics.DailyTotalComment;
+import models.analytics.DailyTotalInsight;
 import models.analytics.DailyTotalVote;
 import models.analytics.InsightDailyVote;
 import models.analytics.UserInsightDailyCreation;
@@ -35,12 +37,12 @@ public class AnalyticsJob extends Job {
     	DateTime startOfDayForCalculation = new DateTime(new DateMidnight()).minusDays(1);
     	
     	doCalculationForUserInsightDailyCreation(startOfDayForCalculation);
-		
     	doCalculationForUserInsightDailyVote(startOfDayForCalculation);
-    	
     	doCalculationForInsightDailyVote(startOfDayForCalculation);
     	
+    	DailyTotalInsight.compute(startOfDayForCalculation);
     	DailyTotalVote.compute(startOfDayForCalculation);
+    	DailyTotalComment.compute(startOfDayForCalculation);
     	
         Logger.info("AnalyticsJob end");
     }
