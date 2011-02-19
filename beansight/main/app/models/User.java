@@ -218,7 +218,7 @@ public class User extends Model {
 	}
 	
 	public static boolean isUsernameAvailable(String userName) {
-		if (User.count("byUserName", userName) == 0) {
+		if (User.count("byUserNameLike", userName.toLowerCase()) == 0) {
 			return true;
 		}
 		return false;

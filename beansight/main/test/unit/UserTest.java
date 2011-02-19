@@ -35,6 +35,17 @@ public class UserTest extends UnitTest {
         User userFound = User.findByUserName("john");
         assertEquals(user, userFound);
     }
+
+    @Test
+    public void userNameNotAvailable() {
+    	assertFalse(User.isUsernameAvailable(TestHelper.TEST_USER_NAME));
+    }
+
+    @Test
+    public void userNameNotAvailableBecauseOfCase() {
+    	assertFalse(User.isUsernameAvailable(TestHelper.TEST_USER_NAME.toUpperCase()));
+    	assertFalse(User.isUsernameAvailable(TestHelper.TEST_USER_NAME.toLowerCase()));
+    }
     
     @Test
     public void connectUser() {
@@ -53,7 +64,7 @@ public class UserTest extends UnitTest {
     	boolean connected = User.authenticate(TestHelper.TEST_MAIL, TestHelper.TEST_PASSWORD.toUpperCase());
         assertFalse(connected);
     }
-
+    
     @Test
     public void userNotAdmin() {
    		User user = TestHelper.getTestUser();
