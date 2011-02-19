@@ -142,6 +142,7 @@ settings.changePassword=Change password
 settings.imageInvalidFormat=Error while reading image : is it a valid image ?
 settings.imageSizeTooBig=Image size should be less than 3 Mo
 settings.userName=User name
+saveSettings.validation=Error while saving settings.
 
 # change password
 changePassword.oldPassword=Current password

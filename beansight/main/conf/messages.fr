@@ -150,6 +150,7 @@ settings.changePassword=Changer de mot de passe
 settings.imageInvalidFormat=Format d'image incorrect
 settings.imageSizeTooBig=L'image doit faire moins de 3 Mo
 settings.userName=Nom d'utilisateur
+saveSettings.validation=Erreur lors de la sauvegarde des paramètres.
 
 # change password
 changePassword.oldPassword=Mot de passe actuel

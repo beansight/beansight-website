@@ -203,6 +203,12 @@ public class User extends Model {
 		return User.find("order by crdate DESC").from( from ).fetch( number );
 	}
 
+	public void setUserName(String userName) {
+		if( User.isUsernameAvailable(userName) ) {
+			this.userName = userName;
+		}
+	}
+	
 	public void setUiLanguage(Language language) {
 		if(language == null) {
 			language = Language.findByLabelOrCreate("en");

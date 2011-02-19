@@ -372,16 +372,6 @@ public class Application extends Controller {
 			// the user has read this insight (if it has been shared, removed from shared insights
 			currentUser.readInsight(insight);
 			
-			
-			String ip = "";
-			String userAgent = "";
-			try {
-				ip = request.remoteAddress;
-				userAgent = request.headers.get("user-agent").toString();
-			} catch(Exception e) {
-				Logger.warn("Cannot get user ip or user-agent");
-			}
-			
 			// log for analytics 
 			UserClientInfo userClientInfo = new UserClientInfo(request, APPLICATION_ID);
 			currentUser.visitInsight(insight, userClientInfo);
@@ -543,11 +533,16 @@ public class Application extends Controller {
 	}
 	
 	public static void saveSettings(String uiLanguage, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no puncuation") String userName) {
+		User user = CurrentUser.getCurrentUser();
+		if(!userName.equals(user.userName) && !User.isUsernameAvailable(userName)) {
+			validation.addError("username", Messages.get("registerusernameexist")); 
+		}
 		if (validation.hasErrors()) {
-			flash.error(Messages.get("updateUserName.validation"));
+	        validation.keep();
+			flash.error(Messages.get("saveSettings.validation"));
+			Application.settings();
 	    }
 		
-		User user = CurrentUser.getCurrentUser();
 		user.uiLanguage = Language.findByLabelOrCreate(uiLanguage);
 		user.userName = userName;
 		user.save();

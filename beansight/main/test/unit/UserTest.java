@@ -48,6 +48,13 @@ public class UserTest extends UnitTest {
     }
     
     @Test
+    public void changeUserNameAlreadyTaken() {
+   		User user = new User("jean.michel@michmich.mich", "JeanMichMich", "olalala");
+        user.userName = TestHelper.TEST_USER_NAME;
+        assertFalse(user.userName.equals(TestHelper.TEST_USER_NAME));
+    }
+    
+    @Test
     public void connectUser() {
     	boolean connected = User.authenticate(TestHelper.TEST_MAIL, TestHelper.TEST_PASSWORD);
         assertTrue(connected);
