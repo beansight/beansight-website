@@ -17,8 +17,6 @@ Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-loginwidth', {hover: true}
 // Actions on insights
 //////////////////////
 
-function testtesttest() {return false;}
-
 /** Current user agree an insight */
 function agree(insightUniqueId) {
     $.getJSON(agreeAction({'insightUniqueId': insightUniqueId}), onVoteSuccess);
@@ -269,12 +267,6 @@ function clearForm( context ) {
      .removeAttr('selected');
 }
 
-// Overload jQuery error
-/** Called when an AJAX request returns an error */
-$("#error").ajaxError(function(event, request, settings){
-    $(this).text('Sorry, an error occured during last action.');
-});
-
 function abbreviate(str, size) {
 	if (str.length <= size) {
 		return str;
@@ -339,6 +331,12 @@ $(document).ready(function() {
     // delete nojavascript class for those who have javascript
     $('.nojavascript').removeClass('nojavascript');
 	
+    // Overload jQuery error
+    /** Called when an AJAX request returns an error */
+    $("#error").ajaxError(function(event, request, settings){
+        $(this).text('Sorry, an error occured during last action.');
+    });
+    
     //select custom
     $(".item-select select").selectbox();
 	
@@ -377,7 +375,7 @@ $(document).ready(function() {
 			function(value,element) {
 				return this.optional(element) || /^[a-zA-Z0-9_]{3,16}$/.test(value);
 			},
-			"Username are 3-16 characters and no space"
+			i18n["usernameValidation"]
 		);
 	
     //////////////////////
@@ -449,7 +447,16 @@ $(document).ready(function() {
 	//////////////////////
 	$("#userSettingsForm").validate({
 		rules: {
-			userName: "username"
+			username: {
+				username: true,
+				required: true,
+				remote: isUserNameAvailableAction()
+			}
+		},
+		messages: {
+			username: {
+				remote: jQuery.validator.format(i18n["userNameRemoteValidation"])	
+			}
 		}
 	});
 
@@ -707,9 +714,14 @@ $(document).ready(function() {
 		rules: {
 			email: {
 				required: true,
-				email: true
+				email: true,
+				remote: isEmailAvailableAction()
 			},
-			username: "username",
+			username: {
+				username: true,
+				required: true,
+				remote: isUserNameAvailableAction()
+			},
 			password: {
 				required: true,
 				minlength: 5
@@ -719,9 +731,13 @@ $(document).ready(function() {
 				minlength: 5,
 				equalTo: "#registerPassword"
 			}
+		},
+		messages: {
+			username: {
+				remote: jQuery.validator.format(i18n["userNameRemoteValidation"])	
+			}
 		}
 	});
-
 	
     //////////////////////
     // Insight Page

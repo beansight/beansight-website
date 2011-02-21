@@ -20,5 +20,6 @@ var i18n = {
 		validationDescription:		'Limité à 120 caractères',
 		validationRealName:			'Limité à 30 caractères',
 		voteAgree:					"Vous êtes d'accord avec cette prédiction",
-		voteDisagree:				"Vous n'êtes pas d'accord avec cette prédiction"
+		voteDisagree:				"Vous n'êtes pas d'accord avec cette prédiction",
+		usernameValidation:			"Les noms d'utilisateur doivent être de 3 à 16 caractères, pas d'espace, pas d'accent et pas de ponctuation."
 }

@@ -59,6 +59,8 @@
 	var getFavoriteInsightAction = #{jsAction @Application.getFavoriteInsight(':insightUniqueId') /};
 	var insightHideCommentAction = #{jsAction @Admin.insightHideComment(':commentId') /};
 	var showAvatarSmallFromEmailAction = #{jsAction @Application.showAvatarSmallFromEmail(':email') /};
+    var isUserNameAvailableAction = #{jsAction @Register.isUserNameAvailable() /};
+    var isEmailAvailableAction = #{jsAction @Register.isEmailAvailable() /};    
 	</script>
 </head>
 <body>

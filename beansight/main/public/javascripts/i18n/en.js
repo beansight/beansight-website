@@ -20,5 +20,6 @@ var i18n = {
 		validationDescription:		'120 characters max',
 		validationRealName:			'30 characters max',
 		voteAgree:					"You agree with this prediction",
-		voteDisagree:				"You disagree with this prediction"
+		voteDisagree:				"You disagree with this prediction",
+		usernameValidation:			"Username are 3-16 characters, no space, no accent and no punctuation"
 }

@@ -1,9 +1,12 @@
 package controllers;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import models.Promocode;
 import models.User;
+import models.Vote.State;
 import notifiers.Mails;
 import play.Logger;
 import play.cache.Cache;
@@ -22,7 +25,7 @@ public class Register extends Controller {
 	}
 	
 	// TODO : I18N
-	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no puncuation") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
+	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
 		// Check if username or email not already in use, because username and email must be unique !
 		if(!User.isEmailAvailable(email)) {
 			validation.addError("email", Messages.get("registeremailexist")); 
@@ -59,7 +62,31 @@ public class Register extends Controller {
 		Secure.authenticate(email, password, false);
 	}
 	
+	/**
+	 * Is the given userName available on beansight.com?
+	 * @return : true if the userName is available, false otherwise
+	 */
+	public static void isUserNameAvailable(String username) {
+		boolean available = User.isUsernameAvailable(username);
+		if(available) {
+			renderJSON(available);
+		} else {
+			renderJSON("\""+ Messages.get("registerusernameexist") + "\"");
+		}
+	}
 	
+	/**
+	 * Is the given email available on beansight.com?
+	 * @return : true if the email is available, false otherwise
+	 */
+	public static void isEmailAvailable(String email) {
+		boolean available = User.isEmailAvailable(email);
+		if(available) {
+			renderJSON(available);
+		} else {
+			renderJSON("\""+ Messages.get("registeremailexist") + "\"");
+		}
+	}
 	
 	public static void facebookFirstTimeConnectPage() {
 		if(Security.isConnected()) {
@@ -75,7 +102,7 @@ public class Register extends Controller {
 	
 	public static void facebookFirstTimeConnect(
 		@Required @Email String email, 
-		@Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no puncuation") String username, 
+		@Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username, 
 		@Required String promocode) {
 		
 		if(Security.isConnected()) {

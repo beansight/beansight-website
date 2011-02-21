@@ -538,10 +538,10 @@ public class Application extends Controller {
 		render(user);
 	}
 	
-	public static void saveSettings(String uiLanguage, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no puncuation") String userName) {
+	public static void saveSettings(String uiLanguage, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username) {
 		User user = CurrentUser.getCurrentUser();
-		if(!userName.equals(user.userName) && !User.isUsernameAvailable(userName)) {
-			validation.addError("username", Messages.get("registerusernameexist")); 
+		if(!username.equals(user.userName) && !User.isUsernameAvailable(username)) {
+			validation.addError("userName", Messages.get("registerusernameexist")); 
 		}
 		if (validation.hasErrors()) {
 	        validation.keep();
@@ -550,7 +550,7 @@ public class Application extends Controller {
 	    }
 		
 		user.uiLanguage = Language.findByLabelOrCreate(uiLanguage);
-		user.userName = userName;
+		user.userName = username;
 		user.save();
 		
 		Application.settings();
