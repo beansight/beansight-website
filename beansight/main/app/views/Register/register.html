@@ -17,7 +17,7 @@
 	<div id="beansightRegisterBlock">
 	    #{form @Register.registerNew(), id:'registerFormBeansight'}
 	    	<input type="hidden" name="connectWith" id="connectWith"/>
-	        <h2 class="cuf-grb">Signup with beansight</h2>
+	        <h2 class="cuf-grb">&{'register.beansightTitle'}</h2>
 	
 	        <label for="s_email">&{'email'}</label>
 	        <div class="item-input">
@@ -62,7 +62,21 @@
 
 	<div id="facebookRegisterBlock">
 	    #{form @FacebookOAuth.authenticate(), id:'registerFormFacebook'}
-	        <h2 class="cuf-grb">signup with facebook</h2>
+	        <h2 class="cuf-grb">&{'register.facebookTitle'}</h2>
+	
+	        <div class="item-checkbox">
+	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
+	        </div>
+	        
+	        <div class="item-submit">
+	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
+	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">Signup with Facebook</span></button>
+	        </div>
+	    #{/form}
+	</div>
+		<div id="twitterRegisterBlock">
+	    #{form @TwitterOAuth.authenticate(), id:'registerFormTwitter'}
+	        <h2 class="cuf-grb">&{'register.twitterTitle'}</h2>
 	
 	        <div class="item-checkbox">
 	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
@@ -77,7 +91,7 @@
 </div>
 
 <div class="bloccontent blocright">
-    <h2 class="cuf-grs">Why register ?</h2>
+    <h2 class="cuf-grs">&{'register.why'}</h2>
     <div class="pushsign explorepush">
         <span class="cuf-explore">&{'register.banner.explore'}</span>
         <p>&{'register.banner.exploretext'}</p>

@@ -221,6 +221,10 @@ register.banner.explore=Explorer
 register.banner.exploretext=Avec Beansight, explorez les prédictions partagées par la communauté et découvrez ce qu’il peut probablement arriver demain.
 register.banner.participate=Participer
 register.banner.participatetext=Anticipez correctement des évènements et soyez reconnus par la communauté pour votre expertise.
+register.beansightTitle=S'inscrire avec Beansight
+register.facebookTitle=S'inscrire avec Facebook 
+register.twitterTitle=S'inscrire avec Twitter
+register.why=Pourquoi S'inscrire
 
 # confirm
 emailconfirmed=Email confirmé

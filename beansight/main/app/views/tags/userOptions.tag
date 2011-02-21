@@ -34,7 +34,7 @@
                     <button class="goButton" id="logButton-twit"><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'userOptions.confirmHavingPromocode'}</span></button>
                     <script type="text/javascript">
                         $("#logButton-twit").click(function() {
-                             window.location.href = "@{TwitterOAuth.loginWithTwitter}";
+                             window.location.href = "@{TwitterOAuth.authenticate}";
                         })
                     </script>
                 </div>

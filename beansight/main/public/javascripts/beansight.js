@@ -290,9 +290,15 @@ function showRegisterForm(formToShow) {
 	if (formToShow == 'beansight') {
 		$("#beansightRegisterBlock").show();
 		$("#facebookRegisterBlock").hide();
+		$("#twitterRegisterBlock").hide();
 	} else if(formToShow == 'facebook') {
 		$("#beansightRegisterBlock").hide();
 		$("#facebookRegisterBlock").show();
+		$("#twitterRegisterBlock").hide();
+	} else if(formToShow == 'twitter') {
+		$("#beansightRegisterBlock").hide();
+		$("#facebookRegisterBlock").hide();
+		$("#twitterRegisterBlock").show();
 	}
 }
 
@@ -904,14 +910,7 @@ $(document).ready(function() {
 	
 	
 	$(".txt-comment").each(function(index, element) {
-		//alert( Linkify( $(this).text() ) );
-		//var reg=new RegExp("(@([\\w]+))", "g");
-		//alert(replaceAtWithProfilLinks( nl2br($(this).text()) ));
-		//alert(Linkify($(this).text() ));
-		//$(this).html(Linkify( $(this).text() ));
 		$(this).html(nl2br( replaceAtWithProfilLinks( linkify( $(this).text() ) ) ) );
-		
-		//$(this).html( linkify( nl2br($(this).text()) ) );
 	});
 	
 });
