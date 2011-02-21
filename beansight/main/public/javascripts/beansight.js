@@ -703,7 +703,7 @@ $(document).ready(function() {
     //////////////////////
     // Registration
     //////////////////////
-	$("#registerForm").validate({
+	$("#registerFormBeansight").validate({
 		rules: {
 			email: {
 				required: true,

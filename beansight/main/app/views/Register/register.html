@@ -15,7 +15,7 @@
 	</ul>
 
 	<div id="beansightRegisterBlock">
-	    #{form @Register.registerNew(), id:'registerForm'}
+	    #{form @Register.registerNew(), id:'registerFormBeansight'}
 	    	<input type="hidden" name="connectWith" id="connectWith"/>
 	        <h2 class="cuf-grb">Signup with beansight</h2>
 	
@@ -61,7 +61,7 @@
     </div>
 
 	<div id="facebookRegisterBlock">
-	    #{form @FacebookOAuth.authenticate(), id:'registerForm'}
+	    #{form @FacebookOAuth.authenticate(), id:'registerFormFacebook'}
 	        <h2 class="cuf-grb">signup with facebook</h2>
 	
 	        <div class="item-checkbox">
