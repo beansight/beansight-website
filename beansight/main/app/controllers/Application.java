@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.FormatHelper;
 import helpers.ImageHelper;
 
 import java.awt.image.BufferedImage;
@@ -491,7 +492,8 @@ public class Application extends Controller {
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = Insight.findByUniqueId(uniqueId);
 		Comment comment = insight.addComment(content, currentUser);
-
+		comment.content = FormatHelper.htmlLinkifyAll(comment.content);
+		
 		render(comment);
 	}
 

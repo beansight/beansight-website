@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import jregex.Pattern;
+import jregex.Replacer;
+
 import play.Logger;
 
 public class FormatHelper {
@@ -35,4 +38,17 @@ public class FormatHelper {
 		return null;
 	}
 	
+	public static String htmlLinkifyExpert(String text) {
+		Replacer r = new Replacer(new Pattern("(\\W*@([\\w]+))"), "<a href='/expert/$2'>$1</a>");
+		return r.replace(text);
+	}
+	
+	public static String ln2br(String text) {
+		Replacer r = new Replacer(new Pattern("\\n"), "<br/>");
+		return r.replace(text);
+	}
+	
+	public static String htmlLinkifyAll(String text) {
+		return ln2br(htmlLinkifyExpert(text));
+	}
 }

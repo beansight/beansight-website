@@ -409,7 +409,7 @@ public class Insight extends Model {
     }
     
     public List<Comment> getNotHiddenComments() {
-    	return Comment.find("select c from Comment c where c.insight.id = :insightId and c.hidden is false order by c.creationDate").bind("insightId", this.id).fetch();
+    	return Comment.find("select c from Comment c where c.insight.id = :insightId and c.hidden is false order by c.creationDate desc").bind("insightId", this.id).fetch();
     }
     
 	public static class InsightResult {

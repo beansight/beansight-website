@@ -8,8 +8,9 @@
         }*
         <hr class="clear"/>
     </div>
-    <p class="txt-comment">${_comment.content.escape().nl2br()}    
-    #{isConnected}
+    <p class="txt-comment">${_comment.content}</p>    
+	<p>
+	#{isConnected}
     	#{secure.check 'admin'}
     	<br>
 		<a href="#" onclick="insightHideComment(${_comment.id}); return false;" style="color: red;">hide this comment</a>

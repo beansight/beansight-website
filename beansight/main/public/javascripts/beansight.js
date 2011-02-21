@@ -146,7 +146,7 @@ function updateCharacterCount() {
 /** callback for comment addition */
 function onAddCommentSuccess(content) {
 	$(".ajaxloader").hide();
-    $("#commentList").prepend( content );
+    $("#commentList").prepend( nl2br( content ) );
     clearForm('#addCommentForm');
 }
 
@@ -302,6 +302,35 @@ function showRegisterForm(formToShow) {
 		$("#beansightRegisterBlock").hide();
 		$("#facebookRegisterBlock").show();
 	}
+}
+
+///////////////
+// if modifying these 3 functions don't forget to also update their java counterpart in FormatHelper.java
+///////////////
+function replaceAtWithProfilLinks(text) {
+	var reg=new RegExp("(\\W*@([\\w]+))", "g");
+	return text.replace(reg, "<a href='/expert/$2'>$1</a>");
+}
+	
+	
+function linkify(inputText) {
+    //URLs starting with http://, https://, or ftp://
+    var replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    var replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+    //URLs starting with www. (without // before it, or it'd re-link the ones done above)
+    var replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    var replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+    //Change email addresses to mailto:: links
+    var replacePattern3 = /(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
+    var replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+    return replacedText
+}
+
+function nl2br(value) {
+	 return value.replace(/\n/g, "<br/>");
 }
 
 // Execute scripts after the document creation
@@ -856,5 +885,18 @@ $(document).ready(function() {
 	// show beansight connect by default in register page
 	//////////////
 	showRegisterForm('beansight');
+	
+	
+	$(".txt-comment").each(function(index, element) {
+		//alert( Linkify( $(this).text() ) );
+		//var reg=new RegExp("(@([\\w]+))", "g");
+		//alert(replaceAtWithProfilLinks( nl2br($(this).text()) ));
+		//alert(Linkify($(this).text() ));
+		//$(this).html(Linkify( $(this).text() ));
+		$(this).html(nl2br( replaceAtWithProfilLinks( linkify( $(this).text() ) ) ) );
+		
+		//$(this).html( linkify( nl2br($(this).text()) ) );
+	});
+	
 });
 

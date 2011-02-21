@@ -8,6 +8,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import jregex.Pattern;
+import jregex.Replacer;
+
 import org.hibernate.annotations.Index;
 
 import play.db.jpa.Model;
