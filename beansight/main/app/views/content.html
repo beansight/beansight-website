@@ -4,7 +4,8 @@
 <div id="content">
 
 <!-- SIDEBAR LEFT -->
-<div id="sidebarleft">
+<div id="sidebarleft" class="#{isNotConnected}notConnected#{/isNotConnected}">
+
 #{isConnected}
 <!-- CREER INSIGHT -->
 <p class="btn-newins"><a href="@{Application.create()}" class="cuf-grm #{currentMenu 'menuCreate' /}">&{'menucreate'}</a></p>
@@ -27,8 +28,21 @@
     <hr class="clear"/>
 #{/isConnected}
 
-*{
+
 #{isNotConnected}
+<a href="@{Register.register()}" class="whatisbeansight &{'i18n'}"></a>
+    <form id="leaveYourEmailForm" class="bigform">
+        <label for="email">&{'email'}</label>
+        <div class="item-input">
+            <input type="text" id="email" name="email"/>
+            <span class="error">#{error 'email' /}</span>
+        </div>
+        <div class="item-submit">
+            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'welcome.leaveYourEmailSubmit'}</span></button>
+        </div>          
+    </form>
+    <div id="leaveYourEmailCallBackMsg"></div>
+*{
 <!-- EXPERTS -->
 <h2 class="expoerth2 paddingme greenme"><span class="cuf-grb">What do expert think</span></h2>
 <div class="listusers">
@@ -58,8 +72,8 @@
     #{/list}
 </ul>
 <hr class="clear"/>
-#{/isNotConnected}
 }*
+#{/isNotConnected}
 
 </div>
 	
