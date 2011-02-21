@@ -93,6 +93,10 @@ public class Application extends Controller {
 			if (currentUser.facebookUserId != null && !currentUser.isPromocodeValidated) {
 				Register.facebookFirstTimeConnectPage();
 			}
+			// if this is twitter user and he hasn't validated its promocode the redirect  
+			if (currentUser.twitterUserId != null && !currentUser.isPromocodeValidated) {
+				Register.facebookFirstTimeConnectPage();
+			}
 			
 			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
 			// TODO limit the number and order by update
