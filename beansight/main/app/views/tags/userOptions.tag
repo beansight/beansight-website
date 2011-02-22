@@ -1,5 +1,5 @@
 #{isNotConnected}
-<div id="loginbox">
+<div id="loginbox" class="loginbox">
     <p class="cuf-loginwidth">&{'loginlink'}</p>
     <ul class="listlogs">
         <li class="log-b" id="lilogb">

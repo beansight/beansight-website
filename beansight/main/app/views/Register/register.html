@@ -8,12 +8,14 @@
 
 
 <div class="bloccontent bloccenter" id="withBeansight">
-	<ul>
-		<li><a href="#" onclick="javascript:showRegisterForm('beansight');">beansight</a></li>
-		<li><a href="#" onclick="javascript:showRegisterForm('twitter');">twitter</a></li>
-		<li><a href="#" onclick="javascript:showRegisterForm('facebook');">facebook</a></li>
-	</ul>
-
+	<div class="loginbox signuppage">
+		<p class="cuf-loginwidth" style="text-align: left; margin-left: 10px;">&{'register.createAccountWith'}</p>
+		<ul class="listlogs">
+			<li class="log-b"><a id="signup-bean" class="opened logbutton" href="#" onclick="javascript:showRegisterForm('beansight');">beansight</a></li>
+			<li class="log-t"><a id="signup-twit" class="logbutton" href="#" onclick="javascript:showRegisterForm('twitter');">twitter</a></li>
+			<li class="log-f"><a id="signup-fb" class="logbutton" href="#" onclick="javascript:showRegisterForm('facebook');">facebook</a></li>
+		</ul>
+	</div>
 	<div id="beansightRegisterBlock">
 	    #{form @Register.registerNew(), id:'registerFormBeansight'}
 	    	<input type="hidden" name="connectWith" id="connectWith"/>
@@ -68,9 +70,10 @@
 	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
 	        </div>
 	        
-	        <div class="item-submit">
+	        <div >
 	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
-	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'register.facebookSignupButton'}</span></button>
+	            <!--<button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'register.facebookSignupButton'}</span></button>-->
+	            <button class="social_buttons sb_48 sb_facebook"><span>Sign in with Facebook</span></button>
 	        </div>
 	    #{/form}
 	</div>
@@ -82,9 +85,10 @@
 	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
 	        </div>
 	        
-	        <div class="item-submit">
+	        <div>
 	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
-	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'register.twitterSignupButton'}</span></button>
+	            <!--<button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'register.twitterSignupButton'}</span></button>-->
+	            <button class="social_buttons sb_48 sb_twitter"><span>Sign in with Twitter</span></button>
 	        </div>
 	    #{/form}
 	</div>

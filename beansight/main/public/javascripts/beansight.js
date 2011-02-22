@@ -287,18 +287,23 @@ function insightHideComment(commentId) {
 }
 
 function showRegisterForm(formToShow) {
+	$('#signup-bean').removeClass('opened');
+	$('#signup-twit').removeClass('opened');
+	$('#signup-fb').removeClass('opened');
+	
+	$("#beansightRegisterBlock").hide();
+	$("#facebookRegisterBlock").hide();
+	$("#twitterRegisterBlock").hide();
+	
 	if (formToShow == 'beansight') {
 		$("#beansightRegisterBlock").show();
-		$("#facebookRegisterBlock").hide();
-		$("#twitterRegisterBlock").hide();
-	} else if(formToShow == 'facebook') {
-		$("#beansightRegisterBlock").hide();
-		$("#facebookRegisterBlock").show();
-		$("#twitterRegisterBlock").hide();
+		$('#signup-bean').addClass('opened');
 	} else if(formToShow == 'twitter') {
-		$("#beansightRegisterBlock").hide();
-		$("#facebookRegisterBlock").hide();
 		$("#twitterRegisterBlock").show();
+		$('#signup-twit').addClass('opened');
+	} else if(formToShow == 'facebook') {
+		$("#facebookRegisterBlock").show();
+		$('#signup-fb').addClass('opened');
 	}
 }
 
