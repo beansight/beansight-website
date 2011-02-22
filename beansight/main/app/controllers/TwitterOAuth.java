@@ -21,6 +21,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import play.Logger;
+import play.Play;
 import play.db.jpa.Blob;
 import play.libs.WS;
 import play.modules.oauthclient.ICredentials;
@@ -30,13 +31,12 @@ import play.mvc.Router;
 
 public class TwitterOAuth extends Controller {
 
-	private static OAuthClient client = new OAuthClient(
+	private static final OAuthClient client = new OAuthClient(
 			"http://twitter.com/oauth/request_token",
 			"https://twitter.com/oauth/access_token",
-			"http://twitter.com/oauth/authenticate", "X6T56rx0w0wU4wIWGPIA",
-			"geSJ4hc36jWhNaWf1UDY3apuWlJVK04fxmP3jG8xdM");
-//	"http://twitter.com/oauth/authorize", "X6T56rx0w0wU4wIWGPIA",
-//	"geSJ4hc36jWhNaWf1UDY3apuWlJVK04fxmP3jG8xdM");
+			"http://twitter.com/oauth/authenticate", 
+			Play.configuration.getProperty("twitter.consumerKey"),
+			Play.configuration.getProperty("twitter.consumerSecret"));
 	
 	public static void authenticate() throws Exception {
 		ICredentials creds = new Credentials();

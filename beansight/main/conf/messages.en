@@ -214,10 +214,14 @@ register.banner.exploretext=With Beansight, explore predictions shared by our co
 register.banner.participate=Participate
 register.banner.participatetext=Correctly anticipate events and get recognition from the community for your expertise.
 register.beansightTitle=Signup with Beansight
+register.beansightSignupButton=Signup
 register.facebookTitle=Signup with Facebook
+register.facebookSignupButton=Signup with Facebook
 register.twitterTitle=Signup with Twitter
+register.twitterSignupButton=Signup with Twitter
 register.why=Why Register
 register.confirmInvitationTitle=Please confirm your informations to complete signup
+
 
 # confirm
 emailconfirmed=Email confirmed
