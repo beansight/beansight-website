@@ -159,7 +159,7 @@ public class User extends Model {
 		if (!User.isUsernameAvailable(userName)) {
 			throw new RuntimeException(Messages.get("registerusernameexist"));
 		}
-		if (!User.isEmailAvailable(email)) {
+		if (email != null && !email.equals("") && !User.isEmailAvailable(email)) {
 			throw new RuntimeException(Messages.get("registeremailexist"));
 		}
 		Logger.info("New User: " + userName);
