@@ -209,7 +209,8 @@ remember=se souvenir ?
 loginbutton=Connexion
 welcomeusername=Bonjour 
 userOptions.confirmHavingPromocode=Ok, continuer
-userOptions.makesureHavingPromocode=Attention<br/>Beansight est en beta privée.<br/>Continuez seulement si vous avez déjà un nom d'utilisateur sur Beansight ou si vous possédez un code d'accès.
+userOptions.makesureHavingPromocodeTwitter=Attention<br/>Beansight est en beta privée.<br/>Continuez seulement si vous vous êtes déjà connecté sur Beansight avec Twitter ou si vous possédez un code d'accès.
+userOptions.makesureHavingPromocodeFacebook=Attention<br/>Beansight est en beta privée.<br/>Continuez seulement si vous vous êtes déjà connecté sur Beansight avec Facebook ou si vous possédez un code d'accès.
 userOptions.sorrynofacebook=Désolé, se connecter en utilisant Facebook est impossible pour le moment à cause d'un problème technique.
 
 # register
