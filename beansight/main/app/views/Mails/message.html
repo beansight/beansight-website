@@ -4,7 +4,7 @@
 <p>&{'emailmessageheadline', task.message.fromUser.userName}</p>
 <p>${task.message.content.escape().nl2br()}</p>
 
-<p><a href="http://www.beansight.com@{Application.showUser(task.message.fromUser.userName)}">&{'emailmessagegotoprofile', task.message.toUser.userName}</a></p>
+<p><a href="http://www.beansight.com@{Application.showUser(task.message.toUser.userName)}">&{'emailmessagegotoprofile', task.message.toUser.userName}</a></p>
 
 <p>&{'emailsignature'}</p>
 </body></html>
