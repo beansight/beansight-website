@@ -31,7 +31,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         
         // facebook email could be null/void
         if (facebookModelObject.getEmail() != null && !facebookModelObject.getEmail().trim().equals("")) {
-        	if (User.isEmailAvailable(facebookModelObject.getEmail())) {
+        	if (!User.isEmailAvailable(facebookModelObject.getEmail())) {
         		facebookUser = User.findByEmail(facebookModelObject.getEmail());
         	}
         }

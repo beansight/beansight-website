@@ -137,9 +137,11 @@ public class Register extends Controller {
 				renderArgs.put("email", email);
 				renderArgs.put("username", username);
 				renderArgs.put("promocode", promocode);
-		        renderTemplate("Register/facebookFirstTimeConnectPage.html");
+		        renderTemplate("Register/extAuthFirstTimeConnectPage.html");
 		    }
 			
+			currentUser.email = email;
+			currentUser.userName = username;
 			currentUser.isPromocodeValidated = true;
 			currentUser.save();
 		} 
