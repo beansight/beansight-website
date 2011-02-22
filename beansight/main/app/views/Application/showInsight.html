@@ -34,10 +34,12 @@
         <div class="graphzone">
             <div class="leftgraph">
                 
+                *{
 			    #{if insight.validated}
 			        <p>&{'validation'} (TODO) ${insight.validationScore}</p>
 			    #{/if}
-
+                }*
+                
                 #{isConnected}
                     #{agree-disagreeWidgetLarge insight:insight, lastUserVote:lastUserVote /}
                 #{/isConnected}
