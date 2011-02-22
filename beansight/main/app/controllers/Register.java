@@ -53,6 +53,7 @@ public class Register extends Controller {
 		
 		Logger.info("Register: " + email + "/" + username);
 		User user = new User(email, username, password);
+		user.isPromocodeValidated = true;
 		user.save();
 			
 		// send a password confirmation mail
