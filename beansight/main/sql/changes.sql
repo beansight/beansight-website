@@ -25,3 +25,6 @@ CREATE TABLE  `DailyTotalComment` (
   `forDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+update User
+set isPromocodeValidated = 1;
