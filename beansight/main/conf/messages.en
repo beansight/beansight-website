@@ -217,6 +217,7 @@ register.beansightTitle=Signup with Beansight
 register.facebookTitle=Signup with Facebook
 register.twitterTitle=Signup with Twitter
 register.why=Why Register
+register.confirmInvitationTitle=Please confirm your informations to complete signup
 
 # confirm
 emailconfirmed=Email confirmed

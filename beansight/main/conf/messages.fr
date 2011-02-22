@@ -225,6 +225,7 @@ register.beansightTitle=S'inscrire avec Beansight
 register.facebookTitle=S'inscrire avec Facebook 
 register.twitterTitle=S'inscrire avec Twitter
 register.why=Pourquoi S'inscrire
+register.confirmInvitationTitle=Merci de confirmer les informations ci-dessous
 
 # confirm
 emailconfirmed=Email confirmé

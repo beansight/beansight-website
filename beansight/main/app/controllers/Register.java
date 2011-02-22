@@ -88,7 +88,7 @@ public class Register extends Controller {
 		}
 	}
 	
-	public static void facebookFirstTimeConnectPage() {
+	public static void extAuthFirstTimeConnectPage() {
 		if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			renderArgs.put("email", currentUser.email);
