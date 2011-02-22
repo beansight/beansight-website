@@ -62,6 +62,11 @@ createInsightCategory=Catégorie
 createInsightSubmit=Créer
 createinsight=Poster une prédiction
 createInsightLang=Langue
+createInsight.errorcreating=Erreur lors de la création de la prédiction
+createInsightVote=Vote
+createInsight.Iagree=Je suis d'accord
+createInsight.Idisagree=Je ne suis pas d'accord
+createInsight.Idontvote=Je ne vote pas
 
 #showInsight
 onbeansight=sur #Beansight

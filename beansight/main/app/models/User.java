@@ -330,9 +330,10 @@ public class User extends Model {
 	 * @param insightContent : the content text of this insight
 	 * @param endDate : date this insight should end
 	 * @param tagLabelList : a comma separated list of tags
+	 * @param voteState : the state of the vote, null if no vote.
 	 * @throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException 
 	 */
-	public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long categoryId, String lang) throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
+	public Insight createInsight(String insightContent, Date endDate, String tagLabelList, long categoryId, String lang, State voteState) throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
 		if(lang == null) { // if lang is not specified, use the language from the user's preferred insight language
 			lang = this.writtingLanguage.label;
 		}
@@ -351,8 +352,17 @@ public class User extends Model {
 
 		this.createdInsights.add(i);
 
+		if(voteState != null) {
+			try {
+				this.voteToInsight(i.uniqueId, voteState);
+			} catch (CannotVoteTwiceForTheSameInsightException e) {
+				// do nothing
+			}
+		}
+
 		this.save();
 
+		
 		return i;
 	}
 

@@ -16,6 +16,8 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+
 import models.Category;
 import models.Comment;
 import models.Filter;
@@ -156,12 +158,12 @@ public class Application extends Controller {
      * @param categoryId
      * @param insightLang
      */
-	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang) {
+	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang, String vote) {
 		if(insightLang == null ) {
 			User currentUser = CurrentUser.getCurrentUser();
 			insightLang = currentUser.writtingLanguage.label;
 		}
-		render(insightContent, endDate, tagLabelList, categoryId, insightLang);
+		render(insightContent, endDate, tagLabelList, categoryId, insightLang, vote);
 	}
 
 	public static void profile() {
@@ -289,30 +291,39 @@ public class Application extends Controller {
 	 *            : a comma separated list of tags
 	 * @param categoryId
 	 *            : the ID of the category of the insight
+	 * @param vote
+	 *            : "agree", "disagree" or "novote"
 	 */
 	public static void createInsight(
 			@Required @MinSize(6) @MaxSize(120) String insightContent,
 			@Required @InFuture Date endDate, @MaxSize(100) String tagLabelList,
-			@Required long categoryId, String lang) {
+			@Required long categoryId, String lang, String vote) {
+		
+		State voteState = State.AGREE;
+		if(vote != null && vote.equals("disagree")) {
+			voteState = State.DISAGREE;
+		} else if(vote != null && vote.equals("novote")) {
+			voteState = null;
+		}
 		
 		// Check if the given category Id corresponds to a category
 		Category category = Category.findById(categoryId);
 		if (category == null) {
-			validation.addError("categoryId", "Not a valid Category"); // TODO : I18N
-			// FIXME: This error doesn't display
+			validation.addError("categoryId", "Not a valid Category");
 		}
 		if (validation.hasErrors()) {
-			flash.error("Error creating the insight"); // TODO : I18N
-			create(insightContent, endDate, tagLabelList, categoryId, lang);
+			validation.keep();
+			flash.error(Messages.get("createInsight.errorcreating"));
+			create(insightContent, endDate, tagLabelList, categoryId, lang, vote);
 		}
 
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = null;
 		try {
-			insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId, lang);
+			insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId, lang, voteState);
 		} catch (Throwable t) {
-			flash.error("Error creating the insight : " + t.getMessage()); // TODO : I18N
-			create(insightContent, endDate, tagLabelList, categoryId, lang);
+			flash.error("Error creating the prediction: " + t.getMessage());
+			create(insightContent, endDate, tagLabelList, categoryId, lang, vote);
 		}
 
 		showInsight(insight.uniqueId);

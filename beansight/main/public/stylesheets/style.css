@@ -396,7 +396,7 @@ a:hover{color:#228392;}
  .newinsight .label{padding:5px 0 0 0;}
 .newinsight .item-textarea, .newinsight .item-input{float:left;padding:6px;-moz-border-radius:6px;-webkit-border-radius:6px;background-color:#fff;border:solid #eeeeee 3px;}
 .newinsight .item-textarea{width:538px;height:46px;margin:0 0 6px 0;}
-.newinsight .item-input{width:268px;height:23px;}
+.newinsight .item-input{width:268px;}
 .newinsight .item-input input{border:0 none;font-size:16px;color:#6e7677;width:100%;}
 .newinsight .item-input input#c_date{width:245px;}
 .newinsight .item-input .ui-datepicker-trigger{cursor:pointer;}

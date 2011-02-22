@@ -34,7 +34,7 @@ public class InsightTest extends UnitTest {
     public void createAnInsight() throws InsightWithSameUniqueIdAndEndDateAlreadyExistsException {
     	Category categoryWeb = Category.find("byLabel", "Web").first();
         assertNotNull(categoryWeb);
-        Insight insight = TestHelper.getTestUser().createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id, "en");
+        Insight insight = TestHelper.getTestUser().createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id, "en", State.AGREE);
 
         assertEquals(insight, Insight.findById(insight.id));
         
@@ -49,7 +49,7 @@ public class InsightTest extends UnitTest {
         
         Category categoryWeb = Category.findByLabel("Web");
 
-        Insight insight = user.createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id, "en");
+        Insight insight = user.createInsight("I know the future, don't you ?", new LocalDate(2010, 9, 1).toDateMidnight().toDate(), "test", categoryWeb.id, "en", State.AGREE);
         assertNotNull(insight);
         assertNotNull(insight.id);
         
@@ -71,7 +71,7 @@ public class InsightTest extends UnitTest {
         user.save();
         Category categoryWeb = Category.findByLabel("Web");
         
-        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "", categoryWeb.id, "en");
+        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "", categoryWeb.id, "en", State.AGREE);
         
         // use the user test to vote for the created insight
         User userTest = TestHelper.getTestUser();
@@ -116,7 +116,7 @@ public class InsightTest extends UnitTest {
         user.save();
         Category categoryWeb = Category.findByLabel("Web");
         
-        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "brag", categoryWeb.id, "en");
+        Insight insight = user.createInsight("I m always right", TestHelper.getDateWithXMonthFromNow(2), "brag", categoryWeb.id, "en", State.AGREE);
         
         User userTest = TestHelper.getTestUser();
         

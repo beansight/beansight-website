@@ -54,6 +54,16 @@
             <div class="listtags"></div>
         </div>
 
+        <div class="line-form">
+            <label for="vote">&{'createInsightVote'}</label>
+            <div class="item-input">
+	            <input type="radio" name="vote" value="agree" id="vote" ${(vote == null || vote?.equals('agree')) ? 'checked="true"' : ''}>&{'createInsight.Iagree'}<br/>
+	            <input type="radio" name="vote" value="disagree" ${vote?.equals('disagree') ? 'checked="true"' : ''}>   &{'createInsight.Idisagree'} <br/>
+	            <input type="radio" name="vote" value="novote" ${vote?.equals('novote') ? 'checked="true"' : ''}>     &{'createInsight.Idontvote'}
+	            #{if errors.forKey('voteState')}<span class="error">${errors.forKey('voteState')}</span>#{/if}
+            </div>
+        </div>
+
 
         *{ Old code for language selection
         <div class="line-form">
