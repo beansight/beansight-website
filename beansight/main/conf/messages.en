@@ -202,6 +202,7 @@ loginbutton=Log in
 welcomeusername=Welcome 
 userOptions.confirmHavingPromocode=Ok, continue
 userOptions.makesureHavingPromocode=Warning<br/>Beansight is in private beta.<br/>Continue only if you already have a Beansight username or if you have a access code.
+userOptions.sorrynofacebook=Facebook login is not available for the moment due to technical issues.
 
 # register
 register=Sign up

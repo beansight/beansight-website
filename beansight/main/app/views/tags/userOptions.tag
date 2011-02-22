@@ -45,7 +45,8 @@
             <a href="" id="log-fb" class="logbutton">Facebook</a>
             <div class="item-loginbox" id="boxlog-fb" style="display:none;">
                 <div class="boxlogContent">
-                <label>&{'userOptions.makesureHavingPromocode'}</label>
+                <label>&{'userOptions.sorrynofacebook'}</label>
+                *{
                 <div class="inputsubmit">
                     <button class="goButton" id="logButton-fb"><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'userOptions.confirmHavingPromocode'}</span></button>
                     <script type="text/javascript">
@@ -54,6 +55,7 @@
                         })
                     </script>
                 </div>
+                }*
                 </div>
             </div>
         </li>
