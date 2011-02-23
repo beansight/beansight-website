@@ -753,12 +753,6 @@ $(document).ready(function() {
     //////////////////////
     // Insight Page
     //////////////////////
-	// Share
-	$('#shareInsight').button().click(function() {
-		$("#sharezone").slideToggle();
-		return false;
-	});
-
 	// Share on Beansight
 	$('#shareOnBeansight-link').click(function() {
 		$('#shareOnBeansight-box').slideToggle();

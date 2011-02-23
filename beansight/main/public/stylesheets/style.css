@@ -509,8 +509,11 @@ a:hover{color:#228392;}
 
 .pinnedBox{position:absolute; z-index:40; overflow:hidden; padding:35px 10px 0 20px;width:201px;height:140px; background:url(../images/loginback.png) no-repeat left bottom;}
 
-.sharezone .sharebox{ padding: 20px; background-color: #F5F5F5; border-bottom: 1px solid #EDEDED; border-top: 1px solid #EDEDED;
-}
+/*.sharezone .sharebox  {height: 25px;}*/
+.sharezone .sharebox .shareItem {margin-right:50px;}
+.sharezone .sharebox { padding: 20px; background-color: #F5F5F5; border-bottom: 1px solid #EDEDED; border-top: 1px solid #EDEDED;}
+.sharezone .sharebox .shareButton.ui-widget {font-size:11px;}
+
 /*#content .single .s-content .commentzone .newcomment .input-submit{margin:10px 0 0 0;width:157px;height:35px;position:absolute;top:94px;left:474px;}
 #content .single .s-content .commentzone .newcomment .input-submit input{text-indent:-9999px;text-align:left;display:block;cursor:pointer;border:0 none;background:url(/public/images/btn-addcomment.png) no-repeat 0 0;width:157px;height:35px;font-size:0;line-height:0;margin:0;}
 #content .single .s-content .commentzone .newcomment .input-submit input:hover{background-position:left bottom;}*/

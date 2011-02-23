@@ -2,12 +2,11 @@
 *{ @param insight : the insight to share }*
 
 <div class="sharezone">
-    <input type="checkbox" id="shareInsight" /><label for="shareInsight">&{'shareInsight.sharethisinsight'}</label>
 	
-	<div class="sharebox" id="sharezone" style="display:none;">
+	<div class="sharebox" id="sharezone">
 	       #{isConnected}
-	       <span id="shareOnBeansight">
-	       <a href="#" id="shareOnBeansight-link" class="uiButton">&{'shareInsight.shareonbeansight'}</a>
+	       <span id="shareOnBeansight" class="shareItem">
+	       <a href="#" id="shareOnBeansight-link" class="uiButton shareButton">&{'shareInsight.shareonbeansight'}</a>
            </span>
            <div id="shareOnBeansight-box" style="display:none;" class="pinnedBox">
 	           <form id="shareOnBeansightForm">
@@ -20,12 +19,12 @@
            </div>
            #{/isConnected}
            
-           <span id="shareOnTwitter">
+           <span id="shareOnTwitter" class="shareItem">
 	       <a href="http://twitter.com/share" class="twitter-share-button" data-text="${_insight.content} &{'onbeansight'}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
            </span>
            
-           <span id="shareOnFacebook">
-	       <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like layout="button_count" show_faces="false" width="250"></fb:like>
+           <span id="shareOnFacebook" class="shareItem">
+	       <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like layout="button_count" show_faces="false" width="100"></fb:like>
            </span>
 	</div>
 
