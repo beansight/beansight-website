@@ -81,6 +81,7 @@ shareInsight.shareonbeansight=beansight share
 shareInsight.searchBeansightUser=Type the username of a user you put in your favorites:
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=You haven't voted yet.
+agree-disagree.notconnected=Log in to vote.
 
 #experts
 experts.explore=Explore experts

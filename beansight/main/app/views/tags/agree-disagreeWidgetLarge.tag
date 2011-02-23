@@ -1,15 +1,20 @@
 *{ Display the vote info for a given insight }*
 *{ @param insigth: the insight  }*
-<!-- TODO COLORZ : agree disagree is broken -->
 <div class="voteWidgetLarge">
-    <div class="linkvote agreeaction"><a href="#" onClick="return agree('${_insight.uniqueId}');"><span class="voteCount agreeCount">${_insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/></a></div>
-    <div class="linkvote disagreeaction"><a href="#" onClick="return disagree('${_insight.uniqueId}');"><span class="voteCount disagreeCount">${_insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/></a></div>
+    <div class="linkvote agreeaction">#{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${_insight.uniqueId}');">#{/isConnected}#{isNotConnected}<span class="voteNumber"/>#{/isNotConnected}<span class="voteCount agreeCount">${_insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/></a></div>
+    <div class="linkvote disagreeaction">#{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${_insight.uniqueId}');">#{/isConnected}#{isNotConnected}<span class="voteNumber"/>#{/isNotConnected}<span class="voteCount disagreeCount">${_insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/></a></div>
     
-    #{if _lastUserVote != null}
-    <p><span id="lastVote">#{if _lastUserVote.state.equals(models.Vote.State.AGREE)} &{'youagree'} #{/if} #{else} &{'youdisagree'} #{/else} <span class="timevote">${_lastUserVote.creationDate.format("dd MMMM yyyy")}</span></span></p>
-    #{/if}
-    #{else}
-    <p><span id="lastVote">&{'agree-disagree.youhavenotvotedyet'}</span></p>
-    #{/else}
-    
+    <p>
+    #{isConnected}
+	    #{if _lastUserVote != null}
+	       <span id="lastVote">#{if _lastUserVote.state.equals(models.Vote.State.AGREE)} &{'youagree'} #{/if} #{else} &{'youdisagree'} #{/else} <span class="timevote">${_lastUserVote.creationDate.format("dd MMMM yyyy")}</span></span>
+	    #{/if}
+	    #{else}
+	       <span id="lastVote">&{'agree-disagree.youhavenotvotedyet'}</span>
+	    #{/else}
+    #{/isConnected}
+    #{isNotConnected}
+        <span>&{'agree-disagree.notconnected'}</span>
+    #{/isNotConnected}
+    </p>
 </div>

@@ -479,13 +479,13 @@ a:hover{color:#228392;}
 #content .single .s-content .graphzone .leftgraph{float:left;width:315px;}
 .insightContainer .voteWidgetLarge{background-color:#f7f7f7;-moz-border-radius:2px;-webkit-border-radius:2px;padding:10px 32px 8px 32px;margin:0 0 10px 0;}
 .insightContainer .voteWidgetLarge .linkvote{float:left;width:125px;height:34px;margin:0 0 12px 0;}
-.insightContainer .voteWidgetLarge .linkvote a{display:block;width:111px;height:26px;padding:8px 0 0 0;text-align:center;background:url(/public/images/insight-vote.png) no-repeat 0 0;}
-.insightContainer .voteWidgetLarge .linkvote a:hover{background-position:0 -34px;}
+.insightContainer .voteWidgetLarge .linkvote .voteNumber{display:block;width:111px;height:26px;padding:8px 0 0 0;text-align:center;background:url(/public/images/insight-vote.png) no-repeat 0 0;}
+.insightContainer .voteWidgetLarge .linkvote .voteNumber.clickvote:hover{background-position:0 -34px;}
 .insightContainer .voteWidgetLarge .linkvote .voteCount{color:#fff;font-weight:bold;font-size:18px;}
 .insightContainer .voteWidgetLarge .linkvote.disagreeaction a{margin:0 0 0 13px;}
 .insightContainer .voteWidgetLarge .linkvote.agreeaction{border-right:solid #ededed 1px;}
-.insightContainer.voteDisagree .voteWidgetLarge .linkvote.disagreeaction a{background-position:0 -102px;}
-.insightContainer.voteAgree .voteWidgetLarge .linkvote.agreeaction a{background-position:0 -68px;}
+.insightContainer.voteDisagree .voteWidgetLarge .linkvote.disagreeaction .voteNumber{background-position:0 -102px;}
+.insightContainer.voteAgree .voteWidgetLarge .linkvote.agreeaction .voteNumber{background-position:0 -68px;}
 .insightContainer .voteWidgetLarge p{text-align:center;color:#a1a5a6;font-size:12px;padding-top:12px;}
 /* #content .single .s-content .graphzone .leftgraph .voteWidgetLarge p span{color:#8bad56;} */
 #content .single .s-content .graphzone .leftgraph .lastvoters{width:315px;padding:5px 0;border-top:solid #ededed 1px;border-bottom:solid #ededed 1px;height:31px;}
