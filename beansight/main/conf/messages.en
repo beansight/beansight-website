@@ -4,6 +4,9 @@ i18n=en
 # main
 beansightDescription=Browse Beansight to know what people think and what is likely to happen tomorrow. Share your predictions and prove your expertise.
 
+# content
+content.getaninvite=We are in private beta. Get an invite by leaving your email:
+
 # validation
 validation.email=E-mail invalid
 validation.required = %s is required
