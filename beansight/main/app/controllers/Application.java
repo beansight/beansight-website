@@ -93,11 +93,11 @@ public class Application extends Controller {
 			
 			// if this is facebook user and he hasn't validated its promocode the redirect  
 			if (currentUser.facebookUserId != null && !currentUser.isPromocodeValidated) {
-				Register.extAuthFirstTimeConnectPage();
+				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName, null);
 			}
 			// if this is twitter user and he hasn't validated its promocode the redirect  
 			if ( (currentUser.twitterUserId != null && currentUser.twitterUserId.trim().equals("") == false) && !currentUser.isPromocodeValidated) {
-				Register.extAuthFirstTimeConnectPage();
+				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName, null);
 			}
 			
 			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));

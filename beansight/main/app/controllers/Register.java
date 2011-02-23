@@ -89,12 +89,12 @@ public class Register extends Controller {
 		}
 	}
 	
-	public static void extAuthFirstTimeConnectPage() {
+	public static void extAuthFirstTimeConnectPage(
+			String email, 
+			String username, 
+			String promocode) {
 		if(Security.isConnected()) {
-			User currentUser = CurrentUser.getCurrentUser();
-			renderArgs.put("email", currentUser.email);
-			renderArgs.put("username", currentUser.userName);
-			render();
+			render(email, username);
 		} else {
 			Application.index();
 		}
@@ -135,10 +135,11 @@ public class Register extends Controller {
 			}
 			
 			if (validation.hasErrors()) {
-				renderArgs.put("email", email);
-				renderArgs.put("username", username);
-				renderArgs.put("promocode", promocode);
-		        renderTemplate("Register/extAuthFirstTimeConnectPage.html");
+//				renderArgs.put("email", email);
+//				renderArgs.put("username", username);
+//				renderArgs.put("promocode", promocode);
+				extAuthFirstTimeConnectPage(email, username, promocode);
+//		        renderTemplate("Register/extAuthFirstTimeConnectPage.html");
 		    }
 			
 			currentUser.email = email;
