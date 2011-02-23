@@ -69,7 +69,7 @@ createInsight.Idisagree=Je ne suis pas d'accord
 createInsight.Idontvote=Je ne vote pas
 
 #showInsight
-onbeansight=sur #Beansight
+onbeansight= #Beansight
 lastvoters=Dernier votes :
 category=Categorie :
 tags=Tags :
