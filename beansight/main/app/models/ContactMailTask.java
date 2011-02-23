@@ -21,6 +21,7 @@ public class ContactMailTask extends MailTask {
 	public String subject;
 	
 	@Required
+	@Lob
 	public String message;
 	
 	public ContactMailTask(String name, String from, String to, String subject, String message) {
