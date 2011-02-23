@@ -407,6 +407,11 @@ $(document).ready(function() {
         }else{
             $('#log-bean').addClass('opened');
             $('#boxlog-bean').slideDown(500);
+            
+            $('#boxlog-twit').slideUp(400);
+            $('#boxlog-fb').slideUp(400);
+            $('#log-twit').removeClass('opened');
+            $('#log-fb').removeClass('opened');
         }
         return false;
     });
@@ -418,6 +423,11 @@ $(document).ready(function() {
         }else{
             $('#log-twit').addClass('opened');
             $('#boxlog-twit').slideDown(500);
+            
+            $('#boxlog-bean').slideUp(400);
+            $('#boxlog-fb').slideUp(400);
+            $('#log-bean').removeClass('opened');
+            $('#log-fb').removeClass('opened');
         }
         return false;
     });
@@ -429,6 +439,11 @@ $(document).ready(function() {
         }else{
             $('#log-fb').addClass('opened');
             $('#boxlog-fb').slideDown(500);
+            
+            $('#boxlog-bean').slideUp(400);
+            $('#boxlog-twit').slideUp(400);
+            $('#log-bean').removeClass('opened');
+            $('#log-twit').removeClass('opened');
         }
         return false;
     });
