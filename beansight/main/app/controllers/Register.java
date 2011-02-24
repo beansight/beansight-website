@@ -93,8 +93,9 @@ public class Register extends Controller {
 			String email, 
 			String username, 
 			String promocode) {
+		session.remove("promocode");
 		if(Security.isConnected()) {
-			render(email, username);
+			render(email, username, promocode);
 		} else {
 			Application.index();
 		}
@@ -135,11 +136,7 @@ public class Register extends Controller {
 			}
 			
 			if (validation.hasErrors()) {
-//				renderArgs.put("email", email);
-//				renderArgs.put("username", username);
-//				renderArgs.put("promocode", promocode);
 				extAuthFirstTimeConnectPage(email, username, promocode);
-//		        renderTemplate("Register/extAuthFirstTimeConnectPage.html");
 		    }
 			
 			currentUser.email = email;
@@ -163,7 +160,19 @@ public class Register extends Controller {
 		
 		Logger.info("Email confirmation for user : " + user.email);
 		
-		render(user);
+		// set the message in the session not in flash because there is some redirect happening here 
+		session.put("beansight_msg", Messages.get("emailconfirmed"));
+		
+		Application.index();
 	}
 	
+	public static void fbAuthenticate(String promocode) {
+		session.put("promocode", promocode);
+		FacebookOAuth.authenticate();
+	}
+	
+	public static void twitAuthenticate(String promocode) throws Exception {
+		session.put("promocode", promocode);
+		TwitterOAuth.authenticate();
+	}
 }

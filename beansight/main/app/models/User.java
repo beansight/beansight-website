@@ -168,6 +168,7 @@ public class User extends Model {
 		this.userName = userName;
 		
 		this.emailConfirmed = false;
+		this.isPromocodeValidated = false;
 		this.uuid = Codec.UUID();
 		
 		String lang = Lang.get();
@@ -833,4 +834,55 @@ public class User extends Model {
 //		this.oauthToken = tokens.token;
 //	}
 	
+    public static String createNewAvailableUserName(String firstName) {
+    	int firstNameMaxSize = 14;
+    	
+    	String userName = firstName.replace(" ", "").replace("-", "");
+    	
+    	if (userName.length() < firstNameMaxSize) {
+    		firstNameMaxSize = userName.length();
+    	}
+    	
+    	userName = userName.substring(0, firstNameMaxSize);
+    	
+    	for (int i=1; i<100; i++) {
+	    	if (User.isUsernameAvailable(userName)) {
+	    		return userName;
+	    	} else {
+	    		userName = userName + i;
+	    	}
+    	}
+    	
+    	// This should never happen but like that wee still return a string
+    	return RandomStringUtils.randomAlphabetic(10);
+    }
+
+	/**
+	 * every users that didn't have validated their account with a promocode 
+	 * before the provided date will be deleted
+	 * 
+	 * @param date
+	 */
+	public static void removeCreatedAccountWithNoInvitationBefore(Date date) {
+		List<User> users = User.find("select u from User u where u.isPromocodeValidated is false and u.crdate < ?", date).fetch();
+    	for (User user : users) {
+    		long count = UserListInsightsVisit.count("user = ?", user);
+    		if (count == 0) {
+    			// if the user has been visited in expert profil first we need to delete the visit on him
+    			long expertVisitCount = UserExpertVisit.count("expert = ?", user);
+    			if (expertVisitCount > 0) {
+    				UserExpertVisit.delete("expert = ?", user);
+    			}
+	    		if (user.email != null && !user.email.trim().equals("") && WaitingEmail.count("email = ?", user.email) == 0) {
+	    			WaitingEmail waitingEmail = new WaitingEmail(user.email);
+	    			waitingEmail.save();
+	    			Logger.info("removeCreatedAccountWithNoInvitationBefore : adding user to WaitingEmail with email : " + user.email);
+	    		}
+	    		Logger.info("removeCreatedAccountWithNoInvitationBefore : deleting user with userName : " + user.userName + " and email = " + user.email);
+	    		user.delete();
+    		} else {
+    			Logger.info("removeCreatedAccountWithNoInvitationBefore : cannot delete user with userName : " + user.userName + " and email = " + user.email);
+    		}
+    	}
+	}
 }

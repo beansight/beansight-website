@@ -93,11 +93,11 @@ public class Application extends Controller {
 			
 			// if this is facebook user and he hasn't validated its promocode the redirect  
 			if (currentUser.facebookUserId != null && !currentUser.isPromocodeValidated) {
-				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName, null);
+				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName, session.get("promocode"));
 			}
 			// if this is twitter user and he hasn't validated its promocode the redirect  
 			if ( (currentUser.twitterUserId != null && currentUser.twitterUserId.trim().equals("") == false) && !currentUser.isPromocodeValidated) {
-				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName, null);
+				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName, session.get("promocode"));
 			}
 			
 			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
@@ -507,7 +507,6 @@ public class Application extends Controller {
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = Insight.findByUniqueId(uniqueId);
 		Comment comment = insight.addComment(content, currentUser);
-		comment.content = FormatHelper.htmlLinkifyAll(comment.content);
 		
 		render(comment);
 	}
@@ -649,7 +648,7 @@ public class Application extends Controller {
 	public static void showAvatarSmallFromEmail(String email) {
 		User user = User.findByEmail(email);
 		
-		if (user.avatarSmall.exists()) {
+		if (user != null && user.avatarSmall.exists()) {
 			renderBinary(user.avatarSmall.get());
 		} else {
 			renderBinary(new File(Play.getFile("public/images/avatar") + "/unknown-small.jpg"));
@@ -855,4 +854,5 @@ public class Application extends Controller {
 	public static void termsOfUse() {
 		renderTemplate("Legal/termsOfUse.html");
 	}
+	
 }

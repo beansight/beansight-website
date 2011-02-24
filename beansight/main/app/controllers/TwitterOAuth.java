@@ -16,6 +16,7 @@ import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -53,7 +54,7 @@ public class TwitterOAuth extends Controller {
 		// get the access token
 		Credentials creds = new Credentials();
 		Logger.info("Callback begin");
-
+		
 		client.retrieveAccessToken(creds, oauth_verifier);
 		String twitterUserId = client.getProvider().getResponseParameters()
 				.get("user_id");
@@ -66,10 +67,9 @@ public class TwitterOAuth extends Controller {
 		// connect to beansight
 		// then create a beansight account linked to his twitter account
 		if (null == twitterUser) {
-			if (!User.isUsernameAvailable(twitterScreenName)) {
-				twitterScreenName = twitterScreenName + "_twitter";
-			}
-			twitterUser = new User("", twitterScreenName, "");
+			String userName = User.createNewAvailableUserName(twitterScreenName);
+			// note : we have to generate a random password because if we use "" as a password twitter account could be easily hacked
+			twitterUser = new User("", userName, RandomStringUtils.randomAlphabetic(15));
 			twitterUser.twitterScreenName = twitterScreenName;
 			twitterUser.twitterUserId = twitterUserId;
 			updateUserWithTwitterInformations(twitterUser, creds);

@@ -21,6 +21,7 @@ public class InsightTrendJob extends Job {
     	Logger.info("InsightTrendJob begin");
     	
     	int page = 1;
+    	// get insights having their target date not after the current date
     	List<Insight> insights = Insight.findEndDateNotOver(page, INSIGHT_NUMBER_TO_PROCESS);
     	
     	while(insights.size() > 0) {

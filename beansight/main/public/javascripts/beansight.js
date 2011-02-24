@@ -144,7 +144,7 @@ function updateCharacterCount() {
 /** callback for comment addition */
 function onAddCommentSuccess(content) {
 	$(".ajaxloader").hide();
-    $("#commentList").prepend( nl2br( content ) );
+    $("#commentList").prepend( content );
     clearForm('#addCommentForm');
 }
 
@@ -921,11 +921,6 @@ $(document).ready(function() {
 	// show beansight connect by default in register page
 	//////////////
 	showRegisterForm('beansight');
-	
-	
-	$(".txt-comment").each(function(index, element) {
-		$(this).html(nl2br( replaceAtWithProfilLinks( linkify( $(this).text() ) ) ) );
-	});
 	
 });
 

@@ -1,7 +1,10 @@
 package ext;
 
+import helpers.FormatHelper;
+
 import org.apache.commons.lang.StringUtils;
 
+import play.templates.BaseTemplate.RawData;
 import play.templates.JavaExtensions;
 
 public class StringExtensions extends JavaExtensions {
@@ -11,6 +14,10 @@ public class StringExtensions extends JavaExtensions {
 			return str;
 		}
 		return StringUtils.abbreviate(str, size);
+	}
+	
+	public static RawData linkifyAll(Object data, String options) {
+		return new RawData(FormatHelper.htmlLinkifyAll(data.toString(), options));
 	}
 	
 }

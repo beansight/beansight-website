@@ -89,7 +89,11 @@
                 </div>
             </div>
         </div>
-    
+
+#{if session.contains("beansight_msg")}
+    <div class="success">${session.get("beansight_msg")}</div>
+    %{ session.remove("beansight_msg") }%
+#{/if}   
 #{if flash.error}
     <div class="error">&{flash.error}</div>
 #{/if}

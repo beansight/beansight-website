@@ -44,9 +44,10 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         // Finally no user found this is the first time this user connects to beansight
         // then create a beansight account linked to his facebook account
         if (facebookUser == null) {
-        	String facebookScreenName = createNewAvailableUserName(facebookModelObject.getFirst_name());
+        	String facebookScreenName = User.createNewAvailableUserName(facebookModelObject.getFirst_name());
         	
-            facebookUser = new User(facebookModelObject.getEmail(), facebookScreenName, "");
+        	// note : we have to generate a random password because if we use "" as a password facebook account could be easily hacked
+            facebookUser = new User(facebookModelObject.getEmail(), facebookScreenName, RandomStringUtils.randomAlphabetic(15));
             facebookUser.facebookUserId = facebookUserId;
             facebookUser.emailConfirmed = true;
             facebookUser.save();
@@ -66,28 +67,6 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         Application.index();
     }
     
-    public static String createNewAvailableUserName(String firstName) {
-    	int firstNameMaxSize = 14;
-    	
-    	String userName = firstName.replace(" ", "").replace("-", "");
-    	
-    	if (userName.length() < firstNameMaxSize) {
-    		firstNameMaxSize = userName.length();
-    	}
-    	
-    	userName = userName.substring(0, firstNameMaxSize);
-    	
-    	for (int i=1; i<100; i++) {
-	    	if (User.isUsernameAvailable(userName)) {
-	    		return userName;
-	    	} else {
-	    		userName = userName + i;
-	    	}
-    	}
-    	
-    	// This should never happen but like that wee still return a string
-    	return RandomStringUtils.randomAlphabetic(10);
-    }
     
     public static String getExtendedPermissions() {
     	return "email";

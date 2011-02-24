@@ -351,6 +351,9 @@ public class Insight extends Model {
 	}
 	
 	/**
+	 * Returns insights not hidden (not deleted) 
+	 * and having their target date after the current date
+	 * 
 	 * @param page : the page number to start from
 	 * @param number : number of items per page
 	 */

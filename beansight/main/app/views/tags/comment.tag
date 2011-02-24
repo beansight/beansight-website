@@ -8,7 +8,7 @@
         }*
         <hr class="clear"/>
     </div>
-    <p class="txt-comment">${_comment.content}</p>    
+    <p class="txt-comment">${_comment.content.escape().linkifyAll("style='font-style: italic;'").nl2br()}</p>    
 	<p>
 	#{isConnected}
     	#{secure.check 'admin'}

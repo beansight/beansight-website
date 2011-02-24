@@ -3,20 +3,18 @@ package controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import jobs.AnalyticsJob;
 import models.Comment;
 import models.Insight;
+import models.Trend;
 import models.User;
+
+import org.joda.time.DateTime;
+
 import play.Logger;
 import play.Play;
-import play.data.validation.Email;
 import play.data.validation.Required;
-import play.i18n.Lang;
 import play.modules.search.Search;
-import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -96,8 +94,53 @@ public class Admin extends Controller {
 			new AnalyticsJob().doJob();
 		} catch (Throwable e) {
 			renderText("UsersAnalyticsJob finished with error : " + e.getMessage());
-			Logger.error(e, "UsersAnalyticsJob finished with error");
+			throw new RuntimeException(e) ;
 		}
 		renderText("UsersAnalyticsJob finished : ok");
 	}
+	
+	/**
+	 * Remove users who doesn't have validated their account with a promocode.
+	 * 
+	 * 
+	 * @param minutes
+	 */
+	public static void flushNotInvitedUser(int minutes) {
+		Logger.info("flushNotInvitedUser : minutes = " + minutes);
+		DateTime datetime = new DateTime();
+		datetime = datetime.minusMinutes(minutes);
+		
+		Logger.info("flushNotInvitedUser : minutes = " + minutes + " , datetime = " + datetime);
+		
+		try {
+			User.removeCreatedAccountWithNoInvitationBefore(datetime.toDate());
+		} catch (Throwable e) {
+			renderText("User.removeCreatedAccountWithNoInvitationBefore finished with error : " + e.getMessage());
+			throw new RuntimeException(e) ;
+		}
+		
+		renderText("User.removeCreatedAccountWithNoInvitationBefore finished : ok, all user accounts with no invitation created before " +
+				datetime + " have been deleted");
+	}
+	
+	
+	// TODO : pour recalculer les trends d'un insight (pour l'instant non prioritaire je le fais pendant mon temps libre)
+	// TODO : il faudra déplcacer du code dans Insight
+	// TODO : il faut pouvoir recalculer le nombre de agree et disagree en donnant une date en entré
+//	public static void rebuildTrendsForInsight(@Required String uniqueId) {
+//		
+//		if (validation.hasErrors()) {
+//			StringBuffer sb = new StringBuffer();
+//			for (play.data.validation.Error error : validation.errors()) {
+//				sb.append(error.message());
+//				sb.append("<br/>");
+//			}
+//			renderText(sb.toString());
+//		}
+//		
+//		Insight insight = Insight.findByUniqueId(uniqueId);
+//		Trend.delete("insight = ?", insight);
+//		
+//		
+//	}
 }
