@@ -7,6 +7,7 @@ import java.util.Map;
 import models.Promocode;
 import models.User;
 import models.Vote.State;
+import models.analytics.UserClientInfo;
 import notifiers.Mails;
 import play.Logger;
 import play.cache.Cache;
@@ -55,7 +56,12 @@ public class Register extends Controller {
 		User user = new User(email, username, password);
 		user.isPromocodeValidated = true;
 		user.save();
-			
+		
+		if (promocode != null) {
+			user.recordPromocodeUsedToCreateAccount(new UserClientInfo(request, Application.APPLICATION_ID), code);
+		}
+		
+		
 		// send a password confirmation mail
 		Mails.confirmation(user);
 		
@@ -109,13 +115,7 @@ public class Register extends Controller {
 		
 		if(Security.isConnected()) {
 			Promocode code = Promocode.findbyCode(promocode);
-			if(code != null && code.nbUsageLeft > 0 && code.endDate.after(new Date())) {
-				// remove one to the promocode only if no validation error remaining
-				if (!validation.hasErrors()) {
-					code.nbUsageLeft--;
-					code.save();
-				}
-			} else {
+			if(code != null && (!(code.nbUsageLeft > 0) || !(code.endDate.after(new Date())) )) {
 				validation.addError("promocode", Messages.get("registernotvalidpromocode"));
 			}
 			
@@ -136,6 +136,7 @@ public class Register extends Controller {
 			}
 			
 			if (validation.hasErrors()) {
+				validation.keep();
 				extAuthFirstTimeConnectPage(email, username, promocode);
 		    }
 			
@@ -143,6 +144,13 @@ public class Register extends Controller {
 			currentUser.userName = username;
 			currentUser.isPromocodeValidated = true;
 			currentUser.save();
+			
+			// remove one to the promocode
+			code.nbUsageLeft--;
+			code.save();
+			
+			// save information for analytics to link a user with a promocode (and then with a campaign)
+			currentUser.recordPromocodeUsedToCreateAccount(new UserClientInfo(request, Application.APPLICATION_ID), code);
 		} 
 		
 		Application.index();

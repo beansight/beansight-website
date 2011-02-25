@@ -6,12 +6,16 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import models.Credentials;
+import models.Promocode;
 import models.User;
+import models.analytics.UserClientInfo;
+import models.analytics.UserPromocodeCampaign;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
@@ -74,6 +78,7 @@ public class TwitterOAuth extends Controller {
 			twitterUser.twitterUserId = twitterUserId;
 			updateUserWithTwitterInformations(twitterUser, creds);
 			twitterUser.save();
+
 		} 
 
 		session.put("isTwitterUser", Boolean.TRUE);

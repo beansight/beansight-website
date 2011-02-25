@@ -12,9 +12,12 @@
 <div class="listinsights">
     <ul class="menulistinsights">
         <li class="sortby">&{'insights.sortby'}</li>
-        <li class="first"><a href="@{Application.insights("trending", category?.id, langs)}" #{if sortBy == null || sortBy?.equals("trending")}class="current"#{/if}>&{'insights.trending'}</a></li>
-        <li><a href="@{Application.insights("updated", category?.id, langs)}" #{if sortBy?.equals("updated")}class="current"#{/if}>&{'insights.latest'}</a></li>
-    *{
+        <li class="first"><a href="@{Application.insights('trending', category?.id, langs)}" #{if sortBy == null || sortBy?.equals("trending")}class="current"#{/if}>&{'insights.trending'}</a></li>
+        <li><a href="@{Application.insights('updated', category?.id, langs)}" #{if sortBy?.equals("updated")}class="current"#{/if}>&{'insights.latest'}</a></li>
+    *{       
+        <li><input type="checkbox" value="checked">Voted</input> </li>
+        <li><input type="checkbox" value="checked">Not voted</input> </li>
+
         <li><a href="#">trending</a></li>
         <li><a href="#">incoming</a></li>
         

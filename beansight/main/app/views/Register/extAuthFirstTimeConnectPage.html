@@ -12,10 +12,11 @@
 	<div id="beansightRegisterBlock">
 	    #{form @Register.facebookFirstTimeConnect(), id:'registerForm'}
 	        <h2 class="cuf-grb">&{'register.confirmInvitationTitle'}</h2>
-	
+			
 	        <label for="s_email">&{'email'}</label>
 	        <div class="item-input">
 	            <input type="email" name="email" id="email" value="${email}" />
+	            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
 	            #{if errors.forKey('email')}<span class="error">#{error 'email' /}</span>#{/if}
 	        </div>
 	

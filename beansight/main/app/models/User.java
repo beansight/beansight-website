@@ -27,6 +27,7 @@ import models.analytics.UserInsightSearchVisit;
 import models.analytics.UserInsightVisit;
 import models.analytics.UserListExpertsVisit;
 import models.analytics.UserListInsightsVisit;
+import models.analytics.UserPromocodeCampaign;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
@@ -688,6 +689,17 @@ public class User extends Model {
 	 */
 	public void visitInsightsSearch(String searchKeyWords, UserClientInfo userClientInfo) {
 		UserInsightSearchVisit visit = new UserInsightSearchVisit(new Date(), this, userClientInfo, searchKeyWords);
+		visit.save();
+	}
+	
+	/**
+	 * recording which promocode a user have used to get an account will give us analytics
+	 * about the efficiency of each campaign
+	 * @param userClientInfo
+	 * @param promocode
+	 */
+	public void recordPromocodeUsedToCreateAccount(UserClientInfo userClientInfo, Promocode promocode) {
+		UserPromocodeCampaign visit = new UserPromocodeCampaign(new Date(), this, userClientInfo, promocode);
 		visit.save();
 	}
 	

@@ -2,7 +2,9 @@ package controllers;
 
 import org.apache.commons.lang.RandomStringUtils;
 
+import models.Promocode;
 import models.User;
+import models.analytics.UserClientInfo;
 import gson.FacebookModelObject;
 import play.Play;
 import play.libs.WS;
