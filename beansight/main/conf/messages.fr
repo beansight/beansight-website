@@ -159,6 +159,11 @@ settings.imageInvalidFormat=Format d'image incorrect
 settings.imageSizeTooBig=L'image doit faire moins de 3 Mo
 settings.userName=Nom d'utilisateur
 saveSettings.validation=Erreur lors de la sauvegarde des paramètres.
+settings.writtingLanguages=Lire et écrire des prédictions dans ces langues :
+settings.languages.en=Anglais
+settings.languages.fr=Français
+settings.languages.none=---
+
 
 # change password
 changePassword.oldPassword=Mot de passe actuel

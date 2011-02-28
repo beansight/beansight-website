@@ -17,7 +17,10 @@ public class UserCategoryScore extends Model {
 
 	/** Score of the user in the pointed category */
 	public double score;
-	
+
+	/** normalized score of this user in this category (between 0 and 1) */
+	public double normalizedScore;
+
 	@ManyToOne
 	public User user;
 	

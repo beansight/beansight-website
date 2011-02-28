@@ -151,6 +151,10 @@ settings.imageInvalidFormat=Error while reading image : is it a valid image ?
 settings.imageSizeTooBig=Image size should be less than 3 Mo
 settings.userName=User name
 saveSettings.validation=Error while saving settings.
+settings.writtingLanguages=Read and write predictions in these languages:
+settings.languages.en=English
+settings.languages.fr=French
+settings.languages.none=---
 
 # change password
 changePassword.oldPassword=Current password

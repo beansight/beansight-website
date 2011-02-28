@@ -13,9 +13,21 @@
         </div>
         <div class="item-input">
             <label for="uiLanguage">&{'uiLanguage'}</label>
-            <select name="uiLanguage">
-                <option value="en" #{if user.uiLanguage.label.equals("en")}selected#{/if}>en</option>
-                <option value="fr" #{if user.uiLanguage.label.equals("fr")}selected#{/if}>fr</option>
+            <select name="uiLanguage" id="uiLanguage">
+                <option value="en" #{if user.uiLanguage.label.equals("en")}selected#{/if}>&{'settings.languages.en'}</option>
+                <option value="fr" #{if user.uiLanguage.label.equals("fr")}selected#{/if}>&{'settings.languages.fr'}</option>
+            </select>
+        </div
+        <div class="item-input">
+            <label>&{'settings.writtingLanguages'}</label>
+            <select name="firstWrittingLanguage">
+                <option value="en" #{if user.writtingLanguage.label.equals("en")    }selected#{/if} >&{'settings.languages.en'}     </option>
+                <option value="fr" #{if user.writtingLanguage.label.equals("fr")    }selected#{/if} >&{'settings.languages.fr'}     </option>
+            </select>
+            <select name="secondWrittingLanguage">
+                <option value="none"#{if user.secondWrittingLanguage == null        }selected#{/if} >&{'settings.languages.none'}           </option>
+                <option value="en" #{if user.secondWrittingLanguage?.label.equals("en")   }selected#{/if} >&{'settings.languages.en'}     </option>
+                <option value="fr" #{if user.secondWrittingLanguage?.label.equals("fr")   }selected#{/if} >&{'settings.languages.fr'}     </option>
             </select>
         </div
         

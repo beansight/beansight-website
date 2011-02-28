@@ -12,13 +12,13 @@ import play.jobs.On;
 
 // job start every days at midnight
 @On("0 0 0 * * ?")
-public class InsightTrendJob extends Job {
+public class InsightGraphTrendsJob extends Job {
 
 	public static final int INSIGHT_NUMBER_TO_PROCESS = 100;
 	
     @Override
     public void doJob() throws Exception {
-    	Logger.info("InsightTrendJob begin");
+    	Logger.info("InsightGraphTrendsJob begin");
     	
     	int page = 1;
     	// get insights having their target date not after the current date
@@ -26,18 +26,18 @@ public class InsightTrendJob extends Job {
     	
     	while(insights.size() > 0) {
     		processInsights(insights);
-            Logger.info("InsightTrendJob: page " + page);
+            Logger.info("InsightGraphTrendsJob: page " + page);
     		page++;
     		insights = Insight.all().fetch(page, INSIGHT_NUMBER_TO_PROCESS);
     	}
     	
-        Logger.info("InsightTrendJob end");
+        Logger.info("InsightGraphTrendsJob end");
     }
     
     
     private void processInsights(List<Insight> insights) {
         for (Insight insight : insights) {
-            Logger.info("Trend Snapshot of Insight: " + insight.content);
+            Logger.info("GraphTrend Snapshot of Insight: " + insight.content);
             insight.createTrendSnapshot();
             insight.save();
         }

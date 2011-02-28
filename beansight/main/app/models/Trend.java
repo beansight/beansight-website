@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 
 import play.db.jpa.Model;
 
+/**
+ * Represents the state of a given insight at a given date, used for Graph plotting.
+ */
 @Entity
 public class Trend extends Model {
 

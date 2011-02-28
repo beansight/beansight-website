@@ -74,7 +74,15 @@ public class Register extends Controller {
 	 * @return : true if the userName is available, false otherwise
 	 */
 	public static void isUserNameAvailable(String username) {
-		boolean available = User.isUsernameAvailable(username);
+		boolean available = false;
+		
+		User user = CurrentUser.getCurrentUser();
+		if( username.equals(user.userName)) {
+			available = true;
+		} else {
+			available = User.isUsernameAvailable(username);
+		}
+		
 		if(available) {
 			renderJSON(available);
 		} else {

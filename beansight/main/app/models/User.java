@@ -21,6 +21,8 @@ import javax.persistence.OneToMany;
 import models.Insight.InsightResult;
 import models.Vote.State;
 import models.Vote.Status;
+import models.analytics.UserInsightVisit;
+import models.Vote.Status;
 import models.analytics.UserClientInfo;
 import models.analytics.UserExpertVisit;
 import models.analytics.UserInsightSearchVisit;
@@ -28,13 +30,11 @@ import models.analytics.UserInsightVisit;
 import models.analytics.UserListExpertsVisit;
 import models.analytics.UserListInsightsVisit;
 import models.analytics.UserPromocodeCampaign;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
 import org.hibernate.annotations.Index;
 
 import play.Logger;
-import play.Play;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import play.i18n.Lang;
@@ -46,8 +46,6 @@ import play.modules.search.Field;
 import play.modules.search.Indexed;
 import play.modules.search.Query;
 import play.modules.search.Search;
-import play.mvc.Scope.Params;
-import play.utils.Utils.Maps;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
 import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
@@ -104,10 +102,13 @@ public class User extends Model {
 	/** Language the user wants his UI to be displayed in */
     @ManyToOne
 	public Language uiLanguage;
-	/** Language the user is writing insights in */
+	/** Main language of this user: insights of this language are displayed in the timeline and when he creates an insight, this one is by default */
     @ManyToOne  
 	public Language writtingLanguage;
-	
+	/** second language of this user (null if none): insights in this language will also be displayed in his timeline */
+    @ManyToOne  
+	public Language secondWrittingLanguage;
+    
 	/** How many invitations this user can send, -1 for infinity*/
 	public long invitationsLeft;
 	
@@ -122,6 +123,9 @@ public class User extends Model {
 	/** the global score for this user */
 	@Field
 	public double score;
+	
+	/** the last time this user's score has been computed */
+	public Date lastScoreUpdate;
 
 	/** list of scores of this users in all the categories */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -180,6 +184,7 @@ public class User extends Model {
 
 		this.uiLanguage = language;
 		this.writtingLanguage = language;
+		this.secondWrittingLanguage = null;
 		
 		this.votes = new ArrayList<Vote>();
 		this.createdInsights = new ArrayList<Insight>();
@@ -224,7 +229,7 @@ public class User extends Model {
 		}
 		this.writtingLanguage = language;
 	}
-	
+
 	public static boolean isUsernameAvailable(String userName) {
 		if (User.count("byUserNameLike", userName.toLowerCase()) == 0) {
 			return true;
@@ -552,36 +557,58 @@ public class User extends Model {
 		user.save();
 	}
 
-	public void computeScores() {
-		this.computeUserScore();
+	public void computeCategoryScores() {
 		for (Category category : Category.getAllCategories()) {
 			this.computeCategoryScore(category);
 		}
 	}
 
+	/**
+	 * compute the global score for this user
+	 */
 	public void computeUserScore() {
-		// TODO: insert here the score computation algorithm
-		this.score = Math.random();
+		double score = 0;
+		for(UserCategoryScore catScore : this.categoryScores) {
+			score += catScore.score;
+		}
+		this.score = score;
+		this.lastScoreUpdate = new Date();
+		this.save();
 	}
 
+	/**
+	 * Computes the score of this user is the given category (based on the score this user has on all insights in this category)
+	 * @param category
+	 */
 	public void computeCategoryScore(Category category) {
+		UserCategoryScore catScore = null;
+
 		// look if this user has a score for this category
 		boolean newCategory = true;
-		for (UserCategoryScore userCatScore : categoryScores) {
+		for (UserCategoryScore userCatScore : this.categoryScores) {
 			if (userCatScore.category == category) {
 				newCategory = false;
-				userCatScore.score = Math.random();
-				// TODO: insert here the score computation algorithm for a given
-				// category
+				catScore = userCatScore;
 			}
 		}
-		// if not, create the link between user and category
-		if (newCategory) {
-			UserCategoryScore newUserCatScore = new UserCategoryScore(this,
-					category);
-			newUserCatScore.score = Math.random();
-			categoryScores.add(newUserCatScore);
+		if (newCategory) { // if not, create the link between user and category
+			catScore = new UserCategoryScore(this, category);
+			this.categoryScores.add(catScore);
 		}
+
+		// compute the score for this category :
+		double score = 0;
+		List<UserInsightScore> insightScores;
+		insightScores = UserInsightScore.find("select i from UserInsightScore i "
+				+"where i.user=:usertraite "
+				+ "and i.insight.category=:cattraite ").bind("usertraite",this).bind("cattraite", category).fetch();
+		for(UserInsightScore insightScore : insightScores){
+			score += insightScore.score;
+		}
+		catScore.score=score;
+		catScore.lastupdate = new Date();
+		catScore.save();
+		this.save();
 	}
 
 	/**
@@ -598,6 +625,15 @@ public class User extends Model {
 						+ "order by v.creationDate DESC").bind("status",
 				Status.ACTIVE).bind("userId", this.id).fetch(n);
 	}
+	
+	public List<Vote> getVotesToInsight(Insight insight) {
+		return User.find(
+				"select v from Vote v "
+						+ "where v.user=:userId and v.insight=:insightId "
+						+ "and v.creationDate < :date "
+						+ "order by v.creationDate ASC").bind("userId", this).bind("insightId", 
+					insight).bind("date",insight.endDate).fetch();
+	}	
 	
 	/**
 	 * get the list of most relevant InsightActivity around the user (for now, they are only the most recent) 
@@ -845,6 +881,22 @@ public class User extends Model {
 //		this.oauthSecret = tokens.secret;
 //		this.oauthToken = tokens.token;
 //	}
+	
+	/**
+	 * @return the score of this user for this insight
+	 */
+	public UserInsightScore getInsightScore(Insight insight) {
+		return UserInsightScore.find("select i from UserInsightScore i "
+				+"where i.user=:usertraite "
+				+ "and i.insight=:insighttraite").bind("usertraite",this).bind("insighttraite", insight).first();
+	}
+	
+	/**
+	 * @return list of users which score needs to be updated because it changed since the given "since" date 
+	 */
+	public static List<User> findUsersToUpdateScore(Date since) {
+		return User.find("select i.user from UserInsightScore i where i.lastUpdate > ?", since).fetch();
+	}
 	
     public static String createNewAvailableUserName(String firstName) {
     	int firstNameMaxSize = 14;

@@ -1,0 +1,72 @@
+# Data used by the scoring unit tests
+
+Category(catFun):
+    label:  Fun
+Category(catPolitics):
+    label:  Politics
+Category(catTechnology):
+    label:  Technology
+
+Language(English):
+    label:  en
+Language(French):
+    label: fr
+
+User(cyril):
+    email:          cyril@beansight.com
+    password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
+    userName:       Cyril
+    uiLanguage:     French
+    writtingLanguage:     French
+User(steren):
+    email:          steren@beansight.com
+    password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
+    userName:       Steren
+    uiLanguage:     French
+    writtingLanguage:     French
+User(guillaume):
+    email:          guillaume@beansight.com
+    password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
+    userName:       Guillaume
+    uiLanguage:     English
+    writtingLanguage:     English
+User(jb):
+    email:          jb@beansight.com
+    password:       Xr4ilOzQ4PCOq3aQ0qbuaQ==
+    userName:       JB
+    uiLanguage:     French
+    writtingLanguage:     French
+
+Insight(beansightprivate):
+    uniqueId:   beansight-will-be-in-private-beta
+    creator: steren
+    creationDate: 2011-01-15
+    endDate: 2011-01-30
+    content:    Beansight will be in private beta
+    category:   catTechnology
+
+Vote(beansightprivateVoteSteren1):
+    user: steren
+    insight: beansightprivate
+    creationDate: 2011-01-16
+    state: AGREE
+    status: ACTIVE
+Vote(beansightprivateVoteGuillaume1):
+    user: guillaume
+    insight: beansightprivate
+    creationDate: 2011-01-20
+    state: AGREE
+    status: ACTIVE
+Vote(beansightprivateVoteCyril1):
+    user: cyril
+    insight: beansightprivate
+    creationDate: 2011-01-20
+    state: DISAGREE
+    status: ACTIVE
+Vote(beansightprivateVoteJB1):
+    user: jb
+    insight: beansightprivate
+    creationDate: 2011-01-25
+    state: AGREE
+    status: ACTIVE
+ 

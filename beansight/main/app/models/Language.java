@@ -20,23 +20,11 @@ public class Language extends Model {
 	 */
 	public static Language findByLabelOrCreate(String label) {
 		Language language = Language.find("byLabel", label).first();
-		if (language == null) {
+		if (language == null && !label.equals("none")) {
 			language = new Language(label);
 			language.save();
 		}
 		return language;
-	}
-	
-	/**
-	 * Transforms a list of language string to a set of Language
-	 * @param langStrings : the list of language string
-	 */
-	public static Set<Language> toLanguageSet( Set<String> langStrings ) {
-		Set<Language> languages = new HashSet<Language>();
-		for(String lang : langStrings) {
-			languages.add(Language.findByLabelOrCreate(lang));	
-		}
-		return languages;
 	}
 	
 	public static String listToIdString(Set<Language> languages) {

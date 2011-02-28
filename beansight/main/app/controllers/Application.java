@@ -16,18 +16,23 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+import jobs.InsightGraphTrendsJob;
 
+import org.joda.time.DateTime;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import models.Category;
 import models.Comment;
 import models.Filter;
 import models.FollowNotificationTask;
 import models.Insight;
 import models.Insight.InsightResult;
+import models.InsightTrend;
 import models.Language;
 import models.Tag;
 import models.User;
 import models.User.UserResult;
+import models.UserCategoryScore;
+import models.UserInsightScore;
 import models.Vote;
 import models.Vote.State;
 import models.WaitingEmail;
@@ -146,7 +151,7 @@ public class Application extends Controller {
     
     
     public static void index() {
-    	insights("trending", 0, null);
+    	insights("trending", 0);
     }
     
     /**
@@ -171,25 +176,27 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
-	public static void insights(String sortBy, long cat, Set<String> lang) {
+	public static void insights(String sortBy, long cat) {
 		Filter filter = new Filter();
 
 		Category category = Category.findById(cat);
 		if(category != null) {
 			filter.categories.add(category);
 		}
-		
-		// TODO For now, add French and English. Later get from the user's spoken languages:
-		lang = new HashSet<String>();
-		lang.add("en");
-		lang.add("fr");
-		
-		//if(lang == null) {
-		//	lang = new HashSet<String>();
-		//	lang.add("en");
-		//}
-		
-		filter.languages = Language.toLanguageSet(lang);
+
+		filter.languages = new HashSet<Language>();
+		if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
+			User currentUser = CurrentUser.getCurrentUser();
+			filter.languages.add(currentUser.writtingLanguage);
+			if(currentUser.secondWrittingLanguage != null) {
+				filter.languages.add(currentUser.secondWrittingLanguage);
+			}
+		} else { // else, get the insights in the language of the browser
+			String lang = Lang.get();
+			// if no language, then english
+			if( lang == null || lang.equals("") ) { lang = "en"; }
+			filter.languages.add( Language.findByLabelOrCreate(lang) );
+		}
 
 		InsightResult result;
 		
@@ -215,14 +222,7 @@ public class Application extends Controller {
 		renderArgs.put("insights", result.results);
 		renderArgs.put("count", result.count);
 		
-		// We convert to a List because Set don't work properly in views.
-		// TODO  : re-use Sets when the Play! bug is corrected.
-		List<String> langs = null;
-		if(lang != null) {
-			langs = new ArrayList<String>(lang);
-		}
-		
-		render(sortBy, category, langs);
+		render(sortBy, category);
 	}
 
 	/**
@@ -231,17 +231,27 @@ public class Application extends Controller {
 	 * @param from : the index of the first insight to return
 	 * @param cat
 	 */
-	public static void moreInsights(String sortBy, int from, long cat, Set<String> lang) {
+	public static void moreInsights(String sortBy, int from, long cat) {
 		Category category = Category.findById(cat);
 		Filter filter = new Filter();
 		if(category != null) {
 			filter.categories.add(category);
 		}
-		if(lang == null) {
-			lang = new HashSet<String>();
-			lang.add("en");
+		
+		// TODO duplicated code from "insights" action.
+		filter.languages = new HashSet<Language>();
+		if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
+			User currentUser = CurrentUser.getCurrentUser();
+			filter.languages.add(currentUser.writtingLanguage);
+			if(currentUser.secondWrittingLanguage != null) {
+				filter.languages.add(currentUser.secondWrittingLanguage);
+			}
+		} else { // else, get the insights in the language of the browser
+			String lang = Lang.get();
+			// if no language, then english
+			if( lang == null || lang.equals("") ) { lang = "en"; }
+			filter.languages.add( Language.findByLabelOrCreate(lang) );
 		}
-		filter.languages = Language.toLanguageSet(lang);
 		
 		InsightResult result = null;
 		
@@ -533,22 +543,20 @@ public class Application extends Controller {
 		List<Category> categories = Category.findAll();
 		return categories;
 	}
-
-	// TODO remove me, score computation should be called in a job.
-	public static void temp_recomputeScore() {
-		User currentUser = CurrentUser.getCurrentUser();
-		currentUser.computeScores();
-		currentUser.save();
-		showUser(currentUser.userName);
-	}
-
 	
 	public static void settings() {
 		User user = CurrentUser.getCurrentUser();
 		render(user);
 	}
 	
-	public static void saveSettings(String uiLanguage, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username) {
+	/**
+	 * Save the user's settings
+	 * @param uiLanguage : language of the UI
+	 * @param firstWrittingLanguage : main language of the user
+	 * @param secondWrittingLanguage :  "none" if the user doesn't want to use another language
+	 * @param username
+	 */
+	public static void saveSettings(@Required String uiLanguage, @Required String firstWrittingLanguage, @Required String secondWrittingLanguage, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username) {
 		User user = CurrentUser.getCurrentUser();
 		if(!username.equals(user.userName) && !User.isUsernameAvailable(username)) {
 			validation.addError("userName", Messages.get("registerusernameexist")); 
@@ -559,7 +567,14 @@ public class Application extends Controller {
 			Application.settings();
 	    }
 		
-		user.uiLanguage = Language.findByLabelOrCreate(uiLanguage);
+		user.uiLanguage 			= Language.findByLabelOrCreate(uiLanguage);
+		user.writtingLanguage 		= Language.findByLabelOrCreate(firstWrittingLanguage);
+		if(!secondWrittingLanguage.equals("none") && !secondWrittingLanguage.equals(firstWrittingLanguage)) {
+			user.secondWrittingLanguage = Language.findByLabelOrCreate(secondWrittingLanguage);
+		} else {
+			user.secondWrittingLanguage = null;
+		}
+		
 		user.userName = username;
 		user.save();
 		
@@ -694,7 +709,7 @@ public class Application extends Controller {
 
 	public static void search(String query, int from, long cat) {
 		if (query == null || query.isEmpty()) {
-			insights("trending", 0, null);
+			insights("trending", 0);
 		}
 		
 		Category category = Category.findById(cat);

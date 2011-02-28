@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jobs.AnalyticsJob;
+import jobs.InsightGraphTrendsJob;
+import jobs.InsightValidationAndUserScoreJob;
 import models.Comment;
 import models.Insight;
 import models.Trend;
@@ -89,14 +91,24 @@ public class Admin extends Controller {
 	/**
 	 * TODO : temporary method to create the user analytics without waiting for the job to start the first time we'll release it !
 	 */
-	public static void usersAnalyticsJob() {
+	public static void doUserAnalyticsJob() {
 		try {
 			new AnalyticsJob().doJob();
 		} catch (Throwable e) {
-			renderText("UsersAnalyticsJob finished with error : " + e.getMessage());
+			renderText("doUserAnalyticsJob finished with error : " + e.getMessage());
 			throw new RuntimeException(e) ;
 		}
-		renderText("UsersAnalyticsJob finished : ok");
+		renderText("doUserAnalyticsJob finished: ok");
+	}
+	
+	public static void doInsightValidationAndUserScoreJob() {
+		try {
+			new InsightValidationAndUserScoreJob().doJob();
+		} catch (Exception e) {
+			renderText("doInsightValidationAndUserScoreJob finished with error : " + e.getMessage());
+			throw new RuntimeException(e) ;
+		}
+		renderText("doInsightValidationAndUserScoreJob finished: ok");
 	}
 	
 	/**

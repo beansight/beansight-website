@@ -12,8 +12,8 @@
 <div class="listinsights">
     <ul class="menulistinsights">
         <li class="sortby">&{'insights.sortby'}</li>
-        <li class="first"><a href="@{Application.insights('trending', category?.id, langs)}" #{if sortBy == null || sortBy?.equals("trending")}class="current"#{/if}>&{'insights.trending'}</a></li>
-        <li><a href="@{Application.insights('updated', category?.id, langs)}" #{if sortBy?.equals("updated")}class="current"#{/if}>&{'insights.latest'}</a></li>
+        <li class="first"><a href="@{Application.insights('trending', category?.id)}" #{if sortBy == null || sortBy?.equals("trending")}class="current"#{/if}>&{'insights.trending'}</a></li>
+        <li><a href="@{Application.insights('updated', category?.id)}" #{if sortBy?.equals("updated")}class="current"#{/if}>&{'insights.latest'}</a></li>
     *{       
         <li><input type="checkbox" value="checked">Voted</input> </li>
         <li><input type="checkbox" value="checked">Not voted</input> </li>
@@ -26,9 +26,9 @@
 	    <li>
 		    <div class="filterDropDown">
 		    <select name="categoryId" id="filterCategory">
-		       <option value="@{Application.insights(sortBy, 0, langs)}" #{if category == null}selected#{/if}>All</option>
+		       <option value="@{Application.insights(sortBy, 0)}" #{if category == null}selected#{/if}>All</option>
 			   #{list items:controllers.Application.getCategories(), as:'cat'}
-			       <option value="@{Application.insights(sortBy, cat.id, langs)}" #{if category && category.id == cat.id}selected#{/if}>${cat.label}</option>
+			       <option value="@{Application.insights(sortBy, cat.id)}" #{if category && category.id == cat.id}selected#{/if}>${cat.label}</option>
 			   #{/list}
 			</select>
 			</div>
@@ -59,7 +59,7 @@ var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
 $("#moreInsights").click( function() {
     $.ajax( {
         url: moreInsightsAction(),
-        data: {"from":insightsFrom#{if sortBy}, "sortBy": "${sortBy}"#{/if}#{if category}, "cat": ${category.id}#{/if}#{if langs}, "lang": [#{list items:langs, as:'langstring'}"${langstring}"#{if !langstring_isLast}, #{/if}#{/list}]#{/if} },
+        data: {"from":insightsFrom#{if sortBy}, "sortBy": "${sortBy}"#{/if}#{if category}, "cat": ${category.id}#{/if}},
         success: onMoreInsightsSuccess
     } );
     return false;
