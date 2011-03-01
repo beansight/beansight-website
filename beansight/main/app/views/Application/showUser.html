@@ -107,17 +107,12 @@
     <h2 class="cuf-grb">&{'userratings'}</h2>
     <div class="liststars">
     #{list items:user.categoryScores, as:'categoryScore' }
+        *{ Only display the 3 best categories }*
+        #{if categoryScore_index < 4}
         <div class="colvote">
-            <h3>${categoryScore.category.label}</h3>
-            ${categoryScore.score}
-            <div class="vote">
-                <span class="star fullstar">vote plein</span>
-                <span class="star fullstar">vote plein</span>
-                <span class="star demistar">vote demi-plein</span>
-                <span class="star emptystar">vote vide</span>
-                <span class="star emptystar">vote vide</span>
-            </div>
+            <h3>${categoryScore.category.label}</h3> #{stars score:categoryScore.normalizedScore /}
         </div>
+        #{/if}
     #{/list}
     </div>
 </div>

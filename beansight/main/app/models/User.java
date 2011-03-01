@@ -16,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import models.Insight.InsightResult;
 import models.Vote.State;
@@ -30,6 +31,7 @@ import models.analytics.UserPromocodeCampaign;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
+import org.hibernate.annotations.Sort;
 
 import play.Logger;
 import play.db.jpa.Blob;
@@ -125,6 +127,7 @@ public class User extends Model {
 
 	/** list of scores of this users in all the categories */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OrderBy("normalizedScore DESC")
 	public List<UserCategoryScore> categoryScores;
 
 	/** list of insights created by this user */
@@ -601,7 +604,7 @@ public class User extends Model {
 		for(UserInsightScore insightScore : insightScores){
 			score += insightScore.score;
 		}
-		
+
 		catScore.score=score;
 		catScore.lastupdate = new Date();
 		
