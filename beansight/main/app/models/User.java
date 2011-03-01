@@ -206,7 +206,7 @@ public class User extends Model {
 	 * Return the Best users (comparing their scores)
 	 */
 	public static List<User> findBest(int from, int number) {
-		return User.find("order by crdate DESC").from( from ).fetch( number );
+		return User.find("order by score DESC").from( from ).fetch( number );
 	}
 
 	public void setUserName(String userName) {
