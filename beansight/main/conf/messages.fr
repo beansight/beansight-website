@@ -106,6 +106,7 @@ insights.sortby=Tri:
 insights.category=Catégorie:
 insights.latest=Mise à jour
 insights.trending=Popularité
+insights.incoming=Prochainement
 insights.filterVotedAll=Tous
 insights.filterVoted=Voté
 insights.filterNotVoted=Non voté
@@ -114,7 +115,7 @@ insights.more=plus
 #showUser
 userinsights=Prédictions de l'utilisateur
 myinsights=Mes prédictions
-userratings=Expertise
+userratings=Expertise (beta)
 showUser.addDescription=Ajouter une description
 showUser.editDescription=Modifier
 showUser.addRealName=Ajouter prénom et nom
