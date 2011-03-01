@@ -646,6 +646,25 @@ public class Insight extends Model {
 		}
 		return result;
 	}
+	
+	/**
+	 * @param from : index of the first item to be returned
+	 * @param number : number of items to return
+	 */
+	public static InsightResult sortByIncoming(int from, int number, Filter filter) {
+        String query = "select i from Insight i where i.hidden is false " +
+        		"and endDate > :currentDate " +
+        		filter.generateJPAQueryWhereClause(FilterType.INCOMING) +
+        		"order by endDate ASC";
+
+		InsightResult result = new InsightResult();
+		// TODO : return total number using count ?
+		// result.count = Insight.count(query);
+
+		result.results = Insight.find(query).bind("currentDate", new Date()).from(from).fetch(number);
+
+		return result;
+	}
 
 	/**	
 	 * Finds the insights whose date is over by 3 days, that haven't been validated yet 

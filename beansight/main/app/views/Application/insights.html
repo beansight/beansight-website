@@ -11,9 +11,10 @@
 
 <div class="listinsights">
     <ul class="menulistinsights">
-        <li class="sortby">&{'insights.sortby'}</li>
+        *{<li class="sortby">&{'insights.sortby'}</li>}*
         <li class="first"><a id="filterTrending" href="#"  #{if sortBy == null || sortBy?.equals("trending")}class="current"#{/if}>&{'insights.trending'}</a></li>
         <li><a id="filterUpdated" href="#"  #{if sortBy?.equals("updated")}class="current"#{/if}>&{'insights.latest'}</a></li>
+        <li><a id="filterIncoming" href="#"  #{if sortBy?.equals("incoming")}class="current"#{/if}>incoming</a></li>
         <li style="padding-top: 0px; margin-top: 4px;">
 	        <div id="radio" style="font-size: 11px;">
 		        <input type="radio" name='VoteGroup' value='all' ${all} id="all" /><label for="all">&{'insights.filterVotedAll'}</label> 
@@ -56,11 +57,12 @@
 //if( $("#insightList li").length >= ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
 //        $("#moreResults").fadeIn(2000);
 //   }
+var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
 var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
 
 /** get more insights */
 	$("#moreInsights").click( function() {
-		var sortBy = $('#filterTrending').hasClass('current')?'trending':'updated';
+		var sortBy = getSelectedSortBy();
 		var cat = $('#filterCategory').val();
 		var filterVote = $('input[name=VoteGroup]:checked').val(); 
 	    $.ajax( {

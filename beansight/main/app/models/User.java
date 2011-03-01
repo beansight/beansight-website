@@ -31,7 +31,6 @@ import models.analytics.UserPromocodeCampaign;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
-import org.hibernate.annotations.Sort;
 
 import play.Logger;
 import play.db.jpa.Blob;
@@ -968,7 +967,7 @@ public class User extends Model {
 	    		results.add(user);
 	    		
     		} else {
-    			Logger.info("removeCreatedAccountWithNoInvitationBefore : cannot delete user with userName : " + user.userName + " and email = " + user.email);
+    			Logger.info("removeCreatedAccountWithNoInvitationBefore : UserListInsightsVisit is referencing the use, so it cannot delete user with userName : " + user.userName + " and email = " + user.email);
     		}
     	}
     	return results;

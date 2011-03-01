@@ -6,8 +6,9 @@ import java.util.Set;
 public class Filter  {
 	
 	public enum FilterType {
-		TRENDY,     // 0
-		UPDATED           // 1
+		TRENDY, 
+		UPDATED,
+		INCOMING
 	}
 	
 	public Set<Category> 	categories;
@@ -53,13 +54,13 @@ public class Filter  {
 				whereQuery += " and v.insight.id not in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			}
 			whereQuery += " ";
-        } else if (filterType.equals(FilterType.UPDATED) && user != null) {
+        } else if (  (filterType.equals(FilterType.UPDATED) || filterType.equals(FilterType.INCOMING) ) && user != null ) {
 			if (filterVote.equals("voted")) {
 				whereQuery += " and i.id in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			} else if (filterVote.equals("notVoted")) {
 				whereQuery += " and i.id not in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			}
-        }
+        } 
 		return whereQuery;
 	}
 }

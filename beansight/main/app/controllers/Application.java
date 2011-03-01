@@ -210,7 +210,12 @@ public class Application extends Controller {
 			} else {
 				result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 			}
-		} else {
+		} else if (sortBy != null && sortBy.equals("trending")) {
+			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		} else if (sortBy != null && sortBy.equals("incoming")) {
+			result = Insight.sortByIncoming(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		} else { 
+			// default is trending 
 			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		}
 		
@@ -279,7 +284,12 @@ public class Application extends Controller {
 			} else {
 				result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 			}
-		} else {
+		} else if (sortBy != null && sortBy.equals("trending")) {
+			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		} else if (sortBy != null && sortBy.equals("incoming")) {
+			result = Insight.sortByIncoming(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		} else { 
+			// default is trending 
 			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		}
 		
@@ -334,8 +344,10 @@ public class Application extends Controller {
 		
 		if(sortBy != null && sortBy.equals("updated")) {
 			result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-		} else {
+		} else if(sortBy != null && sortBy.equals("trending")) {
 			result = Insight.findTrending(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		} else if(sortBy != null && sortBy.equals("incoming")) {
+			result = Insight.sortByIncoming(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		}
 		
 		renderArgs.put("insights", result.results);

@@ -345,14 +345,33 @@ function onVotedMouseDown(object) {
 	return true;
 }
 
+function getSelectedSortBy() {
+	if ( $('#filterTrending').hasClass('current') ) {
+		return "trending";
+	} else if( $('#filterUpdated').hasClass('current') ) {
+		return "updated";
+	} else if( $('#filterIncoming').hasClass('current') ) {
+		return "incoming";
+	} else {
+		// default
+		return "trending";
+	}
+}
+
 function insightsFilter(sortBy, cat, filterVote) {
 	// visually shows which filter (updated or trending) has been selected
 	if (sortBy == 'trending' && $('#filterTrending').hasClass('current') == false) {
 		$('#filterTrending').addClass('current');
 		$('#filterUpdated').removeClass('current');
+		$('#filterIncoming').removeClass('current');
 	} else if (sortBy == 'updated' && $('#filterUpdated').hasClass('current') == false) {
 		$('#filterTrending').removeClass('current')
 		$('#filterUpdated').addClass('current');
+		$('#filterIncoming').removeClass('current');
+	} else if (sortBy == 'incoming' && $('#filterIncoming').hasClass('current') == false) {
+		$('#filterTrending').removeClass('current')
+		$('#filterUpdated').removeClass('current');
+		$('#filterIncoming').addClass('current');
 	}
 
 	var path = insightsFilterAction({'sortBy':sortBy, 'cat':cat, 'filterVote':filterVote});
@@ -951,6 +970,7 @@ $(document).ready(function() {
 	// Insights list page : filters event
 	//////////////
 	$("#filterTrending").click(function() {
+		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
 		var sortBy = 'trending';
 		var cat = $('#filterCategory').val();
 		var filterVote = $('input[name=VoteGroup]:checked').val(); 
@@ -959,6 +979,7 @@ $(document).ready(function() {
 	});
 	
 	$("#filterUpdated").click(function() {
+		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
 		var sortBy = 'updated';
 		var cat = $('#filterCategory').val();
 		var filterVote = $('input[name=VoteGroup]:checked').val(); 
@@ -966,8 +987,18 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$("#filterIncoming").click(function() {
+		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
+		var sortBy = 'incoming';
+		var cat = $('#filterCategory').val();
+		var filterVote = $('input[name=VoteGroup]:checked').val(); 
+		insightsFilter(sortBy, cat, filterVote);
+		return false;
+	});
+	
 	$("#filterCategory").change(function() {
-		var sortBy = $('#filterTrending').hasClass('current')?'trending':'updated';
+		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
+		var sortBy = getSelectedSortBy();
 		var cat = $('#filterCategory').val();
 		var filterVote = $('input[name=VoteGroup]:checked').val(); 
 		insightsFilter(sortBy, cat, filterVote);
@@ -975,7 +1006,8 @@ $(document).ready(function() {
 	});
 	
 	$('input[name=VoteGroup]').change(function() {
-		var sortBy = $('#filterTrending').hasClass('current')?'trending':'updated';
+		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
+		var sortBy = getSelectedSortBy();
 		var cat = $('#filterCategory').val();
 		var filterVote = $('input[name=VoteGroup]:checked').val(); 
 		insightsFilter(sortBy, cat, filterVote);
