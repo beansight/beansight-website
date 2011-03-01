@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import jobs.AnalyticsJob;
@@ -117,22 +118,24 @@ public class Admin extends Controller {
 	 * 
 	 * @param minutes
 	 */
-	public static void flushNotInvitedUser(int minutes) {
+	public static void flushNotInvitedUser(int minutes, boolean delete) {
 		Logger.info("flushNotInvitedUser : minutes = " + minutes);
 		DateTime datetime = new DateTime();
 		datetime = datetime.minusMinutes(minutes);
 		
 		Logger.info("flushNotInvitedUser : minutes = " + minutes + " , datetime = " + datetime);
 		
+		List<User> users = null;
 		try {
-			User.removeCreatedAccountWithNoInvitationBefore(datetime.toDate());
+			users = User.removeCreatedAccountWithNoInvitationBefore(datetime.toDate(), delete);
 		} catch (Throwable e) {
 			renderText("User.removeCreatedAccountWithNoInvitationBefore finished with error : " + e.getMessage());
 			throw new RuntimeException(e) ;
 		}
 		
-		renderText("User.removeCreatedAccountWithNoInvitationBefore finished : ok, all user accounts with no invitation created before " +
-				datetime + " have been deleted");
+		render(users, delete);
+//		renderText("User.removeCreatedAccountWithNoInvitationBefore finished : ok, all user accounts with no invitation created before " +
+//				datetime + " have been deleted");
 	}
 	
 	

@@ -38,7 +38,7 @@ import play.jobs.On;
  * @author jb
  *
  */
-@Every("1h")
+//@Every("1h")
 public class RemoveCreatedAccountWithNoInvitationJob extends Job {
 
     @Override
@@ -48,7 +48,7 @@ public class RemoveCreatedAccountWithNoInvitationJob extends Job {
     	DateTime datetime = new DateTime();
     	datetime = datetime.minusHours(1);
     	
-    	User.removeCreatedAccountWithNoInvitationBefore(datetime.toDate());
+    	User.removeCreatedAccountWithNoInvitationBefore(datetime.toDate(), true);
     	
         Logger.info("RemoveCreatedAccountWithNoInvitationJob end");
     }

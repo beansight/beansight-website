@@ -937,8 +937,10 @@ public class User extends Model {
 	 * before the provided date will be deleted
 	 * 
 	 * @param date
+	 * @param delete : si false ne supprime pas
 	 */
-	public static void removeCreatedAccountWithNoInvitationBefore(Date date) {
+	public static List<User> removeCreatedAccountWithNoInvitationBefore(Date date, boolean delete) {
+		List<User> results = new ArrayList<User>();
 		List<User> users = User.find("select u from User u where u.isPromocodeValidated is false and u.crdate < ?", date).fetch();
     	for (User user : users) {
     		long count = UserListInsightsVisit.count("user = ?", user);
@@ -949,16 +951,24 @@ public class User extends Model {
     				UserExpertVisit.delete("expert = ?", user);
     			}
 	    		if (user.email != null && !user.email.trim().equals("") && WaitingEmail.count("email = ?", user.email) == 0) {
-	    			WaitingEmail waitingEmail = new WaitingEmail(user.email);
-	    			waitingEmail.save();
-	    			Logger.info("removeCreatedAccountWithNoInvitationBefore : adding user to WaitingEmail with email : " + user.email);
+	    			if (delete == true) {
+		    			WaitingEmail waitingEmail = new WaitingEmail(user.email);
+		    			waitingEmail.save();
+		    			Logger.info("removeCreatedAccountWithNoInvitationBefore : adding user to WaitingEmail with email : " + user.email);
+	    			}
 	    		}
-	    		Logger.info("removeCreatedAccountWithNoInvitationBefore : deleting user with userName : " + user.userName + " and email = " + user.email);
-	    		user.delete();
+	    		
+	    		if (delete == true) {
+	    			Logger.info("removeCreatedAccountWithNoInvitationBefore : deleting user with userName : " + user.userName + " and email = " + user.email);
+	    			user.delete();
+	    		} 
+	    		results.add(user);
+	    		
     		} else {
     			Logger.info("removeCreatedAccountWithNoInvitationBefore : cannot delete user with userName : " + user.userName + " and email = " + user.email);
     		}
     	}
+    	return results;
 	}
 	
 }

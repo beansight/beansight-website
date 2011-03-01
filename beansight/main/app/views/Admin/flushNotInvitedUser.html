@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+#{set title:'Invitation added' /}
+
+<h2>list of users #{if delete==true} that have been deleted #{/if}#{else} to be deleted #{/else}</h2>
+<ul>
+	#{list items:users, as:'u'}
+	<li>username=${u.userName} / email=${u.email} / twitterUserId=${u.twitterUserId} / facebookUserId=${u.facebookUserId} </li>
+	#{/list}
+</ul>
