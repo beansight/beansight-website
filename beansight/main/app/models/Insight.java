@@ -518,52 +518,39 @@ public class Insight extends Model {
 		return rep;
 	}
 	
-	// TODO GUILLAUME : simplify and comment (too much code duplication)
+	/**
+	 * Creates the InsightTrends for this insight. Not more than one Insighttrend per hour.
+	 */
 	public void buildInsightTrends() {
-		DateTime dateConsidered;
-		// lastTrend is the date of the last trend built 
-		DateTime lastTrend = new DateTime(this.creationDate);
+		// delete all the existing trends
+		InsightTrend.delete("insight = ?", this);
+
 		List<Vote> votes = this.getChronologicalVotes();
 		Vote vote;
+
+		DateTime dateConsidered;
+		// lastTrend is the date of the last trend built 
+		DateTime lastTrendDate = new DateTime(this.creationDate);
 		
-		List<InsightTrend> existingTrends = InsightTrend.find("select u from InsightTrend u "
-							+ "where u.insight=:insight " + "and u.trendDate=:date")
-							.bind("insight", this).bind("date", this.creationDate).fetch();
-		
-		// the first trend happens at the creation date
-		if (existingTrends.isEmpty()) {
-			InsightTrend insightTrend = new InsightTrend(this.creationDate, this);
-			insightTrend.save();
-		}
+		new InsightTrend(this.creationDate, this).save();
 		
 		// now for each vote we're going to build a trend
 		// there shouldn't be more than one trend per hour
 		// so for each vote we going to check if the next vote happened more than an hour after the last trend built
 		// if next vote was created more than an hour after the last Trend we can use the vote for the following trend
 		// if next vote was created less than an hour after the last Trend then we should skip this vote
-		
-		for (int i = 1; i < votes.size(); i++) {
+
+		for (int i = 0; i < votes.size()-1; i++) {
 			// vote is the considered vote
-			vote = votes.get(i - 1);
+			vote = votes.get(i);
 			// date considered is the date of the next vote
-			dateConsidered = new DateTime(votes.get(i).creationDate);
+			dateConsidered = new DateTime(votes.get(i+1).creationDate);
 			// if next vote was created more than an hour after the last Trend we can use the vote for the following trend
-			if (dateConsidered.toDate().after(lastTrend.plusHours(1).toDate())) {
-				// Let's check if the trend already exists (might be removed if the job is done properly)
-				existingTrends = InsightTrend
-						.find("select u from InsightTrend u "
-								+ "where u.insight=:insight "
-								+ "and u.trendDate=:date")
-						.bind("insight", this).bind("date", vote.creationDate)
-						.fetch();
-				if (existingTrends.isEmpty()) {
-					// creation of the new trend
-					InsightTrend insightTrend = new InsightTrend(
-							vote.creationDate, this);
-					insightTrend.save();
-				}
+			if (dateConsidered.toDate().after(lastTrendDate.plusHours(1).toDate())) {
+				// creation of the new trend
+				new InsightTrend(vote.creationDate, this).save();
 				// update lastTrend after the creation of a new trend
-				lastTrend = new DateTime(vote.creationDate);
+				lastTrendDate = new DateTime(vote.creationDate);
 			}
 		}
 		// last vote is computed separately
@@ -572,31 +559,13 @@ public class Insight extends Model {
 			dateConsidered = new DateTime(vote.creationDate);
 			// if the last vote was created more than an hour after the last trend...
 			if (this.endDate.after(dateConsidered.plusHours(1).toDate())) {
-				existingTrends = InsightTrend
-						.find("select u from InsightTrend u "
-								+ "where u.insight=:insight "
-								+ "and u.trendDate=:date")
-						.bind("insight", this).bind("date", vote.creationDate)
-						.fetch();
-				if (existingTrends.isEmpty()) {
-					// ...then a new trend should be created
-					InsightTrend insightTrend = new InsightTrend(
-							vote.creationDate, this);
-					insightTrend.save();
-				}
+				// ...then a new trend should be created
+				new InsightTrend(vote.creationDate, this).save();
 			}
 		}
 		
 		//and last, the last trend happens at the insight deadline
-		
-		existingTrends = InsightTrend
-				.find("select u from InsightTrend u "
-						+ "where u.insight=:insight " + "and u.trendDate=:date")
-				.bind("insight", this).bind("date", this.endDate).fetch();
-		if (existingTrends.isEmpty()) {
-			InsightTrend insightTrend = new InsightTrend(this.endDate, this);
-			insightTrend.save();
-		}
+		new InsightTrend(this.endDate, this).save();
 	}
 	
 	

@@ -1,5 +1,3 @@
-
-
 package models;
 
 import java.util.ArrayList;
@@ -40,14 +38,15 @@ public class InsightTrend extends Model {
         // DT = (timestamp position) - (timestamp creation) 
         // position = 1 if agree, 0 if disagree
         
+        // Consider that the creation date of the insight is one hour before, because we want to give points to votes 
         double oneHour 	= 60*60*1000;
-        
-        // Two votes are added from the beginning to avoid a wrong probability with few voters
-        double num 		= oneHour;
-    	double denum 	= oneHour*2;
+    	double startDate = insight.creationDate.getTime() - oneHour;
     	
+    	// Two votes are added from the beginning to avoid a wrong probability with few voters
+    	double num 		= oneHour;
+    	double denum 	= oneHour*2;
         for(Vote vote : insight.getVotesBefore(date)) {
-        	double dt = vote.creationDate.getTime() - insight.creationDate.getTime() + oneHour; // TODO GUILLAUME : why add one hour here ?
+        	double dt = vote.creationDate.getTime() - startDate;
         	if(vote.state.equals(Vote.State.AGREE)) {
         		num += dt;
         		this.agreeCount++;
