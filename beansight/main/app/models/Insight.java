@@ -336,25 +336,23 @@ public class Insight extends Model {
 	 */
 	public void computeScore () {
         double score = 0.5;
-        try {
-            // score = ( sum position * DT ) / ( sum DT )
-            // DT = (timestamp position) - (timestamp creation) 
-            // position = 1 if agree, 0 if disagree
+        // score = ( sum position * DT ) / ( sum DT )
+        // DT = (timestamp position) - (timestamp creation) 
+        // position = 1 if agree, 0 if disagree
 
-        	double num = 0;
-        	double denum = 0;
-        	
-            for(Vote vote : this.votes) {
-            	double dt = vote.creationDate.getTime() - this.creationDate.getTime();
-            	if(vote.state.equals(Vote.State.AGREE)) {
-            		num += dt;
-            	}
-            	denum += dt;
-            }
-            
-            score = num / denum;
-        } catch(Exception e) {
-        	// if something goes wrong, result = cannot decide.
+    	double num = 0;
+    	double denum = 0;
+    	
+        for(Vote vote : this.votes) {
+        	double dt = vote.creationDate.getTime() - this.creationDate.getTime();
+        	if(vote.state.equals(Vote.State.AGREE)) {
+        		num += dt;
+        	}
+        	denum += dt;
+        }
+        if(denum > 0) {
+        	score = num / denum;
+        } else {
         	score = 0.5;
         }
         this.occurenceScore = score;

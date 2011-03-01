@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 
 @Entity
@@ -22,13 +23,15 @@ public class Category extends Model {
 	/** Insights of the category */
 	@OneToMany(mappedBy="category", cascade = CascadeType.ALL)
 	public List<Insight> insights;
-	
+
 	// scores to compute the expertise percentage (max=best score => 100%, min=worst score => 0%)
 	public double scoreMax;
 	public double scoreMin;
 	
 	public Category(String label) {
 		this.label = label;
+		this.scoreMin = -1;
+		this.scoreMax = 1;
 	}
 	
 	public static List<Category> getAllCategories() {
@@ -55,6 +58,12 @@ public class Category extends Model {
             }
         }
         return buffer.toString();
+	}
+	
+	public void computeAllNormalizedScores() {
+		JPA.execute("update UserCategoryScore as u " 
+					+ "set u.normalizedScore = (u.score - " + this.scoreMin + ") / ("+ this.scoreMax +" - "+ this.scoreMin +") "
+					+ "where u.category.id = " + this.id);
 	}
 
 }

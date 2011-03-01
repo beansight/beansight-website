@@ -47,7 +47,8 @@ CREATE TABLE  `UserInsightScore` (
 
 ALTER TABLE `UserCategoryScore` ADD COLUMN `normalizedScore` DOUBLE  NOT NULL DEFAULT 0 AFTER `score`;
 ALTER TABLE `User` ADD COLUMN `lastScoreUpdate` DATETIME  DEFAULT NULL AFTER `score`;
-
+ALTER TABLE `Category` ADD COLUMN `scoreMax` DOUBLE  NOT NULL DEFAULT 0 AFTER `label`;
+ALTER TABLE `Category` ADD COLUMN `scoreMin` DOUBLE  NOT NULL DEFAULT 0 AFTER `label`;
 
 ALTER TABLE `User` ADD COLUMN `secondWrittingLanguage_id` BIGINT(20)  DEFAULT NULL AFTER `writtingLanguage_id`;
 

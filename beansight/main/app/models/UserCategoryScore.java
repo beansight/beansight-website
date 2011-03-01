@@ -23,16 +23,26 @@ public class UserCategoryScore extends Model {
 
 	@ManyToOne
 	public User user;
-	
+
 	@ManyToOne
 	public Category category;
 
 	/** Date of the last update of the score */
 	public Date lastupdate;
-	
+
 	public UserCategoryScore(User user, Category category) {
 		this.user = user;
 		this.category = category;
+		this.score = 0;
+		this.normalizedScore = 0;
 	}
-	
+
+	public void computeNormalizedScore() {
+		if(this.category.scoreMax > this.category.scoreMin) {
+			this.normalizedScore = (this.score - this.category.scoreMin) / (this.category.scoreMax - this.category.scoreMin);
+		} else {
+			this.normalizedScore = 0;
+		}
+	}
+
 }
