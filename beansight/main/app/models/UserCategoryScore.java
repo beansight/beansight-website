@@ -34,4 +34,5 @@ public class UserCategoryScore extends Model {
 		this.user = user;
 		this.category = category;
 	}
+	
 }

@@ -23,6 +23,10 @@ public class Category extends Model {
 	@OneToMany(mappedBy="category", cascade = CascadeType.ALL)
 	public List<Insight> insights;
 	
+	// scores to compute the expertise percentage (max=best score => 100%, min=worst score => 0%)
+	public double scoreMax;
+	public double scoreMin;
+	
 	public Category(String label) {
 		this.label = label;
 	}

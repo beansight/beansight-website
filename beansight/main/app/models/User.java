@@ -606,11 +606,39 @@ public class User extends Model {
 			score += insightScore.score;
 		}
 		catScore.score=score;
+
 		catScore.lastupdate = new Date();
 		catScore.save();
 		this.save();
+		
+		// check if the user has become the best or worst in this category
+		if(score>category.scoreMax){
+			category.scoreMax=score;
+			category.save();
+		}else if(score<category.scoreMin){
+			category.scoreMin=score;
+			category.save();
+		}else{
+			/*
+			// compute Normalized score for this user and category
+			List<UserCategoryScore> userCategoryScore;
+			userCategoryScore = UserCategoryScore.find("select i from UserCategoryScore i "
+					+"where i.user=:usertraite "
+					+ "and i.category=:cattraite ").bind("usertraite",this).bind("cattraite", category).fetch();
+			if(userCategoryScore.size()==1){
+				userCategoryScore.get(0).normalizedScore = (score-category.scoreMin)/(category.scoreMax-category.scoreMin);
+			}
+			*/
+		}
 	}
 
+	/**
+	 * compute all users normalized scores for a category
+	 */
+	public void computeAllNormalizedScore(Category category){
+
+	}
+	
 	/**
 	 * get the list of the n last insights of this User (insights he voted for)
 	 * 
