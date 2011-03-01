@@ -17,9 +17,9 @@
         <li><a id="filterIncoming"  href="#"  #{if sortBy?.equals("incoming")}  class="current"#{/if}>&{'insights.incoming'}</a></li>
         <li style="padding-top: 0px; margin-top: 4px;">
 	        <div id="radioVotefilter" style="font-size: 11px;">
-		        <input type="radio" name="VoteGroup" value="all" ${all}           id="radioVoteAll" />        <label for="radioVoteAll">      &{'insights.filterVotedAll'}</label> 
-		        <input type="radio" name="VoteGroup" value="voted" ${voted}       id="radioVoteVoted"/>       <label for="radioVoteVoted">    &{'insights.filterVoted'}   </label>
-		        <input type="radio" name="VoteGroup" value="notVoted" ${notVoted} id="radioVoteNotVoted"/>    <label for="radioVoteNotVoted"> &{'insights.filterNotVoted'}</label>
+		        <input type="radio" autocomplete="off" name="VoteGroup" value="all" ${all}           id="radioVoteAll" />        <label for="radioVoteAll">      &{'insights.filterVotedAll'}</label> 
+		        <input type="radio" autocomplete="off" name="VoteGroup" value="voted" ${voted}       id="radioVoteVoted"/>       <label for="radioVoteVoted">    &{'insights.filterVoted'}   </label>
+		        <input type="radio" autocomplete="off" name="VoteGroup" value="notVoted" ${notVoted} id="radioVoteNotVoted"/>    <label for="radioVoteNotVoted"> &{'insights.filterNotVoted'}</label>
 	        </div>
         </li>
 	*{
@@ -29,7 +29,7 @@
      	*{<li class="sortby">&{'insights.category'}</li> }*
 	    <li>
 		    <div class="filterDropDown">
-		    <select name="categoryId" id="filterCategory">
+		    <select name="categoryId" id="filterCategory" autocomplete="off">
 		       <option value="0" #{if category == null}selected#{/if}>&{'insights.category'} All</option>
 			   #{list items:controllers.Application.getCategories(), as:'cat'}
 			       <option value="${cat.id}" #{if category && category.id == cat.id}selected#{/if}>${cat.label}</option>
