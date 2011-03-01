@@ -337,8 +337,8 @@ function nl2br(value) {
 }
 
 function onVotedMouseDown(object) {
-	if ( $('#voted').is(':checked') ) {
-		if ( !$('#notVoted').is(':checked') ) {
+	if ( $('#radioVoteVoted').is(':checked') ) {
+		if ( !$('#radioVoteNotVoted').is(':checked') ) {
 			return false;
 		}
 	}
@@ -398,7 +398,7 @@ $(document).ready(function() {
     // category selection custom
     $("#filterCategory").selectbox();
     
-    $("#radio").buttonset();
+    $("#radioVotefilter").buttonset();
     
     // every .uiButton is transformed in a button with jQuery UI
     $('.uiButton').button();
