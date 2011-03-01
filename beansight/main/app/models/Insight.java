@@ -651,7 +651,7 @@ public class Insight extends Model {
 	 * @param from : index of the first item to be returned
 	 * @param number : number of items to return
 	 */
-	public static InsightResult sortByIncoming(int from, int number, Filter filter) {
+	public static InsightResult findIncoming(int from, int number, Filter filter) {
         String query = "select i from Insight i where i.hidden is false " +
         		"and endDate > :currentDate " +
         		filter.generateJPAQueryWhereClause(FilterType.INCOMING) +

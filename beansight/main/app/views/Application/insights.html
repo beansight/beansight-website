@@ -12,9 +12,9 @@
 <div class="listinsights">
     <ul class="menulistinsights">
         <li class="sortby">&{'insights.sortby'}</li>
-        <li class="first"><a id="filterTrending" href="#"  #{if sortBy == null || sortBy?.equals("trending")}class="current"#{/if}>&{'insights.trending'}</a></li>
-        <li><a id="filterUpdated"   href="#"  #{if sortBy?.equals("updated")}   class="current"#{/if}>&{'insights.latest'}  </a></li>
-        <li><a id="filterIncoming"  href="#"  #{if sortBy?.equals("incoming")}  class="current"#{/if}>&{'insights.incoming'}</a></li>
+        <li class="first">  <a id="filterIncoming"  href="#"  #{if sortBy == null || sortBy?.equals("incoming")}class="current"#{/if}   >&{'insights.incoming'}</a></li>
+        <li>                <a id="filterTrending"  href="#"  #{if sortBy?.equals("trending")}                  class="current"#{/if}   >&{'insights.trending'}</a></li>
+        <li>                <a id="filterUpdated"   href="#"  #{if sortBy?.equals("updated")}                   class="current"#{/if}   >&{'insights.latest'}  </a></li>
         <li style="padding-top: 0px; margin-top: 4px;">
 	        <div id="radioVotefilter" style="font-size: 11px;">
 		        <input type="radio" autocomplete="off" name="VoteGroup" value="all" ${all}           id="radioVoteAll" />        <label for="radioVoteAll">      &{'insights.filterVotedAll'}</label> 
