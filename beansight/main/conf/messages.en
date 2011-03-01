@@ -98,6 +98,9 @@ insights.sortby=Sort:
 insights.category=Category:
 insights.latest=Updated
 insights.trending=Trending
+insights.filterVotedAll=All
+insights.filterVoted=Voted
+insights.filterNotVoted=Not voted
 insights.more=more
 
 #showUser

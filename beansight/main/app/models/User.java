@@ -5,7 +5,6 @@ import helpers.ImageHelper;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,8 +20,6 @@ import javax.persistence.OneToMany;
 import models.Insight.InsightResult;
 import models.Vote.State;
 import models.Vote.Status;
-import models.analytics.UserInsightVisit;
-import models.Vote.Status;
 import models.analytics.UserClientInfo;
 import models.analytics.UserExpertVisit;
 import models.analytics.UserInsightSearchVisit;
@@ -30,8 +27,8 @@ import models.analytics.UserInsightVisit;
 import models.analytics.UserListExpertsVisit;
 import models.analytics.UserListInsightsVisit;
 import models.analytics.UserPromocodeCampaign;
+
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.text.StrSubstitutor;
 import org.hibernate.annotations.Index;
 
 import play.Logger;
@@ -41,7 +38,6 @@ import play.i18n.Lang;
 import play.i18n.Messages;
 import play.libs.Codec;
 import play.libs.Crypto;
-import play.libs.OAuth.TokenPair;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
 import play.modules.search.Query;
@@ -964,4 +960,5 @@ public class User extends Model {
     		}
     	}
 	}
+	
 }

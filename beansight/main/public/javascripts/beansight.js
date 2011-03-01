@@ -336,6 +336,31 @@ function nl2br(value) {
 	 return value.replace(/\n/g, "<br/>");
 }
 
+function onVotedMouseDown(object) {
+	if ( $('#voted').is(':checked') ) {
+		if ( !$('#notVoted').is(':checked') ) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function insightsFilter(sortBy, cat, filterVote) {
+	// visually shows which filter (updated or trending) has been selected
+	if (sortBy == 'trending' && $('#filterTrending').hasClass('current') == false) {
+		$('#filterTrending').addClass('current');
+		$('#filterUpdated').removeClass('current');
+	} else if (sortBy == 'updated' && $('#filterUpdated').hasClass('current') == false) {
+		$('#filterTrending').removeClass('current')
+		$('#filterUpdated').addClass('current');
+	}
+
+	var path = insightsFilterAction({'sortBy':sortBy, 'cat':cat, 'filterVote':filterVote});
+	$.get(path, function(data) {
+		$('#insightList').html(data);
+	});
+}
+
 // Execute scripts after the document creation
 $(document).ready(function() {
 	
@@ -351,10 +376,10 @@ $(document).ready(function() {
     //select custom
     $(".item-select select").selectbox();
 	
-    // on category selection, click the link
-    $('#filterCategory').selectbox().bind('change', function() {
-        window.location.href = $(this).val();
-    })
+    // category selection custom
+    $("#filterCategory").selectbox();
+    
+    $("#radio").buttonset();
     
     // every .uiButton is transformed in a button with jQuery UI
     $('.uiButton').button();
@@ -921,6 +946,41 @@ $(document).ready(function() {
 	// show beansight connect by default in register page
 	//////////////
 	showRegisterForm('beansight');
+	
+	//////////////
+	// Insights list page : filters event
+	//////////////
+	$("#filterTrending").click(function() {
+		var sortBy = 'trending';
+		var cat = $('#filterCategory').val();
+		var filterVote = $('input[name=VoteGroup]:checked').val(); 
+		insightsFilter(sortBy, cat, filterVote);
+		return false;
+	});
+	
+	$("#filterUpdated").click(function() {
+		var sortBy = 'updated';
+		var cat = $('#filterCategory').val();
+		var filterVote = $('input[name=VoteGroup]:checked').val(); 
+		insightsFilter(sortBy, cat, filterVote);
+		return false;
+	});
+	
+	$("#filterCategory").change(function() {
+		var sortBy = $('#filterTrending').hasClass('current')?'trending':'updated';
+		var cat = $('#filterCategory').val();
+		var filterVote = $('input[name=VoteGroup]:checked').val(); 
+		insightsFilter(sortBy, cat, filterVote);
+		return false;
+	});
+	
+	$('input[name=VoteGroup]').change(function() {
+		var sortBy = $('#filterTrending').hasClass('current')?'trending':'updated';
+		var cat = $('#filterCategory').val();
+		var filterVote = $('input[name=VoteGroup]:checked').val(); 
+		insightsFilter(sortBy, cat, filterVote);
+		return false;
+	});
 	
 });
 

@@ -106,6 +106,9 @@ insights.sortby=Tri:
 insights.category=Catégorie:
 insights.latest=Mise à jour
 insights.trending=Popularité
+insights.filterVotedAll=Tous
+insights.filterVoted=Voté
+insights.filterNotVoted=Non voté
 insights.more=plus
 
 #showUser

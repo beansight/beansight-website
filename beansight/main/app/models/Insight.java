@@ -4,10 +4,7 @@ import helpers.FormatHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,12 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import models.Filter.FilterType;
 import models.Vote.State;
 import models.Vote.Status;
 
 import org.hibernate.annotations.Index;
 import org.joda.time.DateTime;
-import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
 
 import play.Logger;
 import play.data.validation.MaxSize;
@@ -611,7 +608,7 @@ public class Insight extends Model {
 	 */
 	public static InsightResult findLatest(int from, int number, Filter filter) {
         String query = "select i from Insight i where i.hidden is false "
-				        + filter.generateJPAQueryWhereClause()
+				        + filter.generateJPAQueryWhereClause(FilterType.UPDATED)
 						+ " order by lastUpdated DESC";
 
 		InsightResult result = new InsightResult();
@@ -638,7 +635,7 @@ public class Insight extends Model {
 						+ "join v.insight i "
 						+ "where i.hidden is false "
 						+ "and v.creationDate > ? " // Of course, do not check the status of the vote.
-						+ filter.generateJPAQueryWhereClause()
+						+ filter.generateJPAQueryWhereClause(FilterType.TRENDY)
 						+ "group by v.insight.id "
 						+ "order by count(v) desc";
 		List<Long> insightIds = Insight.find(query, new DateTime().minusHours(48).toDate() ).from(from).fetch(length);
@@ -723,6 +720,36 @@ public class Insight extends Model {
     
     public List<Comment> getNotHiddenComments() {
     	return Comment.find("select c from Comment c where c.insight.id = :insightId and c.hidden is false order by c.creationDate desc").bind("insightId", this.id).fetch();
+    }
+    
+    /**
+     * TODO : si from est null alors utiliser la date du dernier trend existant
+     * TODO : si to est null alors utiliser la date de l'instant d'exécution
+     * @param from
+     * @param to
+     * @param period
+     */
+    public void buildTrends(DateTime from, DateTime to, int period) {
+    	Logger.debug("building trends for insight.id=%s", this.id);
+    	Trend.delete("insight = ?  and trendDate between ? and ?", this, from.toDate(), to.toDate());
+    	long agree = 0;
+    	long disagree = 0;
+    	DateTime start = from;
+    	DateTime end = from.plusHours(period);
+    	while (end.isBefore(to)) {
+    		List<Object[]> result = Vote.find("select v.state, count(v) from Vote v where v.insight=? and v.creationDate between ? and ? group by v.state", this, start.toDate(), end.toDate()).fetch();
+    		for (Object[] o : result) {
+    			if (o[0].equals(Vote.State.AGREE)) {
+    				agree = agree + (Long)o[1];
+    			} else {
+    				disagree = disagree + (Long)o[1];
+    			} 
+    		}
+    		Trend trend = new Trend(end.toDate(), this, agree, disagree);
+    		trend.save();
+        	start = end;
+        	end = end.plusHours(period);
+    	}
     }
     
 	public static class InsightResult {

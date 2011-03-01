@@ -1,6 +1,5 @@
 package controllers;
 
-import helpers.FormatHelper;
 import helpers.ImageHelper;
 
 import java.awt.image.BufferedImage;
@@ -16,27 +15,23 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 
-import jobs.InsightGraphTrendsJob;
-
-import org.joda.time.DateTime;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import models.Category;
 import models.Comment;
 import models.Filter;
 import models.FollowNotificationTask;
 import models.Insight;
 import models.Insight.InsightResult;
-import models.InsightTrend;
 import models.Language;
 import models.Tag;
 import models.User;
 import models.User.UserResult;
-import models.UserCategoryScore;
-import models.UserInsightScore;
 import models.Vote;
 import models.Vote.State;
 import models.WaitingEmail;
 import models.analytics.UserClientInfo;
+
+import org.joda.time.DateTime;
+
 import play.Logger;
 import play.Play;
 import play.data.validation.Email;
@@ -91,7 +86,7 @@ public class Application extends Controller {
     /**
      * If the user is connected, load the needed info into the menu
      */
-    @Before
+    @Before(unless={"insightsFilter"})
     public static void loadMenuData() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -151,7 +146,7 @@ public class Application extends Controller {
     
     
     public static void index() {
-    	insights("trending", 0);
+    	insights("trending", 0, "all");
     }
     
     /**
@@ -176,9 +171,14 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
-	public static void insights(String sortBy, long cat) {
+	public static void insights(String sortBy, long cat, String filterVote) {
 		Filter filter = new Filter();
-
+		
+		if (filterVote == null || filterVote.trim().equals("")) {
+			filterVote = "all";
+		}
+		filter.filterVote = filterVote;
+		
 		Category category = Category.findById(cat);
 		if(category != null) {
 			filter.categories.add(category);
@@ -187,6 +187,7 @@ public class Application extends Controller {
 		filter.languages = new HashSet<Language>();
 		if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
 			User currentUser = CurrentUser.getCurrentUser();
+			filter.user = currentUser;
 			filter.languages.add(currentUser.writtingLanguage);
 			if(currentUser.secondWrittingLanguage != null) {
 				filter.languages.add(currentUser.secondWrittingLanguage);
@@ -222,18 +223,93 @@ public class Application extends Controller {
 		renderArgs.put("insights", result.results);
 		renderArgs.put("count", result.count);
 		
+		if (filterVote.equals("all")) {
+			renderArgs.put("all", "checked");
+			renderArgs.put("voted", "");
+			renderArgs.put("notVoted", "");
+		} else	if (filterVote.equals("voted")) {
+			renderArgs.put("all", "");
+			renderArgs.put("voted", "checked");
+			renderArgs.put("notVoted", "");
+		} else	if (filterVote.equals("notVoted")) {
+			renderArgs.put("all", "");
+			renderArgs.put("voted", "");
+			renderArgs.put("notVoted", "checked");
+		}
+		
 		render(sortBy, category);
 	}
 
+	public static void insightsFilter(String sortBy, long cat, String filterVote) {
+		Filter filter = new Filter();
+		if (filterVote == null || filterVote.trim().equals("")) {
+			filterVote = "all";
+		}
+		
+		filter.filterVote = filterVote;
+		
+		Category category = Category.findById(cat);
+		if(category != null) {
+			filter.categories.add(category);
+		}
+		
+		filter.languages = new HashSet<Language>();
+		if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
+			User currentUser = CurrentUser.getCurrentUser();
+			filter.user = currentUser;
+			filter.languages.add(currentUser.writtingLanguage);
+			if(currentUser.secondWrittingLanguage != null) {
+				filter.languages.add(currentUser.secondWrittingLanguage);
+			}
+		} else { // else, get the insights in the language of the browser
+			String lang = Lang.get();
+			// if no language, then english
+			if( lang == null || lang.equals("") ) { lang = "en"; }
+			filter.languages.add( Language.findByLabelOrCreate(lang) );
+		}
+
+		InsightResult result;
+		
+		// depending on the sortBy
+		if(sortBy != null && sortBy.equals("updated")) {
+			// If connected, get suggested insights
+			if (Security.isConnected()) {
+				User currentUser = CurrentUser.getCurrentUser();
+				result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			} else {
+				result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			}
+		} else {
+			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+		}
+		
+		// log for analytics
+		if (Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
+		}
+
+		renderArgs.put("_insights", result.results);
+		renderArgs.put("count", result.count);
+		
+		renderTemplate("tags/listInsights.tag");
+	}
+	
 	/**
 	 * AJAX get more insights from the explore page
 	 * 
 	 * @param from : the index of the first insight to return
 	 * @param cat
 	 */
-	public static void moreInsights(String sortBy, int from, long cat) {
+	public static void moreInsights(int from, String sortBy, long cat, String filterVote) {
 		Category category = Category.findById(cat);
+		
 		Filter filter = new Filter();
+		if (filterVote == null || filterVote.trim().equals("")) {
+			filterVote = "all";
+		}
+		filter.filterVote = filterVote;
+		
 		if(category != null) {
 			filter.categories.add(category);
 		}
@@ -242,6 +318,7 @@ public class Application extends Controller {
 		filter.languages = new HashSet<Language>();
 		if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
 			User currentUser = CurrentUser.getCurrentUser();
+			filter.user = currentUser;
 			filter.languages.add(currentUser.writtingLanguage);
 			if(currentUser.secondWrittingLanguage != null) {
 				filter.languages.add(currentUser.secondWrittingLanguage);
@@ -709,7 +786,7 @@ public class Application extends Controller {
 
 	public static void search(String query, int from, long cat) {
 		if (query == null || query.isEmpty()) {
-			insights("trending", 0);
+			insights("trending", 0, "all");
 		}
 		
 		Category category = Category.findById(cat);
@@ -868,6 +945,13 @@ public class Application extends Controller {
 	
 	public static void termsOfUse() {
 		renderTemplate("Legal/termsOfUse.html");
+	}
+	
+	public static void jpa() {
+		List<Insight> list = Insight.all().fetch();
+		for (Insight i : list) {
+			i.buildTrends(new DateTime(i.creationDate), new DateTime(), 4);
+		}
 	}
 	
 }

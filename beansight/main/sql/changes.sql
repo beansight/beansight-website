@@ -52,3 +52,13 @@ ALTER TABLE `Category` ADD COLUMN `scoreMin` DOUBLE  NOT NULL DEFAULT 0 AFTER `l
 
 ALTER TABLE `User` ADD COLUMN `secondWrittingLanguage_id` BIGINT(20)  DEFAULT NULL AFTER `writtingLanguage_id`;
 
+-- alter the size of user-agent string since it seems that 256 chars can be not enough ... (ie8 ?!)
+ALTER TABLE `UserExpertVisit` MODIFY COLUMN `userAgent` LONGTEXT  CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL;
+ALTER TABLE `UserInsightSearchVisit` MODIFY COLUMN `userAgent` LONGTEXT  CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL;
+ALTER TABLE `UserInsightVisit` MODIFY COLUMN `userAgent` LONGTEXT  CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL;
+ALTER TABLE `UserListExpertsVisit` MODIFY COLUMN `userAgent` LONGTEXT  CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL;
+ALTER TABLE `UserListInsightsVisit` MODIFY COLUMN `userAgent` LONGTEXT  CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL;
+ALTER TABLE `UserPromocodeCampaign` MODIFY COLUMN `userAgent` LONGTEXT  CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL;
+
+
+

@@ -13,7 +13,7 @@ GET		/invitation/check						Register.extAuthFirstTimeConnectPage
 
 GET     /create                                 Application.create
 GET     /experts                                Application.experts
-GET     /search                                 Application.search
+GET     /search/{query}				            Application.search
 GET     /profile		            			Application.profile
 GET     /settings                               Application.settings
 GET     /profile/{userName}/large               Application.showAvatarLarge

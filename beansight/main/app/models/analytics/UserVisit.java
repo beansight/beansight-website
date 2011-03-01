@@ -2,6 +2,7 @@ package models.analytics;
 
 import java.util.Date;
 
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -22,6 +23,7 @@ public class UserVisit extends Model {
 	public String ip;
 	
 	/** user-agent of the visiting user */
+	@Lob
 	public String userAgent;
 	
 	/** the id of the application used (example: web-desktop if used from beansight.com) */

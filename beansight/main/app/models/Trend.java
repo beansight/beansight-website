@@ -30,7 +30,12 @@ public class Trend extends Model {
         this.relativeIndex = insight.getTrendCount();
         this.agreeCount = agreeCount;
         this.disagreeCount = disagreeCount;
-        this.agreeRatio = 100 * (agreeCount)/ ((double)agreeCount + disagreeCount);
+        long total = agreeCount + disagreeCount;
+        if (total > 0 && agreeCount > 0) {
+        	this.agreeRatio =  100 * (agreeCount)/ ((double)agreeCount + disagreeCount);
+        } else {
+        	this.agreeRatio = 50;
+        }
     }
  
 }

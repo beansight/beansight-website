@@ -12,23 +12,26 @@
 <div class="listinsights">
     <ul class="menulistinsights">
         <li class="sortby">&{'insights.sortby'}</li>
-        <li class="first"><a href="@{Application.insights('trending', category?.id)}" #{if sortBy == null || sortBy?.equals("trending")}class="current"#{/if}>&{'insights.trending'}</a></li>
-        <li><a href="@{Application.insights('updated', category?.id)}" #{if sortBy?.equals("updated")}class="current"#{/if}>&{'insights.latest'}</a></li>
-    *{       
-        <li><input type="checkbox" value="checked">Voted</input> </li>
-        <li><input type="checkbox" value="checked">Not voted</input> </li>
-
+        <li class="first"><a id="filterTrending" href="#"  #{if sortBy == null || sortBy?.equals("trending")}class="current"#{/if}>&{'insights.trending'}</a></li>
+        <li><a id="filterUpdated" href="#"  #{if sortBy?.equals("updated")}class="current"#{/if}>&{'insights.latest'}</a></li>
+        <li style="padding-top: 0px; margin-top: 4px;">
+	        <div id="radio" style="font-size: 11px;">
+		        <input type="radio" name='VoteGroup' value='all' ${all} id="all" /><label for="all">&{'insights.filterVotedAll'}</label> 
+		        <input type="radio" name='VoteGroup' value='voted' ${voted} id="voted"/><label for="voted">&{'insights.filterVoted'}</label>
+		        <input type="radio" name='VoteGroup' value='notVoted' ${notVoted} id="notVoted"/><label for="notVoted">&{'insights.filterNotVoted'}</label>
+	        </div>
+        </li>
+	*{
         <li><a href="#">trending</a></li>
         <li><a href="#">incoming</a></li>
-        
      }*
      	<li class="sortby">&{'insights.category'}</li>
 	    <li>
 		    <div class="filterDropDown">
 		    <select name="categoryId" id="filterCategory">
-		       <option value="@{Application.insights(sortBy, 0)}" #{if category == null}selected#{/if}>All</option>
+		       <option value="0" #{if category == null}selected#{/if}>All</option>
 			   #{list items:controllers.Application.getCategories(), as:'cat'}
-			       <option value="@{Application.insights(sortBy, cat.id)}" #{if category && category.id == cat.id}selected#{/if}>${cat.label}</option>
+			       <option value="${cat.id}" #{if category && category.id == cat.id}selected#{/if}>${cat.label}</option>
 			   #{/list}
 			</select>
 			</div>
@@ -56,23 +59,22 @@
 var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
 
 /** get more insights */
-$("#moreInsights").click( function() {
-    $.ajax( {
-        url: moreInsightsAction(),
-        data: {"from":insightsFrom#{if sortBy}, "sortBy": "${sortBy}"#{/if}#{if category}, "cat": ${category.id}#{/if}},
-        success: onMoreInsightsSuccess
-    } );
-    return false;
-});
+	$("#moreInsights").click( function() {
+		var sortBy = $('#filterTrending').hasClass('current')?'trending':'updated';
+		var cat = $('#filterCategory').val();
+		var filterVote = $('input[name=VoteGroup]:checked').val(); 
+	    $.ajax( {
+	        url: moreInsightsAction({'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote}),
+	        success: onMoreInsightsSuccess
+	    } );
+	    return false;
+	});
 
-function onMoreInsightsSuccess(content) {
-    $("#insightList").append(content);
-    insightsFrom += ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
-    // TODO disable the "more button" if less results than the number to display
-    //if( $(content).length < ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
-    //    $("#moreResults").fadeOut(1000);
-    //}
-}
+	function onMoreInsightsSuccess(content) {
+	    $("#insightList").append(content);
+	    insightsFrom += ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
+	}	
+	
 </script>
 
 <script type="text/javascript" charset="utf-8">
