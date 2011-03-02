@@ -19,6 +19,7 @@ import models.Vote.State;
 import models.Vote.Status;
 
 import org.hibernate.annotations.Index;
+import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
@@ -653,7 +654,7 @@ public class Insight extends Model {
 	 */
 	public static InsightResult findIncoming(int from, int number, Filter filter) {
         String query = "select i from Insight i where i.hidden is false " +
-        		"and endDate > :currentDate " +
+        		"and endDate >= :currentDate " +
         		filter.generateJPAQueryWhereClause(FilterType.INCOMING) +
         		"order by endDate ASC";
 
@@ -661,7 +662,7 @@ public class Insight extends Model {
 		// TODO : return total number using count ?
 		// result.count = Insight.count(query);
 
-		result.results = Insight.find(query).bind("currentDate", new Date()).from(from).fetch(number);
+		result.results = Insight.find(query).bind("currentDate", new DateMidnight().toDateTime().minusMinutes(1).toDate()).from(from).fetch(number);
 
 		return result;
 	}
