@@ -63,6 +63,7 @@
         #{isConnected}
         #{secure.check 'admin'}
         <div class="admin">
+            <p>detected language: ${insight.lang}</p>
             <a href="@{Admin.hideInsight( insight.id )}" onclick="return confirm('confirm ?');" style="color: red;">hide this prediction</a>
         </div>
         #{/secure.check}
