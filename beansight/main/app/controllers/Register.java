@@ -70,6 +70,7 @@ public class Register extends Controller {
 	}
 	
 	/**
+	 * AJAX
 	 * Is the given userName available on beansight.com?
 	 * @return : true if the userName is available, false otherwise
 	 */
@@ -77,7 +78,7 @@ public class Register extends Controller {
 		boolean available = false;
 		
 		User user = CurrentUser.getCurrentUser();
-		if( username.equals(user.userName)) {
+		if( user != null && username.equals(user.userName)) {
 			available = true;
 		} else {
 			available = User.isUsernameAvailable(username);
