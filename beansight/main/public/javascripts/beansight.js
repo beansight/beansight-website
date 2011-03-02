@@ -345,37 +345,12 @@ function onVotedMouseDown(object) {
 	return true;
 }
 
-function getSelectedSortBy() {
-	if ( $('#filterTrending').hasClass('current') ) {
-		return "trending";
-	} else if( $('#filterUpdated').hasClass('current') ) {
-		return "updated";
-	} else if( $('#filterIncoming').hasClass('current') ) {
-		return "incoming";
-	} else {
-		// default
-		return "trending";
-	}
-}
-
-function insightsFilter(sortBy, cat, filterVote) {
-	// visually shows which filter (updated or trending) has been selected
-	if (sortBy == 'trending' && $('#filterTrending').hasClass('current') == false) {
-		$('#filterTrending').addClass('current');
-		$('#filterUpdated').removeClass('current');
-		$('#filterIncoming').removeClass('current');
-	} else if (sortBy == 'updated' && $('#filterUpdated').hasClass('current') == false) {
-		$('#filterTrending').removeClass('current')
-		$('#filterUpdated').addClass('current');
-		$('#filterIncoming').removeClass('current');
-	} else if (sortBy == 'incoming' && $('#filterIncoming').hasClass('current') == false) {
-		$('#filterTrending').removeClass('current')
-		$('#filterUpdated').removeClass('current');
-		$('#filterIncoming').addClass('current');
-	}
-
-	var path = insightsFilterAction({'sortBy':sortBy, 'cat':cat, 'filterVote':filterVote});
-	$.get(path, function(data) {
+function reloadInsights() {
+	insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
+	var sortBy = $('input[name=SortByGroup]:checked').val(); 
+	var cat = $('#filterCategory').val();
+	var filterVote = $('input[name=VoteGroup]:checked').val(); 
+	$.get(insightsFilterAction({'sortBy':sortBy, 'cat':cat, 'filterVote':filterVote}), function(data) {
 		$('#insightList').html(data);
 	});
 }
@@ -395,8 +370,6 @@ $(document).ready(function() {
     //select custom
     $(".item-select select").selectbox();
 	
-    $("#radioVotefilter").buttonset();
-    
     // every .uiButton is transformed in a button with jQuery UI
     $('.uiButton').button();
 
@@ -970,53 +943,35 @@ $(document).ready(function() {
 	//////////////
 	// Insights list
 	//////////////
-    
+
+    // Vote selection buttons
+    $("#radioSortByFilter").buttonset();
+    // Vote selection buttons
+    $("#radioVotefilter").buttonset();
     // category selection custom
     $("#filterCategory").selectbox();
-    
-	$("#filterTrending").click(function() {
-		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
-		var sortBy = 'trending';
-		var cat = $('#filterCategory').val();
-		var filterVote = $('input[name=VoteGroup]:checked').val(); 
-		insightsFilter(sortBy, cat, filterVote);
-		return false;
-	});
-	
-	$("#filterUpdated").click(function() {
-		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
-		var sortBy = 'updated';
-		var cat = $('#filterCategory').val();
-		var filterVote = $('input[name=VoteGroup]:checked').val(); 
-		insightsFilter(sortBy, cat, filterVote);
-		return false;
-	});
-	
-	$("#filterIncoming").click(function() {
-		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
-		var sortBy = 'incoming';
-		var cat = $('#filterCategory').val();
-		var filterVote = $('input[name=VoteGroup]:checked').val(); 
-		insightsFilter(sortBy, cat, filterVote);
-		return false;
-	});
 	
 	$("#filterCategory").change(function() {
-		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
-		var sortBy = getSelectedSortBy();
-		var cat = $('#filterCategory').val();
-		var filterVote = $('input[name=VoteGroup]:checked').val(); 
-		insightsFilter(sortBy, cat, filterVote);
+		reloadInsights();
 		return false;
 	});
-	
 	$('input[name=VoteGroup]').change(function() {
-		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
-		var sortBy = getSelectedSortBy();
+		reloadInsights();
+		return false;
+	});
+	$('input[name=SortByGroup]').change(function() {
+		reloadInsights();
+		return false;
+	});
+	$("#moreInsights").click( function() {
+		var sortBy = $('input[name=SortByGroup]:checked').val(); 
 		var cat = $('#filterCategory').val();
 		var filterVote = $('input[name=VoteGroup]:checked').val(); 
-		insightsFilter(sortBy, cat, filterVote);
-		return false;
+		$.get( moreInsightsAction({'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote}), function(content) {
+    		$("#insightList").append(content);
+    		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
+    	});
+	    return false;
 	});
 	
 });

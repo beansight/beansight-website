@@ -12,21 +12,20 @@
 <div class="listinsights">
     <ul class="menulistinsights">
         <li class="sortby">&{'insights.sortby'}</li>
-        <li class="first">  <a id="filterIncoming"  href="#"  #{if sortBy == null || sortBy?.equals("incoming")}class="current"#{/if}   >&{'insights.incoming'}</a></li>
-        <li>                <a id="filterTrending"  href="#"  #{if sortBy?.equals("trending")}                  class="current"#{/if}   >&{'insights.trending'}</a></li>
-        <li>                <a id="filterUpdated"   href="#"  #{if sortBy?.equals("updated")}                   class="current"#{/if}   >&{'insights.latest'}  </a></li>
-        <li style="padding-top: 0px; margin-top: 4px;">
+        <li class="first">
+            <div id="radioSortByFilter" style="font-size: 11px;">
+                <input type="radio" autocomplete="off" name="SortByGroup" value="incoming" checked          id="radioSortByIncoming" />        <label for="radioSortByIncoming">      &{'insights.incoming'} </label> 
+                <input type="radio" autocomplete="off" name="SortByGroup" value="trending"       id="radioSortByTrending"/>       <label for="radioSortByTrending">    &{'insights.trending'} </label>
+                <input type="radio" autocomplete="off" name="SortByGroup" value="updated" id="radioSortByUpdated"/>    <label for="radioSortByUpdated"> &{'insights.latest'}   </label>
+            </div>        
+        </li>
+        <li>
 	        <div id="radioVotefilter" style="font-size: 11px;">
 		        <input type="radio" autocomplete="off" name="VoteGroup" value="all" ${all}           id="radioVoteAll" />        <label for="radioVoteAll">      &{'insights.filterVotedAll'}</label> 
 		        <input type="radio" autocomplete="off" name="VoteGroup" value="voted" ${voted}       id="radioVoteVoted"/>       <label for="radioVoteVoted">    &{'insights.filterVoted'}   </label>
 		        <input type="radio" autocomplete="off" name="VoteGroup" value="notVoted" ${notVoted} id="radioVoteNotVoted"/>    <label for="radioVoteNotVoted"> &{'insights.filterNotVoted'}</label>
 	        </div>
         </li>
-	*{
-        <li><a href="#">trending</a></li>
-        <li><a href="#">incoming</a></li>
-     }*
-     	*{<li class="sortby">&{'insights.category'}</li> }*
 	    <li>
 		    <div class="filterDropDown">
 		    <select name="categoryId" id="filterCategory" autocomplete="off">
@@ -37,10 +36,6 @@
 			</select>
 			</div>
 	    </li>
-        
-      *{
-        <li><a href="#">Favorites</a></li>
-       }* 
     </ul>
     
     <ul id="insightList">
@@ -58,25 +53,7 @@
 //        $("#moreResults").fadeIn(2000);
 //   }
 var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
-var insightsFrom = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
-
-/** get more insights */
-	$("#moreInsights").click( function() {
-		var sortBy = getSelectedSortBy();
-		var cat = $('#filterCategory').val();
-		var filterVote = $('input[name=VoteGroup]:checked').val(); 
-	    $.ajax( {
-	        url: moreInsightsAction({'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote}),
-	        success: onMoreInsightsSuccess
-	    } );
-	    return false;
-	});
-
-	function onMoreInsightsSuccess(content) {
-	    $("#insightList").append(content);
-	    insightsFrom += ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
-	}	
-	
+var insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
 </script>
 
 <script type="text/javascript" charset="utf-8">

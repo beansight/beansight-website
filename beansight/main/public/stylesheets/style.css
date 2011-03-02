@@ -199,6 +199,7 @@ a:hover{color:#228392;}
 #contentcenter .listinsights ul.menulistinsights li ul{overflow:hidden;position:absolute;width:132px;background-color:#fff;border-bottom:solid #ededed 1px;-webkit-border-bottom-left-radius:3px;-moz-border-radius-bottomleft:3px;-webkit-border-bottom-right-radius:3px;-moz-border-radius-bottomright:3px;}
 #contentcenter .listinsights ul.menulistinsights li ul.nojavascript{display:none;}
 #contentcenter .listinsights ul.menulistinsights li ul.open{border:0 none;}
+#contentcenter .listinsights ul.menulistinsights li.buttonGroup {padding-top: 0px; margin-top: 4px;}
 
 #contentcenter .listinsights ul.menulistinsights li.selectme{}
 #contentcenter .listinsights ul.menulistinsights li.selectme a{border:solid #ededed 1px;padding-right:15px;width:110px;background:url(/public/images/puce-flech-bas.png) no-repeat 120px 10px;}
