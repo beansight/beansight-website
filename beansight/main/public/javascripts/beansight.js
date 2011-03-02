@@ -395,9 +395,6 @@ $(document).ready(function() {
     //select custom
     $(".item-select select").selectbox();
 	
-    // category selection custom
-    $("#filterCategory").selectbox();
-    
     $("#radioVotefilter").buttonset();
     
     // every .uiButton is transformed in a button with jQuery UI
@@ -809,6 +806,8 @@ $(document).ready(function() {
 		}
 	});
 	
+	showRegisterForm('beansight');
+	
     //////////////////////
     // Insight Page
     //////////////////////
@@ -962,13 +961,19 @@ $(document).ready(function() {
 	});
 	
 	//////////////
-	// show beansight connect by default in register page
+	// Search
 	//////////////
-	showRegisterForm('beansight');
+    $('#searchFilterCategory').selectbox().bind('change', function() {
+        window.location.href = $(this).val();
+    })
 	
 	//////////////
-	// Insights list page : filters event
+	// Insights list
 	//////////////
+    
+    // category selection custom
+    $("#filterCategory").selectbox();
+    
 	$("#filterTrending").click(function() {
 		insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
 		var sortBy = 'trending';
