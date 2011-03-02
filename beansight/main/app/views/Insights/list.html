@@ -9,15 +9,11 @@
 	</div>
 
 	<div id="crudListTable">
-		#{crud.table fields:['content', 'endDate', 'creator', 'category' ]/}
+		#{crud.table fields:['content', 'lang', 'endDate', 'creator', 'category' ]/}
 	</div>
 	
 	<div id="crudListPagination">
 		#{crud.pagination /}
 	</div>
-	
-	<p id="crudListAdd">
-		<a href="@{blank()}">&{'crud.add', type.modelName}</a>
-	</p>
 
 </div>
