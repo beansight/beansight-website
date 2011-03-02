@@ -959,11 +959,4 @@ public class Application extends Controller {
 		renderTemplate("Legal/termsOfUse.html");
 	}
 	
-	public static void jpa() {
-		List<Insight> list = Insight.all().fetch();
-		for (Insight i : list) {
-			i.buildTrends(new DateTime(i.creationDate), new DateTime(), 4);
-		}
-	}
-	
 }

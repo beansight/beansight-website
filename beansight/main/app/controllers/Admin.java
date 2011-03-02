@@ -139,23 +139,15 @@ public class Admin extends Controller {
 	}
 	
 	
-	// TODO : pour recalculer les trends d'un insight (pour l'instant non prioritaire je le fais pendant mon temps libre)
-	// TODO : il faudra déplcacer du code dans Insight
-	// TODO : il faut pouvoir recalculer le nombre de agree et disagree en donnant une date en entré
-//	public static void rebuildTrendsForInsight(@Required String uniqueId) {
-//		
-//		if (validation.hasErrors()) {
-//			StringBuffer sb = new StringBuffer();
-//			for (play.data.validation.Error error : validation.errors()) {
-//				sb.append(error.message());
-//				sb.append("<br/>");
-//			}
-//			renderText(sb.toString());
-//		}
-//		
-//		Insight insight = Insight.findByUniqueId(uniqueId);
-//		Trend.delete("insight = ?", insight);
-//		
-//		
-//	}
+	public static void rebuildAllTrends(int period) {
+		List<Insight> list = Insight.all().fetch();
+		for (Insight i : list) {
+			i.buildTrends(new DateTime(i.creationDate), new DateTime(), 4);
+		}
+	}
+	
+	public static void rebuildTrendsForInsight(Long insightId, int period) {
+		Insight i = Insight.findById(insightId);
+		i.buildTrends(new DateTime(i.creationDate), new DateTime(), period);
+	}
 }
