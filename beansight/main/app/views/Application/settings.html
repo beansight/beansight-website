@@ -17,7 +17,7 @@
                 <option value="en" #{if user.uiLanguage.label.equals("en")}selected#{/if}>&{'settings.languages.en'}</option>
                 <option value="fr" #{if user.uiLanguage.label.equals("fr")}selected#{/if}>&{'settings.languages.fr'}</option>
             </select>
-        </div
+        </div>
         <div class="item-input">
             <label>&{'settings.writtingLanguages'}</label>
             <select name="firstWrittingLanguage">
@@ -29,7 +29,7 @@
                 <option value="en" #{if user.secondWrittingLanguage?.label.equals("en")   }selected#{/if} >&{'settings.languages.en'}     </option>
                 <option value="fr" #{if user.secondWrittingLanguage?.label.equals("fr")   }selected#{/if} >&{'settings.languages.fr'}     </option>
             </select>
-        </div
+        </div>
         
         <div class="item-checkbox" style="float: left;">
             <a href="@{Application.changePassword()}">&{'settings.changePassword'}</a>
