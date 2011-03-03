@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                                       Application.insights
+GET     /topic/{topic}                          Application.insights
 
 GET     /signup                                 Register.register
 GET     /login                                 	Secure.login

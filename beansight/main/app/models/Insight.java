@@ -608,7 +608,9 @@ public class Insight extends Model {
 	 * @param number : number of items to return
 	 */
 	public static InsightResult findLatest(int from, int number, Filter filter) {
-        String query = "select i from Insight i where i.hidden is false "
+        String query = "select i from Insight i "
+        				+ "join i.tags t "
+        				+ "where i.hidden is false "
 				        + filter.generateJPAQueryWhereClause()
 						+ " order by lastUpdated DESC";
 
@@ -634,6 +636,7 @@ public class Insight extends Model {
 		// First select the ids.
 		String query = "select v.insight.id from Vote v "
 						+ "join v.insight i "
+						+ "join i.tags t "
 						+ "where i.hidden is false "
 						+ "and v.creationDate > ? " // Of course, do not check the status of the vote.
 						+ filter.generateJPAQueryWhereClause()
@@ -653,10 +656,12 @@ public class Insight extends Model {
 	 * @param number : number of items to return
 	 */
 	public static InsightResult findIncoming(int from, int number, Filter filter) {
-        String query = "select i from Insight i where i.hidden is false " +
-        		"and endDate >= :currentDate " +
-        		filter.generateJPAQueryWhereClause() +
-        		"order by endDate ASC";
+        String query = "select i from Insight i "
+		        		+ "join i.tags t "
+		        		+ "where i.hidden is false "
+		        		+ "and endDate >= :currentDate "
+		        		+ filter.generateJPAQueryWhereClause()
+		        		+ "order by endDate ASC";
 
 		InsightResult result = new InsightResult();
 		// TODO : return total number using count ?

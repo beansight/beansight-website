@@ -350,7 +350,7 @@ function reloadInsights() {
 	var sortBy = $('input[name=SortByGroup]:checked').val(); 
 	var cat = $('#filterCategory').val();
 	var filterVote = $('input[name=VoteGroup]:checked').val(); 
-	$.get(insightsFilterAction({'sortBy':sortBy, 'cat':cat, 'filterVote':filterVote}), function(data) {
+	$.get(insightsFilterAction({'sortBy':sortBy, 'cat':cat, 'filterVote':filterVote, 'topic':filterTopic}), function(data) {
 		$('#insightList').html(data);
 	});
 }
@@ -967,7 +967,7 @@ $(document).ready(function() {
 		var sortBy = $('input[name=SortByGroup]:checked').val(); 
 		var cat = $('#filterCategory').val();
 		var filterVote = $('input[name=VoteGroup]:checked').val(); 
-		$.get( moreInsightsAction({'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote}), function(content) {
+		$.get( moreInsightsAction({'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote, 'topic':filterTopic}), function(content) {
     		$("#insightList").append(content);
     		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
     	});

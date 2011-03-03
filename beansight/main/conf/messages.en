@@ -103,6 +103,8 @@ insights.filterVotedAll=All
 insights.filterVoted=Voted
 insights.filterNotVoted=Not voted
 insights.more=more
+insights.intopic=for topic 
+
 #showUser
 userinsights=User predictions
 myinsights=My predictions

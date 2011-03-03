@@ -111,6 +111,7 @@ insights.filterVotedAll=Tous
 insights.filterVoted=Voté
 insights.filterNotVoted=Non voté
 insights.more=plus
+insights.intopic=autour du sujet 
 
 #showUser
 userinsights=Prédictions de l'utilisateur

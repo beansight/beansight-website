@@ -2,7 +2,9 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -36,6 +38,20 @@ public class Tag extends Model {
 		this.insights.add(insight);
 		this.label = label;
 		this.creationDate = new Date();
+	}
+
+	public static String listToIdString(Set<Tag> tags) {
+		StringBuffer buffer = new StringBuffer();
+        Iterator<Tag> iter = tags.iterator();
+        while (iter.hasNext()) {
+        	buffer.append("'");
+            buffer.append(iter.next().id);
+            buffer.append("'");
+            if (iter.hasNext()) {
+                buffer.append(",");
+            }
+        }
+        return buffer.toString();
 	}
 	
 	public String toString() {

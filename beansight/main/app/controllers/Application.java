@@ -24,6 +24,7 @@ import models.Insight;
 import models.Insight.InsightResult;
 import models.Language;
 import models.Tag;
+import models.Topic;
 import models.User;
 import models.User.UserResult;
 import models.Vote;
@@ -147,7 +148,7 @@ public class Application extends Controller {
     
     
     public static void index() {
-    	insights("trending", 0, "all");
+    	insights("trending", 0, "all", null);
     }
     
     /**
@@ -172,12 +173,12 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
-	public static void insights(String sortBy, long cat, String filterVote) {
+	public static void insights(String sortBy, long cat, String filterVote, String topic) {
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
 		
-		InsightResult result = filterInsightsList(sortBy, cat, filterVote);
+		InsightResult result = filterInsightsList(0, sortBy, cat, filterVote, topic);
 		
 		// log for analytics
 		if (Security.isConnected()) {
@@ -202,15 +203,15 @@ public class Application extends Controller {
 			renderArgs.put("notVoted", "checked");
 		}
 		
-		render(sortBy);
+		render(sortBy, topic);
 	}
 
-	public static void insightsFilter(String sortBy, long cat, String filterVote) {
+	public static void insightsFilter(String sortBy, long cat, String filterVote, String topic) {
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
 		
-		InsightResult result = filterInsightsList(sortBy, cat, filterVote);
+		InsightResult result = filterInsightsList(0, sortBy, cat, filterVote, topic);
 		
 		// log for analytics
 		if (Security.isConnected()) {
@@ -224,18 +225,21 @@ public class Application extends Controller {
 		renderTemplate("tags/listInsights.tag");
 	}
 
-	private static InsightResult filterInsightsList(String sortBy, long cat,
-			String filterVote) {
-		
+	private static InsightResult filterInsightsList(int from, String sortBy, long cat, String filterVote, String top) {
 		Filter filter = new Filter();
 		filter.filterVote = filterVote;
+		
+		Topic topic = null;
+		if(top != null) {
+			topic = Topic.findByLabel(top);
+		}
 		
 		Category category = Category.findById(cat);
 		if(category != null) {
 			filter.categories.add(category);
 		}
 		
-		filter.languages = new HashSet<Language>();
+		// languages
 		if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
 			User currentUser = CurrentUser.getCurrentUser();
 			filter.user = currentUser;
@@ -250,6 +254,13 @@ public class Application extends Controller {
 			filter.languages.add( Language.findByLabelOrCreate(lang) );
 		}
 
+		// tags
+		if(topic != null) {
+			for(Tag tag : topic.tags) {
+				filter.tags.add(tag);
+			}
+		}
+		
 		InsightResult result;
 		
 		// depending on the sortBy
@@ -260,18 +271,18 @@ public class Application extends Controller {
 				User currentUser = CurrentUser.getCurrentUser();
 				result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 			} else {
-				result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+				result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 			}
 		} else if (sortBy != null && sortBy.equals("trending")) {
 			filter.filterType = FilterType.TRENDY;
-			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			result = Insight.findTrending(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		} else if (sortBy != null && sortBy.equals("incoming")) {
 			filter.filterType = FilterType.INCOMING;
-			result = Insight.findIncoming(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			result = Insight.findIncoming(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		} else { 
 			// default is incoming
 			filter.filterType = FilterType.INCOMING;
-			result = Insight.findIncoming(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			result = Insight.findIncoming(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		}
 		return result;
 	}
@@ -287,7 +298,7 @@ public class Application extends Controller {
 			filterVote = "all";
 		}
 		
-		InsightResult result = filterInsightsList(sortBy, cat, filterVote);
+		InsightResult result = filterInsightsList(from, sortBy, cat, filterVote, null);
 		
 		renderArgs.put("insights", result.results);
 		render();
@@ -737,7 +748,7 @@ public class Application extends Controller {
 
 	public static void search(String query, int from, long cat) {
 		if (query == null || query.isEmpty()) {
-			insights("trending", 0, "all");
+			insights("trending", 0, "all", null);
 		}
 		
 		Category category = Category.findById(cat);

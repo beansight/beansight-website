@@ -3,8 +3,11 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * A filter is used to filter results
+ */
 public class Filter  {
-	
+
 	public enum FilterType {
 		TRENDY, 
 		UPDATED,
@@ -12,21 +15,22 @@ public class Filter  {
 	}
 	
 	public Set<Category> 	categories;
-	public Set<Tag>		tags;
+	public Set<Tag>			tags;
 	public Set<Language> 	languages;
 	public FilterType filterType = FilterType.INCOMING;
 	public String filterVote;
+	/** user is used for filtering by vote */
 	public User user;
 	
 	public boolean favorites;
 	
 	public Filter() {
-		categories = new HashSet<Category>();
-		tags = new HashSet<Tag>();
-		languages = new HashSet<Language>();
-		favorites = false;
-		filterVote = "all";
-		user = null;
+		categories 	= new HashSet<Category>();
+		tags 		= new HashSet<Tag>();
+		languages 	= new HashSet<Language>();
+		favorites 	= false;
+		filterVote 	= "all";
+		user 		= null;
 	}
 	
 	/**
@@ -39,15 +43,21 @@ public class Filter  {
 	public String generateJPAQueryWhereClause() {
         String categoryIds = Category.listToIdString(this.categories);
         String languageIds = Language.listToIdString(this.languages);
+        String tagIds = 	 Tag.listToIdString(this.tags);
 		String whereQuery= "";
-        if (!this.categories.isEmpty() || !this.languages.isEmpty()) {
-			if (!this.categories.isEmpty()) {
-				whereQuery += " and i.category.id in (" + categoryIds + ") ";
-			}
-			if (!this.languages.isEmpty()) {
-				whereQuery += " and i.lang.id in (" + languageIds + ") ";
-			}
+        
+		if (!this.categories.isEmpty()) {
+			whereQuery += " and i.category.id in (" + categoryIds + ") ";
 		}
+		if (!this.languages.isEmpty()) {
+			whereQuery += " and i.lang.id in (" + languageIds + ") ";
+		}
+		
+		if (!this.tags.isEmpty()) {
+			whereQuery += " and t.id in (" + tagIds + ") ";
+		}
+        
+    	// FIXME : Ideally the sort order should not appear in filters
         if (filterType.equals(FilterType.TRENDY) && user != null) {
 			if (filterVote.equals("voted")) {
 				whereQuery += " and v.insight.id in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";

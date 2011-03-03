@@ -71,7 +71,7 @@ public class Admin extends Controller {
 	}
 	
 	/**
-	 * 
+	 * AJAX
 	 * @param insightId
 	 */
 	public static void insightHideComment(final Long commentId) {

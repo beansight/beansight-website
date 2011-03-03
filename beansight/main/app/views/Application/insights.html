@@ -7,16 +7,16 @@
 
 #{set contentCenterClass:'large' /}
 
-<h2 class="cuf-grb">&{'insightstitle'} #{if category} &{'incategory'} ${category}#{/if}</h2>
+<h2 class="cuf-grb">&{'insightstitle'} #{if category} &{'incategory'} ${category}#{/if} #{if topic} &{'insights.intopic'} ${topic}#{/if}</h2>
 
 <div class="listinsights">
     <ul class="menulistinsights">
         <li class="sortby">&{'insights.sortby'}</li>
         <li class="first">
             <div id="radioSortByFilter" style="font-size: 11px;">
-                <input type="radio" autocomplete="off" name="SortByGroup" value="incoming" checked          id="radioSortByIncoming" />        <label for="radioSortByIncoming">      &{'insights.incoming'} </label> 
-                <input type="radio" autocomplete="off" name="SortByGroup" value="trending"       id="radioSortByTrending"/>       <label for="radioSortByTrending">    &{'insights.trending'} </label>
-                <input type="radio" autocomplete="off" name="SortByGroup" value="updated" id="radioSortByUpdated"/>    <label for="radioSortByUpdated"> &{'insights.latest'}   </label>
+                <input type="radio" autocomplete="off" name="SortByGroup" value="incoming" checked  id="radioSortByIncoming" />         <label for="radioSortByIncoming">    &{'insights.incoming'} </label> 
+                <input type="radio" autocomplete="off" name="SortByGroup" value="trending"          id="radioSortByTrending"/>          <label for="radioSortByTrending">    &{'insights.trending'} </label>
+                <input type="radio" autocomplete="off" name="SortByGroup" value="updated"           id="radioSortByUpdated"/>           <label for="radioSortByUpdated">     &{'insights.latest'}   </label>
             </div>        
         </li>
         <li>
@@ -26,6 +26,7 @@
 		        <input type="radio" autocomplete="off" name="VoteGroup" value="notVoted" ${notVoted} id="radioVoteNotVoted"/>    <label for="radioVoteNotVoted"> &{'insights.filterNotVoted'}</label>
 	        </div>
         </li>
+        #{if topic == null}
 	    <li>
 		    <div class="filterDropDown">
 		    <select name="categoryId" id="filterCategory" autocomplete="off">
@@ -36,6 +37,7 @@
 			</select>
 			</div>
 	    </li>
+	    #{/if}
     </ul>
     
     <ul id="insightList">
@@ -54,6 +56,8 @@
 //   }
 var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
 var insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
+
+var filterTopic = #{if topic}"${topic}"#{/if} #{else}null#{/else};
 </script>
 
 <script type="text/javascript" charset="utf-8">
