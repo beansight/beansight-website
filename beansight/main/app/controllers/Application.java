@@ -178,54 +178,33 @@ public class Application extends Controller {
 			filterVote = "all";
 		}
 		
-		InsightResult result = filterInsightsList(0, sortBy, cat, filterVote, topic);
-		
+		InsightResult result = getFilteredInsightsList(0, sortBy, cat, filterVote, topic);
 		// log for analytics
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
 		}
-
 		renderArgs.put("insights", result.results);
 		renderArgs.put("count", result.count);
-		
-		if (filterVote.equals("all")) {
-			renderArgs.put("all", "checked");
-			renderArgs.put("voted", "");
-			renderArgs.put("notVoted", "");
-		} else	if (filterVote.equals("voted")) {
-			renderArgs.put("all", "");
-			renderArgs.put("voted", "checked");
-			renderArgs.put("notVoted", "");
-		} else	if (filterVote.equals("notVoted")) {
-			renderArgs.put("all", "");
-			renderArgs.put("voted", "");
-			renderArgs.put("notVoted", "checked");
-		}
-		
 		render(sortBy, topic);
 	}
 
-	public static void insightsFilter(String sortBy, long cat, String filterVote, String topic) {
+	/**
+	 * AJAX get insights from the explore page
+	 * 
+	 * @param from : the index of the first insight to return
+	 * @param cat
+	 */
+	public static void getInsights(int from, String sortBy, long cat, String filterVote, String topic) {
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
-		
-		InsightResult result = filterInsightsList(0, sortBy, cat, filterVote, topic);
-		
-		// log for analytics
-		if (Security.isConnected()) {
-			User currentUser = CurrentUser.getCurrentUser();
-			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
-		}
-
-		renderArgs.put("_insights", result.results);
-		renderArgs.put("count", result.count);
-		
-		renderTemplate("tags/listInsights.tag");
+		InsightResult result = getFilteredInsightsList(from, sortBy, cat, filterVote, topic);
+		renderArgs.put("insights", result.results);
+		render();
 	}
-
-	private static InsightResult filterInsightsList(int from, String sortBy, long cat, String filterVote, String top) {
+	
+	private static InsightResult getFilteredInsightsList(int from, String sortBy, long cat, String filterVote, String top) {
 		Filter filter = new Filter();
 		filter.filterVote = filterVote;
 		
@@ -287,23 +266,6 @@ public class Application extends Controller {
 		return result;
 	}
 	
-	/**
-	 * AJAX get more insights from the explore page
-	 * 
-	 * @param from : the index of the first insight to return
-	 * @param cat
-	 */
-	public static void moreInsights(int from, String sortBy, long cat, String filterVote) {
-		if (filterVote == null || filterVote.trim().equals("")) {
-			filterVote = "all";
-		}
-		
-		InsightResult result = filterInsightsList(from, sortBy, cat, filterVote, null);
-		
-		renderArgs.put("insights", result.results);
-		render();
-	}
-
 	public static void experts() {
 		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
 		

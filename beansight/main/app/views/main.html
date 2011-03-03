@@ -43,7 +43,7 @@
 	var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
 	var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
 	var loadFollowedUsersBlockAction = #{jsAction @Application.loadFollowedUsers(':userId') /};
-	var moreInsightsAction = #{jsAction @Application.moreInsights(':from',':sortBy', ':cat', ':filterVote') /};
+	var getInsightsAction = #{jsAction @Application.getInsights(':from',':sortBy', ':cat', ':filterVote') /};
 	var searchExpertsAction = #{jsAction @Application.searchExperts() /};
 	var moreSearchAction = #{jsAction @Application.moreSearch() /};
 	var inviteAction = #{jsAction @Application.invite() /};
@@ -62,7 +62,6 @@
 	var showAvatarSmallFromEmailAction = #{jsAction @Application.showAvatarSmallFromEmail(':email') /};
     var isUserNameAvailableAction = #{jsAction @Register.isUserNameAvailable() /};
     var isEmailAvailableAction = #{jsAction @Register.isEmailAvailable() /};  
-    var insightsFilterAction = #{jsAction @Application.insightsFilter(':sortBy', ':cat',':filterVote',':topic') /};    
 	</script>
 </head>
 <body>

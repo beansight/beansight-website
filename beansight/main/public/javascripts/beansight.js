@@ -345,14 +345,35 @@ function onVotedMouseDown(object) {
 	return true;
 }
 
-function reloadInsights() {
-	insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
+/**
+ * replace the insight list with a new one
+ */
+function loadInsights() {
+	insightsFrom = 0;
+	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
+		$('#insightList').html(content);
+		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
+	});
+}
+
+/**
+ * append to the insight list more results
+ */
+function loadMoreInsights() {
+	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
+		$('#insightList').append(content);
+		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
+	});
+}
+
+/**
+ * @returns the arguments needed for getInsightsAction(); 
+ */
+function generateGetInsightsArguments() {
 	var sortBy = $('input[name=SortByGroup]:checked').val(); 
 	var cat = $('#filterCategory').val();
 	var filterVote = $('input[name=VoteGroup]:checked').val(); 
-	$.get(insightsFilterAction({'sortBy':sortBy, 'cat':cat, 'filterVote':filterVote, 'topic':filterTopic}), function(data) {
-		$('#insightList').html(data);
-	});
+	return {'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote, 'topic':filterTopic};
 }
 
 // Execute scripts after the document creation
@@ -952,25 +973,19 @@ $(document).ready(function() {
     $("#filterCategory").selectbox();
 	
 	$("#filterCategory").change(function() {
-		reloadInsights();
+		loadInsights();
 		return false;
 	});
 	$('input[name=VoteGroup]').change(function() {
-		reloadInsights();
+		loadInsights();
 		return false;
 	});
 	$('input[name=SortByGroup]').change(function() {
-		reloadInsights();
+		loadInsights();
 		return false;
 	});
 	$("#moreInsights").click( function() {
-		var sortBy = $('input[name=SortByGroup]:checked').val(); 
-		var cat = $('#filterCategory').val();
-		var filterVote = $('input[name=VoteGroup]:checked').val(); 
-		$.get( moreInsightsAction({'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote, 'topic':filterTopic}), function(content) {
-    		$("#insightList").append(content);
-    		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
-    	});
+		loadMoreInsights();
 	    return false;
 	});
 	
