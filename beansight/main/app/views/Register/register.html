@@ -96,10 +96,6 @@
 	    #{form @Register.twitAuthenticate(), id:'registerFormTwitter'}
 	        <h2 class="cuf-grb">&{'register.twitterTitle'}</h2>
 	
-	        <div class="item-checkbox">
-	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
-	        </div>
-	        
 	        #{if (promocode==null || promocode.trim().equals(""))}
 	        <label for="s_username">&{'promocode'}</label>
 	        <div class="item-input">
@@ -110,6 +106,10 @@
 			#{else}
 				<input type="hidden" name="promocode" id="promocode" value="${promocode}" />
 			#{/else}
+	        
+	      	<div class="item-checkbox">
+	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
+	        </div>
 	        
 	        <div>
 	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->

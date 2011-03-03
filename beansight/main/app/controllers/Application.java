@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import models.Category;
 import models.Comment;
 import models.Filter;
+import models.Filter.FilterType;
 import models.FollowNotificationTask;
 import models.Insight;
 import models.Insight.InsightResult;
@@ -172,52 +173,11 @@ public class Application extends Controller {
 	}
 
 	public static void insights(String sortBy, long cat, String filterVote) {
-		Filter filter = new Filter();
-		
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
-		filter.filterVote = filterVote;
 		
-		Category category = Category.findById(cat);
-		if(category != null) {
-			filter.categories.add(category);
-		}
-
-		filter.languages = new HashSet<Language>();
-		if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
-			User currentUser = CurrentUser.getCurrentUser();
-			filter.user = currentUser;
-			filter.languages.add(currentUser.writtingLanguage);
-			if(currentUser.secondWrittingLanguage != null) {
-				filter.languages.add(currentUser.secondWrittingLanguage);
-			}
-		} else { // else, get the insights in the language of the browser
-			String lang = Lang.get();
-			// if no language, then english
-			if( lang == null || lang.equals("") ) { lang = "en"; }
-			filter.languages.add( Language.findByLabelOrCreate(lang) );
-		}
-
-		InsightResult result;
-		
-		// depending on the sortBy
-		if(sortBy != null && sortBy.equals("updated")) {
-			// If connected, get suggested insights
-			if (Security.isConnected()) {
-				User currentUser = CurrentUser.getCurrentUser();
-				result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-			} else {
-				result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-			}
-		} else if (sortBy != null && sortBy.equals("trending")) {
-			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-		} else if (sortBy != null && sortBy.equals("incoming")) {
-			result = Insight.findIncoming(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-		} else { 
-			// default is incoming
-			result = Insight.findIncoming(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-		}
+		InsightResult result = filterInsightsList(sortBy, cat, filterVote);
 		
 		// log for analytics
 		if (Security.isConnected()) {
@@ -242,15 +202,32 @@ public class Application extends Controller {
 			renderArgs.put("notVoted", "checked");
 		}
 		
-		render(sortBy, category);
+		render(sortBy);
 	}
 
 	public static void insightsFilter(String sortBy, long cat, String filterVote) {
-		Filter filter = new Filter();
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
 		
+		InsightResult result = filterInsightsList(sortBy, cat, filterVote);
+		
+		// log for analytics
+		if (Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
+		}
+
+		renderArgs.put("_insights", result.results);
+		renderArgs.put("count", result.count);
+		
+		renderTemplate("tags/listInsights.tag");
+	}
+
+	private static InsightResult filterInsightsList(String sortBy, long cat,
+			String filterVote) {
+		
+		Filter filter = new Filter();
 		filter.filterVote = filterVote;
 		
 		Category category = Category.findById(cat);
@@ -277,6 +254,7 @@ public class Application extends Controller {
 		
 		// depending on the sortBy
 		if(sortBy != null && sortBy.equals("updated")) {
+			filter.filterType = FilterType.UPDATED;
 			// If connected, get suggested insights
 			if (Security.isConnected()) {
 				User currentUser = CurrentUser.getCurrentUser();
@@ -285,24 +263,17 @@ public class Application extends Controller {
 				result = Insight.findLatest(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 			}
 		} else if (sortBy != null && sortBy.equals("trending")) {
+			filter.filterType = FilterType.TRENDY;
 			result = Insight.findTrending(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		} else if (sortBy != null && sortBy.equals("incoming")) {
+			filter.filterType = FilterType.INCOMING;
 			result = Insight.findIncoming(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		} else { 
 			// default is incoming
+			filter.filterType = FilterType.INCOMING;
 			result = Insight.findIncoming(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 		}
-		
-		// log for analytics
-		if (Security.isConnected()) {
-			User currentUser = CurrentUser.getCurrentUser();
-			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
-		}
-
-		renderArgs.put("_insights", result.results);
-		renderArgs.put("count", result.count);
-		
-		renderTemplate("tags/listInsights.tag");
+		return result;
 	}
 	
 	/**
@@ -312,43 +283,11 @@ public class Application extends Controller {
 	 * @param cat
 	 */
 	public static void moreInsights(int from, String sortBy, long cat, String filterVote) {
-		Category category = Category.findById(cat);
-		
-		Filter filter = new Filter();
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
-		filter.filterVote = filterVote;
 		
-		if(category != null) {
-			filter.categories.add(category);
-		}
-		
-		// TODO duplicated code from "insights" action.
-		filter.languages = new HashSet<Language>();
-		if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
-			User currentUser = CurrentUser.getCurrentUser();
-			filter.user = currentUser;
-			filter.languages.add(currentUser.writtingLanguage);
-			if(currentUser.secondWrittingLanguage != null) {
-				filter.languages.add(currentUser.secondWrittingLanguage);
-			}
-		} else { // else, get the insights in the language of the browser
-			String lang = Lang.get();
-			// if no language, then english
-			if( lang == null || lang.equals("") ) { lang = "en"; }
-			filter.languages.add( Language.findByLabelOrCreate(lang) );
-		}
-		
-		InsightResult result = null;
-		
-		if(sortBy != null && sortBy.equals("updated")) {
-			result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-		} else if(sortBy != null && sortBy.equals("trending")) {
-			result = Insight.findTrending(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-		} else if(sortBy != null && sortBy.equals("incoming")) {
-			result = Insight.findIncoming(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
-		}
+		InsightResult result = filterInsightsList(sortBy, cat, filterVote);
 		
 		renderArgs.put("insights", result.results);
 		render();

@@ -14,6 +14,7 @@ public class Filter  {
 	public Set<Category> 	categories;
 	public Set<Tag>		tags;
 	public Set<Language> 	languages;
+	public FilterType filterType = FilterType.INCOMING;
 	public String filterVote;
 	public User user;
 	
@@ -35,7 +36,7 @@ public class Filter  {
 	 * 
 	 * I'm sorry, this is ugly but blame SQL.
 	 */
-	public String generateJPAQueryWhereClause(FilterType filterType) {
+	public String generateJPAQueryWhereClause() {
         String categoryIds = Category.listToIdString(this.categories);
         String languageIds = Language.listToIdString(this.languages);
 		String whereQuery= "";

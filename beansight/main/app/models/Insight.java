@@ -609,7 +609,7 @@ public class Insight extends Model {
 	 */
 	public static InsightResult findLatest(int from, int number, Filter filter) {
         String query = "select i from Insight i where i.hidden is false "
-				        + filter.generateJPAQueryWhereClause(FilterType.UPDATED)
+				        + filter.generateJPAQueryWhereClause()
 						+ " order by lastUpdated DESC";
 
 		InsightResult result = new InsightResult();
@@ -636,7 +636,7 @@ public class Insight extends Model {
 						+ "join v.insight i "
 						+ "where i.hidden is false "
 						+ "and v.creationDate > ? " // Of course, do not check the status of the vote.
-						+ filter.generateJPAQueryWhereClause(FilterType.TRENDY)
+						+ filter.generateJPAQueryWhereClause()
 						+ "group by v.insight.id "
 						+ "order by count(v) desc";
 		List<Long> insightIds = Insight.find(query, new DateTime().minusHours(48).toDate() ).from(from).fetch(length);
@@ -655,7 +655,7 @@ public class Insight extends Model {
 	public static InsightResult findIncoming(int from, int number, Filter filter) {
         String query = "select i from Insight i where i.hidden is false " +
         		"and endDate >= :currentDate " +
-        		filter.generateJPAQueryWhereClause(FilterType.INCOMING) +
+        		filter.generateJPAQueryWhereClause() +
         		"order by endDate ASC";
 
 		InsightResult result = new InsightResult();
