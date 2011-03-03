@@ -608,18 +608,20 @@ public class Insight extends Model {
 	 * @param number : number of items to return
 	 */
 	public static InsightResult findLatest(int from, int number, Filter filter) {
-        String query = "select i from Insight i "
+        String query = "select i.id from Insight i "
         				+ "join i.tags t "
         				+ "where i.hidden is false "
 				        + filter.generateJPAQueryWhereClause()
-						+ " order by lastUpdated DESC";
+				        + " group by i.id "
+				        + " order by i.lastUpdated DESC";
+
+        List<Long> insightIds = Insight.find(query).from(from).fetch(number);
 
 		InsightResult result = new InsightResult();
-		// TODO : return total number using count ?
-		// result.count = Insight.count(query);
-
-		result.results = Insight.find(query).from(from).fetch(number);
-
+    	if(!insightIds.isEmpty()) {
+    		result.results = Insight.find("select i from Insight i where i.id in (:idList) order by i.lastUpdated DESC").bind("idList", insightIds).fetch();
+    	}
+		
 		return result;
 	}
 	
@@ -631,8 +633,6 @@ public class Insight extends Model {
 	 * @return
 	 */
 	public static InsightResult findTrending(int from, int length, Filter filter) {
-		InsightResult result = new InsightResult();
-
 		// First select the ids.
 		String query = "select v.insight.id from Vote v "
 						+ "join v.insight i "
@@ -644,10 +644,11 @@ public class Insight extends Model {
 						+ "order by count(v) desc";
 		List<Long> insightIds = Insight.find(query, new DateTime().minusHours(48).toDate() ).from(from).fetch(length);
 		
-		// Then get the insights
-		if(!insightIds.isEmpty()) {
-			result.results = Insight.find("select i from Insight i where i.id in (:listparam)").bind("listparam", insightIds).fetch();
-		}
+		InsightResult result = new InsightResult();
+    	if(!insightIds.isEmpty()) {
+    		result.results = Insight.find("select i from Insight i where i.id in (:idList)").bind("idList", insightIds).fetch();
+    	}
+
 		return result;
 	}
 	
@@ -656,19 +657,21 @@ public class Insight extends Model {
 	 * @param number : number of items to return
 	 */
 	public static InsightResult findIncoming(int from, int number, Filter filter) {
-        String query = "select i from Insight i "
+        String query = "select i.id from Insight i "
 		        		+ "join i.tags t "
 		        		+ "where i.hidden is false "
 		        		+ "and endDate >= :currentDate "
 		        		+ filter.generateJPAQueryWhereClause()
+		        		+ "group by i.id "
 		        		+ "order by endDate ASC";
 
+		List<Long> insightIds = Insight.find(query).bind("currentDate", new DateMidnight().toDateTime().minusMinutes(1).toDate()).from(from).fetch(number);
+
 		InsightResult result = new InsightResult();
-		// TODO : return total number using count ?
-		// result.count = Insight.count(query);
-
-		result.results = Insight.find(query).bind("currentDate", new DateMidnight().toDateTime().minusMinutes(1).toDate()).from(from).fetch(number);
-
+    	if(!insightIds.isEmpty()) {
+    		result.results = Insight.find("select i from Insight i where i.id in (:idList) order by endDate ASC").bind("idList", insightIds).fetch();
+    	}
+		
 		return result;
 	}
 
