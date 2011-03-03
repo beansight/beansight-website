@@ -43,7 +43,7 @@
 	var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
 	var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
 	var loadFollowedUsersBlockAction = #{jsAction @Application.loadFollowedUsers(':userId') /};
-	var getInsightsAction = #{jsAction @Application.getInsights(':from',':sortBy', ':cat', ':filterVote') /};
+	var getInsightsAction = #{jsAction @Application.getInsights(':from',':sortBy', ':cat', ':filterVote', ':topic') /};
 	var searchExpertsAction = #{jsAction @Application.searchExperts() /};
 	var moreSearchAction = #{jsAction @Application.moreSearch() /};
 	var inviteAction = #{jsAction @Application.invite() /};
