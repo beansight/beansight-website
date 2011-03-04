@@ -32,6 +32,7 @@ import models.Vote.State;
 import models.WaitingEmail;
 import models.analytics.UserClientInfo;
 
+import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
@@ -328,10 +329,13 @@ public class Application extends Controller {
 			create(insightContent, endDate, tagLabelList, categoryId, lang, vote);
 		}
 
+		// force the date to end at midnight of the selected day
+		Date midnightDate = new DateMidnight(endDate).plusDays(1).toDateTime().minusMinutes(1).toDate();
+		
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = null;
 		try {
-			insight = currentUser.createInsight(insightContent, endDate, tagLabelList, categoryId, lang, voteState);
+			insight = currentUser.createInsight(insightContent, midnightDate, tagLabelList, categoryId, lang, voteState);
 		} catch (Throwable t) {
 			flash.error("Error creating the prediction: " + t.getMessage());
 			create(insightContent, endDate, tagLabelList, categoryId, lang, vote);
