@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -97,13 +98,13 @@ public class User extends Model {
     public String description;
 	
 	/** Language the user wants his UI to be displayed in */
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	public Language uiLanguage;
 	/** Main language of this user: insights of this language are displayed in the timeline and when he creates an insight, this one is by default */
-    @ManyToOne  
+    @ManyToOne(fetch=FetchType.LAZY)
 	public Language writtingLanguage;
 	/** second language of this user (null if none): insights in this language will also be displayed in his timeline */
-    @ManyToOne  
+    @ManyToOne(fetch=FetchType.LAZY)
 	public Language secondWrittingLanguage;
     
 	/** How many invitations this user can send, -1 for infinity*/
@@ -294,6 +295,12 @@ public class User extends Model {
 	 * @return
 	 */
 	public static User findByUserName(String userName) {
+//		User user = Cache.get(userName, User.class);
+//		if (user == null) {
+//			user = find("userName = ?", userName).first();
+//			Cache.set(userName, user, "2s");
+//		}
+//		return user;
 		return find("userName = ?", userName).first();
 	}
 
@@ -304,6 +311,12 @@ public class User extends Model {
 	 * @return
 	 */
 	public static User findByEmail(String email) {
+//		User user = Cache.get(email, User.class);
+//		if (user == null) {
+//			user = find("email = ?", email).first();
+//			Cache.set(email, user, "2s");
+//		}
+//		return user;
 		return find("email = ?", email).first();
 	}
 	   
@@ -314,7 +327,13 @@ public class User extends Model {
      * @return
      */
     public static User findByTwitterUserId(String twitterUserId) {
-        return find("twitterUserId = ?", twitterUserId).first();
+//		User user = Cache.get(twitterUserId, User.class);
+//		if (user == null) {
+//			user = find("twitterUserId = ?", twitterUserId).first();
+//			Cache.set(twitterUserId, user, "2s");
+//		}
+//		return user;
+    	return find("twitterUserId = ?", twitterUserId).first();
     }
 	
     /**
@@ -324,7 +343,13 @@ public class User extends Model {
      * @return
      */
     public static User findByFacebookUserId(Long facebookUserId) {
-        return find("facebookUserId = ?", facebookUserId).first();
+//		User user = Cache.get(facebookUserId.toString(), User.class);
+//		if (user == null) {
+//			user = find("facebookUserId = ?", facebookUserId).first();
+//			Cache.set(facebookUserId.toString(), user, "2s");
+//		}
+//		return user;
+    	return find("facebookUserId = ?", facebookUserId).first();
     }
     
 
@@ -456,7 +481,9 @@ public class User extends Model {
 	 * @return
 	 */
 	public boolean isFollowingInsight(Insight insight) {
-		if (followedInsights.contains(insight)) {
+		Long count = Insight.find("select count(i) from Insight i join i.followers u where u=:user and i=:insight").bind("user", this).bind("insight", insight).first();
+//		if (followedInsights.contains(insight)) {
+		if (count > 0) {
 			return true;
 		}
 		return false;
@@ -518,7 +545,9 @@ public class User extends Model {
 	 *            to check
 	 */
 	public boolean isFollowingUser(User user) {
-		if (followedUsers.contains(user)) {
+		Long count = find("select count(u) from User u join u.followers f where u=:user and f=:followed").bind("user", this).bind("followed", user).first();
+		if (count > 0) {
+//		if (followedUsers.contains(user)) {
 			return true;
 		}
 		return false;

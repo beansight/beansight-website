@@ -124,7 +124,12 @@ public class Register extends Controller {
 		
 		if(Security.isConnected()) {
 			Promocode code = Promocode.findbyCode(promocode);
-			if(code != null && (!(code.nbUsageLeft > 0) || !(code.endDate.after(new Date())) )) {
+			if(code == null) {
+				validation.addError("promocode", Messages.get("registernotexistpromocode", promocode));
+				promocode = "";
+			}
+			
+			if(code != null && (!(code.nbUsageLeft > 0) || !(code.endDate.after(new Date()))) ) {
 				validation.addError("promocode", Messages.get("registernotvalidpromocode"));
 			}
 			

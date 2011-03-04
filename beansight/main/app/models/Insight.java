@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -46,7 +47,7 @@ public class Insight extends Model {
 	@Index(name = "INSIGHT_UNIQUE_ID_IXD")
 	public String uniqueId;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@Required
 	public User creator;
 
@@ -69,7 +70,7 @@ public class Insight extends Model {
 	public String content;
 
 	/** the language of the content of this insight */
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	public Language lang;
 	
 	/** Every vote of the current insight */
@@ -81,7 +82,7 @@ public class Insight extends Model {
 	@Field
 	public List<Tag> tags;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@Field
 	@Required
 	/** Category of this insight */

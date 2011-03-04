@@ -223,6 +223,7 @@ register=Sign up
 passwordconfirm=Confirm password
 promocode=Access code
 registernotvalidpromocode=Not a valid code
+registernotexistpromocode=Code %s doesn't exist
 registeremailexist=This email already exists
 registerusernameexist=This name already exists
 register.form.accept.start=By clicking I accept the 

@@ -64,7 +64,7 @@ public class Settings extends Controller {
 			try {
 				
 				if (ImageIO.read(originalImage) == null) {
-					flash.error(Messages.get("settings.imageInvalidFormat")); // TODO: internationalize text
+					flash.error(Messages.get("settings.imageInvalidFormat")); 
 					originalImage.delete();
 				} else {
 					// check the image size 
@@ -74,7 +74,7 @@ public class Settings extends Controller {
 					}
 				}
 			} catch (IOException e1) {
-				flash.error(Messages.get("settings.imageInvalidFormat")); // TODO: internationalize text
+				flash.error(Messages.get("settings.imageInvalidFormat")); 
 				originalImage.delete();
 			}
 		}

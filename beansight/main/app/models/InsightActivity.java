@@ -23,10 +23,10 @@ public class InsightActivity extends Model {
 	public boolean notEmpty;
 	
 	/** user concerned by this activity */
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	public User user;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	public Insight insight;
 	
 	/**since the creation date, how many times users changed their vote ? */

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import play.db.jpa.Model;
@@ -23,10 +24,10 @@ public class Vote extends Model {
 		ACTIVE            // 1
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	public User user;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	public Insight insight;
 
 	/** the date this vote has been made */

@@ -1,4 +1,4 @@
-package controllers;
+ package controllers;
 
 import helpers.ImageHelper;
 
@@ -77,7 +77,7 @@ public class Application extends Controller {
     /**
      * Make sure the language is the one the user has chosen.
      */
-	@Before(unless={"welcome", "leaveYourEmail", "showInsight"})
+	@Before(unless={"welcome", "leaveYourEmail", "showInsight", "shareInsight"})
     static void setLanguage() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -89,7 +89,7 @@ public class Application extends Controller {
     /**
      * If the user is connected, load the needed info into the menu
      */
-    @Before(unless={"insightsFilter"})
+    @Before(unless={"insightsFilter", "moreInsights", "leaveYourEmail", "shareInsight", "agree", "disagree", "loadFollowedUsers", "toggleFollowingUser", "toggleFollowingInsight", "searchExperts", "showAvatarSmall", "showAvatarMedium", "showAvatarLarge"})
     public static void loadMenuData() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -351,7 +351,6 @@ public class Application extends Controller {
 	 */
 	public static void agree(String insightUniqueId) {
 		vote(insightUniqueId, State.AGREE);
-		
 	}
 
 	/**

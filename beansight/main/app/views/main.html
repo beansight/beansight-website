@@ -4,8 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>#{get 'title' /} - Beansight</title>
 
-    <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/style.css'}" />
-	<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css'}">
+    <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/style.css' /}" />
+	<link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css' /}">
 	#{get 'moreStyles' /}  
 	         
 	<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.ico'}">
@@ -21,19 +21,19 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="@{'/public/javascripts/jquery.validate.min.js'}" type="text/javascript"></script>
-    <script src="@{'/public/javascripts/jquery.hotkeys.js'}" type="text/javascript"></script>	
-	<script src="@{'/public/javascripts/jquery.extend.js'}" type="text/javascript"></script>
-	<script src="@{'/public/javascripts/jquery.selectbox-0.6.1.js'}" type="text/javascript"></script>
+	<script src="#{beansight.resource name:'/public/javascripts/jquery.validate.min.js' /}" type="text/javascript"></script>
+    <script src="#{beansight.resource name:'/public/javascripts/jquery.hotkeys.js' /}" type="text/javascript"></script>	
+	<script src="#{beansight.resource name:'/public/javascripts/jquery.extend.js' /}" type="text/javascript"></script>
+	<script src="#{beansight.resource name:'/public/javascripts/jquery.selectbox-0.6.1.js' /}" type="text/javascript"></script>
 	
-	<script src="@{'/public/javascripts/cufon-yui.js'}" type="text/javascript"></script>
-	<script src="@{'/public/javascripts/got-rnd-book_325.font.js'}" type="text/javascript"></script>
-	<script src="@{'/public/javascripts/got-rnd-med_350.font.js'}" type="text/javascript"></script>
-	<script src="@{'/public/javascripts/got-rnd-bold_400.font.js'}" type="text/javascript"></script>
+	<script src="#{beansight.resource name:'/public/javascripts/cufon-yui.js' /}" type="text/javascript"></script>
+	<script src="#{beansight.resource name:'/public/javascripts/got-rnd-book_325.font.js' /}" type="text/javascript"></script>
+	<script src="#{beansight.resource name:'/public/javascripts/got-rnd-med_350.font.js' /}" type="text/javascript"></script>
+	<script src="#{beansight.resource name:'/public/javascripts/got-rnd-bold_400.font.js' /}" type="text/javascript"></script>
 
 	<!-- Beansight javascripts -->
 	<script src="/public/javascripts/i18n/&{'i18n'}.js" type="text/javascript" charset="utf-8"></script>
-	<script src="@{'/public/javascripts/beansight.js'}" type="text/javascript" charset="utf-8"></script>
+	<script src="#{beansight.resource name:'/public/javascripts/beansight.js' /}" type="text/javascript" charset="utf-8"></script>
 	#{get 'moreScripts' /}  
 	
 	<!-- define here the actions -->

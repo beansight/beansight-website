@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 import exceptions.CannotVoteForAnInsightYouOwnException;
 
 import models.Insight;
@@ -11,13 +13,27 @@ import play.mvc.Controller;
 public class CurrentUser extends Controller {
 
     public static User getCurrentUser() {
+    	if ( session.get("userId")!=null) {
+            User u = User.findById(new Long(session.get("userId")));
+            return u;
+        }
         if ( Boolean.parseBoolean(session.get("isTwitterUser")) ) {
-            return User.findByTwitterUserId(session.get("twitterUserId"));
+            User user = User.findByTwitterUserId(session.get("twitterUserId"));
+            session.put("userId", user.getId());
+            return user;
         }
         if ( Boolean.parseBoolean(session.get("isFacebookUser")) ) {
-            return User.findByFacebookUserId(new Long(session.get("facebookUserId")));
+        	User user = User.findByFacebookUserId(new Long(session.get("facebookUserId")));
+            session.put("userId", user.getId());
+            return user;
         }        
-        return User.find("byEmail", Security.connected()).first();    
+//        return User.find("byEmail", Security.connected()).first();
+        User user = User.findByEmail(Security.connected());
+        if (!session.contains("userId")) {
+        	session.put("userId", user.getId());
+        }
+        
+        return user;
     }
     
     public static String getCurrentUserName() {
