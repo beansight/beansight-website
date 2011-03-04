@@ -293,6 +293,68 @@ errorserver=Erreur
 errorservermessagetitle=Oups, une erreur est survenue
 errorservermessage=L'erreur a été enregistrée avec l'identifiant <strong>%s</strong>.
 
+# FAQ
+faq.title=Questions fréquemment posées (FAQ)
+faq.intro=Vous trouverez sur cette page des informations sur l’utilisation et le fonctionnement de Beansight. Les questions sont ordonnées suivant la vie d’une prédiction (de sa création aux points d’expertise). Vous trouverez également des informations sur les options de configuration de Beansight pour améliorer votre confort d’utilisation.
+
+faq.title.creation=Création
+faq.Q.creation.how=Comment puis-je créer une prédiction ?
+faq.A.creation.how=Il suffit de cliquer sur l’icone “Créer” dans le menu en haut à gauche. Vous pourrez alors remplir votre prédiction en veillant bien à indiquer une date d’échéance et une catégorie.
+faq.Q.creation.deadline=Pourquoi est-ce que la date d’échance est importante ?
+faq.A.creation.deadline=Chaque prédiction est associée à une date d’échéance. C’est la date à laquelle nous vérifieront si votre prédiction s’est réalisé ou non. Choisissez-la avec soin !
+faq.Q.creation.category=Pourquoi est-ce que la catégorie et les tags sont importants ?
+faq.A.creation.category=La catégorie et les tags vont permettre aux utilisateurs de trouver plus facilement votre prédiction pour la consulter et prendre position pour ou contre votre prédiction.
+
+faq.title.votes=Votes
+faq.Q.votes.how=Comment puis-je voter pour une prédiction ?
+faq.A.votes.how=Il vous suffit de cliquer sur le pouce vers le haut pour marquer votre aprobation ou sur le pouce vers le bas pour montrer votre désaccord avec une prédiction.
+faq.Q.votes.consequences=Quelles sont les conséquences de mon vote ?
+faq.A.votes.consequences=Votre vote nous permettra de déterminer si une prédiction possède une bonne probabilité de se réasiler. En outre, vous mettez en jeu votre crédibilité à chaque fois que vous prenez position. Vous pourrez prouver votre expertise en anticipant correctement les predictions qui se réaliseront. 
+faq.Q.votes.interesting=Comment puis-je trouver les prédictions qui m’intéressent ?
+faq.A.votes.interesting=Vous pouvez parcourir les prédictions en utilisant nos filtres (celles où vos avez déjà voté ou non, les prédictions d’une catégories définie...). Vous avez également la possiblité de trier les prédictions par date d’échéance ou par popularité. Si vous avez une recherche bien définie, nous vous proposons aussi un moteur de recherche (en haut à côté de notre logo). Si vous pensez que nos prédictions devraient être présentées de manière différentes, n’hésitez pas à nous contacter pour partager votre point de vue.
+faq.Q.votes.change=Que ce passe-t-il si je change d’avis sur une prédiction ?
+faq.A.votes.change=Beansight vous invite à changer votre vote sur une prédiction si vous sentez que le vent change. Cela peut vous permettre de perdre moins de points voire même d’en gagner si vous changez d’avis à temps.
+faq.Q.votes.follow=Comment puis-je être notifié de l’actualité d’une prédiction ?
+faq.A.votes.follow=Si vous souhaitez être tenu informé de l’actualité d’une prédiction (évolution, commentaire, validation...), nous vous proposons de l’ajouter dans vos favoris. Vous receverez alors les dernières nouvelles pour cette prédiction par e-mail.
+
+faq.title.validation=Validation
+faq.Q.validation.how=Comment sont validées les prédictions ?
+faq.A.validation.how=Comme les utilisateurs sont invités à changer d’avis sur les prédictions, plus on se rapproche de la date d’échéance, plus les votes seront fiables. La tendance de réalisation va donc converger vers la réalité. Notre algoritme va prendre en compte l’ensemble des votes pour valider de manière automatique chaque prédiction.
+faq.Q.validation.wrong=Et si jamais tout la majorité se plante ?
+faq.A.validation.wrong=Mmmh... Cela n’est pas très vraissemblable. Mais cela peut toujours arriver. Dans ce cas, les utilisateurs seront inviter à marquer la prediction pour qu’elle soit traitée par un community manager. Mais généralement la foule a raison.
+faq.Q.validation.votepast=Pourquoi est-il possible de voter pour des prédictions passées ?
+faq.A.validation.votepast=Oui, c’est possible ! Ces votes vont nous permettre de valider les predictions. Ils ne rentrent pas en compte dans le sytème d’attribution des points d’expertise.
+
+faq.title.expertise=Expertise
+faq.Q.expertise.how=Comment est caculée mon expertise ?
+faq.A.expertise.how=L’expertise est basée sur des scores calculés à chaque vote que vous faites. Vous pouvez gagner ou perdre des points en fonction de si vous aviez raison ou non. Nous attibuerons plus de points si : <ul> <li>vous conserver votre avis longtemps</li> <li>vous prenez position contre la tendance</li> <li>la prédction est populaire</li> </ul> Vous remarqueez que l’algorithme d’attribution des points est en beta (eh oui ! une beta dans la beta). Il risque donc d’évoluer et les scores peuvent être recalculés.
+faq.Q.expertise.display=Comment est affichée mon expertise ?
+faq.A.expertise.display=Nous affichons votre expertise par catégorie au moyen d’étoiles. L’utilisateur qui a anticipé le plus fiablement le futur dans une catégorie aura 5 étoiles. Ensuite nous comparons votre score à celui du premier du classement et on vous attribuera le nombre adéquat d’étoiles. Si vous voulez plus d’étoile, il faudra améliorer votre score d’expertise. Cela signifie que votre nombre d’étoile peut varier si le score du premier du classement varie. 
+faq.Q.expertise.getridof=Comment vous débarassez-vous des predictions trop évidentes ?
+faq.A.expertise.getridof=On ne le fait pas ! Chaque prédiction peut s’avérer intéressante... Mais n’espérez pas augmenter votre score d’expertise si tout le monde suit votre prédiction !
+faq.Q.expertise.creating=Est-ce que je gagne des points en créant une prédiction ?
+faq.A.expertise.creating=La création de prédiction ne fait pas gagner de points en soi. Mais vous pouvez voter sur vos propres prédictions pour gagner (ou perdre !) des points d’expertise.
+faq.Q.expertise.comments=Est-ce que mes commentaires sont pris en compte dans le score d’expertise ?
+faq.A.expertise.comments=Pas encore ! ;)
+
+faq.title.experts=Experts
+faq.Q.experts.how=Comment puis-je trouver les meilleurs experts ?
+faq.A.experts.how=Vous trouverez la liste des utilisateurs de Beansight dans le menu Experts. Pour l’instant, vous ne pouvez trouver les expert qu’en utilisant notre moteur de recherche (il vous faut donc connaitre leur nom). Par défaut, les experts sont classés par leur score d’expertise total.
+faq.Q.experts.follow=Quel est l’intérêt de suivre un expert ?
+faq.A.experts.follow=Suivre un expert vous permet de lui suggérer une prédiction. Vous pourrez ainsi augmenter vous chance d’avoir son avis. Nous pourrons aussi nous aider des vos experts favoris pour comprendre quels sont les predictions qui vous intéressent le plus. Pour suivre un expert cliquez sur l’étoile sous la photo de profile.
+
+faq.title.profile=Profil et paramètres
+faq.Q.profile.howpicture=Comment on fait pour avoir une beeeelle photo de profil ?
+faq.A.profile.howpicture=Vous pouvez modifier votre profil en cliquant sur votre nom en haut à droite. Vous êtes invité à ajouter une photo et une description. Ensuite, il ne tient qu’à vous de choisir la meilleure photo !
+faq.Q.profile.howlanguage=Comment puis-je choisir les options de langues ?
+faq.A.profile.howlanguage=Par défaut, nous utilisons la langue de votre navigateur. Vous pouvez la changer ou ajouter d’autres langues dans la page paramètres en haut à droite. Pour l’instant Beansight parle uniquement Français et Anglais.
+faq.Q.profile.twfb=Que signifie s’identifier via Twitter ou Facebook ?
+faq.A.profile.twfb=Quand vous vous enregistrez en utilisant Twitter ou Facebook, ce sont ces sites qui prennent en charge votre identification. Vous n’aurez pas besoin de retenir un mot de passe pour accéder à Beansight. Il vous suffira de cliquer “Log in avec Twitter” ou “Log in avec Facebook” pour revenir sur notre plateforme.
+faq.Q.profile.twlogin=Est-ce que je peux me loguer en utilisant Facebook ou Twitter si je me suis enregistré avec un mot de passe ?
+faq.A.profile.twlogin=Pour l’instant, si vous avez créé un compte Beansight traditionnel (en utilisant le formulaire et en choisissant un mot de passe), vous ne pouvez pas vous loguer en utilisant Twitter ou Facebook.<br>Il est possible que par la suite, nous proposions une solution pour associer votre compte Beansight avec vos comptes Twitter et Facebook.
+faq.Q.profile.invitations=Est-ce que je peux avoir des invitations pour mes amis ?
+faq.A.profile.invitations=Bien sur ! Nos premiers utilisateurs vont finir par recevoir des invitations. La seule chose que nous pouvons dire pour l’instant, c’est que nous donnerons la priorité à nos utilisteurs les plus actifs.
+
 
 ####################
 # E MAILs
@@ -334,5 +396,3 @@ email.contact.message=Message :
 # forgotPassword
 forgotPassword.receiveemail=Vous recevez ce message car vous ou quelqu'un d'autre a demandé un changement de mot de passe pour le compte associé à cette adresse sur beansight.com. Si vous ne voulez pas changer votre mot de passe, ignorez ce message. 
 forgotPassword.clickhere=Cliquez ici pour choisir un nouveau mot de passe sur beansight.com
-
-

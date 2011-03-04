@@ -25,6 +25,7 @@ GET     /contact                                Contact.contact
 GET		/legal/privacy-policy					Legal.privacyPolicy
 GET		/legal/terms-of-service					Legal.termsOfService
 GET     /welcome                                Application.welcome
+GET     /faq                                    Application.faq
 
 GET     /confirm/{hash}                         Register.confirm
 

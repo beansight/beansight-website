@@ -285,6 +285,69 @@ errorserver=Internal Error
 errorservermessagetitle=Oops, an error occure
 errorservermessage=This error has been logged with id <strong>%s</strong>.
 
+# FAQ
+faq.title=Frequently Asked Questions
+faq.intro=On this page, you’ll find information on how to use Beansight and on how Beansight works. This page is ordered following the lifespan of a prediction (from creation to expertise). You’ll also find information on how to set up Beansight to increase your comfort of use.
+
+faq.title.creation=Creation
+faq.Q.creation.how=How do I create a prediction?
+faq.A.creation.how=Just click on the create icon on the upper left menu. Then fill the prediction, the deadline the category and tags. And you’re done!
+faq.Q.creation.deadline=Why is the deadline important?
+faq.A.creation.deadline=Each prediction is associated to a deadline. It’s the point when we’ll see whether you’re prediction happened or not. Chose it carefully!
+faq.Q.creation.category=Why are the category and tags important?
+faq.A.creation.category=Category and tags will help us to sort your prediction so that other people may find it, read it and vote for or against it.
+
+faq.title.votes=Votes
+faq.Q.votes.how=How do I vote for a prediction?
+faq.A.votes.how=Just click on the thumb up to approve a prediction or on the thumb down if you disagree on a prediction.
+faq.Q.votes.consequences=What are the consequences of a vote?
+faq.A.votes.consequences=Your vote will help us to determine whether this prediction is likely to happen. Beside for each vote you make, you engage your credibility. You can prove your expertise by showing skills in determining which predictions will happen. 
+faq.Q.votes.interesting=How do I find interesting predictions?
+faq.A.votes.interesting=You can browse prediction by using our filters (voted or not and by category). You can also sort them by their last activity or by popularity. If you’re looking to a specific prediction you can use our search engine. If you think we should sort them differently, please contact us.
+faq.Q.votes.change=What if I changed my mind on a prediction?
+faq.A.votes.change=Beansight invites you to change your position if you change your mind. If you change from wrong to right you’ll lose less points. You can even earn points if your change comes soon enough.
+faq.Q.votes.follow=How can I follow the trends of a prediction?
+faq.A.votes.follow=If you want to be notified about changes on a prediction you can add it to your favorites by clicking on the star. You’ll receive e-mails for new comments to keep up with the trend.
+
+faq.title.validation=Validation
+faq.Q.validation.how=How are predictions validated?
+faq.A.validation.how=Since users are welcome to change their mind (what?), the closer we are to the deadline the more reliable votes will be. The trend will therefore converge to the right position in the end. Our algorithm will take every positions into account so that all prediction will be automatically validated.
+faq.Q.validation.wrong=What if everybody is wrong?
+faq.A.validation.wrong=Mmmh... That’s very unlikely. But it might happen. In this case, users will be invited to flag the prediction in order to raise a community manager’s attention. But usually the crowd is right.
+faq.Q.validation.votepast=How come can I vote for past predictions?
+faq.A.validation.votepast=Yes, you can! These votes will help us to validate the prediction (what?). They aren’t for scoring. No expertise point (what?) is given for these votes.
+
+faq.title.expertise=Expertise
+faq.Q.expertise.how=How is my expertise calculated?
+faq.A.expertise.how=Expertise is based on scores computed for each position you take. You can earn points if you’re right or lose point if you’re wrong. More points will be attributed if <ul><li>you keep your position longer (what?)</li><li>you take a position against the trend</li><li>the prediction is popular</li></ul>Please note that the algorithm is even more beta than the rest of the site. It can still change and your score might be recomputed.
+faq.Q.expertise.display=How is my expertise displayed?
+faq.A.expertise.display=Your skills are shown thanks to expertise stars attributed by categories. The top performer on a specific category is given 5 stars. Then we compare your score with the score of the top performer and give you the deserved stars. If you want more stars, you’ll have to increase you expertise score. (what?)<br/>This said, it also means that your number of stars could vary if the top performer’s score varies. 
+faq.Q.expertise.getridof=How to get rid of obvious predictions?
+faq.A.expertise.getridof=We don’t. Every prediction might be interesting. But don’t expect to earn expertise points (what?) if everybody agrees with you!
+faq.Q.expertise.creating=Do I earn expertise points for creating a prediction?
+faq.A.expertise.creating=You don’t earn point for creating a prediction. But you’ll earn (or lose!) points by taking position. Of course, you can vote for your own prediction.
+faq.Q.expertise.comments=Are my comments taken into account for my expertise score?
+faq.A.expertise.comments=Not yet! ;)
+
+faq.title.experts=Experts
+faq.Q.experts.how=How do I find the experts?
+faq.A.experts.how=You’ll find the list of Beansight users on the Experts menu. At this point, you can only look for experts by using the search engine (therefore you need to know their names). By default, experts are ranked by their global expertise score.
+faq.Q.experts.follow=What’s the point of following an expert?
+faq.A.experts.follow=Following experts enables you to suggest them predictions. It can also help us to chose which predictions you might be interested in. You can follow someone by clicking on the star under their profile picture.
+
+faq.title.profile=Profile and settings
+faq.Q.profile.howpicture=How can I have a neat profile picture?
+faq.A.profile.howpicture=You can edit your profile by clicking on your name on the upper right corner of each page. You’re invited to add a profile picture and a description. Then, it’s all on you to upload the best profile pic!
+faq.Q.profile.howlanguage=How can I set up my languages?
+faq.A.profile.howlanguage=By default, we use the language of your browser. You may change it or add additional languages on the setting page (just under your name on the upper right corner). At this point, Beansight can only speak English and French.
+faq.Q.profile.twfb=What does Log in with Twitter or Facebook mean?
+faq.A.profile.twfb=When you log into Beansight using Twitter or Facebook, these websites will handle your authentication. You will not have to remember a password to access Beansight. Just continue clicking on “Log in with Twitter” or “Log in with Facebook” in the future to access Beansight.
+faq.Q.profile.twlogin=Can I login with Twitter or Facebook if I usually log in using a password?
+faq.A.profile.twlogin=For now, If you created a traditional Beansight account (using the sign up form and choosing a password), you cannot log in on the same account using Twitter or Facebook. In the future, we may provide a way to associate an existing Beansight account with a Twitter or Facebook account.
+faq.Q.profile.invitations=Can I have invitations for my friends?
+faq.A.profile.invitations=Sure! Our early adopters will receive invits sooner or later. The only thing we can say so far is that our most active users will have the priority.
+
+
 ####################
 # E MAILs
 ####################
@@ -324,5 +387,4 @@ email.contact.message=Message :
 # forgotPassword
 forgotPassword.receiveemail=You received this message because you or someone else requested a new password for this e-mail. If you do not want to change your password, just ignore this message.
 forgotPassword.clickhere=Click here to choose a new password on beansight.com
-
 

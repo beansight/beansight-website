@@ -874,4 +874,8 @@ public class Application extends Controller {
 		renderTemplate("Legal/termsOfUse.html");
 	}
 	
+	public static void FAQ() {
+		render();
+	}
+	
 }
