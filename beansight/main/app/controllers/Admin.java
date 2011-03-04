@@ -39,6 +39,17 @@ public class Admin extends Controller {
 	public static void rebuildAllIndexes() {
 		try {
 			Search.rebuildAllIndexes();
+			int page = 1;
+			List<Insight> insights = null;
+			insights = Insight.find("hidden is true").fetch(page, 50);
+			while(!insights.isEmpty())  {
+				for (Insight insight : insights) {
+					Search.unIndex(insight);
+				}
+				page++;
+				insights = Insight.find("hidden is true").fetch(page, 50);
+			} 
+			
 		} catch (Exception e) {
 			renderText(e.getMessage());
 		}
@@ -67,6 +78,7 @@ public class Admin extends Controller {
 		Insight insight = Insight.findById(insightId);
 		insight.hidden = true;
 		insight.save();
+		Search.unIndex(insight);
 		renderText("Insight deleted");
 	}
 	
