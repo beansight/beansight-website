@@ -1,5 +1,6 @@
 #{if _invitationsLeft != 0}
-<div id="invite">
+<h2 class="greenme paddingme"><span class="cuf-grb">&{'invitations.invitesomeonetitle'}</span></h2>
+<div id="invite" class="invite">
     <p>&{'invitesomeone'}</p> #{if _invitationsLeft != -1}<p>&{'invitationsleft', _invitationsLeft}</p>#{/if}
     <form id="inviteForm">
         <input type="email" name="email" id="emailInvite" placeholder="&{'inviteemailplaceholder'}"/>

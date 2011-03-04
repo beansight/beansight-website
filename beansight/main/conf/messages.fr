@@ -35,8 +35,9 @@ favorites=Favoris
 exploremore=Explorer plus...
 activityreset=Vider le flux d'activité
 noInsightActivity=Pas d'activité récente
-invitesomeone=Inviter quelqu'un à rejoindre Beansight
-invitationsleft=Il vous reste %s invitations
+invitations.invitesomeonetitle=Invitations
+invitesomeone=Inviter quelqu'un à rejoindre Beansight :
+invitationsleft=Il vous reste <span class="invitationLeftNumber">%s</span> invitations
 inviteemailplaceholder=exemple@email.fr
 addmessage=Ajoutez un message
 invitesubmit=Envoyer

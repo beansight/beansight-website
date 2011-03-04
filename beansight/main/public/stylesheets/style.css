@@ -174,6 +174,8 @@ a:hover{color:#228392;}
 #content #sidebarleft .list-avatars .item-avatar .backavatar{float:left;width:26px;height:26px;background-color:#fff;border:solid #f4f4f4 1px;padding:1px;}
 #content #sidebarleft .list-avatars .item-avatar p{font-size:12px;color:#7aa13d;float:left;font-weight:bold;padding:9px 0 0 9px;}
 #content #sidebarleft .list-avatars .item-avatar:hover p{color:#5d7f2c;}
+/* invite someone */
+#content #sidebarleft .invite { color: #AAAEAF; font-size: 13px; }
 
 #contentcenter{float:left;}
 #contentcenter.mini{width:460px;}

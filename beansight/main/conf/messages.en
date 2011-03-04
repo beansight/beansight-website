@@ -27,8 +27,9 @@ favorites=Favorites
 exploremore=Explore more...
 activityreset=Clear activity feed.
 noInsightActivity=No recent activity
-invitesomeone=Invite someone to Beansight
-invitationsleft=You have %s invitations left
+invitations.invitesomeonetitle=Invitations
+invitesomeone=Invite someone to join Beansight:
+invitationsleft=You have <span class="invitationLeftNumber">%s</span> invitations left
 inviteemailplaceholder=example@email.com
 addmessage=Add a message
 invitesubmit=Send

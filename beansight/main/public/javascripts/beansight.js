@@ -565,15 +565,28 @@ $(document).ready(function() {
 	//////////////////////
     $('#emailInvite').focus(function() { $('#inviteMessage').slideDown('normal');});
     
-    $('#inviteForm').submit(function() {
-        $.getJSON(inviteAction(), $(this).serialize(), function() { 
-        	$('#inviteconfirm').slideDown('normal');
-        	$('#inviteTextArea').val('');
-        	$('#emailInvite').val('');
-            }
-        );
-        return false;
-    });
+	$("#inviteForm").validate({
+		submitHandler: function(form) {
+	        $.getJSON(inviteAction(), $("#inviteForm").serialize(), function() { 
+	        	$('#inviteconfirm').slideDown('normal');
+	        	$('#inviteTextArea').val('');
+	        	$('#emailInvite').val('');
+	        	var invitNumber = $('.invitationLeftNumber');
+	        	invitNumber.text( invitNumber.text() -1 );
+	        	if( invitNumber.text() == 0) {
+	        		$('#inviteForm').hide();
+	        	}
+	            }
+	        );
+	        return false;
+		},
+		rules: {
+			email : "required email"
+		},
+		messages: {
+			email: i18n.validateContactEmail
+		}
+	});
     
 	//////////////////////
 	// Leave your email
