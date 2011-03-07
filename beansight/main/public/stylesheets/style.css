@@ -333,25 +333,29 @@ a:hover{color:#228392;}
 #contentcenter .welcomeMessage{padding: 0 10px 0 10px; margin-top: 75px;}
 #contentcenter .welcomeText{margin: 0 40px 20px 40px; text-align:center;}
 
-#content #sidebarright{float:left;}
-#content #sidebarright a.signup{position:relative;display:block;width:250px;height:416px;background:url(/public/images/push-register2.png) no-repeat 0 0;}
-#content #sidebarright a.signup span{position:absolute;top:362px;left:45px;letter-spacing:-0.5px;display:block;font-size:16px;text-transform:uppercase;color:#228392;width:102px;height:29px;padding:8px 0 0 55px;background:url(/public/images/btn-register.png) no-repeat 0 0;}
+#content #sidebarright{float:left;position:relative;}
+#content #sidebarright a.signup{position:absolute;top:362px;left:45px;display:block;width:160px;height:37px;/*background:url(../images/push-register2.png) no-repeat 0 0;*/}
+#content #sidebarright a.signup span{letter-spacing:-0.5px;display:block;font-size:16px;text-transform:uppercase;color:#228392;width:102px;height:29px;padding:8px 0 0 55px;background:url(../images/btn-register.png) no-repeat 0 0;}
 #content #sidebarright a.signup:hover span{background-position:left bottom;}
 #content #sidebarright{float:left;width:230px;margin:0 0 0 3px;background-color:#fff;padding:10px;-moz-border-radius:5px;-webkit-border-radius:5px;border-bottom:solid #f1f1f1 1px;}
-#content #sidebarright.notlog{padding:0;background:none transparent;width:250px;border:0 none;}
+#content #sidebarright.notlog{padding:0px;background-color:transparent;-moz-border-radius:0px;-webkit-border-radius:0px;border-bottom:0 none;}
+#content #sidebarright.notlog .pushsignup{padding:8px 8px 8px 8px;background:none transparent;border:solid #e7e7e7 1px;width:232px;background-color:#fff;-moz-border-radius:5px;-webkit-border-radius:5px;}
+#content #sidebarright .linksignup{display:block;width:150px;height:29px;background:url(../images/btn-signup.png) no-repeat 0 0;color:#fff;text-transform:uppercase;margin-bottom:10px;padding:12px 0 0 100px;}
+#content #sidebarright .linksignup:hover{background-position:left bottom;}
 #content #sidebarright h2{width:228px;height:38px;color:#fff;border:solid #eef0f1 1px;margin:0 0 10px 0;}
-#content #sidebarright h2.azurme{background:url(/public/images/menu-degradbleu.png) repeat-x 0 0;}
+#content #sidebarright h2.azurme{background:url(../images/menu-degradbleu.png) repeat-x 0 0;}
 #content #sidebarright h2 span{display:block;width:218px;height:28px;padding:10px 0 0 10px;}
 #content #sidebarright h2.paddingme span{width:200px;padding-left:28px;}
-#content #sidebarright h2.tagsh2{background:url(/public/images/h2tags.png) no-repeat 0 0;}
+#content #sidebarright h2.tagsh2{background:url(../images/h2tags.png) no-repeat 0 0;}
 #content #sidebarright .listtags{list-style:none inside;margin:0;padding:0;}
 #content #sidebarright .listtags li{display:inline;float:left;margin:0 2px 0 0;padding:0;}
 #content #sidebarright .listtags li a{display:inline;color:#8b8f90;margin:0;padding:0;}
 #content #sidebarright .listtags li a:hover{color:#228392;}
 #content #sidebarright h2.tagsh2 span{width:208px;padding-left:20px;}
 
-.whatisbeansight{position:relative;display:block;width:250px;height:416px;background:url(/public/images/welcome-en.png) no-repeat 0 0;}
-.whatisbeansight.fr{background-image:url(/public/images/welcome-fr.png);}
+.whatisbeansight{position:relative;display:block;width:230px;height:372px;background:url(../images/push-notlog.png) no-repeat 0 0;border:solid #e7e7e7 1px;}
+.whatisbeansight.fr{background-image:url(../images/push-notlog-fr.png);}
+
 
 #content .bloccontent{float:left;background-color:#fff;-moz-border-radius:4px;-webkit-border-radius:4px;border-bottom:solid #f4f4f4 1px;padding:10px;width:560px;}
 #content .blocleft{width:230px;margin-right:20px;}
