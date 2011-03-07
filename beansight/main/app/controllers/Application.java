@@ -77,12 +77,22 @@ public class Application extends Controller {
     /**
      * Make sure the language is the one the user has chosen.
      */
-	@Before(unless={"welcome", "leaveYourEmail", "showInsight", "shareInsight"})
+	@Before
     static void setLanguage() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			Lang.change(currentUser.uiLanguage.label);			
         } 
+    }
+	
+	/**
+	 * Make sure the user is connected.
+	 */
+    @Before(unless={"welcome", "leaveYourEmail", "showInsight", "showAvatarSmallFromEmail", "showAvatarSmall", "FAQ"})
+    static void checkAuthentication() {
+    	if(!Security.isConnected()) {
+    		welcome();
+    	}    
     }
 
     // TODO : add all the ajax method here so that we don't load  data not useful during ajax call
@@ -111,13 +121,6 @@ public class Application extends Controller {
 			renderArgs.put("emailConfirmed", currentUser.emailConfirmed);
 			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);
         }    	
-    }
-    
-    @Before(unless={"welcome", "leaveYourEmail", "showInsight", "showAvatarSmallFromEmail", "showAvatarSmall"})
-    static void checkAuthentication() {
-    	if(!Security.isConnected()) {
-    		welcome();
-    	}    
     }
     
     public static void welcome() {
