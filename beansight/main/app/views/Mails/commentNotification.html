@@ -1,0 +1,11 @@
+<html><body>
+<p>&{'emailhellouser', task.commentNotificationMsg.toUser.userName}</p>
+*{<p>&{'forgotPassword.receiveemail'}</p>}*
+
+<p>${task.commentNotificationMsg.fromUser.userName} a commenté l'insight <a href="http://www.beansight.com@{Application.showInsight(task.commentNotificationMsg.insight.uniqueId)}">${task.commentNotificationMsg.insight.content}</a></p>
+<p>Message :</p>
+<p>${task.commentNotificationMsg.comment.content.escape().nl2br()}</p>
+
+
+<p>&{'emailsignature'}</p>
+</body></html>

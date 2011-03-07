@@ -1,5 +1,5 @@
 {
-    "description":"${user.description.escape().nl2br()}"
+    "description":"${user.description.escape().linkifyAll("style='font-style: italic;'").nl2br()}"
 #{if flash.error}
 ,
     "error":"${flash.error}"

@@ -71,7 +71,7 @@
 	        </form>
 	        </div>
         #{/if}
-        <p class="resume" id="userDesctiption">${user.description}</p>
+        <p class="resume" id="userDesctiption">${user.description.escape().linkifyAll("style='font-style: italic;'").nl2br()}</p>
         #{if currentUserProfilePage}
         #{if user.description == null || user.description.equals("")}
         <a href="" id="editDescription" class="edit">&{'showUser.addDescription'}</a>

@@ -7,8 +7,10 @@ import play.Logger;
 
 import java.util.*;
 
+import models.CommentNotificationMailTask;
 import models.ContactMailTask;
 import models.FollowNotificationTask;
+import models.Insight;
 import models.InvitationMailTask;
 import models.MailTask;
 import models.MessageMailTask;
@@ -67,4 +69,34 @@ public class Mails extends Mailer {
 
 		send(templateName, forgotPasswordId);
 	}
+	
+	public static void commentNotification(CommentNotificationMailTask task) {
+		task.attempt++;
+		task.save();
+		Logger.info("MailTask " + task.getClass().getSimpleName() + " to: " + task.sendTo);
+
+//		Insight insight = task.commentNotificationMsg.insight;
+		User commentWriter = task.commentNotificationMsg.fromUser;
+		User userToNotify = task.commentNotificationMsg.toUser;
+//		String content = task.commentNotificationMsg.comment.content;
+		
+		sendMailTask(task, Messages.get("newCommentNotification.subject", commentWriter.userName), "Mails/commentNotification");
+		
+//		sendNewCommentNotification(
+//				task.commentNotificationMsg.insight, 
+//				task.commentNotificationMsg.fromUser, 
+//				task.commentNotificationMsg.toUser, 
+//				task.commentNotificationMsg.comment.content);
+	}
+	
+//	private static void sendNewCommentNotification(Insight insight, User commentWriter, User userToNotify, String commentContent) {
+//		setSubject(Messages.get("newCommentNotification.subject", commentWriter.userName, userToNotify.userName));
+//		addRecipient(userToNotify.email);
+//		setFrom("notification@beansight.com");
+//		
+//		Lang.set(userToNotify.writtingLanguage.label);	
+//		
+//		send("Mails/commentNotification", insight, commentWriter, userToNotify, commentContent);
+//	}
+	
 }

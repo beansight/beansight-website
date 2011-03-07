@@ -15,6 +15,10 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 
+import jregex.MatchIterator;
+import jregex.MatchResult;
+import jregex.Pattern;
+
 import models.Category;
 import models.Comment;
 import models.Filter;
@@ -521,9 +525,20 @@ public class Application extends Controller {
     		return;
 	   	}
 		
-		User currentUser = CurrentUser.getCurrentUser();
+		User commentWriter = CurrentUser.getCurrentUser();
 		Insight insight = Insight.findByUniqueId(uniqueId);
-		Comment comment = insight.addComment(content, currentUser);
+		Comment comment = insight.addComment(content, commentWriter);
+		
+		Pattern pattern = new Pattern("(\\W*@([\\w]+))");
+		
+		MatchIterator it = pattern.matcher(content).findAll();
+		while (it.hasMore()) {
+			MatchResult matchResult = it.nextMatch();
+			User userToNotify = User.findByUserName(matchResult.group(2));
+			if (userToNotify != null) {
+				insight.notifyNewComment(commentWriter, userToNotify, comment);
+			}
+		}
 		
 		render(comment);
 	}

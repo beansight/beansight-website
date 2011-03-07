@@ -18,6 +18,7 @@ import javax.persistence.OrderBy;
 import models.Filter.FilterType;
 import models.Vote.State;
 import models.Vote.Status;
+import notifiers.Mails;
 
 import org.hibernate.annotations.Index;
 import org.joda.time.DateMidnight;
@@ -666,7 +667,7 @@ public class Insight extends Model {
 		        		+ "group by i.id "
 		        		+ "order by endDate ASC";
 
-		List<Long> insightIds = Insight.find(query).bind("currentDate", new DateMidnight().toDateTime().minusMinutes(1).toDate()).from(from).fetch(number);
+		List<Long> insightIds = Insight.find(query).bind("currentDate", new Date()).from(from).fetch(number);
 
 		InsightResult result = new InsightResult();
     	if(!insightIds.isEmpty()) {
@@ -780,6 +781,17 @@ public class Insight extends Model {
         	end = end.plusHours(period);
     	}
     }
+    
+    
+	public void notifyNewComment(User commentWriter, User userToNotify, Comment comment) {
+		CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, commentWriter, userToNotify, comment);
+		commentNotifMsg.save();
+		CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
+		commentNotifMailTask.language = userToNotify.writtingLanguage.label;
+		commentNotifMailTask.save();
+		Mails.commentNotification(commentNotifMailTask);
+	}
+    
     
 	public static class InsightResult {
 		/** The asked insights */

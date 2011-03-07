@@ -105,6 +105,7 @@ insights.filterVoted=Voted
 insights.filterNotVoted=Not voted
 insights.more=more
 insights.intopic=for topic 
+insights.comments=comment%s
 
 #showUser
 userinsights=User predictions
@@ -398,3 +399,14 @@ email.contact.message=Message :
 forgotPassword.receiveemail=You received this message because you or someone else requested a new password for this e-mail. If you do not want to change your password, just ignore this message.
 forgotPassword.clickhere=Click here to choose a new password on beansight.com
 
+in.today = Today
+#in.seconds = %s second%s
+#in.minutes = %s minute%s
+#in.hours   = %s hour%s
+in.days    = In %s day%s
+in.months  = In %s month%s
+in.years   = In %s year%s
+in.format  = MMM d, yyyy
+
+# new comment notification
+newCommentNotification.subject=%s as written an new comment for you

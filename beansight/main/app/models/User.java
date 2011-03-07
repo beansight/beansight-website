@@ -29,6 +29,7 @@ import models.analytics.UserInsightVisit;
 import models.analytics.UserListExpertsVisit;
 import models.analytics.UserListInsightsVisit;
 import models.analytics.UserPromocodeCampaign;
+import notifiers.Mails;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
@@ -249,7 +250,7 @@ public class User extends Model {
 	}
 
 	public static boolean isUsernameAvailable(String userName) {
-		if (User.count("byUserNameLike", userName.toLowerCase()) == 0) {
+		if (userName != null && !userName.trim().equals("") && User.count("byUserNameLike", userName.toLowerCase()) == 0) {
 			return true;
 		}
 		return false;
@@ -1020,5 +1021,5 @@ public class User extends Model {
     	}
     	return results;
 	}
-	
+
 }
