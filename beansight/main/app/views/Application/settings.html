@@ -43,6 +43,14 @@
             </ul>
         </div>
         
+        <div class="item-input">
+            <h3 class="label">&{'settings.newsletters'}</h3>
+            <ul class="settings-checklist">
+                <li class="checkitem"><input type="checkbox" name="upcomingNewsletter"   #{if user.upcomingNewsletter}checked#{/if}         id="upcomingNewsletter"> <label for="upcomingNewsletter"> &{'settings.upcomingNewsletter'}</label></li>
+                <li class="checkitem"><input type="checkbox" name="statusNewsletter"  #{if user.statusNewsletter}checked#{/if}         id="statusNewsletter">  <label for="statusNewsletter"> &{'settings.statusNewsletter'}</label></li>
+            </ul>
+        </div>
+        
         <div class="item-checkbox" style="float: left;">
             <a href="@{Application.changePassword()}">&{'settings.changePassword'}</a>
         </div>

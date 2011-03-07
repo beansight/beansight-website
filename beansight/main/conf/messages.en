@@ -168,6 +168,9 @@ settings.commentCreatedMail=comments on a prediction I created.
 settings.commentFavoriteMail=comments on a prediction I added in my favorites.
 settings.commentCommentMail=comments on a prediction I commented on.
 settings.commentMentionMail=mentioned me in a comment (using "@").
+settings.newsletters=Newsletters
+settings.statusNewsletter=receive a weekly email of the evolution of your predictions. 
+settings.upcomingNewsletter=receive an email every Monday of upcoming events.
 
 # change password
 changePassword.oldPassword=Current password

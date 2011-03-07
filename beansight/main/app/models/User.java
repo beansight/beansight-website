@@ -172,6 +172,12 @@ public class User extends Model {
 	/** Should this user receive a mail when another user mentions him in a comment */
 	public boolean commentMentionMail;
 	
+	/** Should this user receive a mail every week of upcoming events */
+	public boolean upcomingNewsletter;
+	/** Should this user receive a mail every week of prediction statuses */
+	public boolean statusNewsletter;
+	
+	
 	public User(String email, String userName, String password) {
 		if (!User.isUsernameAvailable(userName)) {
 			throw new RuntimeException(Messages.get("registerusernameexist"));

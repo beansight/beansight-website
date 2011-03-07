@@ -176,6 +176,9 @@ settings.commentCreatedMail=commente sur une prédiction que j'ai créée.
 settings.commentFavoriteMail=commente sur une prédiction que j'ai ajoutée en favoris.
 settings.commentCommentMail=répond à un commentaire que j'ai posté.
 settings.commentMentionMail=parle de moi dans un commentaire (en utilisant "@").
+settings.newsletters=Bulletins d'information
+settings.statusNewsletter=recevoir une fois par semaine un suivi de mes prédictions.
+settings.upcomingNewsletter=recevoir chaque lundi un résumé des évènements qui vont se produire dans la semaine à venir.
 
 # change password
 changePassword.oldPassword=Mot de passe actuel

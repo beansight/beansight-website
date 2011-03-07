@@ -573,7 +573,9 @@ public class Application extends Controller {
 			boolean commentCreatedMail,
 			boolean commentFavoriteMail,
 			boolean commentCommentMail,
-			boolean commentMentionMail) {
+			boolean commentMentionMail,
+			boolean upcomingNewsletter,
+			boolean statusNewsletter) {
 		User user = CurrentUser.getCurrentUser();
 		if(!username.equals(user.userName) && !User.isUsernameAvailable(username)) {
 			validation.addError("userName", Messages.get("registerusernameexist")); 
@@ -600,6 +602,8 @@ public class Application extends Controller {
 		user.commentFavoriteMail = commentFavoriteMail;
 		user.commentCommentMail = commentCommentMail;
 		user.commentMentionMail = commentMentionMail;
+		user.upcomingNewsletter = upcomingNewsletter;
+		user.statusNewsletter = statusNewsletter;
 		
 		user.save();
 		
