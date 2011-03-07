@@ -169,7 +169,13 @@ settings.writtingLanguages=Lire et écrire des prédictions dans ces langues :
 settings.languages.en=Anglais
 settings.languages.fr=Français
 settings.languages.none=---
-
+settings.mails=Recevoir un e-mail lorsqu'un utilisateur...
+settings.followMail=m'ajoute à ses favoris.
+settings.messageMail=m'envoi un message privé.
+settings.commentCreatedMail=commente sur une prédiction que j'ai créée.
+settings.commentFavoriteMail=commente sur une prédiction que j'ai ajoutée en favoris.
+settings.commentCommentMail=répond à un commentaire que j'ai posté.
+settings.commentMentionMail=parle de moi dans un commentaire (en utilisant "@").
 
 # change password
 changePassword.oldPassword=Mot de passe actuel

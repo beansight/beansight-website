@@ -563,7 +563,17 @@ public class Application extends Controller {
 	 * @param secondWrittingLanguage :  "none" if the user doesn't want to use another language
 	 * @param username
 	 */
-	public static void saveSettings(@Required String uiLanguage, @Required String firstWrittingLanguage, @Required String secondWrittingLanguage, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username) {
+	public static void saveSettings(
+			@Required String uiLanguage,
+			@Required String firstWrittingLanguage,
+			@Required String secondWrittingLanguage,
+			@Required @Match(value = "[a-zA-Z0-9_]{3,16}", message = "username has to be 3-16 chars, no space, no accent and no punctuation") String username,
+			boolean followMail,
+			boolean messageMail,
+			boolean commentCreatedMail,
+			boolean commentFavoriteMail,
+			boolean commentCommentMail,
+			boolean commentMentionMail) {
 		User user = CurrentUser.getCurrentUser();
 		if(!username.equals(user.userName) && !User.isUsernameAvailable(username)) {
 			validation.addError("userName", Messages.get("registerusernameexist")); 
@@ -581,8 +591,16 @@ public class Application extends Controller {
 		} else {
 			user.secondWrittingLanguage = null;
 		}
-		
+
 		user.userName = username;
+		
+		user.followMail = followMail;
+		user.messageMail = messageMail;
+		user.commentCreatedMail = commentCreatedMail;
+		user.commentFavoriteMail = commentFavoriteMail;
+		user.commentCommentMail = commentCommentMail;
+		user.commentMentionMail = commentMentionMail;
+		
 		user.save();
 		
 		Application.settings();

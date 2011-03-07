@@ -161,6 +161,13 @@ settings.writtingLanguages=Read and write predictions in these languages:
 settings.languages.en=English
 settings.languages.fr=French
 settings.languages.none=---
+settings.mails=Receive a mail when a user...
+settings.followMail=starts following me.
+settings.messageMail=sends me a private message.
+settings.commentCreatedMail=comments on a prediction I created.
+settings.commentFavoriteMail=comments on a prediction I added in my favorites.
+settings.commentCommentMail=comments on a prediction I commented on.
+settings.commentMentionMail=mentioned me in a comment (using "@").
 
 # change password
 changePassword.oldPassword=Current password

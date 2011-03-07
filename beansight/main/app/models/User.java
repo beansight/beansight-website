@@ -153,11 +153,24 @@ public class User extends Model {
 	/** the comments */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public List<Comment> comments;
-
 	
 	/** insights that has been shared with this user */
 	@OneToMany(mappedBy = "toUser",  cascade = CascadeType.ALL)
 	public List<InsightShare> shared;
+	
+	// Settings
+	/** Should this user receive a mail when another user is following him */
+	public boolean followMail;
+	/** Should this user receive a mail when he receives a private message */
+	public boolean messageMail;
+	/** Should this user receive a mail when another user comments on an insight he created */
+	public boolean commentCreatedMail;
+	/** Should this user receive a mail when another user comments on an insight he added to his favorites */
+	public boolean commentFavoriteMail;
+	/** Should this user receive a mail when another user comments an insight he commented on */
+	public boolean commentCommentMail;
+	/** Should this user receive a mail when another user mentions him in a comment */
+	public boolean commentMentionMail;
 	
 	public User(String email, String userName, String password) {
 		if (!User.isUsernameAvailable(userName)) {

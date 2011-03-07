@@ -4,22 +4,22 @@
 #{set contentCenterClass:'settings' /}
 
 <div class="bloccontent" style="margin-left:10px;">
-    #{form @Application.saveSettings(), enctype:'multipart/form-data', id:'userSettingsForm', name:'userSettingsForm',  class:'bigform'}
+    #{form @Application.saveSettings(), enctype:'multipart/form-data', id:'userSettingsForm', name:'userSettingsForm',  class:'bigform', autocomplete:'off'}
     	<h2 class="cuf-grb">&{'settings.title'}</h2>
     	<div class="item-input">
-    		<label for="username">&{'settings.userName'}</label>
+    		<label class="label" for="username">&{'settings.userName'}</label>
         	<input type="text" name="username" id="username" value="${user.userName}"/>
         	#{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
         </div>
         <div class="item-input">
-            <label for="uiLanguage">&{'uiLanguage'}</label>
+            <label class="label" for="uiLanguage">&{'uiLanguage'}</label>
             <select name="uiLanguage" id="uiLanguage">
                 <option value="en" #{if user.uiLanguage.label.equals("en")}selected#{/if}>&{'settings.languages.en'}</option>
                 <option value="fr" #{if user.uiLanguage.label.equals("fr")}selected#{/if}>&{'settings.languages.fr'}</option>
             </select>
         </div>
         <div class="item-input">
-            <label>&{'settings.writtingLanguages'}</label>
+            <label class="label">&{'settings.writtingLanguages'}</label>
             <select name="firstWrittingLanguage">
                 <option value="en" #{if user.writtingLanguage.label.equals("en")    }selected#{/if} >&{'settings.languages.en'}     </option>
                 <option value="fr" #{if user.writtingLanguage.label.equals("fr")    }selected#{/if} >&{'settings.languages.fr'}     </option>
@@ -29,6 +29,18 @@
                 <option value="en" #{if user.secondWrittingLanguage?.label.equals("en")   }selected#{/if} >&{'settings.languages.en'}     </option>
                 <option value="fr" #{if user.secondWrittingLanguage?.label.equals("fr")   }selected#{/if} >&{'settings.languages.fr'}     </option>
             </select>
+        </div>
+
+        <div class="item-input">
+            <h3 class="label">&{'settings.mails'}</h3>
+            <ul class="settings-checklist">
+	            <li class="checkitem"><input type="checkbox" name="followMail"  #{if user.followMail}checked#{/if}         id="followMail">  <label for="followMail"> &{'settings.followMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="messageMail" #{if user.messageMail}checked#{/if}         id="messageMail"> <label for="messageMail"> &{'settings.messageMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="commentCreatedMail" #{if user.commentCreatedMail}checked#{/if}  id="commentCreatedMail"> <label for="commentCreatedMail"> &{'settings.commentCreatedMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="commentFavoriteMail" #{if user.commentFavoriteMail}checked#{/if} id="commentFavoriteMail"> <label for="commentFavoriteMail"> &{'settings.commentFavoriteMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="commentCommentMail" #{if user.commentCommentMail}checked#{/if}  id="commentCommentMail"> <label for="commentCommentMail"> &{'settings.commentCommentMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="commentMentionMail" #{if user.commentMentionMail}checked#{/if}  id="commentMentionMail"> <label for="commentMentionMail"> &{'settings.commentMentionMail'}</label></li>
+            </ul>
         </div>
         
         <div class="item-checkbox" style="float: left;">

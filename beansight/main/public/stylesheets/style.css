@@ -366,7 +366,7 @@ a:hover{color:#228392;}
 #content.signup .bloccenter{margin-left:270px;}
 .bigform, #content .bloccenter form{background-color:#f7f7f7;padding:18px 70px 20px 70px;}
 .bigform h2, #content .bloccenter form h2{background:url(/public/images/icon-pencil.png) no-repeat left center;padding:0 0 0 14px;font-size:16px;color:#7aa13d;text-transform:uppercase;margin:0 0 24px 0;}
-.bigform label, #content .bloccenter form label{display:block;color:#aaaeaf;font-size:14px;padding-bottom:4px;}
+.bigform .label, #content .bloccenter form label{display:block;color:#aaaeaf;font-size:14px;padding-bottom:4px;}
 .bigform .item-input, #content .bloccenter form .item-input{margin:0 0 13px 0;padding:6px;-moz-border-radius:6px;-webkit-border-radius:6px;border:solid #eeeeee 3px;background-color:#fff;}
 .bigform .item-input input, #content .bloccenter form .item-input input{color:#6e7677;font-size:20px;border:0 none;width:245px;}
 .bigform .item-checkbox, #content .bloccenter form .item-checkbox{text-align:center;margin:0 0 15px 0;padding:5px 0 0 0;}
@@ -387,6 +387,7 @@ a:hover{color:#228392;}
 .bigform .item-submit button span.txtbutton, #content.signup .bloccenter form .item-submit button span.txtbutton{height:27px;background:url(/public/images/btn-vert2.png) no-repeat right top;width:170px;font-size:14px;color:#fff;text-transform:uppercase;padding:8px 12px 0 0;}
 .bigform .item-submit button:hover span, #content.signup .bloccenter form .item-submit button:hover span{background-position:right bottom;}
 
+.bigform .settings-checklist .checkitem {font-size:14px;margin:3px 0;}
 
 #content.signup .pushsign{width:180px;position:relative;text-align:center;padding:115px 25px 0 25px;font-size:12px;color:#fff;line-height:16px;}
 #content.signup .explorepush{height:103px;background:url(/public/images/push-explore.png) no-repeat 0 0;}
