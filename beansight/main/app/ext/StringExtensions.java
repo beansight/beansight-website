@@ -69,11 +69,14 @@ public class StringExtensions extends JavaExtensions {
 //    	}
         Date now = new Date();
         if (now.after(date)) {
-            return "";
+            return asdate(date.getTime(), Messages.get("in.format"));
         }
         long delta = (date.getTime() - now.getTime()) / 1000;
         if (delta < 24 * 60 * 60) {
         	return Messages.get("in.today");
+        } 
+        if (delta > 24 * 60 * 60 && delta < 2 * 24 * 60 * 60) {
+        	return Messages.get("in.tomorrow");
         }
 //        } else {
 //	        if (delta < 60) {
@@ -93,7 +96,7 @@ public class StringExtensions extends JavaExtensions {
             return Messages.get("in.days", days, pluralize(days));
         }
         if (stopAtMonth) {
-            return asdate(date.getTime(), Messages.get("in.format"));
+            return Messages.get("in.format.on", asdate(date.getTime(), Messages.get("in.format")));
         }
         if (delta < 365 * 24 * 60 * 60) {
             long months = delta / (30 * 24 * 60 * 60);

@@ -411,6 +411,7 @@ since.format  = d MMMMMM yyyy
 
 #in
 in.today = Aujourd'hui
+in.tomorrow = Demain
 #in.seconds = %s seconde%s
 #in.minutes = %s minute%s
 #in.hours   = %s heure%s
@@ -418,6 +419,7 @@ in.days    = Dans %s jour%s
 in.months  = Dans %s mois
 in.years   = Dans %s année%s
 in.format  = d MMMMMM yyyy
+in.format.on = Le %s
 
 # new comment notification
 newCommentNotification.subject=%s à écrit un nouveau commentaire pour vous

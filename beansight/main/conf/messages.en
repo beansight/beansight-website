@@ -400,6 +400,7 @@ forgotPassword.receiveemail=You received this message because you or someone els
 forgotPassword.clickhere=Click here to choose a new password on beansight.com
 
 in.today = Today
+in.tomorrow = Tomorrow
 #in.seconds = %s second%s
 #in.minutes = %s minute%s
 #in.hours   = %s hour%s
@@ -407,6 +408,7 @@ in.days    = In %s day%s
 in.months  = In %s month%s
 in.years   = In %s year%s
 in.format  = MMM d, yyyy
+in.format.on = On %s
 
 # new comment notification
 newCommentNotification.subject=%s as written an new comment for you

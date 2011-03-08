@@ -529,17 +529,6 @@ public class Application extends Controller {
 		Insight insight = Insight.findByUniqueId(uniqueId);
 		Comment comment = insight.addComment(content, commentWriter);
 		
-		Pattern pattern = new Pattern("(\\W*@([\\w]+))");
-		
-		MatchIterator it = pattern.matcher(content).findAll();
-		while (it.hasMore()) {
-			MatchResult matchResult = it.nextMatch();
-			User userToNotify = User.findByUserName(matchResult.group(2));
-			if (userToNotify != null) {
-				insight.notifyNewComment(commentWriter, userToNotify, comment);
-			}
-		}
-		
 		render(comment);
 	}
 

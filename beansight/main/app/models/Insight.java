@@ -4,7 +4,11 @@ import helpers.FormatHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Future;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,6 +18,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+
+import jregex.MatchIterator;
+import jregex.MatchResult;
+import jregex.Pattern;
 
 import models.Filter.FilterType;
 import models.Vote.State;
@@ -250,6 +258,28 @@ public class Insight extends Model {
 	public Comment addComment(String content, User user) {
 		Comment comment = new Comment(user, this, content);
 		comment.save();
+		
+		// search usernames that could be referenced inside the comment (like this @someone) and send them an email
+		Set<User> usersToNotify = new HashSet<User>();
+		Pattern pattern = new Pattern("(\\W*@([\\w]+))");
+		MatchIterator it = pattern.matcher(content).findAll();
+		while (it.hasMore()) {
+			MatchResult matchResult = it.nextMatch();
+			User userToNotify = User.findByUserName(matchResult.group(2));
+			if (userToNotify != null) {
+				usersToNotify.add(userToNotify);
+			}
+		}
+		Iterator<User> usersToNotifyIt = usersToNotify.iterator();
+		while (usersToNotifyIt.hasNext()) {
+			User userToNotify = usersToNotifyIt.next();
+			CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, user, userToNotify, comment);
+			commentNotifMsg.save();
+			CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
+			commentNotifMailTask.language = userToNotify.writtingLanguage.label;
+			commentNotifMailTask.save();
+		}
+		
 		return comment;
 	}
 
@@ -644,7 +674,7 @@ public class Insight extends Model {
 						+ filter.generateJPAQueryWhereClause()
 						+ "group by v.insight.id "
 						+ "order by count(v) desc";
-		List<Long> insightIds = Insight.find(query, new DateTime().minusHours(48).toDate() ).from(from).fetch(length);
+		List<Long> insightIds = Insight.find(query, new DateTime().minusHours(24).toDate() ).from(from).fetch(length);
 		
 		InsightResult result = new InsightResult();
     	if(!insightIds.isEmpty()) {
@@ -783,14 +813,14 @@ public class Insight extends Model {
     }
     
     
-	public void notifyNewComment(User commentWriter, User userToNotify, Comment comment) {
-		CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, commentWriter, userToNotify, comment);
-		commentNotifMsg.save();
-		CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
-		commentNotifMailTask.language = userToNotify.writtingLanguage.label;
-		commentNotifMailTask.save();
-		Mails.commentNotification(commentNotifMailTask);
-	}
+//	public Future<Boolean> notifyNewComment(User commentWriter, User userToNotify, Comment comment) {
+//		CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, commentWriter, userToNotify, comment);
+//		commentNotifMsg.save();
+//		CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
+//		commentNotifMailTask.language = userToNotify.writtingLanguage.label;
+//		commentNotifMailTask.save();
+//		return commentNotifMailTask.sendMail();
+//	}
     
     
 	public static class InsightResult {

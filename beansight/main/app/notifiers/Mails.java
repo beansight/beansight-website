@@ -6,6 +6,10 @@ import play.i18n.*;
 import play.Logger;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import models.CommentNotificationMailTask;
 import models.ContactMailTask;
@@ -45,7 +49,7 @@ public class Mails extends Mailer {
 		sendMailTask(task, task.subject, "Mails/contact.html");
 	}
 	
-	private static void sendMailTask(MailTask task, String subject, String templateName) {
+	private static boolean sendMailTask(MailTask task, String subject, String templateName) {
 		task.attempt++;
 		task.save();
 		Logger.info("MailTask " + task.getClass().getSimpleName() + " to: " + task.sendTo);
@@ -56,7 +60,11 @@ public class Mails extends Mailer {
 		
 		Lang.set(task.language);	
 
-		send(templateName, task);
+		try {
+			return send(templateName, task).get(1, TimeUnit.SECONDS);
+		} catch (Throwable e) {
+			throw new RuntimeException(e);
+		} 
 	}
 	
 	
@@ -70,33 +78,10 @@ public class Mails extends Mailer {
 		send(templateName, forgotPasswordId);
 	}
 	
-	public static void commentNotification(CommentNotificationMailTask task) {
-		task.attempt++;
-		task.save();
-		Logger.info("MailTask " + task.getClass().getSimpleName() + " to: " + task.sendTo);
-
-//		Insight insight = task.commentNotificationMsg.insight;
+	public static boolean commentNotification(CommentNotificationMailTask task) {
 		User commentWriter = task.commentNotificationMsg.fromUser;
-		User userToNotify = task.commentNotificationMsg.toUser;
-//		String content = task.commentNotificationMsg.comment.content;
 		
-		sendMailTask(task, Messages.get("newCommentNotification.subject", commentWriter.userName), "Mails/commentNotification");
-		
-//		sendNewCommentNotification(
-//				task.commentNotificationMsg.insight, 
-//				task.commentNotificationMsg.fromUser, 
-//				task.commentNotificationMsg.toUser, 
-//				task.commentNotificationMsg.comment.content);
+		return sendMailTask(task, Messages.get("newCommentNotification.subject", commentWriter.userName), "Mails/commentNotification.html");
 	}
-	
-//	private static void sendNewCommentNotification(Insight insight, User commentWriter, User userToNotify, String commentContent) {
-//		setSubject(Messages.get("newCommentNotification.subject", commentWriter.userName, userToNotify.userName));
-//		addRecipient(userToNotify.email);
-//		setFrom("notification@beansight.com");
-//		
-//		Lang.set(userToNotify.writtingLanguage.label);	
-//		
-//		send("Mails/commentNotification", insight, commentWriter, userToNotify, commentContent);
-//	}
 	
 }
