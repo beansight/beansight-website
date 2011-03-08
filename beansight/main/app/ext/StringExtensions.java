@@ -72,7 +72,7 @@ public class StringExtensions extends JavaExtensions {
             return "";
         }
         long delta = (date.getTime() - now.getTime()) / 1000;
-        if (now.getYear() == date.getYear() && now.getMonth() == date.getMonth() && now.getDay() == date.getDay()) {
+        if (delta < 24 * 60 * 60) {
         	return Messages.get("in.today");
         }
 //        } else {
