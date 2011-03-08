@@ -587,6 +587,12 @@ public class User extends Model {
 		save();
 		user.followers.add(this);
 		user.save();
+		
+		// if the user accepts it, send a mail
+		if(this.followMail) {
+			FollowNotificationTask mail = new FollowNotificationTask(this, user);
+			mail.save();
+		}
 	}
 
 	/**
@@ -881,12 +887,20 @@ public class User extends Model {
 		return result;
 	}
 	
+	/**
+	 * @param user : the user this message should be sent to
+	 * @param content : text content of this message
+	 * @return
+	 */
 	public boolean sendMessage(User user, String content) {
 		Message message = new Message(this, user, content);
 		message.save();
 
-		MessageMailTask task = new MessageMailTask(message);
-		task.save();
+		// send a mail if this user accepts it
+		if(this.messageMail) {
+			MessageMailTask task = new MessageMailTask(message);
+			task.save();
+		}
 		
 		return true;
 	}
