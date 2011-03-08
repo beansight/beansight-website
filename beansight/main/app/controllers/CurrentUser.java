@@ -15,7 +15,10 @@ public class CurrentUser extends Controller {
     public static User getCurrentUser() {
     	if ( session.get("userId")!=null) {
             User u = User.findById(new Long(session.get("userId")));
-            return u;
+            // email should be the same as the one in the cookie
+            if (u.email.equalsIgnoreCase(Security.connected()) ) {
+            	return u;
+            }
         }
         if ( Boolean.parseBoolean(session.get("isTwitterUser")) ) {
             User user = User.findByTwitterUserId(session.get("twitterUserId"));
@@ -29,7 +32,7 @@ public class CurrentUser extends Controller {
         }        
 //        return User.find("byEmail", Security.connected()).first();
         User user = User.findByEmail(Security.connected());
-        if (!session.contains("userId")) {
+        if (user != null && !session.contains("userId")) {
         	session.put("userId", user.getId());
         }
         

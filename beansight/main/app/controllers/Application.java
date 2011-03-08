@@ -336,8 +336,8 @@ public class Application extends Controller {
 			create(insightContent, endDate, tagLabelList, categoryId, lang, vote);
 		}
 
-		// force the date to end at midnight of the selected day
-		Date midnightDate = new DateMidnight(endDate).plusDays(1).toDateTime().minusMinutes(1).toDate();
+		// force the end date time at 23h5ç and 59 seconds of the selected day
+		Date midnightDate = new DateMidnight(endDate).plusDays(1).toDateTime().minusSeconds(1).toDate();
 		
 		User currentUser = CurrentUser.getCurrentUser();
 		Insight insight = null;

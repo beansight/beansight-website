@@ -276,7 +276,7 @@ public class Insight extends Model {
 					CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, user, userToNotify, comment);
 					commentNotifMsg.save();
 					CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
-					commentNotifMailTask.language = userToNotify.writtingLanguage.label;
+					commentNotifMailTask.language = userToNotify.uiLanguage.label;
 					commentNotifMailTask.save();
 				}
 			}

@@ -49,7 +49,7 @@ public class Security extends Secure.Security {
     	
     	ForgotPassword forgotPassword = new ForgotPassword(email);
     	forgotPassword.save();
-    	Mails.forgotPassword(forgotPassword.code, email, "Forgot your password on Beansight.com", "Mails/forgotPassword.html", "en");
+    	Mails.forgotPassword(forgotPassword.code, email, "Mails/forgotPassword.html", "en");
     	
     	render(email);
     }

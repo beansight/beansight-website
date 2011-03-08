@@ -358,6 +358,16 @@ faq.A.profile.twlogin=For now, If you created a traditional Beansight account (u
 faq.Q.profile.invitations=Can I have invitations for my friends?
 faq.A.profile.invitations=Sure! Our early adopters will receive invits sooner or later. The only thing we can say so far is that our most active users will have the priority.
 
+in.today = Today
+in.tomorrow = Tomorrow
+#in.seconds = %s second%s
+#in.minutes = %s minute%s
+#in.hours   = %s hour%s
+in.days    = In %s day%s
+in.months  = In %s month%s
+in.years   = In %s year%s
+in.format  = MMM d, yyyy
+in.format.on = On %s
 
 ####################
 # E MAILs
@@ -396,19 +406,11 @@ email.contact.subject=Subject : %s
 email.contact.message=Message :
 
 # forgotPassword
+forgotPassword.subject=Forgot your password on Beansight.com
 forgotPassword.receiveemail=You received this message because you or someone else requested a new password for this e-mail. If you do not want to change your password, just ignore this message.
 forgotPassword.clickhere=Click here to choose a new password on beansight.com
 
-in.today = Today
-in.tomorrow = Tomorrow
-#in.seconds = %s second%s
-#in.minutes = %s minute%s
-#in.hours   = %s hour%s
-in.days    = In %s day%s
-in.months  = In %s month%s
-in.years   = In %s year%s
-in.format  = MMM d, yyyy
-in.format.on = On %s
-
-# new comment notification
-newCommentNotification.subject=%s as written an new comment for you
+# quoted in a comment
+commentNotificationMail.someoneHaveQuotedYou=%s have mentioned you in a comment for the prediction :
+commentNotificationMail.commentContentIs=The comment is :
+commentNotificationMail.subject=Beansight : %s have mentioned you in a comment

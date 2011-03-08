@@ -358,6 +358,26 @@ faq.A.profile.twlogin=Pour l’instant, si vous avez créé un compte Beansight 
 faq.Q.profile.invitations=Est-ce que je peux avoir des invitations pour mes amis ?
 faq.A.profile.invitations=Bien sur ! Nos premiers utilisateurs vont finir par recevoir des invitations. La seule chose que nous pouvons dire pour l’instant, c’est que nous donnerons la priorité à nos utilisteurs les plus actifs.
 
+# since
+since.seconds=il y a %s secondes
+since.minutes=il y a %s minutes
+since.hours=il y a %s heures
+since.days=il y a %s jours
+since.months=il y a %s mois
+since.years=il y a %s années
+since.format  = d MMMMMM yyyy
+
+#in
+in.today = Aujourd'hui
+in.tomorrow = Demain
+#in.seconds = %s seconde%s
+#in.minutes = %s minute%s
+#in.hours   = %s heure%s
+in.days    = Dans %s jour%s
+in.months  = Dans %s mois
+in.years   = Dans %s année%s
+in.format  = d MMMMMM yyyy
+in.format.on = Le %s
 
 ####################
 # E MAILs
@@ -397,29 +417,11 @@ email.contact.subject=Subject : %s
 email.contact.message=Message :
 
 # forgotPassword
+forgotPassword.subject=Beansight.com : changement de mot de passe
 forgotPassword.receiveemail=Vous recevez ce message car vous ou quelqu'un d'autre a demandé un changement de mot de passe pour le compte associé à cette adresse sur beansight.com. Si vous ne voulez pas changer votre mot de passe, ignorez ce message. 
 forgotPassword.clickhere=Cliquez ici pour choisir un nouveau mot de passe sur beansight.com
 
-# since
-since.seconds=il y a %s secondes
-since.minutes=il y a %s minutes
-since.hours=il y a %s heures
-since.days=il y a %s jours
-since.months=il y a %s mois
-since.years=il y a %s années
-since.format  = d MMMMMM yyyy
-
-#in
-in.today = Aujourd'hui
-in.tomorrow = Demain
-#in.seconds = %s seconde%s
-#in.minutes = %s minute%s
-#in.hours   = %s heure%s
-in.days    = Dans %s jour%s
-in.months  = Dans %s mois
-in.years   = Dans %s année%s
-in.format  = d MMMMMM yyyy
-in.format.on = Le %s
-
-# new comment notification
-newCommentNotification.subject=%s à écrit un nouveau commentaire pour vous
+# quoted in a comment
+commentNotificationMail.someoneHaveQuotedYou=%s vous a mentionné dans un commentaire sur la prédiction :
+commentNotificationMail.commentContentIs=Le commentaire est le suivant :
+commentNotificationMail.subject=Beansight : %s vous a mentionné dans un commentaire
