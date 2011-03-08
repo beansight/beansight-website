@@ -32,7 +32,7 @@ public class SendMessageJob extends Job {
 			    	Mails.message(task);
 			    	task.sent = true;
 					task.save();
-		        } catch (Exception e) {
+		        } catch (Throwable e) {
 		            Logger.error(e, "Mail error");
 		        }
 				Thread.sleep(WAIT_TIME);

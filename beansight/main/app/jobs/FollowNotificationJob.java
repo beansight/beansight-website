@@ -32,7 +32,7 @@ public class FollowNotificationJob extends Job {
 			    	Mails.followNotification(task);
 			    	task.sent = true;
 					task.save();
-		        } catch (Exception e) {
+		        } catch (Throwable e) {
 		            Logger.error(e, "Mail error");
 		        }
 				Thread.sleep(WAIT_TIME);
