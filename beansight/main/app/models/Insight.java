@@ -260,24 +260,26 @@ public class Insight extends Model {
 		comment.save();
 		
 		// search usernames that could be referenced inside the comment (like this @someone) and send them an email
-		Set<User> usersToNotify = new HashSet<User>();
+		Set<String> userNamesToNotify = new HashSet<String>();
 		Pattern pattern = new Pattern("(\\W*@([\\w]+))");
 		MatchIterator it = pattern.matcher(content).findAll();
 		while (it.hasMore()) {
 			MatchResult matchResult = it.nextMatch();
-			User userToNotify = User.findByUserName(matchResult.group(2));
-			if (userToNotify != null) {
-				usersToNotify.add(userToNotify);
-			}
+			userNamesToNotify.add(matchResult.group(2));
 		}
-		Iterator<User> usersToNotifyIt = usersToNotify.iterator();
-		while (usersToNotifyIt.hasNext()) {
-			User userToNotify = usersToNotifyIt.next();
-			CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, user, userToNotify, comment);
-			commentNotifMsg.save();
-			CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
-			commentNotifMailTask.language = userToNotify.writtingLanguage.label;
-			commentNotifMailTask.save();
+		// make sure we don't have too much user to notify, if so do nothing (spam)
+		if(userNamesToNotify.size() < 10) {
+			Iterator<String> userNamesIt = userNamesToNotify.iterator();
+			while(userNamesIt.hasNext()) {
+				User userToNotify = User.findByUserName(userNamesIt.next());
+				if(userToNotify != null) {
+					CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, user, userToNotify, comment);
+					commentNotifMsg.save();
+					CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
+					commentNotifMailTask.language = userToNotify.writtingLanguage.label;
+					commentNotifMailTask.save();
+				}
+			}
 		}
 		
 		return comment;
