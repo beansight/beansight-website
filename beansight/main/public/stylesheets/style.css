@@ -316,11 +316,16 @@ a:hover{color:#228392;}
 
 
 #contentcenter .listinsights .item-insight a.permalink{display:block;float:left;width:356px;margin:0 10px 12px 10px;background:url(/public/images/icon-linksingle1.png) no-repeat right center;}
+#contentcenter .listinsights .item-insight a.permalink.leftbusy{background:none;}
 #contentcenter.large .listinsights .item-insight a.permalink{width:615px;margin:0 10px 12px 10px;}
 #contentcenter .listinsights .item-insight .content-insight:hover a.permalink{background-image:url(/public/images/icon-linksingle3.png);}
 #contentcenter .listinsights .item-insight .content-insight a.permalink:hover{background-image:url(/public/images/icon-linksingle2.png);}
+#contentcenter .listinsights .item-insight .content-insight:hover a.permalink.leftbusy{background:none;}
+#contentcenter .listinsights .item-insight .content-insight a.permalink.leftbusy:hover{background:none;}
+
 #contentcenter .listinsights .item-insight a.permalink h3{color:#272e2f;font-size:18px;width:285px;margin:0 0 3px 0;}
-#contentcenter.large .listinsights .item-insight a.permalink h3{width:585px;}
+#contentcenter.large .listinsights .item-insight a.permalink h3{width:585px;float:left;}
+#contentcenter.large .listinsights .item-insight a.permalink.leftbusy h3{width:540px;}
 #contentcenter .listinsights .item-insight a.permalink:hover h3{color:#228392;}
 #contentcenter .listinsights .item-insight a.permalink p.date-insight{color:#a1a5a6;font-size:11px;line-height:15px;}
 #contentcenter .listinsights .item-insight a.permalink:hover p.date-insight{color:#696f70;}
@@ -546,6 +551,11 @@ a:hover{color:#228392;}
 #content .single .s-content .commentzone .list-comments .item-comment .user-comment .vote-comment.disagreeaction{background:url(/public/images/commentvote-moins.png) no-repeat center center #f7f7f7;}
 #content .single .s-content .commentzone .list-comments .item-comment .txt-comment{float:right;width:540px;color:#a1a5a6;font-size:12px;line-height:14px;}
 
+.item-insight .target-user {float:right;}
+.item-insight .target-user .avatar-user{float:left;margin-top:5px;display:block;background-color:#fff;border:solid #efefef 1px;padding:1px;width:26px;height:26px;}
+.item-insight .target-user .vote-user{float:left;margin-top:5px;width:30px;height:30px;text-indent:-9999px;}
+.item-insight .target-user .vote-user.agreeaction{background:url(/public/images/commentvote-plus.png) no-repeat center center;}
+.item-insight .target-user .vote-user.disagreeaction{background:url(/public/images/commentvote-moins.png) no-repeat center center;}
 
 /* contact */
 .contact .block-share{}
