@@ -1,90 +1,130 @@
-#{extends 'main.html' /}
+#{extends 'content.html' /}
 #{set 'title'}
     &{'faq.title'}
 #{/set}
 
-<h1>&{'faq.title'}</h1>
+#{set contentCenterClass:'large' /}
 
-<p>&{'faq.intro'}</p>
+<h2 class="cuf-grb">&{'faq.title'}</h3>
+
+<div class="FAQ">
+
+<p class="faq-intro">&{'faq.intro'}</p>
 
 <div class="FAQ-section">
-	<h2 class="faq-section-title" id="creation">&{'faq.title.creation'}</h2>
+	<h3 class="faq-section-title" id="creation">&{'faq.title.creation'}</h3>
 	<div class="QandA">
-	<h3 class="question">&{'faq.Q.creation.how'}</h3>
+	<h4 class="question">&{'faq.Q.creation.how'}</h4>
 	<p>&{'faq.A.creation.how'}</p>
-	<h3 class="question">&{'faq.Q.creation.deadline'}</h3>
+    </div>
+    <div class="QandA">    
+	<h4 class="question">&{'faq.Q.creation.deadline'}</h4>
 	<p>&{'faq.A.creation.deadline'}</p>
-	<h3 class="question">&{'faq.Q.creation.category'}</h3>
+    </div>
+    <div class="QandA">
+	<h4 class="question">&{'faq.Q.creation.category'}</h4>
 	<p>&{'faq.A.creation.category'}</p>
 	</div>
 </div>
 
 <div class="FAQ-section">
-	<h2 class="faq-section-title" id="votes">&{'faq.title.votes'}</h2>
+	<h3 class="faq-section-title" id="votes">&{'faq.title.votes'}</h3>
 	<div class="QandA">
-	<h3 class="question">&{'faq.Q.votes.how'}</h3>
+	<h4 class="question">&{'faq.Q.votes.how'}</h4>
 	<p>&{'faq.A.votes.how'}</p>
-	<h3 class="question">&{'faq.Q.votes.consequences'}</h3>
+    </div>
+    <div class="QandA">
+	<h4 class="question">&{'faq.Q.votes.consequences'}</h4>
 	<p>&{'faq.A.votes.consequences'}</p>
-	<h3 class="question">&{'faq.Q.votes.interesting'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.votes.interesting'}</h4>
 	<p>&{'faq.A.votes.interesting'}</p>
-	<h3 class="question">&{'faq.Q.votes.change'}</h3>
+    </div>
+    <div class="QandA">
+	<h4 class="question">&{'faq.Q.votes.change'}</h4>
 	<p>&{'faq.A.votes.change'}</p>
-	<h3 class="question">&{'faq.Q.votes.follow'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.votes.follow'}</h4>
 	<p>&{'faq.A.votes.follow'}</p>
 	</div>
 </div>
 
 <div class="FAQ-section">
-	<h2 class="faq-section-title" id="validation">&{'faq.title.validation'}</h2>
+	<h3 class="faq-section-title" id="validation">&{'faq.title.validation'}</h3>
 	<div class="QandA">
-	<h3 class="question">&{'faq.Q.validation.how'}</h3>
+	<h4 class="question">&{'faq.Q.validation.how'}</h4>
 	<p>&{'faq.A.validation.how'}</p>
-	<h3 class="question">&{'faq.Q.validation.wrong'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.validation.wrong'}</h4>
 	<p>&{'faq.A.validation.wrong'}</p>
-	<h3 class="question">&{'faq.Q.validation.votepast'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.validation.votepast'}</h4>
 	<p>&{'faq.A.validation.votepast'}</p>
 	</div>
 </div>
 
 <div class="FAQ-section">
-	<h2 class="faq-section-title" id="expertise">&{'faq.title.expertise'}</h2>
+	<h3 class="faq-section-title" id="expertise">&{'faq.title.expertise'}</h3>
 	<div class="QandA">
-	<h3 class="question">&{'faq.Q.expertise.how'}</h3>
+	<h4 class="question">&{'faq.Q.expertise.how'}</h4>
 	<p>&{'faq.A.expertise.how'}</p>
-	<h3 class="question">&{'faq.Q.expertise.display'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.expertise.display'}</h4>
 	<p>&{'faq.A.expertise.display'}</p>
-	<h3 class="question">&{'faq.Q.expertise.getridof'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.expertise.getridof'}</h4>
 	<p>&{'faq.A.expertise.getridof'}</p>
-	<h3 class="question">&{'faq.Q.expertise.creating'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.expertise.creating'}</h4>
 	<p>&{'faq.A.expertise.creating'}</p>
-	<h3 class="question">&{'faq.Q.expertise.comments'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.expertise.comments'}</h4>
 	<p>&{'faq.A.expertise.comments'}</p>
 	</div>
 </div>
 
 <div class="FAQ-section">
-	<h2 class="faq-section-title" id="experts">&{'faq.title.experts'}</h2>
+	<h3 class="faq-section-title" id="experts">&{'faq.title.experts'}</h3>
 	<div class="QandA">
-	<h3 class="question">&{'faq.Q.experts.how'}</h3>
+	<h4 class="question">&{'faq.Q.experts.how'}</h4>
 	<p>&{'faq.A.experts.how'}</p>
-	<h3 class="question">&{'faq.Q.experts.follow'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.experts.follow'}</h4>
 	<p>&{'faq.A.experts.follow'}</p>
 	</div>
 </div>
 
 <div class="FAQ-section">
-	<h2 class="faq-section-title" id="profile">&{'faq.title.profile'}</h2>
+	<h3 class="faq-section-title" id="profile">&{'faq.title.profile'}</h3>
 	<div class="QandA">
-	<h3 class="question">&{'faq.Q.profile.howpicture'}</h3>
+	<h4 class="question">&{'faq.Q.profile.howpicture'}</h4>
 	<p>&{'faq.A.profile.howpicture'}</p>
-	<h3 class="question">&{'faq.Q.profile.howlanguage'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.profile.howlanguage'}</h4>
 	<p>&{'faq.A.profile.howlanguage'}</p>
-	<h3 class="question">&{'faq.Q.profile.twfb'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.profile.twfb'}</h4>
 	<p>&{'faq.A.profile.twfb'}</p>
-	<h3 class="question">&{'faq.Q.profile.twlogin'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.profile.twlogin'}</h4>
 	<p>&{'faq.A.profile.twlogin'}</p>
-	<h3 class="question">&{'faq.Q.profile.invitations'}</h3>
+    </div>
+    <div class="QandA">	
+	<h4 class="question">&{'faq.Q.profile.invitations'}</h4>
 	<p>&{'faq.A.profile.invitations'}</p>
 	</div>
+</div>
+
 </div>

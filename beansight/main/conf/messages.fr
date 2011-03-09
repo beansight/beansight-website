@@ -352,9 +352,9 @@ faq.A.profile.howpicture=Vous pouvez modifier votre profil en cliquant sur votre
 faq.Q.profile.howlanguage=Comment puis-je choisir les options de langues ?
 faq.A.profile.howlanguage=Par défaut, nous utilisons la langue de votre navigateur. Vous pouvez la changer ou ajouter d’autres langues dans la page paramètres en haut à droite. Pour l’instant Beansight parle uniquement Français et Anglais.
 faq.Q.profile.twfb=Que signifie s’identifier via Twitter ou Facebook ?
-faq.A.profile.twfb=Quand vous vous enregistrez en utilisant Twitter ou Facebook, ce sont ces sites qui prennent en charge votre identification. Vous n’aurez pas besoin de retenir un mot de passe pour accéder à Beansight. Il vous suffira de cliquer “Log in avec Twitter” ou “Log in avec Facebook” pour revenir sur notre plateforme.
-faq.Q.profile.twlogin=Est-ce que je peux me loguer en utilisant Facebook ou Twitter si je me suis enregistré avec un mot de passe ?
-faq.A.profile.twlogin=Pour l’instant, si vous avez créé un compte Beansight traditionnel (en utilisant le formulaire et en choisissant un mot de passe), vous ne pouvez pas vous loguer en utilisant Twitter ou Facebook.<br>Il est possible que par la suite, nous proposions une solution pour associer votre compte Beansight avec vos comptes Twitter et Facebook.
+faq.A.profile.twfb=Quand vous vous enregistrez en utilisant Twitter ou Facebook, ce sont ces sites qui prennent en charge votre identification. Vous n’aurez pas besoin de retenir un mot de passe pour accéder à Beansight. Il vous suffira de cliquer “Se connecter avec Twitter” ou “Se connecter avec Facebook” pour revenir sur notre plateforme.
+faq.Q.profile.twlogin=Est-ce que je peux me connecter en utilisant Facebook ou Twitter si je me suis enregistré avec un mot de passe ?
+faq.A.profile.twlogin=Pour l’instant, si vous avez créé un compte Beansight traditionnel (en utilisant le formulaire et en choisissant un mot de passe), vous ne pouvez pas vous connecter en utilisant Twitter ou Facebook.<br>Il est possible que par la suite, nous proposions une solution pour associer votre compte Beansight avec vos comptes Twitter et Facebook.
 faq.Q.profile.invitations=Est-ce que je peux avoir des invitations pour mes amis ?
 faq.A.profile.invitations=Bien sur ! Nos premiers utilisateurs vont finir par recevoir des invitations. La seule chose que nous pouvons dire pour l’instant, c’est que nous donnerons la priorité à nos utilisteurs les plus actifs.
 

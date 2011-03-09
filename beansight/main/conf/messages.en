@@ -322,19 +322,19 @@ faq.A.votes.follow=If you want to be notified about changes on a prediction you 
 
 faq.title.validation=Validation
 faq.Q.validation.how=How are predictions validated?
-faq.A.validation.how=Since users are welcome to change their mind (what?), the closer we are to the deadline the more reliable votes will be. The trend will therefore converge to the right position in the end. Our algorithm will take every positions into account so that all prediction will be automatically validated.
+faq.A.validation.how=Since users are welcome to change their mind, the closer we are to the deadline the more reliable votes will be. The trend will therefore converge to the right position in the end. Our algorithm will take every positions into account so that all prediction will be automatically validated.
 faq.Q.validation.wrong=What if everybody is wrong?
 faq.A.validation.wrong=Mmmh... That’s very unlikely. But it might happen. In this case, users will be invited to flag the prediction in order to raise a community manager’s attention. But usually the crowd is right.
 faq.Q.validation.votepast=How come can I vote for past predictions?
-faq.A.validation.votepast=Yes, you can! These votes will help us to validate the prediction (what?). They aren’t for scoring. No expertise point (what?) is given for these votes.
+faq.A.validation.votepast=Yes, you can! These votes will help us to validate the prediction. They aren’t for scoring. No expertise point  is given for these votes.
 
 faq.title.expertise=Expertise
 faq.Q.expertise.how=How is my expertise calculated?
-faq.A.expertise.how=Expertise is based on scores computed for each position you take. You can earn points if you’re right or lose point if you’re wrong. More points will be attributed if <ul><li>you keep your position longer (what?)</li><li>you take a position against the trend</li><li>the prediction is popular</li></ul>Please note that the algorithm is even more beta than the rest of the site. It can still change and your score might be recomputed.
+faq.A.expertise.how=Expertise is based on scores computed for each position you take. You can earn points if you’re right or lose point if you’re wrong. More points will be attributed if <ul><li>you keep your position longer </li><li>you take a position against the trend</li><li>the prediction is popular</li></ul>Please note that the algorithm is even more beta than the rest of the site. It can still change and your score might be recomputed.
 faq.Q.expertise.display=How is my expertise displayed?
-faq.A.expertise.display=Your skills are shown thanks to expertise stars attributed by categories. The top performer on a specific category is given 5 stars. Then we compare your score with the score of the top performer and give you the deserved stars. If you want more stars, you’ll have to increase you expertise score. (what?)<br/>This said, it also means that your number of stars could vary if the top performer’s score varies. 
+faq.A.expertise.display=Your skills are shown thanks to expertise stars attributed by categories. The top performer on a specific category is given 5 stars. Then we compare your score with the score of the top performer and give you the deserved stars. If you want more stars, you’ll have to increase you expertise score. <br/>This said, it also means that your number of stars could vary if the top performer’s score varies. 
 faq.Q.expertise.getridof=How to get rid of obvious predictions?
-faq.A.expertise.getridof=We don’t. Every prediction might be interesting. But don’t expect to earn expertise points (what?) if everybody agrees with you!
+faq.A.expertise.getridof=We don’t. Every prediction might be interesting. But don’t expect to earn expertise points  if everybody agrees with you!
 faq.Q.expertise.creating=Do I earn expertise points for creating a prediction?
 faq.A.expertise.creating=You don’t earn point for creating a prediction. But you’ll earn (or lose!) points by taking position. Of course, you can vote for your own prediction.
 faq.Q.expertise.comments=Are my comments taken into account for my expertise score?

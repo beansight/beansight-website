@@ -603,6 +603,13 @@ a:hover{color:#228392;}
 #footer .copyright .authorwebsite a:hover{color:#fff;}
 #footer .backfooter{position:absolute;top:0;height:202px;width:100%;margin:0 auto;background:url(/public/images/backfooter2.png) no-repeat right top;}
 
+.faq-intro {margin: 10px 0;}
+.FAQ {margin: 0 20px; font-size:14px;}
+.FAQ .FAQ-section {margin-bottom: 30px;}
+.FAQ .FAQ-section .faq-section-title {color:#228392; margin-bottom: 15px; font-size:16px;}
+.FAQ .FAQ-section .QandA {margin-bottom: 30px;}
+.FAQ .FAQ-section .QandA .question {margin-bottom:5px; color:#272E2F;}
+
 /*
 CSS Social Sign-in Buttons by Bloop [http://bloop.co] are licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
 Please link to Bloop [http://bloop.co] somewhere on the page when you use these buttons.

@@ -13,6 +13,16 @@
     #{form @Application.createInsight(), id:'insightCreationForm', autocomplete:'off'}
 
         <div class="line-form">
+            <label for="endDate">&{'createInsightDate'}</label>
+            <div class="item-input">
+                <!-- TODO COLORZ colorz: id="c_date"  -->
+                <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />
+                #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
+                
+            </div>
+        </div>
+
+        <div class="line-form">
             <label for="c_sujet">&{'createInsightMessage'}</label>
             <div class="item-textarea">
                 <!-- TODO COLORZ id="c_sujet" -->
@@ -25,16 +35,6 @@
             <p id="caracterNumbers" class="progressnb"><span id="currentCaractersNumbers">0</span> / 120</p>
             <hr class="clear"/>
             *{ <span style="display:none" id="strangeLanguage">&{'create.strangeLanguage'}</span> }*
-        </div>
-
-        <div class="line-form">
-            <label for="endDate">&{'createInsightDate'}</label>
-            <div class="item-input">
-                <!-- TODO COLORZ colorz: id="c_date"  -->
-                <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />
-                #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
-                
-            </div>
         </div>
  
         <div class="line-form">
