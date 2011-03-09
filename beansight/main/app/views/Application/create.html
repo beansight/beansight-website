@@ -16,7 +16,7 @@
             <label for="endDate">&{'createInsightDate'}</label>
             <div class="item-input">
                 <!-- TODO COLORZ colorz: id="c_date"  -->
-                <input type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />
+                <input class="textfield" type="text" name="endDate" id="endDate" class="datePicker" size="10" value="${endDate?.format("yyyy-MM-dd")}" />
                 #{if errors.forKey('endDate')}<span class="error">${errors.forKey('endDate')}</span>#{/if} 
                 
             </div>
@@ -47,7 +47,7 @@
         <div class="line-form">
             <label for="taginput">&{'createInsightTags'}</label>
             <div class="item-input">
-                <input type="text" name="" id="taginput" value="${tagLabelList}" />
+                <input class="textfield" type="text" name="" id="taginput" value="${tagLabelList}" />
                 <input type="hidden" name="tagLabelList" value="${tagLabelList}" id="tagresult"/>
                 #{if errors.forKey('tagLabelList')}<span class="error">${errors.forKey('tagLabelList')}</span>#{/if}
             </div>

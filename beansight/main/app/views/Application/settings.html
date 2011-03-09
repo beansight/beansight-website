@@ -8,7 +8,7 @@
     	<h2 class="cuf-grb">&{'settings.title'}</h2>
     	<div class="item-input">
     		<label class="label" for="username">&{'settings.userName'}</label>
-        	<input type="text" name="username" id="username" value="${user.userName}"/>
+        	<input class="textfield" type="text" name="username" id="username" value="${user.userName}"/>
         	#{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
         </div>
         <div class="item-input">

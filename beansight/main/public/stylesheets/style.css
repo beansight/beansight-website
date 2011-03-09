@@ -374,6 +374,7 @@ a:hover{color:#228392;}
 .bigform .label, #content .bloccenter form label{display:block;color:#aaaeaf;font-size:14px;padding-bottom:4px;}
 .bigform .item-input, #content .bloccenter form .item-input{margin:0 0 13px 0;padding:6px;-moz-border-radius:6px;-webkit-border-radius:6px;border:solid #eeeeee 3px;background-color:#fff;}
 .bigform .item-input input, #content .bloccenter form .item-input input{color:#6e7677;font-size:20px;border:0 none;}
+.bigform .item-input .textfield, #content .bloccenter form .item-input .textfield{width:245px;}
 .bigform .item-checkbox, #content .bloccenter form .item-checkbox{text-align:center;margin:0 0 15px 0;padding:5px 0 0 0;}
 .bigform .item-checkbox input, #content .bloccenter form .item-checkbox input{display:inline;}
 .bigform .item-checkbox label, #content .bloccenter form .item-checkbox label{display:inline;color:#aaaeaf;font-size:14px;}

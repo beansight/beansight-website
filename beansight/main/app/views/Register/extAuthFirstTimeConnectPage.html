@@ -15,21 +15,21 @@
 			
 	        <label for="s_email">&{'email'}</label>
 	        <div class="item-input">
-	            <input type="email" name="email" id="email" value="${email}" />
+	            <input class="textfield" type="email" name="email" id="email" value="${email}" />
 	            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
 	            #{if errors.forKey('email')}<span class="error">#{error 'email' /}</span>#{/if}
 	        </div>
 	
 	        <label for="s_username">&{'username'}</label>
 	        <div class="item-input">
-	            <input type="text" name="username" id="username" value="${username}" />
+	            <input class="textfield" type="text" name="username" id="username" value="${username}" />
 	            #{if errors.forKey('username')}<span class="error">#{error 'username' /}</span>#{/if}
 	        </div>
 	
 	        #{if (promocode==null || promocode.trim().equals(""))}
 	        <label for="s_username">&{'promocode'}</label>
 	        <div class="item-input">
-	            <input type="text" name="promocode" id="promocode" value="${promocode}" />
+	            <input class="textfield" type="text" name="promocode" id="promocode" value="${promocode}" />
 	            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
 	        </div>
 			#{/if}
