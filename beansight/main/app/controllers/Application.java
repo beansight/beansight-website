@@ -773,7 +773,7 @@ public class Application extends Controller {
 		InsightResult result = Insight.search(query, from, NUMBER_INSIGHTS_SEARCHPAGE, filter);
 
 		renderArgs.put("insights", result.results);
-		render("Application/moreInsights.html");
+		render("Application/getInsights.html");
 	}
 	
 	/**
