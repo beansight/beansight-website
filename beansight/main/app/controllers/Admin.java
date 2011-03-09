@@ -154,7 +154,7 @@ public class Admin extends Controller {
 	public static void rebuildAllTrends(int period) {
 		List<Insight> list = Insight.all().fetch();
 		for (Insight i : list) {
-			i.buildTrends(new DateTime(i.creationDate), new DateTime().minusDays(1), 4);
+			i.buildTrends(new DateTime(i.creationDate), null, 4);
 		}
 	}
 	
@@ -167,16 +167,16 @@ public class Admin extends Controller {
 	
 	public static void rebuildTrendsForInsight(Long insightId, int period) {
 		Insight i = Insight.findById(insightId);
-		i.buildTrends(new DateTime(i.creationDate), new DateTime(), period);
+		i.buildTrends(new DateTime(i.creationDate), null, period);
 	}
 	
 	public static void rebuildTrendsForInsightUniqueId(String uniqueId, int period) {
 		Insight i = Insight.findByUniqueId(uniqueId);
-		i.buildTrends(new DateTime(i.creationDate), new DateTime(), period);
+		i.buildTrends(new DateTime(i.creationDate), null, period);
 	}
 	
 	public static void updateTrendsForInsightUniqueId(String uniqueId, int period) {
 		Insight i = Insight.findByUniqueId(uniqueId);
-		i.buildTrends(null, new DateTime(), period);
+		i.buildTrends(null, null, period);
 	}
 }

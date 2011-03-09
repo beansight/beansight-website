@@ -854,7 +854,10 @@ public class Insight extends Model {
     	if (to == null) {
     		to = new DateTime();
     	}
-    	Trend.delete("insight = ?  and trendDate between ? and ?", this, from.toDate(), to.toDate());
+    	if (to.isAfter(new DateTime(this.endDate))) {
+    		to = new DateTime(this.endDate);
+    	}
+     	Trend.delete("insight = ?  and trendDate between ? and ?", this, from.toDate(), to.toDate());
     	long agree = 0;
     	long disagree = 0;
     	DateTime start = from;
