@@ -216,6 +216,16 @@ public class User extends Model {
 		this.score = 0;
 		this.categoryScores = new ArrayList<UserCategoryScore>();
 		
+		this.followMail = true;
+		this.messageMail = true;
+		this.commentCreatedMail = true;
+		this.commentFavoriteMail = true;
+		this.commentCommentMail = true;
+		this.commentFavoriteMail = true;
+		
+		this.upcomingNewsletter = true;
+		this.statusNewsletter = true;
+		
 	}
 
 	public String toString() {
