@@ -375,6 +375,8 @@ in.format.on = On %s
 emailhellouser=Hi %s
 emailhello=Hello,
 emailsignature=Beansight team<br/>http://www.beansight.com
+email.unsubscribe=If you do not want to receive these emails in the future, change this 
+email.unsubscribe.settings=parameter
 
 # confirmation
 emailconfirmationsubject=Confirm your email address to join Beansight

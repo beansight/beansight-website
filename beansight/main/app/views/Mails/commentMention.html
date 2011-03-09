@@ -1,10 +1,11 @@
 <html><body>
 <p>&{'emailhellouser', task.commentNotificationMsg.toUser.userName}</p>
 
-<p>&{'email.commentMention.someoneHaveQuotedYou', task.commentNotificationMsg.fromUser.userName} <a href="http://www.beansight.com@{Application.showInsight(task.commentNotificationMsg.insight.uniqueId)}">${task.commentNotificationMsg.insight.content}</a></p>
+<p>&{'email.commentMention.someoneHaveQuotedYou', task.commentNotificationMsg.fromUser.userName} <a href="${play.configuration.getProperty("domain.name")}@{Application.showInsight(task.commentNotificationMsg.insight.uniqueId)}">${task.commentNotificationMsg.insight.content}</a></p>
 <p>&{'email.commentMention.commentContentIs'}</p>
 <p>${task.commentNotificationMsg.comment.content.escape().nl2br()}</p>
 
 
 <p>&{'emailsignature'}</p>
+<p>&{'email.unsubscribe'}<a href="${play.configuration.getProperty("domain.name")}@{Application.settings()}">&{'email.unsubscribe.settings'}</a></p>
 </body></html>
