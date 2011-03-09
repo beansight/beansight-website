@@ -256,7 +256,7 @@ public class Application extends Controller {
 			// If connected, get suggested insights
 			if (Security.isConnected()) {
 				User currentUser = CurrentUser.getCurrentUser();
-				result = currentUser.getSuggestedInsights(0, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+				result = currentUser.getSuggestedInsights(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 			} else {
 				result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
 			}

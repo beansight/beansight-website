@@ -33,6 +33,10 @@ public class Trend extends Model {
         long total = agreeCount + disagreeCount;
         if (total > 0 && agreeCount > 0) {
         	this.agreeRatio =  100 * (agreeCount)/ ((double)agreeCount + disagreeCount);
+        } else if (agreeCount == 0) {
+        	this.agreeRatio = 0;
+        } else if (disagreeCount == 0) {
+        	this.agreeRatio = 100;
         } else {
         	this.agreeRatio = 50;
         }
