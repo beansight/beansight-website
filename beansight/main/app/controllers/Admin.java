@@ -151,17 +151,17 @@ public class Admin extends Controller {
 	}
 	
 	
-	public static void rebuildAllTrends(int period) {
-		List<Insight> list = Insight.all().fetch();
+	public static void rebuildAllTrends(int period, int from, int to) {
+		List<Insight> list = Insight.find("id between :from and :to").bind("from", from).bind("to", to).fetch();
 		for (Insight i : list) {
-			i.buildTrends(new DateTime(i.creationDate), null, 4);
+			i.buildTrends(new DateTime(i.creationDate), null, period);
 		}
 	}
 	
 	public static void updateAllTrends(int period) {
 		List<Insight> list = Insight.all().fetch();
 		for (Insight i : list) {
-			i.buildTrends(null, null, 4);
+			i.buildTrends(null, null, period);
 		}
 	}
 	
