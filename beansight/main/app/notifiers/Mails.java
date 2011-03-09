@@ -11,13 +11,14 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import models.CommentNotificationMailTask;
+import models.CommentMentionMailTask;
 import models.ContactMailTask;
 import models.FollowNotificationTask;
 import models.Insight;
 import models.InvitationMailTask;
 import models.MailTask;
 import models.MessageMailTask;
+import models.NewCommentNotificationMailTask;
 import models.User;
 
 public class Mails extends Mailer {
@@ -52,6 +53,17 @@ public class Mails extends Mailer {
 		Lang.set(task.language);
 		return sendMailTask(task, task.subject, "Mails/contact.html");
 	}
+
+	public static boolean newCommentNotification(NewCommentNotificationMailTask task) {
+		Lang.set(task.language);
+		return sendMailTask(task, Messages.get("email.newCommentNotification.subject"), "Mails/newCommentNotification.html");
+	}
+	
+	public static boolean commentMention(CommentMentionMailTask task) {
+		Lang.set(task.language);	
+		return sendMailTask(task, Messages.get("email.commentMention.subject", task.commentNotificationMsg.fromUser.userName), "Mails/commentMention.html");
+	}
+
 	
 	private static boolean sendMailTask(MailTask task, String subject, String templateName) {
 		Lang.set(task.language);
@@ -81,13 +93,6 @@ public class Mails extends Mailer {
 		setFrom("notification@beansight.com");
 
 		send(templateName, forgotPasswordId);
-	}
-	
-	public static boolean commentNotification(CommentNotificationMailTask task) {
-		Lang.set(task.language);	
-		User commentWriter = task.commentNotificationMsg.fromUser;
-		
-		return sendMailTask(task, Messages.get("commentNotificationMail.subject", commentWriter.userName), "Mails/commentNotification.html");
 	}
 	
 }

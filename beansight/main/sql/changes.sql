@@ -36,7 +36,7 @@ UPDATE Insight
 SET endDate = ADDTIME(endDate, "23:59:59");
 
 
-CREATE TABLE `CommentNotificationMessage` (
+CREATE TABLE `CommentMentionNotification` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `comment_id` bigint(20) DEFAULT NULL,
   `fromUser_id` bigint(20) DEFAULT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `CommentNotificationMessage` (
   CONSTRAINT `FKE41383DD80B8D023` FOREIGN KEY (`toUser_id`) REFERENCES `User` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `CommentNotificationMailTask` (
+CREATE TABLE `CommentMentionMailTask` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `attempt` int(11) NOT NULL,
   `created` datetime DEFAULT NULL,
@@ -63,5 +63,29 @@ CREATE TABLE `CommentNotificationMailTask` (
   `commentNotificationMsg_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKB94AF2C68EE699C4` (`commentNotificationMsg_id`),
-  CONSTRAINT `FKB94AF2C68EE699C4` FOREIGN KEY (`commentNotificationMsg_id`) REFERENCES `CommentNotificationMessage` (`id`)
+  CONSTRAINT `FKB94AF2C68EE699C4` FOREIGN KEY (`commentNotificationMsg_id`) REFERENCES `CommentMentionNotification` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE  `NewCommentNotification` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `comment_id` bigint(20) DEFAULT NULL,
+  `toUser_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKD51C5B4A80B8D023` (`toUser_id`),
+  KEY `FKD51C5B4A7B83E9B6` (`comment_id`),
+  CONSTRAINT `FKD51C5B4A7B83E9B6` FOREIGN KEY (`comment_id`) REFERENCES `Comment` (`id`),
+  CONSTRAINT `FKD51C5B4A80B8D023` FOREIGN KEY (`toUser_id`) REFERENCES `User` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE  `NewCommentNotificationMailTask` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `attempt` int(11) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `sendTo` varchar(255) DEFAULT NULL,
+  `sent` bit(1) NOT NULL,
+  `notification_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK2B96D146F3AD203D` (`notification_id`),
+  CONSTRAINT `FK2B96D146F3AD203D` FOREIGN KEY (`notification_id`) REFERENCES `NewCommentNotification` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

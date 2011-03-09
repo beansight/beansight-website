@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class CommentNotificationMessage extends Model {
+public class CommentMentionNotification extends Model {
 
 	@ManyToOne
 	public Insight insight;
@@ -20,7 +20,7 @@ public class CommentNotificationMessage extends Model {
 	@ManyToOne
 	public Comment comment;
 	
-	public CommentNotificationMessage(Insight insight, User from, User to, Comment comment) {
+	public CommentMentionNotification(Insight insight, User from, User to, Comment comment) {
 		this.insight = insight;
 		this.toUser = to;
 		this.fromUser = from;

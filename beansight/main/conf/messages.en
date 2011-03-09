@@ -411,6 +411,10 @@ forgotPassword.receiveemail=You received this message because you or someone els
 forgotPassword.clickhere=Click here to choose a new password on beansight.com
 
 # quoted in a comment
-commentNotificationMail.someoneHaveQuotedYou=%s have mentioned you in a comment for the prediction :
-commentNotificationMail.commentContentIs=The comment is :
-commentNotificationMail.subject=Beansight : %s have mentioned you in a comment
+email.commentMention.subject=Beansight: %s mentioned you in a comment
+email.commentMention.someoneHaveQuotedYou=%s mentioned you in a comment on the prediction: 
+email.commentMention.commentContentIs=The comment is:
+
+# newComment Notification
+email.newCommentNotification.subject=Beansight: New comment on a prediction
+email.newCommentNotification.newComment=%s commented on the prediction: 

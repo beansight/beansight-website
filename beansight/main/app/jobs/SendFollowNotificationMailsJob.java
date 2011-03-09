@@ -12,7 +12,7 @@ import play.jobs.Job;
 import play.mvc.Scope;
 
 @Every("5min")
-public class FollowNotificationJob extends Job {
+public class SendFollowNotificationMailsJob extends Job {
 	
 	/** Number of task email this job can send in his 5 minutes */
 	public static final int NUM_TASK = 10;

@@ -422,6 +422,10 @@ forgotPassword.receiveemail=Vous recevez ce message car vous ou quelqu'un d'autr
 forgotPassword.clickhere=Cliquez ici pour choisir un nouveau mot de passe sur beansight.com
 
 # quoted in a comment
-commentNotificationMail.someoneHaveQuotedYou=%s vous a mentionné dans un commentaire sur la prédiction :
-commentNotificationMail.commentContentIs=Le commentaire est le suivant :
-commentNotificationMail.subject=Beansight : %s vous a mentionné dans un commentaire
+email.commentMention.subject=Beansight : %s vous a mentionné dans un commentaire
+email.commentMention.someoneHaveQuotedYou=%s vous a mentionné dans un commentaire sur la prédiction :
+email.commentMention.commentContentIs=Le commentaire est le suivant :
+
+# newComment Notification
+email.newCommentNotification.subject=Beansight : Nouveau commentaire
+email.newCommentNotification.newComment=%s a ajouté un commentaire sur la prédiction : 

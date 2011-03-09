@@ -258,6 +258,9 @@ public class Insight extends Model {
 	public Comment addComment(String content, User user) {
 		Comment comment = new Comment(user, this, content);
 		comment.save();
+
+		// users that are mentioned and that are going to receive a notification
+		Set<User> usersMentioned= new HashSet<User>();
 		
 		// search usernames that could be referenced inside the comment (like this @someone) and send them an email
 		Set<String> userNamesToNotify = new HashSet<String>();
@@ -271,14 +274,54 @@ public class Insight extends Model {
 		if(userNamesToNotify.size() < 10) {
 			Iterator<String> userNamesIt = userNamesToNotify.iterator();
 			while(userNamesIt.hasNext()) {
-				User userToNotify = User.findByUserName(userNamesIt.next());
-				if(userToNotify != null) {
-					CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, user, userToNotify, comment);
+				User userMentionedToNotify = User.findByUserName(userNamesIt.next());
+				if(userMentionedToNotify != null && user != userMentionedToNotify) {
+					usersMentioned.add(userMentionedToNotify);
+					CommentMentionNotification commentNotifMsg = new CommentMentionNotification(this, user, userMentionedToNotify, comment);
 					commentNotifMsg.save();
-					CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
-					commentNotifMailTask.language = userToNotify.uiLanguage.label;
-					commentNotifMailTask.save();
+					if(userMentionedToNotify.commentMentionMail) { // if this user accepts to be notified
+						CommentMentionMailTask commentNotifMailTask = new CommentMentionMailTask(commentNotifMsg);
+						commentNotifMailTask.save();
+					}
 				}
+			}
+		}
+		
+		// users that need to be notified of the new Comment
+		Set<User> usersToNotifyNewComment= new HashSet<User>();
+		Set<User> usersToSendMail = new HashSet<User>();
+		// notify those who added this insight to their favorite
+		for(User u : this.followers) {
+			if(user != u && !usersMentioned.contains(u)) {
+				usersToNotifyNewComment.add(u);
+				if(u.commentFavoriteMail) {
+					usersToSendMail.add(u);
+				}
+			}
+		}
+		// notify the creator of the insight
+		if(user != this.creator && !usersMentioned.contains(this.creator)) {
+			usersToNotifyNewComment.add(this.creator);
+			if(this.creator.commentCreatedMail) {
+				usersToSendMail.add(this.creator);
+			}
+		}
+		// notify the others commenters
+		for(User u : this.getCommenters()) {
+			if(user != u && !usersMentioned.contains(u)) {
+				usersToNotifyNewComment.add(u);
+				if(u.commentCommentMail) {
+					usersToSendMail.add(u);
+				}
+			}
+		}
+		// go go go!
+		for(User u : usersToNotifyNewComment) {
+			NewCommentNotification notification = new NewCommentNotification(u, comment);
+			notification.save();
+			if(usersToSendMail.contains(u)) {
+				NewCommentNotificationMailTask task = new NewCommentNotificationMailTask(notification);
+				task.save();
 			}
 		}
 		
@@ -782,6 +825,13 @@ public class Insight extends Model {
     
     public List<Comment> getNotHiddenComments() {
     	return Comment.find("select c from Comment c where c.insight.id = :insightId and c.hidden is false order by c.creationDate desc").bind("insightId", this.id).fetch();
+    }
+    
+    /**
+     * get a set of users who commented on this insight
+     */
+    public Set<User> getCommenters() {
+    	return new HashSet(User.find("select user from Comment c where c.insight = ?", this).fetch());
     }
     
     /**
