@@ -343,8 +343,8 @@ faq.A.expertise.comments=Pas encore ! ;)
 faq.title.experts=Experts
 faq.Q.experts.how=Comment puis-je trouver les meilleurs experts ?
 faq.A.experts.how=Vous trouverez la liste des utilisateurs de Beansight dans le menu Experts. Pour l’instant, vous ne pouvez trouver les expert qu’en utilisant notre moteur de recherche (il vous faut donc connaitre leur nom). Par défaut, les experts sont classés par leur score d’expertise total.
-faq.Q.experts.follow=Quel est l’intérêt de suivre un expert ?
-faq.A.experts.follow=Suivre un expert vous permet de lui suggérer une prédiction. Vous pourrez ainsi augmenter vous chance d’avoir son avis. Nous pourrons aussi nous aider des vos experts favoris pour comprendre quels sont les predictions qui vous intéressent le plus. Pour suivre un expert cliquez sur l’étoile sous la photo de profile.
+faq.Q.experts.follow=Quel est l’intérêt d'ajouter un expert dans mes favoris ?
+faq.A.experts.follow=Suivre un expert vous permet de facilement le retrouver par la suite dans le menu de gauche. Vous pourrez aussi lui suggérer une prédiction et ainsi augmenter vos chances d’avoir son avis. Pour suivre un expert cliquez sur l’étoile sous la photo de profile.
 
 faq.title.profile=Profil et paramètres
 faq.Q.profile.howpicture=Comment on fait pour avoir une beeeelle photo de profil ?

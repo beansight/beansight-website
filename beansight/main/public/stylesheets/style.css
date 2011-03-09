@@ -607,7 +607,7 @@ a:hover{color:#228392;}
 .FAQ {margin: 0 20px; font-size:14px;}
 .FAQ .FAQ-section {margin-bottom: 30px;}
 .FAQ .FAQ-section .faq-section-title {color:#228392; margin-bottom: 15px; font-size:16px;}
-.FAQ .FAQ-section .QandA {margin-bottom: 30px;}
+.FAQ .FAQ-section .QandA {margin: 0 30px 30px 30px;}
 .FAQ .FAQ-section .QandA .question {margin-bottom:5px; color:#272E2F;}
 
 /*

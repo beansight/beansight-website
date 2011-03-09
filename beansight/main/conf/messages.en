@@ -343,8 +343,8 @@ faq.A.expertise.comments=Not yet! ;)
 faq.title.experts=Experts
 faq.Q.experts.how=How do I find the experts?
 faq.A.experts.how=You’ll find the list of Beansight users on the Experts menu. At this point, you can only look for experts by using the search engine (therefore you need to know their names). By default, experts are ranked by their global expertise score.
-faq.Q.experts.follow=What’s the point of following an expert?
-faq.A.experts.follow=Following experts enables you to suggest them predictions. It can also help us to chose which predictions you might be interested in. You can follow someone by clicking on the star under their profile picture.
+faq.Q.experts.follow=What’s the point of addind an expert to my favorites?
+faq.A.experts.follow=You can easily find later experts you follow in the left menu. You will also be able to suggest them predictions. You can follow someone by clicking on the star under their profile picture.
 
 faq.title.profile=Profile and settings
 faq.Q.profile.howpicture=How can I have a neat profile picture?
