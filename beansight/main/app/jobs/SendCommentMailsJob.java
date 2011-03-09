@@ -15,7 +15,7 @@ import play.jobs.Every;
 import play.jobs.Job;
 import play.mvc.Scope;
 
-@Every("10s")
+@Every("3min")
 public class SendCommentMailsJob extends Job {
 	
 	/** Number of task email this job can send in his 5 minutes */
