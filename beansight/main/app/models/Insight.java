@@ -774,12 +774,12 @@ public class Insight extends Model {
 		return insights;
 	}
 	
-	/**
-	 * Create a snapshot of this insight state, store it in a Trend
-	 */
-	public void createTrendSnapshot() {
-		this.trends.add(new Trend(new Date(), this, this.agreeCount, this.disagreeCount));
-	}
+//	/**
+//	 * Create a snapshot of this insight state, store it in a Trend
+//	 */
+//	public void createTrendSnapshot() {
+//		this.trends.add(new Trend(new Date(), this, this.agreeCount, this.disagreeCount));
+//	}
 	
     public long getTrendCount() {
     	return Trend.count("insight", this);
@@ -842,7 +842,18 @@ public class Insight extends Model {
      * @param period
      */
     public void buildTrends(DateTime from, DateTime to, int period) {
-    	Logger.debug("building trends for insight.id=%s", this.id);
+    	Logger.info("building trends for insight.id=%s", this.id);
+    	if (from == null) {
+    		Trend lastTrend = Trend.find("insight = :insight order by trendDate desc").bind("insight", this).first();
+    		if (lastTrend != null) {
+    			from = new DateTime(lastTrend.trendDate);
+    		} else {
+    			from = new DateTime(this.creationDate);
+    		}
+    	}
+    	if (to == null) {
+    		to = new DateTime();
+    	}
     	Trend.delete("insight = ?  and trendDate between ? and ?", this, from.toDate(), to.toDate());
     	long agree = 0;
     	long disagree = 0;
@@ -863,17 +874,6 @@ public class Insight extends Model {
         	end = end.plusHours(period);
     	}
     }
-    
-    
-//	public Future<Boolean> notifyNewComment(User commentWriter, User userToNotify, Comment comment) {
-//		CommentNotificationMessage commentNotifMsg = new CommentNotificationMessage(this, commentWriter, userToNotify, comment);
-//		commentNotifMsg.save();
-//		CommentNotificationMailTask commentNotifMailTask = new CommentNotificationMailTask(commentNotifMsg);
-//		commentNotifMailTask.language = userToNotify.writtingLanguage.label;
-//		commentNotifMailTask.save();
-//		return commentNotifMailTask.sendMail();
-//	}
-    
     
 	public static class InsightResult {
 		/** The asked insights */

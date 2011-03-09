@@ -10,8 +10,7 @@ import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
 
-// job start every days at midnight
-@On("0 0 0 * * ?")
+@Every("6h")
 public class InsightGraphTrendsJob extends Job {
 
 	public static final int INSIGHT_NUMBER_TO_PROCESS = 100;
@@ -37,9 +36,7 @@ public class InsightGraphTrendsJob extends Job {
     
     private void processInsights(List<Insight> insights) {
         for (Insight insight : insights) {
-            Logger.info("GraphTrend Snapshot of Insight: " + insight.content);
-            insight.createTrendSnapshot();
-            insight.save();
+            insight.buildTrends(null, null, 4);
         }
     }
     

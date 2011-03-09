@@ -154,12 +154,29 @@ public class Admin extends Controller {
 	public static void rebuildAllTrends(int period) {
 		List<Insight> list = Insight.all().fetch();
 		for (Insight i : list) {
-			i.buildTrends(new DateTime(i.creationDate), new DateTime(), 4);
+			i.buildTrends(new DateTime(i.creationDate), new DateTime().minusDays(1), 4);
+		}
+	}
+	
+	public static void updateAllTrends(int period) {
+		List<Insight> list = Insight.all().fetch();
+		for (Insight i : list) {
+			i.buildTrends(null, null, 4);
 		}
 	}
 	
 	public static void rebuildTrendsForInsight(Long insightId, int period) {
 		Insight i = Insight.findById(insightId);
 		i.buildTrends(new DateTime(i.creationDate), new DateTime(), period);
+	}
+	
+	public static void rebuildTrendsForInsightUniqueId(String uniqueId, int period) {
+		Insight i = Insight.findByUniqueId(uniqueId);
+		i.buildTrends(new DateTime(i.creationDate), new DateTime(), period);
+	}
+	
+	public static void updateTrendsForInsightUniqueId(String uniqueId, int period) {
+		Insight i = Insight.findByUniqueId(uniqueId);
+		i.buildTrends(null, new DateTime(), period);
 	}
 }
