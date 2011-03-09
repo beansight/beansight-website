@@ -14,7 +14,7 @@ public class NewCommentNotificationMailTask extends MailTask {
 	public NewCommentNotification notification;
 	
 	public NewCommentNotificationMailTask(NewCommentNotification notification) {
-		super(notification.toUser.email, notification.comment.user.uiLanguage.label);
+		super(notification.toUser.email, notification.toUser.uiLanguage.label);
 		this.notification = notification;
 	}
 }
