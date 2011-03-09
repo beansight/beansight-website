@@ -575,9 +575,8 @@ public class User extends Model {
 	 *            to check
 	 */
 	public boolean isFollowingUser(User user) {
-		Long count = find("select count(u) from User u join u.followers f where u=:user and f=:followed").bind("user", this).bind("followed", user).first();
+		Long count = find("select count(u) from User u join u.followers f where u=:user and f=:followed").bind("user", user).bind("followed", this).first();
 		if (count > 0) {
-//		if (followedUsers.contains(user)) {
 			return true;
 		}
 		return false;
