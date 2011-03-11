@@ -1,14 +1,18 @@
 package models;
 
 import helpers.ImageHelper;
+import helpers.UserCount;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,6 +28,8 @@ import models.Vote.State;
 import models.Vote.Status;
 import models.analytics.UserClientInfo;
 import models.analytics.UserExpertVisit;
+import models.analytics.UserInsightDailyCreation;
+import models.analytics.UserInsightDailyVote;
 import models.analytics.UserInsightSearchVisit;
 import models.analytics.UserInsightVisit;
 import models.analytics.UserListExpertsVisit;
@@ -33,6 +39,7 @@ import notifiers.Mails;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
+import org.joda.time.DateTime;
 
 import play.Logger;
 import play.db.jpa.Blob;
@@ -1048,5 +1055,53 @@ public class User extends Model {
     	}
     	return results;
 	}
-
+	
+	public static List<UserCount> findBestVoters(int number) {
+		// A single SQL query could have been used for the following code
+		List<UserInsightDailyVote> stats = UserInsightDailyVote.find("forDate > ?", new DateTime().minusWeeks(1).toDate()).fetch();
+		// Compute the number of vote per user
+		Map<User, Long> userCountMap = new HashMap<User, Long>();
+		for(UserInsightDailyVote stat : stats ) {
+			Long count = new Long(0);
+			if(userCountMap.containsKey(stat.user)) {
+				count = userCountMap.get(stat.user);
+			}
+			userCountMap.put(stat.user, count + stat.count);
+		}
+		// Create an ordered users and count
+		List<UserCount> userCounts = new ArrayList<UserCount>();
+		for ( Map.Entry<User, Long> entry : userCountMap.entrySet() ) {
+			userCounts.add( new UserCount(entry.getKey(), entry.getValue()) );
+		}
+		// sort by count
+		Collections.sort( userCounts );
+		// reverse order
+		Collections.reverse( userCounts );
+		return userCounts.subList(0, Math.min(userCounts.size(), number));
+	}
+	
+	public static List<UserCount> findBestCreators(int number) {
+		// A single SQL query could have been used for the following code
+		List<UserInsightDailyCreation> stats2 = UserInsightDailyCreation.find("forDate > ?", new DateTime().minusWeeks(1).toDate()).fetch();
+		// Compute the number of vote per user
+		Map<User, Long> userCountMap2 = new HashMap<User, Long>();
+		for(UserInsightDailyCreation stat : stats2 ) {
+			Long count = new Long(0);
+			if(userCountMap2.containsKey(stat.user)) {
+				count = userCountMap2.get(stat.user);
+			}
+			userCountMap2.put(stat.user, count + stat.count);
+		}
+		// Create an ordered users and count
+		List<UserCount> userCounts2 = new ArrayList<UserCount>();
+		for ( Map.Entry<User, Long> entry : userCountMap2.entrySet() ) {
+			userCounts2.add( new UserCount(entry.getKey(), entry.getValue()) );
+		}
+		// sort by count
+		Collections.sort( userCounts2 );
+		// reverse order
+		Collections.reverse( userCounts2 );
+		return userCounts2.subList(0, Math.min(userCounts2.size(), number));
+	}
+	
 }

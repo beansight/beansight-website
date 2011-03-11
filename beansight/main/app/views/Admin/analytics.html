@@ -1,0 +1,125 @@
+#{extends 'main.html' /}
+#{set title:'Mesurbation' /}
+
+<h2>Mesurbation</h2>
+
+#{set 'moreStyles'}
+<style type="text/css">
+.analytics-graph {width: 450px; height: 240px; margin-bottom: 50px;}
+
+h3 {margin: 20px 0; font-weight: bold;}
+
+.analyticsbloc {float:left; width:300px;}
+.analyticsbloc.large {width:470px;}
+</style>
+#{/set}
+
+#{set 'moreScripts'}
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {'packages':['annotatedtimeline']});
+      
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Total votes');
+        data.addColumn('number', 'Total insights');
+        data.addColumn('number', 'Total comments');        
+        data.addRows([
+        #{list items:dailyTotalVote, as:'value'} 
+          [new Date(${value.forDate.getTime()}), ${value.voteCount}, ${dailyTotalInsight.get(value_index -1).insightCount}, ${dailyTotalComment.get(value_index -1).commentCount}]#{if !value_isLast},#{/if}
+        #{/list}
+        ]);
+
+        var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('dailyChart'));
+        chart.draw(data, {displayAnnotations: true});
+      }
+      
+      google.setOnLoadCallback(drawChart1);
+      function drawChart1() {
+        var data1 = new google.visualization.DataTable();
+        data1.addColumn('date', 'Date');
+        data1.addColumn('number', 'Total votes');
+        data1.addColumn('string', 'title1');
+        data1.addColumn('string', 'text1');
+        data1.addRows([
+        #{list items:dailyTotalVote, as:'value'} 
+          [new Date(${value.forDate.getTime()}), ${value.voteCount}, undefined, undefined]#{if !value_isLast},#{/if}
+        #{/list}
+        ]);
+
+        var chart1 = new google.visualization.AnnotatedTimeLine(document.getElementById('dailyTotalVoteChart'));
+        chart1.draw(data1, {displayAnnotations: true});
+      }
+      
+      google.setOnLoadCallback(drawChart2);
+      function drawChart2() {
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('date', 'Date');
+        data2.addColumn('number', 'Total prediction creations');
+        data2.addColumn('string', 'title1');
+        data2.addColumn('string', 'text1');
+        data2.addRows([
+        #{list items:dailyTotalInsight, as:'value'} 
+          [new Date(${value.forDate.getTime()}), ${value.insightCount}, undefined, undefined]#{if !value_isLast},#{/if}
+        #{/list}
+        ]);
+
+        var chart2 = new google.visualization.AnnotatedTimeLine(document.getElementById('dailyTotalInsightChart'));
+        chart2.draw(data2, {displayAnnotations: true});
+      }
+      
+      google.setOnLoadCallback(drawChart3);
+      function drawChart3() {
+        var data3 = new google.visualization.DataTable();
+        data3.addColumn('date', 'Date');
+        data3.addColumn('number', 'Total comments');
+        data3.addColumn('string', 'title1');
+        data3.addColumn('string', 'text1');
+        data3.addRows([
+        #{list items:dailyTotalComment, as:'value'} 
+          [new Date(${value.forDate.getTime()}), ${value.commentCount}, undefined, undefined]#{if !value_isLast},#{/if}
+        #{/list}
+        ]);
+
+        var chart3 = new google.visualization.AnnotatedTimeLine(document.getElementById('dailyTotalCommentChart'));
+        chart3.draw(data3, {displayAnnotations: true});
+      }
+    </script>
+#{/set}
+
+<div class="analyticsbloc">
+    <h3>Most votes this week</h3>
+<ul>
+        #{list items:bestUserVotes, as:'userVote'} 
+          <li><a href="@{Application.showUser(userVote.user.userName)}">${userVote.user.userName}</a> - ${userVote.count}</li>
+        #{/list}
+</ul>        
+</div>
+
+<div class="analyticsbloc">
+    <h3>Most predictions created this week</h3>
+<ul>
+        #{list items:bestUserInsights, as:'userVote'} 
+          <li><a href="@{Application.showUser(userVote.user.userName)}">${userVote.user.userName}</a> - ${userVote.count}</li>
+        #{/list}
+</ul>    
+</div>
+
+<div class="analyticsbloc large">
+    <h3>Total Predictions</h3>
+    <div id="dailyTotalInsightChart" class="analytics-graph"</div>
+</div>
+<div class="analyticsbloc large">
+    <h3>Total Votes (and Predictions and Comments)</h3>
+    <div id="dailyChart" class="analytics-graph"></div>
+</div>    
+<div class="analyticsbloc large">
+    <h3>Total Comments</h3>
+    <div id="dailyTotalCommentChart" class="analytics-graph"</div>
+</div>    
+<div class="analyticsbloc large">
+    <h3>Total Votes</h3> 
+    <div id="dailyTotalVoteChart" class="analytics-graph"</div>
+</div>

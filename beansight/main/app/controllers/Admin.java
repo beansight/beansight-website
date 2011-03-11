@@ -1,8 +1,13 @@
 package controllers;
 
+import helpers.UserCount;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -14,13 +19,20 @@ import models.Comment;
 import models.Insight;
 import models.Trend;
 import models.User;
+import models.analytics.DailyTotalComment;
+import models.analytics.DailyTotalInsight;
+import models.analytics.DailyTotalVote;
+import models.analytics.UserInsightDailyCreation;
+import models.analytics.UserInsightDailyVote;
 
 import org.joda.time.DateTime;
 
 import play.Logger;
 import play.Play;
 import play.data.validation.Required;
+import play.i18n.Lang;
 import play.modules.search.Search;
+import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -29,14 +41,37 @@ import play.mvc.With;
 @Check("admin")
 public class Admin extends Controller {
 
+    /**
+     * Make sure the language is the one the user has chosen.
+     */
+	/*
+	@Before(only={"addInvitationsToUser"})
+    static void loadMenuData() {
+		Application.loadMenuData();
+    }
+    */
+	
 	/**
 	 * Add invitations to this user
 	 */
 	public static void addInvitationsToUser(long userId, long number) {
 		User user = User.findById(userId);
 		user.addInvitations(number);
-		Application.loadMenuData();
 		render(user);
+	}
+	
+	public static void index() {
+		render();
+	}
+	
+	public static void analytics() {
+		renderArgs.put("dailyTotalVote", DailyTotalVote.findAll());
+		renderArgs.put("dailyTotalInsight", DailyTotalInsight.findAll());
+		renderArgs.put("dailyTotalComment", DailyTotalComment.findAll());
+		renderArgs.put("bestUserVotes", User.findBestVoters(20));
+		renderArgs.put("bestUserInsights", User.findBestCreators(20));
+		
+		render();
 	}
 	
 	public static void rebuildAllIndexes() {

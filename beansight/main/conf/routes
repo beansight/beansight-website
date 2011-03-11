@@ -36,8 +36,10 @@ GET     /insight/{insightUniqueId}              Application.showInsight
 # Expert page
 GET     /expert/{<[a-zA-Z0-9_]{3,16}>userName}  Application.showUser
 
-# Import CRUD routes
-*       /admin                                  module:crud
+# Admin Zone
+GET     /admin                                  Admin.index
+GET     /admin/analytics                        Admin.analytics
+GET     /admin/CRUD                             module:crud
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
