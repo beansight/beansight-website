@@ -4,9 +4,12 @@ import helpers.FormatHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Future;
 
@@ -791,12 +794,13 @@ public class Insight extends Model {
      * @param horizontalDefinition Number of horizontal value that will be used to create the charts
      * @return
      */
-    public List<Double> getAgreeRatioTrends(long horizontalDefinition) {
+    public List<Long> getAgreeRatioTrends(long horizontalDefinition) {
         long trendsCount = this.getTrendCount();
                 
-        List<Double> agreeTrends;
+        List<Long> agreeTrends = new ArrayList<Long>();
+        List<Double> agreeTrendsTmp = null;
         if (trendsCount <= horizontalDefinition) {
-            agreeTrends = find("select t.agreeRatio from Trend t join t.insight i where i.id = :insightId order by t.trendDate").bind("insightId", this.id)
+        	agreeTrendsTmp = find("select t.agreeRatio from Trend t join t.insight i where i.id = :insightId order by t.trendDate").bind("insightId", this.id)
                     .fetch();
         } else {
         	// FIXME : be careful, the "-2" make it possible for the value to be 0
@@ -806,11 +810,14 @@ public class Insight extends Model {
                 indexList.add(i * incrementSize + 1);
             }
             
-            agreeTrends = find(
+            agreeTrendsTmp = find(
                     "select t.agreeRatio from Trend t join t.insight i where i.id = :insightId and t.relativeIndex in (:indexList) order by t.trendDate")
                     .bind("insightId", this.id).bind("indexList", indexList).fetch();
         }
-
+        for (Double val : agreeTrendsTmp) {
+        	agreeTrends.add(new Long(val.longValue()));
+        }
+        
         return agreeTrends;
     }
     
@@ -834,48 +841,77 @@ public class Insight extends Model {
     	return new HashSet(User.find("select user from Comment c where c.insight = ?", this).fetch());
     }
     
-    /**
-     * TODO : si from est null alors utiliser la date du dernier trend existant
-     * TODO : si to est null alors utiliser la date de l'instant d'exécution
-     * @param from
-     * @param to
-     * @param period
-     */
+    
+    private Long[] countAgreeDisagree(Map<Long, State> voteMap) {
+    	Long[] result = {0l, 0l};
+    	
+    	for (Entry<Long, State> entry : voteMap.entrySet()) {
+    		if (entry.getValue().equals(State.AGREE)) {
+    			result[0]++;
+    		} else {
+    			result[1]++;
+    		}
+    	}
+    	
+    	return result;
+    }
+    
+
+    
     public void buildTrends(DateTime from, DateTime to, int period) {
     	Logger.info("building trends for insight.id=%s", this.id);
+    	
     	if (from == null) {
-    		Trend lastTrend = Trend.find("insight = :insight order by trendDate desc").bind("insight", this).first();
-    		if (lastTrend != null) {
-    			from = new DateTime(lastTrend.trendDate);
-    		} else {
-    			from = new DateTime(this.creationDate);
-    		}
-    	}
-    	if (to == null) {
-    		to = new DateTime();
-    	}
-    	if (to.isAfter(new DateTime(this.endDate))) {
-    		to = new DateTime(this.endDate);
-    	}
-     	Trend.delete("insight = ?  and trendDate between ? and ?", this, from.toDate(), to.toDate());
-    	long agree = 0;
-    	long disagree = 0;
-    	DateTime start = from;
-    	DateTime end = from.plusHours(period);
-    	while (end.isBefore(to)) {
-    		List<Object[]> result = Vote.find("select v.state, count(v) from Vote v where v.insight=? and v.creationDate between ? and ? group by v.state", this, start.toDate(), end.toDate()).fetch();
-    		for (Object[] o : result) {
-    			if (o[0].equals(Vote.State.AGREE)) {
-    				agree = agree + (Long)o[1];
+			Trend lastTrend = Trend.find("insight = :insight order by trendDate desc").bind("insight", this).first();
+			if (lastTrend != null) {
+				from = new DateTime(lastTrend.trendDate);
+			} else {
+				from = new DateTime(this.creationDate);
+			}
+		}
+		if (to == null) {
+			to = new DateTime();
+		}
+		if (to.isAfter(new DateTime(this.endDate))) {
+			to = new DateTime(this.endDate);
+		}
+    	
+    	Trend.delete("insight = ?  and trendDate between ? and ?", this, from.plusSeconds(1).toDate(), to.toDate());
+    	Map<Long, State> voteMap = new HashMap<Long, State>();
+    	long absoluteFrom = from.getMillis();
+    	long absoluteTo = to.getMillis();
+    	long deltaPeriod = period * 60 * 60 * 1000;
+    	long borneSup = absoluteFrom + deltaPeriod;
+    	List<Object[]> votes = Vote.find("select v.creationDate, v.state, v.user.id  from Vote v where v.insight = :insight and v.creationDate < :to order by v.creationDate asc").bind("insight", this).bind("to", to.toDate()).fetch();
+    	boolean next = true;
+    	int index = -1;
+    	while(next) {
+    		if ((index+1) < votes.size() ) {
+    			if ( ((Date)votes.get(index+1)[0]).getTime() < borneSup) {
+	    			index++;
+	    			Object[] vote = votes.get(index);
+	        		State state = (State)vote[1];
+	        		Long userId = (Long)vote[2];
+	        		
+	    			voteMap.put(userId, state);
     			} else {
-    				disagree = disagree + (Long)o[1];
-    			} 
+        			Long[] agreeDisagree = countAgreeDisagree(voteMap);
+        			Trend trend = new Trend(new Date(borneSup), this,  agreeDisagree[0], agreeDisagree[1]);
+        			trend.save();
+    				
+    	    		borneSup += deltaPeriod;
+    			}
+    		} else if (borneSup < absoluteTo) {
+    			Long[] agreeDisagree = countAgreeDisagree(voteMap);
+    			Trend trend = new Trend(new Date(borneSup), this, agreeDisagree[0], agreeDisagree[1]);
+    			trend.save();
+    			
+	    		borneSup += deltaPeriod;
+    		} else {
+    			next = false;
     		}
-    		Trend trend = new Trend(end.toDate(), this, agree, disagree);
-    		trend.save();
-        	start = end;
-        	end = end.plusHours(period);
     	}
+    	
     }
     
 	public static class InsightResult {

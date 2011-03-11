@@ -3,9 +3,12 @@ package controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import jobs.AnalyticsJob;
 import jobs.InsightGraphTrendsJob;
+import jobs.InsightGraphTrendsJobTask;
 import jobs.InsightValidationAndUserScoreJob;
 import models.Comment;
 import models.Insight;
@@ -146,8 +149,6 @@ public class Admin extends Controller {
 		}
 		
 		render(users, delete);
-//		renderText("User.removeCreatedAccountWithNoInvitationBefore finished : ok, all user accounts with no invitation created before " +
-//				datetime + " have been deleted");
 	}
 	
 	
@@ -158,25 +159,44 @@ public class Admin extends Controller {
 		}
 	}
 	
-	public static void updateAllTrends(int period) {
-		List<Insight> list = Insight.all().fetch();
-		for (Insight i : list) {
-			i.buildTrends(null, null, period);
+	private static Long BLOC = 8l;
+	
+	public static void rebuildTrends(Long from, Long to) {
+		System.out.println("rebuild");
+		if (from == null) {
+			from = 0l;
 		}
+		if (to == null) {
+			to = BLOC;
+		}
+		
+		InsightGraphTrendsJobTask job = new InsightGraphTrendsJobTask(from, to);
+		try {
+			job.now().get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		
+		long count = Insight.count();
+		if (count > from) {
+			rebuildTrends(to + 1, to + BLOC);
+		}
+		
+		renderText("ok");
 	}
 	
-	public static void rebuildTrendsForInsight(Long insightId, int period) {
-		Insight i = Insight.findById(insightId);
-		i.buildTrends(new DateTime(i.creationDate), null, period);
+	public static void updateTrends() {
+	    if(request.isNew) {
+	        Future task = new InsightGraphTrendsJob().now();
+	        request.args.put("task", task);
+	        waitFor(task);
+	    }
+	    renderText("ok");
 	}
 	
-	public static void rebuildTrendsForInsightUniqueId(String uniqueId, int period) {
-		Insight i = Insight.findByUniqueId(uniqueId);
-		i.buildTrends(new DateTime(i.creationDate), null, period);
-	}
+
 	
-	public static void updateTrendsForInsightUniqueId(String uniqueId, int period) {
-		Insight i = Insight.findByUniqueId(uniqueId);
-		i.buildTrends(null, null, period);
-	}
+
 }

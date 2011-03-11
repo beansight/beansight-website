@@ -420,7 +420,7 @@ public class Application extends Controller {
 		List<Vote> lastVotes = insight.getLastVotes(5);
 		
         renderArgs.put("lastVotes", lastVotes);
-        renderArgs.put("agreeTrends", insight.getAgreeRatioTrends(100));
+        renderArgs.put("agreeTrends", insight.getAgreeRatioTrends(90));
         renderArgs.put("comments", insight.getNotHiddenComments());
 		render(insight);
 	}
