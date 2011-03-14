@@ -803,8 +803,9 @@ public class Insight extends Model {
         	agreeTrendsTmp = find("select t.agreeRatio from Trend t join t.insight i where i.id = :insightId order by t.trendDate").bind("insightId", this.id)
                     .fetch();
         } else {
-        	// FIXME : be careful, the "-2" make it possible for the value to be 0
-        	long incrementSize = (trendsCount - 2) / horizontalDefinition;
+        	// for example if value is between 1.001 and 1.9999 the rounded value will be equals to 2 :
+        	long incrementSize = Math.round(0.5 + trendsCount / horizontalDefinition);
+        	
             List<Long> indexList = new ArrayList<Long>((int)horizontalDefinition);
             for (int i = 1 ; i<horizontalDefinition ; i++) {
                 indexList.add(i * incrementSize + 1);
