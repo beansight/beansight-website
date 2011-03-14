@@ -430,5 +430,5 @@ email.commentMention.someoneHaveQuotedYou=%s vous a mentionné dans un commentai
 email.commentMention.commentContentIs=Le commentaire est le suivant :
 
 # newComment Notification
-email.newCommentNotification.subject=Beansight : Nouveau commentaire
+email.newCommentNotification.subject=Beansight : Nouveau commentaire sur %s
 email.newCommentNotification.newComment=%s a ajouté un commentaire sur la prédiction : 

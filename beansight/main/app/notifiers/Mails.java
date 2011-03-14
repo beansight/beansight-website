@@ -11,6 +11,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import ext.StringExtensions;
+
 import models.CommentMentionMailTask;
 import models.ContactMailTask;
 import models.FollowNotificationTask;
@@ -55,7 +57,7 @@ public class Mails extends Mailer {
 
 	public static boolean newCommentNotification(NewCommentNotificationMailTask task) {
 		Lang.set(task.language);
-		return sendMailTask(task, Messages.get("email.newCommentNotification.subject"), "Mails/newCommentNotification");
+		return sendMailTask(task, Messages.get("email.newCommentNotification.subject", StringExtensions.abbreviate( task.notification.comment.insight.content, 40) ), "Mails/newCommentNotification");
 	}
 	
 	public static boolean commentMention(CommentMentionMailTask task) {

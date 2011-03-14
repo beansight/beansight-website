@@ -419,5 +419,5 @@ email.commentMention.someoneHaveQuotedYou=%s mentioned you in a comment on the p
 email.commentMention.commentContentIs=The comment is:
 
 # newComment Notification
-email.newCommentNotification.subject=Beansight: New comment on a prediction
+email.newCommentNotification.subject=Beansight: New comment on the prediction %s
 email.newCommentNotification.newComment=%s commented on the prediction: 
