@@ -224,12 +224,14 @@
                         </tr>
                         <tr>
                             <td colspan="2" id="footer_links" style="text-align: center;padding-top: 20px;font-size: 12px;">
+                            #{if unsubscribe}
                                 <p>
 	                                &{'email.unsubscribe'}
 	                                <a href="${play.configuration.getProperty("domain.name")}@{Application.settings()}" style="color: #336699;text-decoration: underline;font-weight: normal;">
 	                                   &{'email.unsubscribe.settings'}
 	                                </a>
                                 </p>
+                            #{/if}
                             </td>
                         </tr>
                     </table>

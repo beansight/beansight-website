@@ -1,4 +1,5 @@
 #{extends 'masterMail.html' /}
+#{set unsubscribe:true /}
 <p>&{'emailhellouser', task.message.toUser.userName}</p>
 
 <p>&{'emailmessageheadline', task.message.fromUser.userName}</p>
