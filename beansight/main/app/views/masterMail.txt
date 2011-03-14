@@ -3,5 +3,6 @@
 &{'emailsignature'}
 ${play.configuration.getProperty("domain.name")}
 
-
+#{if unsubscribe}
 &{'email.unsubscribe'} &{'email.unsubscribe.settings'} ${play.configuration.getProperty("domain.name")}@{Application.settings()}
+#{/if}
