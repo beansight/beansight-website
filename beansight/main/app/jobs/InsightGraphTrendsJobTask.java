@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import models.Insight;
 import models.Trend;
 import play.Logger;
+import play.cache.Cache;
 import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
@@ -29,8 +30,10 @@ public class InsightGraphTrendsJobTask extends Job {
     	List<Insight> list = Insight.find("id between :from and :to").bind("from", from).bind("to", to).fetch();
 		for (Insight i : list) {
 			i.buildTrends(new DateTime(i.creationDate), null, 4);
-//			i.buildTrends(new DateTime(2011, 3, 8, 0,0,0,0), null, 4);
 		}
+		
+    	// delete the trends list from the cache so that ui get new calculated trends value
+    	Cache.delete("agreeRatioTrendsCache");
         
 		Logger.info("< InsightGraphTrendsJobTask end from " + from + " to " + to);
     }

@@ -41,6 +41,7 @@ import org.joda.time.DateTime;
 
 import play.Logger;
 import play.Play;
+import play.cache.Cache;
 import play.data.validation.Email;
 import play.data.validation.Equals;
 import play.data.validation.InFuture;
@@ -434,8 +435,24 @@ public class Application extends Controller {
 		
 		List<Vote> lastVotes = insight.getLastVotes(5);
 		
+		List<Long> agreeTrends = null;
+		
+		// get the trends list from the cache and put it if wasn't already in cache
+		Map<Long, List<Long>> agreeRatioTrendsCache = (Map<Long, List<Long>>)Cache.get("agreeRatioTrendsCache");
+		if (agreeRatioTrendsCache == null) {
+			agreeRatioTrendsCache = new HashMap<Long, List<Long>>();
+			Cache.add("agreeRatioTrendsCache", agreeRatioTrendsCache);
+		}
+		if (agreeRatioTrendsCache.containsKey(insight.id)) {
+			agreeTrends = agreeRatioTrendsCache.get(insight.id);
+		} else {
+			agreeTrends = insight.getAgreeRatioTrends(90);
+			
+			agreeRatioTrendsCache.put(insight.id, agreeTrends);
+		}
+		
         renderArgs.put("lastVotes", lastVotes);
-        renderArgs.put("agreeTrends", insight.getAgreeRatioTrends(90));
+        renderArgs.put("agreeTrends", agreeTrends);
         renderArgs.put("comments", insight.getNotHiddenComments());
 		render(insight);
 	}

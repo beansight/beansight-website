@@ -6,6 +6,7 @@ import java.util.List;
 import models.Insight;
 import models.Trend;
 import play.Logger;
+import play.cache.Cache;
 import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
@@ -29,6 +30,9 @@ public class InsightGraphTrendsJob extends Job {
     		page++;
     		insights = Insight.all().fetch(page, INSIGHT_NUMBER_TO_PROCESS);
     	}
+    	
+    	// delete the trends list from the cache so that ui get new calculated trends value
+    	Cache.delete("agreeRatioTrendsCache");
     	
         Logger.info("InsightGraphTrendsJob end");
     }
