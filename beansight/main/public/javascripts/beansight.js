@@ -352,7 +352,7 @@ function loadInsights() {
 	insightsFrom = 0;
 	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
 		$('#insightList').html(content);
-		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
+		//insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 	});
 }
 
@@ -363,7 +363,6 @@ function loadMoreInsights() {
 	insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
 		$('#insightList').append(content);
-		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 	});
 }
 
@@ -374,23 +373,13 @@ function reloadInsights(path) {
 	//$.History.setHash(path);
 	$.get( path, function(content) {
 		$('#insightList').html(content);
-		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
+		//insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 	});
 }
 
-var bindingTime = true;
 function bindCurrentState() {
 	bindingTime = true;
 	$.History.setHash(reloadInsightsAction( generateGetInsightsArguments() ));
-	$.History.bind(reloadInsightsAction( generateGetInsightsArguments() ),function(state){
-		if (bindingTime == false) {
-			insightsFrom = gup($.History.getHash(), "from");
-			reloadInsights( $.History.getHash() );
-			refreshFilters( $.History.getHash() );
-		} else {
-			bindingTime = false;
-		}
-	});
 }
 /**
  * @returns the arguments needed for getInsightsAction(); 
@@ -1057,28 +1046,24 @@ $(document).ready(function() {
     $("#filterCategory").selectbox();
 	
 	$("#filterCategory").change(function() {
-		bindCurrentState();
-		
 		loadInsights( reloadInsightsAction( generateGetInsightsArguments() ) );
+		bindCurrentState();
 		return false;
 	});
 	$('input[name=VoteGroup]').change(function() {
-		bindCurrentState();
-		
 		loadInsights();
+		bindCurrentState();
 		return false;
 	});
 	$('input[name=SortByGroup]').change(function() {
-		bindCurrentState();
-		
 		loadInsights();
+		bindCurrentState();
 		return false;
 	});
 	
 	$("#moreInsights").click( function() {
-		bindCurrentState();
-		
 		loadMoreInsights();
+		bindCurrentState();
 	    return false;
 	});
 
