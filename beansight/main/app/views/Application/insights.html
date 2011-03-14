@@ -83,6 +83,21 @@ $(document).ready(function() {
 	
 	
 });
+
+if ($.History.getHash()  == "") {
+	$("#radioSortByIncoming").attr("checked", "checked");
+	$("#radioVoteAll").attr("checked", "checked");
+	$(':radio').button('refresh');
+	loadInsights();
+} else {
+	if (bindingTime == false) {
+		insightsFrom = gup($.History.getHash(), "from");
+		reloadInsights( $.History.getHash() );
+		refreshFilters( $.History.getHash() );
+	} else {
+		bindingTime = false;
+	}
+}
 /*
 if ($.History.getHash()  == "") {
 	
