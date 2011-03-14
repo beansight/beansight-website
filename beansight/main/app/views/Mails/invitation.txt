@@ -1,15 +1,17 @@
 #{extends 'masterMail.txt' /}
 &{'emailhello'}
 
-&{'emailinvitationmarketing'} http://www.beansight.com
+&{'email.invitation.intro', task.invitation.invitor.userName}
 
 #{if !task.invitation.message.isEmpty()}
-&{'emailinvitationinvitor', task.invitation.invitor.userName}
+&{'email.invitation.invitor', task.invitation.invitor.userName}
 ${task.invitation.message.escape()}
 #{/if}
 
 
-&{'emailinvitationbeta'}
+&{'email.invitation.WhatIsBeansight'}
 
-&{'clickheretoregistrationpage'}:
-${play.configuration.getProperty("domain.name")}@{Register.register(task.invitation.promocode, task.invitation.invitedEmail)
+&{'email.invitation.click'}
+${play.configuration.getProperty("domain.name")}@{Register.register(task.invitation.promocode, task.invitation.invitedEmail)}
+
+&{'email.invitation.SeeYouSoon'}

@@ -1,14 +1,18 @@
 #{extends 'masterMail.html' /}
 <p>&{'emailhello'}</p>
 
-<p>&{'emailinvitationmarketing'} <a href="http://www.beansight.com">beansight.com</a></p>
+<p>&{'email.invitation.intro', task.invitation.invitor.userName}</p>
 
 #{if !task.invitation.message.isEmpty()}
-    <p>&{'emailinvitationinvitor', task.invitation.invitor.userName}</p>
+    <p>&{'email.invitation.invitor', task.invitation.invitor.userName}</p>
     <p>${task.invitation.message.escape().nl2br()}<p>
 #{/if}
 
+<p>&{'email.invitation.WhatIsBeansight'}</p>
+
 <p>
-	&{'emailinvitationbeta'} <br/>
-	<a href="${play.configuration.getProperty("domain.name")}@{Register.register(task.invitation.promocode, task.invitation.invitedEmail)}">&{'clickheretoregistrationpage'}</a>
+	&{'email.invitation.click'} <br/>
+	<a href="${play.configuration.getProperty("domain.name")}@{Register.register(task.invitation.promocode, task.invitation.invitedEmail)}">${play.configuration.getProperty("domain.name")}@{Register.register(task.invitation.promocode, task.invitation.invitedEmail)}</a>
 </p>
+
+<p>&{'email.invitation.SeeYouSoon'} <br/></p>

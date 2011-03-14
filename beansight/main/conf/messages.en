@@ -369,6 +369,8 @@ in.years   = In %s year%s
 in.format  = MMM d, yyyy
 in.format.on = On %s
 
+invitation.user.already.registered=User your are inviting is already a Beansight registred user
+
 ####################
 # E MAILs
 ####################
@@ -390,12 +392,12 @@ emailuserstartfollowing1=The user
 emailuserstartfollowing2= added you in his favorites on Beansight. You can check his page to learn more about him.
 
 # invitation
-emailinvitationsubject=%s presents you Beansight
-emailinvitationmarketing=Beansight is a place to share predictions about the future.
-emailinvitationinvitor=%s is saying:
-emailinvitationbeta=Beansight is currently in closed beta.
-clickheretoregistrationpage=You have to follow this link to create your account.
-invitation.user.already.registered=User your are inviting is already a Beansight registred user
+email.invitation.subject=%s presents you Beansight
+email.invitation.intro=%s invited you to join him on Beansight. Beansight is a social predictive platform.
+email.invitation.invitor=%s is saying:
+email.invitation.WhatIsBeansight=With Beansight you can prove your expertise by <em>share your predictions</em> about the future with the community. You can challenge your friends and see who’s got skills. You can also see what the others think will happen. 
+email.invitation.click=Come and join us to prove that you’re far more accurate that any cristal ball! It’s really fun, click here to check it out:
+email.invitation.SeeYouSoon=We hope to see you soon on Beansight.
 
 # message
 emailmessagesubject=Beansight: Private message from %s

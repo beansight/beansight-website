@@ -379,6 +379,8 @@ in.years   = Dans %s année%s
 in.format  = d MMMMMM yyyy
 in.format.on = Le %s
 
+invitation.user.already.registered=L'utilisateur invité est déjà membre de Beansight
+
 ####################
 # E MAILs
 ####################
@@ -401,12 +403,12 @@ emailuserstartfollowing1=L'utilisateur
 emailuserstartfollowing2= vous a ajouté a ses favoris sur Beansight. Vous pouvez consulter sa page pour en apprendre plus sur lui.
 
 # invitation
-emailinvitationsubject=%s vous présente Beansight
-emailinvitationmarketing=Beansight est une plateforme où vous pourrez partager vos intuitions sur l'avenir.
-emailinvitationinvitor=%s a ajouté :
-emailinvitationbeta=Beansight est actuellement en bêta privée.
-clickheretoregistrationpage=Il vous faut suivre ce lien pour vous créer un compte.
-invitation.user.already.registered=L'utilisateur invité est déjà membre de Beansight
+email.invitation.subject=%s vous présente Beansight
+email.invitation.intro=%s vient de vous inviter à rejoindre Beansight, le site internet dédié au partage de prédictions.
+email.invitation.invitor=%s a ajouté :
+email.invitation.WhatIsBeansight=Avec Beansight, vous pourrez <em>prouver votre expertise</em> en partageant vos prédictions avec les utilisateurs et ainsi devenir l’expert de votre domaine au sein de la communauté.<br/>Vous pourrez également explorer Beansight afin de <em>découvrir ce qui va se passer</em>. 
+email.invitation.click=Pour nous rejoindre et montrer que vous valez bien mieux que madame Irma, il suffit de cliquez sur le lien suivant :
+email.invitation.SeeYouSoon=Nous espérons vous compter parmi nos membres dès aujourd’hui !
 
 # message
 emailmessagesubject=Beansight : Message de %s
