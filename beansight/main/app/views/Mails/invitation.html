@@ -1,4 +1,4 @@
-<html><body>
+#{extends 'masterMail.html' /}
 <p>&{'emailhello'}</p>
 
 <p>&{'emailinvitationmarketing'} <a href="http://www.beansight.com">beansight.com</a></p>
@@ -12,6 +12,3 @@
 	&{'emailinvitationbeta'} <br/>
 	<a href="${play.configuration.getProperty("domain.name")}@{Register.register(task.invitation.promocode, task.invitation.invitedEmail)}">&{'clickheretoregistrationpage'}</a>
 </p>
-
-<p>&{'emailsignature'}</p>
-</body></html>

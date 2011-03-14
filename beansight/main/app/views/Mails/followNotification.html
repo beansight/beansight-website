@@ -1,8 +1,3 @@
-<html><body>
+#{extends 'masterMail.html' /}
 <p>&{'emailhellouser', task.followed.userName}</p>
-
 <p>&{'emailuserstartfollowing1'} <a href="${play.configuration.getProperty("domain.name")}@{Application.showUser(task.follower.userName)}">${task.follower.userName}</a> &{'emailuserstartfollowing2'}</p>
-
-<p>&{'emailsignature'}</p>
-<p>&{'email.unsubscribe'}<a href="${play.configuration.getProperty("domain.name")}@{Application.settings()}">&{'email.unsubscribe.settings'}</a></p>
-</body></html>

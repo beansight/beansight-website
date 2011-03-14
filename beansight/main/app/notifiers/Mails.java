@@ -35,33 +35,32 @@ public class Mails extends Mailer {
 
 	public static boolean followNotification(FollowNotificationTask task) {
 		Lang.set(task.language);
-		return sendMailTask(task, Messages.get("emailfollownotificationsubject", task.follower.userName), "Mails/followNotification.html");
+		return sendMailTask(task, Messages.get("emailfollownotificationsubject", task.follower.userName), "Mails/followNotification");
 	}
 
 	public static boolean invitation(InvitationMailTask task) {
 		Lang.set(task.language);
-		return sendMailTask(task, Messages.get("emailinvitationsubject", task.invitation.invitor.userName), "Mails/invitation.html");
+		return sendMailTask(task, Messages.get("emailinvitationsubject", task.invitation.invitor.userName), "Mails/invitation");
 	}
 	
 	public static boolean message(MessageMailTask task) {
 		Lang.set(task.language);
-		return sendMailTask(task, Messages.get("emailmessagesubject", task.message.fromUser.userName), "Mails/message.html");
+		return sendMailTask(task, Messages.get("emailmessagesubject", task.message.fromUser.userName), "Mails/message");
 	}
 	
-	// FIXME : changer le template pour contact
 	public static boolean contact(ContactMailTask task) {
 		Lang.set(task.language);
-		return sendMailTask(task, task.subject, "Mails/contact.html");
+		return sendMailTask(task, task.subject, "Mails/contact");
 	}
 
 	public static boolean newCommentNotification(NewCommentNotificationMailTask task) {
 		Lang.set(task.language);
-		return sendMailTask(task, Messages.get("email.newCommentNotification.subject"), "Mails/newCommentNotification.html");
+		return sendMailTask(task, Messages.get("email.newCommentNotification.subject"), "Mails/newCommentNotification");
 	}
 	
 	public static boolean commentMention(CommentMentionMailTask task) {
 		Lang.set(task.language);	
-		return sendMailTask(task, Messages.get("email.commentMention.subject", task.commentNotificationMsg.fromUser.userName), "Mails/commentMention.html");
+		return sendMailTask(task, Messages.get("email.commentMention.subject", task.commentNotificationMsg.fromUser.userName), "Mails/commentMention");
 	}
 
 	

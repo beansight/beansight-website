@@ -1,10 +1,7 @@
-<html><body>
+#{extends 'masterMail.html' /}
 <p>&{'emailhellouser', task.message.toUser.userName}</p>
 
 <p>&{'emailmessageheadline', task.message.fromUser.userName}</p>
 <p>${task.message.content.escape().nl2br()}</p>
 
 <p><a href="${play.configuration.getProperty("domain.name")}@{Application.showUser(task.message.toUser.userName)}">&{'emailmessagegotoprofile', task.message.fromUser.userName}</a></p>
-
-<p>&{'emailsignature'}</p>
-</body></html>

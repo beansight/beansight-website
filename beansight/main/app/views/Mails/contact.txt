@@ -1,0 +1,5 @@
+&{'email.contact.from.name', task.name}
+&{'email.contact.from.email', task.fromEmail}
+&{'email.contact.subject', task.subject}
+&{'email.contact.message'}
+${task.message.escape()}

@@ -1,0 +1,9 @@
+#{extends 'masterMail.txt' /}
+&{'emailhellouser', task.notification.toUser.userName}
+
+&{'email.newCommentNotification.newComment', task.notification.comment.user.userName}
+${play.configuration.getProperty("domain.name")}@{Application.showInsight(task.notification.comment.insight.uniqueId)}
+
+&{'email.commentMention.commentContentIs'}
+${task.notification.comment.content.escape()}
+

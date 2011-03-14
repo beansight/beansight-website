@@ -1,0 +1,7 @@
+#{doLayout /}
+
+&{'emailsignature'}
+${play.configuration.getProperty("domain.name")}
+
+
+&{'email.unsubscribe'} &{'email.unsubscribe.settings'} ${play.configuration.getProperty("domain.name")}@{Application.settings()}

@@ -1,0 +1,8 @@
+#{extends 'masterMail.txt' /}
+&{'emailhellouser', task.message.toUser.userName}
+
+&{'emailmessageheadline', task.message.fromUser.userName}
+${task.message.content.escape()}
+
+&{'emailmessagegotoprofile', task.message.fromUser.userName} ${play.configuration.getProperty("domain.name")}@{Application.showUser(task.message.toUser.userName)}
+

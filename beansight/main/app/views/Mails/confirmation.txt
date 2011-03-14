@@ -1,0 +1,6 @@
+#{extends 'masterMail.txt' /}
+&{'emailhellouser', user.userName}
+
+&{'emailconfirmtext'}
+
+${play.configuration.getProperty("domain.name")}@{Register.confirm(user.uuid)

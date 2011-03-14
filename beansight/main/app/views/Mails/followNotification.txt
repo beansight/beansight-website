@@ -1,0 +1,6 @@
+#{extends 'masterMail.txt' /}
+&{'emailhellouser', task.followed.userName}
+
+&{'emailuserstartfollowing1'} ${task.follower.userName} &{'emailuserstartfollowing2'}
+
+${task.follower.userName} : ${play.configuration.getProperty("domain.name")}@{Application.showUser(task.follower.userName)

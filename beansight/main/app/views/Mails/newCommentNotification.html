@@ -1,11 +1,7 @@
-<html><body>
+#{extends 'masterMail.html' /}
 <p>&{'emailhellouser', task.notification.toUser.userName}</p>
 
 <p>&{'email.newCommentNotification.newComment', task.notification.comment.user.userName} <a href="${play.configuration.getProperty("domain.name")}@{Application.showInsight(task.notification.comment.insight.uniqueId)}">${task.notification.comment.insight.content}</a></p>
 <p>&{'email.commentMention.commentContentIs'}</p>
 <p>${task.notification.comment.content.escape().nl2br()}</p>
 
-
-<p>&{'emailsignature'}</p>
-<p>&{'email.unsubscribe'}<a href="${play.configuration.getProperty("domain.name")}@{Application.settings()}">&{'email.unsubscribe.settings'}</a></p>
-</body></html>
