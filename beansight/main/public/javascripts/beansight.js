@@ -360,12 +360,38 @@ function loadInsights() {
  * append to the insight list more results
  */
 function loadMoreInsights() {
+	insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
 		$('#insightList').append(content);
 		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 	});
 }
 
+/**
+ * append to the insight list more results
+ */
+function reloadInsights(path) {
+	//$.History.setHash(path);
+	$.get( path, function(content) {
+		$('#insightList').html(content);
+		insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
+	});
+}
+
+var bindingTime = true;
+function bindCurrentState() {
+	bindingTime = true;
+	$.History.setHash(reloadInsightsAction( generateGetInsightsArguments() ));
+	$.History.bind(reloadInsightsAction( generateGetInsightsArguments() ),function(state){
+		if (bindingTime == false) {
+			insightsFrom = gup($.History.getHash(), "from");
+			reloadInsights( $.History.getHash() );
+			refreshFilters( $.History.getHash() );
+		} else {
+			bindingTime = false;
+		}
+	});
+}
 /**
  * @returns the arguments needed for getInsightsAction(); 
  */
@@ -374,6 +400,51 @@ function generateGetInsightsArguments() {
 	var cat = $('#filterCategory').val();
 	var filterVote = $('input[name=VoteGroup]:checked').val(); 
 	return {'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote, 'topic':filterTopic};
+}
+
+function refreshFilters(str) {
+	sortBy = gup(str, "sortBy"); // incoming, trending, updated
+	if (sortBy == "incoming") {
+		$("#radioSortByIncoming").attr("checked", "checked");
+	} else if (sortBy == "trending") {
+		$("#radioSortByTrending").attr("checked", "checked");
+	} else if (sortBy == "updated") {
+		$("#radioSortByUpdated").attr("checked", "checked");
+	}
+	
+	voteFilter = gup(str, "filterVote"); // all, voted, notVoted
+	if (voteFilter == "all") {
+		$("#radioVoteAll").attr("checked", "checked");
+	} else if (voteFilter == "voted") {
+		$("#radioVoteVoted").attr("checked", "checked");
+	} else if (voteFilter == "notVoted") {
+		$("#radioVoteNotVoted").attr("checked", "checked");
+	}
+	
+	category = gup(str, "cat");
+
+	$("#filterCategory option[value='" + category + "']").attr('selected', 'selected');
+	
+	// call this to have the jqueryui refreshed and see the change
+	$(':radio').button('refresh');
+	$('#filterCategory').button('refresh');
+}
+
+/**
+ * Extract parameters from the string
+ * @param str : something?test=1&toto=2&value=titi
+ * @param name : for example using the previous string : test, toto or value
+ * @returns
+ */
+function gup( str, name ) {
+	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+	var regexS = "[\\?&]"+name+"=([^&#]*)";
+	var regex = new RegExp( regexS );
+	var results = regex.exec( str );
+	if( results == null )
+	  return "";
+	else
+	  return results[1];
 }
 
 // Execute scripts after the document creation
@@ -986,21 +1057,31 @@ $(document).ready(function() {
     $("#filterCategory").selectbox();
 	
 	$("#filterCategory").change(function() {
-		loadInsights();
+		bindCurrentState();
+		
+		loadInsights( reloadInsightsAction( generateGetInsightsArguments() ) );
 		return false;
 	});
 	$('input[name=VoteGroup]').change(function() {
+		bindCurrentState();
+		
 		loadInsights();
 		return false;
 	});
 	$('input[name=SortByGroup]').change(function() {
+		bindCurrentState();
+		
 		loadInsights();
 		return false;
 	});
+	
 	$("#moreInsights").click( function() {
+		bindCurrentState();
+		
 		loadMoreInsights();
 	    return false;
 	});
+
 	
 });
 

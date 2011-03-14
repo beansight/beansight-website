@@ -41,7 +41,9 @@
     </ul>
     
     <ul id="insightList">
+    	*{
         #{listInsights insights:insights /}
+        }*
     </ul>
 
     <div id="moreResults" class="seeall">
@@ -55,7 +57,53 @@
 //        $("#moreResults").fadeIn(2000);
 //   }
 var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
-var insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
+var insightsFrom = 0;
+
+$(document).ready(function() {
+	
+	if ($.History.getHash()  == "") {
+		loadInsights();
+		$.History.setHash("");
+		$.History.bind("",function(state){
+			$("#radioSortByIncoming").attr("checked", "checked");
+			$("#radioVoteAll").attr("checked", "checked");
+			$(':radio').button('refresh');
+			loadInsights();
+		});
+	}
+	
+	else {
+		reloadInsights( $.History.getHash() );
+		refreshFilters( $.History.getHash() );
+	}
+	
+	
+	/*
+	$.History.bind(function(state){
+		if ($.History.getHash()  == "") {
+			loadInsights();
+		} else {
+			reloadInsights( $.History.getHash() );
+			refreshFilters( $.History.getHash() )
+		}
+		
+	});
+	*/
+	
+});
+/*
+if ($.History.getHash()  == "") {
+	
+	//$.History.setHash(reloadInsightsAction( generateGetInsightsArguments() ));
+
+	loadInsights();
+}
+
+else {
+	reloadInsights( $.History.getHash() );
+	refreshFilters( $.History.getHash() );
+}
+*/
 
 var filterTopic = #{if topic}"${topic}"#{/if} #{else}null#{/else};
 </script>

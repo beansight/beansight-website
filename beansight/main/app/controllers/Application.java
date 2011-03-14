@@ -186,7 +186,7 @@ public class Application extends Controller {
 			filterVote = "all";
 		}
 		
-		InsightResult result = getFilteredInsightsList(0, sortBy, cat, filterVote, topic);
+		InsightResult result = getFilteredInsightsList(0, NUMBER_INSIGHTS_INSIGHTPAGE, sortBy, cat, filterVote, topic);
 		// log for analytics
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -207,12 +207,27 @@ public class Application extends Controller {
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
-		InsightResult result = getFilteredInsightsList(from, sortBy, cat, filterVote, topic);
+		InsightResult result = getFilteredInsightsList(from, NUMBER_INSIGHTS_INSIGHTPAGE, sortBy, cat, filterVote, topic);
 		renderArgs.put("insights", result.results);
 		render();
 	}
 	
-	private static InsightResult getFilteredInsightsList(int from, String sortBy, long cat, String filterVote, String top) {
+	/**
+	 * AJAX get insights from the explore page
+	 * 
+	 * @param from : the index of the first insight to return
+	 * @param cat
+	 */
+	public static void reloadInsights(int from, String sortBy, long cat, String filterVote, String topic) {
+		if (filterVote == null || filterVote.trim().equals("")) {
+			filterVote = "all";
+		}
+		InsightResult result = getFilteredInsightsList(0, (from + NUMBER_INSIGHTS_INSIGHTPAGE), sortBy, cat, filterVote, topic);
+		renderArgs.put("insights", result.results);
+		renderTemplate("Application/getInsights.html");
+	}
+	
+	private static InsightResult getFilteredInsightsList(int from, int numberInsights, String sortBy, long cat, String filterVote, String top) {
 		Filter filter = new Filter();
 		filter.filterVote = filterVote;
 		
@@ -256,20 +271,20 @@ public class Application extends Controller {
 			// If connected, get suggested insights
 			if (Security.isConnected()) {
 				User currentUser = CurrentUser.getCurrentUser();
-				result = currentUser.getSuggestedInsights(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+				result = currentUser.getSuggestedInsights(from, numberInsights, filter);
 			} else {
-				result = Insight.findLatest(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+				result = Insight.findLatest(from, numberInsights, filter);
 			}
 		} else if (sortBy != null && sortBy.equals("trending")) {
 			filter.filterType = FilterType.TRENDY;
-			result = Insight.findTrending(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			result = Insight.findTrending(from, numberInsights, filter);
 		} else if (sortBy != null && sortBy.equals("incoming")) {
 			filter.filterType = FilterType.INCOMING;
-			result = Insight.findIncoming(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			result = Insight.findIncoming(from, numberInsights, filter);
 		} else { 
 			// default is incoming
 			filter.filterType = FilterType.INCOMING;
-			result = Insight.findIncoming(from, NUMBER_INSIGHTS_INSIGHTPAGE, filter);
+			result = Insight.findIncoming(from, numberInsights, filter);
 		}
 		return result;
 	}
