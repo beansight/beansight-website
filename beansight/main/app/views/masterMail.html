@@ -1,239 +1,235 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        *{ <title></title> }*
-        <style type="text/css" media="screen">
-
-            /**
-            * @tab Page
-            * @section background
-            * @tip Specify a background color for your email.
-            * @theme page
-            */
-            body {
-                /*@editable*/ background-color: #81cad2;
-                margin: 0;
-                padding: 0;
-            }
-
-            /**
-            * @tab Page
-            * @section link style
-            * @tip Specify a color for all the hyperlinks in your email.
-            * @theme link
-            */
-            a, a:link, a:visited {
-                /*@editable*/ color: #336699;
-                /*@editable*/ text-decoration: underline;
-                /*@editable*/ font-weight: normal;
-            }
-
-            /**
-            * @tab Header
-            * @section header bar
-            * @tip Choose a set of colors that look good with the colors of your logo image or text header.
-            * @theme header
-            */
-            #header {
-                /*@editable*/ background-color: #EDEDED;
-                /*@editable*/ color: #FFFFFF;
-                /*@editable*/ font-family: Helvetica;
-                /*@editable*/ font-weight: normal;
-                /*@editable*/ text-align: left;
-                padding: 20px 0px 15px 20px;
-            }
-
-            /**
-            * @tab Header
-            * @section primary heading
-            * @tip Choose a set of colors that look good with the colors of your logo image or text header.
-            */
-            #header .primary-heading {
-                /*@editable*/ font-size: 35px;
-                /*@editable*/ font-weight: bold;
-                /*@editable*/ color: #FFFFFF;
-                /*@editable*/ font-family: Helvetica;
-                /*@editable*/ margin: 0;
-            }
-
-            /**
-            * @tab Header
-            * @section secondary heading
-            * @tip Choose a set of colors that look good with the colors of your logo image or text header.
-            */
-            #header .secondary-heading {
-                /*@editable*/ color:#00000;
-                /*@editable*/ margin-top: 7px;
-                /*@editable*/ font-size: 14px;
-                /*@editable*/ font-weight: normal;
-            }
-
-            /**
-            * @tab Body
-            * @section content area
-            * @tip This is the default text style for the body of your email.
-            * @theme main
-            */
-            #content {
-                margin: 0;
-                /*@editable*/ font-size: 12px;
-                /*@editable*/ color: #555555;
-                /*@editable*/ font-style: normal;
-                /*@editable*/ font-weight: normal;
-                /*@editable*/ font-family: Helvetica;
-                /*@editable*/ line-height: 1.6em;
-                padding: 0px 30px 0;
-            }
-
-            /**
-            * @tab Body
-            * @section title
-            * @tip This is the byline text that appears immediately underneath your titles/headlines.
-            * @theme title
-            */
-            #content .title {
-                /*@editable*/ font-size: 20px;
-                /*@editable*/ font-weight: bold;
-                /*@editable*/ color: #333333;
-                /*@editable*/ font-style: normal;
-                /*@editable*/ font-family: Helvetica;
-                /*@editable*/ margin: 15px 0 10px 0;
-                /*@editable*/ text-align: left;
-                padding: 0;
-            }
-
-            /**
-            * @tab Body
-            * @section subtitle
-            * @tip This is the byline text that appears immediately underneath your titles/headlines.
-            * @theme subtitle
-            */
-            #content .subTitle {
-                /*@editable*/ font-size: 16px;
-                /*@editable*/ font-weight: bold;
-                /*@editable*/ color: #333333;
-                /*@editable*/ font-style: normal;
-                /*@editable*/ font-family: Helvetica;
-                margin: 15px 0 5px 0;
-                /*@editable*/ text-align: left;
-                padding: 0;
-            }
-
-            /**
-            * @tab Body
-            * @section copy
-            * @tip This is the byline text that appears immediately underneath your titles/headlines.
-            */
-            #content .copy {
-                margin:0 0 15px 0;
-                /*@editable*/ line-height:1.6em;
-                /*@editable*/ font-size:12px;
-            }
-
-            /**
-            * @tab Body
-            * @section lower links
-            * @tip This is the byline text that appears immediately underneath your titles/headlines.
-            */
-            #footer_links {
-                /*@editable*/ text-align:center;
-                /*@editable*/ padding-top:20px;
-                /*@editable*/ font-size:12px;
-            }
-            /**
-            * @tab Footer
-            * @section footer
-            * @tip You might give your footer a light background color and separate it with a top border
-            * @theme footer
-            */
-            #footer {
-                /*@editable*/ background-color: #EDEDED;
-                /*@editable*/ padding: 20px;
-                /*@editable*/ font-size: 10px;
-                /*@editable*/ color: #ccc;
-                /*@editable*/ line-height: 150%;
-                /*@editable*/ font-family: Verdana;
-                /*@editable*/ text-align:center;
-            }
-
-            /**
-            * @tab Footer
-            * @section link style
-            * @tip Specify a color for your footer hyperlinks.
-            */
-            #footer a {
-                /*@editable*/ color: #cc6757;
-                /*@editable*/ text-decoration: underline;
-                /*@editable*/ font-weight: normal
-            }
-
-            /* Static Styles */
-            #layout{margin:20px auto;text-align:left;border-collapse:collapse;background-color:#ffffff;}
-            .rounded{margin:0;padding:0;line-height:8px;}
-            #social strong{padding:0 10px;}
-            #social{line-height:1.5em;}
-            #social img{margin-right:3px;margin-top:5px;position:relative;top:3px;}
-            #social a{text-decoration:none;}
-            #share{margin-top:15px;}
-            #can-spam{width:70%;margin:auto;}
-            #can-spam td{padding:10px;text-align:left;font-size:12px;color:#ddd;}
-            #copyright{font-size:10px;font-style:italic;}
-            #social,#contact,#share{margin-bottom:20px;font-size:11px;}
-            #social h2,#contact h2,#share h2{margin-top:0;text-transform:uppercase;font-size:12px;letter-spacing:1px;border-bottom:1px dotted #ccc;color:#333;margin-bottom:10px;}
-            #product-table{display:block;border:1px dotted #ddd;border-left:0;border-right:0;margin:15px 0;padding-bottom:15px;}
-            #product-table h3{font-size:12px;}
-            #product-table p.copy{font-size:11px;}
-            #product-table td{padding-right:8px;}
-
-        </style>
-    </head>
-    <body>
-        <table id="layout" border="0" cellspacing="0" cellpadding="0" width="600">
+        *{<title>Beansight is here!</title>}*
+        
+    <style type="text/css">
+        body{
+            background-color:#81cad2;
+            margin:0;
+            padding:0;
+        }
+        a,a:link,a:visited{
+            color:#336699;
+            text-decoration:underline;
+            font-weight:normal;
+        }
+        #header{
+            background-color:#EDEDED;
+            color:#FFFFFF;
+            font-family:Helvetica;
+            font-weight:normal;
+            text-align:left;
+            padding:20px 0px 15px 20px;
+        }
+        #header .primary-heading{
+            font-size:35px;
+            font-weight:bold;
+            color:#FFFFFF;
+            font-family:Helvetica;
+            margin:0;
+        }
+        #header .secondary-heading{
+            color:#00000;
+            margin-top:7px;
+            font-size:14px;
+            font-weight:normal;
+        }
+        #content{
+            margin:0;
+            font-size:12px;
+            color:#555555;
+            font-style:normal;
+            font-weight:normal;
+            font-family:Helvetica;
+            line-height:1.6em;
+            padding:0px 30px 0;
+        }
+        #content .title{
+            font-size:20px;
+            font-weight:bold;
+            color:#333333;
+            font-style:normal;
+            font-family:Helvetica;
+            margin:15px 0 10px 0;
+            text-align:left;
+            padding:0;
+        }
+        #content .subTitle{
+            font-size:16px;
+            font-weight:bold;
+            color:#333333;
+            font-style:normal;
+            font-family:Helvetica;
+            margin:15px 0 5px 0;
+            text-align:left;
+            padding:0;
+        }
+        #content .copy{
+            margin:0 0 15px 0;
+            line-height:1.6em;
+            font-size:12px;
+        }
+        #footer_links{
+            text-align:center;
+            padding-top:20px;
+            font-size:12px;
+        }
+        #footer{
+            background-color:#EDEDED;
+            padding:20px;
+            font-size:10px;
+            color:#ccc;
+            line-height:150%;
+            font-family:Verdana;
+            text-align:center;
+        }
+        #footer a{
+            color:#cc6757;
+            text-decoration:underline;
+            font-weight:normal;
+        }
+        #layout{
+            margin:20px auto;
+            text-align:left;
+            border-collapse:collapse;
+            background-color:#ffffff;
+        }
+        .rounded{
+            margin:0;
+            padding:0;
+            line-height:8px;
+        }
+        #social strong{
+            padding:0 10px;
+        }
+        #social{
+            line-height:1.5em;
+        }
+        #social img{
+            margin-right:3px;
+            margin-top:5px;
+            position:relative;
+            top:3px;
+        }
+        #social a{
+            text-decoration:none;
+        }
+        #share{
+            margin-top:15px;
+        }
+        #can-spam{
+            width:70%;
+            margin:auto;
+        }
+        #can-spam td{
+            padding:10px;
+            text-align:left;
+            font-size:12px;
+            color:#ddd;
+        }
+        #copyright{
+            font-size:10px;
+            font-style:italic;
+        }
+        #social,#contact,#share{
+            margin-bottom:20px;
+            font-size:11px;
+        }
+        #social h2,#contact h2,#share h2{
+            margin-top:0;
+            text-transform:uppercase;
+            font-size:12px;
+            letter-spacing:1px;
+            border-bottom:1px dotted #ccc;
+            color:#333;
+            margin-bottom:10px;
+        }
+        #product-table{
+            display:block;
+            border:1px dotted #ddd;
+            border-left:0;
+            border-right:0;
+            margin:15px 0;
+            padding-bottom:15px;
+        }
+        #product-table h3{
+            font-size:12px;
+        }
+        #product-table p.copy{
+            font-size:11px;
+        }
+        #product-table td{
+            padding-right:8px;
+        }
+</style></head>
+    <body style="background-color: #81cad2;margin: 0;padding: 0;">
+        <table id="layout" border="0" cellspacing="0" cellpadding="0" width="600" style="margin: 20px auto;text-align: left;border-collapse: collapse;background-color: #ffffff;">
             <tr>
-                <td id="header">
-                    <h1 class="primary-heading">
-                        <a href="${play.configuration.getProperty("domain.name")}"><img src="${play.configuration.getProperty("domain.name")}/public/images/logo.png" alt="Beansight" border=0</img></a>
+                <td id="header" style="background-color: #EDEDED;color: #FFFFFF;font-family: Helvetica;font-weight: normal;text-align: left;padding: 20px 0px 15px 20px;">
+                    <h1 class="primary-heading" style="font-size: 35px;font-weight: bold;color: #FFFFFF;font-family: Helvetica;margin: 0;">
+                        <a href="${play.configuration.getProperty("domain.name")}" style="color: #336699;text-decoration: underline;font-weight: normal;"><img src="${play.configuration.getProperty("domain.name")}/public/images/logo.png" alt="Beansight" border=0</img></a>
                     </h1>
-                    <!--<h2 class="secondary-heading">
+                    <!--<h2 class="secondary-heading" mc:edit="copy">
                         Shape the future
                     </h2>-->
                 </td>
             </tr>
             <tr>
-                <td id="content">
+                <td id="content" style="margin: 0;font-size: 12px;color: #555555;font-style: normal;font-weight: normal;font-family: Helvetica;line-height: 1.6em;padding: 0px 30px 0;">
                     <table id="content-grid" width="100%">
                         <tr>
                             <td style="vertical-align:top; padding-right:30px;" width="550" valign="top">
-                            *{<h1 class="title"></h1> <p class="copy"></p>}*
+
+*{
+<h1 class="title" style="font-size: 20px;font-weight: bold;color: #333333;font-style: normal;font-family: Helvetica;margin: 15px 0 10px 0;text-align: left;padding: 0;">
+    Beansight is here!
+</h1>
+}*
+
 #{doLayout /}
 
-                            <p>&{'emailsignature'}<br/><a href="${play.configuration.getProperty("domain.name")}">${play.configuration.getProperty("domain.name")}</a></p>
-                            
+<p>&{'emailsignature'}<br/><a href="${play.configuration.getProperty("domain.name")}">${play.configuration.getProperty("domain.name")}</a></p>
+
                             </td>
                             <td style="vertical-align:top; padding-top:15px;" width="180" valign="top">
-		                        *{
-		                        <div id="social">
-		                            <h2>
-		                                Join us:
-		                            </h2><a rel="external" title="Create your account" href="www.beansight.com/signup?promocode=imfeelinglucky&email=*|EMAIL|*" target="_blank">Create my account</a>
-		                        </div>
-                                <div id="social">
-                                    <h2>
-                                        We are social:
-                                    </h2><a rel="external" title="Follow us on Twitter!" href="http://twitter.com/beansight" target="_blank"><img width="16" height="16" border="0" alt="Follow us on Twitter!" src="http://www.mailchimp.com/img/icons/Twitter-24x24.png" />Follow us on Twitter</a><br />
-                                    <a rel="external" title="Follow us on Twitter!" href="http://www.facebook.com/Beansight" target="_blank"><img width="16" height="16" border="0" alt="Follow us on Facebook!" src="http://www.mailchimp.com/img/icons/FaceBook-24x24.png" />Like us on Facebook</a><br />
-                                    <a title="Read the Beansight blog" href="http://blog.beansight.com"><img width="16" height="16" border="0" alt="Read the Beansight blog" src="http://i.imgur.com/phVVE.png" />Read our blog</a><br />
-                                </div>
-                                }*
-                                <div id="contact">
-                                    <h2>&{'email.contactus'}</h2><a href="mailto:contact@beansight.com">contact@beansight.com</a>
-                                </div>
+                            *{
+                            <div id="social" style="line-height: 1.5em;margin-bottom: 20px;font-size: 11px;">
+                                <h2 style="margin-top: 0;text-transform: uppercase;font-size: 12px;letter-spacing: 1px;border-bottom: 1px dotted #ccc;color: #333;margin-bottom: 10px;">
+                                    Join us:
+                                </h2>
+                                <a href="" rel="external" target="_blank" title="Create your account" style="color: #336699;text-decoration: none;font-weight: normal;">
+                                    Create my account
+                                </a>
+                            </div>
+                            <div id="social" style="line-height: 1.5em;margin-bottom: 20px;font-size: 11px;">
+                                <h2 style="margin-top: 0;text-transform: uppercase;font-size: 12px;letter-spacing: 1px;border-bottom: 1px dotted #ccc;color: #333;margin-bottom: 10px;">
+                                    We are social:
+                                </h2><a rel="external" title="Follow us on Twitter!" href="http://evenshop.us2.list-manage1.com/track/click?u=a73072fc3ff9b3449dd4ddbbe&id=1dc59b403c&e=bb204d48b3" target="_blank" style="color: #336699;text-decoration: none;font-weight: normal;"><img width="16" height="16" border="0" alt="Follow us on Twitter!" src="http://www.mailchimp.com/img/icons/Twitter-24x24.png" style="margin-right: 3px;margin-top: 5px;position: relative;top: 3px;">Follow us on Twitter</a><br>
+                                <a rel="external" title="Follow us on Twitter!" href="http://evenshop.us2.list-manage1.com/track/click?u=a73072fc3ff9b3449dd4ddbbe&id=7c5d786540&e=bb204d48b3" target="_blank" style="color: #336699;text-decoration: none;font-weight: normal;"><img width="16" height="16" border="0" alt="Follow us on Facebook!" src="http://www.mailchimp.com/img/icons/FaceBook-24x24.png" style="margin-right: 3px;margin-top: 5px;position: relative;top: 3px;">Like us on Facebook</a><br>
+                                <a title="Read the Beansight blog" href="http://evenshop.us2.list-manage2.com/track/click?u=a73072fc3ff9b3449dd4ddbbe&id=8a1afb4a78&e=bb204d48b3" style="color: #336699;text-decoration: none;font-weight: normal;"><img width="16" height="16" border="0" alt="Read the Beansight blog" src="http://i.imgur.com/phVVE.png" style="margin-right: 3px;margin-top: 5px;position: relative;top: 3px;">Read our blog</a><br>
+                                
+                            </div>
+                            }*
+                            <div id="contact" style="margin-bottom: 20px;font-size: 11px;">
+                                <h2 style="margin-top: 0;text-transform: uppercase;font-size: 12px;letter-spacing: 1px;border-bottom: 1px dotted #ccc;color: #333;margin-bottom: 10px;">
+                                    &{'email.contactus'}
+                                </h2>
+                                <a href="mailto:contact@beansight.com">contact@beansight.com</a><br/>
+                                <div class="vcard"><span class="org fn">Beansight</span><div class="adr"><div class="street-address">Silicon Sentier - Le Camping</div><div class="extended-address">28 place de la Bourse</div><span class="locality">Paris</span>, <span class="region">Ile de France</span>  <span class="postal-code">75002</span></div></div>
+                            </div>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" id="footer_links">
-                                <p>&{'email.unsubscribe'}<a href="${play.configuration.getProperty("domain.name")}@{Application.settings()}">&{'email.unsubscribe.settings'}</a></p>
+                            <td colspan="2" id="footer_links" style="text-align: center;padding-top: 20px;font-size: 12px;">
+                                <p>
+	                                &{'email.unsubscribe'}
+	                                <a href="${play.configuration.getProperty("domain.name")}@{Application.settings()}" style="color: #336699;text-decoration: underline;font-weight: normal;">
+	                                   &{'email.unsubscribe.settings'}
+	                                </a>
+                                </p>
                             </td>
                         </tr>
                     </table>
@@ -241,9 +237,13 @@
             </tr>
             *{
             <tr>
-                <td id="footer">
-                    <p id="copyright">
-                        Copyright (C) *|CURRENT_YEAR|* *|LIST:COMPANY|* All rights reserved.
+                <td id="footer" style="background-color: #EDEDED;padding: 20px;font-size: 10px;color: #ccc;line-height: 150%;font-family: Verdana;text-align: center;">
+                    
+                    <p>you received our email because you subscribed at our newsletter on www.beansight.com</p>
+                    
+                    
+                    <p id="copyright" style="font-size: 10px;font-style: italic;">
+                        Copyright (C) 2011 Beansight All rights reserved.
                     </p>
                 </td>
             </tr>
