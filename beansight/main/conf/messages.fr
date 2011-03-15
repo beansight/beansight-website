@@ -435,3 +435,7 @@ email.commentMention.commentContentIs=Le commentaire est le suivant :
 # newComment Notification
 email.newCommentNotification.subject=Beansight : Nouveau commentaire sur %s
 email.newCommentNotification.newComment=%s a ajouté un commentaire sur la prédiction : 
+
+# invitation notification
+email.invitedSubscribed.subject=%s s'est inscrit sur Beansight
+email.invitedSubscribed.subscribed=%s a accepté votre invitation à rejoindre Beansight. Nous l'avons automatiquement ajouté à vos favoris. Consultez son profil et souhaitez lui la bienvenue en suivant ce lien : 

@@ -1,4 +1,6 @@
 #{extends 'masterMail.txt' /}
+#{set unsubscribe:true /}
+
 &{'emailhellouser', task.message.toUser.userName}
 
 &{'emailmessageheadline', task.message.fromUser.userName}

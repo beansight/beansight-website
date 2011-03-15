@@ -1,4 +1,6 @@
 #{extends 'masterMail.txt' /}
+#{set unsubscribe:true /}
+
 &{'emailhellouser', task.commentNotificationMsg.toUser.userName}
 
 &{'email.commentMention.someoneHaveQuotedYou', task.commentNotificationMsg.fromUser.userName} ${play.configuration.getProperty("domain.name")}@{Application.showInsight(task.commentNotificationMsg.insight.uniqueId)}

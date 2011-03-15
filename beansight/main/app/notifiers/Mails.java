@@ -18,6 +18,7 @@ import models.ContactMailTask;
 import models.FollowNotificationTask;
 import models.Insight;
 import models.InvitationMailTask;
+import models.InvitedSubscribedNotification;
 import models.MailTask;
 import models.MessageMailTask;
 import models.NewCommentNotificationMailTask;
@@ -25,12 +26,14 @@ import models.User;
 
 public class Mails extends Mailer {
 
+	public static final String FROM_NOTIFICATION = "notification@beansight.com";
+	
 	public static void confirmation(User user) {
 		Logger.info("Confirmation email: sending to " + user.email);
 		Lang.set(user.uiLanguage.label);
 		setSubject(Messages.get("emailconfirmationsubject"));
 		addRecipient(user.email);
-		setFrom("notification@beansight.com");
+		setFrom(FROM_NOTIFICATION);
 
 		send(user);
 	}
@@ -75,7 +78,7 @@ public class Mails extends Mailer {
 
 		setSubject(subject);
 		addRecipient(task.sendTo);
-		setFrom("notification@beansight.com");
+		setFrom(FROM_NOTIFICATION);
 		
 		Lang.set(task.language);	
 
@@ -91,9 +94,21 @@ public class Mails extends Mailer {
 		Lang.set(language);	
 		setSubject(Messages.get("forgotPassword.subject"));
 		addRecipient(email);
-		setFrom("notification@beansight.com");
+		setFrom(FROM_NOTIFICATION);
 
 		send(templateName, forgotPasswordId);
 	}
-	
+
+	public static boolean invitedSubscribedNotification(InvitedSubscribedNotification notification) {
+		Lang.set(notification.notifiedUser.uiLanguage.label);
+		setSubject(Messages.get("email.invitedSubscribed.subject", notification.subscribedUser.userName));
+		addRecipient(notification.notifiedUser.email);
+		setFrom(FROM_NOTIFICATION);
+		try {
+			return send(notification).get(20, TimeUnit.SECONDS);
+		} catch (Throwable e) {
+			throw new RuntimeException(e);
+		} 
+	}
+
 }

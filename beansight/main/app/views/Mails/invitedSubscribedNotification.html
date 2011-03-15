@@ -1,0 +1,6 @@
+#{extends 'masterMail.html' /}
+<p>&{'emailhellouser', notification.notifiedUser.userName}</p>
+
+<p>&{'email.invitedSubscribed.subscribed', notification.subscribedUser.userName}<br/> <a href="${play.configuration.getProperty("domain.name")}@{Application.showUser(notification.subscribedUser.userName)}">${play.configuration.getProperty("domain.name")}@{Application.showUser(notification.subscribedUser.userName)}</a></p>
+
+

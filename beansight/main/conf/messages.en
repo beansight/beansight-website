@@ -423,4 +423,9 @@ email.commentMention.commentContentIs=The comment is:
 
 # newComment Notification
 email.newCommentNotification.subject=Beansight: New comment on the prediction %s
-email.newCommentNotification.newComment=%s commented on the prediction: 
+email.newCommentNotification.newComment=%s commented on the prediction:
+
+
+# invitation notification
+email.invitedSubscribed.subject=%s created an account on Beansight
+email.invitedSubscribed.subscribed=Thanks to you, %s created an account on Beansight. We added him to your favorites. You can welcome him by visiting his new profile:

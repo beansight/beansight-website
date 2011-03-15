@@ -1,0 +1,5 @@
+#{extends 'masterMail.txt' /}
+&{'emailhellouser', notification.notifiedUser.userName}
+
+&{'email.invitedSubscribed.subscribed', notification.subscribedUser.userName}
+${play.configuration.getProperty("domain.name")}@{Application.showUser(notification.subscribedUser.userName)}

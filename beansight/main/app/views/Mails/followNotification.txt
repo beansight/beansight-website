@@ -1,4 +1,6 @@
 #{extends 'masterMail.txt' /}
+#{set unsubscribe:true /}
+
 &{'emailhellouser', task.followed.userName}
 
 &{'emailuserstartfollowing1'} ${task.follower.userName} &{'emailuserstartfollowing2'}

@@ -1,4 +1,5 @@
 #{extends 'masterMail.txt' /}
+#{set unsubscribe:true /}
 &{'emailhellouser', task.notification.toUser.userName}
 
 &{'email.newCommentNotification.newComment', task.notification.comment.user.userName}

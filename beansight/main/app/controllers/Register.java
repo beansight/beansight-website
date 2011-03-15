@@ -2,8 +2,11 @@ package controllers;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import models.Invitation;
+import models.InvitedSubscribedNotification;
 import models.Promocode;
 import models.User;
 import models.Vote.State;
@@ -61,9 +64,21 @@ public class Register extends Controller {
 			user.recordPromocodeUsedToCreateAccount(new UserClientInfo(request, Application.APPLICATION_ID), code);
 		}
 		
-		
-		// send a password confirmation mail
+		// send an email confirmation mail
 		Mails.confirmation(user);
+		
+		// Check if this new user was invited by an existing user with the invitation system
+		List<Invitation> invitations = Invitation.find("invitedEmail = ?", email).fetch();
+		for(Invitation invitation : invitations) {
+			// add this new user to the invitor's favorites
+			invitation.invitor.followedUsers.add(user);
+			invitation.invitor.save();
+			// create a notification
+			InvitedSubscribedNotification notif = new InvitedSubscribedNotification(invitation.invitor, user);
+			notif.save();
+			// send a mail
+			Mails.invitedSubscribedNotification(notif);
+		}
 		
 		// connect immediately the user
 		Secure.authenticate(email, password, false);

@@ -232,7 +232,6 @@ public class User extends Model {
 		
 		this.upcomingNewsletter = true;
 		this.statusNewsletter = true;
-		
 	}
 
 	public String toString() {
