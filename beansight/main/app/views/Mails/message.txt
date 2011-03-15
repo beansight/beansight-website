@@ -4,5 +4,5 @@
 &{'emailmessageheadline', task.message.fromUser.userName}
 ${task.message.content.escape()}
 
-&{'emailmessagegotoprofile', task.message.fromUser.userName} ${play.configuration.getProperty("domain.name")}@{Application.showUser(task.message.toUser.userName)}
+&{'emailmessagegotoprofile', task.message.fromUser.userName} ${play.configuration.getProperty("domain.name")}@{Application.showUser(task.message.fromUser.userName)}
 

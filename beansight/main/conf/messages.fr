@@ -408,6 +408,7 @@ email.invitation.intro=%s vient de vous inviter à rejoindre Beansight, le site 
 email.invitation.invitor=%s a ajouté :
 email.invitation.WhatIsBeansight=Avec Beansight, vous pourrez <em>prouver votre expertise</em> en partageant vos prédictions avec les utilisateurs et ainsi devenir l’expert de votre domaine au sein de la communauté.<br/>Vous pourrez également explorer Beansight afin de <em>découvrir ce qui va se passer</em>. 
 email.invitation.click=Pour nous rejoindre et montrer que vous valez bien mieux que madame Irma, il suffit de cliquez sur le lien suivant :
+email.invitation.clickhere=Rejoindre la communauté Beansight
 email.invitation.SeeYouSoon=Nous espérons vous compter parmi nos membres dès aujourd’hui !
 
 # message

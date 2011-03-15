@@ -5,4 +5,4 @@
 <p>&{'emailmessageheadline', task.message.fromUser.userName}</p>
 <p>${task.message.content.escape().nl2br()}</p>
 
-<p><a href="${play.configuration.getProperty("domain.name")}@{Application.showUser(task.message.toUser.userName)}">&{'emailmessagegotoprofile', task.message.fromUser.userName}</a></p>
+<p><a href="${play.configuration.getProperty("domain.name")}@{Application.showUser(task.message.fromUser.userName)}">&{'emailmessagegotoprofile', task.message.fromUser.userName}</a></p>
