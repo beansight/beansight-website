@@ -233,7 +233,7 @@ public class Application extends Controller {
 		filter.filterVote = filterVote;
 		
 		Topic topic = null;
-		if(top != null) {
+		if(top != null && !top.trim().equalsIgnoreCase("undefined")) {
 			topic = Topic.findByLabel(top);
 		}
 		

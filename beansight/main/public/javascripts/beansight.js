@@ -370,14 +370,13 @@ function loadMoreInsights() {
  * append to the insight list more results
  */
 function reloadInsights(path) {
-	//$.History.setHash(path);
 	$.get( path, function(content) {
 		$('#insightList').html(content);
-		//insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 	});
 }
 
 function bindCurrentState() {
+	// setting bindingTime as true insure that no event will be triggered when setting the hash
 	bindingTime = true;
 	$.History.setHash(reloadInsightsAction( generateGetInsightsArguments() ));
 }
@@ -393,25 +392,11 @@ function generateGetInsightsArguments() {
 
 function refreshFilters(str) {
 	sortBy = gup(str, "sortBy"); // incoming, trending, updated
-	if (sortBy == "incoming") {
-		$("#radioSortByIncoming").attr("checked", "checked");
-	} else if (sortBy == "trending") {
-		$("#radioSortByTrending").attr("checked", "checked");
-	} else if (sortBy == "updated") {
-		$("#radioSortByUpdated").attr("checked", "checked");
-	}
-	
 	voteFilter = gup(str, "filterVote"); // all, voted, notVoted
-	if (voteFilter == "all") {
-		$("#radioVoteAll").attr("checked", "checked");
-	} else if (voteFilter == "voted") {
-		$("#radioVoteVoted").attr("checked", "checked");
-	} else if (voteFilter == "notVoted") {
-		$("#radioVoteNotVoted").attr("checked", "checked");
-	}
+	
+	$("input[type=radio]").val([sortBy, voteFilter]);
 	
 	category = gup(str, "cat");
-
 	$("#filterCategory option[value='" + category + "']").attr('selected', 'selected');
 	
 	// call this to have the jqueryui refreshed and see the change
