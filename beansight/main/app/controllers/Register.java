@@ -73,12 +73,16 @@ public class Register extends Controller {
 			// add this new user to the invitor's favorites
 			invitation.invitor.followedUsers.add(user);
 			invitation.invitor.save();
+			
+			// add the invitor's to the new user's favorites
+			user.followedUsers.add(invitation.invitor);
 			// create a notification
 			InvitedSubscribedNotification notif = new InvitedSubscribedNotification(invitation.invitor, user);
 			notif.save();
 			// send a mail
 			Mails.invitedSubscribedNotification(notif);
 		}
+		user.save();
 		
 		// connect immediately the user
 		Secure.authenticate(email, password, false);
