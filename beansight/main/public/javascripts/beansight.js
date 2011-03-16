@@ -163,12 +163,10 @@ function onAddCommentSuccess(content) {
     }
     clicktags();
 
-	/* make sure the taginput in not a single comma, then clear it */
+	/* clear the new tag */
     function validetag(){
-        if($('#taginput').val() != ',' && $('#taginput').val() != ';' && $('#taginput').val().replace(/( |,|;)/ig, '').length > 0 ) {
-            $('#newtag').attr('id', '');
-            $('#taginput').val('');
-        }
+        $('#newtag').attr('id', '');
+        $('#taginput').val('');
     }
 
 	/* transform tags in a tag string to store in the tagresult */
@@ -193,14 +191,19 @@ function onAddCommentSuccess(content) {
 		if( taginput.val() != '' ){
 			// if no new tag is currently constructing, create it
 		    if( ! $('#newtag').length ){
-		        $('<a href="#" id="newtag">'+$('#taginput').val().replace(/(;|,)/ig, '')+'</a>').appendTo(".listtags");
-		        clicktags();
+		    	
+		    	var newTagString = $.trim($('#taginput').val().replace(/(;|,)/ig, ''));
+		    	if(newTagString.length > 0) {
+			        $('<a href="#" id="newtag">' + newTagString + '</a>').appendTo(".listtags");
+			        clicktags();
+		    	}
 		    }
+		    
 		    // if a comma has been entered, then delete the newtag
-		    if(taginput.val().indexOf(',')!=-1 || taginput.val().indexOf(';')!=-1){ // if a comma is entered,
+		    if(taginput.val().indexOf(',')!=-1 || taginput.val().indexOf(';')!=-1 || taginput.val().indexOf(' ')==taginput.val().length ){ // if a separator is entered
 		        validetag();
         	}else{ // in any other case, update the newtag
-            	$('#newtag').html('<span>'+taginput.val().replace(/(;|,)/ig, '')+'</span>');
+            	$('#newtag').html('<span>' + $.trim(taginput.val()) + '</span>');
         	}
 	        registertags();
         } else {
