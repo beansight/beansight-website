@@ -1,3 +1,1 @@
-#{if !controllers.Secure.Security.isConnected()}
-	#{doBody /}
-#{/if}	
+#{if !controllers.Secure.Security.isConnected()}#{doBody /}#{/if}	
