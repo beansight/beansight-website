@@ -26,36 +26,10 @@
             </div>
         </li>
         <li class="log-t">
-            <a href="#" id="log-twit" class="logbutton">Twitter</a>
-            <div class="item-loginbox" id="boxlog-twit" style="display:none;">
-                <div class="boxlogContent">
-                <label>&{'userOptions.makesureHavingPromocodeTwitter'}</label>
-                <div class="inputsubmit">
-                    <button class="goButton" id="logButton-twit"><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'userOptions.confirmHavingPromocode'}</span></button>
-                    <script type="text/javascript">
-                        $("#logButton-twit").click(function() {
-                             window.location.href = "@{TwitterOAuth.authenticate}";
-                        })
-                    </script>
-                </div>
-                </div>
-            </div>
+            <a href="@{TwitterOAuth.authenticate}" id="log-twit" class="logbutton">Twitter</a>
         </li>
         <li class="log-f">
-            <a href="" id="log-fb" class="logbutton">Facebook</a>
-            <div class="item-loginbox" id="boxlog-fb" style="display:none;">
-                <div class="boxlogContent">
-                <label>&{'userOptions.makesureHavingPromocodeFacebook'}</label>
-                <div class="inputsubmit">
-                    <button class="goButton" id="logButton-fb"><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'userOptions.confirmHavingPromocode'}</span></button>
-                    <script type="text/javascript">
-                        $("#logButton-fb").click(function() {
-                             window.location.href = "@{FaceBookOAuth.authenticate}";
-                        })
-                    </script>
-                </div>
-                </div>
-            </div>
+            <a href="@{FaceBookOAuth.authenticate}" id="log-fb" class="logbutton">Facebook</a>
         </li>
     </ul>
 </div>

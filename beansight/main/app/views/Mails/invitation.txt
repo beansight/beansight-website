@@ -12,6 +12,6 @@ ${task.invitation.message.escape()}
 &{'email.invitation.WhatIsBeansight'}
 
 &{'email.invitation.click'}
-${play.configuration.getProperty("domain.name")}@{Register.register(task.invitation.promocode, task.invitation.invitedEmail)}
+${play.configuration.getProperty("domain.name")}@{Register.register(task.invitation.invitedEmail)}
 
 &{'email.invitation.SeeYouSoon'}

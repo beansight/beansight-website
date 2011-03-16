@@ -24,12 +24,12 @@ import play.mvc.Controller;
 
 public class Register extends Controller {
 
-	public static void register(String promocode, String email, String username) {
-		render(email, username, promocode);
+	public static void register(String email, String username) {
+		render(email, username);
 	}
 	
 	// TODO : I18N
-	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm, @Required String promocode) throws Throwable {
+	public static void registerNew(@Required @Email String email, @Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username, @Required @MinSize(5) String password, @Required @Equals("password") String passwordconfirm) throws Throwable {
 		// Check if username or email not already in use, because username and email must be unique !
 		if(!User.isEmailAvailable(email)) {
 			validation.addError("email", Messages.get("registeremailexist")); 
@@ -38,31 +38,15 @@ public class Register extends Controller {
 			validation.addError("username", Messages.get("registerusernameexist")); 
 		}
 		
-		// See if promocode is ok:
-		Promocode code = Promocode.findbyCode(promocode);
-		if(code != null && code.nbUsageLeft > 0 && code.endDate.after(new Date())) {
-			// remove one to the promocode only if no validation error remaining
-			if (!validation.hasErrors()) {
-				code.nbUsageLeft--;
-				code.save();
-			}
-		} else {
-			validation.addError("promocode", Messages.get("registernotvalidpromocode"));
-		}
-		
 		if (validation.hasErrors()) {
 	        validation.keep();
-	        register(promocode, email, username);
+	        register(email, username);
 	    }
 		
 		Logger.info("Register: " + email + "/" + username);
 		User user = new User(email, username, password);
 		user.isPromocodeValidated = true;
 		user.save();
-		
-		if (promocode != null) {
-			user.recordPromocodeUsedToCreateAccount(new UserClientInfo(request, Application.APPLICATION_ID), code);
-		}
 		
 		// send an email confirmation mail
 		Mails.confirmation(user);

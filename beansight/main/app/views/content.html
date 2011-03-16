@@ -4,16 +4,14 @@
 <div id="content">
 
 <!-- SIDEBAR LEFT -->
-<div id="sidebarleft" class="#{isNotConnected}notConnected#{/isNotConnected}">
+<div id="sidebarleft">
 
 #{isConnected}
 <!-- CREER INSIGHT -->
 <p class="btn-newins"><a href="@{Application.create()}" class="cuf-grm #{currentMenu 'menuCreate' /}">&{'menucreate'}</a></p>
 #{/isConnected}
 
-#{isConnected}
-   #{menu /}
-#{/isConnected}
+#{menu /}
 
 #{isConnected}
     #{activity insightActivities:insightActivities /}
@@ -28,20 +26,6 @@
     <hr class="clear"/>
 #{/isConnected}
 
-
-#{isNotConnected}
-<a href="@{Register.register()}" class="whatisbeansight &{'i18n'}"></a>
-<p>&{'content.getaninvite'}</p>
-<form id="leaveYourEmailForm" class="bigform">
-    <div class="item-input">
-        <input class="label" type="text" id="email" name="email"/>
-        <span class="error">#{error 'email' /}</span>
-    </div>
-    <div class="item-submit">
-        <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'welcome.leaveYourEmailSubmit'}</span></button>
-    </div>          
-</form>
-<div id="leaveYourEmailCallBackMsg"></div>
 *{
 <!-- EXPERTS -->
 <h2 class="expoerth2 paddingme greenme"><span class="cuf-grb">What do expert think</span></h2>
@@ -73,7 +57,6 @@
 </ul>
 <hr class="clear"/>
 }*
-#{/isNotConnected}
 
 </div>
 	

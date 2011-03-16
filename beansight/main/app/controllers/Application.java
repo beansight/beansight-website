@@ -90,16 +90,6 @@ public class Application extends Controller {
         } 
     }
 	
-	/**
-	 * Make sure the user is connected.
-	 */
-    @Before(unless={"welcome", "leaveYourEmail", "showInsight", "showAvatarSmallFromEmail", "showAvatarSmall", "FAQ"})
-    static void checkAuthentication() {
-    	if(!Security.isConnected()) {
-    		welcome();
-    	}    
-    }
-
     // TODO : add all the ajax method here so that we don't load  data not useful during ajax call
     /**
      * If the user is connected, load the needed info into the menu

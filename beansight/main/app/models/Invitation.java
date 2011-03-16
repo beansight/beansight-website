@@ -25,11 +25,11 @@ public class Invitation extends Model {
 	
 	public String promocode;
 
-	public Invitation(User invitor, String invitedEmail, String message, String code) {
+	public Invitation(User invitor, String invitedEmail, String message) {
 		this.invitor = invitor;
 		this.invitedEmail = invitedEmail;
 		this.message = message;
-		this.promocode = code;
+		this.promocode = "";
 	}
 	
 	

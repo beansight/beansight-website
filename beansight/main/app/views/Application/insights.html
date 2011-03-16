@@ -19,6 +19,7 @@
                 <input type="radio" autocomplete="off" name="SortByGroup" value="updated"           id="radioSortByUpdated"/>           <label for="radioSortByUpdated">     &{'insights.latest'}   </label>
             </div>        
         </li>
+        #{isConnected}
         <li>
 	        <div id="radioVotefilter" style="font-size: 11px;">
 		        <input type="radio" autocomplete="off" name="VoteGroup" value="all" checked   id="radioVoteAll" />        <label for="radioVoteAll">      &{'insights.filterVotedAll'}</label> 
@@ -26,6 +27,7 @@
 		        <input type="radio" autocomplete="off" name="VoteGroup" value="notVoted"      id="radioVoteNotVoted"/>    <label for="radioVoteNotVoted"> &{'insights.filterNotVoted'}</label>
 	        </div>
         </li>
+        #{/isConnected}
         #{if topic == null}
 	    <li>
 		    <div class="filterDropDown">

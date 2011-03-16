@@ -824,16 +824,8 @@ public class User extends Model {
 	
 	public void invite(String email, String message) throws InvitationException {
 		if(invitationsLeft != 0) {
-			Promocode promocode = null;
-			try {
-				promocode = new Promocode(1, (new SimpleDateFormat("yyyy/MM/dd")).parse("2012/12/31") );
-				promocode.save();
-			} catch (Throwable e) {
-				throw new InvitationException("Invitation could not be sent", e);
-			}
-			
 			// Create the invitation
-			Invitation invitation = new Invitation(this, email, message, promocode.code);
+			Invitation invitation = new Invitation(this, email, message);
 			invitation.save();
 
 			// create the task for mail sending

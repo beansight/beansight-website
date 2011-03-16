@@ -1,4 +1,4 @@
-#{extends 'main.html' /}
+ #{extends 'main.html' /}
 #{set 'title'}
     &{'register'}
 #{/set}
@@ -45,17 +45,6 @@
 	            #{if errors.forKey('passwordconfirm')}<span class="error">#{error 'passwordconfirm' /}</span>#{/if}
 	        </div>
 	
-			#{if (promocode==null || promocode.trim().equals(""))}
-	        <label for="s_username">&{'promocode'}</label>
-	        <div class="item-input">
-	            <input class="textfield" type="text" name="promocode" id="promocode" value="${promocode}" />
-	            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
-	        </div>
-			#{/if}
-			#{else}
-				<input type="hidden" name="promocode" id="promocode" value="${promocode}" />
-			#{/else}
-	
 	        <div class="item-checkbox">
 	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
 	        </div>
@@ -71,16 +60,6 @@
 	    #{form @Register.fbAuthenticate(), id:'registerFormFacebook'}
 	        <h2 class="cuf-grb">&{'register.facebookTitle'}</h2>
 
-			#{if (promocode==null || promocode.trim().equals(""))}
-	        <label for="s_username">&{'promocode'}</label>
-	        <div class="item-input">
-	            <input class="textfield" type="text" name="promocode" id="promocode" value="${promocode}" />
-	            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
-	        </div>
-			#{/if}
-			#{else}
-				<input type="hidden" name="promocode" id="promocode" value="${promocode}" />
-			#{/else}
 	        <div class="item-checkbox">
 	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
 	        </div>
@@ -96,17 +75,6 @@
 	    #{form @Register.twitAuthenticate(), id:'registerFormTwitter'}
 	        <h2 class="cuf-grb">&{'register.twitterTitle'}</h2>
 	
-	        #{if (promocode==null || promocode.trim().equals(""))}
-	        <label for="s_username">&{'promocode'}</label>
-	        <div class="item-input">
-	            <input class="textfield" type="text" name="promocode" id="promocode" value="${promocode}" />
-	            #{if errors.forKey('promocode')}<span class="error">#{error 'promocode' /}</span>#{/if}
-	        </div>
-			#{/if}
-			#{else}
-				<input type="hidden" name="promocode" id="promocode" value="${promocode}" />
-			#{/else}
-	        
 	      	<div class="item-checkbox">
 	            <label for="s_terms">&{'register.form.accept.start'} <a href="@{Legal.termsOfService()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Legal.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.</label>
 	        </div>
