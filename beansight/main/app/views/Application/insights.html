@@ -67,7 +67,8 @@
 //if( $("#insightList li").length >= ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE} ) {
 //        $("#moreResults").fadeIn(2000);
 //   }
-var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.NUMBER_INSIGHTS_INSIGHTPAGE};
+
+var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.getNumberInsightsInsightPage()};
 var insightsFrom = 0;
 var bindingTime = true;
 

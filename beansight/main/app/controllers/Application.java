@@ -1,4 +1,4 @@
- package controllers;
+package controllers;
 
 import helpers.ImageHelper;
 
@@ -64,6 +64,7 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 public class Application extends Controller {
 
 	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 12;
+	public static final int NUMBER_INSIGHTS_INSIGHTPAGE_NOTLOGGED = 5;
 	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 4;
 	public static final int NUMBER_INSIGHTS_USERPAGE = 10;
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 5;
@@ -172,12 +173,19 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
+	public static int getNumberInsightsInsightPage() {
+		if (Security.isConnected()) {
+			return NUMBER_INSIGHTS_INSIGHTPAGE;
+		}
+		return NUMBER_INSIGHTS_INSIGHTPAGE_NOTLOGGED;
+	}
+	
 	public static void insights(String sortBy, long cat, String filterVote, String topic) {
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
 		
-		InsightResult result = getFilteredInsightsList(0, NUMBER_INSIGHTS_INSIGHTPAGE, sortBy, cat, filterVote, topic);
+		InsightResult result = getFilteredInsightsList(0, getNumberInsightsInsightPage(), sortBy, cat, filterVote, topic);
 		// log for analytics
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -198,7 +206,7 @@ public class Application extends Controller {
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
-		InsightResult result = getFilteredInsightsList(from, NUMBER_INSIGHTS_INSIGHTPAGE, sortBy, cat, filterVote, topic);
+		InsightResult result = getFilteredInsightsList(from, getNumberInsightsInsightPage(), sortBy, cat, filterVote, topic);
 		renderArgs.put("insights", result.results);
 		render();
 	}
@@ -213,7 +221,7 @@ public class Application extends Controller {
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
-		InsightResult result = getFilteredInsightsList(0, (from + NUMBER_INSIGHTS_INSIGHTPAGE), sortBy, cat, filterVote, topic);
+		InsightResult result = getFilteredInsightsList(0, (from + getNumberInsightsInsightPage()), sortBy, cat, filterVote, topic);
 		renderArgs.put("insights", result.results);
 		renderTemplate("Application/getInsights.html");
 	}
