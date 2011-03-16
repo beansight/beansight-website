@@ -11,7 +11,7 @@ import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
 
-@Every("6h")
+@Every("1h")
 public class InsightGraphTrendsJob extends Job {
 
 	public static final int INSIGHT_NUMBER_TO_PROCESS = 100;
@@ -28,7 +28,7 @@ public class InsightGraphTrendsJob extends Job {
     		processInsights(insights);
             Logger.info("InsightGraphTrendsJob: page " + page);
     		page++;
-    		insights = Insight.all().fetch(page, INSIGHT_NUMBER_TO_PROCESS);
+    		insights = Insight.findEndDateNotOver(page, INSIGHT_NUMBER_TO_PROCESS);
     	}
     	
     	// delete the trends list from the cache so that ui get new calculated trends value

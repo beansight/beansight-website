@@ -148,7 +148,21 @@ public class Secure extends Controller {
          * @return  true if the user is connected
          */
         static boolean isConnected() {
-            return session.contains("username");
+        	if ( session.contains("username")) {
+        		return true;
+        	} else {
+	            Http.Cookie remember = request.cookies.get("rememberme");
+	            if(remember != null && remember.value.indexOf("-") > 0) {
+	                String sign = remember.value.substring(0, remember.value.indexOf("-"));
+	                String username = remember.value.substring(remember.value.indexOf("-") + 1);
+	                if(Crypto.sign(username).equals(sign)) {
+	                    session.put("username", username);
+	                }
+	                return true;
+	            } else {
+	            	return false;
+	            }
+        	}
         }
 
         /**

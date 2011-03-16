@@ -52,6 +52,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
             facebookUser = new User(facebookModelObject.getEmail(), facebookScreenName, RandomStringUtils.randomAlphabetic(15));
             facebookUser.facebookUserId = facebookUserId;
             facebookUser.emailConfirmed = true;
+            facebookUser.isPromocodeValidated = true;
             facebookUser.save();
         } 
         // if the user already has a beansight account and he is trying 

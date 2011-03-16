@@ -215,6 +215,7 @@ $(document).bind("keydown", ["g", "i"], function () {
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
 	
+	#{if play.Play.id.equals("playapps")}
 	// Go Squared LiveStats
 	var GoSquared={};
     GoSquared.acct = "GSN-789144-E";
@@ -226,6 +227,7 @@ $(document).bind("keydown", ["g", "i"], function () {
         }
         w.addEventListener?w.addEventListener("load",gs,false):w.attachEvent("onload",gs);
     })(window);
+    #{/if}
 </script>
 
 

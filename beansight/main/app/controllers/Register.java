@@ -109,33 +109,20 @@ public class Register extends Controller {
 	
 	public static void extAuthFirstTimeConnectPage(
 			String email, 
-			String username, 
-			String promocode) {
-		session.remove("promocode");
+			String username) {
 		if(Security.isConnected()) {
-			render(email, username, promocode);
+			render(email, username);
 		} else {
 			Application.index();
 		}
 	}
 	
 	
-	public static void facebookFirstTimeConnect(
+	public static void firstTimeConnect(
 		@Required @Email String email, 
-		@Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username, 
-		@Required String promocode) {
+		@Required @Match(value="[a-zA-Z0-9_]{3,16}", message="username has to be 3-16 chars, no space, no accent and no punctuation") String username) {
 		
 		if(Security.isConnected()) {
-			Promocode code = Promocode.findbyCode(promocode);
-			if(code == null) {
-				validation.addError("promocode", Messages.get("registernotexistpromocode", promocode));
-				promocode = "";
-			}
-			
-			if(code != null && (!(code.nbUsageLeft > 0) || !(code.endDate.after(new Date()))) ) {
-				validation.addError("promocode", Messages.get("registernotvalidpromocode"));
-			}
-			
 			User currentUser = CurrentUser.getCurrentUser();
 			
 			// if the user have change its username check that it's available
@@ -154,7 +141,7 @@ public class Register extends Controller {
 			
 			if (validation.hasErrors()) {
 				validation.keep();
-				extAuthFirstTimeConnectPage(email, username, promocode);
+				extAuthFirstTimeConnectPage(email, username);
 		    }
 			
 			currentUser.email = email;
@@ -162,12 +149,9 @@ public class Register extends Controller {
 			currentUser.isPromocodeValidated = true;
 			currentUser.save();
 			
-			// remove one to the promocode
-			code.nbUsageLeft--;
-			code.save();
-			
-			// save information for analytics to link a user with a promocode (and then with a campaign)
-			currentUser.recordPromocodeUsedToCreateAccount(new UserClientInfo(request, Application.APPLICATION_ID), code);
+			// send an email confirmation mail
+			Mails.confirmation(currentUser);
+
 		} 
 		
 		Application.index();
@@ -192,12 +176,10 @@ public class Register extends Controller {
 	}
 	
 	public static void fbAuthenticate(String promocode) {
-		session.put("promocode", promocode);
 		FacebookOAuth.authenticate();
 	}
 	
 	public static void twitAuthenticate(String promocode) throws Exception {
-		session.put("promocode", promocode);
 		TwitterOAuth.authenticate();
 	}
 }

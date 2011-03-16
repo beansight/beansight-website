@@ -16,6 +16,7 @@ import models.Promocode;
 import models.User;
 import models.analytics.UserClientInfo;
 import models.analytics.UserPromocodeCampaign;
+import notifiers.Mails;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
@@ -78,7 +79,6 @@ public class TwitterOAuth extends Controller {
 			twitterUser.twitterUserId = twitterUserId;
 			updateUserWithTwitterInformations(twitterUser, creds);
 			twitterUser.save();
-
 		} 
 
 		session.put("isTwitterUser", Boolean.TRUE);

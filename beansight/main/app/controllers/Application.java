@@ -100,13 +100,9 @@ public class Application extends Controller {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			
-			// if this is facebook user and he hasn't validated its promocode the redirect  
-			if (currentUser.facebookUserId != null && !currentUser.isPromocodeValidated) {
-				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName, session.get("promocode"));
-			}
 			// if this is twitter user and he hasn't validated its promocode the redirect  
 			if ( (currentUser.twitterUserId != null && currentUser.twitterUserId.trim().equals("") == false) && !currentUser.isPromocodeValidated) {
-				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName, session.get("promocode"));
+				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName);
 			}
 			
 			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
