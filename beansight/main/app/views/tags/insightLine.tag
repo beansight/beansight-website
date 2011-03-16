@@ -15,9 +15,7 @@
 #{insightContainer insight:_insight}
 <div class="item-insight">
     <div class="content-insight">
-    #{isConnected}
         #{agree-disagreeWidget insight:_insight/}
-    #{/isConnected}
         <a href="@{Application.showInsight(_insight.uniqueId)}" class="permalink #{if _targetUser != null}leftbusy#{/if}">
             <p class="date-insight" style="color: #A1A5A6">${_insight.endDate.in(true)}, </p>
             <h3>${_insight.content}</h3> 

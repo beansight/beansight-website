@@ -323,7 +323,7 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .item-insight .content-insight:hover a.permalink.leftbusy{background:none;}
 #contentcenter .listinsights .item-insight .content-insight a.permalink.leftbusy:hover{background:none;}
 
-#contentcenter .listinsights .item-insight a.permalink h3{color:#272e2f;font-size:18px;width:285px;margin:0 0 3px 0;}
+#contentcenter .listinsights .item-insight a.permalink h3{color:#272e2f;font-size:18px;width:340px;margin:0 0 3px 0;}
 #contentcenter.large .listinsights .item-insight a.permalink h3{width:585px;float:left;}
 #contentcenter.large .listinsights .item-insight a.permalink.leftbusy h3{width:540px;}
 #contentcenter .listinsights .item-insight a.permalink:hover h3{color:#228392;}

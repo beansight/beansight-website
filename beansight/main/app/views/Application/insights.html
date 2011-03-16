@@ -5,7 +5,14 @@
 
 #{set currentMenu:'menuInsights' /}
 
-#{set contentCenterClass:'large' /}
+#{isConnected}
+    #{set contentCenterClass:'large' /}
+#{/isConnected}
+#{isNotConnected}
+    #{set contentCenterClass:'mini' /}
+    #{set leftAdvertisingPanel:true /}
+#{/isNotConnected}
+
 
 <h2 class="cuf-grb">&{'insightstitle'} #{if category} &{'incategory'} ${category}#{/if} #{if topic} &{'insights.intopic'} ${topic}#{/if}</h2>
 
@@ -28,6 +35,7 @@
 	        </div>
         </li>
         #{/isConnected}
+        #{isConnected} *{ Do not display the category filter here if not connected }*
         #{if topic == null}
 	    <li>
 		    <div class="filterDropDown">
@@ -40,6 +48,7 @@
 			</div>
 	    </li>
 	    #{/if}
+        #{/isConnected}
     </ul>
     
     <ul id="insightList">
