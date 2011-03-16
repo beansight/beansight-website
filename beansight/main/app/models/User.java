@@ -228,7 +228,7 @@ public class User extends Model {
 		this.commentCreatedMail = true;
 		this.commentFavoriteMail = true;
 		this.commentCommentMail = true;
-		this.commentFavoriteMail = true;
+		this.commentMentionMail = true;
 		
 		this.upcomingNewsletter = true;
 		this.statusNewsletter = true;
