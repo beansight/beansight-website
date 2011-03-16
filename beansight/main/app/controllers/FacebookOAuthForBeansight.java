@@ -7,6 +7,7 @@ import models.User;
 import models.analytics.UserClientInfo;
 import gson.FacebookModelObject;
 import play.Play;
+import play.libs.Crypto;
 import play.libs.WS;
 import play.mvc.Controller;
 import play.mvc.Router;
@@ -65,7 +66,9 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         
         session.put("isFacebookUser", Boolean.TRUE);
         session.put("facebookUserId", facebookUserId);
-        session.put("username", facebookUser.userName);
+        session.put("username", facebookUser.email);
+        // Remember
+        response.setCookie("rememberme", Crypto.sign(facebookUser.email) + "-" + facebookUser.email, "30d");
         
         Application.index();
     }

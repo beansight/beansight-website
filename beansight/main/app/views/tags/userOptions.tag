@@ -26,10 +26,10 @@
             </div>
         </li>
         <li class="log-t">
-            <a href="@{TwitterOAuth.authenticate}" id="log-twit" class="logbutton">Twitter</a>
+            <a href="@{Register.twitAuthenticate}" id="log-twit" class="logbutton">Twitter</a>
         </li>
         <li class="log-f">
-            <a href="@{FaceBookOAuth.authenticate}" id="log-fb" class="logbutton">Facebook</a>
+            <a href="@{Register.fbAuthenticate}" id="log-fb" class="logbutton">Facebook</a>
         </li>
     </ul>
 </div>

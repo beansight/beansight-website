@@ -29,6 +29,7 @@ import org.xml.sax.SAXException;
 import play.Logger;
 import play.Play;
 import play.db.jpa.Blob;
+import play.libs.Crypto;
 import play.libs.WS;
 import play.modules.oauthclient.ICredentials;
 import play.modules.oauthclient.OAuthClient;
@@ -83,7 +84,9 @@ public class TwitterOAuth extends Controller {
 
 		session.put("isTwitterUser", Boolean.TRUE);
 		session.put("twitterUserId", twitterUserId);
-		session.put("username", twitterUser.userName);
+		session.put("username", twitterUser.email);
+        // Remember
+        response.setCookie("rememberme", Crypto.sign(twitterUser.email) + "-" + twitterUser.email, "30d");
 
 		Logger.info("Callback end");
 		Application.index();
