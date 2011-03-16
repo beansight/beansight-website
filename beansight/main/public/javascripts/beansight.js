@@ -353,6 +353,7 @@ function loadInsights() {
 	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
 		$('#insightList').html(content);
 		//insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
+		postProcessContent();
 	});
 }
 
@@ -363,7 +364,12 @@ function loadMoreInsights() {
 	insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
 		$('#insightList').append(content);
+		postProcessContent();
 	});
+}
+	
+function postProcessContent() {
+	$("#insightList .loginTooltip").tooltip({showURL: false});
 }
 
 /**
@@ -877,7 +883,10 @@ $(document).ready(function() {
 		messages: {
 			content: i18n.newCommentMinSize
 		}
-	});	
+	});
+	
+	// tooltip
+	$(".voteWidgetLarge .loginTooltip").tooltip();
 	
     //////////////////////
     // User Page
@@ -1014,7 +1023,9 @@ $(document).ready(function() {
 		bindCurrentState();
 	    return false;
 	});
-
+	
+	// tooltips, shoud also be done every time the list in refreshed
+	$("#insightList .loginTooltip").tooltip();
 	
 });
 

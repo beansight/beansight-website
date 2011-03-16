@@ -83,6 +83,8 @@ shareInsight.searchBeansightUser=Entrez le nom d'un utilisateur beansight que vo
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=Vous n'avez pas encore voté.
 agree-disagree.notconnected=Connectez vous pour voter.
+agree-disagree.loginToVoteTooltip.agree=Vous devez être connecté pour être d'accord avec cette prédiction.
+agree-disagree.loginToVoteTooltip.disagree=Vous devez être connecté pour prendre une position négative par rapport à cette prédiction.
 
 #experts
 experts.explore=Explorer les experts

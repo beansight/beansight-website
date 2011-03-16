@@ -1,8 +1,20 @@
 *{ Display the vote info for a given insight }*
 *{ @param insigth: the insight  }*
 <div class="voteWidgetLarge">
-    <div class="linkvote agreeaction">#{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${_insight.uniqueId}');">#{/isConnected}#{isNotConnected}<span class="voteNumber"/>#{/isNotConnected}<span class="voteCount agreeCount">${_insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/></a></div>
-    <div class="linkvote disagreeaction">#{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${_insight.uniqueId}');">#{/isConnected}#{isNotConnected}<span class="voteNumber"/>#{/isNotConnected}<span class="voteCount disagreeCount">${_insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/></a></div>
+    <div class="linkvote agreeaction">
+        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${_insight.uniqueId}');">#{/isConnected}
+        #{isNotConnected}<span class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
+            <span class="voteCount agreeCount">${_insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/>
+        #{isConnected}</a>#{/isConnected}
+        #{isNotConnected}</span>#{/isNotConnected}
+        </div>
+    <div class="linkvote disagreeaction">
+        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${_insight.uniqueId}');">#{/isConnected}
+        #{isNotConnected}<span class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.disagree'}"/>#{/isNotConnected}
+            <span class="voteCount disagreeCount">${_insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
+        #{isConnected}</a>#{/isConnected}
+        #{isNotConnected}</span>#{/isNotConnected}
+        </div>
     
     <p>
     #{isConnected}
