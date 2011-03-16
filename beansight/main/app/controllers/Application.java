@@ -173,6 +173,9 @@ public class Application extends Controller {
 		showUser(currentUser.userName);
 	}
 
+	/**
+	 * @return the number of insights to be displayed initially on the list Insights page
+	 */
 	public static int getNumberInsightsInsightPage() {
 		if (Security.isConnected()) {
 			return NUMBER_INSIGHTS_INSIGHTPAGE;
