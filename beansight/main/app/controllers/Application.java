@@ -200,10 +200,8 @@ public class Application extends Controller {
 	}
 
 	/**
-	 * AJAX get insights from the explore page
-	 * 
+	 * AJAX get a list of insights : [from, from + NUMBER_INSIGHTS]
 	 * @param from : the index of the first insight to return
-	 * @param cat
 	 */
 	public static void getInsights(int from, String sortBy, long cat, String filterVote, String topic) {
 		if (filterVote == null || filterVote.trim().equals("")) {
@@ -215,10 +213,8 @@ public class Application extends Controller {
 	}
 	
 	/**
-	 * AJAX get insights from the explore page
-	 * 
+	 * AJAX get a list of insights starting at index 0 : [0, from + NUMBER_INSIGHTS]
 	 * @param from : the index of the first insight to return
-	 * @param cat
 	 */
 	public static void reloadInsights(int from, String sortBy, long cat, String filterVote, String topic) {
 		if (filterVote == null || filterVote.trim().equals("")) {
