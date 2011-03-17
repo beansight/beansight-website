@@ -75,8 +75,8 @@ public class Application extends Controller {
 	public static final int NUMBER_SUGGESTED_USERS = 10;
 	public static final int NUMBER_SUGGESTED_TAGS = 10;
 	
-	public static final double INSIGHT_VALIDATED_TRUE_MINVAL = 0.7;
-	public static final double INSIGHT_VALIDATED_FALSE_MAXVAL = 0.3;
+	public static final double INSIGHT_VALIDATED_TRUE_MINVAL = 0.6;
+	public static final double INSIGHT_VALIDATED_FALSE_MAXVAL = 0.4;
 	
 	public static final String APPLICATION_ID = "web-desktop";
 	

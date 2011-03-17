@@ -238,6 +238,8 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more{border-bottom:solid #bfbfbf 1px;margin:0 0 4px 0;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus.png) no-repeat right top;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins.png) no-repeat right top;}
+#contentcenter .listinsights .insightItem .insightContainer.validated .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus-validate.png) no-repeat right top;}
+#contentcenter .listinsights .insightItem .insightContainer.validated .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins-validate.png) no-repeat right top;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a:hover,
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a:hover,
 #contentcenter .listinsights .insightItem .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a,
