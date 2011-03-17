@@ -54,6 +54,11 @@ public class Tag extends Model {
         return buffer.toString();
 	}
 	
+	
+	public static Tag findByLabel(String label) {
+		return Tag.find("label = ?", label).first();
+	}
+	
 	public String toString() {
 	    return label;
 	}

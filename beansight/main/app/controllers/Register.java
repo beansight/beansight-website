@@ -154,7 +154,14 @@ public class Register extends Controller {
 
 		} 
 		
-		Application.index();
+		// redirect to the previous url or index if nothing was set in session
+		if (session.contains("url")) {
+			String url = session.get("url");
+			session.remove("url");
+			redirect(url);
+		} else {
+			Application.index();
+		}
 	}
 	
 	/** Confirm that the email address of the user is a real one */
@@ -175,11 +182,18 @@ public class Register extends Controller {
 		Application.index();
 	}
 	
-	public static void fbAuthenticate(String promocode) {
+	public static void fbAuthenticate(String url) {
+		session.put("url", url);
 		FacebookOAuth.authenticate();
 	}
 	
-	public static void twitAuthenticate(String promocode) throws Exception {
+	public static void twitAuthenticate(String url) throws Exception {
+		session.put("url", url);
 		TwitterOAuth.authenticate();
+	}
+	
+	public static void beansightAuthenticate(@Required String username, String password, boolean remember, String url) throws Throwable {
+		flash.put("url", url);
+		Secure.authenticate(username, password, remember);
 	}
 }

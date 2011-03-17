@@ -70,7 +70,14 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         // Remember
         response.setCookie("rememberme", Crypto.sign(facebookUser.email) + "-" + facebookUser.email, "30d");
         
-        Application.index();
+     	// redirect to the previous url or index if nothing was set in session
+		if (session.contains("url")) {
+			String url = session.get("url");
+			session.remove("url");
+			redirect(url);
+		} else {
+			Application.index();
+		}
     }
     
     

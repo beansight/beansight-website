@@ -102,6 +102,7 @@ public class Application extends Controller {
 			
 			// if this is twitter user and he hasn't validated its promocode the redirect  
 			if ( (currentUser.twitterUserId != null && currentUser.twitterUserId.trim().equals("") == false) && !currentUser.isPromocodeValidated) {
+				session.put("url", request.url);
 				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName);
 			}
 			

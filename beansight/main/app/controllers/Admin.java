@@ -4,6 +4,7 @@ import helpers.TimeSeriePoint;
 import helpers.UserCount;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -88,7 +89,6 @@ public class Admin extends Controller {
 				dailyTotalUsersMap.put(date.toDate(), point);
 			}
 			point.value = totalUser;
-			
 		}
 		renderArgs.put("dailyTotalUsers", dailyTotalUsersMap.values());
 		
@@ -254,10 +254,30 @@ public class Admin extends Controller {
 	
 
 	public static void createTopic(Long topicId, String topicName, String tagLabelList) {
+		if (tagLabelList != null) {
+			List<Tag> tags = new ArrayList<Tag>();
+			for (String tagLabel : tagLabelList.split(",")) {
+				Tag tag = Tag.findByLabel(tagLabel);
+				if (tag == null) {
+					tag = new Tag(tagLabel, null, CurrentUser.getCurrentUser());
+					tag.save();
+				}
+				tags.add( tag );
+			}
+		
+			Topic topic = null;
+			if ( topicId !=null) {
+				topic = Topic.findById(topicId);
+				topic.label = topicName;
+				topic.tags = tags; 
+			} else {
+				topic = new Topic(topicName, tags, CurrentUser.getCurrentUser());
+			}
+			topic.save();
+		}
+		
 		List<Topic> topics = Topic.all().fetch();
-		
-		
-		render(topicName, tagLabelList, topics);
+		render(topics);
 	}
 	
 	public static void getTopic(Long topicId) {
@@ -265,14 +285,32 @@ public class Admin extends Controller {
 		
 		Map<String, Object> topicData = new HashMap<String, Object>();
 		topicData.put("id", topic.id);
+		topicData.put("name", topic.label);
 		
 		List<String> tags = new ArrayList<String>();
 		for (Tag tag : topic.tags) {
 			tags.add(tag.label);
 		}
+		
+//		String tags = "";
+//		for (Tag tag : topic.tags) {
+//			if (tags.length() ==  0) {
+//				tags += tag.label;
+//			} else {
+//				tags = tags + ", " + tag.label;
+//			}
+//			
+//		}
 		topicData.put("tags", tags);
 		
 		renderJSON(topicData);
+	}
+	
+	public static void deleteTopic(Long topicId) {
+		Topic topic = Topic.findById(topicId);
+		topic.tags = null;
+		topic.save();
+		topic.delete();
 	}
 
 }

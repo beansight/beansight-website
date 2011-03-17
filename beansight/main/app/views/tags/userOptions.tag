@@ -5,7 +5,7 @@
         <li class="log-b" id="lilogb">
             <a href="#" class="current logbutton" id="log-bean">Beansight</a>
             <div class="item-loginbox" id="boxlog-bean" style="display:none;">
-                #{form @Secure.authenticate(), class:'boxlogContent', id:'logBeanForm'}
+                #{form @Register.beansightAuthenticate(), class:'boxlogContent', id:'logBeanForm'}
                     <label for="username">&{'email'}</label>
                     <div class="inputlogin">
                         <input type="email" name="username" value="${flash.username}" id="pseudologin" class="clearinput"/>
@@ -18,6 +18,7 @@
                         <img id="avatarlogin" src="/public/images/avatar/empty-small.jpg" />
                     </div>
                     <input style="display:none;" type="checkbox" name="remember" id="remember" value="true" checked="true" />
+                    <input type="hidden" name="url" id="url" value="${request.url}" />
                     <div class="inputsubmit">
                         <button class="goButton"><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'loginbutton'}</span></button>
                         <a href="@{Security.forgotPasswordAskEmail()}" class="forgotten">&{'userOptions.forgotPassword'}</a>
@@ -26,10 +27,10 @@
             </div>
         </li>
         <li class="log-t">
-            <a href="@{Register.twitAuthenticate}" id="log-twit" class="logbutton">Twitter</a>
+            <a href="@{Register.twitAuthenticate(request.url)}" id="log-twit" class="logbutton">Twitter</a>
         </li>
         <li class="log-f">
-            <a href="@{Register.fbAuthenticate}" id="log-fb" class="logbutton">Facebook</a>
+            <a href="@{Register.fbAuthenticate(request.url)}" id="log-fb" class="logbutton">Facebook</a>
         </li>
     </ul>
 </div>

@@ -89,7 +89,16 @@ public class TwitterOAuth extends Controller {
         response.setCookie("rememberme", Crypto.sign(twitterUser.email) + "-" + twitterUser.email, "30d");
 
 		Logger.info("Callback end");
-		Application.index();
+		
+		// redirect to the previous url or index if nothing was set in session
+		if (session.contains("url")) {
+			String url = session.get("url");
+			session.remove("url");
+			redirect(url);
+		} else {
+			Application.index();
+		}
+		
 	}
 
 	
