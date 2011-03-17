@@ -1,4 +1,4 @@
-#{extends 'main.html' /}
+ #{extends 'main.html' /}
 #{set title:'Mesurbation' /}
 
 <h2>Mesurbation</h2>
@@ -86,6 +86,23 @@ h3 {margin: 20px 0; font-weight: bold;}
         var chart3 = new google.visualization.AnnotatedTimeLine(document.getElementById('dailyTotalCommentChart'));
         chart3.draw(data3, {displayAnnotations: true});
       }
+      
+        google.setOnLoadCallback(drawChart4);
+        function drawChart4() {
+          var data4 = new google.visualization.DataTable();
+          data4.addColumn('date', 'Date');
+          data4.addColumn('number', 'Total Users');
+          data4.addColumn('string', 'title1');
+          data4.addColumn('string', 'text1');
+          data4.addRows([
+          #{list items:dailyTotalUsers, as:'value'} 
+            [new Date(${value.date.getTime()}), ${value.value}, undefined, undefined]#{if !value_isLast},#{/if}
+          #{/list}
+          ]);
+
+          var chart4 = new google.visualization.AnnotatedTimeLine(document.getElementById('dailyTotalUsersChart'));
+          chart4.draw(data4, {displayAnnotations: true});
+        }
     </script>
 #{/set}
 
@@ -122,4 +139,8 @@ h3 {margin: 20px 0; font-weight: bold;}
 <div class="analyticsbloc large">
     <h3>Total Votes</h3> 
     <div id="dailyTotalVoteChart" class="analytics-graph"></div>
+</div>
+<div class="analyticsbloc large">
+    <h3>Total Users</h3> 
+    <div id="dailyTotalUsersChart" class="analytics-graph"></div>
 </div>

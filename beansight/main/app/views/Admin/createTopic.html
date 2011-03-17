@@ -1,0 +1,57 @@
+#{extends 'main.html' /}
+#{set title:'Create Topic' /}
+
+<script type="text/javascript">
+var getTopicAction = #{jsAction @Admin.getTopic(':topicId') /};
+</script>
+
+<div>
+
+	<ul>
+		#{list items:topics , as:'topic'}
+		<li><a href="#" id='${topic.id}'>${topic.label}</a> tags : #{list items:topic.tags, as:'tag'}${tag.label}#{/list}</li>
+		#{/list}
+	</ul>
+
+</div>
+
+<div class="contentlarge">
+	<div class="newinsight">
+    #{form @Admin.createTopic(), id:'topicCreationForm', autocomplete:'off'}
+    	<input type="hidden" id="topicId" name="topicId" value=""/>
+    	<div class="line-form">
+            <label for="topicName">Nom du topic</label>
+            <div class="item-textarea">
+                <input type="text" id="topicName" name="topicName" id="topicName" class="insightContent">${topicName}</textarea>
+            </div>
+        </div>
+ 
+        <div class="line-form">
+            <label for="taginput">&{'createInsightTags'}</label>
+            <div class="item-input">
+                <input class="textfield" type="text" name="" id="taginput" value="${tagLabelList}" />
+                <input type="hidden" name="tagLabelList" value="${tagLabelList}" id="tagresult"/>
+                #{if errors.forKey('tagLabelList')}<span class="error">${errors.forKey('tagLabelList')}</span>#{/if}
+            </div>
+            <div class="listtags"></div>
+        </div>
+
+        <div class="item-submit line-form">
+            <button id="submitcreate"><span class="backbutton"></span><span class="txtbutton cuf-create">&{'createInsightSubmit'}</span></button>
+        </div>
+    #{/form}
+    </div>
+</div>
+
+<script type="text/javascript">
+	$("ul li a").click(function() {
+		alert(this.id);
+		$.getJSON(getTopicAction({'topicId' : this.id}), function(data) {
+			alert(data.id);
+			$.each(data.tags, function(index, value) {
+				alert(value);
+			});
+		});
+		$("#topicId").val();
+	});
+</script>

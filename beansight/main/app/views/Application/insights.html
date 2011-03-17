@@ -71,6 +71,7 @@
 var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.getNumberInsightsInsightPage()};
 var insightsFrom = 0;
 var bindingTime = true;
+var filterTopic = #{if topic}"${topic}"#{/if} #{else}"undefined"#{/else};
 
 $(document).ready(function() {
 	$.History.bind(function(state) {
@@ -111,7 +112,7 @@ if ($.History.getHash()  == "") {
 
 
 
-var filterTopic = #{if topic}"${topic}"#{/if} #{else}"undefined"#{/else};
+
 </script>
 
 <script type="text/javascript" charset="utf-8">

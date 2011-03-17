@@ -1,9 +1,11 @@
 package controllers;
 
+import helpers.TimeSeriePoint;
 import helpers.UserCount;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,8 @@ import jobs.InsightGraphTrendsJobTask;
 import jobs.InsightValidationAndUserScoreJob;
 import models.Comment;
 import models.Insight;
+import models.Tag;
+import models.Topic;
 import models.Trend;
 import models.User;
 import models.analytics.DailyTotalComment;
@@ -25,6 +29,7 @@ import models.analytics.DailyTotalVote;
 import models.analytics.UserInsightDailyCreation;
 import models.analytics.UserInsightDailyVote;
 
+import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
@@ -70,6 +75,22 @@ public class Admin extends Controller {
 		renderArgs.put("dailyTotalComment", DailyTotalComment.findAll());
 		renderArgs.put("bestUserVotes", User.findBestVoters(20));
 		renderArgs.put("bestUserInsights", User.findBestCreators(20));
+
+		Map<Date, TimeSeriePoint> dailyTotalUsersMap = new HashMap<Date, TimeSeriePoint>();
+		List<User> users = User.all().fetch();
+		Double totalUser = 0d;
+		for (User user : users) {
+			totalUser++;
+			DateMidnight date = new DateMidnight(user.getCrdate());
+			TimeSeriePoint point = dailyTotalUsersMap.get(date.toDate());
+			if (point == null) {
+				point = new TimeSeriePoint(date.toDate(), totalUser);
+				dailyTotalUsersMap.put(date.toDate(), point);
+			}
+			point.value = totalUser;
+			
+		}
+		renderArgs.put("dailyTotalUsers", dailyTotalUsersMap.values());
 		
 		render();
 	}
@@ -232,6 +253,26 @@ public class Admin extends Controller {
 	}
 	
 
+	public static void createTopic(Long topicId, String topicName, String tagLabelList) {
+		List<Topic> topics = Topic.all().fetch();
+		
+		
+		render(topicName, tagLabelList, topics);
+	}
 	
+	public static void getTopic(Long topicId) {
+		Topic topic = Topic.findById(topicId);
+		
+		Map<String, Object> topicData = new HashMap<String, Object>();
+		topicData.put("id", topic.id);
+		
+		List<String> tags = new ArrayList<String>();
+		for (Tag tag : topic.tags) {
+			tags.add(tag.label);
+		}
+		topicData.put("tags", tags);
+		
+		renderJSON(topicData);
+	}
 
 }
