@@ -500,7 +500,9 @@ a:hover{color:#228392;}
 .insightContainer .voteWidgetLarge .linkvote.agreeaction{border-right:solid #ededed 1px;}
 .insightContainer.voteDisagree .voteWidgetLarge .linkvote.disagreeaction .voteNumber{background-position:0 -102px;}
 .insightContainer.voteAgree .voteWidgetLarge .linkvote.agreeaction .voteNumber{background-position:0 -68px;}
-.insightContainer .voteWidgetLarge p{text-align:center;color:#a1a5a6;font-size:12px;padding-top:12px;}
+.insightContainer .voteWidgetLarge .smallText{text-align:center;color:#a1a5a6;font-size:12px;}
+.insightContainer .voteWidgetLarge .smallText.top{margin-bottom:10px;}
+.insightContainer .voteWidgetLarge .smallText.bottom{padding-top:12px;}
 /* #content .single .s-content .graphzone .leftgraph .voteWidgetLarge p span{color:#8bad56;} */
 #content .single .s-content .graphzone .leftgraph .lastvoters{width:315px;padding:5px 0;border-top:solid #ededed 1px;border-bottom:solid #ededed 1px;height:31px;}
 #content .single .s-content .graphzone .leftgraph .lastvoters p{padding:7px 9px 0 0;color:#a1a5a6;float:left;font-weight:bold;font-size:12px;}

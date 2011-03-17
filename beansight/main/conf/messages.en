@@ -85,6 +85,7 @@ agree-disagree.youhavenotvotedyet=You haven't voted yet.
 agree-disagree.notconnected=Log in to vote.
 agree-disagree.loginToVoteTooltip.agree=Log in to agree with this prediction.
 agree-disagree.loginToVoteTooltip.disagree=Log in to disagree with this prediction.
+agree-disagree.changeyourmind=Change your mind:
 
 #experts
 experts.explore=Explore experts

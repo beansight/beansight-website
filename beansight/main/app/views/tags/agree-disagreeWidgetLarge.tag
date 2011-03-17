@@ -1,6 +1,11 @@
 *{ Display the vote info for a given insight }*
 *{ @param insigth: the insight  }*
+*{ @param lastUserVote: the last vote of the current user for this insight }*
 <div class="voteWidgetLarge">
+    #{if _lastUserVote != null}
+    <p class="smallText top">&{'agree-disagree.changeyourmind'}</p>
+    #{/if}
+        
     <div class="linkvote agreeaction">
         #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${_insight.uniqueId}');">#{/isConnected}
         #{isNotConnected}<span class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
@@ -16,7 +21,7 @@
         #{isNotConnected}</span>#{/isNotConnected}
         </div>
     
-    <p>
+    <p class="smallText bottom">
     #{isConnected}
 	    #{if _lastUserVote != null}
 	       <span id="lastVote">#{if _lastUserVote.state.equals(models.Vote.State.AGREE)} &{'youagree'} #{/if} #{else} &{'youdisagree'} #{/else} <span class="timevote">${_lastUserVote.creationDate.format("dd MMMM yyyy")}</span></span>
