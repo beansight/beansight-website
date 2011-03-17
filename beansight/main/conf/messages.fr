@@ -73,19 +73,27 @@ suggesttags=suggérer d'autres tags :
 addtags=Ajouter
 postcomment=Ajouter un commentaire
 creationdate=Créé
-enddate=Fin
+showInsights.enddate=Le
 createdby=par
 createdin=dans
 youagree=Vous êtes d'accord depuis le
 youdisagree=Vous n'êtes pas d'accord depuis le
+showInsights.validation.validated.highScore=Pour Beansight, cette prédiction était évidente.
+showInsights.validation.validated.normalScore=Pour Beansight, cette prédiction s'est réalisée.
+showInsights.validation.unknow=Beansight ne peut pas déterminer si cette prédiction s'est réalisée ou non
+showInsights.validation.notValidated.normalScore=Pour Beansight, cette prédiction ne s'est pas réalisée.
+showInsights.validation.notValidated.lowScore=Pour Beansight, cette prédiction était évidemment fausse.
 shareInsight.shareonbeansight=Partager sur beansight
 shareInsight.searchBeansightUser=Entrez le nom d'un utilisateur beansight que vous avez mis en favoris :
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=Vous n'avez pas encore voté.
+agree-disagree.youhavenotvalidatedyet=Vous n'avez pas encore validé cette prédiction.
 agree-disagree.notconnected=Connectez vous pour voter.
 agree-disagree.loginToVoteTooltip.agree=Vous devez être connecté pour être d'accord avec cette prédiction.
 agree-disagree.loginToVoteTooltip.disagree=Vous devez être connecté pour prendre une position négative par rapport à cette prédiction.
 agree-disagree.changeyourmind=Changez d'avis :
+agree-disagree.validate=Validez cette prédiction :
+agree-disagree.youhavenotvalidatedyet=
 
 #experts
 experts.explore=Explorer les experts

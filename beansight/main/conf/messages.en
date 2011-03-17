@@ -73,19 +73,26 @@ suggesttags=suggest other tags
 addtags=Add tags
 postcomment=Add new comment
 creationdate=Created
-enddate=End
+showInsights.enddate=On
 createdby=by
 createdin=in
 youagree=You agree since
 youdisagree=You disagree since
+showInsights.validation.validated.highScore=For Beansight, this prediction was obvious.
+showInsights.validation.validated.normalScore=For Beansight, this prediction was right.
+showInsights.validation.unknow=Beansight cannot decide whether this prediction was right or wrong.
+showInsights.validation.notValidated.normalScore=For Beansight, this prediction was wrong.
+showInsights.validation.notValidated.lowScore=For Beansight, this prediction was obvouisly wrong.
 shareInsight.shareonbeansight=beansight share
 shareInsight.searchBeansightUser=Type the username of a user you put in your favorites:
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=You haven't voted yet.
+agree-disagree.youhavenotvalidatedyet=You haven't validated this prediction.
 agree-disagree.notconnected=Log in to vote.
 agree-disagree.loginToVoteTooltip.agree=Log in to agree with this prediction.
 agree-disagree.loginToVoteTooltip.disagree=Log in to disagree with this prediction.
 agree-disagree.changeyourmind=Change your mind:
+agree-disagree.validate=Validate this prediction:
 
 #experts
 experts.explore=Explore experts

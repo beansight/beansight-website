@@ -28,17 +28,33 @@
         </div>
     </div>
     <div class="s-content">
-        <h2>${insight.content}</h2>
-        <p class="insightdate">&{'enddate'} ${insight.endDate.format("dd MMMM yyyy")}</p>
+        <div class="insight-content">
+            <p class="insightdate">&{'showInsights.enddate'} ${insight.endDate.format("dd MMMM yyyy")},</p>
+            <h2>${insight.content}</h2>
+        </div>
         
+        #{if insight.validated}
+            <p class="insightvalidation">
+            #{if insight.validationScore > 0.9}
+                &{'showInsights.validation.validated.highScore'}
+            #{/if}
+            #{elseif insight.validationScore > 0.6}
+                &{'showInsights.validation.validated.normalScore'}
+            #{/elseif}
+            #{elseif insight.validationScore > 0.4}
+                &{'showInsights.validation.unknow'}
+            #{/elseif}
+            #{elseif insight.validationScore > 0.1}
+                &{'showInsights.validation.notValidated.normalScore'}
+            #{/elseif}
+            #{else}
+                &{'showInsights.validation.notValidated.lowScore'}
+            #{/else}    
+            </p>
+        #{/if}
+
         <div class="graphzone">
             <div class="leftgraph">
-                *{
-			    #{if insight.validated}
-			        <p>&{'validation'} (TODO) ${insight.validationScore}</p>
-			    #{/if}
-                }*
-                
                 #{agree-disagreeWidgetLarge insight:insight, lastUserVote:lastUserVote /}
 
                 <div class="lastvoters">
