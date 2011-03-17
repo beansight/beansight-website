@@ -184,14 +184,11 @@ public class Application extends Controller {
 			filterVote = "all";
 		}
 		
-		InsightResult result = getFilteredInsightsList(0, getNumberInsightsInsightPage(), sortBy, cat, filterVote, topic);
 		// log for analytics
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
 			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
 		}
-		renderArgs.put("insights", result.results);
-		renderArgs.put("count", result.count);
 		render(sortBy, topic);
 	}
 
@@ -200,6 +197,7 @@ public class Application extends Controller {
 	 * @param from : the index of the first insight to return
 	 */
 	public static void getInsights(int from, String sortBy, long cat, String filterVote, String topic) {
+		System.out.println("getInsights : " + from);
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}
@@ -213,6 +211,7 @@ public class Application extends Controller {
 	 * @param from : the index of the first insight to return
 	 */
 	public static void reloadInsights(int from, String sortBy, long cat, String filterVote, String topic) {
+		System.out.println("reloadInsights : " + from);
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
 		}

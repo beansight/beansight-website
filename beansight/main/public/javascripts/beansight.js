@@ -400,12 +400,12 @@ function generateGetInsightsArguments() {
 }
 
 function refreshFilters(str) {
-	sortBy = gup(str, "sortBy"); // incoming, trending, updated
-	voteFilter = gup(str, "filterVote"); // all, voted, notVoted
+	var sortBy = gup(str, "sortBy"); // incoming, trending, updated
+	var voteFilter = gup(str, "filterVote"); // all, voted, notVoted
 	
 	$("input[type=radio]").val([sortBy, voteFilter]);
 	
-	category = gup(str, "cat");
+	var category = gup(str, "cat");
 	$("#filterCategory option[value='" + category + "']").attr('selected', 'selected');
 	
 	// call this to have the jqueryui refreshed and see the change

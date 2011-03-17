@@ -73,8 +73,6 @@ var insightsFrom = 0;
 var bindingTime = true;
 
 $(document).ready(function() {
-	loadInsights();
-	
 	$.History.bind(function(state) {
 		if (state  == "") {
 			$("#radioSortByIncoming").attr("checked", "checked");
@@ -110,19 +108,8 @@ if ($.History.getHash()  == "") {
 		bindingTime = false;
 	}
 }
-/*
-if ($.History.getHash()  == "") {
-	
-	//$.History.setHash(reloadInsightsAction( generateGetInsightsArguments() ));
 
-	loadInsights();
-}
 
-else {
-	reloadInsights( $.History.getHash() );
-	refreshFilters( $.History.getHash() );
-}
-*/
 
 var filterTopic = #{if topic}"${topic}"#{/if} #{else}"undefined"#{/else};
 </script>
