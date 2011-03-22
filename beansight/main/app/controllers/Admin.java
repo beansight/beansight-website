@@ -1,20 +1,15 @@
 package controllers;
 
 import helpers.TimeSeriePoint;
-import helpers.UserCount;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import jobs.AllInsightUserScoreJob;
 import jobs.AnalyticsJob;
 import jobs.InsightGraphTrendsJob;
 import jobs.InsightGraphTrendsJobTask;
@@ -24,13 +19,10 @@ import models.Comment;
 import models.Insight;
 import models.Tag;
 import models.Topic;
-import models.Trend;
 import models.User;
 import models.analytics.DailyTotalComment;
 import models.analytics.DailyTotalInsight;
 import models.analytics.DailyTotalVote;
-import models.analytics.UserInsightDailyCreation;
-import models.analytics.UserInsightDailyVote;
 import models.analytics.UserInsightVisit;
 
 import org.joda.time.DateMidnight;
@@ -38,10 +30,7 @@ import org.joda.time.DateTime;
 
 import play.Logger;
 import play.Play;
-import play.data.validation.Required;
-import play.i18n.Lang;
 import play.modules.search.Search;
-import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 
