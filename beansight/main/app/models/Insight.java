@@ -598,6 +598,7 @@ public class Insight extends Model {
 	 * Creates the InsightTrends for this insight. Not more than one Insighttrend per hour.
 	 */
 	public void buildInsightTrends() {
+		Logger.info("buildInsightTrends for id : " + this.id);
 		// delete all the existing trends
 		InsightTrend.delete("insight = ?", this);
 
@@ -629,6 +630,7 @@ public class Insight extends Model {
 				lastTrendDate = new DateTime(vote.creationDate);
 			}
 		}
+		
 		// last vote is computed separately
 		if (votes.size() > 0) {
 			vote = votes.get(votes.size() - 1);
@@ -642,9 +644,9 @@ public class Insight extends Model {
 		
 		//and last, the last trend happens at the insight deadline
 		new InsightTrend(this.endDate, this).save();
+		
 	}
-	
-	
+		
 	
 	/**
 	 * Performs a search action
@@ -823,6 +825,7 @@ public class Insight extends Model {
         return agreeTrends;
     }
     
+    
     /**
      * Get an insight using its uniqueId
      * @param uniqueId
@@ -915,6 +918,49 @@ public class Insight extends Model {
     	}
     	
     }
+ /*
+    public Double computeScore(User user, double lastPrice) {
+    	Double thisInsightUserScore = 0d;
+		List<Vote> votes = find(
+				"select v from Vote v join v.user u join v.insight i "
+						+ "where u.id=:userId "
+						+ "and i.uniqueId=:insightUniqueId order by v.creationDate asc")
+				.bind("userId", user.id).bind("insightUniqueId", this.uniqueId).fetch();
+    	for (Vote vote : votes) {
+    		if (getPriceForDate(vote.creationDate)!=null) {
+	    		if (vote.state.equals(State.AGREE)) {
+	    			thisInsightUserScore = thisInsightUserScore + lastPrice - getPriceForDate(vote.creationDate);
+	    		} else {
+	    			thisInsightUserScore = thisInsightUserScore +  getPriceForDate(vote.creationDate) - lastPrice;
+	    		}
+    		}
+    	}
+    	return thisInsightUserScore;
+    }    
+        
+    public Double getPriceForDate(Date datePrice) {
+    	List<InsightTrend> prices = InsightTrend.find("insight = :insight order by trendDate asc").bind("insight", this).fetch();
+    	for(int i=1; i <= prices.size(); i++) {
+    		if (prices.get(i).trendDate.after(datePrice)) {
+    			Double priceA = prices.get(i-1).occurenceProbability;
+    			long durationAB = prices.get(i).trendDate.getTime() - prices.get(i-1).trendDate.getTime();
+    			long durationADatePrice = datePrice.getTime() - prices.get(i-1).trendDate.getTime();
+    			if (durationADatePrice==0) {
+    				return priceA;
+    			}
+    			Double priceB = prices.get(i).occurenceProbability;
+    			Double price = priceA + (priceB - priceA) * (durationAB / durationADatePrice);
+    			return price;
+    		}
+    	}
+    	return null;
+    }
+    
+
+    public InsightTrend getLastInsightTrend() {
+    	return InsightTrend.find("insight = :insight order by trendDate desc").bind("insight", this).first();
+    }
+    */
     
 	public static class InsightResult {
 		/** The asked insights */

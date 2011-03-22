@@ -83,6 +83,8 @@ showInsights.validation.validated.normalScore=For Beansight, this prediction was
 showInsights.validation.unknow=Beansight cannot decide whether this prediction was right or wrong.
 showInsights.validation.notValidated.normalScore=For Beansight, this prediction was wrong.
 showInsights.validation.notValidated.lowScore=For Beansight, this prediction was obvouisly wrong.
+showInsight.probabilityChart=Probability
+showInsights.chartTitle=Probability chart
 shareInsight.shareonbeansight=beansight share
 shareInsight.searchBeansightUser=Type the username of a user you put in your favorites:
 # agree-disagree widget

@@ -44,17 +44,28 @@ public class FormatHelper {
 	}
 	
 	public static String htmlLinkifyUrl(String text, String options) {
+		String newText;
+		
 		 //URLs starting with http://, https://, or ftp://
 		Replacer r = new Replacer(new Pattern("((http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?)"), "<a href='$1' target='_blank' " + options + ">$1</a>");
-		text = r.replace(text);
+		newText = r.replace(text);
+		if (!newText.equals(text)) {
+			return newText;
+		}
 		
 		//URLs starting with www. (without // before it, or it'd re-link the ones done above)
 		r = new Replacer(new Pattern("(^|[^\\/])(www\\.[\\S]+(\\b|$))"), "$1<a href='http://$2' target='_blank' " + options + ">$2</a>");
-		text = r.replace(text);
+		newText = r.replace(text);
+		if (!newText.equals(text)) {
+			return newText;
+		}
 		
 		//Change email addresses to mailto:: links
 		r = new Replacer(new Pattern("(\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,6})"), "<a href='mailto:$1' " + options + ">$1</a>");
-		text = r.replace(text);
+		newText = r.replace(text);
+		if (!newText.equals(text)) {
+			return newText;
+		}
 		
 		return text;
 	}

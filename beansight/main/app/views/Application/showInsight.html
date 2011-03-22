@@ -1,6 +1,30 @@
 #{extends 'content.html' /}
 #{set title:insight.content /}
 
+#{set 'moreScripts'}
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {'packages':['annotatedtimeline']});
+      
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('datetime', 'Date');
+          data.addColumn('number', '&{'showInsight.probabilityChart'}');
+          data.addColumn('string', 'title1');
+          data.addColumn('string', 'text1');
+          data.addRows([
+          #{list items:agreeInsightTrends, as:'trend'} 
+            [new Date(${trend.trendDate.getTime()}), ${trend.occurenceProbability}*100, undefined, undefined]#{if !trend_isLast},#{/if}
+          #{/list}
+          ]);
+
+          var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('insightTrendsChart'));
+          chart.draw(data, {'displayAnnotations': true, 'displayRangeSelector':false, 'displayZoomButtons':false, 'dateFormat': 'HH:mm MMMM dd, yyyy', 'fill':50});
+        }
+    </script>
+#{/set}
+
 #{set currentMenu:'menuInsights' /}
 
 #{set contentCenterClass:'large' /}
@@ -32,7 +56,6 @@
             <p class="insightdate">&{'showInsights.enddate'} ${insight.endDate.format("dd MMMM yyyy")},</p>
             <h2>${insight.content}</h2>
         </div>
-        
         #{if insight.validated}
             <p class="insightvalidation">
             #{if insight.validationScore > 0.9}
@@ -69,7 +92,9 @@
             </div>
             
             <div class="graphique">
-                <img src="https://chart.googleapis.com/chart?chxt=y&cht=lc&chco=76A4FB&chls=2.0&chs=316x148&chd=t:${agreeTrends.join(",")}" alt=""/>
+            	<div id="insightTrendsChart" class="analytics-graph" style='width: 316px; height: 148px;'></div>
+                *{<img src="https://chart.googleapis.com/chart?chxt=y&cht=lc&chco=76A4FB&chls=2.0&chs=316x148&chd=t:${agreeTrends.join(",")}" alt=""/>}*
+                <p style="text-align: center; font-size: 12px; margin-top: 5px; font-style: italic;">&{'showInsights.chartTitle'}</p>
             </div>
             <hr class="clear"/>
         </div>

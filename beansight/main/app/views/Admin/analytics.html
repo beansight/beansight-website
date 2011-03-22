@@ -144,3 +144,14 @@ h3 {margin: 20px 0; font-weight: bold;}
     <h3>Total Users</h3> 
     <div id="dailyTotalUsersChart" class="analytics-graph"></div>
 </div>
+<div class="analyticsbloc large">
+
+</div>
+<div class="analyticsbloc large">
+    <h3>Top 20 predictions last 7 days</h3>
+<ul>
+        #{list items:top20Insights, as:'insight'} 
+          <li><a href="@{Application.showInsight(insight[0])}">${insight[1].abbreviate(40)}</a> - ${insight[2]}</li>
+        #{/list}
+</ul>    
+</div>

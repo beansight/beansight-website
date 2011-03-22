@@ -14,9 +14,11 @@ import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import jobs.AllInsightUserScoreJob;
 import jobs.AnalyticsJob;
 import jobs.InsightGraphTrendsJob;
 import jobs.InsightGraphTrendsJobTask;
+import jobs.InsightTrendsCalculateJob;
 import jobs.InsightValidationAndUserScoreJob;
 import models.Comment;
 import models.Insight;
@@ -29,6 +31,7 @@ import models.analytics.DailyTotalInsight;
 import models.analytics.DailyTotalVote;
 import models.analytics.UserInsightDailyCreation;
 import models.analytics.UserInsightDailyVote;
+import models.analytics.UserInsightVisit;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
@@ -77,6 +80,7 @@ public class Admin extends Controller {
 		renderArgs.put("bestUserVotes", User.findBestVoters(20));
 		renderArgs.put("bestUserInsights", User.findBestCreators(20));
 
+		// total users evolution
 		Map<Date, TimeSeriePoint> dailyTotalUsersMap = new HashMap<Date, TimeSeriePoint>();
 		List<User> users = User.all().fetch();
 		Double totalUser = 0d;
@@ -91,6 +95,14 @@ public class Admin extends Controller {
 			point.value = totalUser;
 		}
 		renderArgs.put("dailyTotalUsers", dailyTotalUsersMap.values());
+		
+		// top 20 most read insights by registered users since last 7 days
+		List<Object[]> top20Insights = UserInsightVisit.find("select v.insight.uniqueId, v.insight.content, count(v) " +
+				"from UserInsightVisit v " +
+				"where v.creationDate > :crDate " +
+				"group by v.insight.id order by count(v) desc").
+				bind("crDate", new DateMidnight().minusDays(7).toDate()).fetch(20);
+		renderArgs.put("top20Insights", top20Insights);
 		
 		render();
 	}
@@ -252,7 +264,17 @@ public class Admin extends Controller {
 	    renderText("ok");
 	}
 	
-
+	public static void updateInsightTrend(String uniqueId) {
+		Insight i = Insight.findByUniqueId(uniqueId);
+		System.out.println("updateInsightTrends : " + i.id);
+		i.buildInsightTrends();
+	}
+	
+	public static void updateInsightTrends(String uniqueId) throws Exception {
+		new InsightTrendsCalculateJob(1, true).doJob();
+	}
+	
+	
 	public static void createTopic(Long topicId, String topicName, String tagLabelList) {
 		if (tagLabelList != null) {
 			List<Tag> tags = new ArrayList<Tag>();
@@ -312,5 +334,6 @@ public class Admin extends Controller {
 		topic.save();
 		topic.delete();
 	}
+
 
 }

@@ -26,9 +26,11 @@ import models.Filter.FilterType;
 import models.FollowNotificationTask;
 import models.Insight;
 import models.Insight.InsightResult;
+import models.InsightTrend;
 import models.Language;
 import models.Tag;
 import models.Topic;
+import models.Trend;
 import models.User;
 import models.User.UserResult;
 import models.Vote;
@@ -426,24 +428,29 @@ public class Application extends Controller {
 		
 		List<Vote> lastVotes = insight.getLastVotes(5);
 		
-		List<Long> agreeTrends = null;
+		List<InsightTrend> agreeInsightTrends = null;
 		
 		// get the trends list from the cache and put it if wasn't already in cache
-		Map<Long, List<Long>> agreeRatioTrendsCache = (Map<Long, List<Long>>)Cache.get("agreeRatioTrendsCache");
-		if (agreeRatioTrendsCache == null) {
-			agreeRatioTrendsCache = new HashMap<Long, List<Long>>();
-			Cache.add("agreeRatioTrendsCache", agreeRatioTrendsCache);
+		Map<Long, List<InsightTrend>> agreeInsightTrendsCache = (Map<Long, List<InsightTrend>>)Cache.get("agreeInsightTrendsCache");
+		if (agreeInsightTrendsCache == null) {
+			agreeInsightTrendsCache = new HashMap<Long, List<InsightTrend>>();
+			Cache.add("agreeInsightTrendsCache", agreeInsightTrendsCache);
 		}
-		if (agreeRatioTrendsCache.containsKey(insight.id)) {
-			agreeTrends = agreeRatioTrendsCache.get(insight.id);
+		if (agreeInsightTrendsCache.containsKey(insight.id)) {
+			agreeInsightTrends = agreeInsightTrendsCache.get(insight.id);
 		} else {
-			agreeTrends = insight.getAgreeRatioTrends(90);
+			//agreeTrends = insight.getAgreeRatioTrends(90);
+			agreeInsightTrends = InsightTrend.find("select t from InsightTrend t where t.insight = :insight order by t.trendDate").bind("insight", insight).fetch();
 			
-			agreeRatioTrendsCache.put(insight.id, agreeTrends);
+			// unless the insight date is passed, remove the last trends which is set at the endDate insight's
+			if (insight.endDate.after(new Date())) {
+				agreeInsightTrends.remove(agreeInsightTrends.size() - 1);
+			}
+			agreeInsightTrendsCache.put(insight.id, agreeInsightTrends);
 		}
 		
         renderArgs.put("lastVotes", lastVotes);
-        renderArgs.put("agreeTrends", agreeTrends);
+        renderArgs.put("agreeInsightTrends", agreeInsightTrends);
         renderArgs.put("comments", insight.getNotHiddenComments());
 		render(insight);
 	}

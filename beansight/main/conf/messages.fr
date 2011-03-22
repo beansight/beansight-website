@@ -83,6 +83,8 @@ showInsights.validation.validated.normalScore=Pour Beansight, cette prédiction 
 showInsights.validation.unknow=Beansight ne peut pas déterminer si cette prédiction s'est réalisée ou non
 showInsights.validation.notValidated.normalScore=Pour Beansight, cette prédiction ne s'est pas réalisée.
 showInsights.validation.notValidated.lowScore=Pour Beansight, cette prédiction était évidemment fausse.
+showInsight.probabilityChart=Probabilité
+showInsights.chartTitle=Graphique de la probabilité d'occurence
 shareInsight.shareonbeansight=Partager sur beansight
 shareInsight.searchBeansightUser=Entrez le nom d'un utilisateur beansight que vous avez mis en favoris :
 # agree-disagree widget
