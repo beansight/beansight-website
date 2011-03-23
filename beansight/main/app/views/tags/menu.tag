@@ -7,7 +7,4 @@
     <li><a href="@{Application.profile()}#userinsights" class="cuf-grb #{currentMenu 'menuProfile' /}">&{'menuprofile'}</a></li>
 #{/isConnected}
     <li><a href="@{Application.experts()}" class="cuf-grb #{currentMenu 'menuExperts' /}">&{'menuexperts'}</a></li>
-#{isNotConnected}
-    <li><a href="@{Register.register()}" class="cuf-grb #{currentMenu 'menuSignUp' /}">&{'signuplink'}</a></li>
-#{/isNotConnected}
 </ul>

@@ -18,6 +18,7 @@ secure.title=Log In
 # indexNotConnected
 home=Home
 trendinginsights=Trending predictions:
+indexNotConnected.marketing=With Beansight:<br/>Share your insights<br/>Prove your expertise.
 
 # indexConnected
 newandtrending=New and trending

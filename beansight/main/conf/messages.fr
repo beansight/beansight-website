@@ -18,6 +18,7 @@ secure.title=Se connecter
 # indexNotConnected
 home=Accueil
 trendinginsights=Prédictions populaires :
+indexNotConnected.marketing=Avec Beansight :<br/>Partagez vos prédictions<br/>Prouvez votre expertise.
 
 # indexConnected
 newandtrending=Nouveaux
