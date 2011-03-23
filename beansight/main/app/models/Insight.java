@@ -328,6 +328,8 @@ public class Insight extends Model {
 			}
 		}
 		
+		this.lastUpdated = new Date();
+		
 		return comment;
 	}
 

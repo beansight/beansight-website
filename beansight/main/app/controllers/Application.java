@@ -554,6 +554,7 @@ public class Application extends Controller {
 		User commentWriter = CurrentUser.getCurrentUser();
 		Insight insight = Insight.findByUniqueId(uniqueId);
 		Comment comment = insight.addComment(content, commentWriter);
+		insight.save();
 		
 		render(comment);
 	}
