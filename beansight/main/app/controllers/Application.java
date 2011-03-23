@@ -600,6 +600,7 @@ public class Application extends Controller {
 			@Required @Match(value = "[a-zA-Z0-9_]{3,16}", message = "username has to be 3-16 chars, no space, no accent and no punctuation") String username,
 			boolean followMail,
 			boolean messageMail,
+			boolean insightShareMail,			
 			boolean commentCreatedMail,
 			boolean commentFavoriteMail,
 			boolean commentCommentMail,
@@ -628,6 +629,7 @@ public class Application extends Controller {
 		
 		user.followMail = followMail;
 		user.messageMail = messageMail;
+		user.insightShareMail = insightShareMail;
 		user.commentCreatedMail = commentCreatedMail;
 		user.commentFavoriteMail = commentFavoriteMail;
 		user.commentCommentMail = commentCommentMail;

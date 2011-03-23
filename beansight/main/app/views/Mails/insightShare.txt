@@ -1,0 +1,8 @@
+#{extends 'masterMail.txt' /}
+#{set unsubscribe:true /}
+
+&{'emailhellouser', task.share.toUser.userName}
+
+&{'email.shareInsight.usershared', task.share.fromUser.userName} ${task.share.insight.content}
+
+&{'email.shareInsight.todo'} ${play.configuration.getProperty("domain.name")}@{Application.showInsight(task.share.insight.uniqueId)}

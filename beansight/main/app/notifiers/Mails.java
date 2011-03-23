@@ -17,6 +17,7 @@ import models.CommentMentionMailTask;
 import models.ContactMailTask;
 import models.FollowNotificationTask;
 import models.Insight;
+import models.InsightShareMailTask;
 import models.InvitationMailTask;
 import models.InvitedSubscribedNotification;
 import models.MailTask;
@@ -68,6 +69,10 @@ public class Mails extends Mailer {
 		return sendMailTask(task, Messages.get("email.commentMention.subject", task.commentNotificationMsg.fromUser.userName), "Mails/commentMention");
 	}
 
+	public static boolean insightShare(InsightShareMailTask task) {
+		Lang.set(task.language);	
+		return sendMailTask(task, Messages.get("email.insightShare.subject", task.share.fromUser.userName), "Mails/insightShare");
+	}
 	
 	private static boolean sendMailTask(MailTask task, String subject, String templateName) {
 		Lang.set(task.language);

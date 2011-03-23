@@ -182,6 +182,7 @@ settings.commentCreatedMail=comments on a prediction I created.
 settings.commentFavoriteMail=comments on a prediction I added in my favorites.
 settings.commentCommentMail=comments on a prediction I commented on.
 settings.commentMentionMail=mentioned me in a comment (using "@").
+settings.insightShareMail=share a prediction with me.
 settings.newsletters=Newsletters
 settings.statusNewsletter=receive a weekly email of the evolution of your predictions. 
 settings.upcomingNewsletter=receive an email every Monday of upcoming events.
@@ -438,7 +439,11 @@ email.commentMention.commentContentIs=The comment is:
 email.newCommentNotification.subject=Beansight: New comment on the prediction %s
 email.newCommentNotification.newComment=%s commented on the prediction:
 
-
 # invitation notification
 email.invitedSubscribed.subject=%s created an account on Beansight
 email.invitedSubscribed.subscribed=Thanks to you, %s created an account on Beansight. We added him to your favorites. You can welcome him by visiting his new profile:
+
+# insight Share
+email.shareInsight.subject=Beansight: %s shared a prediction with you
+email.shareInsight.usershared=%s invited you to read this prediction:
+email.shareInsight.todo=Follow the link to take position!

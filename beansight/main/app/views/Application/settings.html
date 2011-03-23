@@ -36,10 +36,11 @@
             <ul class="settings-checklist">
 	            <li class="checkitem"><input type="checkbox" name="followMail"  #{if user.followMail}checked#{/if}         id="followMail">  <label for="followMail"> &{'settings.followMail'}</label></li>
 	            <li class="checkitem"><input type="checkbox" name="messageMail" #{if user.messageMail}checked#{/if}         id="messageMail"> <label for="messageMail"> &{'settings.messageMail'}</label></li>
-	            <li class="checkitem"><input type="checkbox" name="commentCreatedMail" #{if user.commentCreatedMail}checked#{/if}  id="commentCreatedMail"> <label for="commentCreatedMail"> &{'settings.commentCreatedMail'}</label></li>
-	            <li class="checkitem"><input type="checkbox" name="commentFavoriteMail" #{if user.commentFavoriteMail}checked#{/if} id="commentFavoriteMail"> <label for="commentFavoriteMail"> &{'settings.commentFavoriteMail'}</label></li>
-	            <li class="checkitem"><input type="checkbox" name="commentCommentMail" #{if user.commentCommentMail}checked#{/if}  id="commentCommentMail"> <label for="commentCommentMail"> &{'settings.commentCommentMail'}</label></li>
-	            <li class="checkitem"><input type="checkbox" name="commentMentionMail" #{if user.commentMentionMail}checked#{/if}  id="commentMentionMail"> <label for="commentMentionMail"> &{'settings.commentMentionMail'}</label></li>
+                <li class="checkitem"><input type="checkbox" name="insightShareMail"       #{if user.insightShareMail}checked#{/if}    id="insightShareMail"> <label for="insightShareMail"> &{'settings.insightShareMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="commentCreatedMail"     #{if user.commentCreatedMail}checked#{/if}  id="commentCreatedMail"> <label for="commentCreatedMail"> &{'settings.commentCreatedMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="commentFavoriteMail"    #{if user.commentFavoriteMail}checked#{/if} id="commentFavoriteMail"> <label for="commentFavoriteMail"> &{'settings.commentFavoriteMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="commentCommentMail"     #{if user.commentCommentMail}checked#{/if}  id="commentCommentMail"> <label for="commentCommentMail"> &{'settings.commentCommentMail'}</label></li>
+	            <li class="checkitem"><input type="checkbox" name="commentMentionMail"     #{if user.commentMentionMail}checked#{/if}  id="commentMentionMail"> <label for="commentMentionMail"> &{'settings.commentMentionMail'}</label></li>
             </ul>
         </div>
         

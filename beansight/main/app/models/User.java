@@ -179,6 +179,8 @@ public class User extends Model {
 	public boolean commentCommentMail;
 	/** Should this user receive a mail when another user mentions him in a comment */
 	public boolean commentMentionMail;
+	/** Should this user receive a mail when another usershare an insight with him */
+	public boolean insightShareMail;
 	
 	/** Should this user receive a mail every week of upcoming events */
 	public boolean upcomingNewsletter;
@@ -229,6 +231,7 @@ public class User extends Model {
 		this.commentFavoriteMail = true;
 		this.commentCommentMail = true;
 		this.commentMentionMail = true;
+		this.insightShareMail = true;
 		
 		this.upcomingNewsletter = true;
 		this.statusNewsletter = true;
@@ -862,6 +865,11 @@ public class User extends Model {
 		this.shared.add(share);
 		this.save();
 
+		if(toUser.insightShareMail) {
+			InsightShareMailTask mailTask = new InsightShareMailTask(share);
+			mailTask.save();
+		}
+		
 		return true;
 	}
 	

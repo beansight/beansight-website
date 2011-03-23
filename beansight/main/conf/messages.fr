@@ -184,6 +184,7 @@ settings.commentCreatedMail=commente sur une prédiction que j'ai créée.
 settings.commentFavoriteMail=commente sur une prédiction que j'ai ajoutée en favoris.
 settings.commentCommentMail=répond à un commentaire que j'ai posté.
 settings.commentMentionMail=parle de moi dans un commentaire (en utilisant "@").
+settings.insightShareMail=partage avec moi une prédiction.
 settings.newsletters=Bulletins d'information
 settings.statusNewsletter=recevoir une fois par semaine un suivi de mes prédictions.
 settings.upcomingNewsletter=recevoir chaque lundi un résumé des évènements qui vont se produire dans la semaine à venir.
@@ -452,4 +453,9 @@ email.newCommentNotification.newComment=%s a ajouté un commentaire sur la préd
 
 # invitation notification
 email.invitedSubscribed.subject=%s s'est inscrit sur Beansight
-email.invitedSubscribed.subscribed=%s a accepté votre invitation à rejoindre Beansight. Nous l'avons automatiquement ajouté à vos favoris. Consultez son profil et souhaitez lui la bienvenue en suivant ce lien : 
+email.invitedSubscribed.subscribed=%s a accepté votre invitation à rejoindre Beansight. Nous l'avons automatiquement ajouté à vos favoris. Consultez son profil et souhaitez lui la bienvenue en suivant ce lien :
+
+# insight Share
+email.shareInsight.subject=Beansight: %s a partagé une prédiction avec vous
+email.shareInsight.usershared=%s vous invite à prendre position sur la prédiction : 
+email.shareInsight.todo=Suivez le lien pour ajouter votre grain de sel !
