@@ -843,7 +843,6 @@ $(document).ready(function() {
 	$('#shareOnBeansightForm').submit(function() {
         $.getJSON(shareInsightAction(), $(this).serialize(), function(data) {
         	clearForm($('#shareOnBeansightForm'));
-        	$('#shareOnBeansightForm').slideUp();
         	var message = i18n.insightShared;
         	if(data.error) {
         		if(data.error === "NotFollowingUserException") { message = i18n.notFollowingUser; }

@@ -87,6 +87,7 @@ showInsight.probabilityChart=Probability
 showInsights.chartTitle=Probability chart
 shareInsight.shareonbeansight=beansight share
 shareInsight.searchBeansightUser=Type the username of a user you put in your favorites:
+shareInsight.sharebutton=Share
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=You haven't voted yet.
 agree-disagree.youhavenotvalidatedyet=You haven't validated this prediction.

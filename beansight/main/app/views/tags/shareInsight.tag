@@ -13,7 +13,7 @@
 	               <p>&{'shareInsight.searchBeansightUser'}</p>
 	               <input type="text" name="userName" id="userToShareTo" />
 	               <input type="hidden" name="insightUniqueId" value="${_insight.uniqueId}" />
-	               <input type="submit"/>
+	               <input type="submit" value="&{'shareInsight.sharebutton'}"/>
 	           </form>
 	           <span id="shareConfirmation"></span>
            </div>

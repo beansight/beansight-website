@@ -87,6 +87,7 @@ showInsight.probabilityChart=Probabilité
 showInsights.chartTitle=Graphique de la probabilité d'occurence
 shareInsight.shareonbeansight=Partager sur beansight
 shareInsight.searchBeansightUser=Entrez le nom d'un utilisateur beansight que vous avez mis en favoris :
+shareInsight.sharebutton=Partager
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=Vous n'avez pas encore voté.
 agree-disagree.youhavenotvalidatedyet=Vous n'avez pas encore validé cette prédiction.
