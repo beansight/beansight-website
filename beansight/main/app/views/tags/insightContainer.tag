@@ -20,6 +20,9 @@
     #{elseif _insight.validationScore < controllers.Application.INSIGHT_VALIDATED_TRUE_MINVAL} validatedFalse #{/elseif}
     #{else} validatedUnknow #{/else}
 #{/if }
+#{if _insight.endDate.getTime() < new Date().getTime()}
+     over  
+#{/if}
 '>
 #{doBody /}
 </${_tag}>

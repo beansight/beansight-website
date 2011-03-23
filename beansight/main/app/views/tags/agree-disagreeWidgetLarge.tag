@@ -2,10 +2,10 @@
 *{ @param insigth: the insight  }*
 *{ @param lastUserVote: the last vote of the current user for this insight }*
 <div class="voteWidgetLarge">
-    #{if _lastUserVote != null && !_insight.validated}
+    #{if _lastUserVote != null && !(_insight.endDate.getTime() < new Date().getTime())}
     <p class="smallText top">&{'agree-disagree.changeyourmind'}</p>
     #{/if}
-    #{if _insight.validated}
+    #{if _insight.endDate.getTime() < new Date().getTime()}
     <p class="smallText top">&{'agree-disagree.validate'}</p>
     #{/if}
         
@@ -30,7 +30,7 @@
 	       <span id="lastVote">#{if _lastUserVote.state.equals(models.Vote.State.AGREE)} &{'youagree'} #{/if} #{else} &{'youdisagree'} #{/else} <span class="timevote">${_lastUserVote.creationDate.format("dd MMMM yyyy")}</span></span>
 	    #{/if}
 	    #{else}
-	       #{if _insight.validated}
+	       #{if _insight.endDate.getTime() < new Date().getTime()}
 	       <span id="lastVote">&{'agree-disagree.youhavenotvalidatedyet'}</span>
 	       #{/if}
 	       #{else}
