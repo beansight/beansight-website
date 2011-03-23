@@ -268,13 +268,7 @@ public class Application extends Controller {
 			// depending on the sortBy
 			if(sortBy != null && sortBy.equals("updated")) {
 				filter.filterType = FilterType.UPDATED;
-				// If connected, get suggested insights
-				if (Security.isConnected()) {
-					User currentUser = CurrentUser.getCurrentUser();
-					result = currentUser.getSuggestedInsights(from, numberInsights, filter);
-				} else {
-					result = Insight.findLatest(from, numberInsights, filter);
-				}
+				result = Insight.findLatest(from, numberInsights, filter);
 			} else if (sortBy != null && sortBy.equals("trending")) {
 				filter.filterType = FilterType.TRENDY;
 				result = Insight.findTrending(from, numberInsights, filter);

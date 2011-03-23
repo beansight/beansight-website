@@ -891,21 +891,6 @@ public class User extends Model {
 		return sharedInsights;
 	}
 
-	public InsightResult getSuggestedInsights(int from, int number, Filter filter) {
-		// This is totally temporary : put the suggested insights here
-		InsightResult result = Insight.findLatest(from, number, filter);
-
-		if(from != 0) {
-			return result;
-		}
-
-		List<Insight> sharedInsights = this.getSharedInsights(NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS);
-		sharedInsights.addAll(result.results);
-		result.results = sharedInsights;
-		
-		return result;
-	}
-	
 	/**
 	 * @param user : the user this message should be sent to
 	 * @param content : text content of this message
