@@ -31,10 +31,10 @@
 	    #{/if}
 	    #{else}
 	       #{if _insight.validated}
-	       <span id="lastVote">&{'agree-disagree.youhavenotvotedyet'}</span>
+	       <span id="lastVote">&{'agree-disagree.youhavenotvalidatedyet'}</span>
 	       #{/if}
 	       #{else}
-	       <span id="lastVote">&{'agree-disagree.youhavenotvalidatedyet'}</span>
+	       <span id="lastVote">&{'agree-disagree.youhavenotvotedyet'}</span>
 	       #{/else}
 	    #{/else}
     #{/isConnected}

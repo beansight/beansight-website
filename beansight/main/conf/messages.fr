@@ -96,7 +96,6 @@ agree-disagree.loginToVoteTooltip.agree=Vous devez être connecté pour être d'
 agree-disagree.loginToVoteTooltip.disagree=Vous devez être connecté pour prendre une position négative par rapport à cette prédiction.
 agree-disagree.changeyourmind=Changez d'avis :
 agree-disagree.validate=Validez cette prédiction :
-agree-disagree.youhavenotvalidatedyet=
 
 #experts
 experts.explore=Explorer les experts
