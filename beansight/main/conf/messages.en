@@ -215,7 +215,7 @@ password.forgot.new.pwd.saved.msg=Your new password is set you can now login.
 
 # menu
 menutitle=Menu
-menuprofile=Profile
+menuprofile=My predictions
 menucreate=Create
 menuinsights=Predictions
 menuexperts=Experts

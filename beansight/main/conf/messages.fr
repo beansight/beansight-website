@@ -217,7 +217,7 @@ password.forgot.new.pwd.saved.msg=Votre nouveau mot de passe est sauvegardé
 
 # menu
 menutitle=Menu
-menuprofile=Profil
+menuprofile=Mes prédictions
 menucreate=Créer
 menuinsights=Prédictions
 menuexperts=Experts
