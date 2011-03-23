@@ -741,7 +741,9 @@ public class Insight extends Model {
 	 * @param number : number of items to return
 	 */
 	public static InsightResult findIncoming(int from, int number, Filter filter) {
-        String query = "select i.id from Insight i "
+		InsightResult result = new InsightResult();
+		
+        String query = "select i from Insight i "
 		        		+ "join i.tags t "
 		        		+ "where i.hidden is false "
 		        		+ "and (i.agreeCount + i.disagreeCount) > 1 "
@@ -750,16 +752,34 @@ public class Insight extends Model {
 		        		+ "group by i.id "
 		        		+ "order by endDate ASC";
 
-		List<Long> insightIds = Insight.find(query).bind("currentDate", new Date()).from(from).fetch(number);
-
-		InsightResult result = new InsightResult();
-    	if(!insightIds.isEmpty()) {
-    		result.results = Insight.find("select i from Insight i where i.id in (:idList) order by endDate ASC").bind("idList", insightIds).fetch();
-    	}
+        result.results = Insight.find(query).bind("currentDate", new Date()).from(from).fetch(number);
 		
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param from
+	 * @param number
+	 * @param filter
+	 * @return
+	 */
+	public static InsightResult findClosedInsights(int from, int number, Filter filter) {
+		InsightResult result = new InsightResult();
+		
+		String query = "select i from Insight i "
+    		+ "join i.tags t "
+    		+ "where i.hidden is false "
+//    		+ "and (i.agreeCount + i.disagreeCount) > 1 "
+    		+ "and endDate < :currentDate "
+    		+ filter.generateJPAQueryWhereClause()
+    		+ "group by i.id "
+    		+ "order by endDate DESC";
+		
+		result.results = Insight.find(query).bind("currentDate", new Date()).from(from).fetch(number);
+		return result;
+	}
+	
 	/**	
 	 * Finds the insights whose date is over by 3 days, that haven't been validated yet 
 	 * @param page : the page number to start from

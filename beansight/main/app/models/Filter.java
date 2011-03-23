@@ -19,6 +19,7 @@ public class Filter  {
 	public Set<Language> 	languages;
 	public FilterType filterType = FilterType.INCOMING;
 	public String filterVote;
+	public Boolean closed;
 	/** user is used for filtering by vote */
 	public User user;
 	
@@ -30,6 +31,7 @@ public class Filter  {
 		languages 	= new HashSet<Language>();
 		favorites 	= false;
 		filterVote 	= "all";
+		closed 		= null;
 		user 		= null;
 	}
 	

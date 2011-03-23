@@ -107,6 +107,7 @@ experts.loadmore=plus d'experts
 #insights
 exploreinsights=Explorer les prédictions
 insightstitle=Prédictions
+insightstitle.closed=Prédictions réalisées
 incategory=dans
 insights.sortby=Tri:
 insights.category=Catégorie:
@@ -222,6 +223,7 @@ menuprofile=Mes prédictions
 menucreate=Créer
 menuinsights=Prédictions
 menuexperts=Experts
+menuClosedInsights=Prédictions réalisées
 
 # userOptions
 signuptitle=Création de compte

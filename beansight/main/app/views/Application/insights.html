@@ -3,7 +3,12 @@
     &{'exploreinsights'}
 #{/set}
 
-#{set currentMenu:'menuInsights' /}
+#{if closed}
+	#{set currentMenu:'menuClosedInsights' /}
+#{/if}
+#{else}
+	#{set currentMenu:'menuInsights' /}
+#{/else}
 
 #{isConnected}
     #{set contentCenterClass:'large' /}
@@ -14,10 +19,16 @@
 #{/isNotConnected}
 
 
-<h2 class="cuf-grb">&{'insightstitle'} #{if category} &{'incategory'} ${category}#{/if} #{if topic} &{'insights.intopic'} ${topic}#{/if}</h2>
+<h2 class="cuf-grb">
+	*{#{if category} &{'incategory'} ${category}#{/if}}* 
+	#{if topic} &{'insightstitle'} &{'insights.intopic'} ${topic}#{/if}
+	#{elseif closed} &{'insightstitle.closed'} #{/elseif}
+	#{else} &{'insightstitle'} #{/else}
+</h2>
 
 <div class="listinsights">
     <ul class="menulistinsights">
+    	#{if !closed}
         <li class="sortby">&{'insights.sortby'}</li>
         <li class="first">
             <div id="radioSortByFilter" style="font-size: 11px;">
@@ -26,6 +37,7 @@
                 <input type="radio" autocomplete="off" name="SortByGroup" value="updated"           id="radioSortByUpdated"/>           <label for="radioSortByUpdated">     &{'insights.latest'}   </label>
             </div>        
         </li>
+        #{/if}
         #{isConnected}
         <li>
 	        <div id="radioVotefilter" style="font-size: 11px;">
@@ -72,6 +84,7 @@ var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.getNumberInsightsIns
 var insightsFrom = 0;
 var bindingTime = true;
 var filterTopic = #{if topic}"${topic}"#{/if} #{else}"undefined"#{/else};
+var closedInsight = #{if closed}${closed}#{/if} #{else}null#{/else};
 
 $(document).ready(function() {
 	$.History.bind(function(state) {

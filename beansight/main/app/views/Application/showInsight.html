@@ -20,7 +20,7 @@
           ]);
 
           var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('insightTrendsChart'));
-          chart.draw(data, {'displayAnnotations': true, 'displayRangeSelector':false, 'displayZoomButtons':false, 'dateFormat': 'HH:mm MMMM dd, yyyy', 'fill':50});
+          chart.draw(data, {'thickness': 0, 'max': 100, 'colors': ['#5D7F2C'] ,'displayAnnotations': false, 'displayRangeSelector':false, 'displayZoomButtons':false, 'dateFormat': 'HH:mm MMMM dd, yyyy', 'fill':30});
         }
     </script>
 #{/set}

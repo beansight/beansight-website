@@ -107,6 +107,7 @@ experts.loadmore=more experts
 #insights
 exploreinsights=Explore predictions
 insightstitle=Predictions
+insightstitle.closed=Closed predictions
 incategory=in
 insights.sortby=Sort:
 insights.category=Category:
@@ -221,6 +222,7 @@ menuprofile=My predictions
 menucreate=Create
 menuinsights=Predictions
 menuexperts=Experts
+menuClosedInsights=Closed predictions
 
 # userOptions
 signuptitle=Sign up

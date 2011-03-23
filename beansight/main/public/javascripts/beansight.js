@@ -396,7 +396,7 @@ function generateGetInsightsArguments() {
 	var sortBy = $('input[name=SortByGroup]:checked').val(); 
 	var cat = $('#filterCategory').val();
 	var filterVote = $('input[name=VoteGroup]:checked').val(); 
-	return {'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote, 'topic':filterTopic};
+	return {'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote, 'topic':filterTopic, 'closed':closedInsight};
 }
 
 function refreshFilters(str) {

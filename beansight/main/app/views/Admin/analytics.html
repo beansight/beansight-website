@@ -17,7 +17,7 @@ h3 {margin: 20px 0; font-weight: bold;}
 #{set 'moreScripts'}
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
     <script type='text/javascript'>
-      google.load('visualization', '1', {'packages':['annotatedtimeline']});
+      google.load('visualization', '1', {'packages':['annotatedtimeline', 'table']});
       
       google.setOnLoadCallback(drawChart);
       function drawChart() {
@@ -103,6 +103,22 @@ h3 {margin: 20px 0; font-weight: bold;}
           var chart4 = new google.visualization.AnnotatedTimeLine(document.getElementById('dailyTotalUsersChart'));
           chart4.draw(data4, {displayAnnotations: true});
         }
+        
+        google.setOnLoadCallback(drawTable);
+          function drawTable() {
+            var top20InsightsData = new google.visualization.DataTable();
+            top20InsightsData.addColumn('string', 'prediction');
+            top20InsightsData.addColumn('number', 'visits');
+            top20InsightsData.addRows([
+            #{list items:top20Insights, as:'insight'} 
+              ["${insight[1].abbreviate(40)}", ${insight[2]}]#{if !insight_isLast},#{/if}
+            #{/list}
+            ]);
+
+            var table = new google.visualization.Table(document.getElementById('mostVisitedPredictionLast7Days'));
+            table.draw(top20InsightsData, {showRowNumber: false, height:'250px'});
+
+          }        
     </script>
 #{/set}
 
@@ -148,10 +164,7 @@ h3 {margin: 20px 0; font-weight: bold;}
 
 </div>
 <div class="analyticsbloc large">
-    <h3>Top 20 predictions last 7 days</h3>
-<ul>
-        #{list items:top20Insights, as:'insight'} 
-          <li><a href="@{Application.showInsight(insight[0])}">${insight[1].abbreviate(40)}</a> - ${insight[2]}</li>
-        #{/list}
-</ul>    
+    <h3>Top 20 visited predictions last 7 days</h3>
+    <div id="mostVisitedPredictionLast7Days" class="analytics-graph"></div>
+
 </div>
