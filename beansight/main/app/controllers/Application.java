@@ -44,6 +44,7 @@ import org.joda.time.DateTime;
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
+import play.data.binding.As;
 import play.data.validation.Email;
 import play.data.validation.Equals;
 import play.data.validation.InFuture;
@@ -325,7 +326,7 @@ public class Application extends Controller {
 	 */
 	public static void createInsight(
 			@Required @MinSize(6) @MaxSize(120) String insightContent,
-			@Required @InFuture Date endDate, @MaxSize(100) String tagLabelList,
+			@Required @InFuture @As("yyyy-MM-dd") Date endDate, @MaxSize(100) String tagLabelList,
 			@Required long categoryId, String lang, String vote) {
 		
 		State voteState = State.AGREE;
