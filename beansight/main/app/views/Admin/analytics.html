@@ -118,7 +118,24 @@ h3 {margin: 20px 0; font-weight: bold;}
             var table = new google.visualization.Table(document.getElementById('mostVisitedPredictionLast7Days'));
             table.draw(top20InsightsData, {showRowNumber: false, height:'250px'});
 
-          }        
+          }    
+          
+            google.setOnLoadCallback(drawChart5);
+            function drawChart5() {
+              var data5 = new google.visualization.DataTable();
+              data5.addColumn('date', 'Date');
+              data5.addColumn('number', 'Total Users');
+              data5.addColumn('string', 'title1');
+              data5.addColumn('string', 'text1');
+              data5.addRows([
+              #{list items:activeUsers, as:'value'} 
+                [new Date(${value.date.getTime()}), ${value.value}, undefined, undefined]#{if !value_isLast},#{/if}
+              #{/list}
+              ]);
+
+              var chart5 = new google.visualization.AnnotatedTimeLine(document.getElementById('activeUsersChart'));
+              chart5.draw(data5, {displayAnnotations: true});
+            }          
     </script>
 #{/set}
 
@@ -166,5 +183,8 @@ h3 {margin: 20px 0; font-weight: bold;}
 <div class="analyticsbloc large">
     <h3>Top 20 visited predictions last 7 days</h3>
     <div id="mostVisitedPredictionLast7Days" class="analytics-graph"></div>
-
+</div>
+<div class="analyticsbloc large">
+    <h3>% active Users / day</h3> 
+    <div id="activeUsersChart" class="analytics-graph"></div>
 </div>

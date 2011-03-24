@@ -5,8 +5,11 @@ import helpers.TimeSeriePoint;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -24,7 +27,10 @@ import models.analytics.DailyTotalComment;
 import models.analytics.DailyTotalInsight;
 import models.analytics.DailyTotalVote;
 import models.analytics.UserInsightVisit;
+import models.analytics.UserListInsightsVisit;
 
+import org.apache.commons.collections.buffer.BoundedFifoBuffer;
+import org.apache.commons.collections.buffer.CircularFifoBuffer;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
@@ -92,6 +98,36 @@ public class Admin extends Controller {
 				"group by v.insight.id order by count(v) desc").
 				bind("crDate", new DateMidnight().minusDays(7).toDate()).fetch(20);
 		renderArgs.put("top20Insights", top20Insights);
+		
+		// % active users / day
+		int DAYS = 1;
+		Map<DateMidnight, Set<Long>> visitsDayMap = new HashMap<DateMidnight, Set<Long>>();
+		List<UserListInsightsVisit> list = UserListInsightsVisit.all().fetch(); 
+		DateMidnight firstDate = new DateMidnight( list.get(0).creationDate );
+		for (UserListInsightsVisit v : list) {
+			DateMidnight date = new DateMidnight(v.creationDate);
+			if (!visitsDayMap.containsKey(date)) {
+				visitsDayMap.put(date, new HashSet<Long>());
+			}
+			visitsDayMap.get(date).add(v.user.id);
+		}
+		
+		List<TimeSeriePoint> results = new ArrayList<TimeSeriePoint>();
+		CircularFifoBuffer fifo = new CircularFifoBuffer(DAYS);
+		while (!visitsDayMap.isEmpty()) {
+			fifo.add(visitsDayMap.get(firstDate).size());
+			visitsDayMap.remove(firstDate);
+			if (fifo.size()==DAYS) {
+				Iterator it = fifo.iterator();
+				Double total = 0d;
+				while (it.hasNext()) {
+					total = total + (Integer)it.next();
+				}
+				results.add(new TimeSeriePoint(firstDate.toDate(), (total/DAYS)/dailyTotalUsersMap.get(firstDate.toDate()).value * 100 ) );
+			}
+			firstDate = firstDate.plusDays(1);
+		}
+		renderArgs.put("activeUsers", results);
 		
 		render();
 	}
@@ -259,7 +295,7 @@ public class Admin extends Controller {
 		i.buildInsightTrends();
 	}
 	
-	public static void updateInsightTrends(String uniqueId) throws Exception {
+	public static void updateInsightTrends() throws Exception {
 		new InsightTrendsCalculateJob(1, true).doJob();
 	}
 	
