@@ -49,7 +49,7 @@ public class InsightTrendsCalculateJob extends Job {
     		new InsightTrendsCalculateJob(++page, all).in(5);
     	} else {
         	// delete the trends list from the cache so that ui get new calculated trends value
-        	Cache.delete("agreeRatioTrendsCache");
+        	Cache.delete("agreeInsightTrendsCache");
     	}
     	
         Logger.info("InsightGraphTrendsJob end");
