@@ -1,1 +1,6 @@
-#{listInsights insights:insights /}
+#{if targetUser == null}
+	#{listInsights insights:insights /}
+#{/if}
+#{else}
+	#{listInsights insights:insights, targetUser:targetUser/}
+#{/else}

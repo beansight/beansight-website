@@ -33,6 +33,7 @@ import models.Topic;
 import models.Trend;
 import models.User;
 import models.User.UserResult;
+import models.UserInsightsFilter;
 import models.Vote;
 import models.Vote.State;
 import models.WaitingEmail;
@@ -205,7 +206,7 @@ public class Application extends Controller {
 			filterVote = "all";
 		}
 		
-		InsightResult result = getFilteredInsightsList(from, getNumberInsightsInsightPage(), sortBy, cat, filterVote, topic, closed);
+		InsightResult result = getFilteredInsightsList(from, getNumberInsightsInsightPage(), sortBy, cat, filterVote, topic, closed, null);
 		renderArgs.put("insights", result.results);
 		render();
 	}
@@ -220,12 +221,12 @@ public class Application extends Controller {
 			filterVote = "all";
 		}
 		
-		InsightResult result = getFilteredInsightsList(0, (from + getNumberInsightsInsightPage()), sortBy, cat, filterVote, topic, closed);
+		InsightResult result = getFilteredInsightsList(0, (from + getNumberInsightsInsightPage()), sortBy, cat, filterVote, topic, closed, null);
 		renderArgs.put("insights", result.results);
 		renderTemplate("Application/getInsights.html");
 	}
 	
-	private static InsightResult getFilteredInsightsList(int from, int numberInsights, String sortBy, long cat, String filterVote, String topicStr, Boolean closed) {
+	private static InsightResult getFilteredInsightsList(int from, int numberInsights, String sortBy, long cat, String filterVote, String topicStr, Boolean closed, String userName) {
 		Filter filter = new Filter();
 		filter.filterVote = filterVote;
 
@@ -263,6 +264,7 @@ public class Application extends Controller {
 		
 		InsightResult result;
 		
+		
 		if (closed != null && closed == true) {
 			result = Insight.findClosedInsights(from, numberInsights, filter);
 		} else {
@@ -284,6 +286,9 @@ public class Application extends Controller {
 		}
 		return result;
 	}
+	
+	
+
 	
 	public static void experts() {
 		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
@@ -477,11 +482,58 @@ public class Application extends Controller {
 			currentUser.visitExpert(user, userClientInfo);
 		}
 
-		List<Insight> lastInsights = user.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
+//		List<Insight> lastInsights = user.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
 		
-		render(user, lastInsights, currentUserProfilePage);
+//		render(user, lastInsights, currentUserProfilePage);
+		render(user, currentUserProfilePage);
 	}
 
+	/**
+	 * AJAX get a list of insights for a user : [from, from + NUMBER_INSIGHTS]
+	 * @param from : the index of the first insight to return
+	 */
+	public static void getUserInsights(String userName, int from, long cat, String filterVote) {
+		User user = User.findByUserName(userName);
+		notFoundIfNull(user);
+		
+		InsightResult result = getFilteredUserInsightsList(from, getNumberInsightsInsightPage(), cat, user, filterVote);
+		renderArgs.put("insights", result.results);
+		renderArgs.put("targetUser", user);
+		
+		renderTemplate("Application/getInsights.html");
+	}
+	
+	/**
+	 * AJAX get a list of insights for a user starting at index 0 : [0, from + NUMBER_INSIGHTS]
+	 * @param from : the index of the first insight to return
+	 */
+	public static void reloadUserInsights(String userName, int from, long cat, String filterVote) {
+		User user = User.findByUserName(userName);
+		notFoundIfNull(user);
+		
+		InsightResult result = getFilteredUserInsightsList(0, (from + getNumberInsightsInsightPage()), cat, user, filterVote);
+		renderArgs.put("insights", result.results);
+		renderArgs.put("targetUser", user);
+		
+		renderTemplate("Application/getInsights.html");
+	}
+	
+	private static InsightResult getFilteredUserInsightsList(int from, int numberInsights, long cat, User user, String filterVote) {
+		UserInsightsFilter filter = new UserInsightsFilter();
+
+		filter.user = user;
+		filter.filterVote = filterVote;
+		
+		Category category = Category.findById(cat);
+		if(category != null) {
+			filter.categories.add(category);
+		}
+		
+		InsightResult result = user.getLastInsights(from, numberInsights, filter);
+
+		return result;
+	}
+	
 	/**
 	 * AJAX: Change the follow state for the connected user toward this insight
 	 */

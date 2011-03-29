@@ -87,15 +87,17 @@ var filterTopic = #{if topic}"${topic}"#{/if} #{else}"undefined"#{/else};
 var closedInsight = #{if closed}${closed}#{/if} #{else}null#{/else};
 
 $(document).ready(function() {
+	
+	// Used when using browser's back and forward buttons 
 	$.History.bind(function(state) {
 		if (state  == "") {
 			$("#radioSortByIncoming").attr("checked", "checked");
 			$("#radioVoteAll").attr("checked", "checked");
 			$(':radio').button('refresh');
-			loadInsights();
+			loadInsights(getInsightsAction, generateGetInsightsArguments);
 		} else {
 			if (bindingTime == false) {
-				insightsFrom = gup($.History.getHash(), "from");
+				insightsFrom = parseInt(gup($.History.getHash(), "from"));
 				reloadInsights( $.History.getHash() );
 				refreshFilters( $.History.getHash() );
 			} else {
@@ -108,14 +110,15 @@ $(document).ready(function() {
 	
 });
 
+// used to load insights accordingly to the url when you load the page
 if ($.History.getHash()  == "") {
 	$("#radioSortByIncoming").attr("checked", "checked");
 	$("#radioVoteAll").attr("checked", "checked");
 	$(':radio').button('refresh');
-	loadInsights();
+	loadInsights(getInsightsAction, generateGetInsightsArguments);
 } else {
 	if (bindingTime == false) {
-		insightsFrom = gup($.History.getHash(), "from");
+		insightsFrom = parseInt(gup($.History.getHash(), "from"));
 		reloadInsights( $.History.getHash() );
 		refreshFilters( $.History.getHash() );
 	} else {

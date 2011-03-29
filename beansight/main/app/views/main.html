@@ -56,6 +56,8 @@
 	var loadFollowedUsersBlockAction = #{jsAction @Application.loadFollowedUsers(':userId') /};
 	var getInsightsAction = #{jsAction @Application.getInsights(':from',':sortBy', ':cat', ':filterVote', ':topic', ':closed') /};
 	var reloadInsightsAction = #{jsAction @Application.reloadInsights(':from',':sortBy', ':cat', ':filterVote', ':topic', ':closed') /};
+	var getUserInsightsAction = #{jsAction @Application.getUserInsights(':userName', ':from', ':cat', ':filterVote') /};
+	var reloadUserInsightsAction = #{jsAction @Application.reloadUserInsights(':userName', ':from', ':cat', ':filterVote') /};
 	var searchExpertsAction = #{jsAction @Application.searchExperts() /};
 	var moreSearchAction = #{jsAction @Application.moreSearch() /};
 	var inviteAction = #{jsAction @Application.invite() /};

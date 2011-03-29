@@ -703,13 +703,17 @@ public class User extends Model {
 	 * @param n : the maximum number of votes to return
 	 * @return: the list of n most recent active insights of this user
 	 */
-	public List<Insight> getLastInsights(int n) {
-		return Vote.find(
-				"select i from Insight i " + "join i.votes v "
-						+ "join v.user u "
-						+ "where v.status = :status and u.id=:userId "
-						+ "order by v.creationDate DESC").bind("status",
-				Status.ACTIVE).bind("userId", this.id).fetch(n);
+	public InsightResult getLastInsights(int from, int number, UserInsightsFilter filter) {
+		InsightResult result = new InsightResult();
+		result.results = Vote.find(
+				"select distinct i from Insight i " 
+				+ "join i.votes v "
+				+ "join v.user u "
+				+ "where v.status = :status "
+				+ filter.generateJPAQueryWhereClause()
+				+ " order by v.creationDate DESC").bind("status",
+				Status.ACTIVE).from(from).fetch(number);
+		return result;
 	}
 	
 	public List<Vote> getVotesToInsight(Insight insight) {

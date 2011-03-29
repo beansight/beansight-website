@@ -13,6 +13,10 @@ import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
 
+@Deprecated 
+/**
+ * @Deprecated : uses the old trends ratio
+ */
 public class InsightGraphTrendsJobTask extends Job {
 
 	private Long from;

@@ -137,6 +137,9 @@ showUser.sendMessage=Envoyer un message
 showUser.edit.realName=Prénom et nom
 showUser.edit.description=Description
 showUser.edit.avatar=Nouvel avatar
+showUser.filterCreatedAndVoted=Créées & votées
+showUser.filterVoted=Votées
+showUser.filterCreated=Créées
 
 #Contact
 followus=Suivez nous

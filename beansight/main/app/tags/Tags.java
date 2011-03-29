@@ -2,25 +2,24 @@ package tags;
 
 import groovy.lang.Closure;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import models.Insight;
+import models.Vote;
 
 import org.apache.commons.codec.binary.Base64;
 
 import play.Play;
-import play.libs.Crypto;
 import play.libs.IO;
 import play.templates.FastTags;
+import play.templates.JavaExtensions;
 import play.templates.GroovyTemplate.ExecutableTemplate;
+import controllers.CurrentUser;
+import controllers.Security;
 
 @FastTags.Namespace("beansight")
 public class Tags extends FastTags {
@@ -49,4 +48,32 @@ public class Tags extends FastTags {
         }
     }
 	
+    public static void _hasVotedFor(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) {
+		if (hasVotedFor((Insight)args.get("insight"), (String)args.get("insightId"))) {
+			out.print(JavaExtensions.toString(body));
+		}
+    }
+    
+    public static void _hasNotVotedFor(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) {
+		if (!hasVotedFor((Insight)args.get("insight"), (String)args.get("insightId"))) {
+			out.print(JavaExtensions.toString(body));
+		}
+    }
+    
+    private static boolean hasVotedFor(Insight insight, String idStr) {
+    	if (insight == null) {
+    		if (idStr != null && !idStr.trim().equals("")) {
+    			insight = Insight.findById(new Long(idStr));
+    		} else {
+    			return false;
+    		}
+    	}
+    	
+		Vote vote = Vote.findLastVoteByUserAndInsight(CurrentUser.getCurrentUser().id, insight.uniqueId);
+		if (vote != null) {
+			return true;
+		}
+		
+		return false;
+    }
 }

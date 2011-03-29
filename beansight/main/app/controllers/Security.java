@@ -26,6 +26,10 @@ public class Security extends Secure.Security {
         }
         return false;
     }
+    
+    public static boolean isConnected() {
+    	return Secure.Security.isConnected();
+    }
 	
     /**
      * Just render the page to edit user email used to connect to Beansight

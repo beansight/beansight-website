@@ -884,7 +884,10 @@ public class Insight extends Model {
     }
     
 
-    
+    /**
+     * @Deprecated : uses the old trends ratio
+     */
+    @Deprecated
     public void buildTrends(DateTime from, DateTime to, int period) {
     	Logger.info("building trends for insight.id=%s", this.id);
     	

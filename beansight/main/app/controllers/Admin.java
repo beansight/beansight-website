@@ -123,11 +123,17 @@ public class Admin extends Controller {
 				while (it.hasNext()) {
 					total = total + (Integer)it.next();
 				}
-				results.add(new TimeSeriePoint(firstDate.toDate(), (total/DAYS)/dailyTotalUsersMap.get(firstDate.toDate()).value * 100 ) );
+				if (dailyTotalUsersMap.get(firstDate.toDate()) != null) {
+					results.add(new TimeSeriePoint(firstDate.toDate(), (total/DAYS)/dailyTotalUsersMap.get(firstDate.toDate()).value * 100 ) );
+				}
 			}
 			firstDate = firstDate.plusDays(1);
 		}
 		renderArgs.put("activeUsers", results);
+		
+		// last ten comments
+		List<Comment> comments = Comment.find("order by creationDate desc").fetch(15);
+		renderArgs.put("comments", comments);
 		
 		render();
 	}

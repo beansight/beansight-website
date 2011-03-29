@@ -11,7 +11,10 @@ import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
 
-@Every("1h")
+@Deprecated 
+/**
+ * @Deprecated : uses the old trends ratio
+ */
 public class InsightGraphTrendsJob extends Job {
 
 	public static final int INSIGHT_NUMBER_TO_PROCESS = 100;

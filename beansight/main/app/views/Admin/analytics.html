@@ -188,3 +188,11 @@ h3 {margin: 20px 0; font-weight: bold;}
     <h3>% active Users / day</h3> 
     <div id="activeUsersChart" class="analytics-graph"></div>
 </div>
+<div class="analyticsbloc">
+    <h3>Last ten comments</h3>
+<ul>
+        #{list items:comments, as:'comment'} 
+          <li><a href="@{Application.showInsight(comment.insight.uniqueId)}">${comment.insight.content.abbreviate(20)}</a> (${comment.creationDate.format('dd MMMM yyyy hh:mm')})(${comment.user.userName})</li>
+        #{/list}
+</ul>    
+</div>

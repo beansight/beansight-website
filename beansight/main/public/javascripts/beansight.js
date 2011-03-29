@@ -349,11 +349,31 @@ function onVotedMouseDown(object) {
 }
 
 /**
+ * @returns the arguments needed for getInsightsAction(); 
+ */
+function generateGetInsightsArguments() {
+	var sortBy = $('input[name=SortByGroup]:checked').val(); 
+	var cat = $('#filterCategory').val();
+	var filterVote = $('input[name=VoteGroup]:checked').val(); 
+	return {'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote, 'topic':filterTopic, 'closed':closedInsight};
+}
+
+/**
+ * @returns the arguments needed for getInsightsAction(); 
+ */
+function generateGetUserInsightsArguments() {
+	var userName = $('input[name=userName]:hidden').val(); 
+	var cat = $('#userInsightsFilterCategory').val();
+	var filterVote = $('input[name=userVoteGroup]:checked').val(); 
+	return {'from':insightsFrom, 'userName': userName, 'cat': cat, 'filterVote': filterVote};
+}
+
+/**
  * replace the insight list with a new one
  */
-function loadInsights() {
+function loadInsights(urlFct, paramsFct) {
 	insightsFrom = 0;
-	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
+	$.get( urlFct(paramsFct()), function(content) {
 		$('#insightList').html(content);
 		//insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
 		postProcessContent();
@@ -363,9 +383,9 @@ function loadInsights() {
 /**
  * append to the insight list more results
  */
-function loadMoreInsights() {
-	insightsFrom += NUMBER_INSIGHTS_INSIGHTPAGE;
-	$.get( getInsightsAction( generateGetInsightsArguments() ), function(content) {
+function loadMoreInsights(urlFct, paramsFct) {
+	insightsFrom = parseInt(insightsFrom) + NUMBER_INSIGHTS_INSIGHTPAGE;
+	$.get( urlFct(paramsFct() ), function(content) {
 		$('#insightList').append(content);
 		postProcessContent();
 	});
@@ -384,20 +404,16 @@ function reloadInsights(path) {
 	});
 }
 
-function bindCurrentState() {
+/**
+ * call this function to bind a state in history.
+ * Using this function prevent the history to trigger the load of the setted hash
+ */
+function bindCurrentState(hashStateToSave) {
 	// setting bindingTime as true insure that no event will be triggered when setting the hash
 	bindingTime = true;
-	$.History.setHash(reloadInsightsAction( generateGetInsightsArguments() ));
+	$.History.setHash(hashStateToSave);
 }
-/**
- * @returns the arguments needed for getInsightsAction(); 
- */
-function generateGetInsightsArguments() {
-	var sortBy = $('input[name=SortByGroup]:checked').val(); 
-	var cat = $('#filterCategory').val();
-	var filterVote = $('input[name=VoteGroup]:checked').val(); 
-	return {'from':insightsFrom, 'sortBy': sortBy,  'cat':cat, 'filterVote':filterVote, 'topic':filterTopic, 'closed':closedInsight};
-}
+
 
 function refreshFilters(str) {
 	var sortBy = gup(str, "sortBy"); // incoming, trending, updated
@@ -410,6 +426,17 @@ function refreshFilters(str) {
 	
 	// call this to have the jqueryui refreshed and see the change
 	$(':radio').button('refresh');
+	$('#filterCategory').button('refresh');
+}
+
+function refreshUserInsightsFilters(str) {
+	var filterVote = gup(str, "filterVote");
+	$("input[type=radio]").val([sortBy, voteFilter]);
+	
+	var category = gup(str, "cat");
+	$("#filterCategory option[value='" + category + "']").attr('selected', 'selected');
+	
+	// call this to have the jqueryui refreshed and see the change
 	$('#filterCategory').button('refresh');
 }
 
@@ -1005,29 +1032,55 @@ $(document).ready(function() {
     $("#filterCategory").selectbox();
 	
 	$("#filterCategory").change(function() {
-		loadInsights( reloadInsightsAction( generateGetInsightsArguments() ) );
-		bindCurrentState();
+		loadInsights(getInsightsAction, generateGetInsightsArguments);
+		bindCurrentState(reloadInsightsAction( generateGetInsightsArguments() ));
 		return false;
 	});
 	$('input[name=VoteGroup]').change(function() {
-		loadInsights();
-		bindCurrentState();
+		loadInsights(getInsightsAction, generateGetInsightsArguments);
+		bindCurrentState(reloadInsightsAction( generateGetInsightsArguments() ));
 		return false;
 	});
 	$('input[name=SortByGroup]').change(function() {
-		loadInsights();
-		bindCurrentState();
+		loadInsights(getInsightsAction, generateGetInsightsArguments);
+		bindCurrentState(reloadInsightsAction( generateGetInsightsArguments() ));
 		return false;
 	});
 	
 	$("#moreInsights").click( function() {
-		loadMoreInsights();
-		bindCurrentState();
+		loadMoreInsights(getInsightsAction, generateGetInsightsArguments);
+		bindCurrentState(reloadInsightsAction( generateGetInsightsArguments() ));
 	    return false;
 	});
 	
 	// tooltips, shoud also be done every time the list in refreshed
 	$("#insightList .loginTooltip").tooltip();
+	
+	
+	//////////////
+	// User Insights list
+	//////////////
+	
+    // category selection custom
+    $("#userInsightsFilterCategory").selectbox();
+    
+	$("#userInsightsFilterCategory").change(function() {
+		loadInsights(getUserInsightsAction, generateGetUserInsightsArguments);
+		bindCurrentState(reloadUserInsightsAction( generateGetUserInsightsArguments() ));
+		return false;
+	});
+	
+	$('input[name=userVoteGroup]').change(function() {
+		loadInsights(getUserInsightsAction, generateGetUserInsightsArguments);
+		bindCurrentState(reloadUserInsightsAction( generateGetUserInsightsArguments() ));
+		return false;
+	});
+	
+	$("#moreUserInsights").click( function() {
+		loadMoreInsights(getUserInsightsAction, generateGetUserInsightsArguments);
+		bindCurrentState(reloadUserInsightsAction( generateGetUserInsightsArguments() ));
+	    return false;
+	});
 	
 });
 

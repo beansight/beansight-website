@@ -126,9 +126,35 @@
 	#{else}
     <h2 class="cuf-grb">&{'userinsights'}</h2>	   
     #{/else}
-    <ul>
+    
+    <input type="hidden" name="userName" id="userName" value="${user.userName}"/>
+    <ul class="menulistinsights">
+        <li>
+	        <div id="radioVotefilter" style="font-size: 11px;">
+		        <input type="radio" autocomplete="off" name="userVoteGroup" value="voted" checked id="radioVoteVoted"/>       <label for="radioVoteVoted">    &{'showUser.filterVoted'}   </label>
+		        <input type="radio" autocomplete="off" name="userVoteGroup" value="created"      id="radioVoteCreated"/>    <label for="radioVoteCreated"> &{'showUser.filterCreated'}</label>
+	        </div>
+        </li>
+	    <li>
+		    <div class="filterDropDown">
+		    <select name="categoryId" id="userInsightsFilterCategory" autocomplete="off">
+		       <option value="0" #{if category == null}selected#{/if}>&{'insights.category'} All</option>
+			   #{list items:controllers.Application.getCategories(), as:'cat'}
+			       <option value="${cat.id}" #{if category && category.id == cat.id}selected#{/if}>${cat.label}</option>
+			   #{/list}
+			</select>
+			</div>
+	    </li>
+    </ul>    
+    
+    <ul id="insightList">
+    	*{
         #{listInsights insights:lastInsights, targetUser:user /}
+		}*
     </ul>
+    <div id="moreResults" class="seeall">
+        <p><a id="moreUserInsights" href="#">&{'insights.more'}</a></p>
+    </div>
 </div>
 
 #{isConnected}
@@ -178,9 +204,48 @@
 
 #{/userContainer}
 
-<script type="text/javascript" charset="utf-8">
-// keyboard shortcuts
-$(document).bind("keydown", "u", function () {
-    window.location.href = "@{Application.experts()}";
+<script type="text/javascript">
+var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.getNumberInsightsInsightPage()};
+var insightsFrom = 0;
+var bindingTime = true;
+
+
+$(document).ready(function() {
+	
+	// Used when using browser's back and forward buttons 
+	$.History.bind(function(state) {
+		if (state  == "") {
+			$("#radioVoted").attr("checked", "checked");
+			$(':radio').button('refresh');
+			loadInsights(getUserInsightsAction, generateGetUserInsightsArguments);
+		} else {
+			if (bindingTime == false) {
+				insightsFrom = parseInt(gup($.History.getHash(), "from"));
+				reloadInsights( $.History.getHash() );
+				refreshFilters( $.History.getHash() );
+			} else {
+				bindingTime = false;
+			}
+		}
+		
+	});
+	
+	
 });
+
+// used to load insights accordingly to the url when you load the page
+if ($.History.getHash()  == "") {
+	$("#radioVoted").attr("checked", "checked");
+	$(':radio').button('refresh');
+	loadInsights(getUserInsightsAction, generateGetUserInsightsArguments);
+} else {
+	if (bindingTime == false) {
+		insightsFrom = parseInt(gup($.History.getHash(), "from"));
+		reloadInsights( $.History.getHash() );
+		refreshFilters( $.History.getHash() );
+	} else {
+		bindingTime = false;
+	}
+}
+
 </script>
