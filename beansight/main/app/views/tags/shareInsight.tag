@@ -8,7 +8,7 @@
 	       <span id="shareOnBeansight" class="shareItem">
 	       <a href="#" id="shareOnBeansight-link" class="uiButton shareButton">&{'shareInsight.shareonbeansight'}</a>
            </span>
-           <div id="shareOnBeansight-box" style="display:none;" class="pinnedBox">
+           <div id="shareOnBeansight-box" style="display:none; margin-top: 15px;" class="pinnedBox">
 	           <form id="shareOnBeansightForm">
 	               <p>&{'shareInsight.searchBeansightUser'}</p>
 	               <input type="text" name="userName" id="userToShareTo" />
