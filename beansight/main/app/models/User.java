@@ -67,6 +67,7 @@ public class User extends Model {
 
 	public static final int DESCRIPTION_MAXLENGTH = 120;
 	public static final int REALNAME_MAXLENGTH = 30;
+	public static final long INVITATION_NUMBER = 5;
 	
 	@Field
 	@Index (name = "USER_USERNAME_IDX")
@@ -235,6 +236,8 @@ public class User extends Model {
 		
 		this.upcomingNewsletter = true;
 		this.statusNewsletter = true;
+		
+		this.invitationsLeft = INVITATION_NUMBER;
 	}
 
 	public String toString() {
