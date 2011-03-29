@@ -24,8 +24,9 @@
            </span>
            
            <span id="shareOnFacebook" class="shareItem">
-	       <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like layout="button_count" show_faces="false" width="100"></fb:like>
+	       <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like layout="button_count" show_faces="false" width="50"></fb:like>
            </span>
+           <hr class="clear"/>
 	</div>
 
 

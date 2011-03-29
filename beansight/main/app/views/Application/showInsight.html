@@ -50,6 +50,7 @@
             <input type="submit" value="&{'addtags'}"/>
         #{/form}
         </div>
+        <hr class="clear"/>
     </div>
     <div class="s-content">
         <div class="insight-content">
@@ -89,17 +90,17 @@
                     </ul>
                     <hr class="clear"/>
                 </div>
+        
+        #{shareInsight insight:insight /}
+
             </div>
             
             <div class="graphique">
             	<div id="insightTrendsChart" class="analytics-graph" style='width: 316px; height: 148px;'></div>
-                *{<img src="https://chart.googleapis.com/chart?chxt=y&cht=lc&chco=76A4FB&chls=2.0&chs=316x148&chd=t:${agreeTrends.join(",")}" alt=""/>}*
                 <p style="text-align: center; font-size: 12px; margin-top: 5px; font-style: italic;">&{'showInsights.chartTitle'}</p>
             </div>
             <hr class="clear"/>
         </div>
-        
-        #{shareInsight insight:insight /}
 
         #{isConnected}
         #{secure.check 'admin'}

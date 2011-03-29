@@ -17,16 +17,17 @@
     <div class="content-insight">
         #{agree-disagreeWidget insight:_insight/}
         <a href="@{Application.showInsight(_insight.uniqueId)}" class="permalink #{if _targetUser != null}leftbusy#{/if}">
-            <p class="date-insight" style="color: #A1A5A6">${_insight.endDate.in(true)}, </p>
+            #{if _insight.comments.size() > 0}
+                <p class="comment-insight"><span class="nbcom">${_insight.comments.size()}</span></p>
+            #{/if}
+            <p class="date-insight" style="color: #A1A5A6"><span class="datetxt">${_insight.endDate.in(true)},</span> </p> 
+            
             <h3>${_insight.content}</h3> 
             #{if _targetUser != null}
             <span class="target-user">
                 <span class="avatar-user"><img src="@{Application.showAvatarSmall(_targetUser.userName, _targetUser.avatarHashCode())}" alt=""/></span>
                 <span class="vote-user ${voteTargetUserClass}">Vote ${_targetUser.userName}</span>
             </span>
-            #{/if}
-            #{if _insight.comments.size() > 0}
-                <p class="date-insight" style="float: right; clear:both;">(${_insight.comments.size()} &{'insights.comments', _insight.comments.size().pluralize2()})</p>
             #{/if}
         </a>
         <hr class="clear"/>

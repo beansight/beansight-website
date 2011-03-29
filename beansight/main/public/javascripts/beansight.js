@@ -12,6 +12,10 @@ Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowfb', {textShadow: '#22397
 //Cufon.set('fontFamily', 'myriad pro').replace('#sidebar-signup h4', {textShadow: '#ee7c63 1px 1px'}, {fontWeight:'400'});
 Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-connect', {textShadow: '#186877 0px -1px'}, {hover: true});
 Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-loginwidth', {hover: true});
+Cufon.set('fontFamily', 'got-rnd-med').replace('.cuf-invitation', {textShadow: '#5e872a 0px -1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.section-title',{hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.pageintro',{hover: true});
+
 
 //////////////////////
 // Actions on insights

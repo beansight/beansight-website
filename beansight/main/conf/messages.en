@@ -30,9 +30,9 @@ activityreset=Clear activity feed.
 noInsightActivity=No recent activity
 invitations.invitesomeonetitle=Invitations
 invitesomeone=Invite someone to join Beansight:
-invitationsleft=You have <span class="invitationLeftNumber">%s</span> invitations left
+invitationsleft=You have <strong><span class="invitationLeftNumber">%s</span> invitations</strong> left
 inviteemailplaceholder=example@email.com
-addmessage=Add a message
+addmessage=Add a message:
 invitesubmit=Send
 inviteconfirm=Invitation sent
 browsecategory=Browse Category
@@ -86,7 +86,7 @@ showInsights.validation.notValidated.normalScore=For Beansight, this prediction 
 showInsights.validation.notValidated.lowScore=For Beansight, this prediction is false with confidence.
 showInsight.probabilityChart=Probability
 showInsights.chartTitle=Probability chart
-shareInsight.shareonbeansight=beansight share
+shareInsight.shareonbeansight=Share
 shareInsight.searchBeansightUser=Type the username of a user you put in your favorites:
 shareInsight.sharebutton=Share
 # agree-disagree widget
@@ -281,10 +281,8 @@ emailconfirmed=Email confirmed
 
 # insightActivity
 activitychanged=%s changed their minds
-activityagreed=%s agreed
-activitydisagreed=%s disagreed
-activityand= and 
-activitywith= with
+activityagreed= agreed
+activitydisagreed= disagreed
 activityfavorited= %s favorited
 
 # footer

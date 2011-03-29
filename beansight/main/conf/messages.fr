@@ -30,9 +30,9 @@ activityreset=Vider le flux d'activité
 noInsightActivity=Pas d'activité récente
 invitations.invitesomeonetitle=Invitations
 invitesomeone=Inviter quelqu'un à rejoindre Beansight :
-invitationsleft=Il vous reste <span class="invitationLeftNumber">%s</span> invitations
+invitationsleft=Il vous reste <strong><span class="invitationLeftNumber">%s</span> invitations</strong>
 inviteemailplaceholder=exemple@email.fr
-addmessage=Ajoutez un message
+addmessage=Ajoutez un message :
 invitesubmit=Envoyer
 inviteconfirm=Invitation envoyée
 browsecategory=Catégories
@@ -86,7 +86,7 @@ showInsights.validation.notValidated.normalScore=Pour Beansight, cette prédicti
 showInsights.validation.notValidated.lowScore=Pour Beansight, cette prédiction ne s'est pas réalisée du tout.
 showInsight.probabilityChart=Probabilité
 showInsights.chartTitle=Graphique de la probabilité d'occurence
-shareInsight.shareonbeansight=Partager sur beansight
+shareInsight.shareonbeansight=Partager
 shareInsight.searchBeansightUser=Entrez le nom d'un utilisateur beansight que vous avez mis en favoris :
 shareInsight.sharebutton=Partager
 # agree-disagree widget
@@ -280,11 +280,9 @@ register.confirmInvitationTitle=Merci de confirmer les informations ci-dessous
 emailconfirmed=Email confirmé
 
 # insightActivity
-activitychanged=%s ont changé d'avis
-activityagreed=%s sont d'accord
-activitydisagreed=%s ne sont pas d'accord
-activityand= et 
-activitywith= avec 
+activitychanged= ont changé d'avis
+activityagreed= sont d'accord
+activitydisagreed= ne sont pas d'accord
 activityfavorited= %s favorited 
 
 # footer
