@@ -502,12 +502,12 @@ public class User extends Model {
 			activity.notEmpty = true;
 			activity.updated = new Date();
 			if(change) {
-				activity.voteChangeCount++;
+				activity.incrementVoteChangeCount();
 			} else {
 				if(voteState.equals(State.AGREE)) {
-					activity.newAgreeCount++;
+					activity.incrementNewAgreeCount();
 				} else {
-					activity.newDisagreeCount++;					
+					activity.incrementNewDisagreeCount();					
 				}
 			}
 			activity.save();
@@ -556,7 +556,7 @@ public class User extends Model {
 		for( InsightActivity activity : activities ) {
 			activity.notEmpty = true;
 			activity.updated = new Date();
-			activity.newFavoriteCount++;
+			activity.incrementNewFavoriteCount();
 			activity.save();
 		}
 
@@ -740,7 +740,7 @@ public class User extends Model {
 	 * Reset the stored recorded insight activity for a given user
 	 */
 	public void resetInsightActivity() {
-		List<InsightActivity> activities = InsightActivity.find("user = ? and notEmpty is true order by updated DESC", this).fetch();
+		List<InsightActivity> activities = InsightActivity.find("user = ? and notEmpty is true order by totalCount DESC", this).fetch();
 		for( InsightActivity activity : activities ) {
 			activity.notEmpty = false;
 			activity.updated = new Date();

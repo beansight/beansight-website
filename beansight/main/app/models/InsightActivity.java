@@ -21,6 +21,7 @@ public class InsightActivity extends Model {
 	
 	/** Dos this activity contains information? */
 	public boolean notEmpty;
+
 	
 	/** user concerned by this activity */
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -28,6 +29,9 @@ public class InsightActivity extends Model {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	public Insight insight;
+
+	/** Number of actions performed on this insight (change, agree, disagree, comment...) */
+	public long totalCount;
 	
 	/**since the creation date, how many times users changed their vote ? */
 	public long voteChangeCount;
@@ -37,6 +41,8 @@ public class InsightActivity extends Model {
 	public long newDisagreeCount;
 	/** since the creation date, how many times this insight has been put into favorites ? */
 	public long newFavoriteCount;
+	/** since the creation date, how many times this insight has been commented (not used yet) */
+	public long newCommentCount;
 	
 	
 	public InsightActivity(User user, Insight insight) {
@@ -44,5 +50,26 @@ public class InsightActivity extends Model {
 		this.updated = new Date();
 		this.user = user;
 		this.insight = insight;
+	}
+	
+	public void incrementVoteChangeCount() {
+		this.voteChangeCount++;
+		this.totalCount++;
+	}
+	public void incrementNewAgreeCount() {
+		this.newAgreeCount++;
+		this.totalCount++;
+	}
+	public void incrementNewDisagreeCount() {
+		this.newDisagreeCount++;
+		this.totalCount++;
+	}
+	public void incrementNewFavoriteCount() {
+		this.newFavoriteCount++;
+		this.totalCount++;
+	}
+	public void incrementNewCommentCount() {
+		this.newCommentCount++;
+		this.totalCount++;
 	}
 }
