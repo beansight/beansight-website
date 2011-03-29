@@ -357,18 +357,10 @@ a:hover{color:#228392;}
 #contentcenter.large .listinsights .item-insight a.permalink h3{width:585px;float:left;}
 #contentcenter.large .listinsights .item-insight a.permalink.leftbusy h3{width:540px;}
 #contentcenter .listinsights .insightItem .item-insight a.permalink:hover h3{color:#228392;}
-#contentcenter .listinsights .insightItem .item-insight a.permalink p.date-insight{margin-bottom:4px;color:#a1a5a6;font-size:11px;height:11px;line-height:11px;float:left;border-left:solid #fbfbfb 1px;padding-left:5px;}
-#contentcenter .listinsights .insightItem .item-insight a.permalink p.date-insight .datetxt{padding-left:14px;background:url(/public/images/icon-calendarsmall.png) no-repeat left center;}
-#contentcenter .listinsights .insightItem .item-insight a.permalink p.comment-insight{margin-bottom:4px;color:#a1a5a6;font-size:11px;height:11px;line-height:11px;float:left;border-right:solid #efefef 1px;padding-right:5px;}
+#contentcenter .listinsights .insightItem .item-insight a.permalink p.date-insight{margin-bottom:4px;color:#a1a5a6;line-height:11px;float:left;}
+
+#contentcenter .listinsights .insightItem .item-insight a.permalink p.comment-insight{color:#a1a5a6;font-size:11px;height:11px;line-height:11px;float:left;padding-right:5px;float:right;margin-right:30px; clear: both;}
 #contentcenter .listinsights .insightItem .item-insight a.permalink p.comment-insight .nbcom{padding-right:15px;background:url(/public/images/icon-commentitem.png) no-repeat right center;}
-
-
-#contentcenter .listinsights .insightItem:nth-child(odd) .item-insight a.permalink p.date-insight{border-left:solid #f2f2f2 1px;}
-#contentcenter .listinsights .insightItem:nth-child(odd) .item-insight a.permalink p.comment-insight{border-right:solid #ffffff 1px;}
-
-#contentcenter .listinsights .insightItem :hover .item-insight a.permalinkp.date-insight, #contentcenter .listinsights .insightItem:nth-child(odd) .item-insight a.permalink:hover p.date-insight{border-left:solid #f5f5f5 1px;}
-#contentcenter .listinsights .insightItem:hover  .item-insight a.permalink p.comment-insight, #contentcenter .listinsights .insightItem:nth-child(odd) .item-insight a.permalink:hover p.comment-insight{border-right:solid #d9d9d9 1px;}
-
 
 #contentcenter .listinsights .item-insight a.permalink:hover p.date-insight{color:#696f70;}
 #contentcenter .listinsights .seeall{background:url(/public/images/back-seeall.png) no-repeat 0 0;width:427px;height:34px;margin:0 auto;}
