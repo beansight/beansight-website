@@ -353,11 +353,11 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .item-insight .content-insight:hover a.permalink.leftbusy{background:none;}
 #contentcenter .listinsights .item-insight .content-insight a.permalink.leftbusy:hover{background:none;}
 
-#contentcenter .listinsights .item-insight a.permalink h3{color:#272e2f;font-size:18px;width:285px;margin:0 0 3px 0;float:left;}
+#contentcenter .listinsights .item-insight a.permalink h3{color:#272e2f;font-size:18px;width:285px;margin:0 0 3px 0;}
 #contentcenter.large .listinsights .item-insight a.permalink h3{width:585px;}
 #contentcenter.large .listinsights .item-insight a.permalink.leftbusy h3{width:540px;}
 #contentcenter .listinsights .insightItem .item-insight a.permalink:hover h3{color:#228392;}
-#contentcenter .listinsights .insightItem .item-insight a.permalink p.date-insight{margin-bottom:4px;color:#a1a5a6;line-height:11px;float:left;}
+#contentcenter .listinsights .insightItem .item-insight a.permalink p.date-insight{margin-bottom:4px;color:#a1a5a6;line-height:11px;}
 
 #contentcenter .listinsights .insightItem .item-insight a.permalink p.comment-insight{color:#a1a5a6;font-size:11px;height:11px;line-height:11px;float:left;padding-right:5px;float:right;margin-right:30px; clear: both;}
 #contentcenter .listinsights .insightItem .item-insight a.permalink p.comment-insight .nbcom{padding-right:15px;background:url(/public/images/icon-commentitem.png) no-repeat right center;}
