@@ -280,7 +280,7 @@ register.confirmInvitationTitle=Please confirm your informations to complete sig
 emailconfirmed=Email confirmed
 
 # insightActivity
-activitychanged=%s changed their minds
+activitychanged= changed their minds
 activityagreed= agreed
 activitydisagreed= disagreed
 activityfavorited= %s favorited
