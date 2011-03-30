@@ -978,11 +978,11 @@ public class Application extends Controller {
 	}
 	
 	public static void privacyPolicy() {
-		renderTemplate("Legal/privacyPolicy.html");
+		render();
 	}
 	
 	public static void termsOfUse() {
-		renderTemplate("Legal/termsOfUse.html");
+		render();
 	}
 	
 	public static void FAQ() {

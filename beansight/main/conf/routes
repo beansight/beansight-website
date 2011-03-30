@@ -23,8 +23,8 @@ GET     /profile/{userName}/medium              Application.showAvatarMedium
 GET     /profile/{userName}/small               Application.showAvatarSmall
 
 GET     /contact                                Contact.contact
-GET		/legal/privacy-policy					Legal.privacyPolicy
-GET		/legal/terms-of-service					Legal.termsOfService
+GET		/legal/privacy-policy					Application.privacyPolicy
+GET		/legal/terms-of-service					Application.termsOfUse
 GET     /welcome                                Application.welcome
 GET     /faq                                    Application.faq
 
