@@ -107,10 +107,8 @@ public class Register extends Controller {
 		}
 	}
 	
-	public static void extAuthFirstTimeConnectPage(
-			String email, 
-			String username) {
-		if(Security.isConnected()) {
+	public static void extAuthFirstTimeConnectPage( String email, String username) {
+		if(Security.isConnected() && !CurrentUser.getCurrentUser().isPromocodeValidated) {// if the user already has a valid account, do not show this
 			render(email, username);
 		} else {
 			Application.index();
@@ -124,7 +122,6 @@ public class Register extends Controller {
 		
 		if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			
 			// if the user have change its username check that it's available
 			if (!username.equalsIgnoreCase(currentUser.userName)) {
 				if (!User.isUsernameAvailable(username)) {
@@ -148,10 +145,9 @@ public class Register extends Controller {
 			currentUser.userName = username;
 			currentUser.isPromocodeValidated = true;
 			currentUser.save();
-			
+		
 			// send an email confirmation mail
 			Mails.confirmation(currentUser);
-
 		} 
 		
 		// redirect to the previous url or index if nothing was set in session

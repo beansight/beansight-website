@@ -100,7 +100,7 @@ public class User extends Model {
     public Long facebookUserId;
     public String facebookScreenName;
     
-    /** in case of facebook (and twitter ?) signup users need to validate their promocode */
+    /** true if the user account creation process went well to the end */
     public boolean isPromocodeValidated;
     
 	@Lob
