@@ -32,7 +32,7 @@ public class InsightTrendsCalculateJob extends Job {
 	
     @Override
     public void doJob() throws Exception {
-    	Logger.info("InsightGraphTrendsJob begin");
+    	Logger.info("InsightTrendsCalculateJob begin");
     	
     	List<Insight> insights = null;
     	if (all) {
@@ -52,7 +52,7 @@ public class InsightTrendsCalculateJob extends Job {
         	Cache.delete("agreeInsightTrendsCache");
     	}
     	
-        Logger.info("InsightGraphTrendsJob end");
+        Logger.info("InsightTrendsCalculateJob end");
     }
     
     
