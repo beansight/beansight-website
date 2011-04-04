@@ -1,0 +1,55 @@
+#{extends 'Mobile/main.html' /}
+#{set 'title'}
+    &{'mobile.create.title'}
+#{/set}
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>Create</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<form action="form.php" method="post">
+			<label for="create-date">Date</label>
+			<input type="date" value="" id="create-date" />		
+
+			<label for="create-insightContent">What</label>			
+			<textarea id="create-insightContent" name="create-insightContent"></textarea>
+		
+			<label for="create-category">Category</label>
+			<select name="category" id="create-category">
+				<option value="1" >Technology</option>
+				<option value="2" >Finance</option>
+				<option value="3" >Entertainment</option>
+			</select>
+
+			<label for="create-tag">Tags</label>
+			<input type="text" value="" id="create-tag" />
+			
+			<div data-role="fieldcontain">
+			    <fieldset data-role="controlgroup" data-type="horizontal">
+	            
+	            <input type="radio" id="vote-agree" checked="true" value="agree" name="vote" />
+	            <label for="vote-agree">Agree</label>
+	            
+	            <input type="radio" id="vote-disagree" value="disagree" name="vote" />
+	            <label for="vote-disagree">Disagree</label>
+	            
+	            <input type="radio" id="vote-novote" value="novote" name="vote" />
+	            <label for="vote-novote">No vote</label>
+	            </fieldset>
+            </div>
+
+		<div class="ui-body ui-body-b">
+		<fieldset class="ui-grid-a">
+				<div class="ui-block-a"><button type="submit" data-theme="d">Cancel</button></div>
+				<div class="ui-block-b"><button type="submit" data-theme="a">Submit</button></div>
+	    </fieldset>
+		</div>
+
+		</form> 
+		
+	</div><!-- /content -->
+	
+</div><!-- /page -->

@@ -1,0 +1,25 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>#{get 'title' /} - Beansight</title> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a3/jquery.mobile-1.0a3.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/beansight-mobile.css" />    
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.min.js"></script>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a3/jquery.mobile-1.0a3.min.js"></script>
+    
+    <!-- define here the actions -->
+    <script type="text/javascript">
+        var getInsightsAction   = "@{API.getInsights()}";
+        var getInsightAction    = "@{API.getInsight()}";
+        var agreeAction         = "@{API.agree()}";
+        var disagreeAction      = "@{API.disagree()}";
+    </script>
+    
+    <script src="/public/javascripts/beansight-mobile.js" type="text/javascript" charset="utf-8"></script>
+</head> 
+<body> 
+#{doLayout /}
+</body>
+</html>

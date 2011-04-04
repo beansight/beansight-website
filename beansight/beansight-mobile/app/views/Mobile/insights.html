@@ -1,0 +1,30 @@
+#{extends 'Mobile/main.html' /}
+#{set 'title'}
+    &{'mobile.insights.title'}
+#{/set}
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>Predictions</h1>
+		<div data-role="navbar">
+		<ul>
+			<li><a href="" class="ui-btn-active">Upcomming</a></li>
+			<li><a href="">Popularity</a></li>
+			<li><a href="">Update</a></li>
+		</ul>
+		</div><!-- /navbar -->
+	</div><!-- /header -->
+
+	<div data-role="content">	
+	<ul data-role="listview" >
+	#{list items:result.results, as:'insight' }
+				<li>
+					<a href="@{Mobile.insight(insight.uniqueId)}"><span>${insight.endDate}</span> ${insight.content}</a>
+					*{<a href="lists-split-purchase.html" data-rel="dialog" data-transition="slideup">Purchase album</a>}*
+					*{<p class="ui-li-aside">1 2</p>}*
+				</li>
+    #{/list}
+	</ul>
+	</div><!-- /content -->
+</div><!-- /page -->

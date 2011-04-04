@@ -368,48 +368,6 @@ public class Application extends Controller {
 	}
 
 	/**
-	 * AJAX Agree a given insight
-	 * 
-	 * @param insightId
-	 */
-	public static void agree(String insightUniqueId) {
-		vote(insightUniqueId, State.AGREE);
-	}
-
-	/**
-	 * AJAX Disagree a given insight
-	 * 
-	 * @param insightId
-	 */
-	public static void disagree(String insightUniqueId) {
-		vote(insightUniqueId, State.DISAGREE);
-	}
-
-	private static void vote(String insightUniqueId, State voteState) {
-		User currentUser = CurrentUser.getCurrentUser();
-
-		try {
-			currentUser.voteToInsight(insightUniqueId, voteState);
-		} catch (CannotVoteTwiceForTheSameInsightException e) {
-			// its ok, do not show anything
-		}
-
-		Insight insight = Insight.findByUniqueId(insightUniqueId);
-		
-		Map<String, Object> jsonResult = new HashMap<String, Object>();
-		jsonResult.put("uniqueId", insight.uniqueId);
-		jsonResult.put("updatedAgreeCount", insight.agreeCount);
-		jsonResult.put("updatedDisagreeCount", insight.disagreeCount);
-		if (voteState.equals(State.AGREE)) {
-			jsonResult.put("voteState", "agree");
-		} else {
-			jsonResult.put("voteState", "disagree");
-		}
-		
-		renderJSON(jsonResult);
-	}
-
-	/**
 	 * Show info about a given insight
 	 * 
 	 * @param insightUniqueId
