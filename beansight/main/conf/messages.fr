@@ -22,7 +22,7 @@ indexNotConnected.marketing=Avec Beansight :<br/>Partagez vos prédictions<br/>P
 
 # indexConnected
 newandtrending=Nouveaux
-needemailconfirm=Vous avez besoin de confirmer votre adresse email. Faites le prochainement. Vérifiez votre boîte de réception.
+needemailconfirm=Un email de confirmation vous a été adressé. Vérifiez votre boîte de réception prochainement pour terminer votre inscription.
 activityaroundme=Activité
 favorites=Favoris
 exploremore=Explorer plus...
