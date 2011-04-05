@@ -1,12 +1,17 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import models.Category;
+import models.Filter;
 import models.Insight;
+import models.Language;
 import models.User;
+import models.Filter.FilterType;
+import models.Insight.InsightResult;
 import models.Vote.State;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import play.data.validation.Max;
@@ -49,7 +54,44 @@ public class API extends Controller {
 	public static void getInsights(@Min(0) Integer from,
 			@Min(1) @Max(100) Integer number, String sort, Integer category,
 			String vote, String topic, Boolean closed, Boolean created) {
+		
+		if (from == null) {
+			from = 0;
+		}
+		if (number == null) {
+			number = 20;
+		}
+		if (sort == null) {
 
+		}
+		if (vote == null) {
+			vote = "all";
+		}
+		if (closed == null) {
+			closed = false;
+		}
+		if (created == null) {
+			created = false;
+		}
+
+		InsightResult result;
+		Filter filter = new Filter();
+		filter.filterType = FilterType.UPDATED;
+		filter.languages.add(Language.findByLabelOrCreate("en"));
+		filter.filterVote = "voted";
+
+		result = Insight.findLatest(from, number, filter);
+
+		List<Object> jsonResult = new ArrayList<Object>();
+		for (Insight insight : result.results) {
+			Map<String, Object> insightResult = new HashMap<String, Object>();
+			insightResult.put("content", insight.content);
+			insightResult.put("uniqueId", insight.uniqueId);
+			insightResult.put("endDate", insight.endDate.toString());
+			jsonResult.add(insightResult);
+		}
+
+		renderJSON(jsonResult);
 	}
 
 	/**

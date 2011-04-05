@@ -3,6 +3,12 @@
     &{'mobile.insights.title'}
 #{/set}
 
+#{set 'moreScripts'}
+<script id="insightTemplate" type="text/x-jquery-tmpl">
+  <li><a href="{{= insightAction({insightUniqueId:uniqueId})}}"><span class="endDate">{{= endDate}}</span> {{= content}}</a></li>
+</script>
+#{/set}
+
 <div data-role="page">
 
 	<div data-role="header">
@@ -17,14 +23,17 @@
 	</div><!-- /header -->
 
 	<div data-role="content">	
-	<ul data-role="listview" >
-	#{list items:result.results, as:'insight' }
-				<li>
-					<a href="@{Mobile.insight(insight.uniqueId)}"><span>${insight.endDate}</span> ${insight.content}</a>
-					*{<a href="lists-split-purchase.html" data-rel="dialog" data-transition="slideup">Purchase album</a>}*
-					*{<p class="ui-li-aside">1 2</p>}*
-				</li>
-    #{/list}
+	<ul data-role="listview" id="insightList">
 	</ul>
 	</div><!-- /content -->
 </div><!-- /page -->
+
+<script type="text/javascript">
+    var insights = [
+        { content: "The Red Violin", uniqueId: "la-tablette-xoom-de-motorola-va-faire-de-l-ombre-a-l-ipad-2-d-apple", endDate: "2010" },
+        { content: "Eyes Wide Shut", uniqueId: "la-coalition-va-declencher-une-operation-terrestre-en-libye", endDate: "2010-03-04" }
+    ];
+
+    $( "#insightTemplate" ).tmpl( insights )
+        .appendTo( "#insightList" );
+</script>
