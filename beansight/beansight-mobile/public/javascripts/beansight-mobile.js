@@ -23,7 +23,20 @@ function onVoteSuccess(data) {
 
 }
 
+/** Load the insight list */
+function getInsights() {
+    $.getJSON(getInsightsAction, onGetInsightsSuccess);
+    
+    return false;
+}
 
+function onGetInsightsSuccess(data) {
+    $( "#insightTemplate" ).tmpl( data )
+    .appendTo( "#insightList" );
+
+    $("#insightList").listview('refresh') 
+
+}
 
 
 // Execute scripts after the document creation

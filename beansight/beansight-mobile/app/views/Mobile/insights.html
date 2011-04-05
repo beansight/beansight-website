@@ -29,11 +29,7 @@
 </div><!-- /page -->
 
 <script type="text/javascript">
-    var insights = [
-        { content: "The Red Violin", uniqueId: "la-tablette-xoom-de-motorola-va-faire-de-l-ombre-a-l-ipad-2-d-apple", endDate: "2010" },
-        { content: "Eyes Wide Shut", uniqueId: "la-coalition-va-declencher-une-operation-terrestre-en-libye", endDate: "2010-03-04" }
-    ];
-
-    $( "#insightTemplate" ).tmpl( insights )
-        .appendTo( "#insightList" );
+    $(document).ready(function() {
+        getInsights();
+    });
 </script>
