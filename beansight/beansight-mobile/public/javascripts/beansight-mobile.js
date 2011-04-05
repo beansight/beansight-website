@@ -16,7 +16,7 @@ function disagree(insightUniqueId) {
 
 /** Callback after a vote is done */
 function onVoteSuccess(data) {
-
+	console.log("vote success");
 }
 
 /** Load the insight list */
@@ -39,7 +39,8 @@ function onGetInsightsSuccess(data) {
 		// change the content of the insight
 		$(element).click(function() {
 			$("#page-insight").attr("data-uniqueid", uniqueId);
-			console.log(uniqueId);
+			getInsight(uniqueId);
+			
 			$("#insight-endDate").html(endDate);
 			$("#insight-content").html(content);
 		});
@@ -56,6 +57,18 @@ function onGetInsightsSuccess(data) {
 //		.append( $("#insightTemplate").tmpl( data ) )
 //		.listview('refresh'); 
 //}
+
+/** Load the insight data */
+function getInsight(uniqueId) {
+    $.getJSON(getInsightAction, {insightUniqueId: uniqueId}, onGetInsightSuccess);
+}
+
+function onGetInsightSuccess(data) {
+	console.log(data);
+	$("#insight-creator").html(data.creator);
+	$("#insight-agreeCount").html(data.agreeCount);
+	$("#insight-disagreeCount").html(data.disagreeCount);
+}
 
 // Execute scripts after the document creation
 $(document).ready(function() {

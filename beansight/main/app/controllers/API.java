@@ -109,7 +109,16 @@ public class API extends Controller {
 	 *         disagreeCount, comments[], tags[] }
 	 */
 	public static void getInsight(@Required String insightUniqueId) {
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
+		Map<String, Object> jsonResult = new HashMap<String, Object>();
+		jsonResult.put("content", insight.content);
+		jsonResult.put("endDate", insight.endDate.toString());
+		jsonResult.put("creator", insight.creator.userName);
 
+		jsonResult.put("agreeCount", insight.agreeCount);
+		jsonResult.put("disagreeCount", insight.disagreeCount);
+		
+		renderJSON(jsonResult);
 	}
 
 	/**
