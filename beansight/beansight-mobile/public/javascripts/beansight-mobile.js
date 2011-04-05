@@ -2,20 +2,16 @@
 function agree(insightUniqueId) {
     $.getJSON(agreeAction, {"insightUniqueId": insightUniqueId}, onVoteSuccess);
     
-    var insightContainer = $(".insight_" + insightUniqueId);
-   	insightContainer.removeClass("voteDisagree").addClass("voteAgree");
-   	
-   	return false;
+//    var insightContainer = $(".insight_" + insightUniqueId);
+//   	insightContainer.removeClass("voteDisagree").addClass("voteAgree");
 }
 
 /** Current user disagree an insight */
 function disagree(insightUniqueId) {
     $.getJSON(disagreeAction, {"insightUniqueId": insightUniqueId}, onVoteSuccess);
 
-    var insightContainer = $(".insight_" + insightUniqueId);
-   	insightContainer.addClass("voteDisagree").removeClass("voteAgree");
-   	
-    return false;
+//    var insightContainer = $(".insight_" + insightUniqueId);
+//   	insightContainer.addClass("voteDisagree").removeClass("voteAgree");
 }
 
 /** Callback after a vote is done */
@@ -35,17 +31,19 @@ function onGetInsightsSuccess(data) {
 	
 	// associate to each one of these insights the click action
 	$(".insight-link").each(function(index, element) {
+		// Apply the insight info to the Insight page
 		// Get the insight info
 		var content = $(".content", element).html();
 		var endDate = $(".endDate", element).html();
 		var uniqueId = $(element).attr("data-uniqueid", uniqueId);
-		// apply them to the Insight page
-		$("#page-insight").attr("data-uniqueid", uniqueId);
+		// change the content of the insight
 		$(element).click(function() {
-			// change the content of the insight
+			$("#page-insight").attr("data-uniqueid", uniqueId);
+			console.log(uniqueId);
 			$("#insight-endDate").html(endDate);
 			$("#insight-content").html(content);
 		});
+		
 	});
 }
 
