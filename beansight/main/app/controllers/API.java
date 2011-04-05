@@ -54,7 +54,7 @@ public class API extends Controller {
 	public static void getInsights(@Min(0) Integer from,
 			@Min(1) @Max(100) Integer number, String sort, Integer category,
 			String vote, String topic, Boolean closed, Boolean created) {
-		
+
 		if (from == null) {
 			from = 0;
 		}
@@ -62,7 +62,7 @@ public class API extends Controller {
 			number = 20;
 		}
 		if (sort == null) {
-
+			sort = "updated";
 		}
 		if (vote == null) {
 			vote = "all";
@@ -74,13 +74,19 @@ public class API extends Controller {
 			created = false;
 		}
 
-		InsightResult result;
+		InsightResult result = null;
 		Filter filter = new Filter();
 		filter.filterType = FilterType.UPDATED;
 		filter.languages.add(Language.findByLabelOrCreate("en"));
 		filter.filterVote = "voted";
 
-		result = Insight.findLatest(from, number, filter);
+		if (sort.equals("trending")) {
+			result = Insight.findTrending(from, number, filter);
+		} else if (sort.equals("incoming")) {
+			result = Insight.findIncoming(from, number, filter);
+		} else {
+			result = Insight.findLatest(from, number, filter);
+		}
 
 		List<Object> jsonResult = new ArrayList<Object>();
 		for (Insight insight : result.results) {

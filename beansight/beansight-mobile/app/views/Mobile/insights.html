@@ -8,16 +8,16 @@
   <li><a href="{{= insightAction({insightUniqueId:uniqueId})}}"><span class="endDate">{{= endDate}}</span> {{= content}}</a></li>
 </script>
 #{/set}
-
+    
 <div data-role="page">
 
 	<div data-role="header">
 		<h1>Predictions</h1>
 		<div data-role="navbar">
 		<ul>
-			<li><a href="" class="ui-btn-active">Upcomming</a></li>
-			<li><a href="">Popularity</a></li>
-			<li><a href="">Update</a></li>
+			<li><a id="filter-upcomming" href="" class="ui-btn-active">Upcomming</a></li>
+			<li><a id="filter-popularity" href="">Popularity</a></li>
+			<li><a id="filter-update" href="">Update</a></li>
 		</ul>
 		</div><!-- /navbar -->
 	</div><!-- /header -->
@@ -30,6 +30,6 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        getInsights();
+        getInsights("incoming");
     });
 </script>
