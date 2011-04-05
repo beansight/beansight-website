@@ -32,6 +32,26 @@ function onGetInsightsSuccess(data) {
 	$("#insightList")
 		.html( $("#insightTemplate").tmpl( data ) )
 		.listview('refresh'); 
+	
+	// associate to each one of these insights the click action
+	$(".insight-link").each(function(index, element) {
+		// Get the insight info
+		var content = $(".content", element).html();
+		var endDate = $(".endDate", element).html();
+		var uniqueId = $(element).attr("data-uniqueid", uniqueId);
+		// apply them to the Insight page
+		$("#page-insight").attr("data-uniqueid", uniqueId);
+		$(element).click(function() {
+			// change the content of the insight
+			$("#insight-endDate").html(endDate);
+			$("#insight-content").html(content);
+		})
+	});
+	
+	/*
+	 * .click(function() { console.log(event.target); console.log($(".content",
+	 * event.target).html() ); })
+	 */
 }
 
 //function getMoreInsights() {
@@ -56,5 +76,4 @@ $(document).ready(function() {
 	$("#filter-update").click(function() {
 		getInsights("updated");
 	});
-	
 });

@@ -5,12 +5,11 @@
 
 #{set 'moreScripts'}
 <script id="insightTemplate" type="text/x-jquery-tmpl">
-  <li><a href="{{= insightAction({insightUniqueId:uniqueId})}}"><span class="endDate">{{= endDate}}</span> {{= content}}</a></li>
+  <li><a href="#page-insight" data-uniqueid="{{= uniqueId}}" class="insight-link"><span class="endDate">{{= endDate}}</span> <span class="content">{{= content}}</span></a></li>
 </script>
 #{/set}
-    
-<div data-role="page">
 
+<div data-role="page" id="page-insights">
 	<div data-role="header">
 		<h1>Predictions</h1>
 		<div data-role="navbar">
@@ -26,6 +25,30 @@
 	<ul data-role="listview" id="insightList">
 	</ul>
 	</div><!-- /content -->
+</div><!-- /page -->
+
+<div data-role="page" id="page-insight">
+    <div data-role="header">
+        <h1>Prediction</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <p id="insight-endDate">endDate</p>
+        <h2 id="insight-content">content</h2>
+    </div><!-- /content -->
+    
+    <div data-role="footer">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="" class="ui-btn-active" data-icon="plus">Agree</a></li>
+                <li><a href="" data-icon="minus">Disagree</a></li>
+                *{
+                <li><a href="" data-icon="star">Favorite</a></li>
+                <li><a href="" >Comment</a></li>
+                }*
+            </ul>
+        </div><!-- /navbar -->
+    </div>
 </div><!-- /page -->
 
 <script type="text/javascript">
