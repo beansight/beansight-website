@@ -45,13 +45,8 @@ function onGetInsightsSuccess(data) {
 			// change the content of the insight
 			$("#insight-endDate").html(endDate);
 			$("#insight-content").html(content);
-		})
+		});
 	});
-	
-	/*
-	 * .click(function() { console.log(event.target); console.log($(".content",
-	 * event.target).html() ); })
-	 */
 }
 
 //function getMoreInsights() {
@@ -75,5 +70,12 @@ $(document).ready(function() {
 	})
 	$("#filter-update").click(function() {
 		getInsights("updated");
+	});
+	
+	$("#btn-agree").click(function() {
+		agree($("#page-insight").attr("data-uniqueid"));
+	});
+	$("#btn-disagree").click(function() {
+		disagree($("#page-insight").attr("data-uniqueid"));
 	});
 });
