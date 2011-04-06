@@ -6,20 +6,20 @@
     <link rel="stylesheet" type="text/css" href="/public/stylesheets/beansight-mobile.css" />    
     #{get 'moreStyles' /}
         
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
-    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+    <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.js"></script>
     #{get 'moreScripts' /}
         
     <!-- define here the actions -->
-    <script type="text/javascript">
+    <script>
         var getInsightsAction   = "@{API.getInsights()}";
         var getInsightAction    = "@{API.getInsight()}";
         var agreeAction         = "@{API.agree()}";
         var disagreeAction      = "@{API.disagree()}";
     </script>
     
-    <script src="/public/javascripts/beansight-mobile.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/public/javascripts/beansight-mobile.js"></script>
 </head> 
 <body> 
 #{doLayout /}

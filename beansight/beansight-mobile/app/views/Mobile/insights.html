@@ -5,7 +5,12 @@
 
 #{set 'moreScripts'}
 <script id="insightTemplate" type="text/x-jquery-tmpl">
-  <li><a href="#page-insight" data-uniqueid="{{= uniqueId}}" class="insight-link"><span class="endDate">{{= endDate}}</span> <span class="content">{{= content}}</span></a></li>
+  <li>
+	  <a href="#page-insight" data-uniqueid="{{= uniqueId}}" class="insight-link">
+	    <p class="endDate">{{= endDate}}</p>
+	    <h3 class="content">{{= content}}</h3>
+	  </a>
+  </li>
 </script>
 #{/set}
 

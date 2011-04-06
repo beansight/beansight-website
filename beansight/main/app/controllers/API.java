@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
+
 import models.Category;
 import models.Filter;
 import models.Insight;
@@ -94,7 +99,7 @@ public class API extends Controller {
 			Map<String, Object> insightResult = new HashMap<String, Object>();
 			insightResult.put("content", insight.content);
 			insightResult.put("uniqueId", insight.uniqueId);
-			insightResult.put("endDate", insight.endDate.toString());
+			insightResult.put("endDate", new DateTime(insight.endDate).toString(DateTimeFormat.forPattern("d MMMM yyyy"))); // TODO: do the date formatting client side
 			jsonResult.add(insightResult);
 		}
 
@@ -109,10 +114,12 @@ public class API extends Controller {
 	 *         disagreeCount, comments[], tags[] }
 	 */
 	public static void getInsight(@Required String insightUniqueId) {
+
+		
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("content", insight.content);
-		jsonResult.put("endDate", insight.endDate.toString());
+		jsonResult.put("endDate", new DateTime(insight.endDate).toString(DateTimeFormat.forPattern("d MMMM yyyy"))); // TODO: do the date formatting client side
 		jsonResult.put("creator", insight.creator.userName);
 
 		jsonResult.put("agreeCount", insight.agreeCount);
