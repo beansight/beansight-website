@@ -24,21 +24,24 @@ function onVoteSuccess(data) {
 /** Load the insight list */
 function getInsights() {
     $.getJSON(getInsightsAction, {sort: beansightConf.sort, number: INSIGH_TNUMBER_TO_LOAD}, onGetInsightsSuccess);
+    $.mobile.pageLoading();
 }
 
 function onGetInsightsSuccess(data) {
 	$("#insightList")
 		.html( $("#insightTemplate").tmpl( data ) )
 		.listview('refresh'); 
-	
+	$.mobile.pageLoading(true);
 }
 
 function getMoreInsights() {
     $.getJSON(getInsightsAction, {sort: beansightConf.sort, from: beansightConf.from, number: INSIGH_TNUMBER_TO_LOAD} ,onGetMoreInsightsSuccess);
     beansightConf.from += INSIGH_TNUMBER_TO_LOAD;
+	$.mobile.pageLoading();
 }
 
 function onGetMoreInsightsSuccess(data) {
+	$.mobile.pageLoading(true);
 	$("#insightList")
 		.append( $("#insightTemplate").tmpl( data ) )
 		.listview('refresh'); 
