@@ -21,6 +21,10 @@ public class Mobile extends Controller {
 	public static void insights() {
 		render();
 	}
+	
+	public static void insight(String insightUniqueId) {
+		render(insightUniqueId);
+	}
 
 	public static void login() {
 		render();

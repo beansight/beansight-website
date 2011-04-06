@@ -1,0 +1,20 @@
+#{extends 'Mobile/main.html' /}
+#{set 'title'}
+    &{'mobile.insight.title'}
+#{/set}
+
+<div data-role="page" id="page-insight" data-insightid="${insightUniqueId}">
+    <div data-role="header">
+        <h1>Prediction</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <p>Created on <span class="insight-creationDate"></span> by <span class="insight-creator"></span></p>
+        <h2><span class="insight-endDate"></span>, <span class="insight-content">content</span></h2>
+    </div><!-- /content -->
+    
+    <div data-role="footer" data-position="fixed" class="ui-bar">
+        <a id="btn-agree"       href="" data-role="button" data-icon="plus">Agree (<span class="insight-agreeCount"></span>)</a>
+        <a id="btn-disagree"    href="" data-role="button" data-icon="minus">Disagree (<span class="insight-disagreeCount"></span>)</a>    
+    </div>
+</div><!-- /page -->

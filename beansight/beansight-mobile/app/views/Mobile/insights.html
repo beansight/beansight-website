@@ -6,7 +6,7 @@
 #{set 'moreScripts'}
 <script id="insightTemplate" type="text/x-jquery-tmpl">
   <li>
-	  <a href="#page-insight" data-uniqueid="{{= uniqueId}}" class="insight-link">
+	  <a href="{{= insightAction({insightUniqueId:uniqueId})}}" data-uniqueid="{{= uniqueId}}" class="insight-link">
 	    <p class="endDate">{{= endDate}}</p>
 	    <h3 class="content">{{= content}}</h3>
 	  </a>
@@ -36,24 +36,12 @@
     </div>
 </div><!-- /page -->
 
-<div data-role="page" id="page-insight">
-    <div data-role="header">
-        <h1>Prediction</h1>
-    </div><!-- /header -->
-
-    <div data-role="content">
-        <p>Created on <span id="insight-creationDate"></span> by <span id="insight-creator"></span></p>
-        <h2><span id="insight-endDate"></span>, <span id="insight-content">content</span></h2>
-    </div><!-- /content -->
-    
-    <div data-role="footer" data-position="fixed" class="ui-bar">
-        <a id="btn-agree"       href="" data-role="button" data-icon="plus">Agree (<span id="insight-agreeCount"></span>)</a>
-        <a id="btn-disagree"    href="" data-role="button" data-icon="minus">Disagree (<span id="insight-disagreeCount"></span>)</a>    
-    </div>
-</div><!-- /page -->
-
 <script type="text/javascript">
     $(document).ready(function() {
         getInsights();
+        // when we live this page, after creation of the insight page, load the insight content.
+        $('#page-insights').live('pagebeforehide',function(event, ui){
+            getInsight(ui.nextPage.attr("data-insightid"));
+        });
     });
 </script>

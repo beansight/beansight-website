@@ -4,8 +4,6 @@ var beansightConf = {};
 beansightConf.from = INSIGH_TNUMBER_TO_LOAD;
 beansightConf.sort = "incoming";
 
-var sort = "incomming"
-
 /** Current user agree an insight */
 function agree(insightUniqueId) {
     $.getJSON(agreeAction, {"insightUniqueId": insightUniqueId}, onVoteSuccess);
@@ -32,7 +30,6 @@ function onGetInsightsSuccess(data) {
 	$("#insightList")
 		.html( $("#insightTemplate").tmpl( data ) )
 		.listview('refresh'); 
-	associateInsightClickAction();
 	
 }
 
@@ -45,27 +42,27 @@ function onGetMoreInsightsSuccess(data) {
 	$("#insightList")
 		.append( $("#insightTemplate").tmpl( data ) )
 		.listview('refresh'); 
-	associateInsightClickAction();	
 }
 
-function associateInsightClickAction() {
-	// associate to each one of these insights the click action
-	$(".insight-link").each(function(index, element) {
-		// Get the insight info
-		var content = $(".content", element).html();
-		var endDate = $(".endDate", element).html();
-		var uniqueId = $(element).attr("data-uniqueid");
-		// change the content of the insight page
-		$(element).click(function() {
-			$("#page-insight").attr("data-uniqueid", uniqueId);
-			getInsight(uniqueId);
-			
-			$("#insight-endDate").html(endDate);
-			$("#insight-content").html(content);
-			removeActiveVoteButton();
-		});
-	});
-}
+// Not used anymore, unfortunately
+//function associateInsightClickAction() {
+//	// associate to each one of these insights the click action
+//	$(".insight-link").each(function(index, element) {
+//		// Get the insight info
+//		var content = $(".content", element).html();
+//		var endDate = $(".endDate", element).html();
+//		var uniqueId = $(element).attr("data-uniqueid");
+//		// change the content of the insight page
+//		$(element).click(function() {
+//			$("#page-insight").attr("data-uniqueid", uniqueId);
+//			getInsight(uniqueId);
+//			
+//			$("#insight-endDate").html(endDate);
+//			$("#insight-content").html(content);
+//			removeActiveVoteButton();
+//		});
+//	});
+//}
 
 function removeActiveVoteButton() {
 	$("#btn-disagree").removeClass("ui-btn-active");
@@ -83,15 +80,19 @@ function setActiveVoteButton(voteState) {
 
 /** Load the insight data */
 function getInsight(uniqueId) {
+	$.mobile.pageLoading();
     $.getJSON(getInsightAction, {insightUniqueId: uniqueId}, onGetInsightSuccess);
 }
 
 function onGetInsightSuccess(data) {
-	console.log(data);
-	$("#insight-creator").html(data.creator);
-	$("#insight-agreeCount").html(data.agreeCount);
-	$("#insight-disagreeCount").html(data.disagreeCount);
-	$("#insight-creationDate").html(data.creationDate);	
+	$.mobile.pageLoading( true );
+	var page = $( '[data-insightid="' + data.uniqueId + '"]');
+	$(".insight-creator", page).html(data.creator);
+	$(".insight-content", page).html(data.content);
+	$(".insight-endDate", page).html(data.endDate);
+	$(".insight-agreeCount", page).html(data.agreeCount);
+	$(".insight-disagreeCount", page).html(data.disagreeCount);
+	$(".insight-creationDate", page).html(data.creationDate);	
 	
 	if (data.lastUserVote) {
 		setActiveVoteButton(data.lastUserVote);

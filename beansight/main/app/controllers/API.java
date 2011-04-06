@@ -120,6 +120,7 @@ public class API extends Controller {
 
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
+		jsonResult.put("uniqueId", insight.uniqueId);
 		jsonResult.put("content", insight.content);
 		// TODO : do the date formatting client side
 		jsonResult.put("creationDate", new DateTime(insight.creationDate)

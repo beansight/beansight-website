@@ -26,6 +26,8 @@
         var getInsightAction    = "@{API.getInsight()}";
         var agreeAction         = "@{API.agree()}";
         var disagreeAction      = "@{API.disagree()}";
+        
+        var insightAction       = #{jsAction @Mobile.insight(':insightUniqueId') /};        
     </script>
     
     <script src="/public/javascripts/beansight-mobile.js"></script>
