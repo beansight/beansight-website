@@ -91,6 +91,7 @@ function onGetInsightSuccess(data) {
 	$("#insight-creator").html(data.creator);
 	$("#insight-agreeCount").html(data.agreeCount);
 	$("#insight-disagreeCount").html(data.disagreeCount);
+	$("#insight-creationDate").html(data.creationDate);	
 	
 	if (data.lastUserVote) {
 		setActiveVoteButton(data.lastUserVote);

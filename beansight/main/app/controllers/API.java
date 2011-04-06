@@ -122,6 +122,9 @@ public class API extends Controller {
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("content", insight.content);
 		// TODO : do the date formatting client side
+		jsonResult.put("creationDate", new DateTime(insight.creationDate)
+				.toString(DateTimeFormat.forPattern("d MMMM yyyy")));
+		// TODO : do the date formatting client side
 		jsonResult.put("endDate", new DateTime(insight.endDate)
 				.toString(DateTimeFormat.forPattern("d MMMM yyyy")));
 		jsonResult.put("creator", insight.creator.userName);
@@ -140,7 +143,7 @@ public class API extends Controller {
 				} else {
 					jsonResult.put("lastUserVote", "disagree");
 				}
-				
+
 			}
 		}
 
