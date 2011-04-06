@@ -27,6 +27,7 @@ function getInsights(sort) {
 function onGetInsightsSuccess(data) {
 	$("#insightList")
 		.html( $("#insightTemplate").tmpl( data ) )
+		.append('<li data-role="list-divider"><span class="loadmore">more</span></a></li>')
 		.listview('refresh'); 
 	
 	// associate to each one of these insights the click action
@@ -43,6 +44,8 @@ function onGetInsightsSuccess(data) {
 			
 			$("#insight-endDate").html(endDate);
 			$("#insight-content").html(content);
+			$("#btn-disagree").removeClass("ui-btn-active");
+			$("#btn-agree").removeClass("ui-btn-active");
 		});
 		
 	});
@@ -68,6 +71,14 @@ function onGetInsightSuccess(data) {
 	$("#insight-creator").html(data.creator);
 	$("#insight-agreeCount").html(data.agreeCount);
 	$("#insight-disagreeCount").html(data.disagreeCount);
+	
+	if (data.lastUserVote) {
+		if (data.lastUserVote === "AGREE") {
+			$("#btn-agree").addClass("ui-btn-active");
+		} else if (data.lastUserVote === "DISAGREE") {
+			$("#btn-disagree").addClass("ui-btn-active");
+		}
+	}
 }
 
 // Execute scripts after the document creation

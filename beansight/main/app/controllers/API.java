@@ -15,6 +15,7 @@ import models.Filter;
 import models.Insight;
 import models.Language;
 import models.User;
+import models.Vote;
 import models.Filter.FilterType;
 import models.Insight.InsightResult;
 import models.Vote.State;
@@ -99,7 +100,9 @@ public class API extends Controller {
 			Map<String, Object> insightResult = new HashMap<String, Object>();
 			insightResult.put("content", insight.content);
 			insightResult.put("uniqueId", insight.uniqueId);
-			insightResult.put("endDate", new DateTime(insight.endDate).toString(DateTimeFormat.forPattern("d MMMM yyyy"))); // TODO: do the date formatting client side
+			// TODO : do the date formatting client side
+			insightResult.put("endDate", new DateTime(insight.endDate)
+					.toString(DateTimeFormat.forPattern("d MMMM yyyy")));
 			jsonResult.add(insightResult);
 		}
 
@@ -115,16 +118,27 @@ public class API extends Controller {
 	 */
 	public static void getInsight(@Required String insightUniqueId) {
 
-		
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("content", insight.content);
-		jsonResult.put("endDate", new DateTime(insight.endDate).toString(DateTimeFormat.forPattern("d MMMM yyyy"))); // TODO: do the date formatting client side
+		// TODO : do the date formatting client side
+		jsonResult.put("endDate", new DateTime(insight.endDate)
+				.toString(DateTimeFormat.forPattern("d MMMM yyyy")));
 		jsonResult.put("creator", insight.creator.userName);
 
 		jsonResult.put("agreeCount", insight.agreeCount);
 		jsonResult.put("disagreeCount", insight.disagreeCount);
-		
+
+		User currentUser = CurrentUser.getCurrentUser();
+		if (currentUser != null) {
+			jsonResult.put("currentUser", currentUser.userName);
+			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(
+					currentUser.id, insight.uniqueId);
+			if (lastUserVote != null) {
+				jsonResult.put("lastUserVote", lastUserVote.state);
+			}
+		}
+
 		renderJSON(jsonResult);
 	}
 
