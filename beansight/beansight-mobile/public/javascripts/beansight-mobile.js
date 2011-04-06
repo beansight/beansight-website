@@ -1,22 +1,18 @@
 /** Current user agree an insight */
 function agree(insightUniqueId) {
     $.getJSON(agreeAction, {"insightUniqueId": insightUniqueId}, onVoteSuccess);
-    
-//    var insightContainer = $(".insight_" + insightUniqueId);
-//   	insightContainer.removeClass("voteDisagree").addClass("voteAgree");
+	setActiveVoteButton("agree");    
 }
 
 /** Current user disagree an insight */
 function disagree(insightUniqueId) {
     $.getJSON(disagreeAction, {"insightUniqueId": insightUniqueId}, onVoteSuccess);
-
-//    var insightContainer = $(".insight_" + insightUniqueId);
-//   	insightContainer.addClass("voteDisagree").removeClass("voteAgree");
+	setActiveVoteButton("disagree");    
 }
 
 /** Callback after a vote is done */
 function onVoteSuccess(data) {
-	console.log("vote success");
+	setActiveVoteButton(data.voteState);
 }
 
 /** Load the insight list */
@@ -27,7 +23,6 @@ function getInsights(sort) {
 function onGetInsightsSuccess(data) {
 	$("#insightList")
 		.html( $("#insightTemplate").tmpl( data ) )
-		.append('<li data-role="list-divider"><span class="loadmore">more</span></a></li>')
 		.listview('refresh'); 
 	
 	// associate to each one of these insights the click action
@@ -44,11 +39,24 @@ function onGetInsightsSuccess(data) {
 			
 			$("#insight-endDate").html(endDate);
 			$("#insight-content").html(content);
-			$("#btn-disagree").removeClass("ui-btn-active");
-			$("#btn-agree").removeClass("ui-btn-active");
+			removeActiveVoteButton();
 		});
 		
 	});
+}
+
+function removeActiveVoteButton() {
+	$("#btn-disagree").removeClass("ui-btn-active");
+	$("#btn-agree").removeClass("ui-btn-active");
+}
+
+function setActiveVoteButton(voteState) {
+	removeActiveVoteButton();
+	if (voteState === "agree") {
+		$("#btn-agree").addClass("ui-btn-active");
+	} else if (voteState === "disagree") {
+		$("#btn-disagree").addClass("ui-btn-active");
+	}
 }
 
 //function getMoreInsights() {
@@ -73,11 +81,7 @@ function onGetInsightSuccess(data) {
 	$("#insight-disagreeCount").html(data.disagreeCount);
 	
 	if (data.lastUserVote) {
-		if (data.lastUserVote === "AGREE") {
-			$("#btn-agree").addClass("ui-btn-active");
-		} else if (data.lastUserVote === "DISAGREE") {
-			$("#btn-disagree").addClass("ui-btn-active");
-		}
+		setActiveVoteButton(data.lastUserVote);
 	}
 }
 

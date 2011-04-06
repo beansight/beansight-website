@@ -135,7 +135,12 @@ public class API extends Controller {
 			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(
 					currentUser.id, insight.uniqueId);
 			if (lastUserVote != null) {
-				jsonResult.put("lastUserVote", lastUserVote.state);
+				if (lastUserVote.state.equals(State.AGREE)) {
+					jsonResult.put("lastUserVote", "agree");
+				} else {
+					jsonResult.put("lastUserVote", "disagree");
+				}
+				
 			}
 		}
 

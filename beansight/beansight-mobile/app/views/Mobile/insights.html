@@ -30,6 +30,10 @@
 	<ul data-role="listview" id="insightList">
 	</ul>
 	</div><!-- /content -->
+	
+    <div data-role="footer" class="ui-bar">
+        <a id="btn-more" href="" data-role="button" data-icon="plus">More</a>
+    </div>
 </div><!-- /page -->
 
 <div data-role="page" id="page-insight">
@@ -43,17 +47,9 @@
         <p>agree: <span id="insight-agreeCount"></span> - disagree: <span id="insight-disagreeCount"></span></p>
     </div><!-- /content -->
     
-    <div data-role="footer" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-                <li><a href="" id="btn-agree" data-icon="plus">Agree</a></li> *{class="ui-btn-active"}*
-                <li><a href="" id="btn-disagree" data-icon="minus">Disagree</a></li>
-                *{
-                <li><a href="" data-icon="star">Favorite</a></li>
-                <li><a href="" >Comment</a></li>
-                }*
-            </ul>
-        </div><!-- /navbar -->
+    <div data-role="footer" data-position="fixed" class="ui-bar">
+        <a id="btn-agree"       href="" data-role="button" data-icon="plus">Agree</a>
+        <a id="btn-disagree"    href="" data-role="button" data-icon="minus">Disagree</a>    
     </div>
 </div><!-- /page -->
 
