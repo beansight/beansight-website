@@ -39,9 +39,5 @@
 <script type="text/javascript">
     $(document).ready(function() {
         getInsights();
-        // when we live this page, after creation of the insight page, load the insight content.
-        $('#page-insights').live('pagebeforehide',function(event, ui){
-            getInsight(ui.nextPage.attr("data-insightid"));
-        });
     });
 </script>

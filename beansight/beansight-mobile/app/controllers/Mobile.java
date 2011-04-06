@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Map;
+
 import models.Filter;
 import models.Insight;
 import models.Filter.FilterType;
@@ -23,7 +25,8 @@ public class Mobile extends Controller {
 	}
 	
 	public static void insight(String insightUniqueId) {
-		render(insightUniqueId);
+		Map<String, Object> result = API.getInsightResult(insightUniqueId);
+		render(result);
 	}
 
 	public static void login() {

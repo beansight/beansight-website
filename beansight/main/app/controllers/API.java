@@ -117,7 +117,10 @@ public class API extends Controller {
 	 *         disagreeCount, comments[], tags[] }
 	 */
 	public static void getInsight(@Required String insightUniqueId) {
-
+		renderJSON(getInsightResult(insightUniqueId));
+	}
+	
+	public static Map<String, Object> getInsightResult(String insightUniqueId) {
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("uniqueId", insight.uniqueId);
@@ -147,8 +150,8 @@ public class API extends Controller {
 
 			}
 		}
-
-		renderJSON(jsonResult);
+		
+		return jsonResult;
 	}
 
 	/**
