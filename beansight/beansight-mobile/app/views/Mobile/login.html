@@ -1,0 +1,28 @@
+#{extends 'Mobile/main.html' /}
+#{set 'title'}
+    &{'mobile.login.title'}
+#{/set}
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>Login</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<form action="form.php" method="post">
+          <div data-role="fieldcontain"> 
+			<label for="login-email">email</label>
+			<input type="text" value="" id="login-email" />
+          </div>
+          
+          <div data-role="fieldcontain">
+            <label for="login-password">password</label>
+            <input type="password" value="" id="login-password" />
+	       </div>
+	       
+			<button type="submit">Log in</button>
+		</form> 
+	</div><!-- /content -->
+	
+</div><!-- /page -->

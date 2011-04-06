@@ -12,6 +12,10 @@ public class Mobile extends Controller {
         render();
     }
 
+    public static void login() {
+    	render();
+    }
+    
     public static void create() {
     	render();
     }
