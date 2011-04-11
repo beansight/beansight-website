@@ -3,18 +3,18 @@
     &{'mobile.insight.title'}
 #{/set}
 
-<div data-role="page" id="page-insight">
+<div data-role="page">
     <div data-role="header">
         <h1>Prediction</h1>
     </div><!-- /header -->
 
     <div data-role="content">
-        <p>Created on <span class="insight-creationDate">${result.get("creationDate")}</span> by <span class="insight-creator">${result.get("creator")}</span></p>
-        <h2><span class="insight-endDate">${result.get("endDate")}</span>, <span class="insight-content">${result.get("content")}</span></h2>
+        <p>Created on <span class="insight-creationDate"></span> by <span class="insight-creator"></span></p>
+        <h2><span class="insight-endDate"></span>, <span class="insight-content"></span></h2>
     </div><!-- /content -->
     
     <div data-role="footer" data-position="fixed" class="ui-bar">
-        <a class="btn-agree  #{if result.get("lastUserVote") != null && result.get("lastUserVote").equals("agree") }ui-btn-active#{/if}"       href="" data-role="button" data-icon="plus" data-insightid="${result.get("uniqueId")}">Agree (<span class="insight-agreeCount">${result.get("agreeCount")}</span>)</a>
-        <a class="btn-disagree  #{if result.get("lastUserVote") != null && result.get("lastUserVote").equals("disagree") }ui-btn-active#{/if}"    href="" data-role="button" data-icon="minus" data-insightid="${result.get("uniqueId")}">Disagree (<span class="insight-disagreeCount">${result.get("disagreeCount")}</span>)</a>    
+        <a class="btn-agree"    href="" data-role="button" data-icon="plus">Agree (<span class="insight-agreeCount"></span>)</a>
+        <a class="btn-disagree" href="" data-role="button" data-icon="minus">Disagree (<span class="insight-disagreeCount"></span>)</a>    
     </div>
 </div><!-- /page -->

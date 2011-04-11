@@ -49,61 +49,43 @@ function onGetMoreInsightsSuccess(data) {
 		.listview('refresh'); 
 }
 
-// Not used anymore, unfortunately
-//function associateInsightClickAction() {
-//	// associate to each one of these insights the click action
-//	$(".insight-link").each(function(index, element) {
-//		// Get the insight info
-//		var content = $(".content", element).html();
-//		var endDate = $(".endDate", element).html();
-//		var uniqueId = $(element).attr("data-uniqueid");
-//		// change the content of the insight page
-//		$(element).click(function() {
-//			$("#page-insight").attr("data-uniqueid", uniqueId);
-//			getInsight(uniqueId);
-//			
-//			$("#insight-endDate").html(endDate);
-//			$("#insight-content").html(content);
-//			removeActiveVoteButton();
-//		});
-//	});
-//}
-
 function removeActiveVoteButton(insightUniqueId) {
-	$('.btn-agree[data-insightid="'+ insightUniqueId +'"]').removeClass("ui-btn-active");
-	$('.btn-disagree[data-insightid="'+ insightUniqueId +'"]').removeClass("ui-btn-active");
+	var $page = 'div[data-insightid="'+ insightUniqueId +'"]';
+	$('.btn-agree', $page).removeClass("ui-btn-active");
+	$('.btn-disagree', $page).removeClass("ui-btn-active");
 }
 
 function setActiveVoteButton(insightUniqueId, voteState) {
 	removeActiveVoteButton(insightUniqueId);
+	
+	var $page = 'div[data-insightid="'+ insightUniqueId +'"]';
 	if (voteState === "agree") {
-		$('.btn-agree[data-insightid="'+ insightUniqueId +'"]').addClass("ui-btn-active");
+		$('.btn-agree', $page).addClass("ui-btn-active");
 	} else if (voteState === "disagree") {
-		$('.btn-disagree[data-insightid="'+ insightUniqueId +'"]').addClass("ui-btn-active");
+		$('.btn-disagree', $page).addClass("ui-btn-active");
 	}
 }
 
-// Second attempt, not used anymore, unfortunately
-///** Load the insight data */
-//function getInsight(uniqueId) {
-//	$.mobile.pageLoading();
-//    $.getJSON(getInsightAction, {insightUniqueId: uniqueId}, onGetInsightSuccess);
-//}
-//
-//function onGetInsightSuccess(data) {
-//	$.mobile.pageLoading( true );
-//	var page = $( '[data-insightid="' + data.uniqueId + '"]');
-//	$(".insight-creator", page).html(data.creator);
-//	$(".insight-content", page).html(data.content);
-//	$(".insight-endDate", page).html(data.endDate);
-//	$(".insight-agreeCount", page).html(data.agreeCount);
-//	$(".insight-disagreeCount", page).html(data.disagreeCount);
-//	$(".insight-creationDate", page).html(data.creationDate);	
-//	
-//	if (data.lastUserVote) {
-//		setActiveVoteButton(data.lastUserVote);
-//	}
-//}
+/** Load the insight data */
+function getInsight(uniqueId) {
+	$.mobile.pageLoading();
+    $.getJSON(getInsightAction, {insightUniqueId: uniqueId}, onGetInsightSuccess);
+}
+
+function onGetInsightSuccess(data) {
+	$.mobile.pageLoading( true );
+	var $page = $( '[data-insightid="' + data.uniqueId + '"]');
+	$(".insight-creator", $page).html(data.creator);
+	$(".insight-content", $page).html(data.content);
+	$(".insight-endDate", $page).html(data.endDate);
+	$(".insight-agreeCount", $page).html(data.agreeCount);
+	$(".insight-disagreeCount", $page).html(data.disagreeCount);
+	$(".insight-creationDate", $page).html(data.creationDate);	
+	
+	if (data.lastUserVote) {
+		setActiveVoteButton(data.uniqueId, data.lastUserVote);
+	}
+}
 
 // Execute scripts after the document creation
 $(document).ready(function() {
@@ -134,4 +116,16 @@ $(document).ready(function() {
 	$("#btn-more").click(function() {
 		getMoreInsights();
 	});
+	
+	$('div[data-role=page]').live('pagecreate', function(event) {
+		// populate the data-insightid with the unique Id of the insight, taken from the URL
+		var $page = $(event.target);
+		var insightId = $page.attr("data-url").split("m/prediction/")[1];
+		$page.attr("data-insightid", insightId);
+		$(".btn-agree", $page).attr("data-insightid", insightId);
+		$(".btn-disagree", $page).attr("data-insightid", insightId);
+		console.log(insightId);
+		getInsight(insightId);
+	});
+
 });

@@ -25,8 +25,7 @@ public class Mobile extends Controller {
 	}
 	
 	public static void insight(String insightUniqueId) {
-		Map<String, Object> result = API.getInsightResult(insightUniqueId);
-		render(result);
+		render();
 	}
 
 	public static void login() {
