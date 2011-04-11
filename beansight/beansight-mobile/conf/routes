@@ -1,3 +1,3 @@
-GET     /m/?                                 Mobile.insights
-GET     /m/login                                 Mobile.login
+GET     /m/?                                Mobile.insights
+GET     /m/login                            Mobile.login
 GET     /m/prediction/{insightUniqueId}     Mobile.insight

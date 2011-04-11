@@ -83,16 +83,10 @@
         <div id="header">
             <div class="contentheader">
                 <!-- LOGO -->
-                #{if play.Play.id.equals("playapps")}
-                <div class="colhead logocol">
+                <div class="colhead logocol" #{if !play.Play.id.equals("playapps")}style="background-color: red;"#{/if}>
                     <h1><a href="/"> Beansight</a></h1>
                 </div>
-                #{/if}
-                #{else}
-                <div class="colhead logocol" style="background-color: red;">
-                    <h1><a href="/"> Beansight</a></h1>
-                </div>
-                #{/else}
+                
                 <!-- FORM SEARCH -->
                 <div class="colhead searchcol">
                 #{searchInput /}
