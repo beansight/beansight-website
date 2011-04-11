@@ -1,7 +1,7 @@
-var INSIGH_TNUMBER_TO_LOAD = 10;
+var INSIGHT_NUMBER_TO_LOAD = 10;
 
 var beansightConf = {};
-beansightConf.from = INSIGH_TNUMBER_TO_LOAD;
+beansightConf.from = INSIGHT_NUMBER_TO_LOAD;
 beansightConf.sort = "incoming";
 
 /** Current user agree an insight */
@@ -25,7 +25,7 @@ function onVoteSuccess(data) {
 
 /** Load the insight list */
 function getInsights() {
-    $.getJSON(getInsightsAction, {sort: beansightConf.sort, number: INSIGH_TNUMBER_TO_LOAD}, onGetInsightsSuccess);
+    $.getJSON(getInsightsAction, {sort: beansightConf.sort, number: INSIGHT_NUMBER_TO_LOAD}, onGetInsightsSuccess);
     $.mobile.pageLoading();
 }
 
@@ -37,8 +37,8 @@ function onGetInsightsSuccess(data) {
 }
 
 function getMoreInsights() {
-    $.getJSON(getInsightsAction, {sort: beansightConf.sort, from: beansightConf.from, number: INSIGH_TNUMBER_TO_LOAD} ,onGetMoreInsightsSuccess);
-    beansightConf.from += INSIGH_TNUMBER_TO_LOAD;
+    $.getJSON(getInsightsAction, {sort: beansightConf.sort, from: beansightConf.from, number: INSIGHT_NUMBER_TO_LOAD} ,onGetMoreInsightsSuccess);
+    beansightConf.from += INSIGHT_NUMBER_TO_LOAD;
 	$.mobile.pageLoading();
 }
 
@@ -109,17 +109,17 @@ function setActiveVoteButton(insightUniqueId, voteState) {
 $(document).ready(function() {
 	
 	$("#filter-upcomming").click(function() {
-		beansightConf.from = INSIGH_TNUMBER_TO_LOAD;
+		beansightConf.from = INSIGHT_NUMBER_TO_LOAD;
 		beansightConf.sort = "incoming";
 		getInsights();
 	});
 	$("#filter-popularity").click(function() {
-		beansightConf.from = INSIGH_TNUMBER_TO_LOAD;
+		beansightConf.from = INSIGHT_NUMBER_TO_LOAD;
 		beansightConf.sort = "trending";		
 		getInsights();
 	})
 	$("#filter-update").click(function() {
-		beansightConf.from = INSIGH_TNUMBER_TO_LOAD;		
+		beansightConf.from = INSIGHT_NUMBER_TO_LOAD;		
 		beansightConf.sort = "updated";		
 		getInsights();
 	});
