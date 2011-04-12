@@ -94,27 +94,34 @@ $(document).ready(function() {
 		beansightConf.from = INSIGHT_NUMBER_TO_LOAD;
 		beansightConf.sort = "incoming";
 		getInsights();
+		return false;
 	});
 	$("#filter-popularity").click(function() {
 		beansightConf.from = INSIGHT_NUMBER_TO_LOAD;
 		beansightConf.sort = "trending";		
 		getInsights();
+		return false;
 	})
 	$("#filter-update").click(function() {
 		beansightConf.from = INSIGHT_NUMBER_TO_LOAD;		
 		beansightConf.sort = "updated";		
 		getInsights();
+		return false;
+	});
+
+	$("#btn-more").click(function() {
+		getMoreInsights();
+		return false;
 	});
 	
 	$(".btn-agree").live('click', function() {
 		agree($(this).attr("data-insightid"));
+		return false;
 	});
+
 	$(".btn-disagree").live('click', function() {
 		disagree($(this).attr("data-insightid"));
-	});
-	
-	$("#btn-more").click(function() {
-		getMoreInsights();
+		return false;
 	});
 	
 	$('div[data-role=page]').live('pagecreate', function(event) {
@@ -127,5 +134,4 @@ $(document).ready(function() {
 		console.log(insightId);
 		getInsight(insightId);
 	});
-
 });
