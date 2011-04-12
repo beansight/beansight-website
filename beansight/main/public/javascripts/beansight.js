@@ -691,7 +691,7 @@ $(document).ready(function() {
 	});
    
     //////////////////////
-    // Insight creation
+	// Create Insight
     //////////////////////
 	$("#insightCreationForm").validate({
 		rules: {
@@ -725,15 +725,16 @@ $(document).ready(function() {
 	        success: function(data) {
 	        	try {
 	        		console.log(data.responseData.language);
-	        		// if this user doesn't speak this language, it's strange.
-	        		if( $('#userWrittingLanguage').html() != data.responseData.language) {
+	        		// if the user doesn't speak this language
+	        		if( $('#userWrittingLanguage').html() != data.responseData.language && $('#userSecondWrittingLanguage').html() != data.responseData.language ) {
 	        			// TODO
-	        			// tell him we detected this insight in this language.
-	        			// ask him if this language is right, and if so, does he speak this language?
-	        			//$('#strangeLanguage').slideDown();
-	        		} 
-	        		$('#insightLang').val(data.responseData.language);
-	        		$('#insightLangConfidence').val(data.responseData.confidence);
+	        			// Tell him we detected the insight in a language he doesn't speak
+	        			// but for now still use his primary language as the insight language
+	        			console.log("User doesn't speak this language");
+	        		} else {
+	        			$('#insightLang').val(data.responseData.language);
+	        			$('#insightLangConfidence').val(data.responseData.confidence);
+	        		}
 	        	} catch(e) {
 	        		console.log('Cannot detect language');
 	        	}

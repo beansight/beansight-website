@@ -66,22 +66,10 @@
             </div>
         </div>
 
-
-        *{ Old code for language selection
-        <div class="line-form">
-            <p class="label">&{'createInsightLang'}</p>
-            <div class="item-radio">
-                <label for="radlang-fr" class="radio-fr">Français</label>
-                <input type="radio" name="lang" value="fr" id="radlang-fr"/>
-                <label for="radlang-en" class="radio-en current">English</label>
-                <input type="radio" name="lang" value="en" id="radlang-en" checked="checked"/>
-            </div>
-        </div>
-        }*
-
-        <input type="hidden" name="lang" value="en" id="insightLang"/>
+        <input type="hidden" name="lang" value="${controllers.CurrentUser.getCurrentUser().writtingLanguage}" id="insightLang"/>
         <input type="hidden" name="langConfidence" value="0" id="insightLangConfidence"/>
         <span style="display:none" id="userWrittingLanguage">${controllers.CurrentUser.getCurrentUser().writtingLanguage}</span>
+        <span style="display:none" id="userSecondWrittingLanguage">${controllers.CurrentUser.getCurrentUser().secondWrittingLanguage}</span>
         
 
         <div class="item-submit line-form">
