@@ -365,6 +365,18 @@ public class Admin extends Controller {
 		topic.save();
 		topic.delete();
 	}
+	
+	/**
+	 * Set a fake validationScore for this insight, this score will be used for user score computation
+	 * @param insightUniqueId
+	 * @param fakeValidationScore
+	 */
+	public static void setFakeValidationScore(String insightUniqueId, Double fakeValidationScore) {
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
+		insight.fakeValidationScore = fakeValidationScore;
+		insight.save();
+		Application.showInsight(insightUniqueId);
+	}
 
 
 }

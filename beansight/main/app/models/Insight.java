@@ -137,7 +137,10 @@ public class Insight extends Model {
 	/** True ? False ? Can't say ? Number between 0 and 1 representing the decided validation of this insight. */
 	public double validationScore;
 
-	/** Probability this insight has to occure before its endDate */
+	/** Fake validationScore entered by an admin */
+	public Double fakeValidationScore;
+	
+	/** Probability this insight has to occur before its endDate */
 	public double occurenceScore;
 	
 	/**
@@ -333,6 +336,21 @@ public class Insight extends Model {
 		return comment;
 	}
 
+	/**
+	 * Get the fake validationScore of this insight if this one is set, the real one if not.
+	 * @return validationScore to consider
+	 */
+	public double getValidationScore() {
+		if(fakeValidationScore != null) {
+			return fakeValidationScore.doubleValue();
+		}
+		return validationScore;
+	}
+	
+	public double getOriginalValidationScore() {
+		return this.validationScore;
+	}
+	
 	/**
 	 * get the list of the n last active votes for this Insight
 	 * 
