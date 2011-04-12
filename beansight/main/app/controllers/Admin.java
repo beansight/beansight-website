@@ -20,6 +20,7 @@ import jobs.InsightTrendsCalculateJob;
 import jobs.InsightValidationAndUserScoreJob;
 import models.Comment;
 import models.Insight;
+import models.Language;
 import models.Tag;
 import models.Topic;
 import models.User;
@@ -377,6 +378,12 @@ public class Admin extends Controller {
 		insight.save();
 		Application.showInsight(insightUniqueId);
 	}
-
+	
+	public static void setInsightLanguage(String insightUniqueId, String lang) {
+		Insight insight = Insight.findByUniqueId(insightUniqueId);
+		insight.lang = Language.findByLabelOrCreate(lang);
+		insight.save();
+		Application.showInsight(insightUniqueId);
+	}
 
 }

@@ -105,7 +105,13 @@
         #{isConnected}
         #{secure.check 'admin'}
         <div class="admin">
-            <p>detected language: ${insight.lang}</p>
+            <p>
+                #{form @Admin.setInsightLanguage(), autocomplete:'off'}
+                <label for="lang">Set Language :</label> <input type="text" name="lang" id="lang" value="${insight.lang}">
+                <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}">
+                <input type="submit">
+                #{/form}
+            </p>            
             <p>
                 #{form @Admin.setFakeValidationScore(), autocomplete:'off'}
                 <label for="fakeValidationScore">Fake ValidationScore :</label> <input type="number" name="fakeValidationScore" id="fakeValidationScore" value="${insight.fakeValidationScore}"> (ex: "0.7", blank for null)
