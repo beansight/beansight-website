@@ -106,7 +106,6 @@
         #{secure.check 'admin'}
         <div class="admin">
             <p>detected language: ${insight.lang}</p>
-            <p>ValidationScore : ${insight.getOriginalValidationScore()}</p>
             <p>
                 #{form @Admin.setFakeValidationScore(), autocomplete:'off'}
                 <label for="fakeValidationScore">Fake ValidationScore :</label> <input type="number" name="fakeValidationScore" id="fakeValidationScore" value="${insight.fakeValidationScore}"> (ex: "0.7", blank for null)

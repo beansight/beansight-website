@@ -347,10 +347,6 @@ public class Insight extends Model {
 		return validationScore;
 	}
 	
-	public double getOriginalValidationScore() {
-		return this.validationScore;
-	}
-	
 	/**
 	 * get the list of the n last active votes for this Insight
 	 * 
