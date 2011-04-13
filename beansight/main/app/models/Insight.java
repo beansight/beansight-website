@@ -415,6 +415,16 @@ public class Insight extends Model {
 						).bind("insightId", this.id).fetch();
 	}
 	
+//	public List<InsightTrend> getInsightTrends(Date endDate) {
+//		return InsightTrend.find(
+//				"select u from InsightTrend u "
+//						+ "where u.insight.id=:insightId "
+//						+ "and u.trendDate <= :endDate "
+//						+ "order by u.trendDate ASC")
+//						.bind("insightId", this.id)
+//						.bind("endDate", endDate).fetch();
+//	}
+	
 	/**
 	 * validate this insight : compute its final probability of occurrence (score) and set "validated" to true 
 	 */
@@ -571,7 +581,7 @@ public class Insight extends Model {
 				}
 				
 				score = score * indexConfidence * popularity;
-				Logger.info(userToProcess.userName + " : " + score);
+				Logger.debug(userToProcess.userName + " : " + score);
 			}
 			
 			// save computed score in UserInsightScore
@@ -801,6 +811,15 @@ public class Insight extends Model {
 	 */
 	public static List<Insight> findInsightsToValidate(int page, int number) {
 		List<Insight> insights = Insight.find("hidden is false and validated is false and endDate < ?", new DateTime().minusHours(VALIDATION_HOUR_NUMBER).toDate()  ).fetch(page, number);
+//		
+//		List<Insight> insights = null;
+//		if (period.equals(PeriodEnum.INFINITE)) {
+//			insights = Insight.find("hidden is false and endDate < :to").bind("to", new DateTime(date).minusHours(VALIDATION_HOUR_NUMBER).toDate()).fetch(page, number);
+//		} else {
+//			Date from = new Date(date.getTime() - period.getTimePeriod());
+//			insights = Insight.find("hidden is false and endDate between :from and :to").bind("from", from).bind("to", new DateTime(date).minusHours(VALIDATION_HOUR_NUMBER).toDate()).fetch(page, number);
+//		}
+		
 		return insights;
 	}
 	

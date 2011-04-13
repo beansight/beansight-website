@@ -28,11 +28,13 @@ import models.Insight;
 import models.Insight.InsightResult;
 import models.InsightTrend;
 import models.Language;
+import models.PeriodEnum;
 import models.Tag;
 import models.Topic;
 import models.Trend;
 import models.User;
 import models.User.UserResult;
+import models.UserCategoryScore;
 import models.UserInsightsFilter;
 import models.Vote;
 import models.Vote.State;
@@ -440,10 +442,17 @@ public class Application extends Controller {
 			currentUser.visitExpert(user, userClientInfo);
 		}
 
+		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
+				"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period " +
+				"order by normalizedScore DESC")
+				.bind("user", user)
+				.bind("scoreDate", new DateMidnight(new Date()).toDate())
+				.bind("period", PeriodEnum.THREE_MONTHS)
+				.fetch();
 //		List<Insight> lastInsights = user.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
 		
 //		render(user, lastInsights, currentUserProfilePage);
-		render(user, currentUserProfilePage);
+		render(user, categoryScores, currentUserProfilePage);
 	}
 
 	/**

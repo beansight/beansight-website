@@ -39,6 +39,7 @@ import notifiers.Mails;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
+import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
@@ -134,11 +135,10 @@ public class User extends Model {
 	/** the last time this user's score has been computed */
 	public Date lastScoreUpdate;
 
-	/** list of scores of this users in all the categories */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@OrderBy("normalizedScore DESC")
-	public List<UserCategoryScore> categoryScores;
-
+	@OrderBy("scoreDate DESC")
+	public List<UserScoreHistoric> userScoreHistorizedList;
+	
 	/** list of insights created by this user */
 	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
 	public List<Insight> createdInsights;
@@ -224,7 +224,7 @@ public class User extends Model {
 		this.shared = new ArrayList<InsightShare>();
 		
 		this.score = 0;
-		this.categoryScores = new ArrayList<UserCategoryScore>();
+		this.userScoreHistorizedList = new ArrayList<UserScoreHistoric>();
 		
 		this.followMail = true;
 		this.messageMail = true;
@@ -631,18 +631,21 @@ public class User extends Model {
 		user.save();
 	}
 
-	public void computeCategoryScores() {
+	public void computeCategoryScores(Date computeDate, PeriodEnum period) {
 		for (Category category : Category.getAllCategories()) {
-			this.computeCategoryScore(category);
+			this.computeCategoryScore(category, computeDate, period);
 		}
 	}
 
 	/**
 	 * compute the global score for this user
 	 */
-	public void computeUserScore() {
+	public void computeUserScore(Date computeDate, PeriodEnum period) {
+//		UserScoreHistorized userScoreHistorized = UserScoreHistorized.find("scoreDate=:scoreDate and user=:user").bind("scoreDate", computeDate).bind("user", this).first();
+//		List<UserCategoryScore> categoryScores = userScoreHistorized.categoryScores;
+		List<UserCategoryScore> categoryScores = UserCategoryScore.find("historic.scoreDate=:scoreDate and historic.user=:user and period=:period").bind("scoreDate", computeDate).bind("user", this).bind("period", period).fetch();
 		double score = 0;
-		for(UserCategoryScore catScore : this.categoryScores) {
+		for(UserCategoryScore catScore : categoryScores) {
 			score += catScore.score;
 		}
 		this.score = score;
@@ -654,28 +657,49 @@ public class User extends Model {
 	 * Computes the score of this user is the given category (based on the score this user has on all insights in this category)
 	 * @param category
 	 */
-	public void computeCategoryScore(Category category) {
+	public void computeCategoryScore(Category category, Date computeDate, PeriodEnum period) {
+		UserScoreHistoric userScoreHistorized = UserScoreHistoric.find("scoreDate=:scoreDate and user=:user").bind("scoreDate", computeDate).bind("user", this).first();
+//		UserScoreHistorized userScoreHistorized = UserScoreHistorized.find("select h from UserScoreHistorized h " +
+//				"join h.categoryScores cs " +
+//				"where cs.period = :period and h.scoreDate=:scoreDate and h.user=:user")
+//				.bind("period", period).bind("scoreDate", computeDate).bind("user", this).first();
+		if (userScoreHistorized==null) {
+			userScoreHistorized = new UserScoreHistoric(computeDate, this);
+			userScoreHistorized.save();
+		}
+//		List<UserCategoryScore> categoryScores = userScoreHistorized.categoryScores;
+		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
+				"where cs.historic.scoreDate = :scoreDate and cs.historic.user = :user and cs.period = :period")
+				.bind("scoreDate", computeDate)
+				.bind("user", this)
+				.bind("period", period).fetch();
+		
 		UserCategoryScore catScore = null;
-
+		
 		// look if this user has a score for this category
 		boolean newCategory = true;
-		for (UserCategoryScore userCatScore : this.categoryScores) {
+		for (UserCategoryScore userCatScore : categoryScores) {
 			if (userCatScore.category == category) {
 				newCategory = false;
 				catScore = userCatScore;
 			}
 		}
 		if (newCategory) { // if not, create the link between user and category
-			catScore = new UserCategoryScore(this, category);
-			this.categoryScores.add(catScore);
+			catScore = new UserCategoryScore(this, category, userScoreHistorized, period);
 		}
 
 		// compute the score for this category :
 		double score = 0;
 		List<UserInsightScore> insightScores;
+		// select all userInsightScore that are in the date range for the score computation
+		Date fromDate = new Date(computeDate.getTime() - period.getTimePeriod());
 		insightScores = UserInsightScore.find("select i from UserInsightScore i "
-				+"where i.user=:usertraite "
-				+ "and i.insight.category=:cattraite ").bind("usertraite",this).bind("cattraite", category).fetch();
+				+"where i.user=:usertraite and i.insight.endDate between :fromDate and :toDate "
+				+ "and i.insight.category=:cattraite ")
+				.bind("fromDate",fromDate)
+				.bind("toDate",computeDate)
+				.bind("usertraite",this)
+				.bind("cattraite", category).fetch();
 		for(UserInsightScore insightScore : insightScores){
 			score += insightScore.score;
 		}
@@ -696,6 +720,7 @@ public class User extends Model {
 		
 		catScore.computeNormalizedScore();
 
+		userScoreHistorized.save();
 		catScore.save();
 		this.save();
 	}
@@ -709,13 +734,12 @@ public class User extends Model {
 	public InsightResult getLastInsights(int from, int number, UserInsightsFilter filter) {
 		InsightResult result = new InsightResult();
 		result.results = Vote.find(
-				"select distinct i from Insight i " 
-				+ "join i.votes v "
-				+ "join v.user u "
-				+ "where v.status = :status "
+				"select i from Insight i " 
+				+ filter.generateJPAQueryFromClause()
+				+ "where "
 				+ filter.generateJPAQueryWhereClause()
-				+ " order by v.creationDate DESC").bind("status",
-				Status.ACTIVE).from(from).fetch(number);
+				+ filter.generateJPAQueryOrderByClause())
+				.from(from).fetch(number);
 		return result;
 	}
 	
@@ -972,7 +996,14 @@ public class User extends Model {
 	/**
 	 * @return the score of this user for this insight
 	 */
+//	public UserInsightScore getInsightScore(Insight insight, Date computeDate, PeriodEnum period) {
 	public UserInsightScore getInsightScore(Insight insight) {
+//		return UserInsightScore.find("select i from UserInsightScore i " +
+//				"where i.historic.scoreDate = :computeDate and i.insight = :insight and i.historic.user=:usertraite and i.period = :period")
+//				.bind("computeDate", computeDate)
+//				.bind("insight", insight)
+//				.bind("usertraite",this)
+//				.bind("period", period).first();
 		return UserInsightScore.find("select i from UserInsightScore i "
 				+"where i.user=:usertraite "
 				+ "and i.insight=:insighttraite").bind("usertraite",this).bind("insighttraite", insight).first();
@@ -982,7 +1013,7 @@ public class User extends Model {
 	 * @return list of users which score needs to be updated because it changed since the given "since" date 
 	 */
 	public static List<User> findUsersToUpdateScore(Date since) {
-		return User.find("select i.user from UserInsightScore i where i.lastUpdate > ?", since).fetch();
+		return User.find("select distinct i.user from UserInsightScore i where i.lastUpdate > ?", since).fetch();
 	}
 	
     public static String createNewAvailableUserName(String firstName) {
@@ -1095,4 +1126,29 @@ public class User extends Model {
 		return userCounts2.subList(0, Math.min(userCounts2.size(), number));
 	}
 	
+	public List<UserCategoryScore> getCategoryScores(Date date, PeriodEnum period) {
+		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
+			"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period")
+			.bind("user", this)
+			.bind("scoreDate", date)
+			.bind("period", period)
+			.fetch();
+		return categoryScores;
+//		UserScoreHistorized historizedCategoryScores = UserScoreHistorized.find("scoreDate=:scoreDate and user=:user").bind("scoreDate", new DateMidnight().toDate()).bind("user", this).first();
+//		if ( historizedCategoryScores!=null && historizedCategoryScores.categoryScores !=null) {
+//			return historizedCategoryScores.categoryScores;
+//		}
+//		return new ArrayList<UserCategoryScore>();
+	}
+
+	
+	public List<Object[]> getScoreTimelineByCategory(CategoryEnum categoryEnum, PeriodEnum period) {
+		List<Object[]> categoryScores = UserCategoryScore.find("select cs.historic.scoreDate, cs.normalizedScore from UserCategoryScore cs " +
+			"where cs.historic.user = :user and cs.period = :period and cs.category.id = :catId")
+			.bind("user", this)
+			.bind("period", period)
+			.bind("catId", categoryEnum.getId())
+			.fetch();
+		return categoryScores;
+	}
 }

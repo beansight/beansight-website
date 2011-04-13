@@ -15,26 +15,31 @@ import play.db.jpa.Model;
 @Entity
 public class UserCategoryScore extends Model {
 
+	@Enumerated(EnumType.STRING)
+	public PeriodEnum period;
+	
 	/** Score of the user in the pointed category */
 	public double score;
 
 	/** normalized score of this user in this category (between 0 and 1) */
 	public double normalizedScore;
-
+	
 	@ManyToOne
-	public User user;
-
+	public UserScoreHistoric historic;
+	
 	@ManyToOne
 	public Category category;
 
 	/** Date of the last update of the score */
 	public Date lastupdate;
 
-	public UserCategoryScore(User user, Category category) {
-		this.user = user;
+	public UserCategoryScore(User user, Category category, UserScoreHistoric userScoreHisto, PeriodEnum period) {
 		this.category = category;
 		this.score = 0;
 		this.normalizedScore = 0;
+		this.historic = userScoreHisto;
+		this.historic.categoryScores.add(this);
+		this.period = period;
 	}
 
 	public void computeNormalizedScore() {

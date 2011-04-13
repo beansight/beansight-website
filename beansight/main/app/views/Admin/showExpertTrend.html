@@ -1,0 +1,183 @@
+ #{extends 'main.html' /}
+#{set title:'Mesurbation' /}
+
+<h2>Mesurbation</h2>
+
+#{set 'moreStyles'}
+<style type="text/css">
+.analytics-graph {width: 450px; height: 240px; margin-bottom: 50px;}
+
+h3 {margin: 20px 0; font-weight: bold;}
+
+.analyticsbloc {float:left; width:300px;}
+.analyticsbloc.large {width:470px;}
+</style>
+#{/set}
+
+#{set 'moreScripts'}
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {'packages':['annotatedtimeline', 'table']});
+      
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Celebrities');
+        data.addRows([
+        #{list items:categoryScoresCelebrities, as:'value'} 
+          [new Date(${value[0].getTime()}), ${value[1]*100}]#{if !value_isLast},#{/if}
+        #{/list}
+        ]);
+
+        var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('celebritiesScoreChart'));
+        chart.draw(data, {displayAnnotations: true});
+      }
+      
+        google.setOnLoadCallback(drawChart1);
+        function drawChart1() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('date', 'Date');
+          data.addColumn('number', 'Economics');
+          data.addRows([
+          #{list items:categoryScoresEconomics, as:'value'} 
+            [new Date(${value[0].getTime()}), ${value[1]*100}]#{if !value_isLast},#{/if}
+          #{/list}
+          ]);
+
+          var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('economicsScoreChart'));
+          chart.draw(data, {displayAnnotations: true});
+        }
+
+        
+       google.setOnLoadCallback(drawChart2);
+       function drawChart2() {
+         var data = new google.visualization.DataTable();
+         data.addColumn('date', 'Date');
+         data.addColumn('number', 'Entertainement');
+         data.addRows([
+         #{list items:categoryScoresEntertainement, as:'value'} 
+           [new Date(${value[0].getTime()}), ${value[1]*100}]#{if !value_isLast},#{/if}
+         #{/list}
+         ]);
+
+         var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('entertainementScoreChart'));
+         chart.draw(data, {displayAnnotations: true});
+       }
+       
+       google.setOnLoadCallback(drawChart3);
+       function drawChart3() {
+         var data = new google.visualization.DataTable();
+         data.addColumn('date', 'Date');
+         data.addColumn('number', 'Fun');
+         data.addRows([
+         #{list items:categoryScoresFun, as:'value'} 
+           [new Date(${value[0].getTime()}), ${value[1]*100}]#{if !value_isLast},#{/if}
+         #{/list}
+         ]);
+
+         var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('funScoreChart'));
+         chart.draw(data, {displayAnnotations: true});
+       }     
+       
+    google.setOnLoadCallback(drawChart4);
+    function drawChart4() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', 'Date');
+      data.addColumn('number', 'Politics');
+      data.addRows([
+      #{list items:categoryScoresPolitics, as:'value'} 
+        [new Date(${value[0].getTime()}), ${value[1]*100}]#{if !value_isLast},#{/if}
+      #{/list}
+      ]);
+
+      var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('politicsScoreChart'));
+      chart.draw(data, {displayAnnotations: true});
+    }   
+
+    google.setOnLoadCallback(drawChart5);
+    function drawChart5() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', 'Date');
+      data.addColumn('number', 'Society');
+      data.addRows([
+      #{list items:categoryScoresSociety, as:'value'} 
+        [new Date(${value[0].getTime()}), ${value[1]*100}]#{if !value_isLast},#{/if}
+      #{/list}
+      ]);
+
+      var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('societyScoreChart'));
+      chart.draw(data, {displayAnnotations: true});
+    } 
+    
+    google.setOnLoadCallback(drawChart6);
+    function drawChart6() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', 'Date');
+      data.addColumn('number', 'Sport');
+      data.addRows([
+      #{list items:categoryScoresSport, as:'value'} 
+        [new Date(${value[0].getTime()}), ${value[1]*100}]#{if !value_isLast},#{/if}
+      #{/list}
+      ]);
+
+      var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('sportScoreChart'));
+      chart.draw(data, {displayAnnotations: true});
+    }   
+      
+      google.setOnLoadCallback(drawChart7);
+      function drawChart7() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Technology');
+        data.addRows([
+        #{list items:categoryScoresTechnology, as:'value'} 
+          [new Date(${value[0].getTime()}), ${value[1]*100}]#{if !value_isLast},#{/if}
+        #{/list}
+        ]);
+
+        var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('technologyScoreChart'));
+        chart.draw(data, {displayAnnotations: true});
+      }         
+    </script>
+#{/set}
+
+<div class="analyticsbloc large">
+    <h3></h3>
+    <div id="celebritiesScoreChart" class="analytics-graph"></div>
+</div>   
+
+<div class="analyticsbloc large">
+    <h3></h3>
+    <div id="economicsScoreChart" class="analytics-graph"></div>
+</div>  
+
+<div class="analyticsbloc large">
+    <h3></h3>
+    <div id="entertainementScoreChart" class="analytics-graph"></div>
+</div>
+
+<div class="analyticsbloc large">
+    <h3></h3>
+    <div id="funScoreChart" class="analytics-graph"></div>
+</div>  
+
+<div class="analyticsbloc large">
+    <h3></h3>
+    <div id="politicsScoreChart" class="analytics-graph"></div>
+</div>  
+
+<div class="analyticsbloc large">
+    <h3></h3>
+    <div id="societyScoreChart" class="analytics-graph"></div>
+</div> 
+
+<div class="analyticsbloc large">
+    <h3></h3>
+    <div id="sportScoreChart" class="analytics-graph"></div>
+</div> 
+
+<div class="analyticsbloc large">
+    <h3></h3>
+    <div id="technologyScoreChart" class="analytics-graph"></div>
+</div> 

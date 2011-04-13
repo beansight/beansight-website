@@ -10,17 +10,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import jobs.AnalyticsJob;
-import jobs.InsightGraphTrendsJob;
-import jobs.InsightGraphTrendsJobTask;
 import jobs.InsightTrendsCalculateJob;
-import jobs.InsightValidationAndUserScoreJob;
+import jobs.scoring.BuildInsightValidationAndUserScoreJob;
+import jobs.scoring.InsightValidationJob;
+import models.CategoryEnum;
 import models.Comment;
 import models.Insight;
 import models.Language;
+import models.PeriodEnum;
 import models.Tag;
 import models.Topic;
 import models.User;
@@ -30,13 +29,13 @@ import models.analytics.DailyTotalVote;
 import models.analytics.UserInsightVisit;
 import models.analytics.UserListInsightsVisit;
 
-import org.apache.commons.collections.buffer.BoundedFifoBuffer;
 import org.apache.commons.collections.buffer.CircularFifoBuffer;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
 import play.Play;
+import play.data.binding.As;
 import play.modules.search.Search;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -219,7 +218,7 @@ public class Admin extends Controller {
 	
 	public static void doInsightValidationAndUserScoreJob() {
 		try {
-			new InsightValidationAndUserScoreJob().doJob();
+			new InsightValidationJob().doJob();
 		} catch (Exception e) {
 			renderText("doInsightValidationAndUserScoreJob finished with error : " + e.getMessage());
 			throw new RuntimeException(e) ;
@@ -251,50 +250,34 @@ public class Admin extends Controller {
 		render(users, delete);
 	}
 	
-	
-	public static void rebuildAllTrends(int period, int from, int to) {
-		List<Insight> list = Insight.find("id between :from and :to").bind("from", from).bind("to", to).fetch();
-		for (Insight i : list) {
-			i.buildTrends(new DateTime(i.creationDate), null, period);
-		}
-	}
-	
-	private static Long BLOC = 8l;
-	
-	public static void rebuildTrends(Long from, Long to) {
-		System.out.println("rebuild");
-		if (from == null) {
-			from = 0l;
-		}
-		if (to == null) {
-			to = BLOC;
-		}
-		
-		InsightGraphTrendsJobTask job = new InsightGraphTrendsJobTask(from, to);
+	public static void buildScores (@As("yyyy-MM-dd") Date fromDate, @As("yyyy-MM-dd") Date toDate) {
 		try {
-			job.now().get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
+			new BuildInsightValidationAndUserScoreJob(fromDate, toDate).doJob();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		long count = Insight.count();
-		if (count > from) {
-			rebuildTrends(to + 1, to + BLOC);
-		}
-		
-		renderText("ok");
 	}
 	
-	public static void updateTrends() {
-	    if(request.isNew) {
-	        Future task = new InsightGraphTrendsJob().now();
-	        request.args.put("task", task);
-	        waitFor(task);
-	    }
-	    renderText("ok");
+
+	public static void showExpertTrend(String username) {
+		User user = User.findByUserName(username);
+		List<Object[]> categoryScoresCelebrities = user.getScoreTimelineByCategory(CategoryEnum.CELEBRITIES, PeriodEnum.THREE_MONTHS);
+		List<Object[]> categoryScoresEconomics = user.getScoreTimelineByCategory(CategoryEnum.ECONOMICS, PeriodEnum.THREE_MONTHS);
+		List<Object[]> categoryScoresEntertainement = user.getScoreTimelineByCategory(CategoryEnum.ENTERTAINEMENT, PeriodEnum.THREE_MONTHS);
+		List<Object[]> categoryScoresFun = user.getScoreTimelineByCategory(CategoryEnum.FUN, PeriodEnum.THREE_MONTHS);
+		List<Object[]> categoryScoresPolitics = user.getScoreTimelineByCategory(CategoryEnum.POLITICS, PeriodEnum.THREE_MONTHS);
+		List<Object[]> categoryScoresSociety = user.getScoreTimelineByCategory(CategoryEnum.SOCIETY, PeriodEnum.THREE_MONTHS);
+		List<Object[]> categoryScoresSport = user.getScoreTimelineByCategory(CategoryEnum.SPORT, PeriodEnum.THREE_MONTHS);
+		List<Object[]> categoryScoresTechnology = user.getScoreTimelineByCategory(CategoryEnum.TECHNOLOGY, PeriodEnum.THREE_MONTHS);
+		
+		
+		
+		render(categoryScoresCelebrities, categoryScoresEconomics, 
+				categoryScoresEntertainement, categoryScoresFun, 
+				categoryScoresPolitics, categoryScoresSociety, 
+				categoryScoresSport, categoryScoresTechnology);
 	}
+	
 	
 	public static void updateInsightTrend(String uniqueId) {
 		Insight i = Insight.findByUniqueId(uniqueId);

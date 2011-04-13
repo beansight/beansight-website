@@ -1,7 +1,10 @@
 package unit;
 
+import java.util.Date;
+
 import models.Category;
 import models.Insight;
+import models.PeriodEnum;
 import models.User;
 import models.UserCategoryScore;
 import models.UserInsightScore;
@@ -9,6 +12,7 @@ import models.Vote;
 import models.Vote.State;
 import models.Vote.Status;
 
+import org.joda.time.DateMidnight;
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +51,8 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void voterScores() {
+		Date date = new DateMidnight(new Date()).toDate();
+		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
     	i.computeVoterScores();
@@ -77,6 +83,8 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void voterScoresExact() {
+		Date date = new DateMidnight(new Date()).toDate();
+		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
     	i.computeVoterScores();
@@ -100,13 +108,15 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void userCategoryScore() {
+		Date date = new DateMidnight(new Date()).toDate();
+		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
     	i.computeVoterScores();
     	
     	User steren = User.findByUserName("Steren");
-    	steren.computeCategoryScores();
-		for(UserCategoryScore catScore : steren.categoryScores) {
+    	steren.computeCategoryScores(date, PeriodEnum.THREE_MONTHS);
+		for(UserCategoryScore catScore : steren.getCategoryScores(date, PeriodEnum.THREE_MONTHS)) {
 			if(catScore.category.equals(i.category)) {
 				assertTrue("User should gain point in the category he answered well", catScore.score > 0);
 			} else {
@@ -117,13 +127,15 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void userGlobalScore() {
+		Date date = new DateMidnight(new Date()).toDate();
+		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
     	i.computeVoterScores();
     	
     	User steren = User.findByUserName("Steren");
-    	steren.computeCategoryScores();
-    	steren.computeUserScore();
+    	steren.computeCategoryScores(date, PeriodEnum.THREE_MONTHS);
+    	steren.computeUserScore(date, PeriodEnum.THREE_MONTHS);
     	
     	assertTrue("User voted well, we should have a positive score", steren.score > 0);
 	}

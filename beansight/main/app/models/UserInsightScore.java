@@ -20,6 +20,7 @@ public class UserInsightScore extends Model {
 	@ManyToOne
 	public User user;
 	
+	
 	@ManyToOne
 	public Insight insight;
 
