@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.ImageHelper;
+import helpers.InSitemap;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -85,7 +86,6 @@ public class Application extends Controller {
 	public static final double INSIGHT_VALIDATED_FALSE_MAXVAL = 0.4;
 	
 	public static final String APPLICATION_ID = "web-desktop";
-	
     /**
      * Make sure the language is the one the user has chosen.
      */
@@ -186,6 +186,7 @@ public class Application extends Controller {
 		return NUMBER_INSIGHTS_INSIGHTPAGE_NOTLOGGED;
 	}
 	
+	@InSitemap(changefreq="always", priority=1)
 	public static void insights(String sortBy, long cat, String filterVote, String topic, Boolean closed) {
 		if (filterVote == null || filterVote.trim().equals("")) {
 			filterVote = "all";
@@ -944,14 +945,16 @@ public class Application extends Controller {
 		render(tags);
 	}
 	
+	@InSitemap(changefreq="yearly", priority=0.1)
 	public static void privacyPolicy() {
 		render();
 	}
 	
+	@InSitemap(changefreq="yearly", priority=0.1)	
 	public static void termsOfUse() {
 		render();
 	}
-	
+	@InSitemap(changefreq="monthly", priority=0.8)	
 	public static void FAQ() {
 		render();
 	}
