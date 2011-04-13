@@ -14,7 +14,6 @@ import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
 
-@Every("2h")
 public class ComputeCategoryAndUserScoreHistoJob extends Job {
 
 	private Date computeDate = null;

@@ -5,16 +5,11 @@ import java.util.List;
 
 import models.Insight;
 import models.PeriodEnum;
-import models.User;
-
-import org.joda.time.DateMidnight;
-import org.joda.time.DateTime;
-
 import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
 
-@Every("2min")
+@Every("2h")
 public class InsightValidationJob extends Job {
 
 	public static final int INSIGHT_NUMBER_TO_PROCESS = 10;
@@ -27,6 +22,9 @@ public class InsightValidationJob extends Job {
 	private int page = 1;
 	public BuildInsightValidationAndUserScoreJob parentJob;
 	
+	/**
+	 * default constructor : runs the job only to validate insights
+	 */
 	public InsightValidationJob() {
 		this.computeDate = null;
 		this.period = null;
@@ -43,7 +41,7 @@ public class InsightValidationJob extends Job {
 	
     @Override
     public void doJob() throws Exception {
-    	Logger.debug("InsightValidationJob begin");
+    	Logger.info("InsightValidationJob begin");
     	Logger.debug("computeDate=%s", computeDate);
 
     	// Validate Insights and compute score of voters
@@ -54,6 +52,7 @@ public class InsightValidationJob extends Job {
     	// no more insight to validate and compute voter scores
     	// then start to compute category and user scores
     	if (insights.isEmpty()) {
+    		Logger.info("InsightValidationJob end");
     		if (runScoreJob) {
     			new ComputeCategoryAndUserScoreHistoJob(computeDate, 1, parentJob).now();
     			return;
@@ -75,7 +74,5 @@ public class InsightValidationJob extends Job {
 		// process next page
 		this.now();
 		
-        Logger.info("InsightValidationJob end");
-        
     }
 }

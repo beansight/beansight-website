@@ -28,6 +28,16 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
 	private Date fromDate = null;
 	private Date toDate = null;
 	
+	/**
+	 * default constructor : runs the job for the previous day
+	 * @param fromDate
+	 * @param toDate
+	 */
+	public BuildInsightValidationAndUserScoreJob() {
+		this.fromDate = new DateMidnight().minusDays(1).toDate();
+		this.toDate =  new DateMidnight().minusDays(1).toDate();
+	}
+	
 	public BuildInsightValidationAndUserScoreJob(Date fromDate, Date toDate) {
 		this.fromDate = fromDate;
 		this.toDate = toDate;
@@ -41,7 +51,7 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
     public void doJob() throws Exception {
     	Logger.info("BuildInsightValidationAndUserScoreJob begin");
     	
-    	if (fromDate.before(toDate)) {
+    	if (fromDate.before(new Date(toDate.getTime() + 24l*60l*60l*1000l))) {
 	    	Logger.info("********************");
 	    	Logger.info("date=" + fromDate);
 	    	Logger.info("********************");
