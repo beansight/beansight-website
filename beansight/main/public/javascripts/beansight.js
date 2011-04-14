@@ -521,6 +521,11 @@ $(document).ready(function() {
 	// User Options
 	//////////////////////
     $('#log-bean').click(function(e) {
+    	// This is a fix for the MS IE7 z-index bug 
+    	if ($.browser.msie  && parseInt($.browser.version) < 8) {
+    		window.location.href = "/login";
+    	}
+    	
         if($('#log-bean').hasClass('opened')){
             $('#log-bean').removeClass('opened');
             $('#boxlog-bean').slideUp(500);
