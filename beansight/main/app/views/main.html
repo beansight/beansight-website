@@ -7,9 +7,8 @@
     <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/style.css' /}" />
 	<link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css' /}">
 	#{get 'moreStyles' /}  
-	         
-	<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.ico'}">
-	<link rel="apple-touch-icon" href="@{'/public/images/beansight_icon.jpg'}" />
+
+	#{favicon /}
 	
 	<meta property="og:title"      content="#{get 'title' /} - Beansight" />
     <meta property="og:site_name"  content="Beansight" />
