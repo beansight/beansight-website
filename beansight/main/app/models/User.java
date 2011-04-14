@@ -130,7 +130,7 @@ public class User extends Model {
 
 	/** the global score for this user */
 	@Field
-	public double score;
+	public Double score;
 	
 	/** the last time this user's score has been computed */
 	public Date lastScoreUpdate;
@@ -223,7 +223,7 @@ public class User extends Model {
 		
 		this.shared = new ArrayList<InsightShare>();
 		
-		this.score = 0;
+		this.score = null;
 		this.userScoreHistorizedList = new ArrayList<UserScoreHistoric>();
 		
 		this.followMail = true;
@@ -248,7 +248,7 @@ public class User extends Model {
 	 * Return the Best users (comparing their scores)
 	 */
 	public static List<User> findBest(int from, int number) {
-		return User.find("order by score DESC").from( from ).fetch( number );
+		return User.find("score is not null order by score DESC").from( from ).fetch( number );
 	}
 
 	public void setUserName(String userName) {
@@ -644,9 +644,16 @@ public class User extends Model {
 //		UserScoreHistorized userScoreHistorized = UserScoreHistorized.find("scoreDate=:scoreDate and user=:user").bind("scoreDate", computeDate).bind("user", this).first();
 //		List<UserCategoryScore> categoryScores = userScoreHistorized.categoryScores;
 		List<UserCategoryScore> categoryScores = UserCategoryScore.find("historic.scoreDate=:scoreDate and historic.user=:user and period=:period").bind("scoreDate", computeDate).bind("user", this).bind("period", period).fetch();
-		double score = 0;
+		Double score = null;
 		for(UserCategoryScore catScore : categoryScores) {
-			score += catScore.score;
+			if (catScore.score != null) {
+				if (score != null) {
+					score += catScore.score;
+				} else {
+					score = catScore.score;
+				}
+			}
+			
 		}
 		this.score = score;
 		this.lastScoreUpdate = new Date();
@@ -689,7 +696,7 @@ public class User extends Model {
 		}
 
 		// compute the score for this category :
-		double score = 0;
+		Double score = null;
 		List<UserInsightScore> insightScores;
 		// select all userInsightScore that are in the date range for the score computation
 		Date fromDate = new Date(computeDate.getTime() - period.getTimePeriod());
@@ -701,21 +708,28 @@ public class User extends Model {
 				.bind("usertraite",this)
 				.bind("cattraite", category).fetch();
 		for(UserInsightScore insightScore : insightScores){
-			score += insightScore.score;
+			if (insightScore.score != null) {
+				if (score == null) {
+					score = 0d;
+				}
+				score += insightScore.score;
+			}
 		}
 
 		catScore.score=score;
 		catScore.lastupdate = new Date();
 		
 		// check if the user has become the best or worst in this category
-		if (score > category.scoreMax) {
-			category.scoreMax = score;
-			category.save();
-			category.computeAllNormalizedScores();
-		} else if (score < category.scoreMin) {
-			category.scoreMin = score;
-			category.save();
-			category.computeAllNormalizedScores();
+		if (score != null) {
+			if (score > category.scoreMax) {
+				category.scoreMax = score;
+				category.save();
+				category.computeAllNormalizedScores();
+			} else if (score < category.scoreMin) {
+				category.scoreMin = score;
+				category.save();
+				category.computeAllNormalizedScores();
+			}
 		}
 		
 		catScore.computeNormalizedScore();
@@ -1144,7 +1158,7 @@ public class User extends Model {
 	
 	public List<Object[]> getScoreTimelineByCategory(CategoryEnum categoryEnum, PeriodEnum period) {
 		List<Object[]> categoryScores = UserCategoryScore.find("select cs.historic.scoreDate, cs.normalizedScore from UserCategoryScore cs " +
-			"where cs.historic.user = :user and cs.period = :period and cs.category.id = :catId")
+			"where cs.historic.user = :user and cs.period = :period and cs.category.id = :catId and cs.score is not null")
 			.bind("user", this)
 			.bind("period", period)
 			.bind("catId", categoryEnum.getId())

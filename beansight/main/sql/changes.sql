@@ -4,8 +4,18 @@
 
 ALTER TABLE `Insight` ADD COLUMN `fakeValidationScore` DOUBLE  DEFAULT NULL;
 
-
 delete from `UserCategoryScore`;
+
+alter table UserCategoryScore modify column score double default null;
+alter table UserCategoryScore modify column normalizedScore double default null;
+
+alter table UserInsightScore modify column score double default null;
+
+alter table User modify column score double default null;
+
+update UserInsightScore
+set score = null
+where score = 0;
 
 CREATE TABLE `UserScoreHistoric` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,

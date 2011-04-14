@@ -252,12 +252,28 @@ public class Admin extends Controller {
 	
 	public static void buildScores (@As("yyyy-MM-dd") Date fromDate, @As("yyyy-MM-dd") Date toDate) {
 		try {
-			new BuildInsightValidationAndUserScoreJob(fromDate, toDate).doJob();
+			new BuildInsightValidationAndUserScoreJob(fromDate, toDate).now();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public static void insightValidation() {
+		new InsightValidationJob().now();
+	}
+	
+	public static void computeUserScore() {
+		Date toDate = new DateMidnight().minusDays(1).toDate();
+		Date from = new Date(toDate.getTime() - PeriodEnum.THREE_MONTHS.getTimePeriod());
+		List<User> usersToUpdate = User.findAll();
+
+		int i = 1;
+		for(User u : usersToUpdate) {
+			Logger.info("updating user " + i + "/" + usersToUpdate.size());
+			u.computeUserScore(toDate, PeriodEnum.THREE_MONTHS);
+			i++;
+		}
+	}
 
 	public static void showExpertTrend(String username) {
 		User user = User.findByUserName(username);

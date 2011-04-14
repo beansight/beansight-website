@@ -19,10 +19,10 @@ public class UserCategoryScore extends Model {
 	public PeriodEnum period;
 	
 	/** Score of the user in the pointed category */
-	public double score;
+	public Double score;
 
 	/** normalized score of this user in this category (between 0 and 1) */
-	public double normalizedScore;
+	public Double normalizedScore;
 	
 	@ManyToOne
 	public UserScoreHistoric historic;
@@ -35,18 +35,20 @@ public class UserCategoryScore extends Model {
 
 	public UserCategoryScore(User user, Category category, UserScoreHistoric userScoreHisto, PeriodEnum period) {
 		this.category = category;
-		this.score = 0;
-		this.normalizedScore = 0;
+		this.score = null;
+		this.normalizedScore = null;
 		this.historic = userScoreHisto;
 		this.historic.categoryScores.add(this);
 		this.period = period;
 	}
 
 	public void computeNormalizedScore() {
-		if(this.category.scoreMax > this.category.scoreMin) {
-			this.normalizedScore = (this.score - this.category.scoreMin) / (this.category.scoreMax - this.category.scoreMin);
-		} else {
-			this.normalizedScore = 0;
+		if (this.score != null) {
+			if(this.category.scoreMax > this.category.scoreMin) {
+				this.normalizedScore = (this.score - this.category.scoreMin) / (this.category.scoreMax - this.category.scoreMin);
+			} else {
+				this.normalizedScore = null;
+			}
 		}
 	}
 

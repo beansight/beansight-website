@@ -444,10 +444,10 @@ public class Application extends Controller {
 		}
 
 		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
-				"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period " +
+				"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period and cs.score is not null " +
 				"order by normalizedScore DESC")
 				.bind("user", user)
-				.bind("scoreDate", new DateMidnight(new Date()).toDate())
+				.bind("scoreDate", new DateMidnight(new Date()).minusDays(1).toDate())
 				.bind("period", PeriodEnum.THREE_MONTHS)
 				.fetch();
 //		List<Insight> lastInsights = user.getLastInsights(NUMBER_INSIGHTS_USERPAGE);

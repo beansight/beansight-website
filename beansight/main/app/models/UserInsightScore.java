@@ -15,7 +15,7 @@ import play.db.jpa.Model;
 @Entity
 public class UserInsightScore extends Model {
 
-	public double score;
+	public Double score;
 	
 	@ManyToOne
 	public User user;

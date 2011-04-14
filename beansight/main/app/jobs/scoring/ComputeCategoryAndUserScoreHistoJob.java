@@ -28,7 +28,7 @@ public class ComputeCategoryAndUserScoreHistoJob extends Job {
 	
     @Override
     public void doJob() throws Exception {
-    	
+    	// Calculate for all users having voted for at least one insight (prediction) during the period
     	Date from = new Date(computeDate.getTime() - PeriodEnum.THREE_MONTHS.getTimePeriod());
     	List<User> usersToUpdate = User.find("select distinct u from User u join u.votes v join v.insight i " +
     			"where i.hidden is false and i.endDate between :fromDate and :endDate")

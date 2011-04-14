@@ -512,7 +512,7 @@ public class Insight extends Model {
 			trendPointer=0;
 			votePointer=0;
 			votesToProcess = userToProcess.getVotesToInsight(this);
-			double score = 0;
+			Double score = null;
 			
 			//let's check if there are votes before the deadline
 			if(votesToProcess.isEmpty() || trend.isEmpty()){			
@@ -574,7 +574,11 @@ public class Insight extends Model {
 						}
 					}
 					
-					score += scoreCalculation(positionAtDate, hasHappened, lastdate, upperbound, probability);
+					if (score == null) {
+						score = scoreCalculation(positionAtDate, hasHappened, lastdate, upperbound, probability);
+					} else {
+						score += scoreCalculation(positionAtDate, hasHappened, lastdate, upperbound, probability);
+					}
 					//Logger.info("" + this.id  + " / " + userToProcess.id + " / " + score);
 					//Logger.info("" + positionAtDate  + " / " + hasHappened  + " / " + lastdate  + " / " + upperbound  + " / " + probability);
 					lastdate = upperbound;
