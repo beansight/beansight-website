@@ -3,27 +3,26 @@
     &{'register'}
 #{/set}
 
-<div id="login">
-	
-	<h1>&{'secure.title'}</h1>
-		
+#{set contentClass:'signup' /}
+
+<div class="bloccontent bloccenter">
+	<h2 class="cuf-grb">&{'secure.title'}</h2>
 	#{form @authenticate()}
-		
-		<p id="username-field">
+        <div class="item-input">
 			<label for="username">&{'email'}</label>
 			<input type="text" name="username" id="username" value="${flash.username}" />
-		</p>
-		<p id="password-field">
+        </div>
+        <div class="item-input">
 			<label for="password">&{'password'}</label>
 			<input type="password" name="password" id="password" value="" />
-		</p>
-		<p id="remember-field">
-			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+        </div>
+        <div class="item-input">
+			<input type="checkbox" name="remember" id="remember" value="true" checked="true" />
 			<label for="remember">&{'remember'}</label>
-		</p>
-		<p id="signin-field">
-			<input type="submit" id="signin" value="&{'loginbutton'}" />
-		</p>
+        </div>
+        <div class="item-submit">
+            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'loginbutton'}</span></button>
+        </div>
 		<a href="@{Security.forgotPasswordAskEmail()}">&{'userOptions.forgotPassword'}</a>
 	#{/form}
 </div>
