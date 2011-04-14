@@ -1,5 +1,6 @@
 <!doctype html>
-<html>
+<html xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>#{get 'title' /} - Beansight</title>
@@ -13,7 +14,7 @@
 	<meta property="og:title"      content="#{get 'title' /} - Beansight" />
     <meta property="og:site_name"  content="Beansight" />
     <meta property="og:type"       content="website" />
-	<meta property="og:image"      content="@{'/public/images/beansight_icon.jpg'}" />
+	<meta property="og:image"      content="@@{'/public/images/beansight_icon.jpg'}" />
 	<meta property="fb:app_id"     content="${play.configuration.getProperty("facebook.client_id")}" />
     <meta name="description"  content="&{'beansightDescription'}" />
 
