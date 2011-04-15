@@ -163,6 +163,7 @@ public class Application extends Controller {
      * @param categoryId
      * @param insightLang
      */
+	@InSitemap(changefreq="monthly", priority=0.7)
 	public static void create(String insightContent, Date endDate, String tagLabelList, long categoryId, String insightLang, String vote) {
 		if(insightLang == null ) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -292,7 +293,7 @@ public class Application extends Controller {
 	
 	
 
-	
+	@InSitemap(changefreq="always", priority=0.8)
 	public static void experts() {
 		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
 		
@@ -602,7 +603,8 @@ public class Application extends Controller {
 		List<Category> categories = Category.findAll();
 		return categories;
 	}
-	
+
+	@InSitemap(changefreq="monthly", priority=0.3)
 	public static void settings() {
 		User user = CurrentUser.getCurrentUser();
 		render(user);

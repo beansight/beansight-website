@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.InSitemap;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,6 +52,7 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 
 public class Contact extends Controller {
 	
+	@InSitemap(changefreq="monthly", priority=0.3)
 	public static void contact() {
 		render();
 	}

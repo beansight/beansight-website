@@ -15,7 +15,7 @@ public class Sitemap extends Controller {
 	
 	private static final int INSIGHT_NUMBER = 200;
 	
-    public static void siteMap() {
+    public static void generate() {
     	
 		Filter filter = new Filter();
 		filter.filterType = FilterType.UPDATED;

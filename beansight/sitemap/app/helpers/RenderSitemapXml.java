@@ -5,7 +5,9 @@
 package helpers;
 
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,9 +17,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import play.Logger;
+import play.Play;
 import play.exceptions.UnexpectedException;
 import play.mvc.Controller;
 import play.mvc.Router;
+import play.mvc.Router.Route;
 import play.mvc.results.RenderXml;
 import play.utils.Java;
 import controllers.Application;
@@ -53,13 +57,16 @@ public class RenderSitemapXml extends RenderXml {
 	protected static void addAnnotatedActions(Document doc) {
 		Element root = doc.getDocumentElement();
 
-		List<Method> insitemaps = Java.findAllAnnotatedMethods(Application.class, InSitemap.class);
-		for(Method insitemap : insitemaps) {
-			Logger.info(insitemap.getName());
-			
-			root.appendChild(createUrl(doc, Router.getFullUrl(Application.class.getName() + "." + insitemap.getName()), insitemap.getAnnotation(InSitemap.class).changefreq(), insitemap.getAnnotation(InSitemap.class).priority()));
+		// For all controllers, check for annotated actions
+		for (Class clazz : Play.classloader.getAssignableClasses(Controller.class)) {
+			List<Method> insitemaps = Java.findAllAnnotatedMethods(clazz, InSitemap.class);
+			// for all annotated actions, add it to the sitemap 
+			for (Method insitemap : insitemaps) {
+				root.appendChild(createUrl(doc, Router.getFullUrl(clazz.getName() + "."	+ insitemap.getName()),
+						insitemap.getAnnotation(InSitemap.class).changefreq(),
+						insitemap.getAnnotation(InSitemap.class).priority()));
+			}
 		}
-		
 	}
 
     protected static Element createUrl(Document doc, String loc, String changefreq, Double priority) {

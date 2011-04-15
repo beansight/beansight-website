@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.InSitemap;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,7 @@ import play.mvc.Controller;
 
 public class Register extends Controller {
 
+	@InSitemap(changefreq="monthly", priority=1)
 	public static void register(String email, String username) {
 		render(email, username);
 	}
