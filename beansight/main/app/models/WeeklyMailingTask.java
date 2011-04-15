@@ -11,9 +11,6 @@ import javax.persistence.ManyToOne;
 @Entity
 public class WeeklyMailingTask extends MailTask {
 
-//	public List<Long> previousWeekInsightIds = null;
-//	public List<Long> nextWeekInsightIds = null;
-	
 	@ManyToOne
 	public User user;
 	
@@ -31,29 +28,5 @@ public class WeeklyMailingTask extends MailTask {
 		this.previousWeekInsights = previousWeekInsights;
 		this.nextWeekInsights = nextWeekInsights;
 		
-//		this.previousWeekInsightIds = getIds(previousWeekInsights);
-//		this.nextWeekInsightIds = getIds(nextWeekInsights);
 	}
-	
-	
-//	public List<Insight> getPreviousWeekInsights() {
-//		return Insight.find("id in :insightIds")
-//			.bind("insightIds", previousWeekInsightIds)
-//			.fetch();
-//	}
-//	
-//	
-//	public List<Insight> getNextWeekInsights() {
-//		return Insight.find("id in :insightIds")
-//			.bind("insightIds", nextWeekInsightIds)
-//			.fetch();
-//	}
-	
-//	private List<Long> getIds(List<Insight> insights) {
-//		List<Long> insightIds = new ArrayList<Long>();
-//		for (Insight insight : insights) {
-//			insightIds.add(insight.id);
-//		}
-//		return insightIds;
-//	}
 }

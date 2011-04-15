@@ -464,9 +464,9 @@ email.shareInsight.usershared=%s vous invite à prendre position sur la prédict
 email.shareInsight.todo=Suivez le lien pour ajouter votre grain de sel !
 
 # weekly mailing : beansight weekly update
-email.beansightWeeklyUpdate.subject=Dernières activités sur Beansight
+email.beansightWeeklyUpdate.subject=Beansight : activité de la semaine
 email.beansightWeeklyUpdate.intro=Voici des prédictions auxquelles vous avez participé et qui ont été validées la semaine passée ainsi que celles qui seront validées la semaine prochaine.
-email.beansightWeeklyUpdate.previousWeekInsights=Prédictions validées cette semaine :
-email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow=Aucune (vous n'avez pas voté pour des prédictions dont la validation s'effectuait la semaine passé)
-email.beansightWeeklyUpdate.nextWeekInsights=Prédictions validées la semaine prochaine:
-email.beansightWeeklyUpdate.noNextWeekInsightsToShow=Aucune (vous n'avez pas voté pour des prédictions dont la validation s'effectuera la semaine prochaine)
+email.beansightWeeklyUpdate.previousWeekInsights=Prédictions arrivées à échéance cette semaine :
+email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow=Aucune (vous n'avez pas voté pour des prédictions qui sont arrivées à terme cette semaine)
+email.beansightWeeklyUpdate.nextWeekInsights=Prédictions qui arrivent à échéance la semaine prochaine :
+email.beansightWeeklyUpdate.noNextWeekInsightsToShow=Aucune (vous n'avez pas encore voté pour des prédictions qui arrivent à terme la semaine prochaine)

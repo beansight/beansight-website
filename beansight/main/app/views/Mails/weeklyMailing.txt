@@ -5,23 +5,24 @@
 
 &{'email.beansightWeeklyUpdate.intro'}
  
-&{'email.beansightWeeklyUpdate.previousWeekInsights'} 
+ 
+&{'email.beansightWeeklyUpdate.previousWeekInsights'}
 #{if task.previousWeekInsights.isEmpty()}
-	- &{'email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow'} 
+&{'email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow'} 
 #{/if}
 #{else}
 #{list items:task.previousWeekInsights , as:"i"}
-	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)}
+	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)} - You #{textLastVoteByUserAndInsight userId:task.user.id, insightUniqueId:i.uniqueId /}
 #{/list}
 #{/else}
 
 &{'email.beansightWeeklyUpdate.nextWeekInsights'} 
 #{if task.nextWeekInsights.isEmpty()}
-	- &{'email.beansightWeeklyUpdate.noNextWeekInsightsToShow'} 
+&{'email.beansightWeeklyUpdate.noNextWeekInsightsToShow'} 
 #{/if}
 #{else}
 #{list items:task.nextWeekInsights , as:"i"}
-	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)}
+	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)} - You #{textLastVoteByUserAndInsight userId:task.user.id, insightUniqueId:i.uniqueId /}
 #{/list}
 #{/else}
 
