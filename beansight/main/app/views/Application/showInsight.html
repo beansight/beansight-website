@@ -62,10 +62,10 @@
             #{if insight.validationScore > 0.9}
                 &{'showInsights.validation.validated.highScore'}
             #{/if}
-            #{elseif insight.validationScore > controllers.Application.INSIGHT_VALIDATED_TRUE_MINVAL}
+            #{elseif insight.validationScore > models.Insight.INSIGHT_VALIDATED_TRUE_MINVAL}
                 &{'showInsights.validation.validated.normalScore'}
             #{/elseif}
-            #{elseif insight.validationScore > controllers.Application.INSIGHT_VALIDATED_FALSE_MAXVAL}
+            #{elseif insight.validationScore > models.Insight.INSIGHT_VALIDATED_FALSE_MAXVAL}
                 &{'showInsights.validation.unknow'}
             #{/elseif}
             #{elseif insight.validationScore > 0.1}
