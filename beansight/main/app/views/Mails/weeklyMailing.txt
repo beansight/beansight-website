@@ -1,0 +1,27 @@
+#{extends 'masterMail.txt' /}
+#{set unsubscribe:true /}
+
+&{'emailhellouser', task.user.userName}
+
+&{'email.beansightWeeklyUpdate.intro'}
+ 
+&{'email.beansightWeeklyUpdate.previousWeekInsights'} 
+#{if task.previousWeekInsights.isEmpty()}
+	- &{'email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow'} 
+#{/if}
+#{else}
+#{list items:task.previousWeekInsights , as:"i"}
+	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)}
+#{/list}
+#{/else}
+
+&{'email.beansightWeeklyUpdate.nextWeekInsights'} 
+#{if task.nextWeekInsights.isEmpty()}
+	- &{'email.beansightWeeklyUpdate.noNextWeekInsightsToShow'} 
+#{/if}
+#{else}
+#{list items:task.nextWeekInsights , as:"i"}
+	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)}
+#{/list}
+#{/else}
+

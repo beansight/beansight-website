@@ -462,3 +462,11 @@ email.invitedSubscribed.subscribed=%s a accepté votre invitation à rejoindre B
 email.shareInsight.subject=Beansight: %s a partagé une prédiction avec vous
 email.shareInsight.usershared=%s vous invite à prendre position sur la prédiction : 
 email.shareInsight.todo=Suivez le lien pour ajouter votre grain de sel !
+
+# weekly mailing : beansight weekly update
+email.beansightWeeklyUpdate.subject=Dernières activités sur Beansight
+email.beansightWeeklyUpdate.intro=Voici des prédictions auxquelles vous avez participé et qui ont été validées la semaine passée ainsi que celles qui seront validées la semaine prochaine.
+email.beansightWeeklyUpdate.previousWeekInsights=Prédictions validées cette semaine :
+email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow=Aucune (vous n'avez pas voté pour des prédictions dont la validation s'effectuait la semaine passé)
+email.beansightWeeklyUpdate.nextWeekInsights=Prédictions validées la semaine prochaine:
+email.beansightWeeklyUpdate.noNextWeekInsightsToShow=Aucune (vous n'avez pas voté pour des prédictions dont la validation s'effectuera la semaine prochaine)

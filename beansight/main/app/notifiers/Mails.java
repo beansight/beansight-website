@@ -24,6 +24,7 @@ import models.MailTask;
 import models.MessageMailTask;
 import models.NewCommentNotificationMailTask;
 import models.User;
+import models.WeeklyMailingTask;
 
 public class Mails extends Mailer {
 
@@ -72,6 +73,11 @@ public class Mails extends Mailer {
 	public static boolean insightShare(InsightShareMailTask task) {
 		Lang.set(task.language);	
 		return sendMailTask(task, Messages.get("email.insightShare.subject", task.share.fromUser.userName), "Mails/insightShare");
+	}
+	
+	public static boolean weeklyMailing(WeeklyMailingTask task) {
+		Lang.set(task.language);	
+		return sendMailTask(task, Messages.get("email.beansightWeeklyUpdate.subject"), "Mails/beansightWeeklyUpdate");
 	}
 	
 	private static boolean sendMailTask(MailTask task, String subject, String templateName) {

@@ -1148,11 +1148,6 @@ public class User extends Model {
 			.bind("period", period)
 			.fetch();
 		return categoryScores;
-//		UserScoreHistorized historizedCategoryScores = UserScoreHistorized.find("scoreDate=:scoreDate and user=:user").bind("scoreDate", new DateMidnight().toDate()).bind("user", this).first();
-//		if ( historizedCategoryScores!=null && historizedCategoryScores.categoryScores !=null) {
-//			return historizedCategoryScores.categoryScores;
-//		}
-//		return new ArrayList<UserCategoryScore>();
 	}
 
 	
@@ -1164,5 +1159,19 @@ public class User extends Model {
 			.bind("catId", categoryEnum.getId())
 			.fetch();
 		return categoryScores;
+	}
+	
+	
+	public List<Insight> getVotedInsights(boolean validated, Date fromDate, Date toDate) {
+		return Vote.find("select distinct v.insight from Vote v " +
+				"where v.user = :user " +
+				"and v.insight.endDate between :fromDate and :toDate " +
+				"and v.insight.validated = :validated " +
+				"and v.insight.hidden is false ")
+				.bind("user", this)
+				.bind("fromDate", fromDate)
+				.bind("toDate", toDate)
+				.bind("validated", validated)
+				.fetch();
 	}
 }

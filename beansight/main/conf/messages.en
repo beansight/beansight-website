@@ -451,3 +451,6 @@ email.invitedSubscribed.subscribed=Thanks to you, %s created an account on Beans
 email.shareInsight.subject=Beansight: %s shared a prediction with you
 email.shareInsight.usershared=%s invited you to read this prediction:
 email.shareInsight.todo=Follow the link to take position!
+
+# weekly mailing : beansight weekly update
+email.beansightWeeklyUpdate.subject=Beansight weekly update

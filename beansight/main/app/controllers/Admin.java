@@ -15,6 +15,8 @@ import jobs.AnalyticsJob;
 import jobs.InsightTrendsCalculateJob;
 import jobs.scoring.BuildInsightValidationAndUserScoreJob;
 import jobs.scoring.InsightValidationJob;
+import jobs.weeklymailing.WeeklyMailingJob;
+import jobs.weeklymailing.WeeklyMailingSenderJob;
 import models.CategoryEnum;
 import models.Comment;
 import models.Insight;
@@ -385,4 +387,11 @@ public class Admin extends Controller {
 		Application.showInsight(insightUniqueId);
 	}
 
+	public static void weeklyMail() {
+		new WeeklyMailingJob().now();
+	}
+	
+	public static void weeklyMailSend() {
+		new WeeklyMailingSenderJob().now();
+	}
 }
