@@ -2,4 +2,36 @@
 #{set unsubscribe:true /}
 <p>&{'emailhellouser', task.user.userName}</p>
 
+<p>&{'email.beansightWeeklyUpdate.intro'}</p>
 
+<h2>&{'email.beansightWeeklyUpdate.previousWeekInsights'}</h2>
+#{if task.previousWeekInsights.isEmpty()}
+<p>&{'email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow'}</p>
+#{/if}
+#{else}
+<table>
+#{list items:task.previousWeekInsights , as:"i"}
+<tr>
+    <td>#{insightAbsoluteLink insight:i /}</td>
+    <td>#{weeklyMailingUserVote userId:task.user.id, insightUniqueId:i.uniqueId /}</td>
+    <td>#{weeklyMailingInsightResult insight:i /}</td>
+</tr>
+#{/list}
+</table>
+#{/else}
+
+<h2>&{'email.beansightWeeklyUpdate.nextWeekInsights'}</h2>
+#{if task.nextWeekInsights.isEmpty()}
+<p>&{'email.beansightWeeklyUpdate.noNextWeekInsightsToShow'}</p>
+#{/if}
+#{else}
+<table>
+#{list items:task.nextWeekInsights , as:"i"}
+<tr>
+    <td>#{insightAbsoluteLink insight:i /}</td>
+    <td>#{weeklyMailingUserVote userId:task.user.id, insightUniqueId:i.uniqueId /}</td>
+    <td>Probability: XX%</td>
+</tr>
+#{/list}
+</table>
+#{/else}

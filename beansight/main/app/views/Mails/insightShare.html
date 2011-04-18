@@ -1,5 +1,5 @@
 #{extends 'masterMail.html' /}
 #{set unsubscribe:true /}
 <p>&{'emailhellouser', task.share.toUser.userName}</p>
-<p>&{'email.shareInsight.usershared', task.share.fromUser.userName} <a href="${play.configuration.getProperty("domain.name")}@{Application.showInsight(task.share.insight.uniqueId)}">${task.share.insight.content}</a></p>
+<p>&{'email.shareInsight.usershared', task.share.fromUser.userName} #{insightAbsoluteLink insight:task.share.insight /}</p>
 <p>&{'email.shareInsight.todo'}</p>

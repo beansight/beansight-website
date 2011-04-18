@@ -2,7 +2,7 @@
 #{set unsubscribe:true /}
 <p>&{'emailhellouser', task.notification.toUser.userName}</p>
 
-<p>&{'email.newCommentNotification.newComment', task.notification.comment.user.userName} <a href="${play.configuration.getProperty("domain.name")}@{Application.showInsight(task.notification.comment.insight.uniqueId)}">${task.notification.comment.insight.content}</a></p>
+<p>&{'email.newCommentNotification.newComment', task.notification.comment.user.userName} #{insightAbsoluteLink insight:task.notification.comment.insight /}</p>
 <p>&{'email.commentMention.commentContentIs'}</p>
 <p>${task.notification.comment.content.escape().nl2br()}</p>
 

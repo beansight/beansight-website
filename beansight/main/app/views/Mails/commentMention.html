@@ -1,6 +1,6 @@
 #{extends 'masterMail.html' /}
 #{set unsubscribe:true /}
 <p>&{'emailhellouser', task.commentNotificationMsg.toUser.userName}</p>
-<p>&{'email.commentMention.someoneHaveQuotedYou', task.commentNotificationMsg.fromUser.userName} <a href="${play.configuration.getProperty("domain.name")}@{Application.showInsight(task.commentNotificationMsg.insight.uniqueId)}">${task.commentNotificationMsg.insight.content}</a></p>
+<p>&{'email.commentMention.someoneHaveQuotedYou', task.commentNotificationMsg.fromUser.userName} #{insightAbsoluteLink insight:task.commentNotificationMsg.insight /}</p>
 <p>&{'email.commentMention.commentContentIs'}</p>
 <p>${task.commentNotificationMsg.comment.content.escape().nl2br()}</p>

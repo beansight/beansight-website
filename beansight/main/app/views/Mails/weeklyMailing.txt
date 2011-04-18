@@ -22,7 +22,7 @@
 #{/if}
 #{else}
 #{list items:task.nextWeekInsights , as:"i"}
-	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)} - You #{textLastVoteByUserAndInsight userId:task.user.id, insightUniqueId:i.uniqueId /} - #{if i.isValidatedTrue()}True#{/if}#{if i.isValidatedFalse()}False#{/if}#{if i.isValidatedUnknown()}Can't decide#{/if}
+	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)} - You #{textLastVoteByUserAndInsight userId:task.user.id, insightUniqueId:i.uniqueId /} - Probability: XX%
 #{/list}
 #{/else}
 
