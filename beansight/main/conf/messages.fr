@@ -189,7 +189,7 @@ settings.commentFavoriteMail=commente sur une prédiction que j'ai ajoutée en f
 settings.commentCommentMail=répond à un commentaire que j'ai posté.
 settings.commentMentionMail=parle de moi dans un commentaire (en utilisant "@").
 settings.insightShareMail=partage avec moi une prédiction.
-settings.newsletters=Bulletins d'information
+settings.newsletters=Bulletins d'information (e-mail)
 settings.statusNewsletter=recevoir une fois par semaine un suivi de mes prédictions.
 settings.upcomingNewsletter=recevoir chaque lundi un résumé des évènements qui vont se produire dans la semaine à venir.
 

@@ -40,3 +40,5 @@ ADD CONSTRAINT `FK68634609C6352FD3` FOREIGN KEY (`historic_id`) REFERENCES `User
 
 ALTER TABLE `UserCategoryScore` DROP FOREIGN KEY `FK6863460947140EFE`;
 ALTER TABLE `UserCategoryScore` DROP COLUMN `user_id`;
+
+update User set statusNewsletter = true;
