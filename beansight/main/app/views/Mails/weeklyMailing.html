@@ -4,12 +4,19 @@
 
 <p>&{'email.beansightWeeklyUpdate.intro'}</p>
 
-<h2>&{'email.beansightWeeklyUpdate.previousWeekInsights'}</h2>
+<h2>&{'email.beansightWeeklyUpdate.previousWeekInsights.intro'}</h2>
 #{if task.previousWeekInsights.isEmpty()}
-<p>&{'email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow'}</p>
+<p>&{'email.beansightWeeklyUpdate.previousWeekInsights.no'}</p>
 #{/if}
 #{else}
 <table>
+<thead>
+    <tr>
+      <th>&{'email.beansightWeeklyUpdate.previousWeekInsights.table.prediction'}</th>
+      <th>&{'email.beansightWeeklyUpdate.previousWeekInsights.table.yourVote'}</th>
+      <th>&{'email.beansightWeeklyUpdate.previousWeekInsights.table.result'}</th>
+    </tr>
+</thead>
 #{list items:task.previousWeekInsights , as:"i"}
 <tr>
     <td>#{insightAbsoluteLink insight:i /}</td>
@@ -20,17 +27,25 @@
 </table>
 #{/else}
 
-<h2>&{'email.beansightWeeklyUpdate.nextWeekInsights'}</h2>
+
+<h2>&{'email.beansightWeeklyUpdate.nextWeekInsights.intro'}</h2>
 #{if task.nextWeekInsights.isEmpty()}
-<p>&{'email.beansightWeeklyUpdate.noNextWeekInsightsToShow'}</p>
+<p>&{'email.beansightWeeklyUpdate.nextWeekInsights.no'}</p>
 #{/if}
 #{else}
 <table>
+<thead>
+    <tr>
+      <th>&{'email.beansightWeeklyUpdate.nextWeekInsights.table.prediction'}</th>
+      <th>&{'email.beansightWeeklyUpdate.nextWeekInsights.table.yourVote'}</th>
+      <th>&{'email.beansightWeeklyUpdate.nextWeekInsights.table.probability'}</th>
+    </tr>
+</thead>
 #{list items:task.nextWeekInsights , as:"i"}
 <tr>
     <td>#{insightAbsoluteLink insight:i /}</td>
     <td>#{weeklyMailingUserVote userId:task.user.id, insightUniqueId:i.uniqueId /}</td>
-    <td>Probability: XX%</td>
+    <td>#{percentage value:i.occurenceScore/}</td>
 </tr>
 #{/list}
 </table>

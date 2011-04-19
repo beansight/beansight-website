@@ -453,4 +453,20 @@ email.shareInsight.usershared=%s invited you to read this prediction:
 email.shareInsight.todo=Follow the link to take position!
 
 # weekly mailing : beansight weekly update
-email.beansightWeeklyUpdate.subject=Beansight weekly update
+email.beansightWeeklyUpdate.subject=Beansight Weekly Update
+email.beansightWeeklyUpdate.intro=Here are predictions you interacted with and that ended recently or are going to end this week.
+email.beansightWeeklyUpdate.previousWeekInsights.intro=Predictions that ended this week:
+email.beansightWeeklyUpdate.previousWeekInsights.no=Empty (You haven't voted for predictions that ended this week)
+email.beansightWeeklyUpdate.previousWeekInsights.table.prediction=Prediction
+email.beansightWeeklyUpdate.previousWeekInsights.table.yourVote=Your vote
+email.beansightWeeklyUpdate.previousWeekInsights.table.result=Result
+email.beansightWeeklyUpdate.nextWeekInsights.intro=Predictions ending this week:
+email.beansightWeeklyUpdate.nextWeekInsights.no=Empty (You haven't voted yet for predictions that end this week)
+email.beansightWeeklyUpdate.nextWeekInsights.table.prediction=Prediction
+email.beansightWeeklyUpdate.nextWeekInsights.table.yourVote=Your vote
+email.beansightWeeklyUpdate.nextWeekInsights.table.probability=Probability
+email.beansightWeeklyUpdate.userVote.agree=Agree
+email.beansightWeeklyUpdate.userVote.disagree=Disagree
+email.beansightWeeklyUpdate.validation.true=True
+email.beansightWeeklyUpdate.validation.false=False
+email.beansightWeeklyUpdate.validation.cantdecide=Can't decide

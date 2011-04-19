@@ -53,8 +53,11 @@ public class WeeklyMailingJob extends Job {
 			
 			Logger.debug("%s has %s for previous week and %s for next week", user.userName, userPreviousWeekInsights.size(), userNextWeekInsights.size());
 			
-			WeeklyMailingTask weeklyMailingTask = new WeeklyMailingTask(user, userPreviousWeekInsights, userNextWeekInsights); 
-			weeklyMailingTask.save();
+			// make sure lists are not empty (we never know)
+			if( !userPreviousWeekInsights.isEmpty() && !userNextWeekInsights.isEmpty() ) {
+				WeeklyMailingTask weeklyMailingTask = new WeeklyMailingTask(user, userPreviousWeekInsights, userNextWeekInsights); 
+				weeklyMailingTask.save();
+			}
 		}
 		
 		Logger.info("ending WeeklyMailingJob");

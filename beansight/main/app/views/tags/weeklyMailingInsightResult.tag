@@ -5,15 +5,15 @@
   String style = "";
   
   if(_insight.isValidatedTrue()) {
-    validation = "True";
+    validation = play.i18n.Messages.get("email.beansightWeeklyUpdate.validation.true");
     style = "background-color: green;";
   }
   if(_insight.isValidatedFalse()) {
-    validation = "False";
+    validation = play.i18n.Messages.get("email.beansightWeeklyUpdate.validation.false");;
     style = "background-color: red;";
   }
   if(_insight.isValidatedUnknown()) {
-    validation = "Can't decide";
+    validation = play.i18n.Messages.get("email.beansightWeeklyUpdate.validation.cantdecide");;
     style = "background-color: gray;";
   }
 /}%

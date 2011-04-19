@@ -4,11 +4,10 @@
 &{'emailhellouser', task.user.userName}
 
 &{'email.beansightWeeklyUpdate.intro'}
- 
- 
-&{'email.beansightWeeklyUpdate.previousWeekInsights'}
+
+&{'email.beansightWeeklyUpdate.previousWeekInsights.intro'}
 #{if task.previousWeekInsights.isEmpty()}
-&{'email.beansightWeeklyUpdate.noPreviousWeekInsightsToShow'} 
+&{'email.beansightWeeklyUpdate.previousWeekInsights.no'} 
 #{/if}
 #{else}
 #{list items:task.previousWeekInsights , as:"i"}
@@ -22,7 +21,8 @@
 #{/if}
 #{else}
 #{list items:task.nextWeekInsights , as:"i"}
-	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)} - You #{textLastVoteByUserAndInsight userId:task.user.id, insightUniqueId:i.uniqueId /} - Probability: XX%
+	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)} - You #{textLastVoteByUserAndInsight userId:task.user.id, insightUniqueId:i.uniqueId /} - Probability: #{percentage value:i.occurenceScore/}
 #{/list}
 #{/else}
+
 

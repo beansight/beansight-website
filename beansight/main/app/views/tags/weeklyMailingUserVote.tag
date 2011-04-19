@@ -7,10 +7,10 @@
   voteTargetUser = models.Vote.findLastVoteByUserAndInsight(_userId,  _insightUniqueId);
   if(voteTargetUser && voteTargetUser.state.equals(models.Vote.State.AGREE)) {
     style = "background-color: green;";
-    lastVote = "You agree";
+    lastVote = play.i18n.Messages.get("email.beansightWeeklyUpdate.userVote.agree");
   } else if(voteTargetUser && voteTargetUser.state.equals(models.Vote.State.DISAGREE)) {
     style = "background-color: red;";
-    lastVote = "You disagree";
+    lastVote = play.i18n.Messages.get("email.beansightWeeklyUpdate.userVote.disagree");
   }
 /}%
 <spans style="${style}">${lastVote}</span>
