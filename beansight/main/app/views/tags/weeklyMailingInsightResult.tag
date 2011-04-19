@@ -17,4 +17,4 @@
     style = "color: #595C5E;";
   }
 /}%
-<span style="${style}">${validation}</span>
+<span style="${style} text-align: center;">${validation}</span>

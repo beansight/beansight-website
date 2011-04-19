@@ -12,16 +12,16 @@
 <table>
 <thead>
     <tr>
-      <th>&{'email.beansightWeeklyUpdate.previousWeekInsights.table.prediction'}</th>
-      <th>&{'email.beansightWeeklyUpdate.previousWeekInsights.table.yourVote'}</th>
-      <th>&{'email.beansightWeeklyUpdate.previousWeekInsights.table.result'}</th>
+      <th style="width:230px;">&{'email.beansightWeeklyUpdate.previousWeekInsights.table.prediction'}</th>
+      <th style="width:50px;">&{'email.beansightWeeklyUpdate.previousWeekInsights.table.yourVote'}</th>
+      <th style="width:60px;">&{'email.beansightWeeklyUpdate.previousWeekInsights.table.result'}</th>
     </tr>
 </thead>
 #{list items:task.previousWeekInsights , as:"i"}
 <tr>
-    <td>#{insightAbsoluteLink insight:i /}</td>
-    <td>#{weeklyMailingUserVote userId:task.user.id, insightUniqueId:i.uniqueId /}</td>
-    <td>#{weeklyMailingInsightResult insight:i /}</td>
+    <td style="width:230px;">#{insightAbsoluteLink insight:i, abbreviate:true /}</td>
+    <td style="width:50px;">#{weeklyMailingUserVote userId:task.user.id, insightUniqueId:i.uniqueId /}</td>
+    <td style="width:60px;">#{weeklyMailingInsightResult insight:i /}</td>
 </tr>
 #{/list}
 </table>
@@ -36,16 +36,16 @@
 <table>
 <thead>
     <tr>
-      <th>&{'email.beansightWeeklyUpdate.nextWeekInsights.table.prediction'}</th>
-      <th>&{'email.beansightWeeklyUpdate.nextWeekInsights.table.yourVote'}</th>
-      <th>&{'email.beansightWeeklyUpdate.nextWeekInsights.table.probability'}</th>
+      <th style="width:230px;">&{'email.beansightWeeklyUpdate.nextWeekInsights.table.prediction'}</th>
+      <th style="width:50px;">&{'email.beansightWeeklyUpdate.nextWeekInsights.table.yourVote'}</th>
+      <th style="width:60px;">&{'email.beansightWeeklyUpdate.nextWeekInsights.table.probability'}</th>
     </tr>
 </thead>
 #{list items:task.nextWeekInsights , as:"i"}
 <tr>
-    <td>#{insightAbsoluteLink insight:i /}</td>
-    <td>#{weeklyMailingUserVote userId:task.user.id, insightUniqueId:i.uniqueId /}</td>
-    <td>#{percentage value:i.occurenceScore/}</td>
+    <td style="width:230px;">#{insightAbsoluteLink insight:i, abbreviate:true /}</td>
+    <td style="width:50px;">#{weeklyMailingUserVote userId:task.user.id, insightUniqueId:i.uniqueId /}</td>
+    <td style="width:60px; text-align: center;">#{percentage value:i.occurenceScore/}</td>
 </tr>
 #{/list}
 </table>
