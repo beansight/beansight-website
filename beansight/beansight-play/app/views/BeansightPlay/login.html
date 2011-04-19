@@ -1,0 +1,32 @@
+#{extends 'Mobile/main.html' /}
+#{set 'title'}
+    &{'mobile.login.title'}
+#{/set}
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>Login</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<form id="form-login" method="POST" action="@{register.beansightAuthenticate()}">
+		  <input type="hidden" value="fd83dfe8700cd35a8fe9b3e594d7a97c4a19133e" name="authenticityToken">
+          <div data-role="fieldcontain"> 
+			<label for="login-email">email</label>
+			<input type="text" value="" id="login-email" name="username" />
+          </div>
+          
+          <div data-role="fieldcontain">
+            <label for="login-password">password</label>
+            <input type="password" value="" id="login-password" name="password"/>
+	       </div>
+	       
+			<button type="submit">Log in</button>
+			
+			<input type="hidden" value="true" name="remember" />
+			<input type="hidden" value="@{Mobile.insights()}" name="url" />
+		</form> 
+	</div><!-- /content -->
+	
+</div><!-- /page -->

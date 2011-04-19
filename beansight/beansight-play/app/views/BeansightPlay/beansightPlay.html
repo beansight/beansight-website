@@ -1,0 +1,19 @@
+#{extends 'Mobile/main.html' /}
+#{set 'title'}
+    &{'mobile.insight.title'}
+#{/set}
+
+<div data-role="page">
+    <div data-role="header">
+        <h1>Beansight Play</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <h2><span class="insight-endDate"></span>, <span class="insight-content"></span></h2>
+    </div><!-- /content -->
+    
+    <div data-role="footer" data-position="fixed" class="ui-bar">
+        <a class="btn-agree"    href="" data-role="button" data-icon="plus">Agree (<span class="insight-agreeCount"></span>)</a>
+        <a class="btn-disagree" href="" data-role="button" data-icon="minus">Disagree (<span class="insight-disagreeCount"></span>)</a>    
+    </div>
+</div><!-- /page -->

@@ -1,0 +1,5 @@
+# Default beansight-play messages
+# You can specialize this file for each language.
+# For exemple, for french create a messages.fr file
+
+#beansight-play.name=beansight-play

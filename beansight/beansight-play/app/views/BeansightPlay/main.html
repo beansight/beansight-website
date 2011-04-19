@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>#{get 'title' /} - Beansight</title> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/beansight-mobile.css" />    
+    #{get 'moreStyles' /}
+
+    #{favicon /}
+    
+    <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+    <script type="text/javascript">
+        // This is used to disable the "AJAX form" of jQuery Mobile"
+		$(document).bind("mobileinit", function()
+		{
+		  $.extend(  $.mobile , {
+		      ajaxFormsEnabled: false
+		  });
+		});
+	</script>
+    <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+    #{get 'moreScripts' /}
+        
+    <!-- define here the actions -->
+    <script>
+        var getInsightsAction   = "@{API.getInsights()}";
+        var getInsightAction    = "@{API.getInsight()}";
+        var agreeAction         = "@{API.agree()}";
+        var disagreeAction      = "@{API.disagree()}";
+        
+        var insightAction       = #{jsAction @Mobile.insight(':insightUniqueId') /};        
+    </script>
+    
+    <script src="/public/javascripts/beansight-play.js"></script>
+    
+    <script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-16319303-1']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</head> 
+<body> 
+#{doLayout /}
+</body>
+</html>
