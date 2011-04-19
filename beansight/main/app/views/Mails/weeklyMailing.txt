@@ -12,6 +12,7 @@
 #{else}
 #{list items:task.previousWeekInsights , as:"i"}
 	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)} - You #{textLastVoteByUserAndInsight userId:task.user.id, insightUniqueId:i.uniqueId /} - #{if i.isValidatedTrue()}True#{/if}#{if i.isValidatedFalse()}False#{/if}#{if i.isValidatedUnknown()}Can't decide#{/if}
+    
 #{/list}
 #{/else}
 
@@ -22,6 +23,7 @@
 #{else}
 #{list items:task.nextWeekInsights , as:"i"}
 	- ${play.configuration.getProperty("domain.name")}@{Application.showInsight(i.uniqueId)} - You #{textLastVoteByUserAndInsight userId:task.user.id, insightUniqueId:i.uniqueId /} - Probability: #{percentage value:i.occurenceScore/}
+    
 #{/list}
 #{/else}
 
