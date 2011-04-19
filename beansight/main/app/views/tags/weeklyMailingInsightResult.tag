@@ -6,15 +6,15 @@
   
   if(_insight.isValidatedTrue()) {
     validation = play.i18n.Messages.get("email.beansightWeeklyUpdate.validation.true");
-    style = "background-color: green;";
+    style = "color: #7AA13D;";
   }
   if(_insight.isValidatedFalse()) {
     validation = play.i18n.Messages.get("email.beansightWeeklyUpdate.validation.false");;
-    style = "background-color: red;";
+    style = "color: #A13D3D;";
   }
   if(_insight.isValidatedUnknown()) {
     validation = play.i18n.Messages.get("email.beansightWeeklyUpdate.validation.cantdecide");;
-    style = "background-color: gray;";
+    style = "color: #595C5E;";
   }
 /}%
 <span style="${style}">${validation}</span>

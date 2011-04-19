@@ -6,10 +6,10 @@
   String style = "";
   voteTargetUser = models.Vote.findLastVoteByUserAndInsight(_userId,  _insightUniqueId);
   if(voteTargetUser && voteTargetUser.state.equals(models.Vote.State.AGREE)) {
-    style = "background-color: green;";
+    style = "color: #7AA13D;";
     lastVote = play.i18n.Messages.get("email.beansightWeeklyUpdate.userVote.agree");
   } else if(voteTargetUser && voteTargetUser.state.equals(models.Vote.State.DISAGREE)) {
-    style = "background-color: red;";
+    style = "color: #A13D3D;";
     lastVote = play.i18n.Messages.get("email.beansightWeeklyUpdate.userVote.disagree");
   }
 /}%

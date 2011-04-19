@@ -465,7 +465,7 @@ email.shareInsight.todo=Suivez le lien pour ajouter votre grain de sel !
 
 # weekly mailing : beansight weekly update
 email.beansightWeeklyUpdate.subject=Beansight : Activité de la semaine
-email.beansightWeeklyUpdate.intro=Voici des prédictions auxquelles vous avez participé qui sont arrivé à terme cette semaine ou qui vont se terminer au cours de la semaine qui vient.
+email.beansightWeeklyUpdate.intro=Voici des prédictions auxquelles vous avez participé et qui sont arrivées à terme cette semaine ou qui vont se terminer au cours de la semaine à venir.
 email.beansightWeeklyUpdate.previousWeekInsights.intro=Prédictions arrivées à échéance cette semaine :
 email.beansightWeeklyUpdate.previousWeekInsights.no=Aucune (vous n'avez pas voté pour des prédictions qui sont arrivées à terme cette semaine)
 email.beansightWeeklyUpdate.previousWeekInsights.table.prediction=Prédiction
