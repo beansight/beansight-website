@@ -634,7 +634,9 @@ public class Insight extends Model {
 	 */
 	public void buildInsightTrends() {
 		Logger.info("buildInsightTrends for id : " + this.id);
+
 		// delete all the existing trends
+		// TODO why everything needs to be deleted ?  probability at a given date is fixed, only recompute if the algorithm changed.
 		InsightTrend.delete("insight = ?", this);
 
 		List<Vote> votes = this.getChronologicalVotes();
@@ -678,8 +680,12 @@ public class Insight extends Model {
 		}
 		
 		//and last, the last trend happens at the insight deadline
-		new InsightTrend(this.endDate, this).save();
+		// TODO what the point ? Shouldn't it be the current date ? 
+		InsightTrend lastTrend = new InsightTrend(this.endDate, this).save();
 		
+		// save the last computed occurenceScore in the insight
+		this.occurenceScore = lastTrend.occurenceProbability;
+		this.save();
 	}
 		
 	
