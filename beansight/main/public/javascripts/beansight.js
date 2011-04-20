@@ -405,6 +405,7 @@ function postProcessContent() {
 function reloadInsights(path) {
 	$.get( path, function(content) {
 		$('#insightList').html(content);
+		postProcessContent();
 	});
 }
 
@@ -925,7 +926,7 @@ $(document).ready(function() {
 	});
 	
 	// tooltip
-	$(".voteWidgetLarge .loginTooltip").tooltip();
+	$(".voteWidgetLarge .loginTooltip").tooltip({showURL: false});
 	
     //////////////////////
     // User Page
@@ -1062,10 +1063,6 @@ $(document).ready(function() {
 		bindCurrentState(reloadInsightsAction( generateGetInsightsArguments() ));
 	    return false;
 	});
-	
-	// tooltips, shoud also be done every time the list in refreshed
-	$("#insightList .loginTooltip").tooltip();
-	
 	
 	//////////////
 	// User Insights list

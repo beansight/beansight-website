@@ -11,17 +11,15 @@
         
     <div class="linkvote agreeaction">
         #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${_insight.uniqueId}');">#{/isConnected}
-        #{isNotConnected}<span class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
+        #{isNotConnected}<a href="@{Register.register()}" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
             <span class="voteCount agreeCount">${_insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/>
-        #{isConnected}</a>#{/isConnected}
-        #{isNotConnected}</span>#{/isNotConnected}
+        </a>
         </div>
     <div class="linkvote disagreeaction">
         #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${_insight.uniqueId}');">#{/isConnected}
-        #{isNotConnected}<span class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.disagree'}"/>#{/isNotConnected}
+        #{isNotConnected}<a href="@{Register.register()}" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.disagree'}"/>#{/isNotConnected}
             <span class="voteCount disagreeCount">${_insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
-        #{isConnected}</a>#{/isConnected}
-        #{isNotConnected}</span>#{/isNotConnected}
+        </a>
         </div>
     
     <p class="smallText bottom">
