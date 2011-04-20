@@ -161,6 +161,7 @@ public class User extends Model {
 
 	/** the comments */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OrderBy("creationDate DESC")
 	public List<Comment> comments;
 	
 	/** insights that has been shared with this user */
