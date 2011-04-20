@@ -750,7 +750,7 @@ public class User extends Model {
 		result.results = Vote.find(
 				"select i from Insight i " 
 				+ filter.generateJPAQueryFromClause()
-				+ "where "
+				+ "where i.hidden is false "
 				+ filter.generateJPAQueryWhereClause()
 				+ filter.generateJPAQueryOrderByClause())
 				.from(from).fetch(number);

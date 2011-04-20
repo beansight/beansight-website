@@ -40,15 +40,14 @@ public class UserInsightsFilter  {
 		String whereQuery= "";
 		
 		if (!this.categories.isEmpty()) {
-			whereQuery += " i.category.id in (" + categoryIds + ") ";
+			whereQuery += " and i.category.id in (" + categoryIds + ") ";
 		}
 		
 		if (filterVote.equals("voted")) {
-			whereQuery += " v.status = 1 and u.id=" + user.id;
+			whereQuery += " and v.status = 1 and u.id=" + user.id;
 		} else if (filterVote.equals("created")) {
-			whereQuery += " i.creator.id=" + user.id;
+			whereQuery += " and i.creator.id=" + user.id;
 		}
-		
 
 		return whereQuery;
 	}
