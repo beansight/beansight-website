@@ -526,6 +526,7 @@ a:hover{color:#228392;}
 #content .single .s-header .s-intro a.s-author:hover{color:#5D7F2C;}
 #content .single .s-header .s-intro a.link-cat{color:#696f70;}
 #content .single .s-header .s-intro a.link-cat:hover{color:#424748;}
+#content .single .s-header .s-intro strong{font-weight:bold;}
 #content .single .s-header .list-tags{float:right;text-align:right;margin-bottom:10px;}
 #content .single .s-header .list-tags li{float:left;}
 #content .single .s-header .list-tags li.link-new a{padding:0;margin:0;background:url(/public/images/icon-plus.png) no-repeat 0 0;width:15px;height:25px;text-indent:-9999px;text-align:left;}
