@@ -771,7 +771,7 @@ public class User extends Model {
 	 * @param n : maximum number of item to return 
 	 */
 	public List<InsightActivity> getInsightActivity(int n) {
-		return InsightActivity.find("user = ? and notEmpty is true order by updated DESC", this).fetch(n);
+		return InsightActivity.find("user = ? and notEmpty is true order by totalCount DESC", this).fetch(n);
 	}
 	
 	/**
@@ -780,12 +780,7 @@ public class User extends Model {
 	public void resetInsightActivity() {
 		List<InsightActivity> activities = InsightActivity.find("user = ? and notEmpty is true order by totalCount DESC", this).fetch();
 		for( InsightActivity activity : activities ) {
-			activity.notEmpty = false;
-			activity.updated = new Date();
-			activity.newFavoriteCount 	= 0;
-			activity.newAgreeCount 		= 0;
-			activity.newDisagreeCount 	= 0;
-			activity.voteChangeCount 	= 0;
+			activity.reset();
 			activity.save();
 		}
 	}

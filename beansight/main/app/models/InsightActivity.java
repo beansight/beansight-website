@@ -51,6 +51,19 @@ public class InsightActivity extends Model {
 		this.user = user;
 		this.insight = insight;
 	}
+
+	/** Clear this insight activity (set everything to 0) */
+	public void reset() {
+		this.notEmpty = false;
+		this.updated = new Date();
+		
+		this.totalCount = 0;
+		this.voteChangeCount = 0;
+		this.newAgreeCount = 0;
+		this.newDisagreeCount = 0;
+		this.newFavoriteCount = 0;
+		this.newCommentCount = 0;
+	}
 	
 	public void incrementVoteChangeCount() {
 		this.voteChangeCount++;

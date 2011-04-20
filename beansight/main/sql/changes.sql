@@ -73,3 +73,5 @@ CREATE TABLE  `WeeklyMailingTask_PreviousWeekInsights` (
   CONSTRAINT `FK2DD51F56D70563A8` FOREIGN KEY (`previousWeekInsights_id`) REFERENCES `Insight` (`id`),
   CONSTRAINT `FK2DD51F56F26200B6` FOREIGN KEY (`WeeklyMailingTask_id`) REFERENCES `WeeklyMailingTask` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+update InsightActivity set newAgreeCount = 0, newDisagreeCount = 0, newFavoriteCount = 0, voteChangeCount = 0, newCommentCount = 0, totalCount = 0, notEmpty = false;
