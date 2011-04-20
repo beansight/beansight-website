@@ -99,8 +99,8 @@ agree-disagree.changeyourmind=Changez d'avis :
 agree-disagree.validate=Validez cette prédiction :
 
 #experts
-experts.explore=Explorer les experts
-expertstitle=Experts
+experts.explore=Explorer la communauté
+expertstitle=Communauté
 expertssearch=Rechercher parmi les experts
 expertssearchbutton=Rechercher
 experts.loadmore=plus d'experts
@@ -226,7 +226,7 @@ menutitle=Menu
 menuprofile=Mes prédictions
 menucreate=Créer
 menuinsights=Prédictions
-menuexperts=Experts
+menuexperts=Communauté
 menuClosedInsights=Réalisations
 
 # userOptions
@@ -358,9 +358,9 @@ faq.A.expertise.creating=La création de prédiction ne fait pas gagner de point
 faq.Q.expertise.comments=Est-ce que mes commentaires sont pris en compte dans le score d’expertise ?
 faq.A.expertise.comments=Pas encore ! ;)
 
-faq.title.experts=Experts
+faq.title.experts=Communauté
 faq.Q.experts.how=Comment puis-je trouver les meilleurs experts ?
-faq.A.experts.how=Vous trouverez la liste des utilisateurs de Beansight dans le menu Experts. Pour l’instant, vous ne pouvez trouver les expert qu’en utilisant notre moteur de recherche (il vous faut donc connaitre leur nom). Par défaut, les experts sont classés par leur score d’expertise total.
+faq.A.experts.how=Vous trouverez la liste des utilisateurs de Beansight dans le menu Communauté. Pour l’instant, vous ne pouvez trouver les expert qu’en utilisant notre moteur de recherche (il vous faut donc connaitre leur nom). Par défaut, les experts sont classés par leur score d’expertise total.
 faq.Q.experts.follow=Quel est l’intérêt d'ajouter un expert dans mes favoris ?
 faq.A.experts.follow=Suivre un expert vous permet de facilement le retrouver par la suite dans le menu de gauche. Vous pourrez aussi lui suggérer une prédiction et ainsi augmenter vos chances d’avoir son avis. Pour suivre un expert cliquez sur l’étoile sous la photo de profile.
 

@@ -99,8 +99,8 @@ agree-disagree.changeyourmind=Change your mind:
 agree-disagree.validate=Validate this prediction:
 
 #experts
-experts.explore=Explore experts
-expertstitle=Experts
+experts.explore=Explore the community
+expertstitle=Community
 expertssearch=Search experts
 expertssearchbutton=Search
 experts.loadmore=more experts
@@ -225,7 +225,7 @@ menutitle=Menu
 menuprofile=My predictions
 menucreate=Create
 menuinsights=Predictions
-menuexperts=Experts
+menuexperts=Community
 menuClosedInsights=Past predictions
 
 # userOptions
@@ -358,9 +358,9 @@ faq.A.expertise.creating=You don’t earn point for creating a prediction. But y
 faq.Q.expertise.comments=Are my comments taken into account for my expertise score?
 faq.A.expertise.comments=Not yet! ;)
 
-faq.title.experts=Experts
+faq.title.experts=Community
 faq.Q.experts.how=How do I find the experts?
-faq.A.experts.how=You’ll find the list of Beansight users on the Experts menu. At this point, you can only look for experts by using the search engine (therefore you need to know their names). By default, experts are ranked by their global expertise score.
+faq.A.experts.how=You’ll find the list of Beansight users on the Community menu. At this point, you can only look for experts by using the search engine (therefore you need to know their names). By default, experts are ranked by their global expertise score.
 faq.Q.experts.follow=What’s the point of addind an expert to my favorites?
 faq.A.experts.follow=You can easily find later experts you follow in the left menu. You will also be able to suggest them predictions. You can follow someone by clicking on the star under their profile picture.
 
