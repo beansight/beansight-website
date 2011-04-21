@@ -25,6 +25,13 @@
     </script>
 #{/set}
 
+#{set openGraphType:'article' /}
+#{set 'moreOpenGraph'}
+<meta property="og:url" content="@@{Application.showInsight(insight.uniqueId)}"/>
+<meta property="og:description"
+          content="&{'showInsight.facebook.intro'} ${insight.creationDate.since(true)} &{'createdby'} ${insight.creator.userName} &{'createdin'} ${insight.category.label}: &{'showInsights.enddate'} ${insight.endDate.format("dd MMMM yyyy")}, ${insight.content}"/>
+#{/set}
+
 #{set currentMenu:'menuInsights' /}
 
 #{set contentCenterClass:'large' /}

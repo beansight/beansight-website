@@ -13,10 +13,11 @@
 	
 	<meta property="og:title"      content="#{get 'title' /} - Beansight" />
     <meta property="og:site_name"  content="Beansight" />
-    <meta property="og:type"       content="website" />
+    <meta property="og:type"       content="#{if openGraphType == null}website#{/if }#{else}#{get 'openGraphType' /}#{/else}" />
 	<meta property="og:image"      content="@@{'/public/images/beansight_icon.jpg'}" />
 	<meta property="fb:app_id"     content="${play.configuration.getProperty("facebook.client_id")}" />
     <meta name="description"  content="&{'beansightDescription'}" />
+    #{get 'moreOpenGraph' /}
 
     *{ TEMP for Google webmaster tool }*
     <meta name="google-site-verification" content="Y7yziTs492G_Z5Ogo8PCt4qusa7cr7AUoxUK-OUP-3g" />
