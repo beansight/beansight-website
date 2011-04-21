@@ -28,13 +28,16 @@ public class WeeklyMailingSenderJob extends Job {
 		List<WeeklyMailingTask> mailTasks = WeeklyMailingTask.find("sent is false and attempt < 5").fetch(NUM_TASK);
 		
 		for (WeeklyMailingTask task : mailTasks) {
-			Mails.weeklyMailing(task);
+			if( Mails.weeklyMailing(task) ) {
+		    	task.sent = true;
+				task.save();
+			}
 		}
 		
 		long count = WeeklyMailingTask.count("sent is false and attempt < 5") ;
 		if (count > 0) {
-			this.in(20);
-			Logger.info("Still %s WeeklyMailingTask to email, scheduling another WeeklyMailingSenderJob in 20 seconds", count);
+			this.in(3*60);
+			Logger.info("Still %s WeeklyMailingTask to email, scheduling another WeeklyMailingSenderJob in 3 minutes", count);
 		} 
 		
 		Logger.info("ending WeeklyMailingSenderJob");
