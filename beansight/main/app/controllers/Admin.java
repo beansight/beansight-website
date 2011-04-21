@@ -312,7 +312,7 @@ public class Admin extends Controller {
 		if (tagLabelList != null) {
 			List<Tag> tags = new ArrayList<Tag>();
 			for (String tagLabel : tagLabelList.split(",")) {
-				Tag tag = Tag.findByLabel(tagLabel);
+				Tag tag = Tag.findByLabel(tagLabel.trim());
 				if (tag == null) {
 					tag = new Tag(tagLabel, null, CurrentUser.getCurrentUser());
 					tag.save();
