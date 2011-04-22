@@ -22,6 +22,8 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 a{color:#8b8f90}
 a:hover{color:#228392;}
 
+.topMessage .message{background:url("/public/images/menu-degradbleu.png") repeat-x scroll 0 0 transparent; height:29px; padding: 10px 0 0 10px; margin-bottom:20px; text-align:center;color:#fff; display:block;}
+
 /* HEADER */
 #header{background-color:#ededed;height:79px;border-bottom:solid #e4e4e4 1px;margin:0 0 31px 0;}
 #header .contentheader{width:960px;margin:0 auto;}

@@ -109,10 +109,10 @@
 #{if flash.success}
     <div class="success">&{flash.success}</div>
 #{/if}
-
 	
 <!-- CONTENU -->
 <div id="content" class="#{get 'contentClass' /}">
+<div id="gotoMobile" style="display:none;" class="topMessage"><a class="message" href="@@{Mobile.insights()}">&{'main.gotoMobile'}</a></div>
 #{doLayout /}
 </div>
 	
