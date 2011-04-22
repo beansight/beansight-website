@@ -31,9 +31,10 @@ public class WeeklyMailingJob extends Job {
 	public void doJob() throws Exception {
 		Logger.info("starting WeeklyMailingJob");
 		
-		DateMidnight pivotDate = new DateMidnight().minus(Insight.VALIDATION_HOUR_NUMBER*60l*60l);
+		DateMidnight today = new DateMidnight();
+		DateMidnight pivotDate = today.minus(Insight.VALIDATION_HOUR_NUMBER*60l*60l);
 		DateMidnight previousWeekFromDate = pivotDate.minusDays(7);
-		DateMidnight nextWeekToDate = pivotDate.plusDays(7);
+		DateMidnight nextWeekToDate = today.plusDays(7);
 		
 		// find all users having a voted insight within the provided from and to date:
 		// note : don't select users having unsubscribe to this newsletter
@@ -49,7 +50,7 @@ public class WeeklyMailingJob extends Job {
 		
 		for (User user : users) {
 			List<Insight> userPreviousWeekInsights = user.getVotedInsights(true, previousWeekFromDate.toDate(), pivotDate.toDate());
-			List<Insight> userNextWeekInsights = user.getVotedInsights(false, pivotDate.toDate(), nextWeekToDate.toDate());
+			List<Insight> userNextWeekInsights = user.getVotedInsights(false, today.toDate(), nextWeekToDate.toDate());
 			
 			Logger.debug("%s has %s for previous week and %s for next week", user.userName, userPreviousWeekInsights.size(), userNextWeekInsights.size());
 			
