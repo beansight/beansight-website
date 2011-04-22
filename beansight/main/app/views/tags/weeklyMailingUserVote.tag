@@ -13,4 +13,4 @@
     lastVote = play.i18n.Messages.get("email.beansightWeeklyUpdate.userVote.disagree");
   }
 /}%
-<spans style="${style} text-align: center;">${lastVote}</span>
+<span style="${style} text-align: center;">${lastVote}</span>
