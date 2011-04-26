@@ -281,9 +281,9 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a:hover,
 #contentcenter .listinsights .insightItem .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a{color:#a13d3d;}
 
-#contentcenter .listinsights .insightItem .insightContainer.validatedTrue .item-insight .container-insight    {   background:url(/public/images/validated-background-plus.png) no-repeat right center; }
-#contentcenter .listinsights .insightItem .insightContainer.validatedFalse .item-insight .container-insight   {   background:url(/public/images/validated-background-moins.png) no-repeat right center;}
-#contentcenter .listinsights .insightItem .insightContainer.validatedUnknown .item-insight .container-insight {   background:url(/public/images/validated-background-unknown.png) no-repeat right center; }
+#contentcenter .listinsights .insightItem .insightContainer.validatedTrue .item-insight .container-insight    {   background:url(/public/images/validated-background-plus.png) no-repeat 90% center; }
+#contentcenter .listinsights .insightItem .insightContainer.validatedFalse .item-insight .container-insight   {   background:url(/public/images/validated-background-moins.png) no-repeat 90% center;}
+#contentcenter .listinsights .insightItem .insightContainer.validatedUnknown .item-insight .container-insight {   background:url(/public/images/validated-background-unknown.png) no-repeat 90% center; }
 
 /* liste experts */
 #contentcenter .listexperts .searchexp{display:block;-moz-border-radius:3px;-webkit-border-radius:3px;border-top:solid #b3b3b3 1px;background-color:#f6f6f6;width:209px;height:19px;padding:2px 3px 0px 8px;}
@@ -538,10 +538,18 @@ a:hover{color:#228392;}
 #content .single .s-header .list-tags li a{display:block;float:left;background-color:#d6d5d6;margin:0 0 0 5px;color:#fff;font-size:12px;-moz-border-radius:2px;-webkit-border-radius:2px;padding:7px 4px 6px 4px;}
 #content .single .s-header .list-tags li a:hover{background-color:#AFAFAF;}
 #content .single .s-content{position:relative;display:block;height:auto;width:696px;background:url(/public/images/single-bottom.png) no-repeat left bottom;padding:0px;}
-#content .single .s-content .insight-content{width:620px;padding:10px 15px;margin:0 23px 5px 23px;background-color: #f7f7f7;font-size:20px;color:#00505c;}
-#content .single .s-content h2{border:0;text-transform:none;height:auto;padding:0;margin:0;background-image:none;background-color: #f7f7f7;font-size:20px;color:#00505c;font-weight:bold;width:620px;}
+#content .insightContainer .single .s-content .insight-content{width:650px;margin:0 23px 5px 23px;padding:0;background-color: #f7f7f7;font-size:20px;color:#00505c;}
+#content .insightContainer .single .s-content .insight-validation{padding:10px 15px;}
+#content .insightContainer.validatedTrue    .single .s-content .insight-content .insight-validation {background:url(/public/images/validated-background-plus.png) no-repeat 100% center;}
+#content .insightContainer.validatedFalse   .single .s-content .insight-content .insight-validation {background:url(/public/images/validated-background-moins.png) no-repeat 100% center;}
+#content .single .s-content h2{border:0;text-transform:none;height:auto;padding:0;margin:0;background-image:none;font-size:20px;color:#00505c;font-weight:bold;width:620px;}
 #content .single .s-content .insightdate{}
-#content .single .s-content .insightvalidation {margin:0 38px 10px;}
+#content .single .s-content .insightvalidation {margin:0 38px 10px; padding: 0px 0px 0px 15px;}
+#content .insightContainer.validatedTrue   .single .s-content .insightvalidation{background:url(/public/images/vote-plus-validate.png) no-repeat left bottom;}
+#content .insightContainer.validatedFalse  .single .s-content .insightvalidation{background:url(/public/images/vote-moins-validate.png) no-repeat left bottom;}
+
+#content .insightContainer.validatedTrue .single .s-content .insightvalidation {color: #7AA13D;}
+#content .insightContainer.validatedFalse .single .s-content .insightvalidation {color: #A13D3D;}
 #content .single .s-content .graphzone{margin:0 23px;}
 #content .single .s-content .sharezone{margin:20px 0 15px 0px;width:315px;}
 #content .single .s-content .graphzone .leftgraph{float:left;width:315px;}

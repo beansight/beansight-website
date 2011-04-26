@@ -10,13 +10,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="160"
+   width="80"
    height="80"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.0 r9654"
    sodipodi:docname="validated-background-plus-moins.svg"
-   inkscape:export-filename="/home/steren/WIP/Beansight/Website/trunk/beansight/main/public/images/validated-background-unknown.png"
+   inkscape:export-filename="/home/steren/WIP/Beansight/Website/trunk/beansight/main/public/images/validated-background-plus.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -88,10 +88,10 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-150.21429,-224.93362)"
-     style="display:none">
+     style="display:inline">
     <path
        style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#f2f6ec;fill-opacity:1;stroke:#f2f6ec;stroke-width:7.4331007;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
-       d="m 230.36905,229.63164 -26.27117,44.01265 -18.47178,-18.47184 -11.36729,11.36728 33.49288,33.69588 36.82648,-62.89049 z"
+       d="m 211.16485,229.63164 -26.27117,44.01265 -18.47178,-18.47184 -11.36729,11.36728 33.49288,33.69588 36.82648,-62.89049 z"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc"
        id="path13" />
@@ -122,7 +122,7 @@
     <path
        inkscape:connector-curvature="0"
        id="path3773"
-       d="M 39.727564,-44.95088 24.846521,-30.069839 42.916358,-11.999999 24.846521,6.0698374 39.727564,20.95088 57.7974,2.8810427 75.867237,20.95088 90.748274,6.0698374 72.678442,-11.999999 90.748274,-30.069839 75.867237,-44.95088 57.7974,-26.881041 39.727564,-44.95088 z"
+       d="M 21.930168,-44.95088 7.0491235,-30.069839 25.118961,-11.999999 7.0491235,6.0698374 21.930168,20.95088 40.000004,2.8810427 58.069839,20.95088 72.950876,6.0698374 54.881045,-11.999999 72.950876,-30.069839 58.069839,-44.95088 40.000004,-26.881041 21.930168,-44.95088 z"
        style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#f6ecec;fill-opacity:1;stroke:#f6ecec;stroke-width:8.50345325;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
     <path
        inkscape:connector-curvature="0"
@@ -153,13 +153,13 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="unknown2"
-     style="display:inline">
+     style="display:none">
     <rect
-       style="fill:#f1f1f1;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#f1f1f1;fill-opacity:1;stroke:none"
        id="rect3829"
        width="78.749992"
        height="27.499998"
-       x="18.625004"
+       x="0.62500381"
        y="25.5" />
   </g>
 </svg>

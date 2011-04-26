@@ -61,8 +61,10 @@
     </div>
     <div class="s-content">
         <div class="insight-content">
+        <div class="insight-validation">        
             <p class="insightdate">&{'showInsights.enddate'} ${insight.endDate.format("dd MMMM yyyy")},</p>
             <h2>${insight.content}</h2>
+        </div>
         </div>
         #{if insight.validated}
             <p class="insightvalidation">
@@ -103,7 +105,7 @@
             </div>
             
             <div class="graphique">
-            	<div id="insightTrendsChart" class="analytics-graph" style='width: 316px; height: 148px;'></div>
+            	<div id="insightTrendsChart" class="analytics-graph" style='width: 316px; height: 170px;'></div>
                 <p style="text-align: center; font-size: 12px; margin-top: 5px; font-style: italic;">&{'showInsights.chartTitle'}</p>
             </div>
             <hr class="clear"/>
