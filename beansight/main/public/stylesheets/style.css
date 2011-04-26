@@ -256,7 +256,8 @@ a:hover{color:#228392;}
 
 #contentcenter .listinsights .item-insight{clear:both;width:420px;padding:0 20px;background:url(/public/images/back-insight.png) repeat-y 0 0;}
 #contentcenter.large .listinsights .item-insight{width:690px;background-image:url(/public/images/back-insight-large.png);}
-#contentcenter .listinsights .insightItem .item-insight .content-insight{background-color:#fff;border-bottom:solid #f3f3f3 1px;padding:13px 0 0 0;}
+#contentcenter .listinsights .insightItem .item-insight .content-insight{background-color:#fff;border-bottom:solid #f3f3f3 1px;}
+#contentcenter .listinsights .insightItem .item-insight .container-insight{padding:13px 0 0 0;}
 #contentcenter .listinsights .insightItem:nth-child(odd) .item-insight .content-insight{background-color:#f7f7f7;}
 #contentcenter .listinsights .insightItem .item-insight.firstline{background-image:url(/public/images/insight-firstline-white.png);}
 #contentcenter .listinsights .insightItem:nth-child(odd) .item-insight.firstline{background-image:url(/public/images/insight-firstline-grey.png);}
@@ -271,17 +272,19 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more{border-bottom:solid #bfbfbf 1px;margin:0 0 4px 0;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus.png) no-repeat right top;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins.png) no-repeat right top;}
-#contentcenter .listinsights .insightItem .insightContainer.over .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus-validate.png) no-repeat right top;}
-#contentcenter .listinsights .insightItem .insightContainer.over .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins-validate.png) no-repeat right top;}
+/*#contentcenter .listinsights .insightItem .insightContainer.over .item-insight .vote-insight .vote-more a{background:url(/public/images/vote-plus-validate.png) no-repeat right top;}*/
+/*#contentcenter .listinsights .insightItem .insightContainer.over .item-insight .vote-insight .vote-less a{background:url(/public/images/vote-moins-validate.png) no-repeat right top;}*/
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a:hover,
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a:hover,
 #contentcenter .listinsights .insightItem .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a,
-#contentcenter .listinsights .insightItem .insightContainer.voteAgree .item-insight .vote-insight .vote-more a
-{background-position:right bottom;}
+#contentcenter .listinsights .insightItem .insightContainer.voteAgree .item-insight .vote-insight .vote-more a{background-position:right bottom;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a:hover,
 #contentcenter .listinsights .insightItem .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a{color:#a13d3d;}
-#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a:hover,
-#contentcenter .listinsights .insightItem .insightContainer.voteAgree .item-insight .vote-insight .vote-more a{color:#7aa13d;}
+
+#contentcenter .listinsights .insightItem .insightContainer.validatedTrue .item-insight .container-insight    {   background:url(/public/images/validated-background-plus.png) no-repeat right center; }
+#contentcenter .listinsights .insightItem .insightContainer.validatedFalse .item-insight .container-insight   {   background:url(/public/images/validated-background-moins.png) no-repeat right center;}
+#contentcenter .listinsights .insightItem .insightContainer.validatedUnknown .item-insight .container-insight {   background:url(/public/images/validated-background-unknown.png) no-repeat right center; }
+
 /* liste experts */
 #contentcenter .listexperts .searchexp{display:block;-moz-border-radius:3px;-webkit-border-radius:3px;border-top:solid #b3b3b3 1px;background-color:#f6f6f6;width:209px;height:19px;padding:2px 3px 0px 8px;}
 #contentcenter .listexperts .txtinput{font-size:12px;color:#aaaeaf;display:block;background-color:#f6f6f6;width:180px;float:left;margin:0 9px 0 0;border:0 none;}

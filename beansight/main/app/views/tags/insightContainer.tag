@@ -1,4 +1,4 @@
-*{ Display a single content for an insight  }*
+*{ A wrapper for every Insight, add the right classes "agree, validated, over"  }*
 *{ @param insigth: the insight  }*
 *{ @param tag: a div or a span ? }*
 
@@ -16,9 +16,9 @@
 #{elseif vote && vote.state.equals(models.Vote.State.DISAGREE)} voteDisagree #{/elseif}
 #{if _insight.validated }
      validated  
-    #{if _insight.validationScore > models.Insight.INSIGHT_VALIDATED_TRUE_MINVAL} validatedTrue #{/if}
-    #{elseif _insight.validationScore < models.Insight.INSIGHT_VALIDATED_TRUE_MINVAL} validatedFalse #{/elseif}
-    #{else} validatedUnknow #{/else}
+    #{if        _insight.isValidatedTrue()      } validatedTrue     #{/if}
+    #{elseif    _insight.isValidatedFalse()     } validatedFalse    #{/elseif}
+    #{elseif    _insight.isValidatedUnknown()   } validatedUnknown  #{/elseif}
 #{/if }
 #{if _insight.endDate.getTime() < new Date().getTime()}
      over  

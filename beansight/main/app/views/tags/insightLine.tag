@@ -15,6 +15,7 @@
 #{insightContainer insight:_insight}
 <div class="item-insight">
     <div class="content-insight">
+    <div class="container-insight">
         #{agree-disagreeWidget insight:_insight/}
         <a href="@{Application.showInsight(_insight.uniqueId)}" class="permalink #{if _targetUser != null}leftbusy#{/if}">
             <p class="date-insight"><span class="datetxt">${_insight.endDate.in(true)},</span> </p> 
@@ -33,6 +34,7 @@
             
         </a>
         <hr class="clear"/>
+    </div
     </div>
 </div>
 #{/insightContainer}
