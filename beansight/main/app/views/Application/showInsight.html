@@ -42,7 +42,7 @@
     <div class="s-header">
         <p class="s-intro">#{isConnected}#{followInsightWidget insight:insight /}#{/isConnected}
         &{'creationdate'} ${insight.creationDate.since(true)} &{'createdby'} <a href="@{Application.showUser(insight.creator.userName)}" class="s-author">${insight.creator.userName}</a>
-         &{'createdin'} <a href="#" class="link-cat">${insight.category.label}</a></p>
+         &{'createdin'} <a href="@{Application.insights(null, insight.category.id)}" class="link-cat">${insight.category.label}</a></p>
          
         <ul class="list-tags">
             #{isConnected}<li class="link-new"><a href="#" id="showMoreTags">&{'suggesttags'}</a></li>#{/isConnected}

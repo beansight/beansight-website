@@ -52,9 +52,9 @@
 	    <li>
 		    <div class="filterDropDown">
 		    <select name="categoryId" id="filterCategory" autocomplete="off">
-		       <option value="0" #{if category == null}selected#{/if}>&{'insights.category'} All</option>
-			   #{list items:controllers.Application.getCategories(), as:'cat'}
-			       <option value="${cat.id}" #{if category && category.id == cat.id}selected#{/if}>${cat.label}</option>
+		       <option value="0" #{if cat == 0}selected#{/if}>&{'insights.category'} All</option>
+			   #{list items:controllers.Application.getCategories(), as:'category'}
+			       <option value="${category.id}" #{if cat == category.id}selected#{/if}>${category.label}</option>
 			   #{/list}
 			</select>
 			</div>

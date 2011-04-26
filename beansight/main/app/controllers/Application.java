@@ -195,7 +195,7 @@ public class Application extends Controller {
 			User currentUser = CurrentUser.getCurrentUser();
 			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
 		}
-		render(sortBy, topic, closed);
+		render(sortBy, cat, filterVote, topic, closed);
 	}
 
 	/**
