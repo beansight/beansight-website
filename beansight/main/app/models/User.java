@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -150,10 +152,14 @@ public class User extends Model {
 	/** the insights followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Insight> followedInsights;
-
+	
 	/** the users followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<User> followedUsers;
+
+	/** the topics followed by this user */
+	@ManyToMany
+	public Set<Topic> followedTopics;
 
 	/** the users who follow this user */
 	@ManyToMany(mappedBy = "followedUsers", cascade = CascadeType.ALL)
@@ -220,6 +226,7 @@ public class User extends Model {
 		this.createdInsights = new ArrayList<Insight>();
 		this.followedInsights = new ArrayList<Insight>();
 		this.followedUsers = new ArrayList<User>();
+		this.followedTopics = new HashSet<Topic>();
 		this.crdate = new Date();
 		
 		this.shared = new ArrayList<InsightShare>();
@@ -581,6 +588,34 @@ public class User extends Model {
 		insight.save();
 	}
 
+	/**
+	 * The user starts following this topic
+	 */
+	public void startFollowingThisTopic(Topic topic) {
+		followedTopics.add(topic);
+		save();
+	}
+	
+	/**
+	 * The user stops following this topic
+	 */
+	public void stopFollowingThisTopic(Topic topic) {
+		followedTopics.remove(topic);
+		save();
+	}
+	
+	/**
+	 * Does this user follow this topic ?
+	 */
+	public boolean isFollowingTopic(Topic topic) {
+		//if(followedTopics.contains(topic)) {}
+		Long count = User.find("select count(t) from User u join u.followedTopics t where t=:topic and u=:user").bind("user", this).bind("topic", topic).first();
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * is this user following the given user
 	 * 

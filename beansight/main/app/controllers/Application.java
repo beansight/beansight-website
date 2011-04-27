@@ -62,6 +62,7 @@ import play.libs.Crypto;
 import play.libs.Images;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.results.RenderText;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
 import exceptions.InvitationException;
@@ -195,7 +196,10 @@ public class Application extends Controller {
 			User currentUser = CurrentUser.getCurrentUser();
 			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
 		}
-		render(sortBy, cat, filterVote, topic, closed);
+		
+		List<Topic> topics = Topic.findAll();
+		
+		render(sortBy, cat, filterVote, topic, closed, topics);
 	}
 
 	/**
@@ -520,6 +524,26 @@ public class Application extends Controller {
 		}
 
 		render("Application/followInsight.json", insight);
+	}
+	
+	/**
+	 * AJAX: Change the follow state for the connected user toward this topic
+	 */
+	public static void toggleFollowingTopic(Long topicId) {
+		User currentUser = CurrentUser.getCurrentUser();
+		Topic topic = Topic.findById(topicId);
+
+    	Map<String, Object> jsonResult = new HashMap<String, Object>();
+    	jsonResult.put("topic", topic.id);
+    	
+		if(currentUser.isFollowingTopic(topic)) {
+			currentUser.stopFollowingThisTopic(topic);
+			jsonResult.put("follow", false);
+		} else {
+			currentUser.startFollowingThisTopic(topic);
+			jsonResult.put("follow", true);
+		}
+		renderJSON(jsonResult);
 	}
 
 	public static void getFavoriteInsight(String insightUniqueId) {
