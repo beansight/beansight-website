@@ -114,6 +114,7 @@ public class Application extends Controller {
 			// TODO limit the number and order by update
 			renderArgs.put("followedInsights", currentUser.getNotHiddenFollowedInsights());
 			renderArgs.put("followedUsers", currentUser.followedUsers);
+			renderArgs.put("followedTopics", currentUser.followedTopics);
 			
 			renderArgs.put("emailConfirmed", currentUser.emailConfirmed);
 			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);

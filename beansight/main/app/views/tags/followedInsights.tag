@@ -1,16 +1,7 @@
 <div class="list-fav">
 #{list items:_followedInsights , as:'insight'}
-    <div class="item-fav .insight_${insight.uniqueId} }">
-    <!-- TODO COLORZ "first"-->
-        *{
-	    <a href="#">
-	        <div class="date-fav">
-	            <span class="date-day">20</span> / <span class="date-month">5</span>
-	        </div>
-	        <p class="title-fav"></p>
-	    </a>
-	    }*
-    #{insight insight:insight /}
+    <div class="item-fav .insight_${insight.uniqueId} ">
+        #{insight insight:insight /}
     </div>
 #{/list}
     <hr class="clear"/>
