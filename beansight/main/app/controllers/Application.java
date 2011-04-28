@@ -22,6 +22,7 @@ import jregex.Pattern;
 
 import models.Category;
 import models.Comment;
+import models.FeaturedTopic;
 import models.Filter;
 import models.Filter.FilterType;
 import models.FollowNotificationTask;
@@ -198,13 +199,14 @@ public class Application extends Controller {
 			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
 		}
 		
-		List<Topic> topics = Topic.findAll();
+		List<FeaturedTopic> featuredTopics = FeaturedTopic.findActive();
+		renderArgs.put("featuredTopics", featuredTopics);
 		
 		// return the real topic object
 		Topic top = Topic.findByLabel(topic);
 		renderArgs.put("topic", top);
 		
-		render(sortBy, cat, filterVote, closed, topics);
+		render(sortBy, cat, filterVote, closed);
 	}
 
 	/**

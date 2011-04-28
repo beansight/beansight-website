@@ -124,7 +124,7 @@ insights.more=plus
 insights.intopic=autour du sujet 
 insights.comments=commentaire%s
 insights.followTopic=Suivre ce sujet
-
+insights.featuredTopics=Sujets sélectionnés :
 
 #showUser
 userinsights=Prédictions de l'utilisateur

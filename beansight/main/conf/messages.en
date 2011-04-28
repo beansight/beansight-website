@@ -124,6 +124,7 @@ insights.more=more
 insights.intopic=for topic 
 insights.comments=comment%s
 insights.followTopic=Follow this topic
+insights.featuredTopics=Featured topics:
 
 #showUser
 userinsights=User predictions

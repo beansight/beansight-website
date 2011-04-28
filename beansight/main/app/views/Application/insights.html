@@ -18,15 +18,10 @@
     #{set landingPage:true /}
 #{/isNotConnected}
 
-<!--
-<li>
-#{list items:topics, as:'top'}
-    <ul><a href="@{Application.toggleFollowingTopic(top.id)}">${top.label}</a></ul>
-#{/list}
-</li>
--->
+#{if topic}
+    <a href="#" class="addfav topic topic_${topic.id} #{if controllers.CurrentUser.getCurrentUser().isFollowingTopic(topic)}active#{/if}#{else}inactive#{/else}" onClick="return toggleFollowingTopic(${topic.id});" >&{'insights.followTopic'}</a>
+#{/if}
 
-#{if topic}<a href="#" class="addfav topic topic_${topic.id} #{if controllers.CurrentUser.getCurrentUser().isFollowingTopic(topic)}active#{/if}#{else}inactive#{/else}" onClick="return toggleFollowingTopic(${topic.id});" >&{'insights.followTopic'}</a>#{/if}
 <h2><span class="cuf-grb">
 
 	*{#{if category} &{'incategory'} ${category}#{/if}}* 
@@ -36,6 +31,17 @@
 </span>
 </h2>
 
+#{if !topic && !featuredTopics.isEmpty()}
+<div class="featuredTopics">
+	<p class="featuredTopicsTitle">&{'insights.featuredTopics'}</p>
+	<ul>
+	#{list items:featuredTopics, as:'top'}
+	    <li class="featuredTopic"><a href="@{Application.insights(null, null, null, top.topic.label, null)}">${top.topic.label}</a></li>
+	#{/list}
+	</ul>
+	<hr class="clear"/>
+</div>
+#{/if}
 
 <div class="listinsights">
     <ul class="menulistinsights">

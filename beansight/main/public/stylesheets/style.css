@@ -217,6 +217,11 @@ a:hover{color:#228392;}
 #contentcenter.large h2{width:668px;margin:0 0 9px 20px;}
 /* liste insights */
 
+/* featured topics*/
+#contentcenter .featuredTopics {margin: 0 0 0 20px; font-size: 14px;}
+#contentcenter .featuredTopicsTitle{float:left; margin: 0 20px 5px 0;}
+#contentcenter .featuredTopic{float:left; margin:0 20px 0 0;}
+/* add favorite */
 #contentcenter a.topic.addfav{margin:7px 0 0 20px;display:block;text-indent:-9999px;float:left;float:left;background:url(/public/images/icon-star.png) no-repeat 0 0;width:26px;height:24px;}
 #contentcenter a.topic.addfav:hover{background-position:left center;}
 #contentcenter a.topic.addfav.active{background-position:left bottom;}

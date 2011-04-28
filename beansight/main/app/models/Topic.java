@@ -39,13 +39,26 @@ public class Topic extends Model {
 		this.creationDate = new Date();
 	}
 	
-	
 	public String toString() {
 	    return label;
 	}
 
 	public static Topic findByLabel(String label) {
 		return Topic.find("byLabel", label).first();
+	}
+	
+	/** Set this topic as a featured topic*/
+	public void feature() {
+		new FeaturedTopic(this).save();
+	}
+	
+	/** Set the endDate of all the Featured Topics to today */
+	public void stopFeature() {
+		List<FeaturedTopic> topics = FeaturedTopic.find("byTopic", this).fetch();
+		for(FeaturedTopic topic : topics) {
+			topic.endDate = new Date();
+			topic.save();
+		}
 	}
 
 }

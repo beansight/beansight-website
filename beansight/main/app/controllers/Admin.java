@@ -367,6 +367,20 @@ public class Admin extends Controller {
 		topic.save();
 		topic.delete();
 	}
+
+	/** feature the given topic */
+	public static void featureTopic(Long topicId) {
+		Topic topic = Topic.findById(topicId);
+		topic.feature();
+		renderText("Topic "+ topic.label +" was featured.");
+	}
+	
+	/** stop featuring the given topic */
+	public static void stopFeatureTopic(Long topicId) {
+		Topic topic = Topic.findById(topicId);
+		topic.stopFeature();
+		renderText("Topic "+ topic.label +" is not featured anymore.");
+	}
 	
 	/**
 	 * Set a fake validationScore for this insight, this score will be used for user score computation
