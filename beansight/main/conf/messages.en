@@ -123,6 +123,7 @@ insights.filterNotVoted=Not voted
 insights.more=more
 insights.intopic=for topic 
 insights.comments=comment%s
+insights.followTopic=Follow this topic
 
 #showUser
 userinsights=User predictions

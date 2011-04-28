@@ -53,6 +53,7 @@
 	var disagreeAction = #{jsAction @API.disagree(':insightUniqueId') /};
 	var resetInsightActivityAction = #{jsAction @Application.resetInsightActivity() /};
 	var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
+    var toggleFollowingTopicAction = #{jsAction @Application.toggleFollowingTopic(':topicId') /};	
 	var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
 	var loadFollowedUsersBlockAction = #{jsAction @Application.loadFollowedUsers(':userId') /};
 	var getInsightsAction = #{jsAction @Application.getInsights(':from',':sortBy', ':cat', ':filterVote', ':topic', ':closed') /};

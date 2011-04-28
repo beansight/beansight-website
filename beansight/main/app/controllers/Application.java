@@ -200,7 +200,11 @@ public class Application extends Controller {
 		
 		List<Topic> topics = Topic.findAll();
 		
-		render(sortBy, cat, filterVote, topic, closed, topics);
+		// return the real topic object
+		Topic top = Topic.findByLabel(topic);
+		renderArgs.put("topic", top);
+		
+		render(sortBy, cat, filterVote, closed, topics);
 	}
 
 	/**

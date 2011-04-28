@@ -216,6 +216,11 @@ a:hover{color:#228392;}
 #contentcenter h2{height:16px;width:396px;border-top:solid #ededed 1px;margin:0 auto 9px auto;border-bottom:solid #ededed 1px;padding:10px 12px 12px 12px;font-size:16px;text-transform:uppercase;color:#7aa13d;background:url(/public/images/icon-title.png) no-repeat 0 15px;}
 #contentcenter.large h2{width:668px;margin:0 0 9px 20px;}
 /* liste insights */
+
+#contentcenter a.topic.addfav{margin:7px 0 0 20px;display:block;text-indent:-9999px;float:left;float:left;background:url(/public/images/icon-star.png) no-repeat 0 0;width:26px;height:24px;}
+#contentcenter a.topic.addfav:hover{background-position:left center;}
+#contentcenter a.topic.addfav.active{background-position:left bottom;}
+
 #contentcenter .listinsights{}
 #contentcenter .listinsights ul.menulistinsights{display:block;/*background-color:#fff;*/height:35px;/*border:solid #eeeeee 1px;*/width:420px;padding:0 4px;margin:0 auto;background:url(/public/images/back-sortby.png) no-repeat center top;/*-webkit-border-top-left-radius:5px;-moz-border-radius-topleft:5px;-webkit-border-top-right-radius:5px;-moz-border-radius-topright:5px;*/}
 #contentcenter.large .listinsights ul.menulistinsights{width:701px;margin:0 0 0px 2px;padding:0 0 0 10px;background:url(/public/images/back-sortby2.png) no-repeat center top;}

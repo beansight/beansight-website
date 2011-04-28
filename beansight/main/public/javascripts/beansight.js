@@ -115,6 +115,27 @@ function onToggleFollowingUserSuccess(data) {
 	$.get(loadFollowedUsersBlockAction({'userId': data.id}), onLoadFollowedUsersSuccess);
 }
 
+function toggleFollowingTopic(topicId) {
+	$.getJSON(toggleFollowingTopicAction({'topicId': topicId}), onToggleFollowingTopicSuccess);
+	var favicon = $(".addfav.topic_" + topicId);
+	if(favicon.hasClass("active")) {
+		favicon.removeClass("active");
+	} else {
+		favicon.addClass("active");
+	}
+	return false;
+}
+
+/** Callback after a follow of topic is done */
+function onToggleFollowingTopicSuccess(data) {
+	var favicon = $(".addfav", ".topic_" + data.id);
+	if(data.follow) {
+		favicon.addClass("active");
+	} else {
+		favicon.removeClass("active");
+	}
+}
+
 /** Callback  */
 function onLoadFollowedUsersSuccess(data) {
 	$(".list-avatars").replaceWith(data);

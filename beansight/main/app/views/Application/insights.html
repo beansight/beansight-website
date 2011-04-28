@@ -18,13 +18,24 @@
     #{set landingPage:true /}
 #{/isNotConnected}
 
+<!--
+<li>
+#{list items:topics, as:'top'}
+    <ul><a href="@{Application.toggleFollowingTopic(top.id)}">${top.label}</a></ul>
+#{/list}
+</li>
+-->
 
-<h2 class="cuf-grb">
+#{if topic}<a href="#" class="addfav topic topic_${topic.id} #{if controllers.CurrentUser.getCurrentUser().isFollowingTopic(topic)}active#{/if}#{else}inactive#{/else}" onClick="return toggleFollowingTopic(${topic.id});" >&{'insights.followTopic'}</a>#{/if}
+<h2><span class="cuf-grb">
+
 	*{#{if category} &{'incategory'} ${category}#{/if}}* 
-	#{if topic} &{'insightstitle'} &{'insights.intopic'} ${topic}#{/if}
+	#{if topic} &{'insightstitle'} &{'insights.intopic'} ${topic.label}#{/if}
 	#{elseif closed} &{'insightstitle.closed'} #{/elseif}
 	#{else} &{'insightstitle'} #{/else}
+</span>
 </h2>
+
 
 <div class="listinsights">
     <ul class="menulistinsights">
@@ -83,7 +94,7 @@
 var NUMBER_INSIGHTS_INSIGHTPAGE = ${controllers.Application.getNumberInsightsInsightPage()};
 var insightsFrom = 0;
 var bindingTime = true;
-var filterTopic = #{if topic}"${topic}"#{/if} #{else}"undefined"#{/else};
+var filterTopic = #{if topic}"${topic.label}"#{/if} #{else}"undefined"#{/else};
 var closedInsight = #{if closed}${closed}#{/if} #{else}null#{/else};
 
 $(document).ready(function() {

@@ -123,6 +123,7 @@ insights.filterNotVoted=Non voté
 insights.more=plus
 insights.intopic=autour du sujet 
 insights.comments=commentaire%s
+insights.followTopic=Suivre ce sujet
 
 
 #showUser
