@@ -39,7 +39,7 @@
         <div class="linksprofil">
             #{isConnected}
             	#{ifnot currentUserProfilePage}
-		            <a href="#" onClick="return toggleFollowingUser(${user.id});" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
+		            <a href="#" title="&{'showUser.addUserToFavorite'}" onClick="return toggleFollowingUser(${user.id});" class="addfav #{if controllers.CurrentUser.getCurrentUser().isFollowingUser(user)}active#{/if}#{else}inactive#{/else}">Add to favorite</a>
 		            <a href="#" class="sendmail" id="link-sendmail">&{'showUser.sendMessage'}</a>
             	#{/ifnot}
             #{/isConnected}

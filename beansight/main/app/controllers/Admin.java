@@ -19,7 +19,10 @@ import jobs.weeklymailing.WeeklyMailingJob;
 import jobs.weeklymailing.WeeklyMailingSenderJob;
 import models.CategoryEnum;
 import models.Comment;
+import models.TopicActivity;
+import models.UserActivity;
 import models.Insight;
+import models.InsightActivity;
 import models.Language;
 import models.PeriodEnum;
 import models.Tag;
@@ -407,5 +410,29 @@ public class Admin extends Controller {
 	
 	public static void weeklyMailSend() {
 		new WeeklyMailingSenderJob().now();
+	}
+	
+	/**
+	 * Admin only: Call this method to replace all activities with new activities based on the "following" information for Users, Topics and Insights
+	 */
+	public static void CopyFavoriteToActivity() {
+		TopicActivity.deleteAll();
+		UserActivity.deleteAll();
+		InsightActivity.deleteAll();
+		
+		List<User> users = User.findAll(); 
+		for(User user : users) {
+			for(Insight insight : user.followedInsights) {
+				new InsightActivity(user, insight).save();
+			}
+			for(Topic topic : user.followedTopics) {
+				new TopicActivity(user, topic).save();
+			}
+			for(User followedUser : user.followedUsers) {
+				new UserActivity(user, followedUser).save();
+			}
+		}
+		
+		renderText("All activities for all users generated");
 	}
 }

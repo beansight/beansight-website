@@ -1,8 +1,6 @@
-<div class="list-fav">
-#{list items:_followedInsights , as:'insight'}
-    <div class="item-fav .insight_${insight.uniqueId} ">
-        #{insight insight:insight /}
-    </div>
+<div class="list-fav activity favoriteInsights">
+#{list items:_followedInsightActivities , as:'insightActivity'}
+    <p class="title-activity">#{insightActivity insightActivity:insightActivity /}</p>
 #{/list}
     <hr class="clear"/>
 </div>

@@ -37,6 +37,7 @@ import models.analytics.UserInsightVisit;
 import models.analytics.UserListExpertsVisit;
 import models.analytics.UserListInsightsVisit;
 import models.analytics.UserPromocodeCampaign;
+import models.analytics.UserTopicVisit;
 import notifiers.Mails;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -443,6 +444,30 @@ public class User extends Model {
 		this.save();
 
 		
+		// check for Activities to update
+		List<UserActivity> activities = UserActivity.find("byFollowedUser", this).fetch();
+		for( UserActivity activity : activities ) {
+			activity.incrementNewInsightCount();
+			activity.save();
+		}
+
+		i.refresh();
+		
+		// Update all the topic activities that this insight is part of
+		// for all tag, get topic, update topic activity
+		if(i.tags != null) {
+			String tagIds = Tag.listToIdString(new HashSet<Tag>(i.tags));
+			List<Topic> topics = Topic.find("select top from Topic top join top.tags t where t.id in (" + tagIds + ") ").fetch();
+			for(Topic topic : topics) {
+				// update Topic activity
+				List<TopicActivity> topicActivities = TopicActivity.find("byTopic", topic).fetch();
+				for (TopicActivity topicActivity : topicActivities ) {
+					topicActivity.incrementNewInsightCount();
+					topicActivity.save();
+				}
+			}
+		}
+		
 		return i;
 	}
 
@@ -495,10 +520,6 @@ public class User extends Model {
 			}
 			insight.lastUpdated = new Date();
 			insight.save();
-			
-			// create an activity around this user / insight relation
-			InsightActivity activity = new InsightActivity(this, insight);
-			activity.save();
 		}
 		
 		// the user has seen this insight (remove it from shared ones)
@@ -507,8 +528,6 @@ public class User extends Model {
 		// update the activities around this insight
 		List<InsightActivity> activities = InsightActivity.find("insight = ? and user != ?", insight, this).fetch();
 		for( InsightActivity activity : activities ) {
-			activity.notEmpty = true;
-			activity.updated = new Date();
 			if(change) {
 				activity.incrementVoteChangeCount();
 			} else {
@@ -521,6 +540,16 @@ public class User extends Model {
 			activity.save();
 		}
 
+		// update the activity around this User
+		List<UserActivity> userActivities = UserActivity.find("followedUser  = ?", this).fetch();
+		for (UserActivity userActivity : userActivities) {
+			if(change) {
+				userActivity.incrementVoteChangeCount();
+			} else {
+				userActivity.incrementNewVoteCount();
+			}
+			userActivity.save();
+		}
 	}
 
 	/**
@@ -562,12 +591,15 @@ public class User extends Model {
 		// update the activities around this insight
 		List<InsightActivity> activities = InsightActivity.find("insight = ? and user != ?", insight, this).fetch();
 		for( InsightActivity activity : activities ) {
-			activity.notEmpty = true;
-			activity.updated = new Date();
 			activity.incrementNewFavoriteCount();
 			activity.save();
 		}
-
+		
+		// create an activity around this user / insight relation
+		if( InsightActivity.count("byUserAndInsight", this, insight) == 0 ) {
+			InsightActivity activity = new InsightActivity(this, insight);
+			activity.save();
+		}
 	}
 
 	/**
@@ -594,6 +626,12 @@ public class User extends Model {
 	public void startFollowingThisTopic(Topic topic) {
 		followedTopics.add(topic);
 		save();
+		
+		// create an activity around this user / topic relation
+		if( TopicActivity.count("byUserAndTopic", this, topic) == 0 ) {
+			TopicActivity activity = new TopicActivity(this, topic);
+			activity.save();
+		}
 	}
 	
 	/**
@@ -602,13 +640,19 @@ public class User extends Model {
 	public void stopFollowingThisTopic(Topic topic) {
 		followedTopics.remove(topic);
 		save();
+		
+		// also remove from activities
+		List<TopicActivity> activities = TopicActivity.find("byUserAndTopic", this, topic).fetch(); 
+		for( TopicActivity activity : activities)
+		{
+			activity.delete();
+		}
 	}
 	
 	/**
 	 * Does this user follow this topic ?
 	 */
 	public boolean isFollowingTopic(Topic topic) {
-		//if(followedTopics.contains(topic)) {}
 		Long count = User.find("select count(t) from User u join u.followedTopics t where t=:topic and u=:user").bind("user", this).bind("topic", topic).first();
 		if (count > 0) {
 			return true;
@@ -646,10 +690,17 @@ public class User extends Model {
 		user.save();
 		
 		// if the user accepts it, send a mail
-		if(this.followMail) {
+		if(user.followMail) {
 			FollowNotificationTask mail = new FollowNotificationTask(this, user);
 			mail.save();
 		}
+		
+		// create an activity around this user / user relation
+		if( UserActivity.count("byUserAndFollowedUser", this, user) == 0 ) {
+			UserActivity activity = new UserActivity(this, user);
+			activity.save();
+		}
+
 	}
 
 	/**
@@ -665,6 +716,13 @@ public class User extends Model {
 		save();
 		user.followers.remove(this);
 		user.save();
+		
+		// also remove from activities
+		List<UserActivity> activities = UserActivity.find("byUserAndFollowedUser", this, user).fetch(); 
+		for( UserActivity activity : activities)
+		{
+			activity.delete();
+		}
 	}
 
 	public void computeCategoryScores(Date computeDate, PeriodEnum period) {
@@ -803,11 +861,19 @@ public class User extends Model {
 	}	
 	
 	/**
-	 * get the list of most relevant InsightActivity around the user (for now, they are only the most recent) 
-	 * @param n : maximum number of item to return 
+	 * @return InsightActivities about the insights followed by this user, ordered by number of actions performed on this insights
 	 */
-	public List<InsightActivity> getInsightActivity(int n) {
-		return InsightActivity.find("user = ? and notEmpty is true order by totalCount DESC", this).fetch(n);
+	public List<InsightActivity> getFavoriteInsightActivity(int n) {
+		// since InsightActivity are only created when following an insight, return InsightActivities
+		return InsightActivity.find("user = ? and insight.hidden is false order by totalCount DESC", this).fetch(n);
+	}
+
+	public List<TopicActivity> getFavoriteTopicActivity(int n) {
+		return TopicActivity.find("user = ? order by totalCount DESC", this).fetch(n);
+	}
+
+	public List<UserActivity> getFavoriteUserActivity(int n) {
+		return UserActivity.find("user = ? order by totalCount DESC", this).fetch(n);
 	}
 	
 	/**
@@ -830,6 +896,13 @@ public class User extends Model {
 			insightShare.hasBeenRead = true;
 			insightShare.save();
 		}
+		
+		// reset the activity for this user concerning this insight
+		InsightActivity activity = InsightActivity.find("byUserAndInsight", this, insight).first();
+		if(activity != null) {
+			activity.reset();
+			activity.save();
+		}
 	}
 	
 	/**
@@ -846,13 +919,25 @@ public class User extends Model {
 
 	/**
 	 * This user visits the insights list page
-	 * @param ip : the current IP of this connected user
-	 * @param userAgent : the current user-agent of this connected user
-	 * @param application : the application id of this connected user
 	 */
 	public void visitInsightsList(UserClientInfo userClientInfo) {
 		UserListInsightsVisit visit = new UserListInsightsVisit(new Date(), this, userClientInfo);
 		visit.save();
+	}
+	
+	/**
+	 * This user visits a given topic (via the insight listing)
+	 */
+	public void visitTopic(Topic topic, UserClientInfo userClientInfo) {
+		UserTopicVisit topicVisit = new UserTopicVisit(new Date(), this, userClientInfo, topic);
+		topicVisit.save();
+		
+		// reset the activity for this user concerning this insight
+		TopicActivity activity = TopicActivity.find("byUserAndTopic", this, topic).first();
+		if(activity != null) {
+			activity.reset();
+			activity.save();
+		}
 	}
 	
 	/**
@@ -865,6 +950,13 @@ public class User extends Model {
 	public void visitExpert(User expert, UserClientInfo userClientInfo) {
 		UserExpertVisit visit = new UserExpertVisit(new Date(), this, userClientInfo, expert);
 		visit.save();
+		
+		// reset the activity for this user concerning this insight
+		UserActivity activity = UserActivity.find("byUserAndFollowedUser", this, expert).first();
+		if(activity != null) {
+			activity.reset();
+			activity.save();
+		}
 	}
 	
 	/**
@@ -998,15 +1090,6 @@ public class User extends Model {
 		UserResult userResult = new UserResult(usersResult, usersResult.size());
 		
 		return userResult;
-	}
-	
-	/**
-	 * override default behavior to remove from results navigation the hidden insights
-	 * @return
-	 */
-	public List<Insight> getNotHiddenFollowedInsights() {
-		List<Insight> fInsights = Insight.find("select i from User u join u.followedInsights i where u.id = ? and i.hidden is false", this.id).fetch();
-		return fInsights;
 	}
 	
 	public String avatarHashCode() {

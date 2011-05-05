@@ -10,6 +10,7 @@ import java.util.*;
 
 /**
  * The activity that happened on a given insight for a given user
+ * InsightActivities are created every time a user starts following an insight.
  */
 @Entity
 public class InsightActivity extends Model {
@@ -33,15 +34,15 @@ public class InsightActivity extends Model {
 	/** Number of actions performed on this insight (change, agree, disagree, comment...) */
 	public long totalCount;
 	
-	/**since the creation date, how many times users changed their vote ? */
+	/** since the last time it has been reseted, how many times users changed their vote ? */
 	public long voteChangeCount;
-	/** since the creation date, how many new votes are "agree" ?*/
+	/** since the last time it has been reseted, how many new votes are "agree" ?*/
 	public long newAgreeCount;
-	/** since the creation date, how many new votes are "disagree" ?*/
+	/** since the last time it has been reseted, how many new votes are "disagree" ?*/
 	public long newDisagreeCount;
-	/** since the creation date, how many times this insight has been put into favorites ? */
+	/** since the last time it has been reseted, how many times this insight has been put into favorites ? */
 	public long newFavoriteCount;
-	/** since the creation date, how many times this insight has been commented (not used yet) */
+	/** since the last time it has been reseted, how many times this insight has been commented (not used yet) */
 	public long newCommentCount;
 	
 	
@@ -51,7 +52,7 @@ public class InsightActivity extends Model {
 		this.user = user;
 		this.insight = insight;
 	}
-
+	
 	/** Clear this insight activity (set everything to 0) */
 	public void reset() {
 		this.notEmpty = false;
@@ -68,21 +69,32 @@ public class InsightActivity extends Model {
 	public void incrementVoteChangeCount() {
 		this.voteChangeCount++;
 		this.totalCount++;
+		updated();
 	}
 	public void incrementNewAgreeCount() {
 		this.newAgreeCount++;
 		this.totalCount++;
+		updated();
 	}
 	public void incrementNewDisagreeCount() {
 		this.newDisagreeCount++;
 		this.totalCount++;
+		updated();
 	}
 	public void incrementNewFavoriteCount() {
 		this.newFavoriteCount++;
 		this.totalCount++;
+		updated();
 	}
 	public void incrementNewCommentCount() {
 		this.newCommentCount++;
 		this.totalCount++;
+		updated();
 	}
+	
+	private void updated() {
+		this.notEmpty = true;
+		this.updated = new Date();
+	}
+	
 }

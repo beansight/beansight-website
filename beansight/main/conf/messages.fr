@@ -91,6 +91,7 @@ showInsights.chartTitle=Probabilité d'occurence au cours du temps
 shareInsight.shareonbeansight=Partager
 shareInsight.searchBeansightUser=Entrez le nom d'un utilisateur beansight que vous avez mis en favoris :
 shareInsight.sharebutton=Partager
+showInsight.addInsightToFavorite=Ajoutez cette prédiction à vos favoris
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=Vous n'avez pas encore voté.
 agree-disagree.youhavenotvalidatedyet=Vous n'avez pas encore validé cette prédiction.
@@ -125,6 +126,7 @@ insights.intopic=autour du sujet
 insights.comments=commentaire%s
 insights.followTopic=Suivre ce sujet
 insights.featuredTopics=Sujets sélectionnés :
+insights.addTopicToFavorites=Ajoutez ce sujet à vos favoris
 
 #showUser
 userinsights=Prédictions de l'utilisateur
@@ -143,6 +145,7 @@ showUser.edit.avatar=Nouvel avatar
 showUser.filterCreatedAndVoted=Créées & votées
 showUser.filterVoted=Votées
 showUser.filterCreated=Créées
+showUser.addUserToFavorite=Ajoutez cet utilisateur à vos favoris
 
 #Contact
 followus=Suivez nous

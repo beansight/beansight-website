@@ -69,7 +69,7 @@ function toggleFollowingInsight(insightUniqueId) {
 	var favicon = $(".addfav", ".insight_" + insightUniqueId);
 	if(favicon.hasClass("active")) {
 		favicon.removeClass("active");
-		$(".item-fav .insight_" + insightUniqueId).remove();
+		$(".favoriteInsights .insight_" + insightUniqueId).remove();
 	} else {
 		favicon.addClass("active");
 	}
@@ -85,7 +85,7 @@ function onToggleFollowingInsightSuccess(data) {
 	        url: getFavoriteInsightAction({'insightUniqueId':data.uniqueId}),
 	        dataType: 'html',
 	        success: function(data) {
-	        	$(".list-fav .clear").before(data);
+	        	$(".favoriteInsights .clear").before(data);
 	        }
 	    });
 	} else {
@@ -112,7 +112,12 @@ function onToggleFollowingUserSuccess(data) {
 	} else {
 		favicon.removeClass("active");
 	}
-	$.get(loadFollowedUsersBlockAction({'userId': data.id}), onLoadFollowedUsersSuccess);
+	$.get(loadFollowedUsersBlockAction(), onLoadFollowedUsersSuccess);
+}
+
+/** Callback  */
+function onLoadFollowedUsersSuccess(data) {
+	$(".list-avatars").replaceWith(data);
 }
 
 function toggleFollowingTopic(topicId) {
@@ -134,12 +139,14 @@ function onToggleFollowingTopicSuccess(data) {
 	} else {
 		favicon.removeClass("active");
 	}
+	$.get(loadFollowedTopicsBlockAction(), onLoadFollowedTopicsSuccess);
 }
 
-/** Callback  */
-function onLoadFollowedUsersSuccess(data) {
-	$(".list-avatars").replaceWith(data);
+/** Callback */
+function onLoadFollowedTopicsSuccess(data) {
+	$(".favoriteTopics").replaceWith(data);
 }
+
 
 /** Callback after a resetInsightActivity is done*/
 function onResetInsightActivitySuccess(data) {
@@ -956,6 +963,8 @@ $(document).ready(function() {
 	// tooltip
 	$(".voteWidgetLarge .loginTooltip").tooltip({showURL: false});
 	
+	$(".addfav.insight").tooltip({showURL: false});
+	
     //////////////////////
     // User Page
     //////////////////////
@@ -1052,6 +1061,8 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$(".linksprofil .addfav").tooltip({showURL: false});
+	
 	//////////////
 	// Search
 	//////////////
@@ -1091,6 +1102,8 @@ $(document).ready(function() {
 		bindCurrentState(reloadInsightsAction( generateGetInsightsArguments() ));
 	    return false;
 	});
+	
+	$(".addfav.topic").tooltip({showURL: false});
 	
 	//////////////
 	// User Insights list

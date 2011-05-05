@@ -74,7 +74,9 @@ public class Application extends Controller {
 
 	public static final int NUMBER_INSIGHTS_INSIGHTPAGE = 12;
 	public static final int NUMBER_INSIGHTS_INSIGHTPAGE_NOTLOGGED = 5;
-	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 4;
+	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 8;
+	public static final int NUMBER_USERACTIVITY_INDEXPAGE = 6;
+	public static final int NUMBER_TOPICACTIVITY_INDEXPAGE = 4;	
 	public static final int NUMBER_INSIGHTS_USERPAGE = 10;
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 5;
 
@@ -111,11 +113,9 @@ public class Application extends Controller {
 				Register.extAuthFirstTimeConnectPage(currentUser.email, currentUser.userName);
 			}
 			
-			renderArgs.put("insightActivities", currentUser.getInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
-			// TODO limit the number and order by update
-			renderArgs.put("followedInsights", currentUser.getNotHiddenFollowedInsights());
-			renderArgs.put("followedUsers", currentUser.followedUsers);
-			renderArgs.put("followedTopics", currentUser.followedTopics);
+			renderArgs.put("followedInsightActivities", currentUser.getFavoriteInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
+			renderArgs.put("followedUserActivities", currentUser.getFavoriteUserActivity(NUMBER_USERACTIVITY_INDEXPAGE));
+			renderArgs.put("followedTopicActivities", currentUser.getFavoriteTopicActivity(NUMBER_TOPICACTIVITY_INDEXPAGE));
 			
 			renderArgs.put("emailConfirmed", currentUser.emailConfirmed);
 			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);
@@ -193,18 +193,22 @@ public class Application extends Controller {
 			filterVote = "all";
 		}
 		
-		// log for analytics
-		if (Security.isConnected()) {
-			User currentUser = CurrentUser.getCurrentUser();
-			currentUser.visitInsightsList(new UserClientInfo(request, APPLICATION_ID));
-		}
-		
 		List<FeaturedTopic> featuredTopics = FeaturedTopic.findActive();
 		renderArgs.put("featuredTopics", featuredTopics);
 		
 		// return the real topic object
 		Topic top = Topic.findByLabel(topic);
 		renderArgs.put("topic", top);
+		
+		// log for analytics
+		if (Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			UserClientInfo userClientInfo = new UserClientInfo(request, APPLICATION_ID);
+			currentUser.visitInsightsList(userClientInfo);
+			if ( top != null ) {
+				currentUser.visitTopic(top, userClientInfo);
+			}
+		}
 		
 		render(sortBy, cat, filterVote, closed);
 	}
@@ -580,11 +584,24 @@ public class Application extends Controller {
 		render("Application/followUser.json", userId);
 	}
 
-	public static void loadFollowedUsers(Long userId) {
+	/**
+	 * return the block to be inserted in the followed users section
+	 */
+	public static void loadFollowedUsers() {
 		User currentUser = CurrentUser.getCurrentUser();
 
-		renderArgs.put("_followedUsers", currentUser.followedUsers);
+		renderArgs.put("_followedUserActivities", currentUser.getFavoriteUserActivity(NUMBER_USERACTIVITY_INDEXPAGE));
 		renderTemplate("tags/followedUsers.tag");
+	}
+	
+	/**
+	 * return the block to be inserted in the followed topics section
+	 */
+	public static void loadFollowedTopics() {
+		User currentUser = CurrentUser.getCurrentUser();
+
+		renderArgs.put("_followedTopicActivities", currentUser.getFavoriteTopicActivity(NUMBER_USERACTIVITY_INDEXPAGE));
+		renderTemplate("tags/followedTopics.tag");
 	}
 	
 	/**

@@ -91,6 +91,7 @@ showInsights.chartTitle=Probability over time
 shareInsight.shareonbeansight=Share
 shareInsight.searchBeansightUser=Type the username of a user you put in your favorites:
 shareInsight.sharebutton=Share
+showInsight.addInsightToFavorite=Favorite this insight
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=You haven't voted yet.
 agree-disagree.youhavenotvalidatedyet=You haven't validated this prediction.
@@ -125,6 +126,7 @@ insights.intopic=for topic
 insights.comments=comment%s
 insights.followTopic=Follow this topic
 insights.featuredTopics=Featured topics:
+insights.addTopicToFavorites=Favorite this topic
 
 #showUser
 userinsights=User predictions
@@ -143,6 +145,7 @@ showUser.edit.avatar=New avatar
 showUser.filterCreatedAndVoted=Created & voted
 showUser.filterVoted=Voted
 showUser.filterCreated=Created
+showUser.addUserToFavorite=Favorite this user
 
 #Contact
 followus=Follow us
