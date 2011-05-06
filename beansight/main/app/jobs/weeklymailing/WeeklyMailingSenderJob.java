@@ -1,11 +1,16 @@
 package jobs.weeklymailing;
 
+import helpers.TimeHelper;
+
 import java.util.List;
+
+import org.joda.time.DateTimeConstants;
 
 import models.Insight;
 import models.WeeklyMailingTask;
 import notifiers.Mails;
 import play.Logger;
+import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
 
@@ -15,7 +20,8 @@ import play.jobs.On;
  *
  */
 // every friday at 6 AM
-@On("0 0 6 ? * FRI")
+//@On("0 0 6 ? * FRI")
+@Every("1h")
 public class WeeklyMailingSenderJob extends Job {
 
 	/** Number of task email this job can send  */
@@ -23,6 +29,11 @@ public class WeeklyMailingSenderJob extends Job {
 	
 	@Override
 	public void doJob() throws Exception {
+		// TEMP
+		if(!TimeHelper.hourAndDayCheck(6, DateTimeConstants.FRIDAY)) {
+			return;
+		}
+		
 		Logger.info("starting WeeklyMailingSenderJob");
 		
 		List<WeeklyMailingTask> mailTasks = WeeklyMailingTask.find("sent is false and attempt < 5").fetch(NUM_TASK);

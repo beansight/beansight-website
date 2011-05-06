@@ -1,5 +1,7 @@
 package jobs;
 
+import helpers.TimeHelper;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,7 @@ import models.analytics.UserInsightDailyVote;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 
 import play.Logger;
 import play.jobs.Every;
@@ -24,11 +27,17 @@ import play.jobs.Job;
 import play.jobs.On;
 
 // job starts every days at midnight
-@On("0 30 0 * * ?")
+//@On("0 30 0 * * ?")
+@Every("1min")
 public class AnalyticsJob extends Job {
 
     @Override
     public void doJob() {
+		// TEMP
+		if(!TimeHelper.hourAndDayCheck(1, null)) {
+			return;
+		}
+    	
     	Logger.info("AnalyticsJob begin");
     	
     	// since this job starts after midnight we are calculating how many insights 

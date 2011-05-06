@@ -1,15 +1,20 @@
 package jobs.weeklymailing;
 
+import helpers.TimeHelper;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 
 import models.Insight;
 import models.User;
 import models.WeeklyMailingTask;
 import play.Logger;
+import play.jobs.Every;
 import play.jobs.Job;
 import play.jobs.On;
 
@@ -24,11 +29,20 @@ import play.jobs.On;
  *
  */
 // Every Friday at 5 AM
-@On("0 0 5 ? * FRI")
+// because of a Play! bug (http://play.lighthouseapp.com/projects/57987/tickets/13-on-causes-job-to-run-twice)
+// we job is runs every day and we check if you are on Friday
+
+//@On("0 0 5 ? * FRI")
+@Every("1h")
 public class WeeklyMailingJob extends Job {
 
 	@Override
 	public void doJob() throws Exception {
+		// TEMP
+		if(!TimeHelper.hourAndDayCheck(5, DateTimeConstants.FRIDAY)) {
+			return;
+		}
+		
 		Logger.info("starting WeeklyMailingJob");
 		
 		DateMidnight today = new DateMidnight();

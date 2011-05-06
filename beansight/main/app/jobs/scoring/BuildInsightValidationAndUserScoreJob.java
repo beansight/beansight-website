@@ -1,5 +1,7 @@
 package jobs.scoring;
 
+import helpers.TimeHelper;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import models.User;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 
 import play.Logger;
 import play.jobs.Every;
@@ -22,7 +25,8 @@ import play.jobs.On;
  *
  */
 // run at 3 in the morning every days
-@On("0 0 3 * * ?")
+//@On("0 0 3 * * ?")
+@Every("1h")
 public class BuildInsightValidationAndUserScoreJob extends Job {
 
 	private Date fromDate = null;
@@ -49,6 +53,11 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
 	
     @Override
     public void doJob() throws Exception {
+    	// TEMP
+		if(!TimeHelper.hourAndDayCheck(3, null)) {
+			return;
+		}
+    	
     	Logger.info("BuildInsightValidationAndUserScoreJob begin");
     	
     	if (fromDate.before(new Date(toDate.getTime() + 24l*60l*60l*1000l))) {
