@@ -47,7 +47,7 @@ public class Mails extends Mailer {
 
 	public static boolean invitation(InvitationMailTask task) {
 		Lang.set(task.language);
-		return sendMailTask(task, Messages.get("emailinvitationsubject", task.invitation.invitor.userName), "Mails/invitation");
+		return sendMailTask(task, Messages.get("email.invitation.subject", task.invitation.invitor.userName), "Mails/invitation");
 	}
 	
 	public static boolean message(MessageMailTask task) {
