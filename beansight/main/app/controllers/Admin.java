@@ -257,7 +257,14 @@ public class Admin extends Controller {
 	
 	public static void buildScores (@As("yyyy-MM-dd") Date fromDate, @As("yyyy-MM-dd") Date toDate) {
 		try {
-			new BuildInsightValidationAndUserScoreJob(fromDate, toDate).now();
+			// if no date provided then we run the Job as of today 
+			// (which actually means calculating scores for yesterday since 
+			//  we don't calculate scores if the day is not over) 
+			if (fromDate==null && toDate==null) {
+				new BuildInsightValidationAndUserScoreJob().now();
+			} else {
+				new BuildInsightValidationAndUserScoreJob(fromDate, toDate).now();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -302,7 +309,6 @@ public class Admin extends Controller {
 	
 	public static void updateInsightTrend(String uniqueId) {
 		Insight i = Insight.findByUniqueId(uniqueId);
-		System.out.println("updateInsightTrends : " + i.id);
 		i.buildInsightTrends();
 	}
 	
@@ -411,7 +417,7 @@ public class Admin extends Controller {
 	public static void weeklyMailSend() {
 		new WeeklyMailingSenderJob().now();
 	}
-	
+
 	/**
 	 * Admin only: Call this method to replace all activities with new activities based on the "following" information for Users, Topics and Insights
 	 */

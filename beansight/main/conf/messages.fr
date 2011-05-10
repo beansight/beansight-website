@@ -198,6 +198,8 @@ settings.insightShareMail=partage avec moi une prédiction.
 settings.newsletters=Bulletins d'information (e-mail)
 settings.statusNewsletter=recevoir une fois par semaine un suivi de mes prédictions.
 settings.upcomingNewsletter=recevoir chaque lundi un résumé des évènements qui vont se produire dans la semaine à venir.
+settings.facebookSettings=Paramètres Facebook
+settings.linkFacebookOnBeansight=Trouver mes amis Facebook
 
 # change password
 changePassword.oldPassword=Mot de passe actuel
@@ -319,6 +321,19 @@ errornotfound=Page non trouvée
 errorserver=Erreur
 errorservermessagetitle=Oups, une erreur est survenue
 errorservermessage=L'erreur a été enregistrée avec l'identifiant <strong>%s</strong>.
+
+# facebook friends
+manageFacebookFriend.menuLinkToFbMngPage=Gérer mes amis Facebook
+manageFacebookFriend.title=Gérer mes amis Facebook
+manageFacebookFriend.facebookAccountNotLinked=Vote compte Facebook n'a pas encore été lié à Beansight
+manageFacebookFriend.noFacebookFriendsOnBeansight=Vos amis Facebook ne sont pas encore sur Beansight
+manageFacebookFriend.followAll=Suivre tout le monde
+manageFacebookFriend.follow=Suivre
+manageFacebookFriend.hide=Ignorer
+
+facebookFriendsSidebar.title=Vos amis Facebook dans Beansight:
+facebookFriendsSidebar.follow=Suivre
+facebookFriendsSidebar.hide=Ignorer
 
 # FAQ
 faq.title=Questions fréquemment posées (FAQ)

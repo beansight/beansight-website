@@ -1,6 +1,6 @@
 package gson;
 
-public class FacebookModelObject {
+public class FacebookUserGson {
     
     private Long id;
     private String name;
@@ -12,7 +12,7 @@ public class FacebookModelObject {
     private String locale;
     private boolean verified;
     private String update_time;
-    private String email; // need requesting extended permission
+    private String email; // needs requesting extended permission
     
     public Long getId() {
         return id;

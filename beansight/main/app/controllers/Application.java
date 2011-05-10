@@ -23,6 +23,7 @@ import jregex.Pattern;
 import models.Category;
 import models.Comment;
 import models.FeaturedTopic;
+import models.FacebookFriend;
 import models.Filter;
 import models.Filter.FilterType;
 import models.FollowNotificationTask;
@@ -64,6 +65,8 @@ import play.libs.Images;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.results.RenderText;
+import play.mvc.Router;
+import play.mvc.Router.Route;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
 import exceptions.InvitationException;
@@ -116,6 +119,7 @@ public class Application extends Controller {
 			renderArgs.put("followedInsightActivities", currentUser.getFavoriteInsightActivity(NUMBER_INSIGHTACTIVITY_INDEXPAGE));
 			renderArgs.put("followedUserActivities", currentUser.getFavoriteUserActivity(NUMBER_USERACTIVITY_INDEXPAGE));
 			renderArgs.put("followedTopicActivities", currentUser.getFavoriteTopicActivity(NUMBER_TOPICACTIVITY_INDEXPAGE));
+			renderArgs.put("advisedUsers", currentUser.findSuggestedFacebookFriends());
 			
 			renderArgs.put("emailConfirmed", currentUser.emailConfirmed);
 			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);
@@ -456,13 +460,14 @@ public class Application extends Controller {
 			currentUser.visitExpert(user, userClientInfo);
 		}
 
-		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
-				"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period and cs.score is not null " +
-				"order by normalizedScore DESC")
-				.bind("user", user)
-				.bind("scoreDate", new DateMidnight(new Date()).minusDays(1).toDate())
-				.bind("period", PeriodEnum.THREE_MONTHS)
-				.fetch();
+//		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
+//				"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period and cs.score is not null " +
+//				"order by normalizedScore DESC")
+//				.bind("user", user)
+//				.bind("scoreDate", new DateMidnight(new Date()).minusDays(1).toDate())
+//				.bind("period", PeriodEnum.THREE_MONTHS)
+//				.fetch();
+		List<UserCategoryScore> categoryScores = user.getCategoryScores(new DateMidnight(new Date()).minusDays(1).toDate(), PeriodEnum.THREE_MONTHS);
 //		List<Insight> lastInsights = user.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
 		
 //		render(user, lastInsights, currentUserProfilePage);
@@ -580,12 +585,25 @@ public class Application extends Controller {
 		} else {
 			currentUser.startFollowingThisUser(user);
 			renderArgs.put("follow", true);
-		}
+		}	
 		render("Application/followUser.json", userId);
 	}
 
 	/**
+	 * AJAX: remove a followed user and returns the 
+	 */
+	public static void removeFollowedUser(Long userId) {
+		User currentUser = CurrentUser.getCurrentUser();
+		
+		User user = User.findById(userId);
+		currentUser.stopFollowingThisUser(user);
+		renderArgs.put("follow", false);
+		render("Application/followUser.json", userId);
+	}
+	
+	/**
 	 * return the block to be inserted in the followed users section
+	 * @param userId
 	 */
 	public static void loadFollowedUsers() {
 		User currentUser = CurrentUser.getCurrentUser();
@@ -602,6 +620,55 @@ public class Application extends Controller {
 
 		renderArgs.put("_followedTopicActivities", currentUser.getFavoriteTopicActivity(NUMBER_USERACTIVITY_INDEXPAGE));
 		renderTemplate("tags/followedTopics.tag");
+	}
+	
+	public static void followAllFacebookFriends() {
+		User currentUser = CurrentUser.getCurrentUser();
+
+		List<FacebookFriend> facebookFriends = currentUser.findFriendsOnFacebookWhoAreOnBeansight();
+		for (FacebookFriend facebookFriend : facebookFriends) {
+			if (facebookFriend.isAdded != true) {
+				facebookFriend.isAdded = true;
+				facebookFriend.isHidden = false;
+				facebookFriend.save();
+				currentUser.startFollowingThisUser(facebookFriend.beansightUserFriend);
+			}
+		}
+		renderArgs.put("_friends", currentUser.findFriendsOnFacebookWhoAreOnBeansight());
+		renderArgs.put("_currentUser", currentUser);
+		renderTemplate("tags/facebookFriendList.tag");
+	}
+	
+	/**
+	 * AJAX add the provided userId in the current user favorites
+	 * @param userId
+	 */
+	public static void addToFavoritesFromSuggestedFacebookFriends(Long userIdOfTheFriendToAdd) {
+		User currentUser = CurrentUser.getCurrentUser();
+		// user can't follow itself
+		if (userIdOfTheFriendToAdd.equals(currentUser.id)) {
+			return;
+		} 
+		
+		FacebookFriend fbFriend = FacebookFriend.findByUsersId(currentUser.id, userIdOfTheFriendToAdd);
+		fbFriend.isAdded = true;
+		fbFriend.save();
+	}
+	
+	/**
+	 * AJAX hide the provided userId from the suggested list of friends from facebook that also are on beansight
+	 * @param userId
+	 */
+	public static void hideSuggestedFacebookFriend(Long userIdOfTheFriendToHide) {
+		User currentUser = CurrentUser.getCurrentUser();
+		// user can't hide itself
+		if (userIdOfTheFriendToHide.equals(currentUser.id)) {
+			return;
+		} 
+		
+		FacebookFriend fbFriend = FacebookFriend.findByUsersId(currentUser.id, userIdOfTheFriendToHide);
+		fbFriend.isHidden = true;
+		fbFriend.save();
 	}
 	
 	/**
@@ -990,6 +1057,43 @@ public class Application extends Controller {
 	public static void tagSuggest(String term) {
 		List <Tag> tags = Tag.find( "byLabelLike", "%" + term.toLowerCase() + "%").fetch(NUMBER_SUGGESTED_TAGS);
 		render(tags);
+	}
+	
+	/**
+	 * this method should be used instead of calling manageFacebookFriends
+	 * because it updates the user's social graph from facebook
+	 * and if the user is'nt using facebook it will call manageFacebookFriends method
+	 */
+	public static void manageFacebookFriendsWithSynchronization() {
+		User currentUser = CurrentUser.getCurrentUser();
+		
+		// if current user has its facebookUserId known then we synchronize his facebook social graph in beansight
+		if (currentUser.facebookUserId != null) {
+			// add an info in session so that we know it's for synchonizing with facebook account
+			session.remove(FacebookOAuthForBeansight.LINK_FACEBOOK_TO_BEANSIGHT_COOKIE);
+			session.put(FacebookOAuthForBeansight.FACEBOOK_SYNC_COOKIE, "true");
+			
+			// add url in session to redirect back the user to the page for managing facebook friends 
+			session.put("url", Router.getFullUrl("Application.manageFacebookFriends"));
+			
+			// redirect to Facebook authentication
+			FacebookOAuth.authenticate();
+		} else {
+			manageFacebookFriends();
+		}
+	}
+	
+	/**
+	 * render the page to manage facebook friends.
+	 * you should user manageFacebookFriendsWithSynchronization method first
+	 * and let manageFacebookFriendsWithSynchronization redirect to manageFacebookFriends if necessary
+	 */
+	public static void manageFacebookFriends() {
+		User currentUser = CurrentUser.getCurrentUser();
+		
+		renderArgs.put("friendsOnFacebookWhoAreOnBeansight", currentUser.findFriendsOnFacebookWhoAreOnBeansight());
+		
+		render(currentUser);
 	}
 	
 	@InSitemap(changefreq="yearly", priority=0.1)

@@ -198,6 +198,8 @@ settings.insightShareMail=share a prediction with me.
 settings.newsletters=Newsletters (e-mail)
 settings.statusNewsletter=receive a weekly email of the evolution of your predictions. 
 settings.upcomingNewsletter=receive an email every Monday of upcoming events.
+settings.facebookSettings=Facebook settings
+settings.linkFacebookOnBeansight=Link Beansight account with Facebook
 
 # change password
 changePassword.oldPassword=Current password
@@ -320,6 +322,19 @@ errornotfound=Not found
 errorserver=Internal Error
 errorservermessagetitle=Oops, an error occure
 errorservermessage=This error has been logged with id <strong>%s</strong>.
+
+# facebook friends
+manageFacebookFriend.menuLinkToFbMngPage=Manage your Facebook friends in Beansight
+manageFacebookFriend.title=Manage my Facebook friends
+manageFacebookFriend.facebookAccountNotLinked=Your account is not linked with Facebook yet
+manageFacebookFriend.noFacebookFriendsOnBeansight=Your Facebook friends are not on Beansight yet
+manageFacebookFriend.followAll=Follow all
+manageFacebookFriend.follow=Follow
+manageFacebookFriend.hide=Ignore
+
+facebookFriendsSidebar.title=Your Facebook friends on Beansight:
+facebookFriendsSidebar.follow=Follow
+facebookFriendsSidebar.hide=Hide
 
 # FAQ
 faq.title=Frequently Asked Questions

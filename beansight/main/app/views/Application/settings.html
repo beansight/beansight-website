@@ -30,7 +30,17 @@
                 <option value="fr" #{if user.secondWrittingLanguage?.label.equals("fr")   }selected#{/if} >&{'settings.languages.fr'}     </option>
             </select>
         </div>
-
+        
+        <div class="item-input">
+        	<label class="label">&{'settings.facebookSettings'}</label>
+        	#{if (user.facebookUserId != null)}
+            	<a href="@{Application.manageFacebookFriendsWithSynchronization()}" style="font-size: 80%">&{'manageFacebookFriend.menuLinkToFbMngPage'}</a>
+            #{/if}
+            #{else}
+           		<button id="linkFacebookOnBeansight" class="social_buttons sb_48 sb_facebook"><span>&{'settings.linkFacebookOnBeansight'}</span></button>
+            #{/else}
+        </div>
+        
         <div class="item-input">
             <h3 class="label">&{'settings.mails'}</h3>
             <ul class="settings-checklist">

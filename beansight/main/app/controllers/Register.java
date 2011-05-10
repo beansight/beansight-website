@@ -23,6 +23,7 @@ import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.Controller;
+import play.mvc.Router;
 
 public class Register extends Controller {
 
@@ -182,17 +183,32 @@ public class Register extends Controller {
 	}
 	
 	public static void fbAuthenticate(String url) {
+		// add url in session to redirect back the user to the url he was browsing before authenticate 
 		session.put("url", url);
 		FacebookOAuth.authenticate();
 	}
 	
 	public static void twitAuthenticate(String url) throws Exception {
+		// add url in session to redirect back the user to the url he was browsing before authenticate 
 		session.put("url", url);
 		TwitterOAuth.authenticate();
 	}
 	
 	public static void beansightAuthenticate(@Required String username, String password, boolean remember, String url) throws Throwable {
+		// add url in session to redirect back the user to the url he was browsing before authenticate 
 		flash.put("url", url);
 		Secure.authenticate(username, password, remember);
+	}
+	
+	public static void linkBeansightAccountWithFacebook() {
+		// add an info in session so that we know it's for synchronizing with facebook account
+		session.remove(FacebookOAuthForBeansight.FACEBOOK_SYNC_COOKIE);
+		session.put(FacebookOAuthForBeansight.LINK_FACEBOOK_TO_BEANSIGHT_COOKIE, "true");
+		
+		// add url in session to redirect back the user to the page for managing facebook friends 
+		session.put("url", Router.getFullUrl("Application.manageFacebookFriends"));
+		
+		// redirect to Facebook authentication
+		FacebookOAuth.authenticate();
 	}
 }

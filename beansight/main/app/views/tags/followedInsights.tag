@@ -2,5 +2,5 @@
 #{list items:_followedInsightActivities , as:'insightActivity'}
     <p class="title-activity">#{insightActivity insightActivity:insightActivity /}</p>
 #{/list}
-    <hr class="clear"/>
+	<hr class="clear"/>
 </div>

@@ -58,7 +58,7 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
 			return;
 		}
     	
-    	Logger.info("BuildInsightValidationAndUserScoreJob begin");
+    	Logger.info("BuildInsightValidationAndUserScoreJob begin from %s to %s", fromDate, toDate);
     	
     	if (fromDate.before(new Date(toDate.getTime() + 24l*60l*60l*1000l))) {
 	    	Logger.info("********************");

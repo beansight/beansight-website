@@ -17,12 +17,14 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 
 import models.Insight.InsightResult;
@@ -153,7 +155,7 @@ public class User extends Model {
 	/** the insights followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Insight> followedInsights;
-	
+
 	/** the users followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<User> followedUsers;
@@ -162,6 +164,15 @@ public class User extends Model {
 	@ManyToMany
 	public Set<Topic> followedTopics;
 
+	/** if account is linked to facebook this relationship help us
+	 * to save extra information specifically related to beansight context*/
+	@OneToMany(mappedBy="user")
+	public List<FacebookFriend> facebookFriends;
+	
+	/** if account is linked to facebook, gets the facebook user informations */ 
+	@OneToOne
+	public FacebookUser relatedFacebookUser;
+	
 	/** the users who follow this user */
 	@ManyToMany(mappedBy = "followedUsers", cascade = CascadeType.ALL)
 	public List<User> followers;
@@ -228,6 +239,8 @@ public class User extends Model {
 		this.followedInsights = new ArrayList<Insight>();
 		this.followedUsers = new ArrayList<User>();
 		this.followedTopics = new HashSet<Topic>();
+		this.facebookFriends = new ArrayList<FacebookFriend>();
+		this.relatedFacebookUser = null;
 		this.crdate = new Date();
 		
 		this.shared = new ArrayList<InsightShare>();
@@ -685,6 +698,14 @@ public class User extends Model {
 			return;
 		}
 		followedUsers.add(user);
+		// is he (the provided "user" instance) a facebook friend ? 
+		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !
+		FacebookFriend fbFriend = FacebookFriend.findByUsersId(this.id, user.id);
+		if (fbFriend != null) {
+			fbFriend.isAdded = true;
+			fbFriend.isHidden = false;
+			fbFriend.save();
+		}
 		save();
 		user.followers.add(this);
 		user.save();
@@ -713,6 +734,15 @@ public class User extends Model {
 			return;
 		}
 		followedUsers.remove(user);
+		
+		// is he (the provided "user" instance) a facebook friend ? 
+		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !
+		FacebookFriend fbFriend = FacebookFriend.findByUsersId(this.id, user.id);
+		if (fbFriend != null) {
+			fbFriend.isAdded = false;
+			fbFriend.isHidden = true;
+			fbFriend.save();
+		}
 		save();
 		user.followers.remove(this);
 		user.save();
@@ -1256,14 +1286,14 @@ public class User extends Model {
 	
 	public List<UserCategoryScore> getCategoryScores(Date date, PeriodEnum period) {
 		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
-			"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period")
+			"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period and cs.score is not null " +
+			"order by normalizedScore DESC")
 			.bind("user", this)
 			.bind("scoreDate", date)
 			.bind("period", period)
 			.fetch();
 		return categoryScores;
 	}
-
 	
 	public List<Object[]> getScoreTimelineByCategory(CategoryEnum categoryEnum, PeriodEnum period) {
 		List<Object[]> categoryScores = UserCategoryScore.find("select cs.historic.scoreDate, cs.normalizedScore from UserCategoryScore cs " +
@@ -1288,4 +1318,58 @@ public class User extends Model {
 				.bind("validated", validated)
 				.fetch();
 	}
+	
+	public List<FacebookFriend> findMyFriendsInFacebookNotYetMyFriendsInBeansight() {
+
+		List<FacebookFriend> facebookFriends = FacebookFriend.find("select fbf from FacebookFriend fbf where fbf.facebookUser.facebookId in (select u.facebookUserId from User u " +
+				"where u.facebookUserId in (select friend.facebookId from FacebookUser fbu join fbu.friends as friend where fbu.facebookId = :facebookId)) " +
+				"and fbf.isBeansightUser is false and fbf.isHidden is false and fbf.isAdded is false ")
+				.bind("facebookId", this.facebookUserId)
+				.fetch();
+		return facebookFriends;
+	}
+	
+	
+	/**
+	 * find the facebook friends (if you have linked your account with facebook !)
+	 * who also have linked their facebook account to beansight.
+	 * returned objects are filtered so that it has not been hidden or already added.
+	 * @return List<FacebookFriend>
+	 */
+	public List<User> findSuggestedFacebookFriends() {
+		return User.find("select fbFriend.beansightUserFriend from FacebookFriend fbFriend " +
+				"where fbFriend.user=:user and " +
+				"fbFriend.isBeansightUser is true and " +
+				"fbFriend.isHidden is false and " +
+				"fbFriend.isAdded is false")
+				.bind("user", this)
+				.fetch();
+	}
+	
+	
+	/**
+	 * returns the beansight's user that have linked their Facebook account with beansight
+	 * @return
+	 */
+	public List<FacebookFriend> findFriendsOnFacebookWhoAreOnBeansight() {
+		return User.find("select fbFriend from FacebookFriend fbFriend " +
+				"where fbFriend.user=:user and " +
+				"fbFriend.isBeansightUser is true")
+				.bind("user", this)
+				.fetch();
+	}
+	
+	/**
+	 * returns a list of FacebookUser that are not in beansight (or that
+	 * don't have linked their beansight account with Facebook)
+	 * @return List<FacebookFriend>
+	 */
+	public List<FacebookUser> findFacebookUserNotInBeansight() {
+		return User.find("select fbFriend.facebookUser from FacebookFriend fbFriend " +
+				"where fbFriend.user=:user and " +
+				"fbFriend.isBeansightUser is false")
+				.bind("user", this)
+				.fetch();
+	}
+
 }

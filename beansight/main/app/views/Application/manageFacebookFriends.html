@@ -1,0 +1,24 @@
+#{extends 'content.html' /}
+#{set 'title'}
+	&{'manageFacebookFriend.title'}
+#{/set}
+
+#{set currentMenu:'facebookFriends' /}
+
+
+#{set contentCenterClass:'mini' /}
+
+<h2 class="cuf-grb">&{'manageFacebookFriend.title'}</h2>
+
+<div class="facebookFriends">
+	
+	<div style="font-size: 80%; margin-left: 50px; width: 330px;">
+		#{if (currentUser.facebookUserId == null)}
+			&{'manageFacebookFriend.facebookAccountNotLinked'}
+		#{/if}
+		#{if (currentUser.facebookUserId != null && friendsOnFacebookWhoAreOnBeansight.isEmpty())}
+			&{'manageFacebookFriend.noFacebookFriendsOnBeansight'}
+		#{/if}
+	</div>
+	#{facebookFriendList friends:friendsOnFacebookWhoAreOnBeansight, currentUser:currentUser/}
+</div>

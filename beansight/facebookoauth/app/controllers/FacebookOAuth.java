@@ -1,10 +1,15 @@
 package controllers;
 
-import gson.FacebookModelObject;
+import gson.FacebookUserGson;
+import gson.FriendGson;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
+import java.util.LinkedList;
 import java.util.List;
 
+import models.FacebookUser;
+import models.User;
 import play.Logger;
 import play.Play;
 import play.libs.WS;
@@ -12,8 +17,10 @@ import play.mvc.Controller;
 import play.mvc.Router;
 import play.mvc.results.Redirect;
 import play.utils.Java;
+import services.FacebookServices;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * 
@@ -79,18 +86,70 @@ public class FacebookOAuth extends Controller {
         String response = WS.url(fbAccessTokenUrl.toString()).post().getString();
         
         String accessToken = response.split("=")[1].split("&")[0];
-        session.put("fb", accessToken);
+        //session.put("fb", accessToken); // I think the accessToken should be kept secret so it's not a good idea to put in the cookie
         
-        String facebookUserJson = WS.url("https://graph.facebook.com/me?access_token=" + WS.encode( accessToken ) ).get().getString();
+    	FacebookServices facebookServices = new FacebookServices(accessToken);
+    	FacebookUserGson facebookModelObject = facebookServices.getFacebookModelObject();
         
-        Gson gson = new Gson();
-        FacebookModelObject facebookModelObject = gson.fromJson(facebookUserJson, FacebookModelObject.class);
 
-        FacebookOAuthDelegate.invoke("onFacebookAuthentication", facebookModelObject);
+    	saveBasicFacebookUserInfosAndFriends(accessToken, facebookModelObject);
+    	
+        FacebookOAuthDelegate.invoke("onFacebookAuthentication", accessToken, facebookModelObject);
+    }
+    
+    
+    /**
+     * Saves in DB the friends of the current facebook user 
+     * 
+     * @param accessToken
+     * @param facebookUserGson
+     */
+    static FacebookUser saveBasicFacebookUserInfosAndFriends(String accessToken, FacebookUserGson facebookUserGson) {
+    	FacebookServices facebookServices = new FacebookServices(accessToken);
+    	List<FriendGson> friends = facebookServices.getFriends(facebookUserGson.getId());
+		
+    	// check that the current user has an entry in DB, if not add it
+		FacebookUser fbUser = FacebookUser.findByFacebookId(facebookUserGson.getId());
+		if (fbUser == null) {
+			fbUser = new FacebookUser(facebookUserGson.getId());
+			fbUser.save();
+		}
+
+		//
+		// save basic user infos
+		//
+		fbUser.name = facebookUserGson.getName();
+		fbUser.firstName = facebookUserGson.getFirst_name();
+		fbUser.lastName = facebookUserGson.getLast_name();
+		fbUser.link = facebookUserGson.getLink();
+		fbUser.gender = facebookUserGson.getGender();
+		fbUser.timezone = facebookUserGson.getTimezone();
+		fbUser.locale = facebookUserGson.getLocale();
+		fbUser.verified = facebookUserGson.isVerified();
+		fbUser.updateTime = facebookUserGson.getUpdate_time();
+		
+		//
+		// save friends
+		//
+		for (FriendGson f : friends) {
+			// if not already in the user's friends add it
+			if (!fbUser.isThisFacebookUserAlreadyMyFriend(f.getUid1())) {
+				// get the FacebookUser if it already exists :
+				FacebookUser fbFriend = FacebookUser.findByFacebookId(f
+						.getUid1());
+				if (fbFriend == null) {
+					fbFriend = new FacebookUser(f.getUid1());
+				}
+				fbUser.friends.add(fbFriend);
+			}
+		}
+		
+		fbUser.save();
+		return fbUser;
     }
     
      
-    
+    // I can't remember if this method is useful ? ...
     public static void acccessTokenCallback(String accessToken) {
         throw new Redirect(Router.getFullUrl("Application.index"));
     }
@@ -110,7 +169,7 @@ public class FacebookOAuth extends Controller {
     	 * 
     	 * @param facebookModelObject
     	 */
-        static void onFacebookAuthentication(FacebookModelObject facebookModelObject)  {
+        static void onFacebookAuthentication(String accessToken, FacebookUserGson facebookUserGson)  {
             Application.index();
         }
         

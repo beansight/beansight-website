@@ -55,6 +55,8 @@
 	var toggleFollowingInsightAction = #{jsAction @Application.toggleFollowingInsight(':insightUniqueId') /};
     var toggleFollowingTopicAction = #{jsAction @Application.toggleFollowingTopic(':topicId') /};	
 	var toggleFollowingUserAction = #{jsAction @Application.toggleFollowingUser(':userId') /};
+	var removeFollowedUserAction = #{jsAction @Application.removeFollowedUser(':userId') /};
+	var followAllFacebookFriendsAction = #{jsAction @Application.followAllFacebookFriends() /};
 	var loadFollowedUsersBlockAction = #{jsAction @Application.loadFollowedUsers() /};
 	var loadFollowedTopicsBlockAction = #{jsAction @Application.loadFollowedTopics() /};
 	var getInsightsAction = #{jsAction @Application.getInsights(':from',':sortBy', ':cat', ':filterVote', ':topic', ':closed') /};
@@ -79,6 +81,9 @@
 	var showAvatarSmallFromEmailAction = #{jsAction @Application.showAvatarSmallFromEmail(':email') /};
     var isUserNameAvailableAction = #{jsAction @Register.isUserNameAvailable() /};
     var isEmailAvailableAction = #{jsAction @Register.isEmailAvailable() /};  
+    var addToFavoritesFromSuggestedFacebookFriendsAction = #{jsAction @Application.addToFavoritesFromSuggestedFacebookFriends(':userIdOfTheFriendToAdd') /};
+    var hideSuggestedFacebookFriendAction = #{jsAction @Application.hideSuggestedFacebookFriend(':userIdOfTheFriendToHide') /}
+    var linkBeansightAccountWithFacebookAction = #{jsAction @Register.linkBeansightAccountWithFacebook() /}
 	</script>
 </head>
 <body>
