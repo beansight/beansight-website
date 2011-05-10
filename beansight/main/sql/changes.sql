@@ -125,4 +125,4 @@ CREATE TABLE `FacebookFriend` (
 ALTER TABLE `User`
 	ADD COLUMN `relatedFacebookUser_id` bigint(20) DEFAULT NULL,
 	ADD KEY `FK285FEB4405E9D3` (`relatedFacebookUser_id`),
-	ADD CONSTRAINT `FK285FEB4405E9D3` FOREIGN KEY (`relatedFacebookUser_id`) REFERENCES `facebookuser` (`id`);
+	ADD CONSTRAINT `FK285FEB4405E9D3` FOREIGN KEY (`relatedFacebookUser_id`) REFERENCES `FacebookUser` (`id`);

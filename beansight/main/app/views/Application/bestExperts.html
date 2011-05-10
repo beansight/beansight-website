@@ -1,0 +1,62 @@
+#{extends 'content.html' /}
+#{set 'title'}
+    &{'experts.explore'}
+#{/set}
+
+#{set currentMenu:'menuExperts' /}
+#{set contentCenterClass:'large' /}
+
+<h2 class="cuf-grb">&{'expertstitle'}</h2>
+
+#{if sortedFollowedUsers} 
+<h3>Friends</h3>
+<div class="listinsights listexperts">
+<ul>
+#{list items:sortedFollowedUsers, as:'friend'}
+    #{if friend_index < controllers.Application.NUMBER_FOLLOWED_EXPERTPAGE + 1
+        || friend_index == currentUserRank
+        || friend_index == currentUserRank + 1
+        || friend_index == currentUserRank + 2 }
+        ${friend_index}
+        #{expertLine expert:friend /}
+    #{/if}
+    
+    *{ Display a "..." after the friend list }*
+    #{if friend_index == currentUserRank + 2}
+        <p>...</p>
+    #{/if}
+
+    *{ Display a "..." after the first user list and before the currentUser - 1, if needed }*
+    #{if currentUserRank > controllers.Application.NUMBER_FOLLOWED_EXPERTPAGE + 2 
+        && friend_index == currentUserRank -1}
+        <p>...</p>
+    #{/if}
+#{/list}
+</ul>
+</div>
+#{/if} 
+
+<h3>Best</h3>
+<div class="listinsights listexperts">
+<ul>
+#{list items:experts, as:'expert'}
+    #{expertLine expert:expert /}
+#{/list}
+</ul>
+</div>
+
+<h3>Category</h3>
+<div class="listinsights listexperts">
+#{list items:controllers.Application.getCategories(), as:'category' }
+    <p>${category.label}</p>
+    <ul>
+    #{list items:bestUsersByCategory.get(category), as:'user'}
+       #{expertLine expert:user /}
+    #{/list}
+    </ul>
+#{/list}
+</div>
+
+<div class="seeall">
+    <p><a href="@{Application.experts()}">&{'experts.loadmore'}</a></p>
+</div>

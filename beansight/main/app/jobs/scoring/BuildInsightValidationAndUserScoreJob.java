@@ -54,9 +54,9 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
     @Override
     public void doJob() throws Exception {
     	// TEMP
-		if(!TimeHelper.hourAndDayCheck(3, null)) {
-			return;
-		}
+		//if(!TimeHelper.hourAndDayCheck(3, null)) {
+		//	return;
+		//}
     	
     	Logger.info("BuildInsightValidationAndUserScoreJob begin from %s to %s", fromDate, toDate);
     	

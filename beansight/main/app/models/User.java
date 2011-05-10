@@ -67,7 +67,7 @@ import exceptions.UserIsAlreadyFollowingInsightException;
 
 @Entity
 @Indexed
-public class User extends Model {
+public class User extends Model implements Comparable<User> {
 
 	public static final int NUMBER_SHAREDINSIGHTS_SUGGEDTEDINSIGHTS = 2;
 
@@ -271,6 +271,30 @@ public class User extends Model {
 	 */
 	public static List<User> findBest(int from, int number) {
 		return User.find("score is not null order by score DESC").from( from ).fetch( number );
+	}
+	
+	/**
+	 * Return the Best users of a given category (comparing their scores)
+	 */
+	public static List<User> findBestInCategory(int from, int number, Category category) {
+		return User.find("select ush.user from UserScoreHistoric ush " + 
+				 "join ush.categoryScores as catScore " + 
+				 "where ush.scoreDate = :scoreDate " + 
+				 "and catScore.category = :cat " + 
+				 "order by catScore.normalizedScore desc") 
+				 .bind("scoreDate", new DateMidnight().minusDays(1).toDate()) 
+				 .bind("cat", category).from( from ).fetch( number ); 
+	}
+	
+	/**
+	 * @return a list of the users this user is following (it also contains the current user)
+	 */
+	public List<User> getFollowedUsersSortedByScore() {
+		List<User> meAndFriends = new ArrayList(this.followedUsers);
+		meAndFriends.add(this);
+		Collections.sort(meAndFriends);
+		Collections.reverse(meAndFriends);
+		return meAndFriends;
 	}
 
 	public void setUserName(String userName) {
@@ -1317,6 +1341,16 @@ public class User extends Model {
 				.bind("toDate", toDate)
 				.bind("validated", validated)
 				.fetch();
+	}
+
+	/**
+	 * Compare the score of this user with the score of another user
+	 * If this user score is greater than the given user scrore,
+	 * then this user is greater than the given one
+	 */
+	@Override
+	public int compareTo(User user) {
+		return this.score.compareTo(user.score);
 	}
 	
 	public List<FacebookFriend> findMyFriendsInFacebookNotYetMyFriendsInBeansight() {

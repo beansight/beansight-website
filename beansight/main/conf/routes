@@ -14,8 +14,9 @@ GET     /forgotpassword                         Security.forgotPasswordAskEmail
 GET		/invitation/check						Register.extAuthFirstTimeConnectPage
 
 GET     /create                                 Application.create
+GET     /community/best                         Application.bestExperts
+GET     /experts                                Application.bestExperts
 GET     /community                              Application.experts
-GET     /experts                                Application.experts
 GET     /search/{query}				            Application.search
 GET     /profile		            			Application.profile
 GET     /settings                               Application.settings

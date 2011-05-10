@@ -80,9 +80,13 @@ public class Application extends Controller {
 	public static final int NUMBER_INSIGHTACTIVITY_INDEXPAGE = 8;
 	public static final int NUMBER_USERACTIVITY_INDEXPAGE = 6;
 	public static final int NUMBER_TOPICACTIVITY_INDEXPAGE = 4;	
+	
 	public static final int NUMBER_INSIGHTS_USERPAGE = 10;
+	
 	public static final int NUMBER_EXPERTS_EXPERTPAGE = 5;
-
+	public static final int NUMBER_CATEGORYEXPERTS_EXPERTPAGE = 5;
+	public static final int NUMBER_FOLLOWED_EXPERTPAGE = 5;
+	
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 12;
 	public static final int NUMBER_EXPERTS_SEARCHPAGE = 5;
 
@@ -309,7 +313,7 @@ public class Application extends Controller {
 	
 	
 
-	@InSitemap(changefreq="always", priority=0.8)
+	@InSitemap(changefreq="always", priority=0.4)
 	public static void experts() {
 		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
 		
@@ -323,6 +327,27 @@ public class Application extends Controller {
 		render(experts);
 	}
 
+	@InSitemap(changefreq="always", priority=0.8)
+	public static void bestExperts() {
+
+		Map<Category, List<User>> bestUsersByCategory = new HashMap<Category, List<User>>();
+		for(Category cat : getCategories()) {
+			bestUsersByCategory.put(cat, User.findBestInCategory(0, NUMBER_CATEGORYEXPERTS_EXPERTPAGE, cat ));
+		}
+
+		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
+		
+		// If connected, log analytic
+		if (Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			List<User> sortedFollowedUsers = currentUser.getFollowedUsersSortedByScore();
+			renderArgs.put("currentUserRank", sortedFollowedUsers.indexOf(currentUser));
+			renderArgs.put("sortedFollowedUsers", currentUser.getFollowedUsersSortedByScore());
+		}
+		
+		render(experts, bestUsersByCategory);
+	}
+	
 	public static void searchExperts(String query, int from) {
 		if (query == null || query.isEmpty()) {
 			List<User> experts = User.findBest(from, NUMBER_EXPERTS_EXPERTPAGE );
