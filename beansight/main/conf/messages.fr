@@ -331,7 +331,7 @@ manageFacebookFriend.followAll=Suivre tout le monde
 manageFacebookFriend.follow=Suivre
 manageFacebookFriend.hide=Ignorer
 
-facebookFriendsSidebar.title=Vos amis Facebook dans Beansight:
+facebookFriendsSidebar.title=Vos amis Facebook sur Beansight :
 facebookFriendsSidebar.follow=Suivre
 facebookFriendsSidebar.hide=Ignorer
 
