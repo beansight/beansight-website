@@ -59,6 +59,8 @@ public class UserActivity extends Model {
 		
 		this.totalCount = 0;
 		this.newInsightCount = 0;
+		this.newVoteCount = 0;
+		this.voteChangeCount = 0;
 	}
 	
 	public void incrementNewInsightCount() {
