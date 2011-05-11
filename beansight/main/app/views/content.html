@@ -9,18 +9,18 @@
 #{isConnected}
 <!-- CREER INSIGHT -->
 <p class="btn-newins"><a href="@{Application.create()}" class="cuf-grm #{currentMenu 'menuCreate' /}">&{'menucreate'}</a></p>
+
+    #{if !emailConfirmed}
+    <div id="plzconfirm" class="warning">
+    <p>&{'needemailconfirm'}</p>
+    </div>
+    #{/if}
 #{/isConnected}
 
 #{menu /}
 
 #{isConnected}
     #{favorites followedTopicActivities:followedTopicActivities, followedInsightActivities:followedInsightActivities, followedUserActivities:followedUserActivities, advisedUsers:advisedUsers /}
-
-	#{if !emailConfirmed}
-	<div id="plzconfirm" class="warning">
-	<p>&{'needemailconfirm'}</p>
-	</div>
-	#{/if}
     #{invitations invitationsLeft:invitationsLeft /}
     <hr class="clear"/>
 #{/isConnected}

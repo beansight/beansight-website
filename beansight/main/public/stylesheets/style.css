@@ -48,7 +48,6 @@ a:hover{color:#228392;}
 #header .contentheader .colhead.collogin .logbtn:hover a{background-position:left bottom;}
 /* connecté */
 #header .contentheader .colhead.collogin .welcome{float:right;background:url(/public/images/separator-blancgris.png) no-repeat right center;text-align:right;padding:0 12px 0 0;}
-#header .contentheader .colhead.collogin .welcome p{font-size:14px;color:#aaaeaf;}
 #header .contentheader .colhead.collogin .welcome p{font-size:14px;color:#aaaeaf;word-wrap:break-word;width:100px;}
 #header .contentheader .colhead.collogin .welcome p a.pseudo-link{font-weight:bold;color:#7aa13d;}
 #header .contentheader .colhead.collogin .welcome p a.pseudo-link:hover{color:#5D7F2C;}
