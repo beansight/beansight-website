@@ -164,6 +164,34 @@ function onLoadFollowedUsersSuccess(data) {
 	$(".list-avatars").replaceWith(data);
 }
 
+function toggleFollowingTopic(topicId) {
+	$.getJSON(toggleFollowingTopicAction({'topicId': topicId}), onToggleFollowingTopicSuccess);
+	var favicon = $(".addfav.topic_" + topicId);
+	if(favicon.hasClass("active")) {
+		favicon.removeClass("active");
+	} else {
+		favicon.addClass("active");
+	}
+	return false;
+}
+
+/** Callback after a follow of topic is done */
+function onToggleFollowingTopicSuccess(data) {
+	var favicon = $(".addfav", ".topic_" + data.id);
+	if(data.follow) {
+		favicon.addClass("active");
+	} else {
+		favicon.removeClass("active");
+	}
+	$.get(loadFollowedTopicsBlockAction(), onLoadFollowedTopicsSuccess);
+}
+
+/** Callback */
+function onLoadFollowedTopicsSuccess(data) {
+	$(".favoriteTopics").replaceWith(data);
+}
+
+
 /** Callback after a resetInsightActivity is done*/
 function onResetInsightActivitySuccess(data) {
 	$('#insightActivity').fadeOut();
@@ -1167,9 +1195,6 @@ $(document).ready(function() {
 	
 	$('#mngFbFriendFollowAll').button();
 	
-//	$('div[id^="followHideFacebookFriend"]').each(function() {
-//		$(this).buttonset();
-//	});
 	$('input[name^="followHideFbFriend"]').change(function() {
 		if (this.value == "follow") {
 			addUserToMyFavorites($(this).attr("data-buserid"));
@@ -1185,5 +1210,8 @@ $(document).ready(function() {
 		window.location.href = linkBeansightAccountWithFacebookAction();
 	}); 
 	
+	
+	$('#cancelBtn').button();
+	$('#continueBtn').button();
 });
 
