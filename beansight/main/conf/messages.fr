@@ -199,7 +199,7 @@ settings.newsletters=Bulletins d'information (e-mail)
 settings.statusNewsletter=recevoir une fois par semaine un suivi de mes prédictions.
 settings.upcomingNewsletter=recevoir chaque lundi un résumé des évènements qui vont se produire dans la semaine à venir.
 settings.facebookSettings=Paramètres Facebook
-settings.linkFacebookOnBeansight=Trouver mes amis Facebook
+settings.linkFacebookOnBeansight=Lier avec mon compte Facebook
 
 # change password
 changePassword.oldPassword=Mot de passe actuel
