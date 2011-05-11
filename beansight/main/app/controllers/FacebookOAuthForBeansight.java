@@ -218,7 +218,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     	if (!currentUser.avatarSmall.exists()) {
     		try {
 	//			String response = WS.url("http://graph.facebook.com/%s/picture", currentUser.facebookUserId.toString()).get().getString();
-				InputStream profileImageInputStream = WS.url("http://graph.facebook.com/%s/picture", currentUser.facebookUserId.toString()).get().getStream();
+				InputStream profileImageInputStream = WS.url("http://graph.facebook.com/%s/picture?type=large", currentUser.facebookUserId.toString()).get().getStream();
 	//			source.setEncoding("UTF-8");
 	
 			
