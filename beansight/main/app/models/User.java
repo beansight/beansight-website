@@ -6,7 +6,6 @@ import helpers.UserCount;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -17,7 +16,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
@@ -40,7 +38,6 @@ import models.analytics.UserListExpertsVisit;
 import models.analytics.UserListInsightsVisit;
 import models.analytics.UserPromocodeCampaign;
 import models.analytics.UserTopicVisit;
-import notifiers.Mails;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
@@ -106,6 +103,9 @@ public class User extends Model implements Comparable<User> {
     public Long facebookUserId;
     public String facebookScreenName;
     
+    /** if yes then user cannot use this account to log again */
+    public boolean deleted;
+    
     /** true if the user account creation process went well to the end */
     public boolean isPromocodeValidated;
     
@@ -125,10 +125,10 @@ public class User extends Model implements Comparable<User> {
 	/** How many invitations this user can send, -1 for infinity*/
 	public long invitationsLeft;
 	
-	public Blob avatarUnchanged;
-	public Blob avatarSmall;
-	public Blob avatarMedium;
-	public Blob avatarLarge;
+	public Blob avatarUnchanged = null;
+	public Blob avatarSmall = null;
+	public Blob avatarMedium = null;
+	public Blob avatarLarge = null;
 
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.
@@ -240,6 +240,7 @@ public class User extends Model implements Comparable<User> {
 		this.followedUsers = new ArrayList<User>();
 		this.followedTopics = new HashSet<Topic>();
 		this.facebookFriends = new ArrayList<FacebookFriend>();
+		this.deleted = false;
 		this.relatedFacebookUser = null;
 		this.crdate = new Date();
 		
@@ -353,23 +354,66 @@ public class User extends Model implements Comparable<User> {
 		return crdate;
 	}
 
-	
+	/**
+	 * originalImage : original image file to use to create all avatar image size
+	 * replaceAvatarUnchanged : if set to true then the method will originalImage and set it as the default one
+	 * 
+	 * @param originalImage
+	 * @param replaceAvatarUnchanged
+	 * @throws FileNotFoundException
+	 */
 	public void updateAvatar(File originalImage, boolean replaceAvatarUnchanged) throws FileNotFoundException {
 		if (replaceAvatarUnchanged == true) {
+			try {
+				if (this.avatarUnchanged.exists()) {
+					this.avatarUnchanged.getFile().delete();
+				}
+			} catch (Exception e) {
+				Logger.error("Cannot delete avatarUnchanged image : %s", e.getMessage());
+			}
 			this.avatarUnchanged.set(new FileInputStream(originalImage), "Image");
 		}
 		// Default is we resize the originalImage without any modification.
 		// Can be cropped later if necessary since we keep the original
+		
+		// SMALL
 		File smallImageTmp = ImageHelper.resizeRespectingRatio(originalImage, 26, 26);
+		try {
+			if (this.avatarSmall.exists()) {
+				this.avatarSmall.getFile().delete();
+			}
+		} catch (Exception e) {
+			Logger.error("Cannot delete avatarSmall image : %s", e.getMessage());
+		}
 		this.avatarSmall.set(new FileInputStream(smallImageTmp),
 					"Image");
+		
+		// MEDIUM
 		File mediumImageTmp = ImageHelper.resizeRespectingRatio(originalImage, 46, 46);
+		try {
+			if (this.avatarMedium.exists()) {
+				this.avatarMedium.getFile().delete();
+			}
+		} catch (Exception e) {
+			Logger.error("Cannot delete avatarMedium image : %s", e.getMessage());
+		}
 		this.avatarMedium.set(new FileInputStream(mediumImageTmp),
 					"Image");
+		
+		// LARGE
 		File largeImageTmp = ImageHelper.resizeRespectingRatio(originalImage, 94, 94);
+		try {
+			if (this.avatarLarge.exists()) {
+				this.avatarLarge.getFile().delete();
+			}
+		} catch (Exception e) {
+			Logger.error("Cannot delete avatarLarge image : %s", e.getMessage());
+		}
 		this.avatarLarge.set(new FileInputStream(largeImageTmp),
 					"Image");
+		
 		this.save();
+		
 		originalImage.deleteOnExit();
 		smallImageTmp.deleteOnExit();
 		mediumImageTmp.deleteOnExit();
@@ -383,12 +427,6 @@ public class User extends Model implements Comparable<User> {
 	 * @return
 	 */
 	public static User findByUserName(String userName) {
-//		User user = Cache.get(userName, User.class);
-//		if (user == null) {
-//			user = find("userName = ?", userName).first();
-//			Cache.set(userName, user, "2s");
-//		}
-//		return user;
 		return find("userName = ?", userName).first();
 	}
 
@@ -399,12 +437,6 @@ public class User extends Model implements Comparable<User> {
 	 * @return
 	 */
 	public static User findByEmail(String email) {
-//		User user = Cache.get(email, User.class);
-//		if (user == null) {
-//			user = find("email = ?", email).first();
-//			Cache.set(email, user, "2s");
-//		}
-//		return user;
 		return find("email = ?", email).first();
 	}
 	   
@@ -415,12 +447,6 @@ public class User extends Model implements Comparable<User> {
      * @return
      */
     public static User findByTwitterUserId(String twitterUserId) {
-//		User user = Cache.get(twitterUserId, User.class);
-//		if (user == null) {
-//			user = find("twitterUserId = ?", twitterUserId).first();
-//			Cache.set(twitterUserId, user, "2s");
-//		}
-//		return user;
     	return find("twitterUserId = ?", twitterUserId).first();
     }
 	
@@ -431,12 +457,6 @@ public class User extends Model implements Comparable<User> {
      * @return
      */
     public static User findByFacebookUserId(Long facebookUserId) {
-//		User user = Cache.get(facebookUserId.toString(), User.class);
-//		if (user == null) {
-//			user = find("facebookUserId = ?", facebookUserId).first();
-//			Cache.set(facebookUserId.toString(), user, "2s");
-//		}
-//		return user;
     	return find("facebookUserId = ?", facebookUserId).first();
     }
     

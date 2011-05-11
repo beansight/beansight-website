@@ -7,7 +7,7 @@
     #{friendToAddMiniAvatarName user:friend /}
 #{/list}
 <div id="note" class="note">
-    <p><a href="@{Application.manageFacebookFriends()}">&{'manageFacebookFriend.menuLinkToFbMngPage'}</a></p>
+    <p><a href="@{Application.manageFacebookFriendsFromSideBar()}">&{'manageFacebookFriend.menuLinkToFbMngPage'}</a></p>
 </div>
 <hr class="clear"/>
 </div>

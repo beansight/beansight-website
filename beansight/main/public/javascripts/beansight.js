@@ -63,6 +63,22 @@ function updateAgreeDisagreeCount(uniqueId, agreeCount, disagreeCount, voteState
     }
 }
 
+// Page : facebookIdAlreadyInUseWarning.html
+function cancelFacebookAccountLinking() {
+	window.location.href = settingsAction();
+}
+
+function continueFacebookAccountLinking() {
+	window.location.href = overrideFacebookLinkingOnAnotherAccountAction();
+}
+//////
+
+// Tag : friendsToAddToMyFavorites.tag
+function goToManageMyFacebookFriendsPage() {
+	window.location.href = manageFacebookFriendsFromSideBarAction();
+}
+//////
+
 function toggleFollowingInsight(insightUniqueId) {
 	$.getJSON(toggleFollowingInsightAction({'insightUniqueId': insightUniqueId}), onToggleFollowingInsightSuccess);
 	// Change the color of the icon, before receiving any response.
@@ -1195,6 +1211,8 @@ $(document).ready(function() {
 	
 	$('#mngFbFriendFollowAll').button();
 	
+	// to delete (old radio)
+	/*
 	$('input[name^="followHideFbFriend"]').change(function() {
 		if (this.value == "follow") {
 			addUserToMyFavorites($(this).attr("data-buserid"));
@@ -1205,6 +1223,19 @@ $(document).ready(function() {
 		}
 		return false;
 	});
+	*/
+	
+	$('input[name^="followHideFbFriend"]').change(function() {
+		if ($(this).attr("checked")) {
+			addUserToMyFavorites($(this).attr("data-buserid"));
+		} else {
+			hideUserFromSuggestedFriends($(this).attr("data-buserid"));
+		}
+		
+		return false;
+	});
+
+	
 	
 	$("#linkFacebookOnBeansight").click(function(){
 		window.location.href = linkBeansightAccountWithFacebookAction();

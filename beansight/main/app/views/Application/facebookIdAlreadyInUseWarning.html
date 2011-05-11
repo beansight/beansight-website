@@ -1,0 +1,41 @@
+#{extends 'content.html' /}
+#{set 'title'}
+	&{'manageFacebookFriend.title'}
+#{/set}
+
+#{set currentMenu:'facebookFriends' /}
+
+
+#{set contentCenterClass:'mini' /}
+
+<h2 class="cuf-grb">&{'manageFacebookFriend.title'}</h2>
+
+<div class="facebookFriends" style="margin-left: 50px; width: 430px;">
+	
+	<div style="font-size: 80%;">
+		The following account is already linked to your Facebook account :
+	</div>
+	
+	
+	<div>
+		<div id="managefb" class="item-avatar" style="width: 400px;">
+			<a href="@{Application.showUser(otherAccount.userName)}">
+			    <span class="backavatar"><img src="@{Application.showAvatarMedium(otherAccount.userName, otherAccount.avatarHashCode())}"/></span>
+			    <p>${otherAccount.userName}</p>
+			</a>
+		</div>	
+	</div>
+	
+	<hr class="clear"/>
+	
+	<span style="display:block ;font-size: 80%; margin-top:30px;">
+		En cliquant sur Continuer vous confirmez que seul le compte actuellement en cours d'utilisation pourra utiliser Facebook pour se connecter à Beansight
+	</span>
+	
+	<div style="margin-top: 40px; text-align: center;">
+		<button id="cancelBtn" onclick="cancelFacebookAccountLinking(); return false;">Annuler</button>
+		<button id="continueBtn" onclick="continueFacebookAccountLinking(); return false;">Continuer</button>
+	</div>
+	
+</div>
+

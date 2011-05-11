@@ -31,6 +31,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     
 	public static final String FACEBOOK_SYNC_COOKIE = "FACEBOOK_SYNC_COOKIE";
 	public static final String LINK_FACEBOOK_TO_BEANSIGHT_COOKIE = "LINK_FACEBOOK_TO_BEANSIGHT_COOKIE";
+	public static final String OVERRIDE_FACEBOOK_LINKING = "OVERRIDE_FACEBOOK_LINKING";
 	
 	public static final String FACEBOOK_REGISTER_VIA_LOGIN = "FACEBOOK_REGISTER_VIA_LOGIN";
 	public static final String FACEBOOK_REGISTER_VIA_SIGNUP = "FACEBOOK_REGISTER_VIA_SIGNUP";
@@ -52,16 +53,14 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
 
         User beansightFbUser = null;
         
-        // facebook email could be null/void
-        if (fbUser.getEmail() != null && !fbUser.getEmail().trim().equals("")) {
+        // we try to find him with his facebook id
+        beansightFbUser = User.findByFacebookUserId(fbUser.getId());
+        
+        // if no user with the facebookId we use the facebook email to find a user already existing in beansight
+        if (beansightFbUser == null && fbUser.getEmail() != null && !fbUser.getEmail().trim().equals("")) {
         	if (!User.isEmailAvailable(fbUser.getEmail())) {
         		beansightFbUser = User.findByEmail(fbUser.getEmail());
         	}
-        }
-        
-        // facebookUser is still null after an email lookup we try to find him with his facebook id
-        if (beansightFbUser == null) {
-        	beansightFbUser = User.findByFacebookUserId(fbUser.getId());
         }
         
         // Finally no user found this is the first time this user connects to beansight
@@ -89,13 +88,14 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         } 
         
         // add these information in cookie to know the user has used Facebook to login
+        session.put("userId", beansightFbUser.getId());
         session.put("isFacebookUser", Boolean.TRUE);
         session.put("facebookUserId", facebookUserId);
         session.put("username", beansightFbUser.email);
         // Remember
         response.setCookie("rememberme", Crypto.sign(beansightFbUser.email) + "-" + beansightFbUser.email, "30d");
         
-        updateBeansightUserLinkToFacebookUser(beansightFbUser);
+        updateBeansightUserLinkToFacebookUser(beansightFbUser, false);
         
         refreshBeansightAvatarWithFacebookImage();
         
@@ -115,9 +115,11 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     
     /**
      * This method update links between the current connecting user and his Facebook friends
-     * @param currentBeansightUser
+     * @param currentBeansightUser : the user to update his social graph
+     * @param forceIsHidden : set to true if you want to force isHidden to false 
+     * (note : isHidden won't be forced if the facebookUser was already followed)
      */
-    static void updateBeansightUserLinkToFacebookUser(User currentBeansightUser) {
+    static void updateBeansightUserLinkToFacebookUser(User currentBeansightUser, boolean forceIsHidden) {
     	FacebookUser facebookUser = FacebookUser.findByFacebookId(currentBeansightUser.facebookUserId);
     	currentBeansightUser.relatedFacebookUser = facebookUser;
     	currentBeansightUser.save();
@@ -134,8 +136,10 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     	// Save the new Facebook users (if any)
     	for (FacebookUser fbUser : fbUsers) {
     		User aBeansightUserFriend = User.findByFacebookUserId(fbUser.facebookId);
-    		FacebookFriend fbFriend = new FacebookFriend(fbUser, aBeansightUserFriend, currentBeansightUser);
-    		fbFriend.save();
+    		if (aBeansightUserFriend != null) {
+	    		FacebookFriend fbFriend = new FacebookFriend(fbUser, aBeansightUserFriend, currentBeansightUser);
+	    		fbFriend.save();
+    		}
     	}
     	
     	// update the information for the link (FacebookFriend) between the beansight user and the facebook user 
@@ -152,6 +156,10 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
 						.first();
 				if (count > 0) {
 					aFacebookFriend.isAdded = true;
+				} else {
+					if (forceIsHidden) {
+						aFacebookFriend.isHidden = true;
+					}
 				}
 				aFacebookFriend.save();
 			}
@@ -167,7 +175,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
      */
     static void onFacebookSynchronization(String accessToken, FacebookUserGson fbUser) {
     	User currentUser = CurrentUser.getCurrentUser();
-        updateBeansightUserLinkToFacebookUser(currentUser);
+        updateBeansightUserLinkToFacebookUser(currentUser, false);
         refreshBeansightAvatarWithFacebookImage();
         
      	// redirect to the previous url or index if nothing was set in session
@@ -187,6 +195,24 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
      */
     static void onLinkFacebookToBeansight(String accessToken, FacebookUserGson fbUser) {
     	User currentUser = CurrentUser.getCurrentUser();
+    	
+    	// is there already a beansight account with the facebooId ?
+    	User aUserWithTheSameFacebookId = User.findByFacebookUserId(fbUser.getId());
+    	if (aUserWithTheSameFacebookId !=null) {
+    		String val = session.get(OVERRIDE_FACEBOOK_LINKING);
+    		session.remove(OVERRIDE_FACEBOOK_LINKING);
+    		if (val != null && val.equalsIgnoreCase("true")) {
+    			aUserWithTheSameFacebookId.facebookUserId = null;
+    			aUserWithTheSameFacebookId.save();
+    		} else {
+	    		// we cannot continue because there can't be 2 users with the same facebookId
+	    		// so here we redirect to a page where we ask the user to decide if he is ok to
+	    		// set the current beansight account to be the only one to be linked to beansight
+	    		// and if he answers yes then the facebookId of the other account will be set to null
+	    		Application.facebookIdAlreadyInUseWarning(aUserWithTheSameFacebookId.id);
+    		}
+    	}
+    	
     	if (currentUser != null && currentUser.facebookUserId == null) {
     		currentUser.facebookUserId = fbUser.getId();
         	FacebookUser facebookUser = FacebookUser.findByFacebookId(fbUser.getId());
@@ -194,7 +220,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         	currentUser.save();
         	currentUser = currentUser.refresh();
         	
-        	updateBeansightUserLinkToFacebookUser(currentUser);
+        	updateBeansightUserLinkToFacebookUser(currentUser, true);
         	refreshBeansightAvatarWithFacebookImage();
         } 
     	
@@ -217,22 +243,8 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     	
     	if (!currentUser.avatarSmall.exists()) {
     		try {
-	//			String response = WS.url("http://graph.facebook.com/%s/picture", currentUser.facebookUserId.toString()).get().getString();
 				InputStream profileImageInputStream = WS.url("http://graph.facebook.com/%s/picture?type=large", currentUser.facebookUserId.toString()).get().getStream();
-	//			source.setEncoding("UTF-8");
-	
-			
-//				Document doc = DocumentBuilderFactory.newInstance()
-//						.newDocumentBuilder().parse(source);
-//				String profileImageUrl = doc.getDocumentElement()
-//						.getElementsByTagName("profile_image_url").item(0)
-//						.getTextContent();
-//				InputStream profileImageInputStream = WS.url(profileImageUrl).get()
-//						.getStream();
-				// save so that we get an id for the new user
-//				currentUser.save();
-//				currentUser = currentUser.refresh();
-				// and now we can update avatar with the twitter profil image
+				// and now we can update avatar with the facebook profil image
 				currentUser.updateAvatar(
 						FileHelper.getTmpFile(profileImageInputStream), true);
 			} catch (Exception e) {
@@ -240,4 +252,5 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
 			}
     	}
     }
+    
 }

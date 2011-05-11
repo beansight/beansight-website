@@ -1121,6 +1121,53 @@ public class Application extends Controller {
 		render(currentUser);
 	}
 	
+	/**
+	 * render the page to manage facebook friends.
+	 * you should user manageFacebookFriendsWithSynchronization method first
+	 * and let manageFacebookFriendsWithSynchronization redirect to manageFacebookFriends if necessary
+	 */
+	public static void manageFacebookFriendsFromSideBar() {
+		User currentUser = CurrentUser.getCurrentUser();
+		
+		List<FacebookFriend> fbFriends = currentUser.findFriendsOnFacebookWhoAreOnBeansight();
+		for (FacebookFriend friend : fbFriends) {
+			if (!friend.isAdded) {
+				friend.isHidden = true;
+				friend.save();
+			}
+		}
+		
+		manageFacebookFriends();
+	}
+	
+	/**
+	 * called after having detected that the current user wants to link his account with Facebook
+	 * but there is already one account which is linked to the same Facebook account
+	 * So this action redirect the user to a page to decide to continue the facebook linking or not
+	 * @param otherAccountId
+	 */
+    public static void facebookIdAlreadyInUseWarning(Long otherAccountId) {
+    	User currentUser = CurrentUser.getCurrentUser();
+    	
+    	renderArgs.put("currentUser", currentUser);
+    	renderArgs.put("otherAccount", User.findById(otherAccountId));
+    	
+    	session.remove("url");
+    	
+    	render();
+    }
+    
+    /**
+     * when the current decides to link his Facebook account on a another beansight account :
+     *  other beansight account will have it's attribut facebookUserId set to null
+     *  
+     */
+    public static void overrideFacebookLinkingOnAnotherAccount() {
+    	session.put(FacebookOAuthForBeansight.OVERRIDE_FACEBOOK_LINKING, "true");
+    	
+    	Register.linkBeansightAccountWithFacebook();
+    }
+	
 	@InSitemap(changefreq="yearly", priority=0.1)
 	public static void privacyPolicy() {
 		render();
