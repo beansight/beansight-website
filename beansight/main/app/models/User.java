@@ -124,10 +124,10 @@ public class User extends Model implements Comparable<User> {
 	/** How many invitations this user can send, -1 for infinity*/
 	public long invitationsLeft;
 	
-	public BBlob avatarUnchanged = null;
-	public BBlob avatarSmall = null;
-	public BBlob avatarMedium = null;
-	public BBlob avatarLarge = null;
+	public BBlob avatarUnchanged;
+	public BBlob avatarSmall;
+	public BBlob avatarMedium;
+	public BBlob avatarLarge;
 
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.
@@ -222,6 +222,11 @@ public class User extends Model implements Comparable<User> {
 		this.emailConfirmed = false;
 		this.isPromocodeValidated = false;
 		this.uuid = Codec.UUID();
+		
+		avatarUnchanged = new BBlob();
+		avatarSmall = new BBlob();
+		avatarMedium = new BBlob();
+		avatarLarge = new BBlob();
 		
 		String lang = Lang.get();
 		// if no language, then english
