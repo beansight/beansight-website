@@ -7,14 +7,13 @@
 	<div id="facebookFriendList" style="margin-left: 50px;">
 		<div class="item-avatar">
 			<div style="float:right;">
-				<span class="ajaxloader" style="display:none; float:left;"></span><button id="mngFbFriendFollowAll" onClick="followAllFacebookFriends(); return false;">&{'manageFacebookFriend.followAll'}</button>
+				<p><span class="ajaxloader"></span><span>&{'manageFacebookFriend.importing'}</span></p><button id="mngFbFriendFollowAll" onClick="followAllFacebookFriends(); return false;">&{'manageFacebookFriend.followAll'}</button>
 			</div>
 		</div>	
 	
 		#{list items:_friends , as:'friend'}
 		<div id="managefb${friend.user.id}" class="item-avatar">
 			<a href="@{Application.showUser(friend.beansightUserFriend.userName)}">
-			    *{<span class="backavatar"><img src="@{Application.showAvatarMedium(friend.beansightUserFriend.userName, friend.beansightUserFriend.avatarHashCode())}"/></span>}*
 			    <span class="backavatar"><img src="http://graph.facebook.com/${friend.facebookUser.facebookId}/picture" width="46" height="46"/></span>
 			    <p>${friend.beansightUserFriend.userName}</p>
 			</a>

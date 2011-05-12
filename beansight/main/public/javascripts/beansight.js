@@ -1202,20 +1202,6 @@ $(document).ready(function() {
 	
 	$('#mngFbFriendFollowAll').button();
 	
-	// to delete (old radio)
-	/*
-	$('input[name^="followHideFbFriend"]').change(function() {
-		if (this.value == "follow") {
-			addUserToMyFavorites($(this).attr("data-buserid"));
-		} else if (this.value == "hide") {
-			hideUserFromSuggestedFriends($(this).attr("data-buserid"));
-		} else {
-			return false;
-		}
-		return false;
-	});
-	*/
-	
 	$('input[name^="followHideFbFriend"]').change(function() {
 		if ($(this).attr("checked")) {
 			addUserToMyFavorites($(this).attr("data-buserid"));
@@ -1226,13 +1212,6 @@ $(document).ready(function() {
 		return false;
 	});
 
-	
-	
-	$("#linkFacebookOnBeansight").click(function(){
-		window.location.href = linkBeansightAccountWithFacebookAction();
-	}); 
-	
-	
 	$('#cancelBtn').button();
 	$('#continueBtn').button();
 });

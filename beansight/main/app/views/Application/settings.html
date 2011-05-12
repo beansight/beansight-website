@@ -37,7 +37,10 @@
             	<a href="@{Application.manageFacebookFriendsWithSynchronization()}" style="font-size: 80%">&{'manageFacebookFriend.menuLinkToFbMngPage'}</a>
             #{/if}
             #{else}
-           		<button id="linkFacebookOnBeansight" class="social_buttons sb_48 sb_facebook"><span>&{'settings.linkFacebookOnBeansight'}</span></button>
+           		<a href="@{Register.linkBeansightAccountWithFacebook()}" class="social_buttons sb_facebook sb_24">
+                    <span>&{'settings.linkFacebookOnBeansight'}</span>
+                </a>
+           		
             #{/else}
         </div>
         
