@@ -335,6 +335,12 @@ facebookFriendsSidebar.title=Vos amis Facebook sur Beansight :
 facebookFriendsSidebar.follow=Suivre
 facebookFriendsSidebar.hide=Ignorer
 
+# facebookIdAlreadyInUseWarning
+facebookIdAlreadyInUseWarning.alreadylinked=Le compte Beansight suivant est déjà lié à votre compte Facebook :
+facebookIdAlreadyInUseWarning.confirm=En cliquant sur Continuer vous confirmez que seul le compte actuellement en cours d'utilisation pourra utiliser Facebook pour se connecter à Beansight.
+facebookIdAlreadyInUseWarning.cancel=Annuler
+facebookIdAlreadyInUseWarning.continue=Continuer
+
 # FAQ
 faq.title=Questions fréquemment posées (FAQ)
 faq.intro=Vous trouverez sur cette page des informations sur l’utilisation et le fonctionnement de Beansight. Les questions sont ordonnées suivant la vie d’une prédiction (de sa création aux points d’expertise). Vous trouverez également des informations sur les options de configuration de Beansight pour améliorer votre confort d’utilisation.

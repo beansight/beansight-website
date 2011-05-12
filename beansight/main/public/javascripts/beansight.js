@@ -63,22 +63,6 @@ function updateAgreeDisagreeCount(uniqueId, agreeCount, disagreeCount, voteState
     }
 }
 
-// Page : facebookIdAlreadyInUseWarning.html
-function cancelFacebookAccountLinking() {
-	window.location.href = settingsAction();
-}
-
-function continueFacebookAccountLinking() {
-	window.location.href = overrideFacebookLinkingOnAnotherAccountAction();
-}
-//////
-
-// Tag : friendsToAddToMyFavorites.tag
-function goToManageMyFacebookFriendsPage() {
-	window.location.href = manageFacebookFriendsFromSideBarAction();
-}
-//////
-
 function toggleFollowingInsight(insightUniqueId) {
 	$.getJSON(toggleFollowingInsightAction({'insightUniqueId': insightUniqueId}), onToggleFollowingInsightSuccess);
 	// Change the color of the icon, before receiving any response.
