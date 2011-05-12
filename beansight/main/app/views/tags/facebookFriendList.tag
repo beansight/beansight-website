@@ -6,8 +6,9 @@
 	#{if (!_friends.isEmpty())}
 	<div id="facebookFriendList" style="margin-left: 50px;">
 		<div class="item-avatar">
+		      <div id="followLoading" style="display:none; float:left;"><span>&{'manageFacebookFriend.followAllProcessing'}</span><span class="ajaxloader" style="float:left;"></span></div>
 			<div style="float:right;">
-				<p><span class="ajaxloader"></span><span>&{'manageFacebookFriend.importing'}</span></p><button id="mngFbFriendFollowAll" onClick="followAllFacebookFriends(); return false;">&{'manageFacebookFriend.followAll'}</button>
+				</span><button id="mngFbFriendFollowAll" onClick="followAllFacebookFriends(); return false;">&{'manageFacebookFriend.followAll'}</button>
 			</div>
 		</div>	
 	

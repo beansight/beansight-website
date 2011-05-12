@@ -118,7 +118,7 @@ function hideUserFromSuggestedFriends(userId) {
  * The current user follow all its facebook friends.
  */
 function followAllFacebookFriends() {
-	$(".ajaxloader").show("fast");
+	$("#followLoading").show("fast");
 	$.get(followAllFacebookFriendsAction(), onLoadFacebookFriendList);
 	return false;
 }
@@ -126,7 +126,7 @@ function followAllFacebookFriends() {
  * Callback for followAllFacebookFriends
  */
 function onLoadFacebookFriendList(data) {
-	$(".ajaxloader").hide("fast");
+	$("#followLoading").hide("fast");
 	$("#facebookFriendList").replaceWith(data);
 	$('div[id^="followHideFacebookFriend"]').each(function() {
 		$(this).buttonset();

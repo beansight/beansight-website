@@ -329,6 +329,7 @@ manageFacebookFriend.title=Manage my Facebook friends
 manageFacebookFriend.facebookAccountNotLinked=Your account is not linked with Facebook yet
 manageFacebookFriend.noFacebookFriendsOnBeansight=Your Facebook friends are not on Beansight yet
 manageFacebookFriend.followAll=Follow all
+manageFacebookFriend.followAllProcessing=Processing...
 manageFacebookFriend.follow=Follow
 manageFacebookFriend.hide=Ignore
 

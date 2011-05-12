@@ -328,6 +328,7 @@ manageFacebookFriend.title=Gérer mes amis Facebook
 manageFacebookFriend.facebookAccountNotLinked=Vote compte Facebook n'a pas encore été lié à Beansight
 manageFacebookFriend.noFacebookFriendsOnBeansight=Vos amis Facebook ne sont pas encore sur Beansight
 manageFacebookFriend.followAll=Suivre tout le monde
+manageFacebookFriend.followAllProcessing=Traitement en cours...
 manageFacebookFriend.follow=Suivre
 manageFacebookFriend.hide=Ignorer
 
