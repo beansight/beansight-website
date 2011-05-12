@@ -653,9 +653,6 @@ public class Application extends Controller {
 		List<FacebookFriend> facebookFriends = currentUser.findFriendsOnFacebookWhoAreOnBeansight();
 		for (FacebookFriend facebookFriend : facebookFriends) {
 			if (facebookFriend.isAdded != true) {
-				facebookFriend.isAdded = true;
-				facebookFriend.isHidden = false;
-				facebookFriend.save();
 				currentUser.startFollowingThisUser(facebookFriend.beansightUserFriend);
 			}
 		}
@@ -674,10 +671,8 @@ public class Application extends Controller {
 		if (userIdOfTheFriendToAdd.equals(currentUser.id)) {
 			return;
 		} 
-		
-		FacebookFriend fbFriend = FacebookFriend.findByUsersId(currentUser.id, userIdOfTheFriendToAdd);
-		fbFriend.isAdded = true;
-		fbFriend.save();
+		User userToAdd = User.findById(userIdOfTheFriendToAdd);
+		currentUser.startFollowingThisUser(userToAdd);
 	}
 	
 	/**
@@ -691,9 +686,8 @@ public class Application extends Controller {
 			return;
 		} 
 		
-		FacebookFriend fbFriend = FacebookFriend.findByUsersId(currentUser.id, userIdOfTheFriendToHide);
-		fbFriend.isHidden = true;
-		fbFriend.save();
+		User userToAdd = User.findById(userIdOfTheFriendToHide);
+		currentUser.stopFollowingThisUser(userToAdd);
 	}
 	
 	/**

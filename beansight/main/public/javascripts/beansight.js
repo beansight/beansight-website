@@ -94,19 +94,22 @@ function onToggleFollowingInsightSuccess(data) {
 }
 
 function addUserToMyFavorites(userId) {
-	toggleFollowingUser(userId);
-	$.getJSON(addToFavoritesFromSuggestedFacebookFriendsAction({'userIdOfTheFriendToAdd': userId}));
+	$.getJSON(addToFavoritesFromSuggestedFacebookFriendsAction({'userIdOfTheFriendToAdd': userId}), function() {
+		$.get(loadFollowedUsersBlockAction(), onLoadFollowedUsersSuccess);
+	});
 	
 	$("#fb" + userId).remove();
 	$('div[id^="fb"]:lt(3)').css("display", "block");
+	
 	return false;
 }
 
-
 function hideUserFromSuggestedFriends(userId) {
-	$.getJSON(hideSuggestedFacebookFriendAction({'userIdOfTheFriendToHide': userId}));
+	$.getJSON(hideSuggestedFacebookFriendAction({'userIdOfTheFriendToHide': userId}), function() {
+		$.get(loadFollowedUsersBlockAction(), onLoadFollowedUsersSuccess);
+	});
+	
 	$("#fb" + userId).remove();
-	removeFollowedUser(userId);
 	
 	return false;
 }

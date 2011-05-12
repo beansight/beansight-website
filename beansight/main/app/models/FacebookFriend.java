@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -20,15 +21,15 @@ public class FacebookFriend extends Model {
 	public boolean isBeansightUser;
 	
 	/** a friend */
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	public FacebookUser facebookUser;
 	
 	/** shortcut to the beansight user friend (beansight user of the facebookUser property) */
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	public User beansightUserFriend;
 	
 	/** "owner" of the friendship */
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	public User user;
 
 	public FacebookFriend(FacebookUser facebookUser, User aBeansightUserFriend, User user) {

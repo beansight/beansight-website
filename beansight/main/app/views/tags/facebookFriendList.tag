@@ -27,28 +27,6 @@
 						data-buserid="${friend.beansightUserFriend.id}"
 						 />
 				<label for="followFbFriend${friend.beansightUserFriend.id}" style="font-size: 60%; margin-top: 6px;">&{'manageFacebookFriend.follow'}</label>
-				
-			*{
-				<input 	type="radio" 
-						autocomplete="off"
-						name="followHideFbFriend${friend.beansightUserFriend.id}" 
-						#{if (friend.isAdded)}checked#{/if} 
-						id="followFbFriend${friend.beansightUserFriend.id}" 
-						value="follow"
-						data-buserid="${friend.beansightUserFriend.id}"
-						 />
-				<label for="followFbFriend${friend.beansightUserFriend.id}" style="font-size: 60%; margin-top: 6px;">&{'manageFacebookFriend.follow'}</label>
-				
-				<input 	type="radio" 
-						autocomplete="off"
-						name="followHideFbFriend${friend.beansightUserFriend.id}" 
-						#{if (friend.isHidden)}checked#{/if} 
-						id="hideFbFriend${friend.beansightUserFriend.id}" 
-						value="hide"
-						data-buserid="${friend.beansightUserFriend.id}"
-						/>
-				<label for="hideFbFriend${friend.beansightUserFriend.id}" style="font-size: 60%; margin-top: 6px;">&{'manageFacebookFriend.hide'}</label>
-			}*
 			</div>
 		</div>	
 		#{/list}
