@@ -665,7 +665,7 @@ public class Application extends Controller {
 	}
 	
 	/**
-	 * AJAX add the provided userId in the current user favorites
+	 * AJAX set the given facebook friend as "added to favorites" (but do not add to favorite). 
 	 * @param userId
 	 */
 	public static void addToFavoritesFromSuggestedFacebookFriends(Long userIdOfTheFriendToAdd) {
