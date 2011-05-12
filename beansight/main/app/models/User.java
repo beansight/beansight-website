@@ -45,7 +45,6 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
-import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -125,10 +124,10 @@ public class User extends Model implements Comparable<User> {
 	/** How many invitations this user can send, -1 for infinity*/
 	public long invitationsLeft;
 	
-	public Blob avatarUnchanged = null;
-	public Blob avatarSmall = null;
-	public Blob avatarMedium = null;
-	public Blob avatarLarge = null;
+	public BBlob avatarUnchanged = null;
+	public BBlob avatarSmall = null;
+	public BBlob avatarMedium = null;
+	public BBlob avatarLarge = null;
 
 	/** Date the user created his account */
 	private Date crdate; // private because must be read-only.

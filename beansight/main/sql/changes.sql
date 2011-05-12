@@ -126,3 +126,22 @@ ALTER TABLE `User`
 	ADD COLUMN `facebookUserIdDisabled` bigint(20) DEFAULT NULL,
 	ADD KEY `FK285FEB4405E9D3` (`relatedFacebookUser_id`),
 	ADD CONSTRAINT `FK285FEB4405E9D3` FOREIGN KEY (`relatedFacebookUser_id`) REFERENCES `FacebookUser` (`id`);
+	
+
+-- issue with Blob type 
+	
+update User
+set avatarSmall = null
+where avatarSmall = 'null|null';
+
+update User
+set avatarMedium = null
+where avatarMedium = 'null|null';
+
+update User
+set avatarLarge = null
+where avatarLarge = 'null|null';
+
+update User
+set avatarUnchanged = null
+where avatarUnchanged = 'null|null';
