@@ -686,6 +686,7 @@ public class Insight extends Model {
 		// save the last computed occurenceScore in the insight
 		this.occurenceScore = lastTrend.occurenceProbability;
 		this.save();
+		Logger.info("buildInsightTrends for id : %s FINISHED", this.id.toString());
 	}
 		
 	

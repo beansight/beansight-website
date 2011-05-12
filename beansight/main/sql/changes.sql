@@ -90,13 +90,12 @@ CREATE TABLE `FacebookUser` (
   `verified` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `facebookId` (`facebookId`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `FacebookUser_FacebookUser` (
   `FacebookUser_id` bigint(20) NOT NULL,
   `friends_id` bigint(20) NOT NULL,
-  UNIQUE KEY `friends_id` (`friends_id`),
   KEY `FK9950E57FBC30C15E` (`FacebookUser_id`),
   KEY `FK9950E57F13E93CDA` (`friends_id`),
   CONSTRAINT `FK9950E57F13E93CDA` FOREIGN KEY (`friends_id`) REFERENCES `FacebookUser` (`id`),
@@ -124,5 +123,6 @@ CREATE TABLE `FacebookFriend` (
 
 ALTER TABLE `User`
 	ADD COLUMN `relatedFacebookUser_id` bigint(20) DEFAULT NULL,
+	ADD COLUMN `facebookUserIdDisabled` bigint(20) DEFAULT NULL,
 	ADD KEY `FK285FEB4405E9D3` (`relatedFacebookUser_id`),
 	ADD CONSTRAINT `FK285FEB4405E9D3` FOREIGN KEY (`relatedFacebookUser_id`) REFERENCES `FacebookUser` (`id`);

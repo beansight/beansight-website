@@ -202,7 +202,9 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     		String val = session.get(OVERRIDE_FACEBOOK_LINKING);
     		session.remove(OVERRIDE_FACEBOOK_LINKING);
     		if (val != null && val.equalsIgnoreCase("true")) {
+    			aUserWithTheSameFacebookId.facebookUserIdDisabled = fbUser.getId();
     			aUserWithTheSameFacebookId.facebookUserId = null;
+    			aUserWithTheSameFacebookId.relatedFacebookUser = null;
     			aUserWithTheSameFacebookId.save();
     		} else {
 	    		// we cannot continue because there can't be 2 users with the same facebookId

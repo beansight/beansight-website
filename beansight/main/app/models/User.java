@@ -103,8 +103,8 @@ public class User extends Model implements Comparable<User> {
     public Long facebookUserId;
     public String facebookScreenName;
     
-    /** if yes then user cannot use this account to log again */
-    public boolean deleted;
+    /** to remember that this facebook account has been disabled (to move the facebook account on another beansight account) */
+    public Long facebookUserIdDisabled;
     
     /** true if the user account creation process went well to the end */
     public boolean isPromocodeValidated;
@@ -240,7 +240,7 @@ public class User extends Model implements Comparable<User> {
 		this.followedUsers = new ArrayList<User>();
 		this.followedTopics = new HashSet<Topic>();
 		this.facebookFriends = new ArrayList<FacebookFriend>();
-		this.deleted = false;
+		this.facebookUserIdDisabled = null;
 		this.relatedFacebookUser = null;
 		this.crdate = new Date();
 		
