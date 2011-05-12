@@ -17,7 +17,7 @@ ol,ul{list-style:none;}
 hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 .nodisplay{display:none;}
 
-.ajaxloader{background:url(/public/images/ajax-loader.gif) no-repeat 0 0; width:16px;}
+.ajaxloader{background:url(/public/images/ajax-loader.gif) no-repeat 0 0; width:16px; height:16px;}
 
 a{color:#8b8f90}
 a:hover{color:#228392;}

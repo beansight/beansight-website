@@ -7,7 +7,7 @@
 	<div id="facebookFriendList" style="margin-left: 50px;">
 		<div class="item-avatar">
 			<div style="float:right;">
-				<span class="ajaxloader" style="display:none;"></span><button id="mngFbFriendFollowAll" onClick="followAllFacebookFriends(); return false;">&{'manageFacebookFriend.followAll'}</button>
+				<span class="ajaxloader" style="display:none; float:left;"></span><button id="mngFbFriendFollowAll" onClick="followAllFacebookFriends(); return false;">&{'manageFacebookFriend.followAll'}</button>
 			</div>
 		</div>	
 	
