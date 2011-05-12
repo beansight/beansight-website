@@ -338,7 +338,7 @@ facebookFriendsSidebar.hide=Ignorer
 
 # facebookIdAlreadyInUseWarning
 facebookIdAlreadyInUseWarning.alreadylinked=Le compte Beansight suivant est déjà lié à votre compte Facebook :
-facebookIdAlreadyInUseWarning.confirm=En cliquant sur Continuer vous confirmez que seul le compte actuellement en cours d'utilisation pourra utiliser Facebook pour se connecter à Beansight.
+facebookIdAlreadyInUseWarning.confirm=En cliquant sur Continuer vous confirmez que votre compte actuel pourra utiliser Facebook pour se connecter à Beansight.
 facebookIdAlreadyInUseWarning.cancel=Annuler
 facebookIdAlreadyInUseWarning.continue=Continuer
 
