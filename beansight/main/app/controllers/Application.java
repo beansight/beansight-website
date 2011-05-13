@@ -550,6 +550,10 @@ public class Application extends Controller {
 	 */
 	public static void toggleFollowingInsight(String insightUniqueId) {
 		User currentUser = CurrentUser.getCurrentUser();
+		if(currentUser == null) {
+			error();
+		}
+		
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
 
 		if (currentUser.isFollowingInsight(insight) == true) {
@@ -642,6 +646,9 @@ public class Application extends Controller {
 	 */
 	public static void loadFollowedTopics() {
 		User currentUser = CurrentUser.getCurrentUser();
+		if(currentUser == null ) {
+			error();
+		}
 
 		renderArgs.put("_followedTopicActivities", currentUser.getFavoriteTopicActivity(NUMBER_USERACTIVITY_INDEXPAGE));
 		renderTemplate("tags/followedTopics.tag");
@@ -649,7 +656,7 @@ public class Application extends Controller {
 	
 	public static void followAllFacebookFriends() {
 		User currentUser = CurrentUser.getCurrentUser();
-
+		
 		List<FacebookFriend> facebookFriends = currentUser.findFriendsOnFacebookWhoAreOnBeansight();
 		for (FacebookFriend facebookFriend : facebookFriends) {
 			if (facebookFriend.isAdded != true) {
@@ -968,6 +975,9 @@ public class Application extends Controller {
 	 */
 	public static void resetInsightActivity() {
 		User currentUser = CurrentUser.getCurrentUser();
+		if(currentUser == null) {
+			renderText("false");
+		}
 		currentUser.resetInsightActivity();
 		renderText("true");
 	}
@@ -1074,6 +1084,9 @@ public class Application extends Controller {
 	 * @param term : input text entered by the user
 	 */
 	public static void tagSuggest(String term) {
+		if (term == null) {
+			error("term is null");
+		}
 		List <Tag> tags = Tag.find( "byLabelLike", "%" + term.toLowerCase() + "%").fetch(NUMBER_SUGGESTED_TAGS);
 		render(tags);
 	}

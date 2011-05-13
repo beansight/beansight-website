@@ -60,7 +60,9 @@ public class API extends Controller {
 	public static void getInsights(@Min(0) Integer from,
 			@Min(1) @Max(100) Integer number, String sort, Integer category,
 			String vote, String topic, Boolean closed, Boolean created) {
-
+		if(validation.hasErrors()) {
+			error();
+		}
 		if (from == null) {
 			from = 0;
 		}
@@ -117,6 +119,9 @@ public class API extends Controller {
 	 *         disagreeCount, comments[], tags[] }
 	 */
 	public static void getInsight(@Required String insightUniqueId) {
+		if(validation.hasErrors()) {
+			error();
+		}
 		renderJSON(getInsightResult(insightUniqueId));
 	}
 	
