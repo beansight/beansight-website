@@ -6,6 +6,7 @@ import helpers.FileHelper;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,6 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import models.FacebookFriend;
 import models.FacebookUser;
 import models.User;
+import models.UserActivity;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.w3c.dom.Document;
@@ -206,6 +208,20 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     			aUserWithTheSameFacebookId.facebookUserId = null;
     			aUserWithTheSameFacebookId.relatedFacebookUser = null;
     			aUserWithTheSameFacebookId.save();
+    			
+    			// all those who followed aUserWithTheSameFacebookId should now follow currentUser
+    			List<User> followers = new ArrayList<User>(aUserWithTheSameFacebookId.followers);
+    			for( User follower : followers) {
+     				follower.stopFollowingThisUser(aUserWithTheSameFacebookId);
+     				follower.startFollowingThisUser(currentUser, false);
+     			}
+    			// all who were followed by aUserWithTheSameFacebookId are now followed by currentUser
+    			List<User> followeds = new ArrayList<User>(aUserWithTheSameFacebookId.followedUsers);
+    			for( User followed : followeds) {
+    				aUserWithTheSameFacebookId.stopFollowingThisUser(followed);
+    				currentUser.startFollowingThisUser(followed, false);
+    			}
+    			
     		} else {
 	    		// we cannot continue because there can't be 2 users with the same facebookId
 	    		// so here we redirect to a page where we ask the user to decide if he is ok to

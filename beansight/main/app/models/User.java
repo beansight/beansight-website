@@ -741,14 +741,14 @@ public class User extends Model implements Comparable<User> {
 	 * @param user
 	 *            : User to follow
 	 */
-	public void startFollowingThisUser(User user) {
+	public void startFollowingThisUser(User user, boolean sendMail) {
 		if (isFollowingUser(user) == true) {
 			return;
 		}
 		followedUsers.add(user);
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !
-		FacebookFriend fbFriend = FacebookFriend.findByUsersId(this.id, user.id);
+		FacebookFriend fbFriend = FacebookFriend.findByUserIds(this.id, user.id);
 		if (fbFriend != null) {
 			fbFriend.isAdded = true;
 			fbFriend.isHidden = false;
@@ -759,7 +759,7 @@ public class User extends Model implements Comparable<User> {
 		user.save();
 		
 		// if the user accepts it, send a mail
-		if(user.followMail) {
+		if(sendMail && user.followMail) {
 			FollowNotificationTask mail = new FollowNotificationTask(this, user);
 			mail.save();
 		}
@@ -774,7 +774,6 @@ public class User extends Model implements Comparable<User> {
 
 	/**
 	 * This user stops following the given user
-	 * 
 	 * @param insightId
 	 */
 	public void stopFollowingThisUser(User user) {
@@ -785,7 +784,7 @@ public class User extends Model implements Comparable<User> {
 		
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !
-		FacebookFriend fbFriend = FacebookFriend.findByUsersId(this.id, user.id);
+		FacebookFriend fbFriend = FacebookFriend.findByUserIds(this.id, user.id);
 		if (fbFriend != null) {
 			fbFriend.isAdded = false;
 			fbFriend.isHidden = true;
@@ -1429,5 +1428,7 @@ public class User extends Model implements Comparable<User> {
 				.bind("user", this)
 				.fetch();
 	}
+	
+	
 
 }

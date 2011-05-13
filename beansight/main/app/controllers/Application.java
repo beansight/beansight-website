@@ -608,7 +608,7 @@ public class Application extends Controller {
 			currentUser.stopFollowingThisUser(user);
 			renderArgs.put("follow", false);
 		} else {
-			currentUser.startFollowingThisUser(user);
+			currentUser.startFollowingThisUser(user, true);
 			renderArgs.put("follow", true);
 		}	
 		render("Application/followUser.json", userId);
@@ -653,7 +653,7 @@ public class Application extends Controller {
 		List<FacebookFriend> facebookFriends = currentUser.findFriendsOnFacebookWhoAreOnBeansight();
 		for (FacebookFriend facebookFriend : facebookFriends) {
 			if (facebookFriend.isAdded != true) {
-				currentUser.startFollowingThisUser(facebookFriend.beansightUserFriend);
+				currentUser.startFollowingThisUser(facebookFriend.beansightUserFriend, true);
 			}
 		}
 		renderArgs.put("_friends", currentUser.findFriendsOnFacebookWhoAreOnBeansight());
@@ -672,7 +672,7 @@ public class Application extends Controller {
 			return;
 		} 
 		User userToAdd = User.findById(userIdOfTheFriendToAdd);
-		currentUser.startFollowingThisUser(userToAdd);
+		currentUser.startFollowingThisUser(userToAdd, true);
 	}
 	
 	/**
