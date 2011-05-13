@@ -31,6 +31,7 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
 
 	private Date fromDate = null;
 	private Date toDate = null;
+	public boolean runNow = false;
 	
 	/**
 	 * default constructor : runs the job for the previous day
@@ -54,9 +55,11 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
     @Override
     public void doJob() throws Exception {
     	// TEMP
-		//if(!TimeHelper.hourAndDayCheck(3, null)) {
-		//	return;
-		//}
+    	if (runNow == false) {
+			if(!TimeHelper.hourAndDayCheck(4, null)) {
+				return;
+			}
+    	}
     	
     	Logger.info("BuildInsightValidationAndUserScoreJob begin from %s to %s", fromDate, toDate);
     	

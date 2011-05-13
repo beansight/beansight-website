@@ -261,9 +261,13 @@ public class Admin extends Controller {
 			// (which actually means calculating scores for yesterday since 
 			//  we don't calculate scores if the day is not over) 
 			if (fromDate==null && toDate==null) {
-				new BuildInsightValidationAndUserScoreJob().now();
+				BuildInsightValidationAndUserScoreJob job = new BuildInsightValidationAndUserScoreJob();
+				job.runNow = true;
+				job.now();
 			} else {
-				new BuildInsightValidationAndUserScoreJob(fromDate, toDate).now();
+				BuildInsightValidationAndUserScoreJob job = new BuildInsightValidationAndUserScoreJob(fromDate, toDate);
+				job.runNow = true;
+				job.now();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -441,4 +445,6 @@ public class Admin extends Controller {
 		
 		renderText("All activities for all users generated");
 	}
+	
+
 }
