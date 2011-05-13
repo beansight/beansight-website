@@ -309,6 +309,8 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .insightItem .insightContainer.voteAgree .item-insight .vote-insight .vote-more a{background-position:right bottom;}
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-less a:hover,
 #contentcenter .listinsights .insightItem .insightContainer.voteDisagree .item-insight .vote-insight .vote-less a{color:#a13d3d;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a:hover,
+#contentcenter .listinsights .insightItem .insightContainer.voteAgree .item-insight .vote-insight .vote-more a{color:#7aa13d;}
 
 #contentcenter .listinsights .insightItem .insightContainer.validatedTrue .item-insight .container-insight    {   background:url(/public/images/validated-background-plus.png) no-repeat 90% center; }
 #contentcenter .listinsights .insightItem .insightContainer.validatedFalse .item-insight .container-insight   {   background:url(/public/images/validated-background-moins.png) no-repeat 90% center;}
