@@ -459,6 +459,10 @@ public class Admin extends Controller {
 			User actualUserToUse = User.findByFacebookUserId(fbf.beansightUserFriend.facebookUserIdDisabled);
 			Logger.info("%s currently has %s as facebookfriend. The clean is going to replace it with %s", fbf.user.userName, fbf.beansightUserFriend.userName, actualUserToUse.userName);
 			fbf.beansightUserFriend = actualUserToUse;
+			if (fbf.user.isFollowingUser(actualUserToUse)) {
+				fbf.isAdded = true;
+				fbf.isHidden = false;
+			}
 			fbf.save();
 		}
 	}

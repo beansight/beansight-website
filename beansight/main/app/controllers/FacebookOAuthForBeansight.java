@@ -217,6 +217,10 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     				.bind("oldUser", aUserWithTheSameFacebookId).fetch();
     			for (FacebookFriend fbf : fbfToUpdate) {
     				fbf.beansightUserFriend = currentUser;
+    				if (fbf.user.isFollowingUser(currentUser)) {
+    					fbf.isAdded = true;
+    					fbf.isHidden = false;
+    				}
     				fbf.save();
     			}
     			
