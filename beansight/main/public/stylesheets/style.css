@@ -317,10 +317,6 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .insightItem .insightContainer.validatedUnknown .item-insight .container-insight {   background:url(/public/images/validated-background-unknown.png) no-repeat 90% center; }
 
 /* liste experts */
-#contentcenter .listexperts .searchexp{display:block;-moz-border-radius:3px;-webkit-border-radius:3px;border-top:solid #b3b3b3 1px;background-color:#f6f6f6;width:209px;height:19px;padding:2px 3px 0px 8px;}
-#contentcenter .listexperts .txtinput{font-size:12px;color:#aaaeaf;display:block;background-color:#f6f6f6;width:180px;float:left;margin:0 9px 0 0;border:0 none;}
-#contentcenter .listexperts .subinput{text-indent:-9999px;text-align:left;display:block;cursor:pointer;border:0 none;background:url(/public/images/searchsubmit2.png) no-repeat 0 0;width:18px;height:17px;font-size:0;line-height:0;}
-#contentcenter .listexperts .subinput:hover{background-position:left bottom;}
 #contentcenter .listexperts .item-expert{clear:both;width:420px;padding:0 20px;background:url(/public/images/back-insight.png) repeat-y 0 0;}
 #contentcenter .listexperts .item-expert .content-expert{background-color:#fff;padding:10px 10px 7px 10px;}
 #contentcenter .listexperts .item-expert .content-expert a{display:block;background:url("/public/images/icon-linksingle1.png") no-repeat scroll right center transparent;height:65px;width:100%;}
@@ -337,6 +333,28 @@ a:hover{color:#228392;}
 #contentcenter .listexperts .item-expert .content-expert .links-expert a.sendmail{background:url(/public/images/btn-sendmail.png) no-repeat 0 0;}
 #contentcenter .listexperts .item-expert .content-expert .links-expert a:hover{background-position:left bottom;}
 #contentcenter .listexperts .item-expert .content-expert .borderme{visibility:visible;border-bottom:solid #e1e1e1 1px;width:401px;height:1px;}
+
+/* list best experts */
+#contentcenter .searchexp-background {background-color:#fff; width:672px; padding: 10px; margin:10px;}
+#contentcenter .searchexp{display:block;-moz-border-radius:3px;-webkit-border-radius:3px;border-top:solid #b3b3b3 1px;background-color:#f6f6f6;width:209px;height:19px;padding:2px 3px 0px 8px;}
+#contentcenter .txtinput{font-size:12px;color:#aaaeaf;display:block;background-color:#f6f6f6;width:180px;float:left;margin:0 9px 0 0;border:0 none;}
+#contentcenter .subinput{text-indent:-9999px;text-align:left;display:block;cursor:pointer;border:0 none;background:url(/public/images/searchsubmit2.png) no-repeat 0 0;width:18px;height:17px;font-size:0;line-height:0;}
+#contentcenter .subinput:hover{background-position:left bottom;}
+
+#contentcenter .half-block {float:left; width:336px;}
+#contentcenter .best-block {padding:10px;}
+#contentcenter .half-block .content-expert{background-color:#fff;padding:10px 10px 7px 10px;}
+#contentcenter .half-block .content-expert a{display:block;background:url("/public/images/icon-linksingle1.png") no-repeat scroll right center transparent;height:65px;width:100%;}
+#contentcenter .half-block .content-expert a:hover{background-image:url("/public/images/icon-linksingle2.png");}
+#contentcenter .half-block .content-expert .avatar-expert{float:left;margin-bottom:9px;width:41px;height:41px;padding:1px;background-color:#fff;border:solid #efefef 1px;}
+#contentcenter .half-block .content-expert .resume-expert{float:left;margin-bottom:9px;padding:0 5px;width:225px;}
+#contentcenter .half-block .content-expert .resume-expert h3{color:#7aa13d;font-size:12px;font-weight:bold;padding-bottom:4px;}
+#contentcenter .half-block .content-expert a:hover .resume-expert h3{color:#5d7f2c;}
+#contentcenter .half-block .content-expert .resume-expert p{font-size:11px;color:#a1a5a6;line-height:14px;}
+#contentcenter .half-block .index-expert {float:left;width:25px;}
+#contentcenter .half-block .expertDots {background-color:#fff;padding:10px 10px 7px 10px;}
+#contentcenter .half-block .half-title {font-size:14px;color:#272e2f;text-transform:uppercase; padding:0 0 10px 32px;}
+
 /* my profil */
 #contentcenter .myprofil{width:360px;float:left;display:block;padding:20px;background-color:#fff;margin:0 0 15px 20px;-moz-border-radius:4px;-webkit-border-radius:4px;}
 #contentcenter .myprofil .leftprofil{float:left;width:100px;}

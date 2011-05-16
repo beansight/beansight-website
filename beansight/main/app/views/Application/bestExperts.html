@@ -8,8 +8,17 @@
 
 <h2 class="cuf-grb">&{'expertstitle'}</h2>
 
+<div class="searchexp-background">
+    <form action="#" class="searchexp" id="searchExpForm">
+        <label for="query" class="nodisplay">&{'expertssearch'}</label>
+        <input type="text" value="" name="query" id="query" class="txtinput"  placeholder="&{'expertssearch'}"/>
+        <input type="submit" name="sub-expert" value="&{expertssearchbutton}" class="subinput"/>
+    </form>
+</div>
+
+<div class="half-block best-block">
 #{if sortedFollowedUsers} 
-<h3>Friends</h3>
+<h3 class="half-title">&{'bestExperts.followed'}</h3>
 <div class="listinsights listexperts">
 <ul>
 #{list items:sortedFollowedUsers, as:'friend'}
@@ -17,46 +26,61 @@
         || friend_index == currentUserRank
         || friend_index == currentUserRank + 1
         || friend_index == currentUserRank + 2 }
-        ${friend_index}
-        #{expertLine expert:friend /}
+        <li>
+        #{expertLineHalf expert:friend, index:friend_index /}
+        </li>
     #{/if}
     
     *{ Display a "..." after the friend list }*
     #{if friend_index == currentUserRank + 2}
-        <p>...</p>
+    <li>
+        #{expertDots /}
+    </li>
     #{/if}
 
     *{ Display a "..." after the first user list and before the currentUser - 1, if needed }*
     #{if currentUserRank > controllers.Application.NUMBER_FOLLOWED_EXPERTPAGE + 2 
         && friend_index == currentUserRank -1}
-        <p>...</p>
+    <li>
+        #{expertDots /}
+    </li>
     #{/if}
 #{/list}
 </ul>
 </div>
 #{/if} 
-
-<h3>Best</h3>
-<div class="listinsights listexperts">
-<ul>
-#{list items:experts, as:'expert'}
-    #{expertLine expert:expert /}
-#{/list}
-</ul>
 </div>
 
-<h3>Category</h3>
-<div class="listinsights listexperts">
+<div class="half-block best-block">
+	<h3 class="half-title">&{'bestExperts.best'}</h3>
+	<div class="listinsights listexperts">
+	<ul>
+	#{list items:experts, as:'expert'}
+	    #{expertLineHalf expert:expert, index:expert_index /}
+	#{/list}
+	<li>
+        #{expertDots /}
+	</li>
+	</ul>
+	</div>
+</div>
+
+<hr class="clear"/>
+
 #{list items:controllers.Application.getCategories(), as:'category' }
-    <p>${category.label}</p>
+<div class="half-block best-block">
+    <h3 class="half-title">${category.label}</h3>
+    <div class="listinsights listexperts">
     <ul>
     #{list items:bestUsersByCategory.get(category), as:'user'}
-       #{expertLine expert:user /}
+    <li>
+       #{expertLineHalf expert:user, index:user_index /}
+    </li>
     #{/list}
+    <li>
+        #{expertDots /}
+    </li>
     </ul>
+    </div>
+</div>
 #{/list}
-</div>
-
-<div class="seeall">
-    <p><a href="@{Application.experts()}">&{'experts.loadmore'}</a></p>
-</div>

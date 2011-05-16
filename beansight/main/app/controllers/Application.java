@@ -329,25 +329,28 @@ public class Application extends Controller {
 
 	@InSitemap(changefreq="always", priority=0.8)
 	public static void bestExperts() {
+		if (Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			List<User> sortedFollowedUsers = currentUser.getFollowedUsersSortedByScore();
+			renderArgs.put("currentUserRank", sortedFollowedUsers.indexOf(currentUser));
+			renderArgs.put("sortedFollowedUsers", sortedFollowedUsers);
+		}
+		
+		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
 
 		Map<Category, List<User>> bestUsersByCategory = new HashMap<Category, List<User>>();
 		for(Category cat : getCategories()) {
 			bestUsersByCategory.put(cat, User.findBestInCategory(0, NUMBER_CATEGORYEXPERTS_EXPERTPAGE, cat ));
 		}
-
-		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
-		
-		// If connected, log analytic
-		if (Security.isConnected()) {
-			User currentUser = CurrentUser.getCurrentUser();
-			List<User> sortedFollowedUsers = currentUser.getFollowedUsersSortedByScore();
-			renderArgs.put("currentUserRank", sortedFollowedUsers.indexOf(currentUser));
-			renderArgs.put("sortedFollowedUsers", currentUser.getFollowedUsersSortedByScore());
-		}
 		
 		render(experts, bestUsersByCategory);
 	}
 	
+	/**
+	 * AJAX : give the content of an Expert Search.
+	 * @param query
+	 * @param from
+	 */
 	public static void searchExperts(String query, int from) {
 		if (query == null || query.isEmpty()) {
 			List<User> experts = User.findBest(from, NUMBER_EXPERTS_EXPERTPAGE );

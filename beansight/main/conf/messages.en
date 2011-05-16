@@ -108,6 +108,10 @@ expertssearch=Search experts
 expertssearchbutton=Search
 experts.loadmore=more experts
 
+#bestExperts
+bestExperts.followed=Favorited
+bestExperts.best=Best
+
 #insights
 exploreinsights=Explore predictions
 insightstitle=Predictions

@@ -15,7 +15,7 @@ Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-loginwidth', {hover: true}
 Cufon.set('fontFamily', 'got-rnd-med').replace('.cuf-invitation', {textShadow: '#5e872a 0px -1px'}, {hover: true});
 Cufon.set('fontFamily', 'got-rnd-book').replace('.section-title',{hover: true});
 Cufon.set('fontFamily', 'got-rnd-book').replace('.pageintro',{hover: true});
-
+Cufon.set('fontFamily', 'got-rnd-book').replace('.half-title',{hover: true});
 
 //////////////////////
 // Actions on insights
