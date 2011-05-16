@@ -33,6 +33,19 @@
 <div class="container">
 	<h1>${event.title}</h1>
 	<p>${event.message}</p>
+	
+	<div style="float: right;">
+		#{isConnected}
+		<a href="@{EventMiniSite.logout(event.uniqueId)}">
+			<span>Se déconnecter</span>
+		</a>
+		#{/isConnected}
+		#{isNotConnected}
+		<a href="@{Register.fbAuthenticate(request.url)}" class="social_buttons sb_facebook sb_24">
+			<span>Se connecter avec Facebook</span>
+		</a>
+		#{/isNotConnected}
+	</div>
 
 	<ul>
 	#{list items:event.insights, as:'insight'}
