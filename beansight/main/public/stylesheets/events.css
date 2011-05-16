@@ -3,7 +3,7 @@
 /* SPECIFIQUE */
 html{overflow-y:scroll;}
 html {text-align:center;}
-body {font:12px Arial,sans-serif;text-align:left;color:#8b8f90;line-height:1;background-color:#f7f7f7;}
+body {font:12px Arial,sans-serif;text-align:left;color:#8b8f90;line-height:1;background-color:#FFFFFF;}
 
 .admin {-moz-box-shadow: 0 0 0.5em red;-webkit-box-shadow: 0 0 0.5em red;box-shadow: 0 0 0.5em red;}
 
@@ -22,6 +22,41 @@ hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 a{color:#8b8f90}
 a:hover{color:#228392;}
 
+
+.container{width:966px;margin:0 auto;}
+
+
+.login {
+padding: 2em 0;
+float:right;
+}
+/* color and theme inspired by http://theme.wordpress.com/themes/wu-wei/ */
+#header {
+    padding: 2em 0;	
+}
+#content {
+    border-top: 1px solid #D1D9DC;
+    padding-top: 1.5em;	
+}
+#footer {
+    border-top: 3px solid #EEEEEE;
+    color: #D1D9DC;
+    font-size: 0.916em;
+    line-height: 1em;
+    margin: 2em 0;
+    padding: 0.5em 0 0;
+}
+.event-name {
+    color: #D1D9DC;
+    font-size: 5em;
+    font-weight: bold;
+    line-height: 1em;
+}
+.description {
+    color: #6A797D;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+}
 
 /* jQuery Tooltip */
 #tooltip {

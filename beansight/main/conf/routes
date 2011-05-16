@@ -3,7 +3,9 @@
 # ~~~~
 
 # Event page
-GET    dskpredictions.com/                      EventMiniSite.showEvent(eventUniqueId:'dsk')
+#{if play.Play.mode.isProd()}
+    GET    dskpredictions.com/                      EventMiniSite.showEvent(eventUniqueId:'dsk')
+#{/if}
 GET    /event/{eventUniqueId}                   EventMiniSite.showEvent
 
 # Home page

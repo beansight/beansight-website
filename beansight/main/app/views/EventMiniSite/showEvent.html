@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/events.css' /}" />
     <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css' /}">
 
+    <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.ico'}">
     <link rel="apple-touch-icon" href="@{'/public/images/beansight_icon.jpg'}" />
 
@@ -21,6 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script>
 
+
     <script src="#{beansight.resource name:'/public/javascripts/events.js' /}" charset="utf-8"></script>
 
     <script type="text/javascript">
@@ -31,22 +34,25 @@
 <body>
 
 <div class="container">
-	<h1>${event.title}</h1>
-	<p>${event.message}</p>
-	
-	<div style="float: right;">
-		#{isConnected}
-		<a href="@{EventMiniSite.logout(event.uniqueId)}">
-			<span>Se déconnecter</span>
-		</a>
-		#{/isConnected}
-		#{isNotConnected}
-		<a href="@{Register.fbAuthenticate(request.url)}" class="social_buttons sb_facebook sb_24">
-			<span>Se connecter avec Facebook</span>
-		</a>
-		#{/isNotConnected}
+    <div class="login">
+        #{isConnected}
+        <a href="@{EventMiniSite.logout(event.uniqueId)}">
+            <span>Se déconnecter</span>
+        </a>
+        #{/isConnected}
+        #{isNotConnected}
+        <a href="@{Register.fbAuthenticate(request.url)}" class="social_buttons sb_facebook sb_24">
+            <span>Se connecter avec Facebook</span>
+        </a>
+        #{/isNotConnected}
+    </div>
+
+    <div id="header">
+	   <h1 class="event-name">${event.title}</h1>
+	   <p class="description">${event.message}</p>
 	</div>
 
+    <div id="content">
 	<ul>
 	#{list items:event.insights, as:'insight'}
 	<li>
@@ -64,10 +70,14 @@
 	            <span class="voteCount disagreeCount">${insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
 	        </a>
 	    </div>
+	   #{/insightContainer}
 	</li>
-	#{/insightContainer}
 	#{/list}
 	</ul>
+	</div>
+	
+	<div id="footer">
+	</div>
 </div>
 
 </body>
