@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/events.css' /}" />
     <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css' /}">
 
-    <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
-
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.ico'}">
     <link rel="apple-touch-icon" href="@{'/public/images/beansight_icon.jpg'}" />
 
@@ -53,22 +51,25 @@
 	</div>
 
     <div id="content">
-	<ul>
+    <p class="callToAction">${event.callToAction}</p>
+	<ul class="insightList">
 	#{list items:event.insights, as:'insight'}
 	<li>
 	   #{insightContainer insight:insight}
-	    <h2>${insight.endDate.in(true)}, ${insight.content}</h2>
-	    <div class="linkvote agreeaction">
-	        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${insight.uniqueId}');">#{/isConnected}
-	        #{isNotConnected}<a href="#" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
-	            <span class="voteCount agreeCount">${insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/>
-	        </a>
-	    </div>
-	    <div class="linkvote disagreeaction">
-	        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${insight.uniqueId}');">#{/isConnected}
-	        #{isNotConnected}<a href="#" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.disagree'}"/>#{/isNotConnected}
-	            <span class="voteCount disagreeCount">${insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
-	        </a>
+	    <h2 class="insightTitle">${insight.endDate.in(true)}, ${insight.content}</h2>
+	    <div class="voteButtons">
+		    <div class="linkvote agreeaction">
+		        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${insight.uniqueId}');">#{/isConnected}
+		        #{isNotConnected}<a href="#" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
+		            <span class="voteCount agreeCount">${insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/>
+		        </a>
+		    </div>
+		    <div class="linkvote disagreeaction">
+		        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${insight.uniqueId}');">#{/isConnected}
+		        #{isNotConnected}<a href="#" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.disagree'}"/>#{/isNotConnected}
+		            <span class="voteCount disagreeCount">${insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
+		        </a>
+		    </div>
 	    </div>
 	   #{/insightContainer}
 	</li>

@@ -7,6 +7,7 @@ CREATE TABLE  `Event` (
   `creationDate` datetime DEFAULT NULL,
   `endDate` datetime DEFAULT NULL,
   `message` longtext,
+  `callToAction` longtext,  
   `title` varchar(255) DEFAULT NULL,
   `uniqueId` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),

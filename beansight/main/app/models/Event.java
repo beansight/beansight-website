@@ -26,6 +26,9 @@ public class Event extends Model {
 	@Lob
 	public String message;
 	
+	@Lob
+	public String callToAction;
+	
 	@Index(name = "EVENT_UNIQUE_ID_IXD")
 	public String uniqueId;
 	
@@ -35,9 +38,10 @@ public class Event extends Model {
 	public Date creationDate;
 	public Date endDate;
 	
-	public Event(String title, String message, String uniqueId, List<Insight> insights) {
+	public Event(String title, String message, String callToAction, String uniqueId, List<Insight> insights) {
 		this.title = title;
 		this.message = message;
+		this.callToAction = callToAction;
 		this.uniqueId = uniqueId;
 		this.insights = insights;
 		this.creationDate = new Date();

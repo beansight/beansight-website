@@ -1,11 +1,5 @@
 *{margin:0;padding:0;}
 
-/* SPECIFIQUE */
-html{overflow-y:scroll;}
-html {text-align:center;}
-body {font:12px Arial,sans-serif;text-align:left;color:#8b8f90;line-height:1;background-color:#FFFFFF;}
-
-.admin {-moz-box-shadow: 0 0 0.5em red;-webkit-box-shadow: 0 0 0.5em red;box-shadow: 0 0 0.5em red;}
 
 /* GLOBAL */
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article, aside, audio, canvas, datagrid, datalist, details, dialog, figure, footer, header, menu, nav, section, video,abbr, eventsource, mark, meter, time, progress, output, bb
@@ -16,6 +10,16 @@ a{text-decoration:none;cursor:pointer;}
 ol,ul{list-style:none;}
 hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
 .nodisplay{display:none;}
+
+/* SPECIFIQUE */
+html{overflow-y:scroll;}
+html {text-align:center;}
+body {text-align:left;color:#8b8f90;line-height:1;background-color:#FFFFFF;
+    font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+    font-size: 75%;
+    }
+
+.admin {-moz-box-shadow: 0 0 0.5em red;-webkit-box-shadow: 0 0 0.5em red;box-shadow: 0 0 0.5em red;}
 
 .ajaxloader{background:url(/public/images/ajax-loader.gif) no-repeat 0 0; width:16px; height:16px;}
 
@@ -57,6 +61,34 @@ float:right;
     font-size: 1.5em;
     margin-top: 0.5em;
 }
+
+#content .callToAction {
+    color: #959EA1;
+    font-size: 2.5em;
+    padding-bottom: 30px; 
+}
+
+#content .insightList {
+	margin: 0 80px;
+}
+
+#content .insightContainer {
+    color: #6A797D;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+    height:100px;
+}
+
+.insightTitle{float:left; width:500px;}
+.insightContainer .voteButtons{float:right;}
+.insightContainer .linkvote{float:left;width:125px;height:34px;margin:0 0 12px 0;}
+.insightContainer .linkvote .voteNumber{display:block;width:111px;height:26px;padding:8px 0 0 0;text-align:center;background:url(/public/images/insight-vote.png) no-repeat 0 0;}
+.insightContainer .linkvote .voteNumber.clickvote:hover{background-position:0 -34px;}
+.insightContainer .linkvote .voteCount{color:#fff;font-weight:bold;font-size:18px;}
+.insightContainer .linkvote.disagreeaction a{margin:0 0 0 13px;}
+.insightContainer .linkvote.agreeaction{border-right:solid #ededed 1px;}
+.insightContainer.voteDisagree  .linkvote.disagreeaction .voteNumber{background-position:0 -102px;}
+.insightContainer.voteAgree  .linkvote.agreeaction .voteNumber{background-position:0 -68px;}
 
 /* jQuery Tooltip */
 #tooltip {
