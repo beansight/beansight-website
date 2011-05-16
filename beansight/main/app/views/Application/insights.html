@@ -18,9 +18,13 @@
     #{set landingPage:true /}
 #{/isNotConnected}
 
+#{isConnected}
 #{if topic}
-    <a href="#" title="&{'insights.addTopicToFavorites'}" class="addfav topic topic_${topic.id} #{if controllers.CurrentUser.getCurrentUser().isFollowingTopic(topic)}active#{/if}#{else}inactive#{/else}" onClick="return toggleFollowingTopic(${topic.id});" >&{'insights.followTopic'}</a>
+    <a href="#" title="&{'insights.addTopicToFavorites'}" class="addfav topic topic_${topic.id} #{if controllers.CurrentUser.getCurrentUser().isFollowingTopic(topic)}active#{/if}#{else}inactive#{/else}" onClick="return toggleFollowingTopic(${topic.id});" >
+        &{'insights.followTopic'}
+    </a>
 #{/if}
+#{/isConnected}
 
 <h2><span class="cuf-grb">
 	*{#{if category} &{'incategory'} ${category}#{/if}}* 
