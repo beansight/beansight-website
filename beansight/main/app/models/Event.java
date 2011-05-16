@@ -32,6 +32,12 @@ public class Event extends Model {
 	@Index(name = "EVENT_UNIQUE_ID_IXD")
 	public String uniqueId;
 	
+	public String imageThumbURL;
+
+	public String imageBackgroundLeftURL;
+
+	public String imageBackgroundRightURL;
+	
 	@ManyToMany(cascade = CascadeType.ALL)
 	public List<Insight> insights;
 

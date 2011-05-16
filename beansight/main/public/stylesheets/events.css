@@ -79,6 +79,11 @@ float:right;
     height:100px;
 }
 
+.miniImage {
+    float:left;
+    margin: 10px;
+}
+
 .insightTitle{float:left; width:500px;}
 .insightContainer .voteButtons{float:right;}
 .insightContainer .linkvote{float:left;width:125px;height:34px;margin:0 0 12px 0;}

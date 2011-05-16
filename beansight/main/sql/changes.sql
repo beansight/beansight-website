@@ -10,6 +10,9 @@ CREATE TABLE  `Event` (
   `callToAction` longtext,  
   `title` varchar(255) DEFAULT NULL,
   `uniqueId` varchar(255) DEFAULT NULL,
+  `imageThumbURL` varchar(255) DEFAULT NULL,
+  `imageBackgroundLeftURL` varchar(255) DEFAULT NULL,
+  `imageBackgroundRightURL` varchar(255) DEFAULT NULL,  
   PRIMARY KEY (`id`),
   KEY `EVENT_UNIQUE_ID_IXD` (`uniqueId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

@@ -1,9 +1,11 @@
 *{ Display the Sharing options }*
 *{ @param insight : the insight to share }*
+*{ @param boolean noBeansight : true do hide the share on beansight button }*
 
 <div class="sharezone">
 	
 	<div class="sharebox" id="sharezone">
+	#{if _noBeansight == null || _noBeansight == false }
 	       #{isConnected}
 	       <span id="shareOnBeansight" class="shareItem">
 	       <a href="#" id="shareOnBeansight-link" class="uiButton shareButton">&{'shareInsight.shareonbeansight'}</a>
@@ -18,7 +20,7 @@
 	           <span id="shareConfirmation"></span>
            </div>
            #{/isConnected}
-           
+     #{/if} 
            <span id="shareOnTwitter" class="shareItem">
 	       <a href="http://twitter.com/share" class="twitter-share-button" data-text="${_insight.content} &{'onbeansight'}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
            </span>

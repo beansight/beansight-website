@@ -29,7 +29,12 @@
         var disagreeAction  = #{jsAction @API.disagree(':insightUniqueId') /};
     </script>
 </head>
-<body>
+<body style="
+        background-image: url('${event.imageBackgroundLeftURL}'), url('${event.imageBackgroundRightURL}');
+        background-position:top left, top right;
+        background-color:#ffffff;
+        background-repeat:no-repeat;
+        ">
 
 <div class="container">
     <div class="login">
@@ -46,6 +51,9 @@
     </div>
 
     <div id="header">
+    #{if event.imageThumbURL }
+       <img src="${event.imageThumbURL}" alt="" title="image Hosted by imgur.com" class="miniImage" />
+    #{/if}
 	   <h1 class="event-name">${event.title}</h1>
 	   <p class="description">${event.message}</p>
 	</div>
@@ -76,6 +84,8 @@
 	#{/list}
 	</ul>
 	</div>
+	
+	#{shareInsight insight:insight, noBeansight:true /}
 	
 	<div id="footer">
 	</div>
