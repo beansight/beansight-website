@@ -126,11 +126,13 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     	currentBeansightUser.relatedFacebookUser = facebookUser;
     	currentBeansightUser.save();
     	
-    	// get all the facebook user's friends who are using beansight but that are not already known as friends in beansight
+    	// this query find all the FacebookUser objects that exist as friend in the facebook friends but that are not yet
+    	// recorded as facebook friends in beansight model (to know if a FacebookUser is recorded as a friend in beansight
+    	// then there should exist a FacebookFriend entity to connect the User (beansight) and the FacebookUser (facebook) 
     	List<FacebookUser> fbUsers = FacebookUser.find("select friend from FacebookUser fbu " +
     			"join fbu.friends as friend " +
     			"where fbu.facebookId = :facebookId " +
-    			"and friend.facebookId not in (select fbf.facebookUser.facebookId from FacebookFriend fbf where fbf.user = :user)")
+    			"and friend.facebookId not in (select fbf.beansightUserFriend.facebookUserId from FacebookFriend fbf where fbf.user = :user and fbf.beansightUserFriend.facebookUserId is not null)")
     			.bind("facebookId", currentBeansightUser.facebookUserId)
     			.bind("user", currentBeansightUser)
     			.fetch();
@@ -144,7 +146,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     		}
     	}
     	
-    	// update the information for the link (FacebookFriend) between the beansight user and the facebook user 
+    	// update the information for the link (FacebookFriend) between the beansight user (User entity) and the facebook user (FacebookUser entity) 
     	// marked as a facebook friend of the beansight user
 		if (facebookUser.friends != null && !facebookUser.friends.isEmpty()) {
 			List<FacebookFriend> newFriendsToAdd = currentBeansightUser.findMyFriendsInFacebookNotYetMyFriendsInBeansight();
@@ -208,6 +210,15 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     			aUserWithTheSameFacebookId.facebookUserId = null;
     			aUserWithTheSameFacebookId.relatedFacebookUser = null;
     			aUserWithTheSameFacebookId.save();
+    			
+    			// all the FacebookFriend entities referencing aUserWithTheSameFacebookId
+    			// should now reference currentUser
+    			List<FacebookFriend> fbfToUpdate = FacebookFriend.find("select fbf from FacebookFriend fbf where fbf.beansightUserFriend = :oldUser")
+    				.bind("oldUser", aUserWithTheSameFacebookId).fetch();
+    			for (FacebookFriend fbf : fbfToUpdate) {
+    				fbf.beansightUserFriend = currentUser;
+    				fbf.save();
+    			}
     			
     			// all those who followed aUserWithTheSameFacebookId should now follow currentUser
     			List<User> followers = new ArrayList<User>(aUserWithTheSameFacebookId.followers);

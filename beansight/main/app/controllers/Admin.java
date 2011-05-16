@@ -19,6 +19,7 @@ import jobs.weeklymailing.WeeklyMailingJob;
 import jobs.weeklymailing.WeeklyMailingSenderJob;
 import models.CategoryEnum;
 import models.Comment;
+import models.FacebookFriend;
 import models.TopicActivity;
 import models.UserActivity;
 import models.Insight;
@@ -446,5 +447,19 @@ public class Admin extends Controller {
 		renderText("All activities for all users generated");
 	}
 	
-
+	/**
+	 * when you move the facebook from a beansight account to another the FacebookFriend.beansightUserFriend should reference
+	 * the new account
+	 * This method is only here to clean old FacebookFriend that haven't been correctly updated
+	 */
+	public static void cleanFacebookFriend() {
+		List<FacebookFriend> fbfs = FacebookFriend.find("select fbf from FacebookFriend fbf where fbf.beansightUserFriend.facebookUserIdDisabled is not null").fetch();
+		// for each FacebookFriend we get the User with the facebookUserId and we set this user on the FacebookFriend 
+		for (FacebookFriend fbf : fbfs) {
+			User actualUserToUse = User.findByFacebookUserId(fbf.beansightUserFriend.facebookUserIdDisabled);
+			Logger.info("%s currently has %s as facebookfriend. The clean is going to replace it with %s", fbf.user.userName, fbf.beansightUserFriend.userName, actualUserToUse.userName);
+			fbf.beansightUserFriend = actualUserToUse;
+			fbf.save();
+		}
+	}
 }
