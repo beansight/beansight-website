@@ -2,6 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Event page
+GET    dskpredictions.com/                      EventMiniSite.showEvent(eventUniqueId:'dsk')
+GET    /event/{eventUniqueId}                   EventMiniSite.showEvent
+
 # Home page
 GET     /                                       Application.insights
 GET 	/insights								Application.reloadInsights
