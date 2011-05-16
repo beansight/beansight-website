@@ -679,6 +679,13 @@ public class User extends Model implements Comparable<User> {
 		save();
 		insight.followers.remove(this);
 		insight.save();
+		
+		// also remove from activities
+		List<InsightActivity> activities = InsightActivity.find("byUserAndInsight", this, insight).fetch(); 
+		for( InsightActivity activity : activities)
+		{
+			activity.delete();
+		}
 	}
 
 	/**
