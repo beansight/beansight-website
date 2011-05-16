@@ -1,0 +1,42 @@
+*{margin:0;padding:0;}
+
+/* SPECIFIQUE */
+html{overflow-y:scroll;}
+html {text-align:center;}
+body {font:12px Arial,sans-serif;text-align:left;color:#8b8f90;line-height:1;background-color:#f7f7f7;}
+
+.admin {-moz-box-shadow: 0 0 0.5em red;-webkit-box-shadow: 0 0 0.5em red;box-shadow: 0 0 0.5em red;}
+
+/* GLOBAL */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article, aside, audio, canvas, datagrid, datalist, details, dialog, figure, footer, header, menu, nav, section, video,abbr, eventsource, mark, meter, time, progress, output, bb
+{margin:0;padding:0;border:0;outline:0;font-size:100%;font-weight :normal;vertical-align:baseline;}
+input, select {vertical-align:middle;}
+img,input[type=image]{vertical-align:bottom;}
+a{text-decoration:none;cursor:pointer;}
+ol,ul{list-style:none;}
+hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
+.nodisplay{display:none;}
+
+.ajaxloader{background:url(/public/images/ajax-loader.gif) no-repeat 0 0; width:16px; height:16px;}
+
+a{color:#8b8f90}
+a:hover{color:#228392;}
+
+
+/* jQuery Tooltip */
+#tooltip {
+    position: absolute;
+    z-index: 3000;
+    border: 4px solid white;
+    background-color: #F7F7F7;
+    padding: 5px;
+    opacity: 1;
+    border-radius:4px;
+    width: 200px;
+    box-shadow:1px 1px 1px #999999;   
+    -moz-border-radius:4px;
+    -moz-box-shadow:1px 1px 1px #999999;
+    -webkit-border-radius:4px;
+    -webkit-box-shadow:1px 1px 1px #999999;
+}
+#tooltip h3, #tooltip div { margin: 0; }

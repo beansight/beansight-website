@@ -1,8 +1,61 @@
-<h1>${event.title}</h1>
-<p>${event.message}</p>
+<!doctype html>
+<html xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>${event.title} - Beansight</title>
+    
+    <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/events.css' /}" />
+    <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css' /}">
 
-<ul>
-#{list items:event.insights, as:'insight'}
-<li>${insight.content}</li>
-#{/list}
-</ul>
+    <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.ico'}">
+    <link rel="apple-touch-icon" href="@{'/public/images/beansight_icon.jpg'}" />
+
+    <meta property="og:title"      content="${event.title} - Beansight" />
+    <meta property="og:site_name"  content="Beansight" />
+    <meta property="og:type"       content="website" />
+    <meta property="og:image"      content="@@{'/public/images/beansight_icon.jpg'}" />
+    <meta property="fb:app_id"     content="${play.configuration.getProperty("facebook.client_id")}" />
+    <meta name="description"       content="&{'event.description'} ${event.message}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script>
+
+    <script src="#{beansight.resource name:'/public/javascripts/events.js' /}" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        var agreeAction     = #{jsAction @API.agree(':insightUniqueId') /};
+        var disagreeAction  = #{jsAction @API.disagree(':insightUniqueId') /};
+    </script>
+</head>
+<body>
+
+<div class="container">
+	<h1>${event.title}</h1>
+	<p>${event.message}</p>
+
+	<ul>
+	#{list items:event.insights, as:'insight'}
+	<li>
+	   #{insightContainer insight:insight}
+	    <h2>${insight.endDate.in(true)}, ${insight.content}</h2>
+	    <div class="linkvote agreeaction">
+	        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${insight.uniqueId}');">#{/isConnected}
+	        #{isNotConnected}<a href="#" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
+	            <span class="voteCount agreeCount">${insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/>
+	        </a>
+	    </div>
+	    <div class="linkvote disagreeaction">
+	        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${insight.uniqueId}');">#{/isConnected}
+	        #{isNotConnected}<a href="#" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.disagree'}"/>#{/isNotConnected}
+	            <span class="voteCount disagreeCount">${insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
+	        </a>
+	    </div>
+	</li>
+	#{/insightContainer}
+	#{/list}
+	</ul>
+</div>
+
+</body>
+</html>
