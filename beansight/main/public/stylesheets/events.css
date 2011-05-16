@@ -84,6 +84,10 @@ float:right;
     margin: 10px;
 }
 
+.poweredBy{ 
+	float: right;
+}
+
 .insightTitle{float:left; width:500px;}
 .insightContainer .voteButtons{float:right;}
 .insightContainer .linkvote{float:left;width:125px;height:34px;margin:0 0 12px 0;}

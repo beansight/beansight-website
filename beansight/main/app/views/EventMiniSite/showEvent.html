@@ -45,7 +45,7 @@
         #{/isConnected}
         #{isNotConnected}
         <a href="@{Register.fbAuthenticate(request.url)}" class="social_buttons sb_facebook sb_24">
-            <span>Se connecter avec Facebook</span>
+            <span>Connectez vous et votez</span>
         </a>
         #{/isNotConnected}
     </div>
@@ -61,21 +61,22 @@
     <div id="content">
     <p class="callToAction">${event.callToAction}</p>
 	<ul class="insightList">
-	#{list items:event.insights, as:'insight'}
+	#{list items:event.getInsights(), as:'insightLine'}
 	<li>
-	   #{insightContainer insight:insight}
-	    <h2 class="insightTitle">${insight.endDate.in(true)}, ${insight.content}</h2>
+	   <p class="tagline">${insightLine.tagLine}</p>
+	   #{insightContainer insight:insightLine.insight}
+	    <h2 class="insightTitle">${insightLine.insight.endDate.in(true)}, ${insightLine.insight.content}</h2>
 	    <div class="voteButtons">
 		    <div class="linkvote agreeaction">
-		        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${insight.uniqueId}');">#{/isConnected}
+		        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${insightLine.insight.uniqueId}');">#{/isConnected}
 		        #{isNotConnected}<a href="#" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
-		            <span class="voteCount agreeCount">${insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/>
+		            <span class="voteCount agreeCount">${insightLine.insight.agreeCount}</span> <img src="/public/images/icon-more.png" alt=""/>
 		        </a>
 		    </div>
 		    <div class="linkvote disagreeaction">
-		        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${insight.uniqueId}');">#{/isConnected}
+		        #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return disagree('${insightLine.insight.uniqueId}');">#{/isConnected}
 		        #{isNotConnected}<a href="#" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.disagree'}"/>#{/isNotConnected}
-		            <span class="voteCount disagreeCount">${insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
+		            <span class="voteCount disagreeCount">${insightLine.insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
 		        </a>
 		    </div>
 	    </div>
@@ -85,9 +86,24 @@
 	</ul>
 	</div>
 	
-	#{shareInsight insight:insight, noBeansight:true /}
+	<div>
+	<p>${event.shareCallToAction}</p>
+   <span id="shareOnTwitter" class="shareItem">
+   <a href="http://twitter.com/share" class="twitter-share-button" data-text="${event.title}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+   </span>
+   
+   <span id="shareOnFacebook" class="shareItem">
+   <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like layout="button_count" show_faces="false" width="50"></fb:like>
+   </span>
+	</div>
 	
 	<div id="footer">
+	   <div class="poweredBy">
+	       <a href="@@{Application.insights(null, null, null, event.topic.label)}">
+	       <p>Découvrez d'autres prédictions sur</p>
+	       <img src="/public/images/logo.png" />
+	       </a>
+	   </div>
 	</div>
 </div>
 
