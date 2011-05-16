@@ -1380,7 +1380,17 @@ public class User extends Model implements Comparable<User> {
 	 */
 	@Override
 	public int compareTo(User user) {
-		return this.score.compareTo(user.score);
+		if(this.score != null) {
+			if(user.score != null) {
+				return this.score.compareTo(user.score);
+			}
+			return 1;
+		} else {
+			if(user.score != null) {
+				return -1;
+			}
+		}
+		return 1;
 	}
 	
 	public List<FacebookFriend> findMyFriendsInFacebookNotYetMyFriendsInBeansight() {
