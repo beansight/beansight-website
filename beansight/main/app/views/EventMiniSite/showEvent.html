@@ -14,8 +14,9 @@
     <meta property="og:title"      content="${event.title} - Beansight" />
     <meta property="og:site_name"  content="Beansight" />
     <meta property="og:type"       content="website" />
-    <meta property="og:image"      content="@@{'/public/images/beansight_icon.jpg'}" />
+    <meta property="og:image"      content="#{if event.imageThumbURL}${event.imageThumbURL}#{/if}#{else}@@{'/public/images/beansight_icon.jpg'}#{/else}" />
     <meta property="fb:app_id"     content="${play.configuration.getProperty("facebook.client_id")}" />
+    <meta property="og:url"        content="http://www.dskpote.fr" />
     <meta name="description"       content="&{'event.description'} ${event.message}" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
@@ -59,6 +60,18 @@
 	</div>
 
     <div id="content">
+
+    <div>
+    <p>${event.shareCallToAction}</p>
+   <span id="shareOnTwitter" class="shareItem">
+   <a href="http://twitter.com/share" class="twitter-share-button" data-text="${event.title}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+   </span>
+   
+   <span id="shareOnFacebook" class="shareItem">
+   <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like layout="button_count" show_faces="false" width="50"></fb:like>
+   </span>
+    </div>
+
     <p class="callToAction">${event.callToAction}</p>
 	<ul class="insightList">
 	#{list items:event.getInsights(), as:'insightLine'}
@@ -86,17 +99,6 @@
 	</ul>
 	</div>
 	
-	<div>
-	<p>${event.shareCallToAction}</p>
-   <span id="shareOnTwitter" class="shareItem">
-   <a href="http://twitter.com/share" class="twitter-share-button" data-text="${event.title}" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-   </span>
-   
-   <span id="shareOnFacebook" class="shareItem">
-   <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like layout="button_count" show_faces="false" width="50"></fb:like>
-   </span>
-	</div>
-	
 	<div id="footer">
 	   <div class="poweredBy">
 	       <a href="@@{Application.insights(null, null, null, event.topic.label)}">
@@ -106,6 +108,26 @@
 	   </div>
 	</div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  // Google Analytics
+  var feedback_widget_options = {};
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "beansight";
+  feedback_widget_options.placement = "left";
+  feedback_widget_options.color = "#222";
+  feedback_widget_options.style = "idea";
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+  
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-16319303-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
 
 </body>
 </html>
