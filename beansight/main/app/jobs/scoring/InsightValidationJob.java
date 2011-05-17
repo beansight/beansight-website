@@ -16,7 +16,6 @@ public class InsightValidationJob extends Job {
 	public static final int HOURS_JOB_EXECUTION = 2;
 
 	private Date computeDate = null;
-	private PeriodEnum period;
 	private boolean runScoreJob = false;
 	
 	private int page = 1;
@@ -27,14 +26,12 @@ public class InsightValidationJob extends Job {
 	 */
 	public InsightValidationJob() {
 		this.computeDate = null;
-		this.period = null;
 		this.runScoreJob = false;
 		this.parentJob = null;
 	}
 	
-	public InsightValidationJob(Date dateToCompute, PeriodEnum period, boolean runScoreJob, BuildInsightValidationAndUserScoreJob parentJob) {
+	public InsightValidationJob(Date dateToCompute, boolean runScoreJob, BuildInsightValidationAndUserScoreJob parentJob) {
 		this.computeDate = dateToCompute;
-		this.period = period;
 		this.runScoreJob = runScoreJob;
 		this.parentJob = parentJob;
 	}

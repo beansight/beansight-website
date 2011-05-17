@@ -48,7 +48,7 @@ public class ComputeCategoryAndUserScoreHistoJob extends Job {
     	
     	int i = 1;
     	for(User u : usersToUpdate) {
-    		Logger.info("updating user, page " + pageToProcess + " : " + i + "/" + usersToUpdate.size());
+    		Logger.debug("ComputeCategoryAndUserScoreHistoJob : updating user, page " + pageToProcess + " : " + i + "/" + usersToUpdate.size());
     		u.computeCategoryScores(computeDate, PeriodEnum.THREE_MONTHS);
     		u.computeUserScore(computeDate, PeriodEnum.THREE_MONTHS);
     		i++;

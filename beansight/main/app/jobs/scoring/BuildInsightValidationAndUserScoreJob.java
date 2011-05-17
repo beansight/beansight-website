@@ -39,6 +39,7 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
 	public BuildInsightValidationAndUserScoreJob() {
 		this.fromDate = new DateMidnight().minusDays(1).toDate();
 		this.toDate =  new DateMidnight().minusDays(1).toDate();
+		Logger.info("BuildInsightValidationAndUserScoreJob created : from %s to %s", fromDate, toDate);
 	}
 	
 	/**
@@ -52,6 +53,7 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
 	public BuildInsightValidationAndUserScoreJob(Date fromDate, Date toDate) {
 		this.fromDate = fromDate;
 		this.toDate = toDate;
+		Logger.info("BuildInsightValidationAndUserScoreJob created with params : from %s to %s", fromDate, toDate);
 	}
 	
 	public void incrementFromDate() {
@@ -60,9 +62,11 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
 	
     @Override
     public void doJob() throws Exception {
+    	Logger.info("BuildInsightValidationAndUserScoreJob doJob");
     	// TEMP
     	if (runNow == false) {
 			if(!TimeHelper.hourAndDayCheck(4, null)) {
+				Logger.info("BuildInsightValidationAndUserScoreJob quit");
 				return;
 			}
     	}
@@ -75,7 +79,7 @@ public class BuildInsightValidationAndUserScoreJob extends Job {
 	    	Logger.info("date=" + fromDate);
 	    	Logger.info("********************");
 	    	
-	    	new InsightValidationJob(fromDate, PeriodEnum.THREE_MONTHS, true, this).now();
+	    	new InsightValidationJob(fromDate, true, this).now();
 	    	
     	}
     	

@@ -32,7 +32,7 @@ public class InsightTrendsCalculateJob extends Job {
 	
     @Override
     public void doJob() throws Exception {
-    	Logger.info("InsightTrendsCalculateJob begin");
+    	Logger.info("InsightTrendsCalculateJob begin : page=%s all=%s", page, all);
     	
     	List<Insight> insights = null;
     	if (all) {
@@ -42,6 +42,8 @@ public class InsightTrendsCalculateJob extends Job {
     		insights = Insight.findEndDateNotOver(page, INSIGHT_NUMBER_TO_PROCESS);
     	}
     	
+    	Logger.info("InsightTrendsCalculateJob : insights.size()=%s", insights.size());
+    	
     	processInsights(insights);
     	
     	if (Insight.count() > (page * INSIGHT_NUMBER_TO_PROCESS)) {
@@ -49,6 +51,7 @@ public class InsightTrendsCalculateJob extends Job {
     		new InsightTrendsCalculateJob(++page, all).in(5);
     	} else {
         	// delete the trends list from the cache so that ui get new calculated trends value
+    		Logger.info("InsightTrendsCalculateJob : deleting cache agreeInsightTrendsCache");
         	Cache.delete("agreeInsightTrendsCache");
     	}
     	
