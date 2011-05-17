@@ -4,7 +4,8 @@
 
 # Event page
 #{if play.Play.mode.isProd()}
-    GET    dskpredictions.com/                      EventMiniSite.showEvent(eventUniqueId:'dsk')
+    GET    dskpredictions.com/                  EventMiniSite.showEvent(eventUniqueId:'dsk')
+    GET    dskpote.fr/                          EventMiniSite.showEvent(eventUniqueId:'dsk')
 #{/if}
 GET    /event/{eventUniqueId}                   EventMiniSite.showEvent
 
