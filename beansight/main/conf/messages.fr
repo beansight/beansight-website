@@ -1,5 +1,6 @@
 # used for javascript i18n
 i18n=fr
+i18n_i18n=fr_FR
 
 # main
 beansightDescription=Avec Beansight, parcourez les opinions et découvrez ce qui va probablement arriver demain. Partagez vos prédictions et prouvez votre expertise.
@@ -34,6 +35,7 @@ invitesomeone=Inviter quelqu'un à rejoindre Beansight :
 invitationsleft=Il vous reste <strong><span class="invitationLeftNumber">%s</span> invitations</strong>
 inviteemailplaceholder=exemple@email.fr
 addmessage=Ajoutez un message :
+inviteYourFacebookFriends=Inviter vos amis Facebook
 invitesubmit=Envoyer
 inviteconfirm=Invitation envoyée
 browsecategory=Catégories
@@ -345,6 +347,13 @@ facebookIdAlreadyInUseWarning.alreadylinked=Le compte Beansight suivant est déj
 facebookIdAlreadyInUseWarning.confirm=En cliquant sur Continuer vous confirmez que votre compte actuel pourra utiliser Facebook pour se connecter à Beansight.
 facebookIdAlreadyInUseWarning.cancel=Annuler
 facebookIdAlreadyInUseWarning.continue=Continuer
+
+# inviteYourFacebookFriendsOnBeansight
+inviteYourFacebookFriendsOnBeansight.title=Inviter vos amis sur Beansight
+inviteYourFacebookFriendsOnBeansight.type=privée
+inviteYourFacebookFriendsOnBeansight.invitationTitle=Partagez Beansight et defiez-vos amis !
+inviteYourFacebookFriendsOnBeansight.invitationContent=J'aimerais t'inviter sur Beansight. On peut créer des prédictions dans tous les domaines et voter pour les prédictions des autres. Quand l'avenir nous donne raison on peut gagner des points et monter dans le classement. Tu penses pouvoir me battre ?
+inviteYourFacebookFriendsOnBeansight.invitationCancel=Annuler
 
 # FAQ
 faq.title=Questions fréquemment posées (FAQ)

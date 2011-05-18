@@ -279,19 +279,6 @@ public class Admin extends Controller {
 		new InsightValidationJob().now();
 	}
 	
-	public static void computeUserScore() {
-		Date toDate = new DateMidnight().minusDays(1).toDate();
-		Date from = new Date(toDate.getTime() - PeriodEnum.THREE_MONTHS.getTimePeriod());
-		List<User> usersToUpdate = User.findAll();
-
-		int i = 1;
-		for(User u : usersToUpdate) {
-			Logger.info("updating user " + i + "/" + usersToUpdate.size());
-			u.computeUserScore(toDate, PeriodEnum.THREE_MONTHS);
-			i++;
-		}
-	}
-
 	public static void showExpertTrend(String username) {
 		User user = User.findByUserName(username);
 		List<Object[]> categoryScoresCelebrities = user.getScoreTimelineByCategory(CategoryEnum.CELEBRITIES, PeriodEnum.THREE_MONTHS);
@@ -317,8 +304,11 @@ public class Admin extends Controller {
 		i.buildInsightTrends();
 	}
 	
-	public static void updateInsightTrends() throws Exception {
-		new InsightTrendsCalculateJob(1, true).doJob();
+	public static void updateInsightTrends(Boolean all) throws Exception {
+		if (all == null) {
+			all = Boolean.FALSE;
+		}
+		new InsightTrendsCalculateJob(1, all).doJob();
 	}
 	
 	

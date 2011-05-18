@@ -1177,6 +1177,20 @@ public class Application extends Controller {
     	
     	Register.linkBeansightAccountWithFacebook();
     }
+    
+    
+    public static void inviteYourFacebookFriendsOnBeansight() {
+    	List<String> friendIdsToExclude = FacebookFriend.find("select fbf.beansightUserFriend.facebookUserId " +
+    			"from FacebookFriend fbf " +
+    			"where fbf.user = :currentUser")
+    			.bind("currentUser", CurrentUser.getCurrentUser())
+    			.fetch();
+    	
+    	renderArgs.put("friendIdsToExclude", friendIdsToExclude);
+    	renderArgs.put("facebookAppId", Play.configuration.getProperty("facebook.client_id"));
+    	
+    	render();
+    }
 	
 	@InSitemap(changefreq="yearly", priority=0.1)
 	public static void privacyPolicy() {

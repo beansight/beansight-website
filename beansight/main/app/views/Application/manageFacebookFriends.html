@@ -23,3 +23,29 @@
 	#{facebookFriendList friends:friendsOnFacebookWhoAreOnBeansight, currentUser:currentUser/}
 </div>
 
+
+<fb:serverfbml width="615">
+  <script type="text/fbml">
+    <fb:request-form action="http://www.beansight.com"
+                     method="GET"
+                     invite="true"
+                     type="privée"
+                     content="I would like to invite you to come on Beansight : this is a great website to play creating prediction and earn points when you're right ! <fb:req-choice url='http://www.beansight.com' label='Beansight' />">
+      <fb:multi-friend-selector showborder="false"
+                                bypass="Annuler"
+                                cols=4
+                                actiontext="Invite your friends to compete with you on Beansight"/>
+    </fb:request-form>
+  </script>
+</fb:serverfbml>
+
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/fr_FR/all.js"></script>
+<script>
+  FB.init({
+    appId  : '200482286644076',
+    status : true, // check login status
+    cookie : true, // enable cookies to allow the server to access the session
+    xfbml  : true  // parse XFBML
+  });
+</script>

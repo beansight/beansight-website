@@ -95,9 +95,6 @@ public class User extends Model implements Comparable<User> {
 	public String twitterUserId;
 	public String twitterScreenName;
 	
-//	public String oauthToken;
-//	public String oauthSecret;
-
 	/** facebook specific informations */
     public Long facebookUserId;
     public String facebookScreenName;
@@ -754,8 +751,8 @@ public class User extends Model implements Comparable<User> {
 		}
 		followedUsers.add(user);
 		// is he (the provided "user" instance) a facebook friend ? 
-		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !
-		FacebookFriend fbFriend = FacebookFriend.findByUserIds(this.id, user.id);
+		// if yes we update the relationShip "FacebookFriend" to keep it in synch !
+		FacebookFriend fbFriend = FacebookFriend.findBetweenUserIds(this.id, user.id);
 		if (fbFriend != null) {
 			fbFriend.isAdded = true;
 			fbFriend.isHidden = false;
@@ -791,7 +788,7 @@ public class User extends Model implements Comparable<User> {
 		
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !
-		FacebookFriend fbFriend = FacebookFriend.findByUserIds(this.id, user.id);
+		FacebookFriend fbFriend = FacebookFriend.findBetweenUserIds(this.id, user.id);
 		if (fbFriend != null) {
 			fbFriend.isAdded = false;
 			fbFriend.isHidden = true;

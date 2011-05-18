@@ -1,0 +1,41 @@
+#{extends 'content.html' /}
+#{set 'title'}
+	Invitez vos amis Facebook sur Beansight*{I18N}*
+#{/set}
+
+#{set currentMenu:'inviteFacebookFriendsOnBeansight' /}
+
+
+#{set contentCenterClass:'mini' /}
+
+*{I18N}*
+<h2 class="cuf-grb" style="width:420px;">&{'inviteYourFacebookFriendsOnBeansight.title'}</h2>
+
+*{I18N}*
+<fb:serverfbml width="615">
+  <script type="text/fbml">
+    <fb:request-form action="${play.configuration.getProperty("domain.name")}"
+                     method="GET"
+                     invite="true"
+                     type="&{'inviteYourFacebookFriendsOnBeansight.type'}"
+                     content="&{'inviteYourFacebookFriendsOnBeansight.invitationContent'} ! <fb:req-choice url='http://www.beansight.com' label='Beansight' />">
+      <fb:multi-friend-selector showborder="true"
+								exclude_ids="${friendIdsToExclude.join(',')}"
+								email_invite="true"
+                                bypass="&{'inviteYourFacebookFriendsOnBeansight.cancel'}"
+                                cols=4
+                                actiontext="&{'inviteYourFacebookFriendsOnBeansight.invitationTitle'}"/>
+    </fb:request-form>
+  </script>
+</fb:serverfbml>
+
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/&{'i18n_i18n'}/all.js"></script>
+<script>
+  FB.init({
+    appId  : '${play.configuration.getProperty("facebook.client_id")}',
+    status : true, // check login status
+    cookie : true, // enable cookies to allow the server to access the session
+    xfbml  : true  // parse XFBML
+  });
+</script>

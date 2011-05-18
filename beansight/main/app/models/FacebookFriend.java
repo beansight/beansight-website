@@ -43,8 +43,15 @@ public class FacebookFriend extends Model {
 		user.facebookFriends.add(this);
 	}
 	
-	public static FacebookFriend findByUserIds(Long currentUserId, Long userIdOfTheFriendToAddorRemove) {
-		return FacebookFriend.find("user.id = ? and beansightUserFriend.id = ?", currentUserId, userIdOfTheFriendToAddorRemove).first();
+	/**
+	 * Use this method to retrieve the FacebookFriend relation entity between
+	 * a user "owning" the relationship and another user
+	 * @param userIdOwningTheFriendship
+	 * @param userIdOfTheOtherSideOfTheFriendship
+	 * @return
+	 */
+	public static FacebookFriend findBetweenUserIds(Long userIdOwningTheFriendship, Long userIdOfTheOtherSideOfTheFriendship) {
+		return FacebookFriend.find("user.id = ? and beansightUserFriend.id = ?", userIdOwningTheFriendship, userIdOfTheOtherSideOfTheFriendship).first();
 	}
 	
 	//public static List<Facebookfriend> findBy

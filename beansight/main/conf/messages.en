@@ -1,5 +1,6 @@
 # used for javascript i18n
 i18n=en
+i18n_i18n=en_US
 
 # main
 beansightDescription=Browse Beansight to know what people think and what is likely to happen tomorrow. Share your predictions and prove your expertise.
@@ -34,6 +35,7 @@ invitesomeone=Invite someone to join Beansight:
 invitationsleft=You have <strong><span class="invitationLeftNumber">%s</span> invitations</strong> left
 inviteemailplaceholder=example@email.com
 addmessage=Add a message:
+inviteYourFacebookFriends=Invite your Facebook friends
 invitesubmit=Send
 inviteconfirm=Invitation sent
 browsecategory=Browse Category
@@ -241,6 +243,7 @@ menuinsights=Predictions
 menuexperts=Community
 menuClosedInsights=Past predictions
 
+
 # userOptions
 signuptitle=Sign up
 logintitle=Log in
@@ -346,6 +349,13 @@ facebookIdAlreadyInUseWarning.alreadylinked=The following account is already lin
 facebookIdAlreadyInUseWarning.confirm=By clicking Continue, only the account you are currently using will be able to connect to Beansight using Facebook.  
 facebookIdAlreadyInUseWarning.cancel=Cancel
 facebookIdAlreadyInUseWarning.continue=Continue
+
+# inviteYourFacebookFriendsOnBeansight
+inviteYourFacebookFriendsOnBeansight.title=Invite your friends on Beansight
+inviteYourFacebookFriendsOnBeansight.type=private
+inviteYourFacebookFriendsOnBeansight.invitationTitle=Share Beansight to challenge your friends!
+inviteYourFacebookFriendsOnBeansight.invitationContent= I would like to invite you to join me on Beansight. It's a social network to share predictions. It's a really fun experience! If you're right, you'll earn points and improve your ranking. Do you think you can keep up with me?
+inviteYourFacebookFriendsOnBeansight.invitationCancel=Cancel
 
 # FAQ
 faq.title=Frequently Asked Questions
