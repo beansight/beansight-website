@@ -35,7 +35,7 @@ invitesomeone=Inviter quelqu'un à rejoindre Beansight :
 invitationsleft=Il vous reste <strong><span class="invitationLeftNumber">%s</span> invitations</strong>
 inviteemailplaceholder=exemple@email.fr
 addmessage=Ajoutez un message :
-inviteYourFacebookFriends=Inviter vos amis Facebook
+inviteYourFacebookFriends=Inviter mes amis Facebook
 invitesubmit=Envoyer
 inviteconfirm=Invitation envoyée
 browsecategory=Catégories
@@ -349,10 +349,10 @@ facebookIdAlreadyInUseWarning.cancel=Annuler
 facebookIdAlreadyInUseWarning.continue=Continuer
 
 # inviteYourFacebookFriendsOnBeansight
-inviteYourFacebookFriendsOnBeansight.title=Inviter vos amis sur Beansight
+inviteYourFacebookFriendsOnBeansight.title=Inviter mes amis Facebook
 inviteYourFacebookFriendsOnBeansight.type=privée
-inviteYourFacebookFriendsOnBeansight.invitationTitle=Partagez Beansight et defiez-vos amis !
-inviteYourFacebookFriendsOnBeansight.invitationContent=J'aimerais t'inviter sur Beansight. On peut créer des prédictions dans tous les domaines et voter pour les prédictions des autres. Quand l'avenir nous donne raison on peut gagner des points et monter dans le classement. Tu penses pouvoir me battre ?
+inviteYourFacebookFriendsOnBeansight.invitationTitle=Partagez Beansight et défiez-vos amis !
+inviteYourFacebookFriendsOnBeansight.invitationContent=Un de vos amis vous a invité(e) à utiliser Beansight. <a href='http://www.beansight.com'>Beansight</a> est un réseau social dédié aux prédictions. Vous pouvez y partager votre point de vue sur le futur. Si l'avenir vous donne raison, vous gagnerez des points qui prouveront votre crédibilité. Venez défier vos amis sur Beansight!
 inviteYourFacebookFriendsOnBeansight.invitationCancel=Annuler
 
 # FAQ

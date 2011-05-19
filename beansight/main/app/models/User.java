@@ -752,7 +752,7 @@ public class User extends Model implements Comparable<User> {
 		followedUsers.add(user);
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we update the relationShip "FacebookFriend" to keep it in synch !
-		FacebookFriend fbFriend = FacebookFriend.findBetweenUserIds(this.id, user.id);
+		FacebookFriend fbFriend = FacebookFriend.findRelationshipBetweenUserIds(this.id, user.id);
 		if (fbFriend != null) {
 			fbFriend.isAdded = true;
 			fbFriend.isHidden = false;
@@ -788,7 +788,7 @@ public class User extends Model implements Comparable<User> {
 		
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !
-		FacebookFriend fbFriend = FacebookFriend.findBetweenUserIds(this.id, user.id);
+		FacebookFriend fbFriend = FacebookFriend.findRelationshipBetweenUserIds(this.id, user.id);
 		if (fbFriend != null) {
 			fbFriend.isAdded = false;
 			fbFriend.isHidden = true;
@@ -1390,7 +1390,13 @@ public class User extends Model implements Comparable<User> {
 		return 1;
 	}
 	
-	public List<FacebookFriend> findMyFriendsInFacebookNotYetMyFriendsInBeansight() {
+	/**
+	 * Yes I know the name of the method is really long ...
+	 * but the query is not that simple and I wanted that someone reading the call to the method 
+	 * could be able to quickly know what it does.
+	 * @return
+	 */
+	public List<FacebookFriend> findMyFacebookFriendWithABeansightAccountButNotAlreadyMyFriendsInBeansight() {
 
 		List<FacebookFriend> facebookFriends = FacebookFriend.find("select fbf from FacebookFriend fbf where fbf.facebookUser.facebookId in (select u.facebookUserId from User u " +
 				"where u.facebookUserId in (select friend.facebookId from FacebookUser fbu join fbu.friends as friend where fbu.facebookId = :facebookId)) " +

@@ -116,8 +116,8 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     }
     
     /**
-     * This method update links between the current connecting user and his Facebook friends
-     * @param currentBeansightUser : the user to update his social graph
+     * This method update links between the current connectied user and his Facebook friends
+     * @param currentBeansightUser : the user to update its social graph
      * @param forceIsHidden : set to true if you want to force isHidden to false 
      * (note : isHidden won't be forced if the facebookUser was already followed)
      */
@@ -132,7 +132,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     	List<FacebookUser> fbUsers = FacebookUser.find("select friend from FacebookUser fbu " +
     			"join fbu.friends as friend " +
     			"where fbu.facebookId = :facebookId " +
-    			"and friend.facebookId not in (select fbf.beansightUserFriend.facebookUserId from FacebookFriend fbf where fbf.user = :user and fbf.beansightUserFriend.facebookUserId is not null)")
+    			"and friend.facebookId not in (select fbf.facebookUser.facebookId from FacebookFriend fbf where fbf.user = :user)")
     			.bind("facebookId", currentBeansightUser.facebookUserId)
     			.bind("user", currentBeansightUser)
     			.fetch();
@@ -140,16 +140,14 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     	// Save the new Facebook users (if any)
     	for (FacebookUser fbUser : fbUsers) {
     		User aBeansightUserFriend = User.findByFacebookUserId(fbUser.facebookId);
-    		if (aBeansightUserFriend != null) {
-	    		FacebookFriend fbFriend = new FacebookFriend(fbUser, aBeansightUserFriend, currentBeansightUser);
-	    		fbFriend.save();
-    		}
+    		FacebookFriend fbFriend = new FacebookFriend(fbUser, aBeansightUserFriend, currentBeansightUser);
+    		fbFriend.save();
     	}
     	
     	// update the information for the link (FacebookFriend) between the beansight user (User entity) and the facebook user (FacebookUser entity) 
     	// marked as a facebook friend of the beansight user
 		if (facebookUser.friends != null && !facebookUser.friends.isEmpty()) {
-			List<FacebookFriend> newFriendsToAdd = currentBeansightUser.findMyFriendsInFacebookNotYetMyFriendsInBeansight();
+			List<FacebookFriend> newFriendsToAdd = currentBeansightUser.findMyFacebookFriendWithABeansightAccountButNotAlreadyMyFriendsInBeansight();
 			
 			for (FacebookFriend aFacebookFriend : newFriendsToAdd) {
 				aFacebookFriend.isBeansightUser = true;

@@ -2,7 +2,7 @@
 <h2 class="greenme azurme"><span class="cuf-grb">&{'invitations.invitesomeonetitle'}</span></h2>
 #{if controllers.CurrentUser.getCurrentUser().facebookUserId !=null}
 	<ul class="menuleft">
-    	<li><a href="@{Application.inviteYourFacebookFriendsOnBeansight()}" class="cuf-grb #{currentMenu 'inviteFacebookFriendsOnBeansight' /}">&{'inviteYourFacebookFriends'}</a>*{I18N}*</li>
+    	<li><a href="@{Application.inviteYourFacebookFriendsOnBeansightWithFacebookSynchro()}" class="cuf-grb #{currentMenu 'inviteFacebookFriendsOnBeansight' /}">&{'inviteYourFacebookFriends'}</a>*{I18N}*</li>
 	</ul>
 #{/if}
 #{else}

@@ -35,7 +35,7 @@ invitesomeone=Invite someone to join Beansight:
 invitationsleft=You have <strong><span class="invitationLeftNumber">%s</span> invitations</strong> left
 inviteemailplaceholder=example@email.com
 addmessage=Add a message:
-inviteYourFacebookFriends=Invite your Facebook friends
+inviteYourFacebookFriends=Invite my Facebook friends
 invitesubmit=Send
 inviteconfirm=Invitation sent
 browsecategory=Browse Category
@@ -351,10 +351,10 @@ facebookIdAlreadyInUseWarning.cancel=Cancel
 facebookIdAlreadyInUseWarning.continue=Continue
 
 # inviteYourFacebookFriendsOnBeansight
-inviteYourFacebookFriendsOnBeansight.title=Invite your friends on Beansight
+inviteYourFacebookFriendsOnBeansight.title=Invite my Facebook friends
 inviteYourFacebookFriendsOnBeansight.type=private
 inviteYourFacebookFriendsOnBeansight.invitationTitle=Share Beansight to challenge your friends!
-inviteYourFacebookFriendsOnBeansight.invitationContent= I would like to invite you to join me on Beansight. It's a social network to share predictions. It's a really fun experience! If you're right, you'll earn points and improve your ranking. Do you think you can keep up with me?
+inviteYourFacebookFriendsOnBeansight.invitationContent=A friend of yours invited you on Beansight. <a href='http://www.beansight.com'>Beansight</a> is a social network dedicated to predictions. You can share your ideas about the future. If you're right, you'll earn points to prove your skills. Challenge your friends, it's fun!
 inviteYourFacebookFriendsOnBeansight.invitationCancel=Cancel
 
 # FAQ

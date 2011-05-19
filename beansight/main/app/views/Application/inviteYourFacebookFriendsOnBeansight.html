@@ -1,6 +1,6 @@
 #{extends 'content.html' /}
 #{set 'title'}
-	Invitez vos amis Facebook sur Beansight*{I18N}*
+	&{'inviteYourFacebookFriendsOnBeansight.title'}
 #{/set}
 
 #{set currentMenu:'inviteFacebookFriendsOnBeansight' /}
@@ -14,13 +14,13 @@
 *{I18N}*
 <fb:serverfbml width="615">
   <script type="text/fbml">
-    <fb:request-form action="${play.configuration.getProperty("domain.name")}"
+    <fb:request-form action="${play.configuration.getProperty("domain.name")}/application/facebookInvitationSent"
                      method="GET"
                      invite="true"
                      type="&{'inviteYourFacebookFriendsOnBeansight.type'}"
-                     content="&{'inviteYourFacebookFriendsOnBeansight.invitationContent'} ! <fb:req-choice url='http://www.beansight.com' label='Beansight' />">
+                     content="&{'inviteYourFacebookFriendsOnBeansight.invitationContent'} <fb:req-choice url='http://www.beansight.com' label='Beansight' />">
       <fb:multi-friend-selector showborder="true"
-								exclude_ids="${friendIdsToExclude.join(',')}"
+								#{if play.Play.id.equals("playapps")}exclude_ids="${friendIdsToExclude.join(',')}"#{/if}
 								email_invite="true"
                                 bypass="&{'inviteYourFacebookFriendsOnBeansight.cancel'}"
                                 cols=4

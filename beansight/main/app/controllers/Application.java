@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -1178,11 +1179,35 @@ public class Application extends Controller {
     	Register.linkBeansightAccountWithFacebook();
     }
     
+    /**
+     * call this action to display the Facebook widget allowing user to send invitation to its Facebook Friends
+     * (ift will add an application invitation in the invited facebook user page)
+     */
+    public static void inviteYourFacebookFriendsOnBeansightWithFacebookSynchro() {
+    	
+		// add an info in session so that we know it's for synchonizing with facebook account
+		session.remove(FacebookOAuthForBeansight.LINK_FACEBOOK_TO_BEANSIGHT_COOKIE);
+		session.put(FacebookOAuthForBeansight.FACEBOOK_SYNC_COOKIE, "true");
+		
+		// add url in session to redirect back the user to the page for managing facebook friends 
+		session.put("url", Router.getFullUrl("Application.inviteYourFacebookFriendsOnBeansight"));
+		
+		// redirect to Facebook authentication
+		FacebookOAuth.authenticate();
+    	
+    	
+    }
     
+    /**
+     * call this action to display the Facebook widget allowing user to send invitation to its Facebook Friends
+     * (ift will add an application invitation in the invited facebook user page)
+     */
     public static void inviteYourFacebookFriendsOnBeansight() {
+    	// get 
     	List<String> friendIdsToExclude = FacebookFriend.find("select fbf.beansightUserFriend.facebookUserId " +
     			"from FacebookFriend fbf " +
-    			"where fbf.user = :currentUser")
+    			"where fbf.user = :currentUser " +
+    			"and fbf.isBeansightUser = true")
     			.bind("currentUser", CurrentUser.getCurrentUser())
     			.fetch();
     	
@@ -1192,6 +1217,29 @@ public class Application extends Controller {
     	render();
     }
 	
+    /**
+     * when you finished inviting your Facebook friends, Facebook invitation widget redirect to an url
+     * and this action is the url Facebook will redirect to.
+     * We receive an ids list of the facebook account that have been invited and we save an information
+     * to remember that the connected uset have invite some facebook friends
+     * @param ids
+     */
+    public static void facebookInvitationSent(String[] ids) {
+    	User currentUser = CurrentUser.getCurrentUser();
+    	if (currentUser == null) {
+    		error("no valid connected user");
+    	}
+    	
+    	for (String id : ids) {
+    		FacebookFriend fbf = FacebookFriend.findRelationshipBetweenUserIdAndFacebookId(currentUser.id, Long.decode(id));
+    		fbf.hasInvited = true;
+    		fbf.save();
+    	}    	
+    	
+    	
+    	index();
+    }
+    
 	@InSitemap(changefreq="yearly", priority=0.1)
 	public static void privacyPolicy() {
 		render();

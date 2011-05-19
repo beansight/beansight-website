@@ -20,6 +20,9 @@ public class FacebookFriend extends Model {
 	/** is this facebook user also a beansight user ? */
 	public boolean isBeansightUser;
 	
+	/** has "user" invited the "facebookUser" to come on beansight ? */
+	public boolean hasInvited;
+	
 	/** a friend */
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	public FacebookUser facebookUser;
@@ -36,11 +39,17 @@ public class FacebookFriend extends Model {
 		super();
 		this.isHidden = false;
 		this.isAdded = false;
-		this.isBeansightUser = false;
+		if (aBeansightUserFriend == null) {
+			this.isBeansightUser = false;
+		} else {
+			this.isBeansightUser = true;
+			this.beansightUserFriend = aBeansightUserFriend;
+		}
+		
 		this.facebookUser = facebookUser;
-		this.beansightUserFriend = aBeansightUserFriend;
 		this.user = user;
 		user.facebookFriends.add(this);
+		this.hasInvited = false;
 	}
 	
 	/**
@@ -50,8 +59,19 @@ public class FacebookFriend extends Model {
 	 * @param userIdOfTheOtherSideOfTheFriendship
 	 * @return
 	 */
-	public static FacebookFriend findBetweenUserIds(Long userIdOwningTheFriendship, Long userIdOfTheOtherSideOfTheFriendship) {
+	public static FacebookFriend findRelationshipBetweenUserIds(Long userIdOwningTheFriendship, Long userIdOfTheOtherSideOfTheFriendship) {
 		return FacebookFriend.find("user.id = ? and beansightUserFriend.id = ?", userIdOwningTheFriendship, userIdOfTheOtherSideOfTheFriendship).first();
+	}
+	
+	/**
+	 * Use this method to retrieve the FacebookFriend relation entity between
+	 * a user "owning" the relationship and a facebookId
+	 * @param userIdOwningTheFriendship
+	 * @param userIdOfTheOtherSideOfTheFriendship
+	 * @return
+	 */
+	public static FacebookFriend findRelationshipBetweenUserIdAndFacebookId(Long userIdOwningTheFriendship, Long aFriendsFacebookId) {
+		return FacebookFriend.find("user.id = ? and facebookUser.facebookId = ?", userIdOwningTheFriendship, aFriendsFacebookId).first();
 	}
 	
 	//public static List<Facebookfriend> findBy
