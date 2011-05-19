@@ -140,8 +140,15 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     	// Save the new Facebook users (if any)
     	for (FacebookUser fbUser : fbUsers) {
     		User aBeansightUserFriend = User.findByFacebookUserId(fbUser.facebookId);
+    		// create a relationship from currentBeansightUser to (fbUser & aBeansightUserFriend)
     		FacebookFriend fbFriend = new FacebookFriend(fbUser, aBeansightUserFriend, currentBeansightUser);
     		fbFriend.save();
+    		
+    		// we also need to create the inverse of the relationship
+    		if(aBeansightUserFriend != null) {
+	    		FacebookFriend inverseFbFriend = new FacebookFriend(currentBeansightUser.relatedFacebookUser, currentBeansightUser, aBeansightUserFriend);
+	    		inverseFbFriend.save();
+    		}
     	}
     	
     	// update the information for the link (FacebookFriend) between the beansight user (User entity) and the facebook user (FacebookUser entity) 

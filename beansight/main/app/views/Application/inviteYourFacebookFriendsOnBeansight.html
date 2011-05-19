@@ -8,13 +8,11 @@
 
 #{set contentCenterClass:'mini' /}
 
-*{I18N}*
 <h2 class="cuf-grb" style="width:420px;">&{'inviteYourFacebookFriendsOnBeansight.title'}</h2>
 
-*{I18N}*
 <fb:serverfbml width="615">
   <script type="text/fbml">
-    <fb:request-form action="${play.configuration.getProperty("domain.name")}/application/facebookInvitationSent"
+    <fb:request-form action="${play.configuration.getProperty("domain.name")}@{Application.facebookInvitationSent()}"
                      method="GET"
                      invite="true"
                      type="&{'inviteYourFacebookFriendsOnBeansight.type'}"

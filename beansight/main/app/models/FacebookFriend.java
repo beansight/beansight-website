@@ -59,7 +59,7 @@ public class FacebookFriend extends Model {
 	 * @param userIdOfTheOtherSideOfTheFriendship
 	 * @return
 	 */
-	public static FacebookFriend findRelationshipBetweenUserIds(Long userIdOwningTheFriendship, Long userIdOfTheOtherSideOfTheFriendship) {
+	public static FacebookFriend findRelationshipBetweenTwoUserIds(Long userIdOwningTheFriendship, Long userIdOfTheOtherSideOfTheFriendship) {
 		return FacebookFriend.find("user.id = ? and beansightUserFriend.id = ?", userIdOwningTheFriendship, userIdOfTheOtherSideOfTheFriendship).first();
 	}
 	

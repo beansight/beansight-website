@@ -752,7 +752,7 @@ public class User extends Model implements Comparable<User> {
 		followedUsers.add(user);
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we update the relationShip "FacebookFriend" to keep it in synch !
-		FacebookFriend fbFriend = FacebookFriend.findRelationshipBetweenUserIds(this.id, user.id);
+		FacebookFriend fbFriend = FacebookFriend.findRelationshipBetweenTwoUserIds(this.id, user.id);
 		if (fbFriend != null) {
 			fbFriend.isAdded = true;
 			fbFriend.isHidden = false;
@@ -788,7 +788,7 @@ public class User extends Model implements Comparable<User> {
 		
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !
-		FacebookFriend fbFriend = FacebookFriend.findRelationshipBetweenUserIds(this.id, user.id);
+		FacebookFriend fbFriend = FacebookFriend.findRelationshipBetweenTwoUserIds(this.id, user.id);
 		if (fbFriend != null) {
 			fbFriend.isAdded = false;
 			fbFriend.isHidden = true;
