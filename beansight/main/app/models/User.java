@@ -136,50 +136,50 @@ public class User extends Model implements Comparable<User> {
 	/** the last time this user's score has been computed */
 	public Date lastScoreUpdate;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("scoreDate DESC")
 	public List<UserScoreHistoric> userScoreHistorizedList;
 	
 	/** list of insights created by this user */
-	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	public List<Insight> createdInsights;
 
 	/** every votes of the current user */
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	public List<Vote> votes;
 
 	/** the insights followed by this user */
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	public List<Insight> followedInsights;
 
 	/** the users followed by this user */
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	public List<User> followedUsers;
 
 	/** the topics followed by this user */
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	public Set<Topic> followedTopics;
 
 	/** if account is linked to facebook this relationship help us
 	 * to save extra information specifically related to beansight context*/
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	public List<FacebookFriend> facebookFriends;
 	
 	/** if account is linked to facebook, gets the facebook user informations */ 
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	public FacebookUser relatedFacebookUser;
 	
 	/** the users who follow this user */
-	@ManyToMany(mappedBy = "followedUsers", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "followedUsers", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	public List<User> followers;
 
 	/** the comments */
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("creationDate DESC")
 	public List<Comment> comments;
 	
 	/** insights that has been shared with this user */
-	@OneToMany(mappedBy = "toUser",  cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "toUser",  cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	public List<InsightShare> shared;
 	
 	// Settings

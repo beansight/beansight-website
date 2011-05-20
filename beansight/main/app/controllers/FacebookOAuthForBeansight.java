@@ -146,7 +146,13 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
     		
     		// we also need to create the inverse of the relationship
     		if(aBeansightUserFriend != null) {
-	    		FacebookFriend inverseFbFriend = new FacebookFriend(currentBeansightUser.relatedFacebookUser, currentBeansightUser, aBeansightUserFriend);
+    			FacebookFriend inverseFbFriend = FacebookFriend.findRelationshipBetweenUserIdAndFacebookId(aBeansightUserFriend.id, currentBeansightUser.facebookUserId);
+    			if (inverseFbFriend != null) {
+    				inverseFbFriend.isBeansightUser = true;
+    				inverseFbFriend.beansightUserFriend = currentBeansightUser;
+    			} else {
+    				inverseFbFriend = new FacebookFriend(currentBeansightUser.relatedFacebookUser, currentBeansightUser, aBeansightUserFriend);
+    			}
 	    		inverseFbFriend.save();
     		}
     	}
