@@ -1398,12 +1398,19 @@ public class User extends Model implements Comparable<User> {
 	 */
 	public List<FacebookFriend> findMyFacebookFriendWithABeansightAccountButNotAlreadyMyFriendsInBeansight() {
 
-		List<FacebookFriend> facebookFriends = FacebookFriend.find("select fbf from FacebookFriend fbf where fbf.facebookUser.facebookId in (select u.facebookUserId from User u " +
-				"where u.facebookUserId in (select friend.facebookId from FacebookUser fbu join fbu.friends as friend where fbu.facebookId = :facebookId)) " +
-				"and fbf.isBeansightUser is false and fbf.isHidden is false and fbf.isAdded is false ")
+		List<FacebookFriend> results = new ArrayList<FacebookFriend>(); 
+		
+		List<Long> facebookUserIds = FacebookFriend.find("select u.facebookUserId from User u " +
+				"where u.facebookUserId in (select friend.facebookId from FacebookUser fbu join fbu.friends as friend where fbu.facebookId = :facebookId) ")
 				.bind("facebookId", this.facebookUserId)
 				.fetch();
-		return facebookFriends;
+		
+		results = FacebookFriend.find("select fbf from FacebookFriend fbf where fbf.isBeansightUser is false and fbf.isHidden is false and fbf.isAdded is false and " +
+				"fbf.facebookUser.facebookId in (:facebookUserIds)")
+				.bind("facebookUserIds", facebookUserIds)
+				.fetch();
+		
+		return results;
 	}
 	
 	

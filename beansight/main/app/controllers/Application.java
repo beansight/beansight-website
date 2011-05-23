@@ -1229,12 +1229,13 @@ public class Application extends Controller {
     	if (currentUser == null) {
     		error("no valid connected user");
     	}
-    	
-    	for (String id : ids) {
-    		FacebookFriend fbf = FacebookFriend.findRelationshipBetweenUserIdAndFacebookId(currentUser.id, Long.decode(id));
-    		fbf.hasInvited = true;
-    		fbf.save();
-    	}    	
+    	if (ids != null && ids.length > 0) {
+	    	for (String id : ids) {
+	    		FacebookFriend fbf = FacebookFriend.findRelationshipBetweenUserIdAndFacebookId(currentUser.id, Long.decode(id));
+	    		fbf.hasInvited = true;
+	    		fbf.save();
+	    	}   
+    	}
     	
     	
     	index();
