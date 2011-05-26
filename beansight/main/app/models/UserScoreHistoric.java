@@ -21,6 +21,9 @@ import play.db.jpa.Model;
 @Table(
 		uniqueConstraints=@UniqueConstraint(columnNames={"scoreDate","user_id"}, name="uniqueUserScoreByDate")
 )
+/**
+ * Scores of a user at a given time
+ */
 public class UserScoreHistoric extends Model {
 	
 	public Date scoreDate;
@@ -32,16 +35,11 @@ public class UserScoreHistoric extends Model {
 	@OrderBy("normalizedScore DESC")
 	public List<UserCategoryScore> categoryScores;
 
-// 	@OneToMany(mappedBy = "historic", cascade = CascadeType.ALL)
-//	@OrderBy("score DESC")
-//	public List<UserInsightScore> insightScores;
- 	
 	public UserScoreHistoric(Date scoreDate, User user) {
 		super();
 		this.scoreDate = scoreDate;
 		this.user = user;
 		this.categoryScores = new ArrayList<UserCategoryScore>();
-//		this.insightScores = new ArrayList<UserInsightScore>();
 	}
 	
     

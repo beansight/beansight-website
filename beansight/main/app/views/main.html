@@ -64,6 +64,7 @@
 	var getUserInsightsAction = #{jsAction @Application.getUserInsights(':userName', ':from', ':cat', ':filterVote') /};
 	var reloadUserInsightsAction = #{jsAction @Application.reloadUserInsights(':userName', ':from', ':cat', ':filterVote') /};
 	var searchExpertsAction = #{jsAction @Application.searchExperts() /};
+    var reloadSearchExpertsAction = #{jsAction @Application.reloadSearchExperts(':query', ':cat', ':filter', ':from') /};
 	var moreSearchAction = #{jsAction @Application.moreSearch() /};
 	var inviteAction = #{jsAction @Application.invite() /};
 	var sendMessageAction = #{jsAction @Application.sendMessage() /};

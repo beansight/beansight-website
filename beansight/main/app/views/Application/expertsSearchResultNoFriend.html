@@ -1,0 +1,12 @@
+<div class="item-expert">
+	<div class="message">
+	<p>&{'experts.nofriend'}</p>
+	
+	#{if (controllers.CurrentUser.getCurrentUser().facebookUserId == null)}
+	<p>&{'experts.nofriend.facebook'}</p>
+    <a href="@{Register.linkBeansightAccountWithFacebook()}" class="social_buttons sb_facebook sb_24">
+        <span>&{'settings.linkFacebookOnBeansight'}</span>
+    </a>
+	#{/if}
+</div>
+</div>

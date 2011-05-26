@@ -84,12 +84,11 @@ public class Application extends Controller {
 	
 	public static final int NUMBER_INSIGHTS_USERPAGE = 10;
 	
-	public static final int NUMBER_EXPERTS_EXPERTPAGE = 5;
+	public static final int NUMBER_EXPERTS_EXPERTPAGE = 6;
 	public static final int NUMBER_CATEGORYEXPERTS_EXPERTPAGE = 5;
 	public static final int NUMBER_FOLLOWED_EXPERTPAGE = 5;
 	
 	public static final int NUMBER_INSIGHTS_SEARCHPAGE = 12;
-	public static final int NUMBER_EXPERTS_SEARCHPAGE = 5;
 
 	public static final int NUMBER_SUGGESTED_USERS = 10;
 	public static final int NUMBER_SUGGESTED_TAGS = 10;
@@ -110,7 +109,7 @@ public class Application extends Controller {
     /**
      * If the user is connected, load the needed info into the menu
      */
-    @Before(unless={"insightsFilter", "moreInsights", "leaveYourEmail", "shareInsight", "agree", "disagree", "loadFollowedUsers", "toggleFollowingUser", "toggleFollowingInsight", "searchExperts", "showAvatarSmall", "showAvatarMedium", "showAvatarLarge"})
+    @Before(unless={"insightsFilter", "moreInsights", "leaveYourEmail", "shareInsight", "agree", "disagree", "loadFollowedUsers", "toggleFollowingUser", "toggleFollowingInsight", "searchExperts", "moreSearchExperts", "showAvatarSmall", "showAvatarMedium", "showAvatarLarge"})
     public static void loadMenuData() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -314,9 +313,11 @@ public class Application extends Controller {
 	
 	
 
+	/**
+	 * Empty Expert page
+	 */
 	@InSitemap(changefreq="always", priority=0.4)
 	public static void experts() {
-		List<User> experts = User.findBest(0, NUMBER_EXPERTS_EXPERTPAGE );
 		
 		// If connected, log analytic
 		if (Security.isConnected()) {
@@ -325,14 +326,16 @@ public class Application extends Controller {
 			currentUser.visitExpertsList(new UserClientInfo(request, APPLICATION_ID));
 		}
 		
-		render(experts);
+		render();
 	}
 
-	@InSitemap(changefreq="always", priority=0.8)
+	/**
+	 * A page with the best experts 
+	 */
 	public static void bestExperts() {
 		if (Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
-			List<User> sortedFollowedUsers = currentUser.getFollowedUsersSortedByScore();
+			List<User> sortedFollowedUsers = currentUser.getFollowedUsersSortedByScore(null);
 			renderArgs.put("currentUserRank", sortedFollowedUsers.indexOf(currentUser));
 			renderArgs.put("sortedFollowedUsers", sortedFollowedUsers);
 		}
@@ -348,20 +351,70 @@ public class Application extends Controller {
 	}
 	
 	/**
-	 * AJAX : give the content of an Expert Search.
+	 * AJAX : if no query, return the best experts globally or in a given category, 
+	 * If query, return the result of this Search.
 	 * @param query
 	 * @param from
+	 * @param cat : id of the category to filter by, 0 for no category. default to 0
+	 * @param filter : "all" to display all, "favorites" to only show favorites. default to "all" Do not work when performing a search.
 	 */
-	public static void searchExperts(String query, int from) {
+	public static void searchExperts(String query, long cat, String filter, int from) {
+		displaySearchExpertsResult(query, cat, filter, from, from + NUMBER_EXPERTS_EXPERTPAGE);
+	}
+
+	public static void reloadSearchExperts(String query, long cat, String filter, int from) {
+		displaySearchExpertsResult(query, cat, filter, 0, from + NUMBER_EXPERTS_EXPERTPAGE);
+	}
+	
+	private static void displaySearchExpertsResult(String query, long cat, String filter, int from, int to) {
+		List<User> experts = null;
 		if (query == null || query.isEmpty()) {
-			List<User> experts = User.findBest(from, NUMBER_EXPERTS_EXPERTPAGE );
-			renderTemplate("Application/expertsSearchResult.html", experts);
-		}
+
+			Category category = null;
+			if( cat != 0 ) {
+				category = Category.findById(cat);
+			}
+
+			// display only favorites if asked too and if connected
+			if( filter != null && filter.equals("favorites") && Security.isConnected() ) {
+				User currentUser = CurrentUser.getCurrentUser();
+				List<User> allExperts = currentUser.getFollowedUsersSortedByScore(category);
+				
+				int indexFrom = allExperts.size();
+				int indexTo = allExperts.size();
+				if(from < allExperts.size()) {
+					indexFrom = from;
+					indexTo = from;
+				}
+				if( to < allExperts.size()) {
+					indexTo = to + 1;
+				} else {
+					indexTo = allExperts.size();
+				}
+				
+				experts = allExperts.subList(indexFrom, indexTo);
+				
+			} else {
+				if (category != null) {
+					experts = User.findBestInCategory(from, to - from, category );
+				} else {
+					experts = User.findBest(from, to - from );
+				}
+			}
 		
-		UserResult userSearchResult = User.search(query, from, NUMBER_EXPERTS_SEARCHPAGE);
-		List<User> experts = userSearchResult.results;
-		renderArgs.put("query", query);
-		renderTemplate("Application/expertsSearchResult.html", experts);
+		} else {
+			UserResult userSearchResult = User.search(query, from, to - from);
+			experts = userSearchResult.results;
+		}
+
+
+		// Then format the result
+		renderArgs.put("experts", experts);
+		if (experts.size() <= 1) {
+			renderTemplate("Application/expertsSearchResultNoFriend.html");
+		} else {
+			renderTemplate("Application/expertsSearchResult.html");
+		}
 	}
 
 	/**
@@ -489,17 +542,8 @@ public class Application extends Controller {
 			currentUser.visitExpert(user, userClientInfo);
 		}
 
-//		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
-//				"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period and cs.score is not null " +
-//				"order by normalizedScore DESC")
-//				.bind("user", user)
-//				.bind("scoreDate", new DateMidnight(new Date()).minusDays(1).toDate())
-//				.bind("period", PeriodEnum.THREE_MONTHS)
-//				.fetch();
-		List<UserCategoryScore> categoryScores = user.getCategoryScores(new DateMidnight(new Date()).minusDays(1).toDate(), PeriodEnum.THREE_MONTHS);
-//		List<Insight> lastInsights = user.getLastInsights(NUMBER_INSIGHTS_USERPAGE);
+		List<UserCategoryScore> categoryScores = user.getLatestCategoryScores();
 		
-//		render(user, lastInsights, currentUserProfilePage);
 		render(user, categoryScores, currentUserProfilePage);
 	}
 

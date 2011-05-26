@@ -109,6 +109,11 @@ expertstitle=Communauté
 expertssearch=Rechercher parmi les experts
 expertssearchbutton=Rechercher
 experts.loadmore=plus d'experts
+experts.filter=Utilisateurs :
+experts.filter.favorites=Favoris
+experts.filter.all=Tous
+experts.nofriend=Suivez d'autres utilisateurs pour vous comparer à eux.
+experts.nofriend.facebook=Cherchez vos amis sur Beansight :
 
 #bestExperts
 bestExperts.followed=Favoris

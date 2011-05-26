@@ -109,6 +109,11 @@ expertstitle=Community
 expertssearch=Search experts
 expertssearchbutton=Search
 experts.loadmore=more experts
+experts.filter=Users:
+experts.filter.favorites=Favorites
+experts.filter.all=All
+experts.nofriend=Add users to your favorites to compare yourself to them.
+experts.nofriend.facebook=Look for friends on beansight:
 
 #bestExperts
 bestExperts.followed=Favorited

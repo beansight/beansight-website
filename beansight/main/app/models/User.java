@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -138,6 +139,7 @@ public class User extends Model implements Comparable<User> {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("scoreDate DESC")
+	/**  */
 	public List<UserScoreHistoric> userScoreHistorizedList;
 	
 	/** list of insights created by this user */
@@ -276,25 +278,30 @@ public class User extends Model implements Comparable<User> {
 	}
 	
 	/**
-	 * Return the Best users of a given category (comparing their scores)
+	 * Return the Best users of a given category (comparing their scores from the last time they were computed)
 	 */
 	public static List<User> findBestInCategory(int from, int number, Category category) {
+		// find the last date the scores have been computed
+		UserScoreHistoric score = UserScoreHistoric.find("order by scoreDate DESC").first();
+		// return the best users comparing their scores at the given date
 		return User.find("select ush.user from UserScoreHistoric ush " + 
 				 "join ush.categoryScores as catScore " + 
 				 "where ush.scoreDate = :scoreDate " + 
 				 "and catScore.category = :cat " + 
 				 "order by catScore.normalizedScore desc") 
-				 .bind("scoreDate", new DateMidnight().minusDays(1).toDate()) 
+				 .bind("scoreDate", score.scoreDate) 
 				 .bind("cat", category).from( from ).fetch( number ); 
 	}
 	
 	/**
 	 * @return a list of the users this user is following (it also contains the current user)
+	 * @param category : the category to compare scores, leave null for global score. Default to null
 	 */
-	public List<User> getFollowedUsersSortedByScore() {
+	public List<User> getFollowedUsersSortedByScore(Category category) {
 		List<User> meAndFriends = new ArrayList(this.followedUsers);
 		meAndFriends.add(this);
-		Collections.sort(meAndFriends);
+		CategoryScoreComparator comparator = new CategoryScoreComparator(category);
+		Collections.sort(meAndFriends, comparator);
 		Collections.reverse(meAndFriends);
 		return meAndFriends;
 	}
@@ -1335,10 +1342,25 @@ public class User extends Model implements Comparable<User> {
 		return userCounts2.subList(0, Math.min(userCounts2.size(), number));
 	}
 	
+	/**
+	 * @return the last CategoryScore for this user. score computed on a period of 3 months
+	 */
+	public List<UserCategoryScore> getLatestCategoryScores() {
+		// what is the last time the score historic has been computed ?
+		UserScoreHistoric score = UserScoreHistoric.find("order by scoreDate DESC").first();
+		// return the category scores of this date
+		return this.getCategoryScores(score.scoreDate, PeriodEnum.THREE_MONTHS);
+	}
+	
+	/**
+	 * @param date : the exact date of the scores (midnight)
+	 * @param period : period of score
+	 * @return the categoryScore for the given date and Period. If not computed return a empty list.
+	 */
 	public List<UserCategoryScore> getCategoryScores(Date date, PeriodEnum period) {
 		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
 			"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period and cs.score is not null " +
-			"order by normalizedScore DESC")
+			"order by cs.score DESC")
 			.bind("user", this)
 			.bind("scoreDate", date)
 			.bind("period", period)
@@ -1456,6 +1478,59 @@ public class User extends Model implements Comparable<User> {
 				.fetch();
 	}
 	
+	/**
+	 * Compare the score of 2 users based on their global score if no Category is provided, and on the score of these users in the given category if given. 
+	 */
+	public class CategoryScoreComparator implements Comparator<User> {
+
+		private Category category;
+		
+		public CategoryScoreComparator() {
+			this.category = null;
+		}
+		
+		public CategoryScoreComparator(Category category) {
+			this.category = category;
+		}
+		
+		@Override
+		public int compare(User user1, User user2) {
+			if(category != null) {
+				List<UserCategoryScore> user1Scores = user1.getLatestCategoryScores();
+				List<UserCategoryScore> user2Scores = user2.getLatestCategoryScores();
+
+				// Get the score for this category
+				UserCategoryScore score1 = null;
+				UserCategoryScore score2 = null;
+				for(UserCategoryScore score : user1Scores) {
+					if(score.category == category) {
+						score1 = score;
+						break;
+					}
+				}
+				for(UserCategoryScore score : user2Scores) {
+					if(score.category == category) {
+						score2 = score;
+						break;
+					}
+				}
+				
+				if(score1 != null && score1.score != null) {
+					if(score2 != null && score2.score != null) {
+						return score1.score.compareTo(score2.score);
+					}
+					return 1;
+				} else {
+					if(score2 != null && score2.score != null) {
+						return -1;
+					}
+				}
+				return 1;
+			}
+			return user1.compareTo(user2);
+		}
+		
+	}
 	
 
 }

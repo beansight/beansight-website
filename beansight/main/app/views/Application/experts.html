@@ -12,17 +12,27 @@
 
 <div class="listinsights listexperts">
     <ul class="menulistinsights">
-    	*{
-        <li class="sortby">Sort by</li>
-        <li class="first"><a href="#">Favorites</a></li>
-        <li class="selectme"><a href="#" id="select-tri">select a category</a>
-            <ul class="nojavascript" id="ulselect-tri">
-                <li><a href="#"><span>Technology</span></a></li>
-                <li><a href="#"><span>Web</span></a></li>
-                <li class="last"><a href="#"><span>Sport</span></a></li>
-            </ul>
+        
+        #{isConnected}
+        <li class="sortby">&{'experts.filter'}</li>
+        <li class="first">
+            <div id="radioFilterBy" style="font-size: 11px;">
+                <input type="radio" autocomplete="off" name="FilterByGroup" value="favorites" checked  id="radioFilterByFavorites" />         <label for="radioFilterByFavorites">    &{'experts.filter.favorites'} </label> 
+                <input type="radio" autocomplete="off" name="FilterByGroup" value="all"          id="radioFilterByAll"/>          <label for="radioFilterByAll">    &{'experts.filter.all'} </label>
+            </div>        
         </li>
-        }*
+        #{/isConnected}
+        
+        <li>
+            <div class="filterDropDown">
+            <select name="categoryId" id="expertsFilterCategory" autocomplete="off">
+               <option value="0" #{if cat == 0}selected#{/if}>&{'insights.category'} All</option>
+               #{list items:controllers.Application.getCategories(), as:'category'}
+                   <option value="${category.id}" #{if cat == category.id}selected#{/if}>${category.label}</option>
+               #{/list}
+            </select>
+            </div>
+        </li>
     </ul>
     
     <!-- expert search -->
@@ -38,7 +48,6 @@
     
 	<div id="expertSearchResult">
 		<ul id="expertsList">
-	    	#{listExperts experts:experts /}
 		</ul>
 	</div>
     <div class="seeall">
@@ -47,55 +56,44 @@
 </div>
 
 <script type="text/javascript">
-var expertsFrom = ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE}; 
-var searchQuery = '';
+var NUMBER_EXPERTS_EXPERTPAGE = ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE};
+var expertsFrom = 0;
+var bindingTime = true;
 
-$('#searchExpForm').submit( function() {
-	expertsFrom = 0; 
-	searchQuery = $('#query').val();
-    $.ajax( {
-        url: searchExpertsAction(),
-        data: {"from":expertsFrom, "query":searchQuery },
-        success: onSearchExpertsSuccess
-    } );
-    return false;
+$(document).ready(function() {
+    // Used when using browser's back and forward buttons 
+    $.History.bind(function(state) {
+        if (state  == "") {
+            loadNoParameters();
+        } else {
+            if (bindingTime == false) {
+                expertsFrom = parseInt(gup($.History.getHash(), "from"));
+                reloadExperts( $.History.getHash() );
+                refreshExpertsFilters( $.History.getHash() );
+            } else {
+                bindingTime = false;
+            }
+        }      
+    });
 });
 
-function onSearchExpertsSuccess(content) {
-	//$("#expertSearchResult").hide('slide', {direction: 'left'}, 500);
-	/*
-	$("#expertSearchResult").hide('slide', {direction: 'left'}, 500);
-	$("#expertSearchResult").empty();
-	$("#expertSearchResult").append(content);
-	$("#expertSearchResult").show('slide', {direction: 'right'}, 500);
-	*/
-	$("#expertSearchResult").empty();
-	$("#expertSearchResult").append(content);
-	
-	expertsFrom += ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE};
+// used to load insights accordingly to the url when you load the page
+if ($.History.getHash()  == "") {
+    loadNoParameters();
+} else {
+    if (bindingTime == false) {
+        insightsFrom = parseInt(gup($.History.getHash(), "from"));
+        reloadExperts( $.History.getHash() );
+        refreshExpertsFilters( $.History.getHash() );
+    } else {
+        bindingTime = false;
+    }
 }
 
-/** get more insights */
-$('#moreExperts').click( function() {
-    $.ajax( {
-        url: searchExpertsAction(),
-        data: {"from":expertsFrom, "query":searchQuery },
-        success: onMoreExpertsSuccess
-    } );
-    return false;
-});
-
-function onMoreExpertsSuccess(content) {
-	/*
-	$("#expertSearchResult").hide('slide', {direction: 'left'}, 500);
-	$("#expertSearchResult").empty();
-	$("#expertSearchResult").append(content);
-	$("#expertSearchResult").show('slide', {direction: 'right'}, 500);
-	*/
-	//$("#expertSearchResult").empty();
-	$("#expertSearchResult").append(content);
-	
-    //$("#expertsList").append(content);
-    expertsFrom += ${controllers.Application.NUMBER_EXPERTS_EXPERTPAGE};
+function loadNoParameters() {
+     $("#radioFilterByFavorites").attr("checked", "checked");
+     $(':radio').button('refresh');
+     loadExperts();
 }
+
 </script>

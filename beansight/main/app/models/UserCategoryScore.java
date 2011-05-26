@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 import play.db.jpa.Model;
 
 @Entity
+/**
+ * Score in a given category
+ */
 public class UserCategoryScore extends Model {
 
 	@Enumerated(EnumType.STRING)

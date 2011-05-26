@@ -13,7 +13,6 @@ GET    /event/{eventUniqueId}                   EventMiniSite.showEvent
 
 # Home page
 GET     /                                       Application.insights
-GET 	/insights								Application.reloadInsights
 GET     /topic/{topic}                          Application.insights
 
 GET     /signup                                 Register.register

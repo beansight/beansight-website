@@ -318,6 +318,8 @@ a:hover{color:#228392;}
 
 /* liste experts */
 #contentcenter .listexperts .item-expert{clear:both;width:420px;padding:0 20px;background:url(/public/images/back-insight.png) repeat-y 0 0;}
+#contentcenter .listexperts .item-expert .message{padding: 20px;}
+#contentcenter .listexperts .item-expert .message p{margin-bottom: 10px;}
 #contentcenter .listexperts .item-expert .content-expert{background-color:#fff;padding:10px 10px 7px 10px;}
 #contentcenter .listexperts .item-expert .content-expert a{display:block;background:url("/public/images/icon-linksingle1.png") no-repeat scroll right center transparent;height:65px;width:100%;}
 #contentcenter .listexperts .item-expert .content-expert a:hover{background-image:url("/public/images/icon-linksingle2.png");}

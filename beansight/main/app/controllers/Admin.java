@@ -17,6 +17,7 @@ import jobs.scoring.BuildInsightValidationAndUserScoreJob;
 import jobs.scoring.InsightValidationJob;
 import jobs.weeklymailing.WeeklyMailingJob;
 import jobs.weeklymailing.WeeklyMailingSenderJob;
+import models.Category;
 import models.CategoryEnum;
 import models.Comment;
 import models.FacebookFriend;
