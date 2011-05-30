@@ -9,7 +9,7 @@
 /}%
 #{/isConnected}
 %{ 
-      if(_tag == null ) { _tag = "div" }
+      if(_tag == null ) { _tag = "div"; }
 /}%
 <${_tag} class='insightContainer insight_${_insight.uniqueId} 
 #{if vote && vote.state.equals(models.Vote.State.AGREE) } voteAgree #{/if } 
@@ -22,6 +22,9 @@
 #{/if }
 #{if _insight.endDate.getTime() < new Date().getTime()}
      over  
+#{/if}
+#{if _insight.sponsored}
+    sponsored  
 #{/if}
 '>
 #{doBody /}

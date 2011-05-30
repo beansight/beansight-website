@@ -169,6 +169,11 @@
         <input type="text" name="number" />
         <input type="submit" name="submit" value="Add" />
     #{/form}
+    <h4>Sponsor</h4>
+    <p>
+        #{if user.sponsor}This user is a sponsor#{/if}
+        #{else}<a href="@{Admin.makeSponsorUser(user.id)}">make sponsor</a>#{/else}
+    </p>
     <h4>Comments</h4>
     <ul>
     #{list items:user.comments, as:'comment'}

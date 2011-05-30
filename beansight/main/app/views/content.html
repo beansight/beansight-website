@@ -9,7 +9,6 @@
 #{isConnected}
 <!-- CREER INSIGHT -->
 <p class="btn-newins"><a href="@{Application.create()}" class="cuf-grm #{currentMenu 'menuCreate' /}">&{'menucreate'}</a></p>
-
     #{if !emailConfirmed}
     <div id="plzconfirm" class="warning">
     <p>&{'needemailconfirm'}</p>
@@ -21,6 +20,7 @@
 
 #{isConnected}
     #{favorites followedTopicActivities:followedTopicActivities, followedInsightActivities:followedInsightActivities, followedUserActivities:followedUserActivities, advisedUsers:advisedUsers /}
+    #{featuredSponsor featuredSponsor:featuredSponsor /}
     #{invitations invitationsLeft:invitationsLeft /}
     <hr class="clear"/>
 #{/isConnected}
@@ -34,41 +34,7 @@
         <p class="marketing-text">&{'indexNotConnected.marketing'}</p>
         <p class="btn-newins"><a href="@{Register.register()}" class="cuf-grm #{currentMenu 'menuSignUp' /}">&{'signuplink'}</a></p>
     #{/else}
-
-
 #{/isNotConnected}
-
-*{
-<!-- EXPERTS -->
-<h2 class="expoerth2 paddingme greenme"><span class="cuf-grb">What do expert think</span></h2>
-<div class="listusers">
-    <ul>
-        <!-- expert list, add "first" class for the first of each line -->
-        <li class="first"><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li class="first"><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li class="first"><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
-    </ul>
-    <hr class="clear"/>
-</div>
-
-<!-- CATEGORIES -->
-<h2 class="categoriesh2 paddingme azurme"><span class="cuf-grb">&{'browsecategory'}</span></h2>
-<ul class="listcats">
-    #{list items:controllers.Application.getCategories(), as:'category'}
-    <li><a href="#">${category.label}</a></li>
-    #{/list}
-</ul>
-<hr class="clear"/>
-}*
 
 </div>
 	

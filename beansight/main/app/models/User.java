@@ -206,6 +206,9 @@ public class User extends Model implements Comparable<User> {
 	/** Should this user receive a mail every week of prediction statuses */
 	public boolean statusNewsletter;
 	
+	/** Is this user a paying customer of Beansight ? */
+	public boolean sponsor;
+	
 	
 	public User(String email, String userName, String password) {
 		if (!User.isUsernameAvailable(userName)) {

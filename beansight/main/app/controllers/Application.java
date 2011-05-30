@@ -6,36 +6,27 @@ import helpers.InSitemap;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.imageio.ImageIO;
 
-import jregex.MatchIterator;
-import jregex.MatchResult;
-import jregex.Pattern;
-
 import models.Category;
 import models.Comment;
-import models.FeaturedTopic;
 import models.FacebookFriend;
+import models.FeaturedInsight;
+import models.FeaturedSponsor;
+import models.FeaturedTopic;
 import models.Filter;
 import models.Filter.FilterType;
-import models.FollowNotificationTask;
 import models.Insight;
 import models.Insight.InsightResult;
 import models.InsightTrend;
 import models.Language;
-import models.PeriodEnum;
 import models.Tag;
 import models.Topic;
-import models.Trend;
 import models.User;
 import models.User.UserResult;
 import models.UserCategoryScore;
@@ -46,7 +37,6 @@ import models.WaitingEmail;
 import models.analytics.UserClientInfo;
 
 import org.joda.time.DateMidnight;
-import org.joda.time.DateTime;
 
 import play.Logger;
 import play.Play;
@@ -65,10 +55,7 @@ import play.libs.Crypto;
 import play.libs.Images;
 import play.mvc.Before;
 import play.mvc.Controller;
-import play.mvc.results.RenderText;
 import play.mvc.Router;
-import play.mvc.Router.Route;
-import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
 import exceptions.InvitationException;
 import exceptions.NotFollowingUserException;
@@ -127,7 +114,24 @@ public class Application extends Controller {
 			
 			renderArgs.put("emailConfirmed", currentUser.emailConfirmed);
 			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);
-        }    	
+
+			// if connected, display featured sponsors
+			List<FeaturedSponsor> featuredSponsors = FeaturedSponsor.findActive(currentUser.writtingLanguage);
+			if(!featuredSponsors.isEmpty()) {
+				FeaturedSponsor sponsor =  featuredSponsors.get(0);
+				// if the user has not voted on at least one of these insights, show the featured Sponsor 
+				boolean show = false;
+				for(Insight i : sponsor.insights) {
+					if( Vote.findLastVoteByUserAndInsight(currentUser.id, i.uniqueId) == null) {
+						show = true;
+					}
+				}
+				if(show) {
+					renderArgs.put("featuredSponsor", sponsor);
+				}
+			}
+        }
+        
     }
     
     public static void welcome() {
@@ -288,7 +292,6 @@ public class Application extends Controller {
 		
 		InsightResult result;
 		
-		
 		if (closed != null && closed == true) {
 			result = Insight.findClosedInsights(from, numberInsights, filter);
 		} else {
@@ -307,7 +310,22 @@ public class Application extends Controller {
 				filter.filterType = FilterType.INCOMING;
 				result = Insight.findIncoming(from, numberInsights, filter);
 			}
+
+			if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
+				if(from == 0) {
+					User currentUser = CurrentUser.getCurrentUser();
+					// if any, add featured insights to the result
+					List<FeaturedInsight> featuredInsights = FeaturedInsight.findActive(currentUser.writtingLanguage);
+					for(FeaturedInsight featured : featuredInsights) {
+						if(	Vote.findLastVoteByUserAndInsight(currentUser.id, featured.insight.uniqueId) == null) {
+							result.results.add(0, featured.insight);
+						}
+					}
+				}
+			}
 		}
+
+		
 		return result;
 	}
 	

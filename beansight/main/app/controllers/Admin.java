@@ -48,22 +48,13 @@ import play.data.binding.As;
 import play.modules.search.Search;
 import play.mvc.Controller;
 import play.mvc.With;
+import play.mvc.results.RenderText;
 
 
 @With(Secure.class)
 @Check("admin")
 public class Admin extends Controller {
 
-    /**
-     * Make sure the language is the one the user has chosen.
-     */
-	/*
-	@Before(only={"addInvitationsToUser"})
-    static void loadMenuData() {
-		Application.loadMenuData();
-    }
-    */
-	
 	/**
 	 * Add invitations to this user
 	 */
@@ -71,6 +62,16 @@ public class Admin extends Controller {
 		User user = User.findById(userId);
 		user.addInvitations(number);
 		render(user);
+	}
+	
+	/**
+	 * flag this user as a sponsor.
+	 */
+	public static void makeSponsorUser(long userId) {
+		User user = User.findById(userId);
+		user.sponsor = true;
+		user.save();
+		Application.showUser(user.userName);
 	}
 	
 	public static void index() {

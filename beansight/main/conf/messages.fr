@@ -139,6 +139,8 @@ insights.followTopic=Suivre ce sujet
 insights.featuredTopics=Sujets sélectionnés :
 insights.addTopicToFavorites=Ajoutez ce sujet à vos favoris
 
+insightLine.sponsoredby=Sponsorisée par 
+
 #showUser
 userinsights=Prédictions de l'utilisateur
 myinsights=Mes prédictions

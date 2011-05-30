@@ -152,6 +152,11 @@ a:hover{color:#228392;}
 #content #sidebarleft .menuleft li{}
 #content #sidebarleft .menuleft li a{color:#696f70;font-size:15px;line-height:20px;}
 #content #sidebarleft .menuleft li a:hover, #content #sidebarleft .menuleft li a.current{color:#228392;}
+/* sponsor */
+#content #sidebarleft .featuredSponsor {margin: 0 0 15px 0; font-size: 12px; background-color: #F2F8FA; padding: 10px 0;}
+#content #sidebarleft .featuredSponsor p {margin-bottom: 5px;}
+#content #sidebarleft .featuredSponsor li {margin-bottom: 5px;}
+
 /* activity */
 #content #sidebarleft .activity{padding:0 0 15px 0;}
 #content #sidebarleft .activity p{font-size:13px;color:#aaaeaf;}
@@ -285,9 +290,11 @@ a:hover{color:#228392;}
 
 #contentcenter .listinsights .item-insight{clear:both;width:420px;padding:0 20px;background:url(/public/images/back-insight.png) repeat-y 0 0;}
 #contentcenter.large .listinsights .item-insight{width:690px;background-image:url(/public/images/back-insight-large.png);}
-#contentcenter .listinsights .insightItem .item-insight .content-insight{background-color:#fff;border-bottom:solid #f3f3f3 1px;}
-#contentcenter .listinsights .insightItem .item-insight .container-insight{padding:13px 0 0 0;}
-#contentcenter .listinsights .insightItem:nth-child(odd) .item-insight .content-insight{background-color:#f7f7f7;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .content-insight{background-color:#fff;border-bottom:solid #f3f3f3 1px;}
+#contentcenter .listinsights .insightItem .insightContainer.sponsored .item-insight .content-insight,
+#contentcenter .listinsights .insightItem:nth-child(odd) .insightContainer.sponsored .item-insight .content-insight{background-color:#F2F8FA;}
+#contentcenter .listinsights .insightItem .insightContainer .item-insight .container-insight{padding:13px 0 0 0;}
+#contentcenter .listinsights .insightItem:nth-child(odd) .insightContainer .item-insight .content-insight{background-color:#f7f7f7;}
 #contentcenter .listinsights .insightItem .item-insight.firstline{background-image:url(/public/images/insight-firstline-white.png);}
 #contentcenter .listinsights .insightItem:nth-child(odd) .item-insight.firstline{background-image:url(/public/images/insight-firstline-grey.png);}
 #contentcenter .listinsights .insightItem .item-insight.firstline .content-insight{padding-top:16px;background-color:transparent;}
@@ -316,6 +323,7 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .insightItem .insightContainer.validatedFalse .item-insight .container-insight   {   background:url(/public/images/validated-background-moins.png) no-repeat 90% center;}
 #contentcenter .listinsights .insightItem .insightContainer.validatedUnknown .item-insight .container-insight {   background:url(/public/images/validated-background-unknown.png) no-repeat 90% center; }
 
+#contentcenter .listinsights .insightItem .insightContainer.sponsored .sponsor-insight{float:right; margin: 0 20px 10px 0;   font-size: 11px;}
 /* liste experts */
 #contentcenter .listexperts .item-expert{clear:both;width:420px;padding:0 20px;background:url(/public/images/back-insight.png) repeat-y 0 0;}
 #contentcenter .listexperts .item-expert .message{padding: 20px;}

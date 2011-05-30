@@ -30,9 +30,15 @@
             #{if _insight.comments.size() > 0}
                 <p class="comment-insight"><span class="nbcom">${_insight.comments.size()}</span></p>
             #{/if}
-
-            
         </a>
+
+        #{if _insight.sponsored}
+            <p class="sponsor-insight">
+                &{'insightLine.sponsoredby'}
+                <a href="@{Application.showUser(_insight.sponsor.userName)}">${_insight.sponsor.userName}</a>
+            </p>
+        #{/if}
+
         <hr class="clear"/>
     </div
     </div>

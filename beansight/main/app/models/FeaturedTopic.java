@@ -35,10 +35,14 @@ public class FeaturedTopic extends Model {
 	    return topic.label;
 	}
 	
+	/**
+	 * Create a featuredtopic
+	 * it will start immediately to be featured, and stop 2 weeks later
+	 */
 	public FeaturedTopic(Topic topic) {
 		this.topic = topic;
 		this.startDate = new Date();
-		this.endDate = new DateTime().plusMonths(1).toDate();
+		this.endDate = new DateTime().plusWeeks(2).toDate();
 	}
 	
 	/**

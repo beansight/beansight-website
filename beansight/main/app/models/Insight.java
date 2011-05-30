@@ -20,6 +20,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 
 import jregex.MatchIterator;
@@ -148,6 +149,12 @@ public class Insight extends Model {
 	
 	/** Probability this insight has to occur before its endDate */
 	public double occurenceScore;
+	
+	/** Is it or was it a sponsored prediction ? */
+	public boolean sponsored; 
+	/** user account sponsored this prediction (can be different from the creator)*/
+	@ManyToOne
+	public User sponsor;
 	
 	/**
 	 * Create an insight
