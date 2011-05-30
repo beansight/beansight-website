@@ -80,9 +80,6 @@ public class Vote extends Model {
 	 * @return
 	 */
 	public static Vote findLastVoteByUserAndInsight(Long userId, String insightUniqueId) {
-		
-		Logger.info("id: " + userId);
-		
 		Vote vote = find(
 				"select v from Vote v join v.user u join v.insight i "
 						+ "where u.id=:userId and v.status = :status "
