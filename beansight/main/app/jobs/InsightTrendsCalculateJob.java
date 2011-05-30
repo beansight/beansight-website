@@ -18,38 +18,37 @@ import play.jobs.On;
 public class InsightTrendsCalculateJob extends Job {
 
 	public static final int INSIGHT_NUMBER_TO_PROCESS = 100;
-	private int page = 1;
-	/** set all to true if you want to recalculate for all insights */
-	private boolean all = false; 
-	
-	public InsightTrendsCalculateJob() {
-	}
-	
-	public InsightTrendsCalculateJob(int page, boolean all) {
-		this.page = page;
-		this.all = all;
-	}
+	public static final String PAGE_TO_PROCESS_KEY = "pageToProcess_page";
 	
     @Override
     public void doJob() throws Exception {
-    	Logger.info("InsightTrendsCalculateJob begin : page=%s all=%s", page, all);
+    	// we get from the cache the page that the job have to process
+    	// if PAGE_TO_PROCESS_KEY is not available in cache it means that the job is just starting
+    	Long pageToProcess = (Long)Cache.get(PAGE_TO_PROCESS_KEY);
+    	if (pageToProcess == null || pageToProcess == 0) {
+    		pageToProcess = 1l;
+    		Cache.add(PAGE_TO_PROCESS_KEY, pageToProcess, "5mn");
+    	}
+    	Logger.info("InsightTrendsCalculateJob begin. Page:%s", pageToProcess);
     	
     	List<Insight> insights = null;
-    	if (all) {
-    		insights = Insight.all().fetch(page, INSIGHT_NUMBER_TO_PROCESS);
-    	} else {
-    		// get insights having their target date not after the current date
-    		insights = Insight.findEndDateNotOver(page, INSIGHT_NUMBER_TO_PROCESS);
-    	}
+		// get insights having their target date not after the current date
+		insights = Insight.findEndDateNotOver(pageToProcess.intValue(), INSIGHT_NUMBER_TO_PROCESS);
     	
     	Logger.info("InsightTrendsCalculateJob : insights.size()=%s", insights.size());
     	
     	processInsights(insights);
     	
-    	if (Insight.count() > (page * INSIGHT_NUMBER_TO_PROCESS)) {
-    		Logger.info("scheduling another job in 5 seconds for page : " + (page + 1));
-    		new InsightTrendsCalculateJob(++page, all).in(5);
+    	if (Insight.count() > (pageToProcess * INSIGHT_NUMBER_TO_PROCESS)) {
+    		Logger.info("scheduling another job in 5 seconds for page : " + (pageToProcess + 1));
+    		// set in the cache the next page that InsightTrendsCalculateJob will have to process
+    		// just in case we set an expiration of this cache in 5 minutes
+    		Cache.incr(PAGE_TO_PROCESS_KEY);
+    		new InsightTrendsCalculateJob().in(5);
     	} else {
+    		// no more insinghts to process
+    		// so we remove the PAGE_TO_PROCESS_KEY from the cache
+    		Cache.delete(PAGE_TO_PROCESS_KEY);
         	// delete the trends list from the cache so that ui get new calculated trends value
     		Logger.info("InsightTrendsCalculateJob : deleting cache agreeInsightTrendsCache");
         	Cache.delete("agreeInsightTrendsCache");

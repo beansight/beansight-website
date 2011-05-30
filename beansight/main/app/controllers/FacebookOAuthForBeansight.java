@@ -81,6 +81,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         	FacebookUser facebookUser = FacebookUser.findByFacebookId(facebookUserId);
         	beansightFbUser.relatedFacebookUser = facebookUser;
             beansightFbUser.save();
+            updateBeansightUserLinkToFacebookUser(beansightFbUser, false, false);
         } 
         // if the user already has a beansight account and he is trying 
         // to connect with his facebook account then "merge" the facebook 
@@ -90,7 +91,10 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         	FacebookUser facebookUser = FacebookUser.findByFacebookId(facebookUserId);
         	beansightFbUser.relatedFacebookUser = facebookUser;
         	beansightFbUser.save();
-        } 
+        	updateBeansightUserLinkToFacebookUser(beansightFbUser, false, false);
+        } else {
+        	updateBeansightUserLinkToFacebookUser(beansightFbUser, false, true);
+        }
         
         // add these information in cookie to know the user has used Facebook to login
         session.put("userId", beansightFbUser.getId());
@@ -99,8 +103,6 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         session.put("username", beansightFbUser.email);
         // Remember
         response.setCookie("rememberme", Crypto.sign(beansightFbUser.email) + "-" + beansightFbUser.email, "30d");
-        
-        updateBeansightUserLinkToFacebookUser(beansightFbUser, false);
         
         refreshBeansightAvatarWithFacebookImage();
         
@@ -123,9 +125,18 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
      * @param currentBeansightUser : the user to update its social graph
      * @param forceIsHidden : set to true if you want to force isHidden to false 
      * (note : isHidden won't be forced if the facebookUser was already followed)
+     * @param async : set it to true to update beansight user info asynchronously
      */
-    static void updateBeansightUserLinkToFacebookUser(User currentBeansightUser, boolean forceIsHidden) {
-    	new UpdateBeansightUserToFacebookUserRelationshipJob(currentBeansightUser.id, forceIsHidden).now();
+    static void updateBeansightUserLinkToFacebookUser(User currentBeansightUser, boolean forceIsHidden, boolean async) {
+    	if (async == true) {
+    		new UpdateBeansightUserToFacebookUserRelationshipJob(currentBeansightUser.id, forceIsHidden).now();
+    	} else {
+    		try {
+				new UpdateBeansightUserToFacebookUserRelationshipJob(currentBeansightUser.id, forceIsHidden).doJob();
+			} catch (Exception e) {
+				Logger.error(e, "UpdateBeansightUserToFacebookUserRelationshipJob has thrown an error");
+			}
+    	}
     }
     
     /**
@@ -136,7 +147,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
      */
     static void onFacebookSynchronization(String accessToken, FacebookUserGson fbUser) {
     	User currentUser = CurrentUser.getCurrentUser();
-        updateBeansightUserLinkToFacebookUser(currentUser, false);
+        updateBeansightUserLinkToFacebookUser(currentUser, false, false);
         refreshBeansightAvatarWithFacebookImage();
         
      	// redirect to the previous url or index if nothing was set in session
@@ -210,7 +221,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         	currentUser.save();
         	currentUser = currentUser.refresh();
         	
-        	updateBeansightUserLinkToFacebookUser(currentUser, true);
+        	updateBeansightUserLinkToFacebookUser(currentUser, true, false);
         	refreshBeansightAvatarWithFacebookImage();
         } 
     	

@@ -39,6 +39,7 @@ import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
@@ -827,14 +828,6 @@ public class Insight extends Model {
 	 */
 	public static List<Insight> findInsightsToValidate(int page, int number) {
 		List<Insight> insights = Insight.find("hidden is false and validated is false and endDate < ?", new DateTime().minusHours(VALIDATION_HOUR_NUMBER).toDate()  ).fetch(page, number);
-//		
-//		List<Insight> insights = null;
-//		if (period.equals(PeriodEnum.INFINITE)) {
-//			insights = Insight.find("hidden is false and endDate < :to").bind("to", new DateTime(date).minusHours(VALIDATION_HOUR_NUMBER).toDate()).fetch(page, number);
-//		} else {
-//			Date from = new Date(date.getTime() - period.getTimePeriod());
-//			insights = Insight.find("hidden is false and endDate between :from and :to").bind("from", from).bind("to", new DateTime(date).minusHours(VALIDATION_HOUR_NUMBER).toDate()).fetch(page, number);
-//		}
 		
 		return insights;
 	}
@@ -850,13 +843,6 @@ public class Insight extends Model {
 		List<Insight> insights = Insight.find("hidden is false and endDate > ?", new Date()).fetch(page, number);
 		return insights;
 	}
-	
-//	/**
-//	 * Create a snapshot of this insight state, store it in a Trend
-//	 */
-//	public void createTrendSnapshot() {
-//		this.trends.add(new Trend(new Date(), this, this.agreeCount, this.disagreeCount));
-//	}
 	
     public long getTrendCount() {
     	return Trend.count("insight", this);
@@ -917,125 +903,6 @@ public class Insight extends Model {
     	return new HashSet(User.find("select user from Comment c where c.insight = ?", this).fetch());
     }
     
-    
-    private Long[] countAgreeDisagree(Map<Long, State> voteMap) {
-    	Long[] result = {0l, 0l};
-    	
-    	for (Entry<Long, State> entry : voteMap.entrySet()) {
-    		if (entry.getValue().equals(State.AGREE)) {
-    			result[0]++;
-    		} else {
-    			result[1]++;
-    		}
-    	}
-    	
-    	return result;
-    }
-    
-
-    /**
-     * @Deprecated : uses the old trends ratio
-     */
-    @Deprecated
-    public void buildTrends(DateTime from, DateTime to, int period) {
-    	Logger.info("building trends for insight.id=%s", this.id);
-    	
-    	if (from == null) {
-			Trend lastTrend = Trend.find("insight = :insight order by trendDate desc").bind("insight", this).first();
-			if (lastTrend != null) {
-				from = new DateTime(lastTrend.trendDate);
-			} else {
-				from = new DateTime(this.creationDate);
-			}
-		}
-		if (to == null) {
-			to = new DateTime();
-		}
-		if (to.isAfter(new DateTime(this.endDate))) {
-			to = new DateTime(this.endDate);
-		}
-    	
-    	Trend.delete("insight = ?  and trendDate between ? and ?", this, from.plusSeconds(1).toDate(), to.toDate());
-    	Map<Long, State> voteMap = new HashMap<Long, State>();
-    	long absoluteFrom = from.getMillis();
-    	long absoluteTo = to.getMillis();
-    	long deltaPeriod = period * 60 * 60 * 1000;
-    	long borneSup = absoluteFrom + deltaPeriod;
-    	List<Object[]> votes = Vote.find("select v.creationDate, v.state, v.user.id  from Vote v where v.insight = :insight and v.creationDate < :to order by v.creationDate asc").bind("insight", this).bind("to", to.toDate()).fetch();
-    	boolean next = true;
-    	int index = -1;
-    	while(next) {
-    		if ((index+1) < votes.size() ) {
-    			if ( ((Date)votes.get(index+1)[0]).getTime() < borneSup) {
-	    			index++;
-	    			Object[] vote = votes.get(index);
-	        		State state = (State)vote[1];
-	        		Long userId = (Long)vote[2];
-	        		
-	    			voteMap.put(userId, state);
-    			} else {
-        			Long[] agreeDisagree = countAgreeDisagree(voteMap);
-        			Trend trend = new Trend(new Date(borneSup), this,  agreeDisagree[0], agreeDisagree[1]);
-        			trend.save();
-    				
-    	    		borneSup += deltaPeriod;
-    			}
-    		} else if (borneSup < absoluteTo) {
-    			Long[] agreeDisagree = countAgreeDisagree(voteMap);
-    			Trend trend = new Trend(new Date(borneSup), this, agreeDisagree[0], agreeDisagree[1]);
-    			trend.save();
-    			
-	    		borneSup += deltaPeriod;
-    		} else {
-    			next = false;
-    		}
-    	}
-    	
-    }
- /*
-    public Double computeScore(User user, double lastPrice) {
-    	Double thisInsightUserScore = 0d;
-		List<Vote> votes = find(
-				"select v from Vote v join v.user u join v.insight i "
-						+ "where u.id=:userId "
-						+ "and i.uniqueId=:insightUniqueId order by v.creationDate asc")
-				.bind("userId", user.id).bind("insightUniqueId", this.uniqueId).fetch();
-    	for (Vote vote : votes) {
-    		if (getPriceForDate(vote.creationDate)!=null) {
-	    		if (vote.state.equals(State.AGREE)) {
-	    			thisInsightUserScore = thisInsightUserScore + lastPrice - getPriceForDate(vote.creationDate);
-	    		} else {
-	    			thisInsightUserScore = thisInsightUserScore +  getPriceForDate(vote.creationDate) - lastPrice;
-	    		}
-    		}
-    	}
-    	return thisInsightUserScore;
-    }    
-        
-    public Double getPriceForDate(Date datePrice) {
-    	List<InsightTrend> prices = InsightTrend.find("insight = :insight order by trendDate asc").bind("insight", this).fetch();
-    	for(int i=1; i <= prices.size(); i++) {
-    		if (prices.get(i).trendDate.after(datePrice)) {
-    			Double priceA = prices.get(i-1).occurenceProbability;
-    			long durationAB = prices.get(i).trendDate.getTime() - prices.get(i-1).trendDate.getTime();
-    			long durationADatePrice = datePrice.getTime() - prices.get(i-1).trendDate.getTime();
-    			if (durationADatePrice==0) {
-    				return priceA;
-    			}
-    			Double priceB = prices.get(i).occurenceProbability;
-    			Double price = priceA + (priceB - priceA) * (durationAB / durationADatePrice);
-    			return price;
-    		}
-    	}
-    	return null;
-    }
-    
-
-    public InsightTrend getLastInsightTrend() {
-    	return InsightTrend.find("insight = :insight order by trendDate desc").bind("insight", this).first();
-    }
-    */
-
     /**
      * @return true if this insight is considered as TRUE after validation
      */
@@ -1054,6 +921,33 @@ public class Insight extends Model {
     public boolean isValidatedUnknown() {
     	return (validationScore >= INSIGHT_VALIDATED_FALSE_MAXVAL && validationScore <= INSIGHT_VALIDATED_TRUE_MINVAL);
     }
+    
+    /**
+     * This is the public method to validate all insights not validated yet
+     */
+    public static void validateAllInsights() {
+    	if (!JPA.em().getTransaction().isActive()) {
+    		JPA.em().getTransaction().begin();
+    	}
+    	List<Insight> insights = Insight.findInsightsToValidate(1, 10);
+    	
+    	if (!insights.isEmpty()) {
+    		for (Insight insight : insights) {
+                Logger.debug("Validation of Insight: " + insight.content);
+                insight.validate();
+    			insight.computeVoterScores();
+    		}
+            
+    		JPA.em().getTransaction().commit();
+    		
+    		// rerun until their is no more insight to validate
+    		validateAllInsights();
+    	}  else {
+    		Logger.debug("All Insights validated");
+    	}
+    }
+    
+
     
 	public static class InsightResult {
 		/** The asked insights */

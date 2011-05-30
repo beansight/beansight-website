@@ -124,7 +124,7 @@ h3 {margin: 20px 0; font-weight: bold;}
             function drawChart5() {
               var data5 = new google.visualization.DataTable();
               data5.addColumn('date', 'Date');
-              data5.addColumn('number', 'Total Users');
+              data5.addColumn('number', '% Users');
               data5.addColumn('string', 'title1');
               data5.addColumn('string', 'text1');
               data5.addRows([
@@ -135,7 +135,42 @@ h3 {margin: 20px 0; font-weight: bold;}
 
               var chart5 = new google.visualization.AnnotatedTimeLine(document.getElementById('activeUsersChart'));
               chart5.draw(data5, {displayAnnotations: true});
-            }          
+            }        
+ 
+            google.setOnLoadCallback(drawChart6);
+            function drawChart6() {
+              var data6 = new google.visualization.DataTable();
+              data6.addColumn('date', 'Date');
+              data6.addColumn('number', '% Users');
+              data6.addColumn('string', 'title1');
+              data6.addColumn('string', 'text1');
+              data6.addRows([
+              #{list items:activeUsersMinusNewUsers, as:'value'} 
+                [new Date(${value.date.getTime()}), ${value.value}, undefined, undefined]#{if !value_isLast},#{/if}
+              #{/list}
+              ]);
+
+              var chart6 = new google.visualization.AnnotatedTimeLine(document.getElementById('activeUsersMinusNewUsersChart'));
+              chart6.draw(data6, {displayAnnotations: true});
+            } 
+           
+           google.setOnLoadCallback(drawChart7);
+           function drawChart7() {
+             var data7 = new google.visualization.DataTable();
+             data7.addColumn('date', 'Date');
+             data7.addColumn('number', 'New Users');
+             data7.addColumn('string', 'title1');
+             data7.addColumn('string', 'text1');
+             data7.addRows([
+             #{list items:dailyNewUsers, as:'value'} 
+               [new Date(${value.date.getTime()}), ${value.value}, undefined, undefined]#{if !value_isLast},#{/if}
+             #{/list}
+             ]);
+
+             var chart7 = new google.visualization.AnnotatedTimeLine(document.getElementById('dailyNewUsersChart'));
+             chart7.draw(data7, {displayAnnotations: true});
+           } 
+            
     </script>
 #{/set}
 
@@ -188,6 +223,15 @@ h3 {margin: 20px 0; font-weight: bold;}
     <h3>% active Users / day</h3> 
     <div id="activeUsersChart" class="analytics-graph"></div>
 </div>
+<div class="analyticsbloc large">
+    <h3>% active Users minus new users / day</h3> 
+    <div id="activeUsersMinusNewUsersChart" class="analytics-graph"></div>
+</div>
+<div class="analyticsbloc large">
+    <h3>New users / day</h3> 
+    <div id="dailyNewUsersChart" class="analytics-graph"></div>
+</div>
+
 <div class="analyticsbloc">
     <h3>Last ten comments</h3>
 <ul>

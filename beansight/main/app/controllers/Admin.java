@@ -13,28 +13,30 @@ import java.util.Set;
 
 import jobs.AnalyticsJob;
 import jobs.InsightTrendsCalculateJob;
-import jobs.scoring.BuildInsightValidationAndUserScoreJob;
 import jobs.scoring.InsightValidationJob;
+import jobs.scoring.ScoresComputationInitJob;
+import jobs.scoring.ScoresComputationJob;
 import jobs.weeklymailing.WeeklyMailingJob;
 import jobs.weeklymailing.WeeklyMailingSenderJob;
 import models.Category;
 import models.CategoryEnum;
 import models.Comment;
 import models.FacebookFriend;
-import models.TopicActivity;
-import models.UserActivity;
 import models.Insight;
 import models.InsightActivity;
 import models.Language;
 import models.PeriodEnum;
 import models.Tag;
 import models.Topic;
+import models.TopicActivity;
 import models.User;
+import models.UserActivity;
 import models.analytics.DailyTotalComment;
 import models.analytics.DailyTotalInsight;
 import models.analytics.DailyTotalVote;
 import models.analytics.UserInsightVisit;
 import models.analytics.UserListInsightsVisit;
+import models.job.ComputeScoreForUsersTask;
 
 import org.apache.commons.collections.buffer.CircularFifoBuffer;
 import org.joda.time.DateMidnight;
@@ -84,8 +86,11 @@ public class Admin extends Controller {
 
 		// total users evolution
 		Map<Date, TimeSeriePoint> dailyTotalUsersMap = new HashMap<Date, TimeSeriePoint>();
+		Map<Date, TimeSeriePoint> dailyNewUsersMap = new HashMap<Date, TimeSeriePoint>();
+		List<TimeSeriePoint> dailyNewUsersList = new ArrayList<TimeSeriePoint>();
 		List<User> users = User.all().fetch();
 		Double totalUser = 0d;
+		Double previousTotalUser = 0d; //used to calculate the size of daily new users
 		for (User user : users) {
 			totalUser++;
 			DateMidnight date = new DateMidnight(user.getCrdate());
@@ -93,6 +98,9 @@ public class Admin extends Controller {
 			if (point == null) {
 				point = new TimeSeriePoint(date.toDate(), totalUser);
 				dailyTotalUsersMap.put(date.toDate(), point);
+				dailyNewUsersMap.put(date.toDate(), new TimeSeriePoint(date.toDate(), totalUser - previousTotalUser));
+				dailyNewUsersList.add(new TimeSeriePoint(date.toDate(), totalUser - previousTotalUser));
+				previousTotalUser = totalUser;
 			}
 			point.value = totalUser;
 		}
@@ -119,7 +127,8 @@ public class Admin extends Controller {
 			visitsDayMap.get(date).add(v.user.id);
 		}
 		
-		List<TimeSeriePoint> results = new ArrayList<TimeSeriePoint>();
+		List<TimeSeriePoint> prctActiveUsersByDay = new ArrayList<TimeSeriePoint>();
+		List<TimeSeriePoint> prctActiveUsersMinusNewUsersByDay = new ArrayList<TimeSeriePoint>();
 		CircularFifoBuffer fifo = new CircularFifoBuffer(DAYS);
 		while (!visitsDayMap.isEmpty()) {
 			fifo.add(visitsDayMap.get(firstDate).size());
@@ -131,12 +140,15 @@ public class Admin extends Controller {
 					total = total + (Integer)it.next();
 				}
 				if (dailyTotalUsersMap.get(firstDate.toDate()) != null) {
-					results.add(new TimeSeriePoint(firstDate.toDate(), (total/DAYS)/dailyTotalUsersMap.get(firstDate.toDate()).value * 100 ) );
+					prctActiveUsersByDay.add(new TimeSeriePoint(firstDate.toDate(), (total/DAYS)/dailyTotalUsersMap.get(firstDate.toDate()).value * 100 ) );
+					prctActiveUsersMinusNewUsersByDay.add(new TimeSeriePoint(firstDate.toDate(), (total/DAYS)/(dailyTotalUsersMap.get(firstDate.toDate()).value - dailyNewUsersMap.get(firstDate.toDate()).value) * 100 ) );
 				}
 			}
 			firstDate = firstDate.plusDays(1);
 		}
-		renderArgs.put("activeUsers", results);
+		renderArgs.put("activeUsers", prctActiveUsersByDay);
+		renderArgs.put("activeUsersMinusNewUsers", prctActiveUsersMinusNewUsersByDay);
+		renderArgs.put("dailyNewUsers", dailyNewUsersList);
 		
 		// last ten comments
 		List<Comment> comments = Comment.find("order by creationDate desc").fetch(15);
@@ -144,7 +156,10 @@ public class Admin extends Controller {
 		
 		render();
 	}
-	
+
+	/**
+	 * Run this action to rebuild all search indexes
+	 */
 	public static void rebuildAllIndexes() {
 		try {
 			Search.rebuildAllIndexes();
@@ -210,28 +225,6 @@ public class Admin extends Controller {
 		renderJSON(result);
 	}
 	
-	/**
-	 * TODO : temporary method to create the user analytics without waiting for the job to start the first time we'll release it !
-	 */
-	public static void doUserAnalyticsJob() {
-		try {
-			new AnalyticsJob().doJob();
-		} catch (Throwable e) {
-			renderText("doUserAnalyticsJob finished with error : " + e.getMessage());
-			throw new RuntimeException(e) ;
-		}
-		renderText("doUserAnalyticsJob finished: ok");
-	}
-	
-	public static void doInsightValidationAndUserScoreJob() {
-		try {
-			new InsightValidationJob().doJob();
-		} catch (Exception e) {
-			renderText("doInsightValidationAndUserScoreJob finished with error : " + e.getMessage());
-			throw new RuntimeException(e) ;
-		}
-		renderText("doInsightValidationAndUserScoreJob finished: ok");
-	}
 	
 	/**
 	 * Remove users who doesn't have validated their account with a promocode.
@@ -257,18 +250,46 @@ public class Admin extends Controller {
 		render(users, delete);
 	}
 	
+	/**
+	 * Call this method to remove all ComputeScoreForUsersTask
+	 * (it's a mean to force beansight to stop computing user's scores)
+	 */
+	public static void flushScoreTasks() {
+		ComputeScoreForUsersTask.flushAll();
+	}
+	
+	/**
+	 * This action enable an admin user to manually start a computation of the user's scores.
+	 * Using this action, score computation will always be done on a THREE_MONTHS period basis.
+	 * 
+	 * If no parameter passed to the action then scores will be compute for the last available day
+	 * which is yesterday by definition because the idea is to compute scores only for ended day.
+	 * 
+	 * If dates are passed as parameter then the action will compute the scores for each day
+	 * 
+	 * @param fromDate
+	 * @param toDate
+	 */
 	public static void buildScores (@As("yyyy-MM-dd") Date fromDate, @As("yyyy-MM-dd") Date toDate) {
 		try {
+			// if there is already tasks in db then we do not run another one
+			// because otherwise we could be have too many threads working
+			long count = ComputeScoreForUsersTask.count();
+			if (count > 0) {
+				renderText("still %s ComputeScoreForUsersTask to execute, please resend request when there won't be anymore task waiting in DB or you can flush all the current ComputeScoreForUsersTask using flushScoreTasks action", count);
+			}
+			
 			// if no date provided then we run the Job as of today 
 			// (which actually means calculating scores for yesterday since 
 			//  we don't calculate scores if the day is not over) 
-			if (fromDate==null && toDate==null) {
-				BuildInsightValidationAndUserScoreJob job = new BuildInsightValidationAndUserScoreJob();
+			if (fromDate==null || toDate==null) {
+				ScoresComputationInitJob job = new ScoresComputationInitJob();
 				job.runNow = true;
 				job.now();
 			} else {
-				BuildInsightValidationAndUserScoreJob job = new BuildInsightValidationAndUserScoreJob(fromDate, toDate);
-				job.runNow = true;
+				// compute scores for many dates
+				ComputeScoreForUsersTask.createTasksBetweenTwoDates(fromDate, toDate, PeriodEnum.THREE_MONTHS);
+				ScoresComputationJob job = new ScoresComputationJob();
 				job.now();
 			}
 		} catch (Exception e) {
@@ -276,6 +297,17 @@ public class Admin extends Controller {
 		}
 	}
 	
+	/**
+	 * to be used only if you are 100 certain that no other ScoresComputationJob is currently running !
+	 */
+	public static void restartScoresComputationJob() {
+		ScoresComputationJob job = new ScoresComputationJob();
+		job.now();
+	}
+	
+	/**
+	 * This will manualsy start the insaignts validation job
+	 */
 	public static void insightValidation() {
 		new InsightValidationJob().now();
 	}
@@ -299,17 +331,22 @@ public class Admin extends Controller {
 				categoryScoresSport, categoryScoresTechnology);
 	}
 	
-	
+	/**
+	 * call this action to update the InsightTrend list of only one insight
+	 * @param uniqueId
+	 */
 	public static void updateInsightTrend(String uniqueId) {
 		Insight i = Insight.findByUniqueId(uniqueId);
 		i.buildInsightTrends();
 	}
 	
-	public static void updateInsightTrends(Boolean all) throws Exception {
-		if (all == null) {
-			all = Boolean.FALSE;
-		}
-		new InsightTrendsCalculateJob(1, all).doJob();
+	/**
+	 * call this action to manually update InsightTrend for all insights
+	 * whose date isn't passed
+	 * @throws Exception
+	 */
+	public static void updateInsightTrends() throws Exception {
+		new InsightTrendsCalculateJob().doJob();
 	}
 	
 	

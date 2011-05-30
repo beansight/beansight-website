@@ -46,6 +46,7 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -1533,4 +1534,36 @@ public class User extends Model implements Comparable<User> {
 	}
 	
 
+	public static void computeCategoriesAndUserScoresForAllUsers(Date computeDate) {
+		_computeCategoriesAndUserScoresForAllUsers(computeDate, 1);
+	}
+	
+	private static void _computeCategoriesAndUserScoresForAllUsers(Date computeDate, int pageToProcess) {
+    	if (!JPA.em().getTransaction().isActive()) {
+    		JPA.em().getTransaction().begin();
+    	}
+    	// Calculate for all users having voted for at least one insight (prediction) during the period
+    	Date from = new Date(computeDate.getTime() - PeriodEnum.THREE_MONTHS.getTimePeriod());
+    	List<User> usersToUpdate = User.find("select distinct u from User u join u.votes v join v.insight i " +
+    			"where i.hidden is false and i.endDate between :fromDate and :endDate")
+    			.bind("fromDate", from)
+    			.bind("endDate", computeDate)
+    			.fetch(pageToProcess, 5);
+    	
+    	// if no more user to update 
+    	if (!usersToUpdate.isEmpty()) {
+	    	int i = 1;
+	    	for(User u : usersToUpdate) {
+	    		Logger.debug("ComputeCategoryAndUserScoreHistoJob : updating user, page " + pageToProcess + " : " + i + "/" + usersToUpdate.size());
+	    		u.computeCategoryScores(computeDate, PeriodEnum.THREE_MONTHS);
+	    		u.computeUserScore(computeDate, PeriodEnum.THREE_MONTHS);
+	    		i++;
+	    	}
+	    	
+	    	// continue to next page
+	    	JPA.em().getTransaction().commit();
+	    	pageToProcess++;
+	    	_computeCategoriesAndUserScoresForAllUsers(computeDate, pageToProcess);
+    	}
+	}
 }
