@@ -77,6 +77,7 @@ public class UpdateBeansightUserToFacebookUserRelationshipJob extends Job {
 			
 			for (FacebookFriend aFacebookFriend : newFriendsToAdd) {
 				aFacebookFriend.isBeansightUser = true;
+				aFacebookFriend.beansightUserFriend = User.findByFacebookUserId(aFacebookFriend.facebookUser.facebookId);
 				// check if this facebook friend is already in the followedUsers list ?
 				Long count = User.find("select count(followedUser) from User u join u.followedUsers followedUser where u.id = :currentUserId and followedUser.facebookUserId = :friendFacebookId")
 						.bind("currentUserId", currentBeansightUser.id)
