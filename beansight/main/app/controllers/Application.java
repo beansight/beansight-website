@@ -119,16 +119,8 @@ public class Application extends Controller {
 			List<FeaturedSponsor> featuredSponsors = FeaturedSponsor.findActive(currentUser.writtingLanguage);
 			if(!featuredSponsors.isEmpty()) {
 				FeaturedSponsor sponsor =  featuredSponsors.get(0);
-				// if the user has not voted on at least one of these insights, show the featured Sponsor 
-				boolean show = false;
-				for(Insight i : sponsor.insights) {
-					if( Vote.findLastVoteByUserAndInsight(currentUser.id, i.uniqueId) == null) {
-						show = true;
-					}
-				}
-				if(show) {
-					renderArgs.put("featuredSponsor", sponsor);
-				}
+				// do not check if already voted, always show.
+				renderArgs.put("featuredSponsor", sponsor);
 			}
         }
         
@@ -310,14 +302,15 @@ public class Application extends Controller {
 				filter.filterType = FilterType.INCOMING;
 				result = Insight.findIncoming(from, numberInsights, filter);
 			}
-
+			// featured insight
 			if (Security.isConnected()) { // if user is connected, then get the insights in the languages he speaks
 				if(from == 0) {
 					User currentUser = CurrentUser.getCurrentUser();
 					// if any, add featured insights to the result
 					List<FeaturedInsight> featuredInsights = FeaturedInsight.findActive(currentUser.writtingLanguage);
 					for(FeaturedInsight featured : featuredInsights) {
-						if(	Vote.findLastVoteByUserAndInsight(currentUser.id, featured.insight.uniqueId) == null) {
+						// if the insight is not already in the result and if the user hasn't voted, display it at the top.
+						if(!result.results.contains(featured.insight) && Vote.findLastVoteByUserAndInsight(currentUser.id, featured.insight.uniqueId) == null) {
 							result.results.add(0, featured.insight);
 						}
 					}
