@@ -35,7 +35,7 @@
         #{if _insight.sponsored}
             <p class="sponsor-insight">
                 &{'insightLine.sponsoredby'}
-                <a href="@{Application.showUser(_insight.sponsor.userName)}">${_insight.sponsor.userName}</a>
+                <a href="@{Application.showUser(_insight.sponsor.userName)}" class="sponsor">${_insight.sponsor.userName}</a>
             </p>
         #{/if}
 

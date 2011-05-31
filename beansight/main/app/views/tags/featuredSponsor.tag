@@ -1,9 +1,9 @@
 #{if _featuredSponsor}
 <div class="featuredSponsor">
-	<p>&{'insightLine.sponsoredby'}<a href="@{Application.showUser(_featuredSponsor.sponsor.userName)}">${_featuredSponsor.sponsor.userName}</a>:</p>
+	<h3>&{'insightLine.sponsoredby'}<a href="@{Application.showUser(_featuredSponsor.sponsor.userName)}">${_featuredSponsor.sponsor.userName}</a>:</h3>
 	<ul>
 	#{list items:_featuredSponsor.insights, as:'featureSponsorInsight'}
-    	<li>#{insight insight:featureSponsorInsight, characters:42 /}</li>
+    	<li>#{insight insight:featureSponsorInsight, characters:38 /}</li>
 	#{/list}
 	</ul>
 </div>

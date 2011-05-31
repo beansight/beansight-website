@@ -154,8 +154,10 @@ a:hover{color:#228392;}
 #content #sidebarleft .menuleft li a:hover, #content #sidebarleft .menuleft li a.current{color:#228392;}
 /* sponsor */
 #content #sidebarleft .featuredSponsor {margin: 0 0 15px 0; font-size: 12px; background-color: #F2F8FA; padding: 10px 0;}
-#content #sidebarleft .featuredSponsor p {margin-bottom: 5px;}
-#content #sidebarleft .featuredSponsor li {margin-bottom: 5px;}
+#content #sidebarleft .featuredSponsor h3 {font-weight:bold; margin-bottom: 5px;}
+#content #sidebarleft .featuredSponsor h3 a {font-weight:bold; color:#7AA13D;}
+#content #sidebarleft .featuredSponsor li {padding: 5px 0; border-top: 1px solid #EFEFEF;}
+#content #sidebarleft .featuredSponsor li:first-child {border: 0 none;}
 
 /* activity */
 #content #sidebarleft .activity{padding:0 0 15px 0;}
@@ -324,6 +326,7 @@ a:hover{color:#228392;}
 #contentcenter .listinsights .insightItem .insightContainer.validatedUnknown .item-insight .container-insight {   background:url(/public/images/validated-background-unknown.png) no-repeat 90% center; }
 
 #contentcenter .listinsights .insightItem .insightContainer.sponsored .sponsor-insight{float:right; margin: 0 20px 10px 0;   font-size: 11px;}
+#contentcenter .listinsights .insightItem .insightContainer.sponsored .sponsor-insight .sponsor{font-weight:bold; color:#7AA13D;}
 /* liste experts */
 #contentcenter .listexperts .item-expert{clear:both;width:420px;padding:0 20px;background:url(/public/images/back-insight.png) repeat-y 0 0;}
 #contentcenter .listexperts .item-expert .message{padding: 20px;}
