@@ -148,11 +148,12 @@
                     </a>
                 </div>
                 <div class="input-textarea">
-                    <textarea cols="20" rows="4" name="content"></textarea>
+                    <textarea cols="20" rows="4" name="content" id="commentContent"></textarea>
                 </div>
+                <div id="shadowGrow" style="position: absolute; top: -10000px; left: -10000px; width: 300px; font-size: 13px; font-family: monospace; line-height: 1; resize: none;"></div>
                 <input name="uniqueId" type="hidden" value="${insight.uniqueId}"/>
-
-                <hr class="clear"/>
+				<input name="commentId" id="commentId" type="hidden" value=""/>
+				<hr class="clear"/>
                 <div class="input-submit">
                 	
                     <button><span class="ajaxloader" style="display:none;"></span><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'postcomment'}</span></button>

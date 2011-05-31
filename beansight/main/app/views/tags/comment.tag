@@ -15,12 +15,20 @@
         <span class="vote-comment ${voteClass}">Vote</span>
         <hr class="clear"/>
     </div>
-    <p class="txt-comment">${_comment.content.escape().linkifyAll("style='font-style: italic;'").nl2br()}</p>    
+    <p class="txt-comment">${_comment.content.escape().linkifyAll("style='font-style: italic;'").nl2br()}</p>
+    #{isConnected}  
+    	#{if controllers.CurrentUser.getCurrentUser().id == _comment.user.id && _comment.savedLessThanMinutesAgo(15)}  
+    	<hr class="clear"/>
+    	<div style="float: right;">
+    		<a style="font-style: normal; font-size: 13px; color: #A1A5A6;" href="#" onclick="editComment('${_comment.insight.uniqueId}', ${_comment.id}); return false;" >&{'insights.commentTimeLeftToEdit', _comment.creationDate.still(15)}</a>
+    	</div>
+    	#{/if}
+    #{/isConnected}
 	<p>
 	#{isConnected}
     	#{secure.check 'admin'}
     	<br>
-		<a href="#" onclick="insightHideComment(${_comment.id}); return false;" style="color: red;">hide this comment</a>
+		<a href="#" onclick="insightHideComment(${_comment.id}); return false;" style="color: red; font-size: 13px;">hide this comment</a>
 		#{/secure.check}
 	#{/isConnected}
 	</p>

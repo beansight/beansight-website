@@ -56,10 +56,14 @@ import play.libs.Images;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
+import play.mvc.Router.Route;
+import play.templates.JavaExtensions;
+import exceptions.CannotVoteTwiceForTheSameInsightException;
 import exceptions.InsightAlreadySharedException;
 import exceptions.InvitationException;
 import exceptions.NotFollowingUserException;
 import exceptions.UserIsAlreadyFollowingInsightException;
+import ext.StringExtensions;
 
 public class Application extends Controller {
 
@@ -96,7 +100,7 @@ public class Application extends Controller {
     /**
      * If the user is connected, load the needed info into the menu
      */
-    @Before(unless={"insightsFilter", "moreInsights", "leaveYourEmail", "shareInsight", "agree", "disagree", "loadFollowedUsers", "toggleFollowingUser", "toggleFollowingInsight", "searchExperts", "moreSearchExperts", "showAvatarSmall", "showAvatarMedium", "showAvatarLarge"})
+    @Before(unless={"insightsFilter", "getInsights", "leaveYourEmail", "shareInsight", "agree", "disagree", "loadFollowedUsers", "toggleFollowingUser", "toggleFollowingInsight", "searchExperts", "moreSearchExperts", "showAvatarSmall", "showAvatarMedium", "showAvatarLarge", "editComment", "addComment"})
     public static void loadMenuData() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
@@ -765,19 +769,63 @@ public class Application extends Controller {
 	 * @param content
 	 *            : text content of the insight
 	 */
-	public static void addComment(@Required String uniqueId, @MinSize(5) String content) {
+	public static void addComment(@Required String uniqueId, Long commentId, @MinSize(5) String content) {
     	if(validation.hasErrors()) {
     		return;
 	   	}
-		
-		User commentWriter = CurrentUser.getCurrentUser();
-		Insight insight = Insight.findByUniqueId(uniqueId);
-		Comment comment = insight.addComment(content, commentWriter);
-		insight.save();
+    	
+    	Comment comment = null;
+    	
+    	// if commentId != null then this mean that the user is updating its comment
+		if (commentId != null) {
+			comment = Comment.findById(commentId);
+			if (comment.savedLessThanMinutesAgo(15)) {
+				comment.content = content;
+				comment.creationDate = new Date();
+				comment.save();
+			} else {
+				comment.content = Messages.get("insights.commentEditTimeoutFailure") + comment.content;
+			}
+		} else {
+			User commentWriter = CurrentUser.getCurrentUser();
+			Insight insight = Insight.findByUniqueId(uniqueId);
+			comment = insight.addComment(content, commentWriter);
+			insight.save();
+		}
 		
 		render(comment);
 	}
 
+	/**
+	 * AJAX
+	 * this is called to edit a comment in the insight view.
+	 * only the owner of the comment can update it and only if the comment is less than 15 minutes
+	 * @param uniqueId
+	 * @param commentId
+	 */
+	public static void editComment(@Required String uniqueId, @Required Long commentId) {
+    	if(validation.hasErrors()) {
+    		return;
+	   	}
+		Comment comment = Comment.findById(commentId);
+		User commentWriter = CurrentUser.getCurrentUser();
+		// check that current user is the original writer of the comment
+		if (comment.user.equals(commentWriter)) {
+			if (comment.savedLessThanMinutesAgo(15)) {
+				Map<String, Object> jsonResult = new HashMap<String, Object>();
+				jsonResult.put("commentId", comment.id);
+				jsonResult.put("content", comment.content);
+				renderJSON(jsonResult);
+			} else {
+				// the comment is more than 15 minutes so return an error
+				Map<String, Object> jsonResult = new HashMap<String, Object>();
+				jsonResult.put("error", Messages.get("insight.commentEditableTimeout"));
+				renderJSON(jsonResult);
+			}
+		}
+	}
+	
+	
 	/**
 	 * add tags to an insight
 	 * 

@@ -122,4 +122,15 @@ public class StringExtensions extends JavaExtensions {
         return ("" + string.charAt(0)).toLowerCase() + string.substring(1);
     }
     
+    public static String still(Date lastDate, int maxMinutes) {
+    	int minutesLeftResult = 0;
+    	int secondesLeftResult = 0;
+    	long maxTime = lastDate.getTime() + maxMinutes * 60000;
+    	long delta = (maxTime - System.currentTimeMillis()) / 1000;
+    	if (delta > 0) {
+    		minutesLeftResult = Math.round( delta / 60 );
+    		secondesLeftResult = Math.round( 60 * ((delta / 60f) - minutesLeftResult) );
+    	}
+    	return Messages.get("still.left", minutesLeftResult, secondesLeftResult); 
+    }
 }

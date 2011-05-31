@@ -135,6 +135,9 @@ insights.filterNotVoted=Not voted
 insights.more=more
 insights.intopic=for topic 
 insights.comments=comment%s
+insights.commentTimeLeftToEdit=edit (%s)
+insights.commentEditTimeoutFailure=(sorry your comment couldn't be updated: time limit for editing has exceeded)\n
+insight.commentEditableTimeout=You can not edit this comment: the time limit for editing has exceeded
 insights.followTopic=Follow this topic
 insights.featuredTopics=Featured topics:
 insights.addTopicToFavorites=Favorite this topic
@@ -436,6 +439,8 @@ in.months  = In %s month%s
 in.years   = In %s year%s
 in.format  = MMM d, yyyy
 in.format.on = On %s
+
+still.left=%smin
 
 invitation.user.already.registered=User your are inviting is already a Beansight registred user
 

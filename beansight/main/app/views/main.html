@@ -45,6 +45,9 @@
 	<!-- Beansight javascripts -->
 	<script src="/public/javascripts/i18n/&{'i18n'}.js" type="text/javascript" charset="utf-8"></script>
 	<script src="#{beansight.resource name:'/public/javascripts/beansight.js' /}" type="text/javascript" charset="utf-8"></script>
+	
+	<!-- auto grow jquery plugin -->
+	<script src="/public/javascripts/jquery.autogrow-textarea.js" type="text/javascript" charset="utf-8"></script>
 	#{get 'moreScripts' /}  
 	
 	<!-- define here the actions -->
@@ -75,6 +78,7 @@
 	var leaveYourEmailAction = #{jsAction @Application.leaveYourEmail() /};
 	var sendToContactAction = #{jsAction @Contact.sendToContact() /};
 	var addCommentAction = #{jsAction @Application.addComment() /};
+	var editCommentAction = #{jsAction @Application.editComment(':uniqueId', ':commentId') /};
     var updateUserRealNameAction = #{jsAction @Settings.updateUserRealName() /};
     var updateUserDescriptionAction = #{jsAction @Settings.updateUserDescription() /};
 	var getFavoriteInsightAction = #{jsAction @Application.getFavoriteInsight(':insightUniqueId') /};

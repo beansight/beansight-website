@@ -46,5 +46,19 @@ public class Comment extends Model {
 	    return content;
 	}
 
-
+	/**
+	 * return true if the comment was saved less than "minutes" ago
+	 * false if was saved more than "minutes" ago.
+	 * 
+	 * @param minutes
+	 * @return
+	 */
+	public boolean savedLessThanMinutesAgo(int minutes) {
+		long milliseconds = minutes * 60 * 1000;
+		if (System.currentTimeMillis() < creationDate.getTime() + milliseconds) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

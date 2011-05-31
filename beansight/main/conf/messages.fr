@@ -135,6 +135,9 @@ insights.filterNotVoted=Non voté
 insights.more=plus
 insights.intopic=autour du sujet 
 insights.comments=commentaire%s
+insights.commentTimeLeftToEdit=modifier (%s)
+insights.commentEditTimeoutFailure=(Désolé le commentaire n'a pu être modifié car le délai autorisé était dépassé)\n
+insight.commentEditableTimeout=Vous ne pouvez plus modifier ce commentaire car le délai est dépassé
 insights.followTopic=Suivre ce sujet
 insights.featuredTopics=Sujets sélectionnés :
 insights.addTopicToFavorites=Ajoutez ce sujet à vos favoris
@@ -444,6 +447,8 @@ in.months  = Dans %s mois
 in.years   = Dans %s année%s
 in.format  = d MMMMMM yyyy
 in.format.on = Le %s
+
+still.left=%smin
 
 invitation.user.already.registered=L'utilisateur invité est déjà membre de Beansight
 

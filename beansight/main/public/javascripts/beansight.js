@@ -227,8 +227,29 @@ function updateCharacterCount() {
 /** callback for comment addition */
 function onAddCommentSuccess(content) {
 	$(".ajaxloader").hide();
-    $("#commentList").prepend( content );
-    clearForm('#addCommentForm');
+	clearForm('#addCommentForm');
+	$("commentId").val("");
+	$("#commentList").prepend( content );
+}
+
+//////////////
+//edit a comment
+//////////////
+function editComment(uniqueId, commentId) {
+	$.get(editCommentAction({'uniqueId':uniqueId, 'commentId':commentId}), onEditCommentSuccess);
+	
+	return false;
+}
+
+function onEditCommentSuccess(data) {
+	if (data.error != undefined) {
+		alert(data.error);
+	} else {
+		$("#insightComment_" + data.commentId).remove();
+		$("#commentContent").val(data.content);
+		$('#commentContent').autogrow();
+		$('#commentId').val(data.commentId);
+	}
 }
 
 //////////////////////
@@ -1321,5 +1342,12 @@ $(document).ready(function() {
 
 	$('#cancelBtn').button();
 	$('#continueBtn').button();
+	
+	//////////////
+	// apply autogrow on comment textarea
+	//////////////
+	$('#commentContent').autogrow();
+	
+
 });
 

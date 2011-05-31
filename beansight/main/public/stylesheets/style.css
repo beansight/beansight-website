@@ -637,7 +637,7 @@ a:hover{color:#228392;}
 #content .single .s-content .graphzone .graphique{float:right;padding:0 0 20px 0;}
 #content .single .s-content .commentzone{/*border-top:solid #ededed 1px;*/padding:10px 0 0 0;margin:0 23px;}
 #content .single .s-content .commentzone p.nbcomments{text-transform:uppercase;background:url(/public/images/icon-comment.png) no-repeat left center;padding:0 0 0 14px;height:18px;color:#00505c;font-size:16px;}
-#content .single .s-content .commentzone .newcomment{margin:10px 0 0 0;position:relative;background-color:#f5f5f5;height:114px;padding:19px;border-top:solid #ededed 1px;border-bottom:solid #ededed 1px;}
+#content .single .s-content .commentzone .newcomment{margin:10px 0 0 0;position:relative;background-color:#f5f5f5;height:auto;padding:19px;border-top:solid #ededed 1px;border-bottom:solid #ededed 1px;}
 #content .single .s-content .commentzone .newcomment .comment-author{float:left;}
 #content .single .s-content .commentzone .newcomment .comment-author a{display:block;color:#7AA13D;font-size:12px;font-weight:bold;}
 #content .single .s-content .commentzone .newcomment .comment-author a:hover{color:#6d9137;}
@@ -699,7 +699,7 @@ a:hover{color:#228392;}
 
 
 
-#content .single .s-content .commentzone .newcomment .input-submit{clear:both;height:35px;margin:10px 0 0 0;position:absolute;top:94px;right:19px;}
+#content .single .s-content .commentzone .newcomment .input-submit{clear:both;height:35px;margin:10px 0 0 0;top:94px;right:19px;float: right;}
 #content .single .s-content .commentzone .newcomment .input-submit button{display:block;border:0 none;cursor:pointer;height:35px;background:none transparent;}
 #content .single .s-content .commentzone .newcomment .input-submit button span{float:left;display:block;height:35px;}
 #content .single .s-content .commentzone .newcomment .input-submit button span.backbutton{background:url(/public/images/btn-vert1.png) no-repeat 0 0;width:10px;}
