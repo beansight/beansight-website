@@ -401,8 +401,8 @@ public class Application extends Controller {
 					indexFrom = from;
 					indexTo = from;
 				}
-				if( to < allExperts.size()) {
-					indexTo = to + 1;
+				if (to < allExperts.size()) {
+					indexTo = to;
 				} else {
 					indexTo = allExperts.size();
 				}
