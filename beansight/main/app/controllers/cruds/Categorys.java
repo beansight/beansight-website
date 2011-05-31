@@ -1,12 +1,11 @@
-package controllers.crud;
- 
+package controllers.cruds;
+
+import play.mvc.With;
 import controllers.CRUD;
 import controllers.Check;
 import controllers.Secure;
-import play.*;
-import play.mvc.*;
 
 @Check("admin")
 @With(Secure.class)
-public class FeaturedInsights extends CRUD {
+public class Categorys extends CRUD {
 }

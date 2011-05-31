@@ -1,4 +1,4 @@
-package controllers.crud;
+package controllers.cruds;
  
 import play.mvc.With;
 import controllers.CRUD;
@@ -7,5 +7,5 @@ import controllers.Secure;
 
 @Check("admin")
 @With(Secure.class)
-public class Insights extends CRUD {
+public class Topics extends CRUD {
 }

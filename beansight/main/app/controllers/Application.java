@@ -784,6 +784,7 @@ public class Application extends Controller {
 				comment.creationDate = new Date();
 				comment.save();
 			} else {
+				// if the time limit for editing has exceeded add a message in the comment (without saving it of course...)
 				comment.content = Messages.get("insights.commentEditTimeoutFailure") + comment.content;
 			}
 		} else {
