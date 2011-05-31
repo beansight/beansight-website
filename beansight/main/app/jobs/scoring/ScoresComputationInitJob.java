@@ -60,7 +60,7 @@ public class ScoresComputationInitJob extends Job {
 		ComputeScoreForUsersTask.createTasksForDate(toDate, PeriodEnum.THREE_MONTHS);
 		
 		// start processing ScoresToComputeTask now : 
-		new ScoresComputationJob().now();
+		new ScoresComputationJob().in(10);
 	}
 	
 }
