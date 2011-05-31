@@ -228,7 +228,7 @@ function updateCharacterCount() {
 function onAddCommentSuccess(content) {
 	$(".ajaxloader").hide();
 	clearForm('#addCommentForm');
-	//TODO reduce textarea size to the initial one.
+	$("#commentContent").css("height","54px");
 	$("#commentId").val("");
 	$("#commentList").prepend( content );
 }
