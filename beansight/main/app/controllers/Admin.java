@@ -412,16 +412,18 @@ public class Admin extends Controller {
 	}
 
 	/** feature the given topic */
-	public static void featureTopic(Long topicId) {
+	public static void featureTopic(Long topicId, String lang) {
 		Topic topic = Topic.findById(topicId);
-		topic.feature();
-		renderText("Topic "+ topic.label +" was featured.");
+		Language language = Language.findByLabelOrCreate(lang);
+		topic.feature(language);
+		renderText("Topic "+ topic.label +" was featured in language " + language.label);
 	}
 	
 	/** stop featuring the given topic */
-	public static void stopFeatureTopic(Long topicId) {
+	public static void stopFeatureTopic(Long topicId, String lang) {
 		Topic topic = Topic.findById(topicId);
-		topic.stopFeature();
+		Language language = Language.findByLabelOrCreate(lang);
+		topic.stopFeature(language);
 		renderText("Topic "+ topic.label +" is not featured anymore.");
 	}
 	

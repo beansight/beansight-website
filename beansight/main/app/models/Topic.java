@@ -48,13 +48,13 @@ public class Topic extends Model {
 	}
 	
 	/** Set this topic as a featured topic*/
-	public void feature() {
-		new FeaturedTopic(this).save();
+	public void feature(Language language) {
+		new FeaturedTopic(this, language).save();
 	}
 	
 	/** Set the endDate of all the Featured Topics to today */
-	public void stopFeature() {
-		List<FeaturedTopic> topics = FeaturedTopic.find("byTopic", this).fetch();
+	public void stopFeature(Language language) {
+		List<FeaturedTopic> topics = FeaturedTopic.find("byTopicAndLanguage", this, language).fetch();
 		for(FeaturedTopic topic : topics) {
 			topic.endDate = new Date();
 			topic.save();

@@ -10,7 +10,12 @@ var deleteTopicAction = #{jsAction @Admin.deleteTopic(':topicId') /};
 
 	<ul>
 		#{list items:topics , as:'topic'}
-		<li id="li_${topic.id}"> <a href="#" id="deteleTopic" onclick="javascript: deleteTopic(${topic.id});">delete</a> / <a href="#" id='${topic.id}'>${topic.label}</a> (tags : #{list items:topic.tags, as:'tag'}${tag.label}#{/list}) <a href="@{Admin.featureTopic(topic.id)}">Feature</a><a href="@{Admin.stopFeatureTopic(topic.id)}">Stop Feature</a></li>
+        <li id="li_${topic.id}">
+		  <a href="#" id="deteleTopic" onclick="javascript: deleteTopic(${topic.id});">delete</a> / <a href="#" id='${topic.id}'>${topic.label}</a> (tags : #{list items:topic.tags, as:'tag'}${tag.label}#{/list})
+		  - Feature: 
+		  EN: <a href="@{Admin.featureTopic(topic.id, "en")}">start</a>/<a href="@{Admin.stopFeatureTopic(topic.id, "en")}">stop</a>
+		  - FR: <a href="@{Admin.featureTopic(topic.id, "fr")}">start</a>/<a href="@{Admin.stopFeatureTopic(topic.id, "fr")}">stop</a>
+        </li>
 		#{/list}
 	</ul>
 

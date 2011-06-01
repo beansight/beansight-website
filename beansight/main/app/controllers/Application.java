@@ -6,6 +6,7 @@ import helpers.InSitemap;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -201,7 +202,18 @@ public class Application extends Controller {
 			filterVote = "all";
 		}
 		
-		List<FeaturedTopic> featuredTopics = FeaturedTopic.findActive();
+		// Featured Topics
+		List<Language> writtenLanguages = new ArrayList<Language>();
+		if(Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+			writtenLanguages.add(currentUser.writtingLanguage);
+			if(currentUser.secondWrittingLanguage != null) {
+				writtenLanguages.add(currentUser.secondWrittingLanguage);
+			}
+		} else {
+			writtenLanguages.add( Language.findByLabelOrCreate(Lang.get()));
+		}
+		List<FeaturedTopic> featuredTopics = FeaturedTopic.findActive(writtenLanguages);
 		renderArgs.put("featuredTopics", featuredTopics);
 		
 		// return the real topic object
