@@ -1463,8 +1463,8 @@ public class User extends Model implements Comparable<User> {
 	 */
 	public List<FacebookFriend> findFriendsOnFacebookWhoAreOnBeansight() {
 		return User.find("select fbFriend from FacebookFriend fbFriend " +
-				"where fbFriend.user=:user and " +
-				"fbFriend.isBeansightUser is true")
+				"join fbFriend.beansightUserFriend " +
+				"where fbFriend.user=:user")
 				.bind("user", this)
 				.fetch();
 	}

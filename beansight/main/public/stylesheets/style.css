@@ -209,7 +209,7 @@ a:hover{color:#228392;}
 #content #sidebarleft .list-avatars-add .note { color: #AAAEAF; font-size: 12px;padding:0 6px; font-style: italic; }
 
 /* invite someone */
-#content #sidebarleft .invite { color: #AAAEAF; font-size: 12px;padding:0 6px; }
+#content #sidebarleft .invite { color: #AAAEAF; font-size: 12px;padding:0 6px; margin-top: 4px;}
 #content #sidebarleft .invite strong{font-weight:bold;}
 #content #sidebarleft .invite  input.input{ margin-top:5px;padding:3px 6px;-moz-border-radius:6px;-webkit-border-radius:6px;border:solid #eeeeee 2px;background-color:#fff;width:116px;font-size:12px;color:#6e7677;}
 .invite .inputsubmit{float:right;padding-top:5px;}

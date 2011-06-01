@@ -1092,6 +1092,7 @@ $(document).ready(function() {
 		submitHandler: function(form) {
 			$(".ajaxloader").show();
 	        $.ajax( {
+	        	type: "POST",
 	            url: addCommentAction(),
 	            data: $("#addCommentForm").serialize(),
 	            success: onAddCommentSuccess

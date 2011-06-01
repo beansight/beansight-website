@@ -101,7 +101,7 @@ public class Application extends Controller {
     /**
      * If the user is connected, load the needed info into the menu
      */
-    @Before(unless={"insightsFilter", "getInsights", "leaveYourEmail", "shareInsight", "agree", "disagree", "loadFollowedUsers", "toggleFollowingUser", "toggleFollowingInsight", "searchExperts", "moreSearchExperts", "showAvatarSmall", "showAvatarMedium", "showAvatarLarge", "editComment", "addComment"})
+    @Before(unless={"insightsFilter", "getInsights", "leaveYourEmail", "shareInsight", "agree", "disagree", "loadFollowedUsers", "toggleFollowingUser", "toggleFollowingInsight", "searchExperts", "moreSearchExperts", "showAvatarSmall", "showAvatarMedium", "showAvatarLarge", "editComment", "addComment", "favoriteUserSuggest", "displayOriginalUncropedImage", "getUserInsights"})
     public static void loadMenuData() {
         if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
