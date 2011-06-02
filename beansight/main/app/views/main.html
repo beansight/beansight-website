@@ -211,7 +211,6 @@ $(document).bind("keydown", ["g", "i"], function () {
 </script>
 
 <script type="text/javascript" charset="utf-8">
-  // Google Analytics
   var feedback_widget_options = {};
   feedback_widget_options.display = "overlay";  
   feedback_widget_options.company = "beansight";
@@ -220,6 +219,7 @@ $(document).bind("keydown", ["g", "i"], function () {
   feedback_widget_options.style = "idea";
   var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
   
+  // Google Analytics
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-16319303-1']);
 	_gaq.push(['_trackPageview']);
@@ -228,6 +228,14 @@ $(document).bind("keydown", ["g", "i"], function () {
 		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
+	
+   // Track logged users
+   #{isConnected}
+   _gaq.push(['_setCustomVar', 1, 'Logged', 'true', 3]);
+   #{/isConnected}
+   #{isNotConnected}
+   _gaq.push(['_setCustomVar', 1, 'Logged', 'false', 3]);
+   #{/isNotConnected}
 </script>
 
 
