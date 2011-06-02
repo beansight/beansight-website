@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.TimeSeriePoint;
+import helpers.TimeSeriePointHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,7 +121,7 @@ public class Admin extends Controller {
 			}
 			point.value = totalUser;
 		}
-		renderArgs.put("dailyNewUsers", dailyNewUsersMap.values());		
+		renderArgs.put("dailyNewUsers", dailyNewUsersMap.values()); // be careful, these values are not sorted by date.
 		renderArgs.put("dailyTotalUsers", dailyTotalUsersMap.values());
 		
 		
@@ -161,8 +162,11 @@ public class Admin extends Controller {
 			firstDate = firstDate.plusDays(1);
 		}
 		
-		renderArgs.put("activeUsers", 				activeUsersByDay);
-		renderArgs.put("activeUsersMinusNewUsers", 	activeUsersByDayMinusNewUsersByDay);
+		renderArgs.put("activeUsers", 				activeUsersByDay									);
+		renderArgs.put("activeUsersWeek", 			TimeSeriePointHelper.smooth( activeUsersByDay, 7) 	);
+		
+		renderArgs.put("activeUsersMinusNewUsers", 		activeUsersByDayMinusNewUsersByDay);
+		renderArgs.put("activeUsersMinusNewUsersWeek", 	TimeSeriePointHelper.smooth( activeUsersByDayMinusNewUsersByDay, 7) );
 		
 		render();
 	}
