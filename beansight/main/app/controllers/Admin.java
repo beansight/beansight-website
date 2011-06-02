@@ -78,18 +78,34 @@ public class Admin extends Controller {
 		render();
 	}
 	
+	public static void top() {
+		renderArgs.put("bestUserVotes", User.findBestVoters(20));
+		renderArgs.put("bestUserInsights", User.findBestCreators(20));
+		
+		// top 20 most read insights by registered users since last 7 days
+		List<Object[]> top20Insights = UserInsightVisit.find("select v.insight.uniqueId, v.insight.content, count(v) " +
+				"from UserInsightVisit v " +
+				"where v.creationDate > :crDate " +
+				"group by v.insight.id order by count(v) desc").
+				bind("crDate", new DateMidnight().minusDays(7).toDate()).fetch(20);
+		renderArgs.put("top20Insights", top20Insights);
+		
+		// last ten comments
+		List<Comment> comments = Comment.find("order by creationDate desc").fetch(15);
+		renderArgs.put("comments", comments);
+		
+		render();
+	}
+	
 	public static void analytics() {
 		renderArgs.put("dailyTotalVote", DailyTotalVote.findAll());
 		renderArgs.put("dailyTotalInsight", DailyTotalInsight.findAll());
 		renderArgs.put("dailyTotalComment", DailyTotalComment.findAll());
-		renderArgs.put("bestUserVotes", User.findBestVoters(20));
-		renderArgs.put("bestUserInsights", User.findBestCreators(20));
 
-		// total users evolution
+		// total users and new users evolution
 		Map<Date, TimeSeriePoint> dailyTotalUsersMap = new HashMap<Date, TimeSeriePoint>();
 		Map<Date, TimeSeriePoint> dailyNewUsersMap = new HashMap<Date, TimeSeriePoint>();
-		List<TimeSeriePoint> dailyNewUsersList = new ArrayList<TimeSeriePoint>();
-		List<User> users = User.all().fetch();
+		List<User> users = User.all().fetch(); // users are supposed to be sorted by creationDate
 		Double totalUser = 0d;
 		Double previousTotalUser = 0d; //used to calculate the size of daily new users
 		for (User user : users) {
@@ -100,60 +116,53 @@ public class Admin extends Controller {
 				point = new TimeSeriePoint(date.toDate(), totalUser);
 				dailyTotalUsersMap.put(date.toDate(), point);
 				dailyNewUsersMap.put(date.toDate(), new TimeSeriePoint(date.toDate(), totalUser - previousTotalUser));
-				dailyNewUsersList.add(new TimeSeriePoint(date.toDate(), totalUser - previousTotalUser));
 				previousTotalUser = totalUser;
 			}
 			point.value = totalUser;
 		}
+		renderArgs.put("dailyNewUsers", dailyNewUsersMap.values());		
 		renderArgs.put("dailyTotalUsers", dailyTotalUsersMap.values());
 		
-		// top 20 most read insights by registered users since last 7 days
-		List<Object[]> top20Insights = UserInsightVisit.find("select v.insight.uniqueId, v.insight.content, count(v) " +
-				"from UserInsightVisit v " +
-				"where v.creationDate > :crDate " +
-				"group by v.insight.id order by count(v) desc").
-				bind("crDate", new DateMidnight().minusDays(7).toDate()).fetch(20);
-		renderArgs.put("top20Insights", top20Insights);
 		
-		// % active users / day
-		int DAYS = 1;
-		Map<DateMidnight, Set<Long>> visitsDayMap = new HashMap<DateMidnight, Set<Long>>();
+		Map<DateMidnight, Set<Long>> uniqueUserVisitsDayMap = new HashMap<DateMidnight, Set<Long>>(); // a map to store the IDs of logged user each day
+		Map<DateMidnight, Integer> activeUserbyDayMap = new HashMap<DateMidnight, Integer>();
+		
 		List<UserListInsightsVisit> list = UserListInsightsVisit.all().fetch(); 
 		DateMidnight firstDate = new DateMidnight( list.get(0).creationDate );
 		for (UserListInsightsVisit v : list) {
 			DateMidnight date = new DateMidnight(v.creationDate);
-			if (!visitsDayMap.containsKey(date)) {
-				visitsDayMap.put(date, new HashSet<Long>());
+			if (!uniqueUserVisitsDayMap.containsKey(date)) {
+				uniqueUserVisitsDayMap.put(date, new HashSet<Long>());
+				activeUserbyDayMap.put(date, 0);
 			}
-			visitsDayMap.get(date).add(v.user.id);
+			uniqueUserVisitsDayMap.get(date).add(v.user.id);
+			activeUserbyDayMap.put(date, uniqueUserVisitsDayMap.get(date).size());
 		}
 		
+		List<TimeSeriePoint> activeUsersByDay = new ArrayList<TimeSeriePoint>();
+		List<TimeSeriePoint> activeUsersByDayMinusNewUsersByDay = new ArrayList<TimeSeriePoint>();
 		List<TimeSeriePoint> prctActiveUsersByDay = new ArrayList<TimeSeriePoint>();
 		List<TimeSeriePoint> prctActiveUsersMinusNewUsersByDay = new ArrayList<TimeSeriePoint>();
-		CircularFifoBuffer fifo = new CircularFifoBuffer(DAYS);
-		while (!visitsDayMap.isEmpty()) {
-			fifo.add(visitsDayMap.get(firstDate).size());
-			visitsDayMap.remove(firstDate);
-			if (fifo.size()==DAYS) {
-				Iterator it = fifo.iterator();
-				Double total = 0d;
-				while (it.hasNext()) {
-					total = total + (Integer)it.next();
-				}
-				if (dailyTotalUsersMap.get(firstDate.toDate()) != null) {
-					prctActiveUsersByDay.add(new TimeSeriePoint(firstDate.toDate(), (total/DAYS)/dailyTotalUsersMap.get(firstDate.toDate()).value * 100 ) );
-					prctActiveUsersMinusNewUsersByDay.add(new TimeSeriePoint(firstDate.toDate(), (total/DAYS)/(dailyTotalUsersMap.get(firstDate.toDate()).value - dailyNewUsersMap.get(firstDate.toDate()).value) * 100 ) );
-				}
+		
+		Integer totalActiveUserToday;
+		while (!activeUserbyDayMap.isEmpty()) {
+			totalActiveUserToday = activeUserbyDayMap.get(firstDate);
+			activeUserbyDayMap.remove(firstDate);
+			
+			Date datePlusOne = firstDate.plusDays(1).toDate();
+			if(totalActiveUserToday != null && dailyNewUsersMap.get(datePlusOne) != null) {
+				// We don't know why but there is a decay of one day between these data and the dailyNewUsers data. So add a day.
+				activeUsersByDay.add(					new TimeSeriePoint(firstDate.toDate(), totalActiveUserToday.doubleValue() ) );
+				activeUsersByDayMinusNewUsersByDay.add(	new TimeSeriePoint(firstDate.toDate(), totalActiveUserToday - dailyNewUsersMap.get(datePlusOne).value ) );
+				
+				prctActiveUsersByDay.add(				new TimeSeriePoint(firstDate.toDate(), totalActiveUserToday.doubleValue() / dailyTotalUsersMap.get(firstDate.toDate()).value * 100 ) );
+				prctActiveUsersMinusNewUsersByDay.add(	new TimeSeriePoint(firstDate.toDate(), totalActiveUserToday.doubleValue() /(dailyTotalUsersMap.get(firstDate.toDate()).value - dailyNewUsersMap.get(firstDate.toDate()).value) * 100 ) );
 			}
 			firstDate = firstDate.plusDays(1);
 		}
-		renderArgs.put("activeUsers", prctActiveUsersByDay);
-		renderArgs.put("activeUsersMinusNewUsers", prctActiveUsersMinusNewUsersByDay);
-		renderArgs.put("dailyNewUsers", dailyNewUsersList);
 		
-		// last ten comments
-		List<Comment> comments = Comment.find("order by creationDate desc").fetch(15);
-		renderArgs.put("comments", comments);
+		renderArgs.put("activeUsers", 				activeUsersByDay);
+		renderArgs.put("activeUsersMinusNewUsers", 	activeUsersByDayMinusNewUsersByDay);
 		
 		render();
 	}

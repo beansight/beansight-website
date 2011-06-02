@@ -104,27 +104,11 @@ h3 {margin: 20px 0; font-weight: bold;}
           chart4.draw(data4, {displayAnnotations: true});
         }
         
-        google.setOnLoadCallback(drawTable);
-          function drawTable() {
-            var top20InsightsData = new google.visualization.DataTable();
-            top20InsightsData.addColumn('string', 'prediction');
-            top20InsightsData.addColumn('number', 'visits');
-            top20InsightsData.addRows([
-            #{list items:top20Insights, as:'insight'} 
-              ["${insight[1].abbreviate(40)}", ${insight[2]}]#{if !insight_isLast},#{/if}
-            #{/list}
-            ]);
-
-            var table = new google.visualization.Table(document.getElementById('mostVisitedPredictionLast7Days'));
-            table.draw(top20InsightsData, {showRowNumber: false, height:'250px'});
-
-          }    
-          
             google.setOnLoadCallback(drawChart5);
             function drawChart5() {
               var data5 = new google.visualization.DataTable();
               data5.addColumn('date', 'Date');
-              data5.addColumn('number', '% Users');
+              data5.addColumn('number', 'Users');
               data5.addColumn('string', 'title1');
               data5.addColumn('string', 'text1');
               data5.addRows([
@@ -141,7 +125,7 @@ h3 {margin: 20px 0; font-weight: bold;}
             function drawChart6() {
               var data6 = new google.visualization.DataTable();
               data6.addColumn('date', 'Date');
-              data6.addColumn('number', '% Users');
+              data6.addColumn('number', 'Users');
               data6.addColumn('string', 'title1');
               data6.addColumn('string', 'text1');
               data6.addRows([
@@ -174,24 +158,6 @@ h3 {margin: 20px 0; font-weight: bold;}
     </script>
 #{/set}
 
-<div class="analyticsbloc">
-    <h3>Most votes this week</h3>
-<ul>
-        #{list items:bestUserVotes, as:'userVote'} 
-          <li><a href="@{Application.showUser(userVote.user.userName)}">${userVote.user.userName}</a> - ${userVote.count}</li>
-        #{/list}
-</ul>        
-</div>
-
-<div class="analyticsbloc">
-    <h3>Most predictions created this week</h3>
-<ul>
-        #{list items:bestUserInsights, as:'userVote'} 
-          <li><a href="@{Application.showUser(userVote.user.userName)}">${userVote.user.userName}</a> - ${userVote.count}</li>
-        #{/list}
-</ul>    
-</div>
-
 <div class="analyticsbloc large">
     <h3>Total Votes (and Predictions and Comments)</h3>
     <div id="dailyChart" class="analytics-graph"></div>
@@ -213,30 +179,14 @@ h3 {margin: 20px 0; font-weight: bold;}
     <div id="dailyTotalUsersChart" class="analytics-graph"></div>
 </div>
 <div class="analyticsbloc large">
-
+    <h3>New users per day</h3> 
+    <div id="dailyNewUsersChart" class="analytics-graph"></div>
 </div>
 <div class="analyticsbloc large">
-    <h3>Top 20 visited predictions last 7 days</h3>
-    <div id="mostVisitedPredictionLast7Days" class="analytics-graph"></div>
-</div>
-<div class="analyticsbloc large">
-    <h3>% active Users / day</h3> 
+    <h3>active Users</h3> 
     <div id="activeUsersChart" class="analytics-graph"></div>
 </div>
 <div class="analyticsbloc large">
-    <h3>% active Users minus new users / day</h3> 
+    <h3>returning users (active users - new users)</h3> 
     <div id="activeUsersMinusNewUsersChart" class="analytics-graph"></div>
-</div>
-<div class="analyticsbloc large">
-    <h3>New users / day</h3> 
-    <div id="dailyNewUsersChart" class="analytics-graph"></div>
-</div>
-
-<div class="analyticsbloc">
-    <h3>Last ten comments</h3>
-<ul>
-        #{list items:comments, as:'comment'} 
-          <li><a href="@{Application.showInsight(comment.insight.uniqueId)}">${comment.insight.content.abbreviate(20)}</a> (${comment.creationDate.format('dd MMMM yyyy hh:mm')})(${comment.user.userName})</li>
-        #{/list}
-</ul>    
 </div>

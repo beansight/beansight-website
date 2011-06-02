@@ -1,0 +1,71 @@
+ #{extends 'main.html' /}
+#{set title:'Mesurbation' /}
+
+<h2>Best of the best</h2>
+
+#{set 'moreStyles'}
+<style type="text/css">
+.analytics-graph {width: 450px; height: 240px; margin-bottom: 50px;}
+
+h3 {margin: 20px 0; font-weight: bold;}
+
+.analyticsbloc {float:left; width:300px;}
+.analyticsbloc.large {width:470px;}
+</style>
+#{/set}
+
+#{set 'moreScripts'}
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {'packages':['annotatedtimeline', 'table']});
+        
+        google.setOnLoadCallback(drawTable);
+          function drawTable() {
+            var top20InsightsData = new google.visualization.DataTable();
+            top20InsightsData.addColumn('string', 'prediction');
+            top20InsightsData.addColumn('number', 'visits');
+            top20InsightsData.addRows([
+            #{list items:top20Insights, as:'insight'} 
+              ["${insight[1].abbreviate(40)}", ${insight[2]}]#{if !insight_isLast},#{/if}
+            #{/list}
+            ]);
+
+            var table = new google.visualization.Table(document.getElementById('mostVisitedPredictionLast7Days'));
+            table.draw(top20InsightsData, {showRowNumber: false, height:'250px'});
+
+          }    
+    </script>
+#{/set}
+
+<div class="analyticsbloc">
+    <h3>Most votes this week</h3>
+<ul>
+        #{list items:bestUserVotes, as:'userVote'} 
+          <li><a href="@{Application.showUser(userVote.user.userName)}">${userVote.user.userName}</a> - ${userVote.count}</li>
+        #{/list}
+</ul>        
+</div>
+
+<div class="analyticsbloc">
+    <h3>Most predictions created this week</h3>
+<ul>
+        #{list items:bestUserInsights, as:'userVote'} 
+          <li><a href="@{Application.showUser(userVote.user.userName)}">${userVote.user.userName}</a> - ${userVote.count}</li>
+        #{/list}
+</ul>    
+</div>
+
+
+<div class="analyticsbloc large">
+    <h3>Top 20 visited predictions last 7 days</h3>
+    <div id="mostVisitedPredictionLast7Days" class="analytics-graph"></div>
+</div>
+
+<div class="analyticsbloc">
+    <h3>Last ten comments</h3>
+<ul>
+        #{list items:comments, as:'comment'} 
+          <li><a href="@{Application.showInsight(comment.insight.uniqueId)}">${comment.insight.content.abbreviate(20)}</a> (${comment.creationDate.format('dd MMMM yyyy hh:mm')})(${comment.user.userName})</li>
+        #{/list}
+</ul>    
+</div>
