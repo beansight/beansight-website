@@ -278,6 +278,9 @@ public class Insight extends Model {
 		Comment comment = new Comment(user, this, content);
 		comment.save();
 
+		// if the user is dangerous, do not sent notifications
+		if(!user.isDangerous) {
+		
 		// users that are mentioned and that are going to receive a notification
 		Set<User> usersMentioned= new HashSet<User>();
 		
@@ -342,6 +345,7 @@ public class Insight extends Model {
 				NewCommentNotificationMailTask task = new NewCommentNotificationMailTask(notification);
 				task.save();
 			}
+		}
 		}
 		
 		this.lastUpdated = new Date();

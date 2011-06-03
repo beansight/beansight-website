@@ -209,6 +209,8 @@ public class User extends Model implements Comparable<User> {
 	/** Is this user a paying customer of Beansight ? */
 	public boolean sponsor;
 	
+	/** Is this user dangerous? */
+	public boolean isDangerous;
 	
 	public User(String email, String userName, String password) {
 		if (!User.isUsernameAvailable(userName)) {
@@ -1160,10 +1162,13 @@ public class User extends Model implements Comparable<User> {
 		Message message = new Message(this, user, content);
 		message.save();
 
-		// send a mail if this user accepts it
-		if(this.messageMail) {
-			MessageMailTask task = new MessageMailTask(message);
-			task.save();
+		// if the sending user is dangerous, do not send notification
+		if(!this.isDangerous) {
+			// send a mail if the target user accepts it
+			if(user.messageMail) {
+				MessageMailTask task = new MessageMailTask(message);
+				task.save();
+			}
 		}
 		
 		return true;

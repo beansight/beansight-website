@@ -26,6 +26,7 @@ import models.Insight;
 import models.Insight.InsightResult;
 import models.InsightTrend;
 import models.Language;
+import models.Message;
 import models.Tag;
 import models.Topic;
 import models.User;
@@ -571,7 +572,9 @@ public class Application extends Controller {
 
 		List<UserCategoryScore> categoryScores = user.getLatestCategoryScores();
 		
-		render(user, categoryScores, currentUserProfilePage);
+		List<Message> directMessages = Message.find("byFromUser", user).fetch();
+		
+		render(user, categoryScores, currentUserProfilePage, directMessages);
 	}
 
 	/**

@@ -169,6 +169,11 @@
         <input type="text" name="number" />
         <input type="submit" name="submit" value="Add" />
     #{/form}
+    <h4>Dangerous</h4>
+    <p>
+        #{if user.isDangerous}This user is Dangerous. <a href="@{Admin.makeDangerousUser(user.id, false)}">remove dangerous</a>#{/if}
+        #{else}<a href="@{Admin.makeDangerousUser(user.id, true)}">make dangerous</a>#{/else}
+    </p>
     <h4>Sponsor</h4>
     <p>
         #{if user.sponsor}This user is a sponsor#{/if}
@@ -180,6 +185,12 @@
         <li>- <a href="@{Application.showInsight(comment.insight.uniqueId)}">${comment.content}</a></li>  
     #{/list}
     </ul>
+    <h4>Messages</h4>
+    <ul>
+    #{list items:directMessages, as:'mess'}
+        <li>- ${mess.content}</li>  
+    #{/list}
+    </ul>    
 </div>
 #{/secure.check}
 #{/isConnected}

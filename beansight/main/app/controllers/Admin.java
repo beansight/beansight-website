@@ -75,6 +75,16 @@ public class Admin extends Controller {
 		Application.showUser(user.userName);
 	}
 	
+	/**
+	 * flag this user as a dangerous
+	 */
+	public static void makeDangerousUser(long userId, boolean dangerous) {
+		User user = User.findById(userId);
+		user.isDangerous = dangerous;
+		user.save();
+		Application.showUser(user.userName);
+	}
+	
 	public static void index() {
 		renderArgs.put("userTotal", User.count());
 		
