@@ -2,8 +2,11 @@ package controllers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.UUID;
+
 import play.Play;
 import play.mvc.*;
+import play.cache.Cache;
 import play.data.validation.*;
 import play.libs.*;
 import play.utils.*;
@@ -75,6 +78,15 @@ public class Secure extends Controller {
         if(remember) {
             response.setCookie("rememberme", Crypto.sign(username) + "-" + username, "30d");
         }
+        
+        // is it an authentication to use the API ?
+        if (session.get(OpenApi.API_URL_CALLBACK) != null) {
+        	UUID uuid = UUID.randomUUID();
+        	Cache.add(uuid.toString(), username);
+        	redirect(String.format("%s#access_token=%s", session.get("api_url_callback"), uuid.toString()));
+        	return;
+        }
+        
         // Redirect to the original URL (or /)
         redirectToOriginalURL();
     }
