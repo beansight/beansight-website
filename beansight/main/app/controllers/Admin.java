@@ -76,6 +76,8 @@ public class Admin extends Controller {
 	}
 	
 	public static void index() {
+		renderArgs.put("userTotal", User.count());
+		
 		render();
 	}
 	
