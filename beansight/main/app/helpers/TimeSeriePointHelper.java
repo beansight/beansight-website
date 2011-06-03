@@ -10,10 +10,10 @@ public class TimeSeriePointHelper {
 	public static List<TimeSeriePoint> smooth(List<TimeSeriePoint> serie,
 			int days) {
 		List<TimeSeriePoint> result = new ArrayList<TimeSeriePoint>();
-		for (int i = 0; i < serie.size() - days; i++) {
+		for (int i = days; i < serie.size(); i++) {
 			double sum = 0;
 			for(int j=0; j < days; j++) {
-				sum += serie.get(i + j).value;
+				sum += serie.get(i - j).value;
 			}
 			result.add( new TimeSeriePoint(serie.get(i).date, sum / days) );
 		}

@@ -112,7 +112,7 @@ h3 {margin: 20px 0; font-weight: bold;}
               data5.addColumn('number', 'Users 7 days');
               data5.addRows([
               #{list items:activeUsers, as:'value'} 
-                [new Date(${value.date.getTime()}), ${value.value}, #{if value_index - 1 < activeUsersWeek.size()}${ activeUsersWeek.get(value_index - 1).value }#{/if}#{else}undefined#{/else}]#{if !value_isLast},#{/if}
+                [new Date(${value.date.getTime()}), ${value.value}, #{if value_index - 7 > 0 && value_index -7 - 1 < activeUsersWeek.size()}${ activeUsersWeek.get(value_index - 7 - 1).value }#{/if}#{else}undefined#{/else}]#{if !value_isLast},#{/if}
               #{/list}
               ]);
 
@@ -128,7 +128,7 @@ h3 {margin: 20px 0; font-weight: bold;}
               data6.addColumn('number', 'Users 7days');
               data6.addRows([
               #{list items:activeUsersMinusNewUsers, as:'value'} 
-                [new Date(${value.date.getTime()}),  ${value.value}, #{if value_index - 1 < activeUsersMinusNewUsersWeek.size()}${ activeUsersMinusNewUsersWeek.get(value_index - 1).value }#{/if}#{else}undefined#{/else}]#{if !value_isLast},#{/if}
+                [new Date(${value.date.getTime()}),  ${value.value}, #{if value_index - 7 > 0 && value_index - 7 -1 < activeUsersMinusNewUsersWeek.size()}${ activeUsersMinusNewUsersWeek.get(value_index - 7 - 1).value }#{/if}#{else}undefined#{/else}]#{if !value_isLast},#{/if}
               #{/list}
               ]);
 
