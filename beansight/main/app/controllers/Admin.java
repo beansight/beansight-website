@@ -182,6 +182,68 @@ public class Admin extends Controller {
 		
 		render();
 	}
+	
+	/**
+	 * Analytics about the returning users.
+	 * @param dateFrom : the date from which to start the experiment. 
+	 * @param daysRange : account creations done between dateFrom and dateFrom + daysRange will be taken into account.
+	 * @param comebackInXXDays : we will measure the number of times a new user came back in the comebackInXXDays days after account creation.
+	 * @param reLogStepHours : after how much hour a new visit is considered as a re-log.
+	 */
+	public static void countVisits(@As("yyyy-MM-dd") Date dateFrom, Integer daysRange, Integer comebackInXXDays, Integer reLogStepHours) {
+		if(reLogStepHours == null) {
+			reLogStepHours = 12;
+		}
+		if(daysRange == null) {
+			daysRange = 15;
+		}
+		if(dateFrom == null) {
+			dateFrom = new DateTime().minusDays(daysRange).toDate();
+		}
+		if (comebackInXXDays == null) {
+			comebackInXXDays = 15;			
+		}
+		Date dateTo = new DateTime(dateFrom).plusDays(daysRange).toDate();
+
+		// select all users who created an accoutn between the two dates
+		List<User> createdAccounts = User.find("crdate > ? and crdate < ?", dateFrom, dateTo).fetch();
+		renderArgs.put("createdAccountsNumber", createdAccounts.size());
+
+		// get all the visits of these users
+		List<UserListInsightsVisit> visits = UserListInsightsVisit.find("creationDate < ? and user.id in (select id from User where crdate > ? and crdate < ?)", new DateTime(dateFrom).plusDays(daysRange + comebackInXXDays ).toDate(), dateFrom, dateTo ).fetch();
+
+		Map<Integer, Integer> count = new HashMap<Integer, Integer>(); // map <number of log, number of users>
+		int countVar = 0; // for a user, count how much time he came
+		Date lastLog = null; // this is the last date a given user came
+		for(User u : createdAccounts) {
+			for(UserListInsightsVisit visit : visits) {
+				if(visit.user == u
+						&& visit.creationDate.after(new DateTime(u.getCrdate()).plusHours(reLogStepHours).toDate()) 
+						&& visit.creationDate.before(new DateTime(u.getCrdate()).plusDays(comebackInXXDays).toDate()) 
+						&& (lastLog == null || visit.creationDate.after(new DateTime(lastLog).plusHours(reLogStepHours).toDate()))) {
+					countVar++;
+					lastLog = visit.creationDate;
+					Integer tmp = count.get(countVar);
+					if(tmp == null) {
+						tmp = 0;
+					}
+					count.put(countVar, tmp + 1 );
+					
+				}
+			}
+			countVar = 0;
+			lastLog = null;
+		}
+		
+		
+		renderArgs.put("onceInTheWeek", count.get(1));
+		renderArgs.put("twiceInTheWeek", count.get(2));
+		
+		
+		
+		render(dateFrom, dateTo, comebackInXXDays, count, reLogStepHours);
+		
+	}
 
 	/**
 	 * Run this action to rebuild all search indexes

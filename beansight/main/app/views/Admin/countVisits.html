@@ -1,0 +1,18 @@
+#{extends 'main.html' /}
+#{set title:'Count visits' /}
+
+<h2>Count visits</h2>
+
+<div>
+    <h3>Users who created an account between ${dateFrom} and ${dateTo}. And who came back in the next ${comebackInXXDays} days.</h3>
+    
+    <p>Account created : ${createdAccountsNumber}</p>
+    <p>re-log once in the ${comebackInXXDays} days after creation : ${onceInTheWeek}</p>
+    <p>re-log twice in the ${comebackInXXDays} days after creation : ${twiceInTheWeek}</p>
+    
+    <p>full metrics:${count}</p>
+    
+    <p>We consider a re-log when you re-log ${reLogStepHours} hours after a previous log. Someone who came twice also came once.</p>
+    <p>Example how to use this page: admin/countvisits?dateFrom=2011-05-15&daysRange=15&comebackInXXDays=10&reLogStepHours=12</p>
+
+</div>
