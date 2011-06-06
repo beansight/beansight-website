@@ -367,6 +367,18 @@ public class User extends Model implements Comparable<User> {
 	public Date getCrdate() {
 		return crdate;
 	}
+	
+	/**
+	 * @return a list of the languages this user writes.
+	 */
+	public List<Language> getWrittingLanguages() {
+		List<Language> langs = new ArrayList<Language>();
+		langs.add(this.writtingLanguage);
+		if(this.secondWrittingLanguage != null) {
+			langs.add(this.secondWrittingLanguage);
+		}
+		return langs;
+	}
 
 	/**
 	 * originalImage : original image file to use to create all avatar image size

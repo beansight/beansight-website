@@ -65,9 +65,9 @@ public class FeaturedSponsor extends Model {
 	 * return all the featured sponsor that are currently active
 	 * @return
 	 */
-	public static List<FeaturedSponsor> findActive(Language language) {
+	public static List<FeaturedSponsor> findActive(List<Language> langs) {
 		Date today = new Date();
-		return FeaturedSponsor.find("startDate < ? and endDate > ? and language = ? order by startDate desc", today, today, language).fetch();
+		return FeaturedSponsor.find("startDate < :startDate and endDate > :endDate and language in (:langs) order by startDate desc").bind("startDate", today).bind("endDate", today).bind("langs", langs).fetch();
 	}
 
 }

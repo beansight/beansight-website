@@ -122,7 +122,7 @@ public class Application extends Controller {
 			renderArgs.put("invitationsLeft", currentUser.invitationsLeft);
 
 			// if connected, display featured sponsors
-			List<FeaturedSponsor> featuredSponsors = FeaturedSponsor.findActive(currentUser.writtingLanguage);
+			List<FeaturedSponsor> featuredSponsors = FeaturedSponsor.findActive(currentUser.getWrittingLanguages());
 			if(!featuredSponsors.isEmpty()) {
 				FeaturedSponsor sponsor =  featuredSponsors.get(0);
 				// do not check if already voted, always show.
@@ -324,7 +324,7 @@ public class Application extends Controller {
 				if(from == 0) {
 					User currentUser = CurrentUser.getCurrentUser();
 					// if any, add featured insights to the result
-					List<FeaturedInsight> featuredInsights = FeaturedInsight.findActive(currentUser.writtingLanguage);
+					List<FeaturedInsight> featuredInsights = FeaturedInsight.findActive(currentUser.getWrittingLanguages());
 					for(FeaturedInsight featured : featuredInsights) {
 						// if the insight is not already in the result and if the user hasn't voted, display it at the top.
 						if(!result.results.contains(featured.insight) && Vote.findLastVoteByUserAndInsight(currentUser.id, featured.insight.uniqueId) == null) {

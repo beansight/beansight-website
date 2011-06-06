@@ -53,9 +53,9 @@ public class FeaturedInsight extends Model {
 	 * return all the featured insights that are currently active
 	 * @return
 	 */
-	public static List<FeaturedInsight> findActive(Language lang) {
+	public static List<FeaturedInsight> findActive(List<Language> langs) {
 		Date today = new Date();
-		return FeaturedInsight.find("startDate < ? and endDate > ? and insight.lang = ? order by startDate desc", today, today, lang).fetch();
+		return FeaturedInsight.find("startDate < :startDate and endDate > :endDate and insight.lang in (:langs) order by startDate desc").bind("startDate", today).bind("endDate", today).bind("langs", langs).fetch();
 	}
 
 }
