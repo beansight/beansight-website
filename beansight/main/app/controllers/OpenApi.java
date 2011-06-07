@@ -11,6 +11,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
+import com.google.gson.Gson;
+
 import models.Category;
 import models.Filter;
 import models.Insight;
@@ -21,6 +23,7 @@ import models.Filter.FilterType;
 import models.Insight.InsightResult;
 import models.Vote.State;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
+import play.Logger;
 import play.Play;
 import play.cache.Cache;
 import play.data.validation.Max;
@@ -28,10 +31,36 @@ import play.data.validation.Min;
 import play.data.validation.Required;
 import play.libs.WS;
 import play.mvc.*;
+import play.mvc.results.RenderHtml;
+import play.mvc.results.RenderText;
 
 public class OpenApi extends Controller {
 
 	public static final String API_URL_CALLBACK = "api_url_callback";
+	public static final String API_JSON_CALLBACK = "callback";
+	
+	/**
+	 * prepend the "callback" parameter to the JSON serialization of the object
+	 * @param o : object to serialize
+	 * @param callback : callback to prepend
+	 */
+	protected static void renderJSONP(Object o, String callback) {
+		renderText( callback + "(" + new Gson().toJson(o) + ")" );
+	}
+	
+	/**
+	 * render the object either in JSON or JSONP, depending on the presence of the "callback" parameter
+	 * @param o : JSON Object to render
+	 */
+	protected static void renderAPI(Object o) {
+		String callback = params.get(API_JSON_CALLBACK);
+		Logger.info(callback);
+		if(callback != null) {
+			renderJSONP(o, callback);
+		} else {
+			renderJSON(o);
+		}
+	}
 	
 	// TODO : what if the content evolves between two calls ?
 	// Maybe a better solution would be to give the uniqueId of the latest
@@ -63,10 +92,10 @@ public class OpenApi extends Controller {
 	 * @return [{content, startDate, endDate, category, agreeCount,
 	 *         disagreeCount, currentUserVote}, ...]
 	 */
-	public static void getInsights(@Required String accessToken, @Min(0) Integer from,
+	public static void getInsights(@Required String access_token, @Min(0) Integer from,
 			@Min(1) @Max(100) Integer number, String sort, Integer category,
 			String vote, String topic, Boolean closed, Boolean created) {
-		checkAccessToken(accessToken);
+		checkAccessToken(access_token);
 		
 		if(validation.hasErrors()) {
 			error();
@@ -116,7 +145,7 @@ public class OpenApi extends Controller {
 			jsonResult.add(insightResult);
 		}
 
-		renderJSON(jsonResult);
+		renderAPI(jsonResult);
 	}
 
 	/**
@@ -126,16 +155,16 @@ public class OpenApi extends Controller {
 	 * @return {content, endDate, startDate, category, agreeCount,
 	 *         disagreeCount, comments[], tags[] }
 	 */
-	public static void getInsight(@Required String accessToken, @Required String insightUniqueId) {
-		checkAccessToken(accessToken);
+	public static void getInsight(@Required String access_token, @Required String insightUniqueId) {
+		checkAccessToken(access_token);
 		if(validation.hasErrors()) {
 			error();
 		}
-		renderJSON(getInsightResult(accessToken, insightUniqueId));
+		renderJSON(getInsightResult(access_token, insightUniqueId));
 	}
 	
-	public static Map<String, Object> getInsightResult(@Required String accessToken, String insightUniqueId) {
-		checkAccessToken(accessToken);
+	public static Map<String, Object> getInsightResult(@Required String access_token, String insightUniqueId) {
+		checkAccessToken(access_token);
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("uniqueId", insight.uniqueId);
@@ -175,8 +204,8 @@ public class OpenApi extends Controller {
 	 * @param insightUniqueId
 	 * @return {uniqueId, updatedAgreeCount, updatedDisagreeCount, voteState}
 	 */
-	public static void agree(@Required String accessToken, @Required String insightUniqueId) {
-		vote(accessToken, insightUniqueId, State.AGREE);
+	public static void agree(@Required String access_token, @Required String insightUniqueId) {
+		vote(access_token, insightUniqueId, State.AGREE);
 	}
 
 	/**
@@ -185,8 +214,8 @@ public class OpenApi extends Controller {
 	 * @param insightId
 	 * @return {uniqueId, updatedAgreeCount, updatedDisagreeCount, voteState}
 	 */
-	public static void disagree(@Required String accessToken, @Required String insightUniqueId) {
-		vote(accessToken, insightUniqueId, State.DISAGREE);
+	public static void disagree(@Required String access_token, @Required String insightUniqueId) {
+		vote(access_token, insightUniqueId, State.DISAGREE);
 	}
 
 	/**
@@ -199,8 +228,8 @@ public class OpenApi extends Controller {
 		renderJSON(categories);
 	}
 
-	private static void vote(@Required String accessToken, String insightUniqueId, State voteState) {
-		User currentUser = checkAccessToken(accessToken);
+	private static void vote(@Required String access_token, String insightUniqueId, State voteState) {
+		User currentUser = checkAccessToken(access_token);
 
 		try {
 			currentUser.voteToInsight(insightUniqueId, voteState);
@@ -241,14 +270,14 @@ public class OpenApi extends Controller {
 	}
 	
 	/**
-	 * private method to check if the accessToken has been authentified
-	 * @param accessToken
+	 * private method to check if the access_token has been authentified
+	 * @param access_token
 	 * @return
 	 */
-	private static User checkAccessToken(String accessToken) {
-		String email = (String)Cache.get(accessToken);
+	private static User checkAccessToken(String access_token) {
+		String email = (String)Cache.get(access_token);
 		if (email == null) {
-			renderText("provided access_token is not available %s", accessToken);
+			renderText("provided access_token is not available %s", access_token);
 			return null;
 		} else {
 			User user = User.findByEmail(email);
