@@ -47,14 +47,11 @@ public class OpenApi extends Controller {
 	public static void checkAccessToken() {
 		String accessToken = params.get(API_ACCESS_TOKEN);
 		if(accessToken == null) {
-			// TODO generate error
-			renderText(API_ACCESS_TOKEN + " parameter is needed.");
+			badRequest(); // error
 		}
-		
 		String email = (String)Cache.get(accessToken);
 		if (email == null) {
-			// TODO generate error
-			renderText("The provided access_token %s is not valid.", accessToken);
+			forbidden("The provided access_token " +  accessToken + " is not valid."); // error
 		}
 	}
 	
@@ -83,7 +80,6 @@ public class OpenApi extends Controller {
 	 */
 	protected static void renderAPI(Object o) {
 		String callback = params.get(API_JSON_CALLBACK);
-		Logger.info(callback);
 		if(callback != null) {
 			renderJSONP(o, callback);
 		} else {
