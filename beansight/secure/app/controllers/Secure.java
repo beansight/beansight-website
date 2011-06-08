@@ -80,7 +80,7 @@ public class Secure extends Controller {
         }
         
         // is it an authentication to use the API ?
-        if (session.get(OpenApi.API_URL_CALLBACK) != null) {
+        if (session.get(APIController.API_URL_CALLBACK) != null) {
         	UUID uuid = UUID.randomUUID();
         	Cache.add(uuid.toString(), username);
         	redirect(String.format("%s#access_token=%s", session.get("api_url_callback"), uuid.toString()));
