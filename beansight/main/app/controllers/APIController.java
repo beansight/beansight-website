@@ -2,6 +2,7 @@ package controllers;
 
 import models.User;
 import play.cache.Cache;
+import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
@@ -17,7 +18,7 @@ public class APIController extends Controller {
 	/**
 	 * Check before every API call that the accessToken is valid
 	 */
-	@Before(unless={"authenticate", "authenticateSuccess"})
+	@Before(unless={"authenticate", "authenticateSuccess", "isAuthenticated"})
 	public static void checkAccessToken() {
 		String accessToken = params.get(API_ACCESS_TOKEN);
 		if(accessToken == null) {
@@ -77,4 +78,15 @@ public class APIController extends Controller {
 		render();
 	}
 	
+	/**
+	 * call this action to check if the access_token is still active
+	 * @param access_token
+	 */
+	public static void isAuthenticated(@Required String access_token) {
+		String email = (String)Cache.get(access_token);
+		if (email == null || email.trim().equals("")) {
+			renderText("false");
+		}
+		renderText(true);
+	}
 }

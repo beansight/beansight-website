@@ -60,6 +60,7 @@ GET     /public/                                staticDir:public
 
 # API
 GET     /api/authenticate                       APIController.authenticate
+GET     /api/isauthenticated                    APIController.isAuthenticated
 GET     /api/insights/{action}                  APIInsights.{action}
 
 # Catch all
