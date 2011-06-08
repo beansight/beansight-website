@@ -58,5 +58,9 @@ GET     /public/                                staticDir:public
 # Mobile version
 *     /                       module:beansight-mobile
 
+# API
+GET     /api/authenticate                       APIController.authenticate
+GET     /api/insights/{action}                  APIInsights.{action}
+
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

@@ -4,89 +4,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
-
-import com.google.gson.Gson;
 
 import models.Category;
 import models.Filter;
+import models.Filter.FilterType;
 import models.Insight;
+import models.Insight.InsightResult;
 import models.Language;
 import models.User;
 import models.Vote;
-import models.Filter.FilterType;
-import models.Insight.InsightResult;
 import models.Vote.State;
-import exceptions.CannotVoteTwiceForTheSameInsightException;
-import play.Logger;
-import play.Play;
-import play.cache.Cache;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Required;
-import play.libs.WS;
-import play.mvc.*;
-import play.mvc.results.RenderHtml;
-import play.mvc.results.RenderText;
+import controllers.CurrentUser;
+import exceptions.CannotVoteTwiceForTheSameInsightException;
 
-public class OpenApi extends Controller {
+public class APIInsights extends APIController {
 
-	public static final String API_URL_CALLBACK = "api_url_callback";
-	public static final String API_JSON_CALLBACK = "callback";
-	public static final String API_ACCESS_TOKEN = "access_token";
-	
-	/**
-	 * Check before every API call that the accessToken is valid
-	 */
-	@Before(unless={"authenticate", "authenticateSuccess"})
-	public static void checkAccessToken() {
-		String accessToken = params.get(API_ACCESS_TOKEN);
-		if(accessToken == null) {
-			badRequest(); // error
-		}
-		String email = (String)Cache.get(accessToken);
-		if (email == null) {
-			forbidden("The provided access_token " +  accessToken + " is not valid."); // error
-		}
-	}
-	
-	/**
-	 * @return the accessToken associated with this user
-	 */
-	protected static User getUserFromAccessToken() {
-		String accessToken = params.get(API_ACCESS_TOKEN);
-		String email = (String)Cache.get(accessToken);
-		User user = User.findByEmail(email);
-		return user;
-	}
-	
-	/**
-	 * prepend the "callback" parameter to the JSON serialization of the object
-	 * @param o : object to serialize
-	 * @param callback : callback to prepend
-	 */
-	protected static void renderJSONP(Object o, String callback) {
-		renderText( callback + "(" + new Gson().toJson(o) + ")" );
-	}
-	
-	/**
-	 * render the object either in JSON or JSONP, depending on the presence of the "callback" parameter
-	 * @param o : JSON Object to render
-	 */
-	protected static void renderAPI(Object o) {
-		String callback = params.get(API_JSON_CALLBACK);
-		if(callback != null) {
-			renderJSONP(o, callback);
-		} else {
-			renderJSON(o);
-		}
-	}
-	
 	// TODO : what if the content evolves between two calls ?
 	// Maybe a better solution would be to give the uniqueId of the latest
 	// downloaded insight
@@ -120,8 +59,8 @@ public class OpenApi extends Controller {
 	public static void getInsights(@Min(0) Integer from,
 			@Min(1) @Max(100) Integer number, String sort, Integer category,
 			String vote, String topic, Boolean closed, Boolean created) {
-		
-		if(validation.hasErrors()) {
+
+		if (validation.hasErrors()) {
 			error();
 		}
 		if (from == null) {
@@ -180,13 +119,13 @@ public class OpenApi extends Controller {
 	 *         disagreeCount, comments[], tags[] }
 	 */
 	public static void getInsight(@Required String insightUniqueId) {
-		if(validation.hasErrors()) {
+		if (validation.hasErrors()) {
 			error();
 		}
 		renderJSON(getInsightResult(insightUniqueId));
 	}
-	
-	public static Map<String, Object> getInsightResult(String insightUniqueId) {
+
+	private static Map<String, Object> getInsightResult(String insightUniqueId) {
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("uniqueId", insight.uniqueId);
@@ -216,7 +155,7 @@ public class OpenApi extends Controller {
 
 			}
 		}
-		
+
 		return jsonResult;
 	}
 
@@ -273,22 +212,4 @@ public class OpenApi extends Controller {
 
 		renderJSON(jsonResult);
 	}
-
-	
-	public static void authenticate(String urlCallback) {
-		if (urlCallback == null) {
-			urlCallback = String.format(Router.getFullUrl(request.controller + ".authenticateSuccess"));
-		}
-		session.put(API_URL_CALLBACK, urlCallback);
-		renderTemplate("Secure/login.html");
-	}
-	
-	/**
-	 * generic callback url if no specific url provided in authenticate(String url) : the access token will be available in the url.
-	 * For example : www.beansight.com/openapi/authenticateSuccess#access_token=a52795fc-8374-4c2b-8f46-7c8684687536
-	 */
-	public static void authenticateSuccess() {
-		render();
-	}
-	
 }
