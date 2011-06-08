@@ -56,7 +56,7 @@ public class APIInsights extends APIController {
 	 * @return [{content, startDate, endDate, category, agreeCount,
 	 *         disagreeCount, currentUserVote}, ...]
 	 */
-	public static void getInsights(@Min(0) Integer from,
+	public static void list(@Min(0) Integer from,
 			@Min(1) @Max(100) Integer number, String sort, Integer category,
 			String vote, String topic, Boolean closed, Boolean created) {
 
@@ -118,7 +118,7 @@ public class APIInsights extends APIController {
 	 * @return {content, endDate, startDate, category, agreeCount,
 	 *         disagreeCount, comments[], tags[] }
 	 */
-	public static void getInsight(@Required String insightUniqueId) {
+	public static void show(@Required String insightUniqueId) {
 		if (validation.hasErrors()) {
 			error();
 		}
@@ -179,16 +179,6 @@ public class APIInsights extends APIController {
 		vote(insightUniqueId, State.DISAGREE);
 	}
 
-	/**
-	 * Get a list of all the categories
-	 * 
-	 * @return JSON [{label, id}, ...]
-	 */
-	public static void getCategories() {
-		List<Category> categories = Category.findAll();
-		renderJSON(categories);
-	}
-
 	private static void vote(String insightUniqueId, State voteState) {
 		User currentUser = getUserFromAccessToken();
 
@@ -212,4 +202,15 @@ public class APIInsights extends APIController {
 
 		renderJSON(jsonResult);
 	}
+	
+	/**
+	 * Get a list of all the categories
+	 * 
+	 * @return JSON [{label, id}, ...]
+	 */
+	public static void categories() {
+		List<Category> categories = Category.findAll();
+		renderJSON(categories);
+	}
+
 }
