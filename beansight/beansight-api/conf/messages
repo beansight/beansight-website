@@ -1,0 +1,5 @@
+# Default beansight-api messages
+# You can specialize this file for each language.
+# For exemple, for french create a messages.fr file
+
+#beansight-api.name=beansight-api
