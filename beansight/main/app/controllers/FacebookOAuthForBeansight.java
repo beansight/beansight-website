@@ -1,31 +1,22 @@
 package controllers;
 
 import gson.FacebookUserGson;
-import helpers.FileHelper;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.UUID;
 
 import jobs.facebook.RefreshBeansightAvatarWithFacebookImageJob;
 import jobs.facebook.UpdateBeansightUserToFacebookUserRelationshipJob;
-
 import models.FacebookFriend;
 import models.FacebookUser;
 import models.User;
-import models.UserActivity;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 import play.Logger;
+import play.cache.Cache;
 import play.libs.Crypto;
-import play.libs.WS;
 
 /**
  * 
@@ -105,6 +96,22 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         response.setCookie("rememberme", Crypto.sign(beansightFbUser.email) + "-" + beansightFbUser.email, "30d");
         
         refreshBeansightAvatarWithFacebookImage();
+        
+        // is it an authentication to use the API ?
+        String apiUrlCallback = session.get(APIController.API_URL_CALLBACK);
+        if (session.get(APIController.API_URL_CALLBACK) != null) {
+        	UUID uuid = UUID.randomUUID();
+        	Cache.add(uuid.toString(), beansightFbUser.email);
+        	// (apiToken is equal to "?" or "#")
+        	String apiTokenResult = session.get(APIController.API_TOKEN_RESULT_KEY);
+        	
+        	// clean the session
+        	session.remove(APIController.API_URL_CALLBACK);
+        	session.remove(APIController.API_TOKEN_RESULT_KEY);
+        	
+        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, uuid.toString()));
+        	return;
+        }
         
      	// redirect to the previous url or index if nothing was set in session
 		if (session.contains("url")) {

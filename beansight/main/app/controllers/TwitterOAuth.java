@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,6 +29,7 @@ import org.xml.sax.SAXException;
 
 import play.Logger;
 import play.Play;
+import play.cache.Cache;
 import play.db.jpa.Blob;
 import play.libs.Crypto;
 import play.libs.WS;
@@ -89,6 +91,22 @@ public class TwitterOAuth extends Controller {
         response.setCookie("rememberme", Crypto.sign(twitterUser.email) + "-" + twitterUser.email, "30d");
 
 		Logger.info("Callback end");
+		
+        // is it an authentication to use the API ?
+        String apiUrlCallback = session.get(APIController.API_URL_CALLBACK);
+        if (session.get(APIController.API_URL_CALLBACK) != null) {
+        	UUID uuid = UUID.randomUUID();
+        	Cache.add(uuid.toString(), twitterUser.email);
+        	// (apiToken is equal to "?" or "#")
+        	String apiTokenResult = session.get(APIController.API_TOKEN_RESULT_KEY);
+        	
+        	// clean the session
+        	session.remove(APIController.API_URL_CALLBACK);
+        	session.remove(APIController.API_TOKEN_RESULT_KEY);
+        	
+        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, uuid.toString()));
+        	return;
+        }
 		
 		// redirect to the previous url or index if nothing was set in session
 		if (session.contains("url")) {

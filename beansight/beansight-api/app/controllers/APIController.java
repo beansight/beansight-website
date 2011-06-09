@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.UUID;
+
 import models.User;
 import play.cache.Cache;
 import play.data.validation.Required;
@@ -14,11 +16,14 @@ public class APIController extends Controller {
 	public static final String API_URL_CALLBACK = "api_url_callback";
 	public static final String API_JSON_CALLBACK = "callback";
 	public static final String API_ACCESS_TOKEN = "access_token";
+	public static final String API_TOKEN_RESULT_KEY = "token_result";
+	public static final String API_TOKEN_RESULT_VALUE_PARAM = "?";
+	public static final String API_TOKEN_RESULT_VALUE_FRAGMENT = "#";
 	
 	/**
 	 * Check before every API call that the accessToken is valid
 	 */
-	@Before(unless={"authenticate", "authenticateSuccess", "isAuthenticated"})
+	@Before(unless={"authenticate", "authenticateSuccess", "register"})
 	public static void checkAccessToken() {
 		String accessToken = params.get(API_ACCESS_TOKEN);
 		if(accessToken == null) {
@@ -62,12 +67,47 @@ public class APIController extends Controller {
 		}
 	}
 	
-	public static void authenticate(String urlCallback) {
+	/**
+	 * action to authenticate a user for a tier application.
+	 * urlCallback is used to tell where to redirect after the user has been authenticated successfully
+	 * tokenResult is used to have the access_token return on the urlCallBack either with a # or with ?
+	 * tokenResult values can be "param" (if tokenResult is not set tokenResult=param will be used by default) or
+	 * "fragment".
+	 * if tokenResultType=param then access_token will be available on the urlCallback as : http://myurlcallback/example?access_token=76063297-f5ab-4b82-a0bd-571d27b01074 
+	 * if tokenResultType=fragment then access_token will be available on the urlCallback as : http://myurlcallback/example#access_token=76063297-f5ab-4b82-a0bd-571d27b01074
+	 * @param urlCallback 
+	 * @param tokenResultType
+	 */
+	public static void authenticate(String urlCallback, String tokenResultType) {
 		if (urlCallback == null) {
 			urlCallback = String.format(Router.getFullUrl(request.controller + ".authenticateSuccess"));
 		}
 		session.put(API_URL_CALLBACK, urlCallback);
-		renderTemplate("Secure/login.html");
+
+		String apiTokenResult = "";
+		if (tokenResultType != null && tokenResultType.trim().equals("fragment")) {
+			apiTokenResult =  API_TOKEN_RESULT_VALUE_FRAGMENT;
+		} else {
+			apiTokenResult = API_TOKEN_RESULT_VALUE_PARAM;
+		}
+		session.put(API_TOKEN_RESULT_KEY, apiTokenResult);
+		
+		// if user is already authenticated on beansight redirect to the urlCallback this the access_token
+		if(Security.isConnected()) {
+			User currentUser = CurrentUser.getCurrentUser();
+
+        	UUID uuid = UUID.randomUUID();
+        	Cache.add(uuid.toString(), currentUser.email); 
+        	
+        	// clean the session
+        	session.remove(APIController.API_URL_CALLBACK);
+        	session.remove(APIController.API_TOKEN_RESULT_KEY);
+        	
+        	redirect(String.format("%s%Saccess_token=%s", urlCallback, apiTokenResult, uuid.toString()));
+        	return;
+		}
+		
+		render();
 	}
 	
 	/**
@@ -78,15 +118,4 @@ public class APIController extends Controller {
 		render();
 	}
 	
-	/**
-	 * call this action to check if the access_token is still active
-	 * @param access_token
-	 */
-	public static void isAuthenticated(@Required String access_token) {
-		String email = (String)Cache.get(access_token);
-		if (email == null || email.trim().equals("")) {
-			renderText("false");
-		}
-		renderText(true);
-	}
 }

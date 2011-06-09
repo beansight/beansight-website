@@ -1,0 +1,68 @@
+<!doctype html>
+<html xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>#{get 'title' /} - Beansight</title>
+
+    <link rel="stylesheet" type="text/css" href="#{beansight.resource name:'/public/stylesheets/style.css' /}" />
+	#{get 'moreStyles' /}  
+
+	#{favicon /}
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+	
+	<!-- Beansight javascripts -->
+	<script src="/public/javascripts/i18n/&{'i18n'}.js" type="text/javascript" charset="utf-8"></script>
+	<script src="#{beansight.resource name:'/public/javascripts/beansight.js' /}" type="text/javascript" charset="utf-8"></script>
+	
+	#{get 'moreScripts' /}  
+	
+	<!-- define here the actions -->
+	<script type="text/javascript">
+	</script>
+</head>
+<body>
+
+#{if session.contains("beansight_msg")}
+    <div class="success">${session.get("beansight_msg")}</div>
+    %{ session.remove("beansight_msg") }%
+#{/if}   
+#{if flash.error}
+    <div class="error">&{flash.error}</div>
+#{/if}
+#{if flash.success}
+    <div class="success">&{flash.success}</div>
+#{/if}
+	
+<!-- CONTENU -->
+<div id="content" class="#{get 'contentClass' /}">
+#{doLayout /}
+</div>
+	
+<hr class="clear"/>
+
+
+<script type="text/javascript" charset="utf-8">
+  // Google Analytics
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16319303-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	
+   // Track logged users
+   #{isConnected}
+   _gaq.push(['_setCustomVar', 1, 'Logged', 'true', 3]);
+   #{/isConnected}
+   #{isNotConnected}
+   _gaq.push(['_setCustomVar', 1, 'Logged', 'false', 3]);
+   #{/isNotConnected}
+</script>
+
+
+</body>
+</html>

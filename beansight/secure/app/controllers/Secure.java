@@ -80,10 +80,18 @@ public class Secure extends Controller {
         }
         
         // is it an authentication to use the API ?
+        String apiUrlCallback = session.get(APIController.API_URL_CALLBACK);
         if (session.get(APIController.API_URL_CALLBACK) != null) {
         	UUID uuid = UUID.randomUUID();
-        	Cache.add(uuid.toString(), username);
-        	redirect(String.format("%s#access_token=%s", session.get("api_url_callback"), uuid.toString()));
+        	Cache.add(uuid.toString(), username); // username is actually the user email
+        	// (apiToken is equal to "?" or "#")
+        	String apiTokenResult = session.get(APIController.API_TOKEN_RESULT_KEY);
+        	
+        	// clean the session
+        	session.remove(APIController.API_URL_CALLBACK);
+        	session.remove(APIController.API_TOKEN_RESULT_KEY);
+        	
+        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, uuid.toString()));
         	return;
         }
         
