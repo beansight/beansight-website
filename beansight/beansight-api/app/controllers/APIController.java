@@ -17,8 +17,6 @@ public class APIController extends Controller {
 	public static final String API_JSON_CALLBACK = "callback";
 	public static final String API_ACCESS_TOKEN = "access_token";
 	public static final String API_TOKEN_RESULT_KEY = "token_result";
-	public static final String API_TOKEN_RESULT_VALUE_PARAM = "?";
-	public static final String API_TOKEN_RESULT_VALUE_FRAGMENT = "#";
 	
 	/**
 	 * Check before every API call that the accessToken is valid
@@ -86,9 +84,13 @@ public class APIController extends Controller {
 
 		String apiTokenResult = "";
 		if (tokenResultType != null && tokenResultType.trim().equals("fragment")) {
-			apiTokenResult =  API_TOKEN_RESULT_VALUE_FRAGMENT;
+			apiTokenResult =  "#";
 		} else {
-			apiTokenResult = API_TOKEN_RESULT_VALUE_PARAM;
+			if (urlCallback.contains("?")) {
+				apiTokenResult = "&";
+			} else {
+				apiTokenResult = "?";
+			}
 		}
 		session.put(API_TOKEN_RESULT_KEY, apiTokenResult);
 		
@@ -103,7 +105,7 @@ public class APIController extends Controller {
         	session.remove(APIController.API_URL_CALLBACK);
         	session.remove(APIController.API_TOKEN_RESULT_KEY);
         	
-        	redirect(String.format("%s%Saccess_token=%s", urlCallback, apiTokenResult, uuid.toString()));
+        	redirect(String.format("%s%saccess_token=%s", urlCallback, apiTokenResult, uuid.toString()));
         	return;
 		}
 		
