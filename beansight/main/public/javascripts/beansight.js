@@ -231,6 +231,7 @@ function onAddCommentSuccess(content) {
 	$("#commentContent").css("height","54px");
 	$("#commentId").val("");
 	$("#commentList").prepend( content );
+	$("#commentsSize").text(parseInt($("#commentsSize").text())+1);
 }
 
 //////////////
@@ -238,6 +239,7 @@ function onAddCommentSuccess(content) {
 //////////////
 function editComment(uniqueId, commentId) {
 	$.get(editCommentAction({'uniqueId':uniqueId, 'commentId':commentId}), onEditCommentSuccess);
+	$("#commentsSize").text(parseInt($("#commentsSize").text())-1);
 	
 	return false;
 }
@@ -387,6 +389,7 @@ function insightHideComment(commentId) {
 		$.get(insightHideCommentAction({'commentId':commentId}), function(data) {
 			if(data.error=="") {
 				$('#insightComment_' + data.id).remove();
+				$("#commentsSize").text(parseInt($("#commentsSize").text())-1);
 			} else {
 				alert(data.error);
 			}

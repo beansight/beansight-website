@@ -115,6 +115,7 @@ public class Secure extends Controller {
         if(url == null) {
             url = "/";
         }
+        session.remove("url");
         redirect(url);
     }
 

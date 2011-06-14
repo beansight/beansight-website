@@ -463,6 +463,7 @@ emailconfirmlink=Click here to confirm.
 emailfollownotificationsubject=User %s added you to his favorites on Beansight
 emailuserstartfollowing1=The user
 emailuserstartfollowing2= added you in his favorites on Beansight. You can check his page to learn more about him.
+emailuserstartfollowing2FollowBack=Add %s in my favorites
 
 # invitation
 email.invitation.subject=%s presents you Beansight

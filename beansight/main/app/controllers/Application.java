@@ -697,6 +697,29 @@ public class Application extends Controller {
 	}
 
 	/**
+	 * action called from followNotification.html mail : to provide a "follow back" link for the user receiving the email.
+	 * If the user is not authenticated he'll be redirected to the authentication page and then automatically redirected back 
+	 * again on this action to follow the user.
+	 * @param userName
+	 */
+	public static void followUser(String userName) {
+		User currentUser = CurrentUser.getCurrentUser();
+		if (currentUser == null) {
+			session.put("url", request.url);
+			flash.put("url", request.url);
+			try {
+				Secure.login();
+			} catch (Throwable e) {
+				Logger.error(e, "cannot redirect to login page");
+			}
+			return;
+		}
+		User user = User.findByUserName(userName);
+		currentUser.startFollowingThisUser(user, true);
+		Application.showUser(user.userName);
+	}
+	
+	/**
 	 * AJAX: remove a followed user and returns the 
 	 */
 	public static void removeFollowedUser(Long userId) {

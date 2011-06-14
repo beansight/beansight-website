@@ -472,6 +472,7 @@ emailconfirmlink=Lien de validation email.
 emailfollownotificationsubject=%s vous a ajouté dans ses favoris sur Beansight
 emailuserstartfollowing1=L'utilisateur
 emailuserstartfollowing2= vous a ajouté a ses favoris sur Beansight. Vous pouvez consulter sa page pour en apprendre plus sur lui.
+emailuserstartfollowing2FollowBack=Ajouter %s à mes favoris
 
 # invitation
 email.invitation.subject=%s vous présente Beansight

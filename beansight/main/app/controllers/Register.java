@@ -184,19 +184,25 @@ public class Register extends Controller {
 	
 	public static void fbAuthenticate(String url) {
 		// add url in session to redirect back the user to the url he was browsing before authenticate 
-		session.put("url", url);
+		if (session.get("url") ==null) {
+			session.put("url", url);
+		}
 		FacebookOAuth.authenticate();
 	}
 	
 	public static void twitAuthenticate(String url) throws Exception {
 		// add url in session to redirect back the user to the url he was browsing before authenticate 
-		session.put("url", url);
+		if (session.get("url") ==null) {
+			session.put("url", url);
+		}
 		TwitterOAuth.authenticate();
 	}
 	
 	public static void beansightAuthenticate(@Required String username, String password, boolean remember, String url) throws Throwable {
 		// add url in session to redirect back the user to the url he was browsing before authenticate 
-		flash.put("url", url);
+		if (flash.get("url") ==null) {
+			flash.put("url", url);
+		}
 		Secure.authenticate(username, password, remember);
 	}
 	
