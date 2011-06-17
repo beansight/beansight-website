@@ -367,6 +367,9 @@ inviteYourFacebookFriendsOnBeansight.invitationTitle=Share Beansight to challeng
 inviteYourFacebookFriendsOnBeansight.invitationContent=A friend of yours invited you on Beansight. <a href='http://www.beansight.com'>Beansight</a> is a social network dedicated to predictions. You can share your ideas about the future. If you're right, you'll earn points to prove your skills. Challenge your friends, it's fun!
 inviteYourFacebookFriendsOnBeansight.invitationCancel=Cancel
 
+# api
+api.beansightTitle=Connect with your Beansight account
+
 # FAQ
 faq.title=Frequently Asked Questions
 faq.intro=On this page, you’ll find information on how to use Beansight and on how Beansight works. This page is ordered following the lifespan of a prediction (from creation to expertise). You’ll also find information on how to set up Beansight to increase your comfort of use.

@@ -43,6 +43,9 @@ import org.apache.commons.collections.buffer.CircularFifoBuffer;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
+import exceptions.InsightAlreadySharedException;
+import exceptions.NotFollowingUserException;
+
 import play.Logger;
 import play.Play;
 import play.data.binding.As;
@@ -584,4 +587,9 @@ public class Admin extends Controller {
 			fbf.save();
 		}
 	}
+	
+	public static void changePassword(String userName, String newPassword) {
+		User.findByUserName(userName).changePassword(newPassword);
+	}
+	
 }

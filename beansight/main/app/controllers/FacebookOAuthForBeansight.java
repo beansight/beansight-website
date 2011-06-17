@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import jobs.facebook.RefreshBeansightAvatarWithFacebookImageJob;
 import jobs.facebook.UpdateBeansightUserToFacebookUserRelationshipJob;
+import models.ApiAccessTokenStore;
 import models.FacebookFriend;
 import models.FacebookUser;
 import models.User;
@@ -99,9 +100,9 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         
         // is it an authentication to use the API ?
         String apiUrlCallback = session.get(APIController.API_URL_CALLBACK);
-        if (session.get(APIController.API_URL_CALLBACK) != null) {
-        	UUID uuid = UUID.randomUUID();
-        	Cache.add(uuid.toString(), beansightFbUser.email);
+        if (apiUrlCallback != null) {
+        	String beansightApiAccessToken = ApiAccessTokenStore.getAccessTokenForUser(beansightFbUser.email);
+        	
         	// (apiToken is equal to "?" or "#")
         	String apiTokenResult = session.get(APIController.API_TOKEN_RESULT_KEY);
         	
@@ -109,7 +110,7 @@ public class FacebookOAuthForBeansight extends FacebookOAuth.FacebookOAuthDelega
         	session.remove(APIController.API_URL_CALLBACK);
         	session.remove(APIController.API_TOKEN_RESULT_KEY);
         	
-        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, uuid.toString()));
+        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, beansightApiAccessToken));
         	return;
         }
         

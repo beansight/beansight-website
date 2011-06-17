@@ -11,12 +11,8 @@
 
 	<div id="facebookLoginBlock">
 	    #{form @Register.fbAuthenticate(), id:'registerFormFacebook'}
-	        <h2 class="cuf-grb">&{'register.facebookTitle'}</h2>
-
 	        <div >
-	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
-	            <!--<button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'register.facebookSignupButton'}</span></button>-->
-	            <button class="social_buttons sb_48 sb_facebook"><span>Sign in with Facebook</span></button>
+	            <button class="social_buttons sb_24 sb_facebook"><span>&{'register.facebookTitle'}</</span></button>
 	        </div>
 	    #{/form}
 	</div>	
@@ -24,12 +20,8 @@
 <div class="bloccontent bloccenter">
 	<div id="twitterLoginBlock">
 	    #{form @Register.twitAuthenticate(), id:'registerFormTwitter'}
-	        <h2 class="cuf-grb">&{'register.twitterTitle'}</h2>
-	
 	        <div>
-	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
-	            <!--<button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'register.twitterSignupButton'}</span></button>-->
-	            <button class="social_buttons sb_48 sb_twitter"><span>Sign in with Twitter</span></button>
+	            <button class="social_buttons sb_24 sb_twitter"><span>&{'register.twitterTitle'}</</span></button>
 	        </div>
 	    #{/form}
 	</div>
@@ -38,7 +30,7 @@
 	<div id="beansightLoginBlock">
 	    #{form @Secure.authenticate()}
 	    	<input type="hidden" name="connectWith" id="connectWith"/>
-	        <h2 class="cuf-grb">&{'register.beansightTitle'}</h2>
+	        <h2 class="cuf-grb">&{'api.beansightTitle'}</h2>
 	
 	        <label for="username">&{'email'}</label>
 	        <div class="item-input">

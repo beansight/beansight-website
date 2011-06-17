@@ -300,6 +300,7 @@ register.twitterSignupButton=Créer
 register.why=Pourquoi S'inscrire
 register.confirmInvitationTitle=Merci de confirmer les informations ci-dessous
 
+
 # confirm
 emailconfirmed=Email confirmé
 
@@ -364,6 +365,9 @@ inviteYourFacebookFriendsOnBeansight.type=privée
 inviteYourFacebookFriendsOnBeansight.invitationTitle=Partagez Beansight et défiez-vos amis !
 inviteYourFacebookFriendsOnBeansight.invitationContent=Un de vos amis vous a invité(e) à utiliser Beansight. <a href='http://www.beansight.com'>Beansight</a> est un réseau social dédié aux prédictions. Vous pouvez y partager votre point de vue sur le futur. Si l'avenir vous donne raison, vous gagnerez des points qui prouveront votre crédibilité. Venez défier vos amis sur Beansight!
 inviteYourFacebookFriendsOnBeansight.invitationCancel=Annuler
+
+# api
+api.beansightTitle=Connexion avec votre compte Beansight
 
 # FAQ
 faq.title=Questions fréquemment posées (FAQ)

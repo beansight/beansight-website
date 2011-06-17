@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.UUID;
 
+import models.ApiAccessTokenStore;
 import models.User;
 import play.cache.Cache;
 import play.data.validation.Required;
@@ -27,9 +28,10 @@ public class APIController extends Controller {
 		if(accessToken == null) {
 			badRequest(); // error
 		}
-		String email = (String)Cache.get(accessToken);
+		String email = ApiAccessTokenStore.getEmailByAccessToken(accessToken);
+//		String email = (String)Cache.get(accessToken);
 		if (email == null) {
-			forbidden("The provided access_token " +  accessToken + " is not valid."); // error
+			forbidden(String.format("The provided access_token %s is not valid.", accessToken)); // error
 		}
 	}
 	
@@ -38,7 +40,8 @@ public class APIController extends Controller {
 	 */
 	protected static User getUserFromAccessToken() {
 		String accessToken = params.get(API_ACCESS_TOKEN);
-		String email = (String)Cache.get(accessToken);
+		//String email = (String)Cache.get(accessToken);
+		String email = ApiAccessTokenStore.getEmailByAccessToken(accessToken);
 		User user = User.findByEmail(email);
 		return user;
 	}

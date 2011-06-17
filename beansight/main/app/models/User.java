@@ -771,10 +771,10 @@ public class User extends Model implements Comparable<User> {
 	 *            : User to follow
 	 */
 	public void startFollowingThisUser(User user, boolean sendMail) {
-		if (isFollowingUser(user) == true) {
-			return;
+		if (isFollowingUser(user) == false) {
+			followedUsers.add(user);
 		}
-		followedUsers.add(user);
+		
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we update the relationShip "FacebookFriend" to keep it in synch !
 		FacebookFriend fbFriend = FacebookFriend.findRelationshipBetweenTwoUserIds(this.id, user.id);
@@ -806,10 +806,9 @@ public class User extends Model implements Comparable<User> {
 	 * @param insightId
 	 */
 	public void stopFollowingThisUser(User user) {
-		if (isFollowingUser(user) == false) {
-			return;
+		if (isFollowingUser(user) == true) {
+			followedUsers.remove(user);
 		}
-		followedUsers.remove(user);
 		
 		// is he (the provided "user" instance) a facebook friend ? 
 		// if yes we should update the relationShip "FacebookFriend" to keep it in synch !

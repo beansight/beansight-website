@@ -4,6 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.UUID;
 
+import models.ApiAccessTokenStore;
+import models.User;
+
 import play.Play;
 import play.mvc.*;
 import play.cache.Cache;
@@ -81,9 +84,8 @@ public class Secure extends Controller {
         
         // is it an authentication to use the API ?
         String apiUrlCallback = session.get(APIController.API_URL_CALLBACK);
-        if (session.get(APIController.API_URL_CALLBACK) != null) {
-        	UUID uuid = UUID.randomUUID();
-        	Cache.add(uuid.toString(), username); // username is actually the user email
+        if (apiUrlCallback != null) {
+        	String beansightApiAccessToken = ApiAccessTokenStore.getAccessTokenForUser(username); // username is actually the user email
         	// (apiToken is equal to "?" or "#")
         	String apiTokenResult = session.get(APIController.API_TOKEN_RESULT_KEY);
         	
@@ -91,7 +93,7 @@ public class Secure extends Controller {
         	session.remove(APIController.API_URL_CALLBACK);
         	session.remove(APIController.API_TOKEN_RESULT_KEY);
         	
-        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, uuid.toString()));
+        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, beansightApiAccessToken));
         	return;
         }
         

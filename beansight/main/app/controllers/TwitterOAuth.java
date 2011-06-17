@@ -12,6 +12,7 @@ import java.util.UUID;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import models.ApiAccessTokenStore;
 import models.Credentials;
 import models.Promocode;
 import models.User;
@@ -93,10 +94,10 @@ public class TwitterOAuth extends Controller {
 		Logger.info("Callback end");
 		
         // is it an authentication to use the API ?
+		// and is the email of this twitter user is known (if not you should'nt be able to sign in)
         String apiUrlCallback = session.get(APIController.API_URL_CALLBACK);
-        if (session.get(APIController.API_URL_CALLBACK) != null) {
-        	UUID uuid = UUID.randomUUID();
-        	Cache.add(uuid.toString(), twitterUser.email);
+        if (apiUrlCallback != null && twitterUser.email != null && !twitterUser.email.trim().equals("")) {
+        	String beansightApiAccessToken = ApiAccessTokenStore.getAccessTokenForUser(twitterUser.email);
         	// (apiToken is equal to "?" or "#")
         	String apiTokenResult = session.get(APIController.API_TOKEN_RESULT_KEY);
         	
@@ -104,7 +105,7 @@ public class TwitterOAuth extends Controller {
         	session.remove(APIController.API_URL_CALLBACK);
         	session.remove(APIController.API_TOKEN_RESULT_KEY);
         	
-        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, uuid.toString()));
+        	redirect(String.format("%s%Saccess_token=%s", apiUrlCallback, apiTokenResult, beansightApiAccessToken));
         	return;
         }
 		
