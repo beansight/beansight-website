@@ -1380,7 +1380,7 @@ public class User extends Model implements Comparable<User> {
 	public List<UserCategoryScore> getCategoryScores(Date date, PeriodEnum period) {
 		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
 			"where cs.historic.user = :user and cs.historic.scoreDate = :scoreDate and cs.period = :period and cs.score is not null " +
-			"order by cs.score DESC")
+			"order by cs.normalizedScore DESC")
 			.bind("user", this)
 			.bind("scoreDate", date)
 			.bind("period", period)
