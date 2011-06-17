@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import jobs.AnalyticsJob;
+import jobs.CheckFacebookFriendsAndFollowSyncJob;
 import jobs.InsightTrendsCalculateJob;
 import jobs.scoring.InsightValidationJob;
 import jobs.scoring.ScoresComputationInitJob;
@@ -588,8 +589,18 @@ public class Admin extends Controller {
 		}
 	}
 	
-	public static void changePassword(String userName, String newPassword) {
-		User.findByUserName(userName).changePassword(newPassword);
+	/**
+	 * run the job that allow to check if your hare following/hiding a facebook friend
+	 * then the beansight user should be followed/not followed
+	 * 
+	 */
+	public static void runCheckFacebookFriendsAndFollowSyncJob() {
+		new CheckFacebookFriendsAndFollowSyncJob().now();
 	}
+	
+	
+//	public static void changePassword(String userName, String newPassword) {
+//		User.findByUserName(userName).changePassword(newPassword);
+//	}
 	
 }

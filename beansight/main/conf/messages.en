@@ -207,7 +207,7 @@ settings.mails=Receive a mail when a user...
 settings.followMail=starts following me.
 settings.messageMail=sends me a private message.
 settings.commentCreatedMail=comments on a prediction I created.
-settings.commentFavoriteMail=comments on a prediction I added in my favorites.
+settings.commentFavoriteMail=comments on a prediction I added to my favorites.
 settings.commentCommentMail=comments on a prediction I commented on.
 settings.commentMentionMail=mentioned me in a comment (using "@").
 settings.insightShareMail=share a prediction with me.
@@ -466,7 +466,7 @@ emailconfirmlink=Click here to confirm.
 emailfollownotificationsubject=User %s added you to his favorites on Beansight
 emailuserstartfollowing1=The user
 emailuserstartfollowing2= added you in his favorites on Beansight. You can check his page to learn more about him.
-emailuserstartfollowing2FollowBack=Add %s in my favorites
+emailuserstartfollowing2FollowBack=Add %s to my favorites
 
 # invitation
 email.invitation.subject=%s presents you Beansight
