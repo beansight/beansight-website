@@ -39,7 +39,7 @@ public class Event extends Model {
 	public String imageBackgroundRightURL;
 	
 	@ManyToOne
-	public Topic topic;
+	public Tag topic;
 	
 	@ManyToOne
 	public Insight insight1;

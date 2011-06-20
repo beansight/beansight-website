@@ -99,7 +99,7 @@ public class Insight extends Model {
 	/** Every tag of the current insight */
 	@ManyToMany(mappedBy = "insights", cascade = CascadeType.ALL)
 	@Field
-	public List<Tag> tags;
+	public Set<Tag> tags;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@Field
@@ -221,10 +221,9 @@ public class Insight extends Model {
 	 */
 	public void addTags(String tagLabelList, User user) {
 		String[] labelArray = tagLabelList.split(",");
-
 		for (int i = 0; i < labelArray.length; i++) {
 			String label = labelArray[i].trim();
-			this.addTag(label, user);
+			this.addTag(label);
 		}
 	}
 
@@ -234,38 +233,11 @@ public class Insight extends Model {
 	 * 
 	 * @param label
 	 *            : the label of the tag (will not be processed)
-	 * @param user
-	 *            : the user adding the tag
 	 */
-	private void addTag(String label, User user) {
-		// TODO call here a method to normalize the label
-
-		// check if this tag already exist for this insight
-		boolean foundTag = false;
-		if (this.tags != null) {
-			for (Tag storedTag : this.tags) {
-				if (storedTag.label.equalsIgnoreCase(label)) {
-					storedTag.users.add(user);
-					storedTag.save();
-					foundTag = true;
-					break;
-				}
-			}
-		}
-		// if not, check if this tag already exist on the website
-		if (!foundTag) {
-			Tag existTag = Tag.find("byLabel", label).first();
-			if (existTag == null) {
-				// if null, then create it.
-				Tag newTag = new Tag(label, this, user);
-				newTag.save();
-			} else {
-				// if found, then associate with this insight and this user.
-				existTag.insights.add(this);
-				existTag.users.add(user);
-				existTag.save();
-			}
-		}
+	private void addTag(String label) {
+		Tag newTag = Tag.findByLabelOrCreate(label);
+		newTag.insights.add(this);
+		newTag.save();
 	}
 
 	/**

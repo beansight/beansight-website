@@ -22,9 +22,9 @@ import play.modules.search.Indexed;
  * A topic selected by an admin as being "featured".
  */
 @Entity
-public class FeaturedTopic extends Model {
+public class FeaturedTag extends Model {
 	@ManyToOne
-	public Topic topic;
+	public Tag tag;
 
 	/** the date the topic should be featured */
 	public Date startDate;
@@ -37,15 +37,15 @@ public class FeaturedTopic extends Model {
 	public Language language;
 	
 	public String toString() {
-	    return topic.label;
+	    return tag.label;
 	}
 	
 	/**
 	 * Create a featuredtopic
 	 * it will start immediately to be featured, and stop 2 weeks later
 	 */
-	public FeaturedTopic(Topic topic, Language language) {
-		this.topic = topic;
+	public FeaturedTag(Tag topic, Language language) {
+		this.tag = topic;
 		this.startDate = new Date();
 		this.endDate = new DateTime().plusWeeks(2).toDate();
 		this.language = language;
@@ -55,11 +55,11 @@ public class FeaturedTopic extends Model {
 	 * return all the featured topics that are currently active in the current languages
 	 * @return
 	 */
-	public static List<FeaturedTopic> findActive(List<Language> languages) {
-		List<FeaturedTopic> result = new ArrayList<FeaturedTopic>();
-		List<FeaturedTopic> featuredTopics = FeaturedTopic.find("endDate > ? order by startDate desc", new Date()).fetch();
+	public static List<FeaturedTag> findActive(List<Language> languages) {
+		List<FeaturedTag> result = new ArrayList<FeaturedTag>();
+		List<FeaturedTag> FeaturedTags = FeaturedTag.find("endDate > ? order by startDate desc", new Date()).fetch();
 
-		for (FeaturedTopic featured : featuredTopics) {
+		for (FeaturedTag featured : FeaturedTags) {
 			if(languages.contains(featured.language)) {
 				result.add(featured);
 			}

@@ -32,6 +32,7 @@
 	#{elseif closed} &{'insightstitle.closed'} #{/elseif}
 	#{else} &{'insightstitle'} #{/else}
 </span>
+#{isConnected}#{if topic}#{secure.check 'admin'}<a class="admin" href="@{AdminTags.showTag(topic.id)}">topic admin</a>#{/secure.check}#{/if}#{/isConnected}
 </h2>
 
 #{if !topic && !featuredTopics.isEmpty()}
@@ -39,7 +40,7 @@
 	<p class="featuredTopicsTitle">&{'insights.featuredTopics'}</p>
 	<ul>
 	#{list items:featuredTopics, as:'top'}
-	    <li class="featuredTopic"><a href="@{Application.insights(null, null, null, top.topic.label, null)}">${top.topic.label}</a></li>
+	    <li class="featuredTopic"><a href="@{Application.insights(null, null, null, top.tag.label, null)}">${top.tag.label}</a></li>
 	#{/list}
 	</ul>
 	<hr class="clear"/>

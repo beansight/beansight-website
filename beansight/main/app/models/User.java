@@ -161,7 +161,7 @@ public class User extends Model implements Comparable<User> {
 
 	/** the topics followed by this user */
 	@ManyToMany(fetch=FetchType.LAZY)
-	public Set<Topic> followedTopics;
+	public Set<Tag> followedTopics;
 
 	/** if account is linked to facebook this relationship help us
 	 * to save extra information specifically related to beansight context*/
@@ -247,7 +247,7 @@ public class User extends Model implements Comparable<User> {
 		this.createdInsights = new ArrayList<Insight>();
 		this.followedInsights = new ArrayList<Insight>();
 		this.followedUsers = new ArrayList<User>();
-		this.followedTopics = new HashSet<Topic>();
+		this.followedTopics = new HashSet<Tag>();
 		this.facebookFriends = new ArrayList<FacebookFriend>();
 		this.facebookUserIdDisabled = null;
 		this.relatedFacebookUser = null;
@@ -525,7 +525,6 @@ public class User extends Model implements Comparable<User> {
 		}
 
 		this.save();
-
 		
 		// check for Activities to update
 		List<UserActivity> activities = UserActivity.find("byFollowedUser", this).fetch();
@@ -535,16 +534,18 @@ public class User extends Model implements Comparable<User> {
 		}
 
 		i.refresh();
-		
-		// Update all the topic activities that this insight is part of
-		// for all tag, get topic, update topic activity
+
 		if(i.tags != null) {
+			// select all the tags that have the insight tag as children (we don'gt get ALL the children, but it's OK.
 			String tagIds = Tag.listToIdString(new HashSet<Tag>(i.tags));
-			List<Topic> topics = Topic.find("select top from Topic top join top.tags t where t.id in (" + tagIds + ") ").fetch();
-			for(Topic topic : topics) {
-				// update Topic activity
-				List<TopicActivity> topicActivities = TopicActivity.find("byTopic", topic).fetch();
-				for (TopicActivity topicActivity : topicActivities ) {
+			List<Tag> topics = Tag.find("select topic from Tag topic join topic.children t where t.id in (" + tagIds + ") ").fetch();
+			// add the insight tag
+			topics.addAll(i.tags);
+			
+			for(Tag topic : topics) {
+				// check if any activity concerns these tags
+				List<TagActivity> topicActivities = TagActivity.find("byTag", topic).fetch();
+				for (TagActivity topicActivity : topicActivities ) {
 					topicActivity.incrementNewInsightCount();
 					topicActivity.save();
 				}
@@ -713,13 +714,13 @@ public class User extends Model implements Comparable<User> {
 	/**
 	 * The user starts following this topic
 	 */
-	public void startFollowingThisTopic(Topic topic) {
+	public void startFollowingThisTopic(Tag topic) {
 		followedTopics.add(topic);
 		save();
 		
 		// create an activity around this user / topic relation
-		if( TopicActivity.count("byUserAndTopic", this, topic) == 0 ) {
-			TopicActivity activity = new TopicActivity(this, topic);
+		if( TagActivity.count("byUserAndTag", this, topic) == 0 ) {
+			TagActivity activity = new TagActivity(this, topic);
 			activity.save();
 		}
 	}
@@ -727,13 +728,13 @@ public class User extends Model implements Comparable<User> {
 	/**
 	 * The user stops following this topic
 	 */
-	public void stopFollowingThisTopic(Topic topic) {
+	public void stopFollowingThisTopic(Tag topic) {
 		followedTopics.remove(topic);
 		save();
 		
 		// also remove from activities
-		List<TopicActivity> activities = TopicActivity.find("byUserAndTopic", this, topic).fetch(); 
-		for( TopicActivity activity : activities)
+		List<TagActivity> activities = TagActivity.find("byUserAndTag", this, topic).fetch(); 
+		for( TagActivity activity : activities)
 		{
 			activity.delete();
 		}
@@ -742,7 +743,7 @@ public class User extends Model implements Comparable<User> {
 	/**
 	 * Does this user follow this topic ?
 	 */
-	public boolean isFollowingTopic(Topic topic) {
+	public boolean isFollowingTopic(Tag topic) {
 		Long count = User.find("select count(t) from User u join u.followedTopics t where t=:topic and u=:user").bind("user", this).bind("topic", topic).first();
 		if (count > 0) {
 			return true;
@@ -973,8 +974,8 @@ public class User extends Model implements Comparable<User> {
 		return InsightActivity.find("user = ? and insight.hidden is false order by totalCount DESC", this).fetch(n);
 	}
 
-	public List<TopicActivity> getFavoriteTopicActivity(int n) {
-		return TopicActivity.find("user = ? order by totalCount DESC", this).fetch(n);
+	public List<TagActivity> getFavoriteTopicActivity(int n) {
+		return TagActivity.find("user = ? order by totalCount DESC", this).fetch(n);
 	}
 
 	public List<UserActivity> getFavoriteUserActivity(int n) {
@@ -1033,12 +1034,12 @@ public class User extends Model implements Comparable<User> {
 	/**
 	 * This user visits a given topic (via the insight listing)
 	 */
-	public void visitTopic(Topic topic, UserClientInfo userClientInfo) {
+	public void visitTopic(Tag topic, UserClientInfo userClientInfo) {
 		UserTopicVisit topicVisit = new UserTopicVisit(new Date(), this, userClientInfo, topic);
 		topicVisit.save();
 		
 		// reset the activity for this user concerning this insight
-		TopicActivity activity = TopicActivity.find("byUserAndTopic", this, topic).first();
+		TagActivity activity = TagActivity.find("byUserAndTag", this, topic).first();
 		if(activity != null) {
 			activity.reset();
 			activity.save();

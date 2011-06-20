@@ -19,7 +19,7 @@ import models.Comment;
 import models.FacebookFriend;
 import models.FeaturedInsight;
 import models.FeaturedSponsor;
-import models.FeaturedTopic;
+import models.FeaturedTag;
 import models.Filter;
 import models.Filter.FilterType;
 import models.Insight;
@@ -28,7 +28,6 @@ import models.InsightTrend;
 import models.Language;
 import models.Message;
 import models.Tag;
-import models.Topic;
 import models.User;
 import models.User.UserResult;
 import models.UserCategoryScore;
@@ -214,11 +213,11 @@ public class Application extends Controller {
 		} else {
 			writtenLanguages.add( Language.findByLabelOrCreate(Lang.get()));
 		}
-		List<FeaturedTopic> featuredTopics = FeaturedTopic.findActive(writtenLanguages);
-		renderArgs.put("featuredTopics", featuredTopics);
+		List<FeaturedTag> featuredTags = FeaturedTag.findActive(writtenLanguages);
+		renderArgs.put("featuredTopics", featuredTags);
 		
 		// return the real topic object
-		Topic top = Topic.findByLabel(topic);
+		Tag top = Tag.findByLabel(topic);
 		renderArgs.put("topic", top);
 		
 		// log for analytics
@@ -267,9 +266,14 @@ public class Application extends Controller {
 		Filter filter = new Filter();
 		filter.filterVote = filterVote;
 
-		Topic topic = null;
+		// tags
 		if(topicStr != null && !topicStr.trim().equalsIgnoreCase("undefined")) {
-			topic = Topic.findByLabel(topicStr);
+			Tag topic = Tag.findByLabel(topicStr);
+			if(topic != null) {
+				for(Tag tag : topic.getContainedTags()) {
+					filter.tags.add(tag);
+				}
+			}
 		}
 		
 		Category category = Category.findById(cat);
@@ -292,12 +296,6 @@ public class Application extends Controller {
 			filter.languages.add( Language.findByLabelOrCreate(lang) );
 		}
 
-		// tags
-		if(topic != null) {
-			for(Tag tag : topic.tags) {
-				filter.tags.add(tag);
-			}
-		}
 		
 		InsightResult result;
 		
@@ -654,7 +652,7 @@ public class Application extends Controller {
 	 */
 	public static void toggleFollowingTopic(Long topicId) {
 		User currentUser = CurrentUser.getCurrentUser();
-		Topic topic = Topic.findById(topicId);
+		Tag topic = Tag.findById(topicId);
 
     	Map<String, Object> jsonResult = new HashMap<String, Object>();
     	jsonResult.put("topic", topic.id);

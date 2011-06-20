@@ -1,0 +1,42 @@
+#{extends 'main.html' /}
+#{set title:'Tags' /}
+<p>Tags</p>
+
+<h3>Search</h3>
+#{form @AdminTags.showTagByLabel()}
+    <input type="search" id="searchTag" name="label"/>
+    <input type="submit" />
+#{/form}
+
+<h3>Currently Featured tags</h3>
+<ul>
+#{list items:featuredTags, as:'featuredTag'}
+<li>
+<a href="@{AdminTags.showTag(featuredTag.tag.id)}">${featuredTag.tag.label} (${featuredTag.language.label})</a>
+</li>
+#{/list}
+</ul>
+
+<h3>Last 50 created tags</h3>
+<ul>
+#{list items:tags, as:'tag'}
+<li>
+<a href="@{AdminTags.showTag(tag.id)}">${tag.label}</a>
+</li>
+#{/list}
+</ul>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$( "#searchTag" )
+	    .autocomplete({
+	        source: function( request, response ) {
+	            $.getJSON( tagSuggestAction(), {
+	                term: request.term
+	            }, response );
+	        }
+    })
+});
+</script>
+
+

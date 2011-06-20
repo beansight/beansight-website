@@ -1,0 +1,77 @@
+#{extends 'main.html' /}
+#{set title:'Tag' /}
+
+<p><a href="@{AdminTags.tags()}">back</a></p>
+
+<h2>Tag ${tag.label}</h2>
+
+#{form @AdminTags.rename()}
+<p>rename:</p>
+<input type="text" name="label" value="${tag.label}" />
+<input type="hidden" name="tagId" value="${tag.id}" />
+<input type="submit" />
+#{/form}
+
+<p>Children tags:
+#{if !tag.children?.isEmpty()}
+<ul id="tagChildren">
+	#{list items:tag.children, as:'tagchildren'}
+	<li><a href="@{AdminTags.showTag(tagchildren.id)}">${tagchildren.label}</a></li>
+	#{/list}
+</ul>
+#{/if}
+#{else}
+nope
+#{/else}
+</p>
+
+#{form @AdminTags.addChildren()}
+<div class="contentlarge">
+    <div class="newinsight">
+	<input type="hidden" name="tagId" value="${tag.id}" />
+    <div class="line-form">
+		<label for="tagresult">Children</label>
+        <div class="item-input">
+		  <input type="text" name="" id="taginput" value="" />
+		  <input type="hidden" name="tagLabelList" value="" id="tagresult"/>
+		</div>        
+		  <div class="listtags"></div>
+	</div>
+    <div class="line-form">
+	<input type="submit" />
+    </div>
+    </div>
+</div>
+#{/form}
+
+<h3>Feature this tag:<h3> 
+<ul>
+<li>EN: <a href="@{AdminTags.featureTag(tag.id, "en")}">start</a>/<a href="@{AdminTags.stopfeatureTag(tag.id, "en")}">stop</a></li>
+<li>FR: <a href="@{AdminTags.featureTag(tag.id, "fr")}">start</a>/<a href="@{AdminTags.stopfeatureTag(tag.id, "fr")}">stop</a></li>
+</ul>
+
+<h3>Cut this tag (insert a comma)</h3>
+#{form @AdminTags.cutTag()}
+    <input type="text" name="tagsCutted" value="${tag.label}" />
+    <input type="hidden" name="tagId" value="${tag.id}" />
+    <input type="submit" />
+#{/form}
+
+<h3>Insights:</h3>
+<ul>
+#{list items:tag.insights, as:'insight'}
+<li><a href="@{Application.showInsight(insight.uniqueId)}">${insight.content}</a></li>
+#{/list}
+</ul>
+
+<a href="@{AdminTags.deleteTag(tag.id)}">delete</a>
+
+<script type="text/javascript">
+$(document).ready(function() {
+            $.each($("#tagChildren li"), function(id, value) {
+                $("#taginput").val($(value).text());
+                updateTags();
+                validetag();
+            });
+    });
+</script>

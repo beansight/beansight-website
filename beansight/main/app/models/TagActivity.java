@@ -13,7 +13,7 @@ import play.db.jpa.Model;
  * The activity that happened on a given topic a user has favorited
  */
 @Entity
-public class TopicActivity extends Model {
+public class TagActivity extends Model {
 
 	/** date this activity was created */
 	public Date created;
@@ -28,7 +28,7 @@ public class TopicActivity extends Model {
 	public User user;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	public Topic topic;
+	public Tag tag;
 
 	/** Number of actions performed on this topic (change, agree, disagree, comment...) */
 	public long totalCount;
@@ -36,11 +36,11 @@ public class TopicActivity extends Model {
 	/** since the last time it has been reseted, how many insights have been created in this topic ? */
 	public long newInsightCount;
 	
-	public TopicActivity(User user, Topic topic) {
+	public TagActivity(User user, Tag topic) {
 		this.created = new Date();
 		this.updated = new Date();
 		this.user = user;
-		this.topic = topic;
+		this.tag = topic;
 	}
 
 	/** Clear this insight activity (set everything to 0) */

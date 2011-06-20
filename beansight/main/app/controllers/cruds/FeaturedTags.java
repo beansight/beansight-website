@@ -8,5 +8,5 @@ import play.mvc.*;
 
 @Check("admin")
 @With(Secure.class)
-public class FeaturedTopics extends CRUD {
+public class FeaturedTags extends CRUD {
 }

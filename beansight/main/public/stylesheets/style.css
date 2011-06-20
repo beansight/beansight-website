@@ -186,7 +186,7 @@ a:hover{color:#228392;}
 
 /* liste topic */
 #content #sidebarleft .list-fav .activityNotification.newInsightCount{}
-#content #sidebarleft .activityNotification {background-color:#228392; color:white; font-size:9px; padding: 1px 3px; -webkit-border-radius: 6px; -moz-border-radius: 6x; border-radius: 6px; border:1px solid #7ecad5;}
+#content #sidebarleft .activityNotification {background-color:#228392; color:white; font-size:9px; padding: 1px 3px; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; border:1px solid #7ecad5;}
 
 /* liste avatars */
 #content #sidebarleft .list-avatars{width:230px; padding:0 0 10px 0;}
@@ -543,8 +543,8 @@ a:hover{color:#228392;}
 .insightCreationPicker .ui-datepicker-calendar td{text-align:center;}
 .insightCreationPicker .ui-datepicker-calendar a{color:#6E7677;font-size:12px;}
 .insightCreationPicker .ui-datepicker-calendar a:hover{color:#8B8F90;}
-.insightCreationPicker a.ui-datepicker-prev{text-indent:-9999px;display:block;float:left;width:15px;;height:15px;background:url(/public/images/selectmoreleft.png) no-repeat 0 0;}
-.insightCreationPicker a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;;height:15px;background:url(/public/images/selectmoreright.png) no-repeat 0 0;}
+.insightCreationPicker a.ui-datepicker-prev{text-indent:-9999px;display:block;float:left;width:15px;height:15px;background:url(/public/images/selectmoreleft.png) no-repeat 0 0;}
+.insightCreationPicker a.ui-datepicker-next{text-indent:-9999px;display:block;float:right;width:15px;height:15px;background:url(/public/images/selectmoreright.png) no-repeat 0 0;}
 
 .newinsight .item-textarea textarea{border:0 none;font-size:20px;color:#6e7677;width:100%;line-height:20px;height:100%;font-family:Arial, serif;}
 .newinsight .compteur-carac{clear:both;margin:0 0 0 72px;-moz-border-radius:5px;-webkit-border-radius:5px;border:solid #eeeeee 1px;width:200px;height:14px;background-color:#fff;overflow:hidden;float:left;}

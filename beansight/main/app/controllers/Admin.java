@@ -29,8 +29,7 @@ import models.InsightActivity;
 import models.Language;
 import models.PeriodEnum;
 import models.Tag;
-import models.Topic;
-import models.TopicActivity;
+import models.TagActivity;
 import models.User;
 import models.UserActivity;
 import models.analytics.DailyTotalComment;
@@ -441,83 +440,6 @@ public class Admin extends Controller {
 		new InsightTrendsCalculateJob().doJob();
 	}
 	
-	
-	public static void createTopic(Long topicId, String topicName, String tagLabelList) {
-		if (tagLabelList != null) {
-			List<Tag> tags = new ArrayList<Tag>();
-			for (String tagLabel : tagLabelList.split(",")) {
-				Tag tag = Tag.findByLabel(tagLabel.trim());
-				if (tag == null) {
-					tag = new Tag(tagLabel, null, CurrentUser.getCurrentUser());
-					tag.save();
-				}
-				tags.add( tag );
-			}
-		
-			Topic topic = null;
-			if ( topicId !=null) {
-				topic = Topic.findById(topicId);
-				topic.label = topicName;
-				topic.tags = tags; 
-			} else {
-				topic = new Topic(topicName, tags, CurrentUser.getCurrentUser());
-			}
-			topic.save();
-		}
-		
-		List<Topic> topics = Topic.all().fetch();
-		render(topics);
-	}
-	
-	public static void getTopic(Long topicId) {
-		Topic topic = Topic.findById(topicId);
-		
-		Map<String, Object> topicData = new HashMap<String, Object>();
-		topicData.put("id", topic.id);
-		topicData.put("name", topic.label);
-		
-		List<String> tags = new ArrayList<String>();
-		for (Tag tag : topic.tags) {
-			tags.add(tag.label);
-		}
-		
-//		String tags = "";
-//		for (Tag tag : topic.tags) {
-//			if (tags.length() ==  0) {
-//				tags += tag.label;
-//			} else {
-//				tags = tags + ", " + tag.label;
-//			}
-//			
-//		}
-		topicData.put("tags", tags);
-		
-		renderJSON(topicData);
-	}
-	
-	public static void deleteTopic(Long topicId) {
-		Topic topic = Topic.findById(topicId);
-		topic.tags = null;
-		topic.save();
-		topic.delete();
-	}
-
-	/** feature the given topic */
-	public static void featureTopic(Long topicId, String lang) {
-		Topic topic = Topic.findById(topicId);
-		Language language = Language.findByLabelOrCreate(lang);
-		topic.feature(language);
-		renderText("Topic "+ topic.label +" was featured in language " + language.label);
-	}
-	
-	/** stop featuring the given topic */
-	public static void stopFeatureTopic(Long topicId, String lang) {
-		Topic topic = Topic.findById(topicId);
-		Language language = Language.findByLabelOrCreate(lang);
-		topic.stopFeature(language);
-		renderText("Topic "+ topic.label +" is not featured anymore.");
-	}
-	
 	/**
 	 * Set a fake validationScore for this insight, this score will be used for user score computation
 	 * @param insightUniqueId
@@ -544,31 +466,6 @@ public class Admin extends Controller {
 	public static void weeklyMailSend() {
 		new WeeklyMailingSenderJob().now();
 	}
-
-	/**
-	 * Admin only: Call this method to replace all activities with new activities based on the "following" information for Users, Topics and Insights
-	 */
-	public static void CopyFavoriteToActivity() {
-		TopicActivity.deleteAll();
-		UserActivity.deleteAll();
-		InsightActivity.deleteAll();
-		
-		List<User> users = User.findAll(); 
-		for(User user : users) {
-			for(Insight insight : user.followedInsights) {
-				new InsightActivity(user, insight).save();
-			}
-			for(Topic topic : user.followedTopics) {
-				new TopicActivity(user, topic).save();
-			}
-			for(User followedUser : user.followedUsers) {
-				new UserActivity(user, followedUser).save();
-			}
-		}
-		
-		renderText("All activities for all users generated");
-	}
-	
 	/**
 	 * when you move the facebook from a beansight account to another the FacebookFriend.beansightUserFriend should reference
 	 * the new account

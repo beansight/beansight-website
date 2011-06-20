@@ -48,7 +48,7 @@
             #{isConnected}<li class="link-new"><a href="#" id="showMoreTags">&{'suggesttags'}</a></li>#{/isConnected}
             
             #{list items:insight.tags, as:'tag' }
-            <li><a href="#">${tag.label}</a></li>
+            <li><a href="@{Application.insights(null, null, null, tag.label, null)}">${tag.label}</a></li>
             #{/list}
         </ul>
         <div id="moreTags" style="display:none;">
