@@ -1,4 +1,5 @@
 #{extends 'main.html' /}
+#{set contentClass:'admin' /}
 #{set title:'Tag' /}
 
 <p><a href="@{AdminTags.tags()}">back</a></p>
@@ -44,7 +45,7 @@ nope
 </div>
 #{/form}
 
-<h3>Feature this tag:<h3> 
+<h3>Feature this tag:</h3> 
 <ul>
 <li>EN: <a href="@{AdminTags.featureTag(tag.id, "en")}">start</a>/<a href="@{AdminTags.stopfeatureTag(tag.id, "en")}">stop</a></li>
 <li>FR: <a href="@{AdminTags.featureTag(tag.id, "fr")}">start</a>/<a href="@{AdminTags.stopfeatureTag(tag.id, "fr")}">stop</a></li>
@@ -64,7 +65,7 @@ nope
 #{/list}
 </ul>
 
-<a href="@{AdminTags.deleteTag(tag.id)}">delete</a>
+<h3><a href="@{AdminTags.deleteTag(tag.id)}">delete</a></h3>
 
 <script type="text/javascript">
 $(document).ready(function() {
