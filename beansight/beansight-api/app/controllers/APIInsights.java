@@ -30,7 +30,8 @@ public class APIInsights extends APIController {
 	// Maybe a better solution would be to give the uniqueId of the latest
 	// downloaded insight
 	/**
-	 * Get a list of insights
+	 * Get a list of insights<br/>
+	 * <b>response:</b> <code>[{content, endDate, uniqueId}, ...]</code>
 	 * 
 	 * @param from
 	 *            index of the first insight to return, default = 0
@@ -53,8 +54,6 @@ public class APIInsights extends APIController {
 	 *            true to return only insights created by the user, default =
 	 *            false
 	 * 
-	 * response: [{content, startDate, endDate, category, agreeCount,
-	 *         disagreeCount, currentUserVote}, ...]
 	 */
 	public static void list(@Min(0) Integer from,
 			@Min(1) @Max(100) Integer number, String sort, Integer category,
@@ -112,11 +111,11 @@ public class APIInsights extends APIController {
 	}
 
 	/**
-	 * Get detailed information about a given insight
+	 * Get detailed information about a given insight<br/>
+	 * <b>response:</b> <code>{content, endDate, startDate, category, agreeCount,
+	 *         disagreeCount, comments[], tags[] }</code>
 	 * 
 	 * @param id : unique ID of this insight
-	 * response: {content, endDate, startDate, category, agreeCount,
-	 *         disagreeCount, comments[], tags[] }
 	 */
 	public static void show(@Required String id) {
 		if (validation.hasErrors()) {
@@ -160,20 +159,20 @@ public class APIInsights extends APIController {
 	}
 
 	/**
-	 * The current user agree a given insight
+	 * The current user agree a given insight<br/>
+	 * <b>response:</b> <code>{uniqueId, updatedAgreeCount, updatedDisagreeCount, voteState}</code>
 	 * 
 	 * @param id : unique ID of this insight
-	 * response: {uniqueId, updatedAgreeCount, updatedDisagreeCount, voteState}
 	 */
 	public static void agree(@Required String id) {
 		vote(id, State.AGREE);
 	}
 
 	/**
-	 * The current user disagree a given insight
+	 * The current user disagree a given insight<br/>
+	 * <b>response:</b> <code>{uniqueId, updatedAgreeCount, updatedDisagreeCount, voteState}</code>
 	 * 
 	 * @param id : unique ID of this insight
-	 * response: {uniqueId, updatedAgreeCount, updatedDisagreeCount, voteState}
 	 */
 	public static void disagree(@Required String id) {
 		vote(id, State.DISAGREE);
@@ -204,9 +203,8 @@ public class APIInsights extends APIController {
 	}
 	
 	/**
-	 * Get a list of all the categories
-	 * 
-	 * response: [{label, id}, ...]
+	 * Get a list of all the categories <br/>
+	 * <b>response:</b> <code>[{label, id}, ...]</code>
 	 */
 	public static void categories() {
 		List<Category> categories = Category.findAll();
