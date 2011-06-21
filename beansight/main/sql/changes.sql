@@ -4,11 +4,21 @@
 
 DROP TABLE `TopicActivity`;
 DROP TABLE `Topic_Tag`;
-DROP TABLE `Topic`;
 DROP TABLE `User_Topic`;
 DROP TABLE `UserTopicVisit`;
 
+
 ALTER TABLE `User` ADD COLUMN `isDangerous` BIT(1)  NOT NULL;
+
+CREATE TABLE  `User_Tag` (
+  `User_id` bigint(20) NOT NULL,
+  `followedTopics_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`User_id`,`followedTopics_id`),
+  KEY `FKF3FCE926E3049DFC` (`followedTopics_id`),
+  KEY `FKF3FCE92647140EFE` (`User_id`),
+  CONSTRAINT `FKF3FCE92647140EFE` FOREIGN KEY (`User_id`) REFERENCES `User` (`id`),
+  CONSTRAINT `FKF3FCE926E3049DFC` FOREIGN KEY (`followedTopics_id`) REFERENCES `Tag` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `Tag` ADD COLUMN `deleted` BIT(1)  NOT NULL;
 
