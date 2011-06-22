@@ -498,8 +498,10 @@ public class Admin extends Controller {
 	}
 	
 	
-	public static void getGoodPredictionsCount(String userName) {
-		new SuccessfulPredictionsForUsersJob().now();
+	public static void computeGoodPredictionsCount() {
+		SuccessfulPredictionsForUsersJob job = new SuccessfulPredictionsForUsersJob();
+		job.runNow = true;
+		job.now();
 	}
 	
 //	public static void changePassword(String userName, String newPassword) {

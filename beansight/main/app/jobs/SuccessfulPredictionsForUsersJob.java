@@ -18,7 +18,6 @@ public class SuccessfulPredictionsForUsersJob extends Job {
 	@Override
 	public void doJob() throws Exception {
 		
-    	Logger.info("SucessfulPredictionsForUsersJob doJob");
     	// FIXME TEMP : we should use @On("0 0 6 * * ?") but since there is a bug in Play 1.1.1 we use this trick
     	if (runNow == false) {
     		Logger.info("SucessfulPredictionsForUsersJob : runNow=false");
@@ -28,7 +27,7 @@ public class SuccessfulPredictionsForUsersJob extends Job {
 				return;
 			}
     	}
-		
+    	Logger.info("SucessfulPredictionsForUsersJob doJob");
 		List<User> users = User.findAll();
 		for (User u : users) {
 			u.computeSuccessfulPredictionCount();
