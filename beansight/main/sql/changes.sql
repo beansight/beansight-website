@@ -88,3 +88,5 @@ CREATE TABLE `ApiAccessTokenStore` (
   KEY `API_USER_TOKEN_IDX` (`accessToken`),
   CONSTRAINT `FK99DAD90647140EFE` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `User` ADD COLUMN `successfulPredictionCount` INT(11)  NOT NULL;

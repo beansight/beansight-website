@@ -15,6 +15,7 @@ import java.util.Set;
 import jobs.AnalyticsJob;
 import jobs.CheckFacebookFriendsAndFollowSyncJob;
 import jobs.InsightTrendsCalculateJob;
+import jobs.SuccessfulPredictionsForUsersJob;
 import jobs.scoring.InsightValidationJob;
 import jobs.scoring.ScoresComputationInitJob;
 import jobs.scoring.ScoresComputationJob;
@@ -32,6 +33,7 @@ import models.Tag;
 import models.TagActivity;
 import models.User;
 import models.UserActivity;
+import models.Vote;
 import models.analytics.DailyTotalComment;
 import models.analytics.DailyTotalInsight;
 import models.analytics.DailyTotalVote;
@@ -495,6 +497,10 @@ public class Admin extends Controller {
 		new CheckFacebookFriendsAndFollowSyncJob().now();
 	}
 	
+	
+	public static void getGoodPredictionsCount(String userName) {
+		new SuccessfulPredictionsForUsersJob().now();
+	}
 	
 //	public static void changePassword(String userName, String newPassword) {
 //		User.findByUserName(userName).changePassword(newPassword);

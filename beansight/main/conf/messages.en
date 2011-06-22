@@ -162,6 +162,7 @@ showUser.filterCreatedAndVoted=Created & voted
 showUser.filterVoted=Voted
 showUser.filterCreated=Created
 showUser.addUserToFavorite=Favorite this user
+showUserSuccessfulPrediction=Successful predictions
 
 #Contact
 followus=Follow us

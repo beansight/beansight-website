@@ -408,15 +408,16 @@ a:hover{color:#228392;}
 #contentcenter .mybadges{float:right;width:270px;}
 #contentcenter .mybadges h2{width:246px;margin:0;background-image:url(/public/images/icon-title2.png);}
 #contentcenter .mybadges .liststars{clear:both;padding:20px;background:url(/public/images/profil-badge.png) no-repeat 0 0;width:230px;height:116px;margin:10px 0 0 0;}
-#contentcenter .mybadges .liststars .colvote{float:left;width:230px;margin:0 0 20px 0;}
+#contentcenter .mybadges .liststars .colvote{float:left;width:230px;margin:0 0 9px 0;}
 #contentcenter .mybadges .liststars h3{clear:both;float:left;color:#7AA13D;font-weight:bold;font-size:12px;height:14px;overflow:hidden;}
 #contentcenter .mybadges .vote{float:right;}
 #contentcenter .mybadges .vote span.star{float:left;display:block;width:12px;height:11px;text-indent:-9999px;background:url(/public/images/votestars.png) no-repeat 0 0;}
 #contentcenter .mybadges .vote span.fullstar{background-position:left bottom;}
 #contentcenter .mybadges .vote span.demistar{background-position:left center;}
 #contentcenter .mybadges .vote span.emptystar{}
-
-
+#contentcenter .mybadges .liststars .successfulPrediction {clear:both; margin-bottom: 30px;}
+#contentcenter .mybadges .liststars .successfulPrediction h3{clear:both;float:left;color:#7AA13D;font-weight:bold;font-size:12px;height:14px;overflow:hidden;}
+#contentcenter .mybadges .liststars .vote .successfulBox {background-color: #7AA13D; width: 50px; padding: 6px; margin-top: -8px; color:white; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; text-align: center;}
 
 #contentcenter .listinsights .item-insight a.permalink{display:block;float:left;width:356px;margin:0 10px 12px 10px;background:url(/public/images/icon-linksingle1.png) no-repeat right center;}
 #contentcenter .listinsights .item-insight a.permalink.leftbusy{background:none;}

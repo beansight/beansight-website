@@ -106,6 +106,9 @@
 <div class="mybadges">
     <h2 class="cuf-grb">&{'userratings'}</h2>
     <div class="liststars">
+        <div class="successfulPrediction">
+    		<h3>&{'showUserSuccessfulPrediction'}</h3><div class="vote"><div class="successfulBox">${user.successfulPredictionCount}</div></div>
+    	</div>
     #{list items:categoryScores, as:'categoryScore' }
         *{ Only display the 3 best categories }*
         #{if categoryScore_index < 4 && ( categoryScore.normalizedScore < 1 || categoryScore.score > 0) } *{ the last condition is here to remove people who have a score to 0 and a normalized score to 1 }*

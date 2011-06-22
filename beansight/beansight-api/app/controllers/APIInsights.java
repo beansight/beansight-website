@@ -80,13 +80,20 @@ public class APIInsights extends APIController {
 		if (created == null) {
 			created = false;
 		}
+		if (category != null) {
+			Category.findById(category);
+		}
 
 		InsightResult result = null;
 		Filter filter = new Filter();
 		filter.filterType = FilterType.UPDATED;
 		filter.languages.add(Language.findByLabelOrCreate("en"));
 		filter.languages.add(Language.findByLabelOrCreate("fr"));
-		filter.filterVote = "voted";
+		filter.filterVote = vote;
+		filter.closed = closed;
+		if (category != null) {
+			filter.categories.add((Category)Category.findById(category));
+		}
 
 		if (sort.equals("trending")) {
 			result = Insight.findTrending(from, number, filter);

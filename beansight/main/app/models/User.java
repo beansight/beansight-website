@@ -212,6 +212,9 @@ public class User extends Model implements Comparable<User> {
 	/** Is this user dangerous? */
 	public boolean isDangerous;
 	
+	/** how many successful prediction for the user */
+	public int successfulPredictionCount;
+	
 	public User(String email, String userName, String password) {
 		if (!User.isUsernameAvailable(userName)) {
 			throw new RuntimeException(Messages.get("registerusernameexist"));
@@ -270,6 +273,7 @@ public class User extends Model implements Comparable<User> {
 		this.statusNewsletter = true;
 		
 		this.invitationsLeft = INVITATION_NUMBER;
+		this.successfulPredictionCount = 0;
 	}
 
 	public String toString() {
@@ -1585,5 +1589,27 @@ public class User extends Model implements Comparable<User> {
 	    	pageToProcess++;
 	    	_computeCategoriesAndUserScoresForAllUsers(computeDate, pageToProcess);
     	}
+	}
+	
+	public void computeSuccessfulPredictionCount() {
+		List<Object[]> rows = Insight.find("select i.uniqueId, case when(i.validationScore > 0.5) then 1 else 0 end, case when (v.state = :voteState) then 1 else 0 end, (case when(i.validationScore > 0.5) then 1 else 0 end - case when (v.state = 'AGREE') then 1 else 0 end) as balance from Vote v " +
+				"join v.user u join v.insight i " +
+				"where u.userName = :userName " +
+				"and v.status = 1 " +
+				"and i.validated is true " +
+				"and (i.validationScore > :trueMinival or i.validationScore < :falseMaxval)")
+			.bind("userName", this.userName)
+			.bind("voteState", Vote.State.AGREE)
+			.bind("trueMinival", Insight.INSIGHT_VALIDATED_TRUE_MINVAL)
+			.bind("falseMaxval", Insight.INSIGHT_VALIDATED_FALSE_MAXVAL)
+			.fetch();
+		
+		int result = 0;
+		for (Object[] row: rows) {
+			if ( ((Integer)row[2]) == 0 ) {
+				result++;
+			}
+		}
+		this.successfulPredictionCount = result;
 	}
 }
