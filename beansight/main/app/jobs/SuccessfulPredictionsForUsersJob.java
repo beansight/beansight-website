@@ -7,6 +7,7 @@ import java.util.List;
 import models.User;
 
 import play.Logger;
+import play.cache.Cache;
 import play.jobs.Every;
 import play.jobs.Job;
 
@@ -14,6 +15,8 @@ import play.jobs.Job;
 public class SuccessfulPredictionsForUsersJob extends Job {
 
 	public boolean runNow = false;
+	
+	private static Integer BLOCK_SIZE = 20;
 	
 	@Override
 	public void doJob() throws Exception {
@@ -27,12 +30,35 @@ public class SuccessfulPredictionsForUsersJob extends Job {
 				return;
 			}
     	}
+    	
     	Logger.info("SucessfulPredictionsForUsersJob doJob");
-		List<User> users = User.findAll();
+    	
+    	Integer page = (Integer)Cache.get("SuccessfulPredictionsForUsersJob.page");
+    	if (page == null) {
+    		page = 1;
+    	}
+    	Cache.safeDelete("SuccessfulPredictionsForUsersJob.page");
+    	
+		List<User> users = User.find("order by id").fetch(page, BLOCK_SIZE);
 		for (User u : users) {
 			u.computeSuccessfulPredictionCount();
 			u.save();
 		}
+		
+		Logger.info("SucessfulPredictionsForUsersJob : block from %s computed", page);
+		
+		Integer nextPage = page + 1;
+		users = User.find("order by id").fetch(nextPage, BLOCK_SIZE);
+		if (users.size() > 0) {
+			Cache.safeAdd("SuccessfulPredictionsForUsersJob.page", nextPage, "10mn");
+			SuccessfulPredictionsForUsersJob job = new SuccessfulPredictionsForUsersJob();
+			job.runNow = true;
+			job.in(2);
+			return;
+		} else {
+			Logger.info("SucessfulPredictionsForUsersJob no more users to process");
+		}
+
 		
 		Logger.info("SucessfulPredictionsForUsersJob finished");
 	}
