@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import models.ApiAccessTokenStore;
@@ -59,10 +61,14 @@ public class APIController extends Controller {
 	 */
 	protected static void renderAPI(Object o) {
 		String callback = params.get(API_JSON_CALLBACK);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("response", o);
+		
 		if(callback != null) {
-			renderJSONP(o, callback);
+			renderJSONP(map, callback);
 		} else {
-			renderJSON(o);
+			renderJSON(map);
 		}
 	}
 	

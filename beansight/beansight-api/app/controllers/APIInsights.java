@@ -31,36 +31,96 @@ public class APIInsights extends APIController {
 	static SimpleDateFormat dateFormatFrench = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public static class InsightItemResult {
-		public long count;
-		public List<InsightItem> insightItems = new ArrayList();
+		public List<InsightItem> insights = new ArrayList();
 		
-		public InsightItemResult(List<Insight> insights) {
-			count = insights.size();
-			for (Insight insight : insights) {
+		public InsightItemResult(List<Insight> insightList) {
+			for (Insight insight : insightList) {
 				InsightItem insightItem = new InsightItem(insight);
-				insightItem.uniqueId = insight.uniqueId;
-				insightItem.content = insight.content;
-				insightItems.add(insightItem);
+				insights.add(insightItem);
 			}
 		}
 	}
 	
 	public static class InsightItem {
-		public String uniqueId;
-		public String content;
-		public String creationDate;
-		public String creator;
-		public List<String> tags = new ArrayList<String>();
+		public String 	id;
+		public String 	content;
+		public Long 	creationDate;
+		public Long 	endDate;
+		public String 	creator;
+		public Long   	category;
+		public Long	  	agreeCount;
+		public Long	  	disagreeCount;
+		public Long	  	commentCount;
+		public String 	lastCurrentUserVote;
 		
 		public InsightItem(Insight insight) {
-			uniqueId = insight.uniqueId;
+			id = insight.uniqueId;
 			content = insight.content;
-			creationDate = dateFormatFrench.format(insight.creationDate);
+			creationDate = insight.creationDate.getTime();
+			endDate = insight.endDate.getTime();
 			creator = insight.creator.userName;
+			category = insight.category.id;
+			agreeCount = insight.agreeCount;
+			disagreeCount = insight.disagreeCount;
+			commentCount = (long) insight.comments.size();
+			
+			User currentUser = getUserFromAccessToken();
+			if (currentUser != null) {
+				Vote lastUserVote = Vote.findLastVoteByUserAndInsight(currentUser.id, insight.uniqueId);
+				if (lastUserVote != null) {
+					if (lastUserVote.state.equals(State.AGREE)) {
+						lastCurrentUserVote = "agree";
+					} else {
+						lastCurrentUserVote = "disagree";
+					}
+				} else {
+					lastCurrentUserVote = "non-voted";
+				}
+			}
+		}
+	}
+	
+	public static class InsightDetail {
+		public String 	id;
+		public String 	content;
+		public Long 	creationDate;
+		public Long 	endDate;
+		public String 	creator;
+		public Long   	category;
+		public Long	  	agreeCount;
+		public Long	  	disagreeCount;
+		public Long	  	commentCount;
+		public String 	lastCurrentUserVote;
+		public List<String> tags = new ArrayList<String>();
+		
+		public InsightDetail(Insight insight) {
+			id = insight.uniqueId;
+			content = insight.content;
+			creationDate = insight.creationDate.getTime();
+			endDate = insight.endDate.getTime();
+			creator = insight.creator.userName;
+			category = insight.category.id;
+			agreeCount = insight.agreeCount;
+			disagreeCount = insight.disagreeCount;
+			commentCount = (long) insight.comments.size();
+			
 			for(Tag tag : insight.tags) {
 				tags.add(tag.label);
 			}
+			
+			User currentUser = getUserFromAccessToken();
+			if (currentUser != null) {
+				Vote lastUserVote = Vote.findLastVoteByUserAndInsight(currentUser.id, insight.uniqueId);
+				if (lastUserVote != null) {
+					if (lastUserVote.state.equals(State.AGREE)) {
+						lastCurrentUserVote = "agree";
+					} else {
+						lastCurrentUserVote = "disagree";
+					}
+				}
+			}
 		}
+		
 	}
 	
 	// TODO : what if the content evolves between two calls ?
@@ -68,8 +128,7 @@ public class APIInsights extends APIController {
 	// downloaded insight
 	/**
 	 * Get a list of insights<br/>
-	 * <b>response:</b> <code>[{content, endDate, uniqueId, category, 
-	 *         agreeCount, disagreeCount, commentCount}, ...]</code>
+	 * <b>response:</b> <code>{insights:[{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote}, ...]}</code>
 	 * 
 	 * @param from
 	 *            index of the first insight to return, default = 0
@@ -151,24 +210,13 @@ public class APIInsights extends APIController {
 			result = Insight.findLatest(from, number, filter);
 		}
 
-		List<Object> jsonResult = new ArrayList<Object>();
-		for (Insight insight : result.results) {
-			Map<String, Object> insightResult = new HashMap<String, Object>();
-			insightResult.put("content", insight.content);
-			insightResult.put("uniqueId", insight.uniqueId);
-			// TODO : do the date formatting client side
-			insightResult.put("endDate", new DateTime(insight.endDate)
-					.toString(DateTimeFormat.forPattern("d MMMM yyyy")));
-			jsonResult.add(insightResult);
-		}
-
-		renderAPI(jsonResult);
+		InsightItemResult apiResult = new InsightItemResult(result.results);
+		renderAPI(apiResult);
 	}
 
 	/**
 	 * Get detailed information about a given insight<br/>
-	 * <b>response:</b> <code>{content, endDate, startDate, category, agreeCount,
-	 *         disagreeCount, comments[], tags[] }</code>
+	 * <b>response:</b> <code>{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote, tags[]}</code>
 	 * 
 	 * @param id : unique ID of this insight
 	 */
@@ -176,41 +224,12 @@ public class APIInsights extends APIController {
 		if (validation.hasErrors()) {
 			badRequest();
 		}
-		renderAPI(getInsightResult(id));
-	}
+		Insight insight = Insight.findByUniqueId(id);
+		notFoundIfNull(insight);
+		
+		InsightDetail apiResult = new InsightDetail(insight);
 
-	private static Map<String, Object> getInsightResult(String insightUniqueId) {
-		Insight insight = Insight.findByUniqueId(insightUniqueId);
-		Map<String, Object> jsonResult = new HashMap<String, Object>();
-		jsonResult.put("uniqueId", insight.uniqueId);
-		jsonResult.put("content", insight.content);
-		// TODO : do the date formatting client side
-		jsonResult.put("creationDate", new DateTime(insight.creationDate)
-				.toString(DateTimeFormat.forPattern("d MMMM yyyy")));
-		// TODO : do the date formatting client side
-		jsonResult.put("endDate", new DateTime(insight.endDate)
-				.toString(DateTimeFormat.forPattern("d MMMM yyyy")));
-		jsonResult.put("creator", insight.creator.userName);
-
-		jsonResult.put("agreeCount", insight.agreeCount);
-		jsonResult.put("disagreeCount", insight.disagreeCount);
-
-		User currentUser = CurrentUser.getCurrentUser();
-		if (currentUser != null) {
-			jsonResult.put("currentUser", currentUser.userName);
-			Vote lastUserVote = Vote.findLastVoteByUserAndInsight(
-					currentUser.id, insight.uniqueId);
-			if (lastUserVote != null) {
-				if (lastUserVote.state.equals(State.AGREE)) {
-					jsonResult.put("lastUserVote", "agree");
-				} else {
-					jsonResult.put("lastUserVote", "disagree");
-				}
-
-			}
-		}
-
-		return jsonResult;
+		renderAPI(apiResult);
 	}
 
 	/**
