@@ -1,6 +1,8 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,7 @@ import models.Filter.FilterVote;
 import models.Insight;
 import models.Insight.InsightResult;
 import models.Language;
+import models.Tag;
 import models.User;
 import models.Vote;
 import models.Vote.State;
@@ -25,6 +28,41 @@ import exceptions.CannotVoteTwiceForTheSameInsightException;
 
 public class APIInsights extends APIController {
 
+	static SimpleDateFormat dateFormatFrench = new SimpleDateFormat("dd/MM/yyyy");
+	
+	public static class InsightItemResult {
+		public long count;
+		public List<InsightItem> insightItems = new ArrayList();
+		
+		public InsightItemResult(List<Insight> insights) {
+			count = insights.size();
+			for (Insight insight : insights) {
+				InsightItem insightItem = new InsightItem(insight);
+				insightItem.uniqueId = insight.uniqueId;
+				insightItem.content = insight.content;
+				insightItems.add(insightItem);
+			}
+		}
+	}
+	
+	public static class InsightItem {
+		public String uniqueId;
+		public String content;
+		public String creationDate;
+		public String creator;
+		public List<String> tags = new ArrayList<String>();
+		
+		public InsightItem(Insight insight) {
+			uniqueId = insight.uniqueId;
+			content = insight.content;
+			creationDate = dateFormatFrench.format(insight.creationDate);
+			creator = insight.creator.userName;
+			for(Tag tag : insight.tags) {
+				tags.add(tag.label);
+			}
+		}
+	}
+	
 	// TODO : what if the content evolves between two calls ?
 	// Maybe a better solution would be to give the uniqueId of the latest
 	// downloaded insight
@@ -229,30 +267,4 @@ public class APIInsights extends APIController {
 	}
 
 	
-	// -------------------
-	
-	public static class InsightItemResult {
-		public long count;
-		public List<InsightItem> insightItems = new ArrayList();
-		
-		public InsightItemResult(List<Insight> insights) {
-			count = insights.size();
-			for (Insight insight : insights) {
-				InsightItem insightItem = new InsightItem(insight);
-				insightItem.uniqueId = insight.uniqueId;
-				insightItem.content = insight.content;
-				insightItems.add(insightItem);
-			}
-		}
-	}
-	
-	public static class InsightItem {
-		public String uniqueId;
-		public String content;
-		
-		public InsightItem(Insight insight) {
-			uniqueId = insight.uniqueId;
-			content = insight.content;
-		}
-	}
 }

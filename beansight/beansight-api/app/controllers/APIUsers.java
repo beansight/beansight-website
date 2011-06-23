@@ -15,14 +15,23 @@ import controllers.APIInsights.InsightItemResult;
 
 public class APIUsers extends APIController {
 
+	public static class Profile {
+		public String userName;
+		public String description;
+		public String avatarSmall;
+		public String avatarMedium;
+		public String avatarLarge;
+		public int successfulPredictionsCount;
+		public List<String[]> scores = new ArrayList<String[]>();
+	}
 	
 	/**
 	 * 
 	 * @param userName
 	 */
-	public static void profil(String userName) {
+	public static void profile(String userName) {
 		User user = User.findByUserName(userName);
-		Profil profil = new Profil();
+		Profile profil = new Profile();
 		profil.userName = user.userName;
 		profil.description = user.description;
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -106,19 +115,6 @@ public class APIUsers extends APIController {
 		InsightResult result = user.getLastInsights(from, numberInsights, filter);
 
 		return result;
-	}
-
-	
-	// --------------
-	
-	public static class Profil {
-		public String userName;
-		public String description;
-		public String avatarSmall;
-		public String avatarMedium;
-		public String avatarLarge;
-		public int successfulPredictionsCount;
-		public List<String[]> scores = new ArrayList<String[]>();
 	}
 
 }
