@@ -100,15 +100,13 @@ public class APIController extends Controller {
 		// if user is already authenticated on beansight redirect to the urlCallback this the access_token
 		if(Security.isConnected()) {
 			User currentUser = CurrentUser.getCurrentUser();
+			String beansightApiAccessToken = ApiAccessTokenStore.getAccessTokenForUser(currentUser.email);
 
-        	UUID uuid = UUID.randomUUID();
-        	Cache.add(uuid.toString(), currentUser.email); 
-        	
-        	// clean the session
+			// clean the session
         	session.remove(APIController.API_URL_CALLBACK);
         	session.remove(APIController.API_TOKEN_RESULT_KEY);
         	
-        	redirect(String.format("%s%saccess_token=%s", urlCallback, apiTokenResult, uuid.toString()));
+        	redirect(String.format("%s%saccess_token=%s", urlCallback, apiTokenResult, beansightApiAccessToken));
         	return;
 		}
 		

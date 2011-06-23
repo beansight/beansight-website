@@ -8,4 +8,5 @@
 GET     /api/authenticate                       APIController.authenticate
 GET     /api/isauthenticated                    APIController.isAuthenticated
 GET     /api/insights/{action}                  APIInsights.{action}
+GET     /api/users/{action}                  	APIUsers.{action}
 

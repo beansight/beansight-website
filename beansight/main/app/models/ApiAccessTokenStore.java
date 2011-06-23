@@ -93,7 +93,7 @@ public class ApiAccessTokenStore extends Model {
 	 * @return
 	 */
 	public boolean isObsolete() {
-		if (new DateMidnight(crdate).plusDays(60).isAfter(new DateMidnight())) {
+		if (new DateMidnight(crdate).plusDays(60).isBefore(new DateMidnight())) {
 			return true;
 		} 
 		return false;
