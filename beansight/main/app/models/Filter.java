@@ -23,8 +23,8 @@ public class Filter  {
 	public Set<Category> 	categories;
 	public Set<Tag>			tags;
 	public Set<Language> 	languages;
-	public String filterVote;
-	public Boolean closed;
+	public FilterVote 			vote;
+	public Boolean 			closed;
 	/** user is used for filtering by vote */
 	public User user;
 	
@@ -35,7 +35,7 @@ public class Filter  {
 		tags 		= new HashSet<Tag>();
 		languages 	= new HashSet<Language>();
 		favorites 	= false;
-		filterVote 	= "all";
+		vote 		= FilterVote.ALL;
 		closed 		= null;
 		user 		= null;
 	}
@@ -65,16 +65,16 @@ public class Filter  {
 		}
         
         if (sortBy.equals(SortBy.TRENDING) && user != null) {
-			if (filterVote.equals("voted")) {
+			if (vote.equals(FilterVote.VOTED)) {
 				whereQuery += " and v.insight.id in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
-			} else if (filterVote.equals("notVoted")) {
+			} else if (vote.equals(FilterVote.NONVOTED)) {
 				whereQuery += " and v.insight.id not in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			}
 			whereQuery += " ";
         } else if ( (sortBy.equals(SortBy.UPDATED) || sortBy.equals(SortBy.INCOMING) ) && user != null ) {
-			if (filterVote.equals("voted")) {
+			if (vote.equals(FilterVote.VOTED)) {
 				whereQuery += " and i.id in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
-			} else if (filterVote.equals("notVoted")) {
+			} else if (vote.equals(FilterVote.NONVOTED)) {
 				whereQuery += " and i.id not in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			}
         } 

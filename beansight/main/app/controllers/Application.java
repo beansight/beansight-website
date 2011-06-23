@@ -21,6 +21,7 @@ import models.FeaturedInsight;
 import models.FeaturedSponsor;
 import models.FeaturedTag;
 import models.Filter;
+import models.Filter.FilterVote;
 import models.Filter.SortBy;
 import models.Insight;
 import models.Insight.InsightResult;
@@ -264,7 +265,13 @@ public class Application extends Controller {
 	
 	private static InsightResult getFilteredInsightsList(int from, int numberInsights, String sortBy, long cat, String filterVote, String topicStr, Boolean closed, String userName) {
 		Filter filter = new Filter();
-		filter.filterVote = filterVote;
+		if(filterVote.equals("notVoted")) {
+			filter.vote = FilterVote.NONVOTED;
+		} else if(filterVote.equals("voted")) {
+			filter.vote = FilterVote.VOTED;
+		} else {
+			filter.vote = FilterVote.ALL;
+		}
 
 		// tags
 		if(topicStr != null && !topicStr.trim().equalsIgnoreCase("undefined")) {

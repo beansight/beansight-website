@@ -86,7 +86,6 @@ public class API extends Controller {
 		Filter filter = new Filter();
 		filter.languages.add(Language.findByLabelOrCreate("en"));
 		filter.languages.add(Language.findByLabelOrCreate("fr"));
-		filter.filterVote = "voted";
 
 		if (sort.equals("trending")) {
 			result = Insight.findTrending(from, number, filter);
