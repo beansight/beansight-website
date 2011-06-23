@@ -30,17 +30,6 @@ public class APIInsights extends APIController {
 
 	static SimpleDateFormat dateFormatFrench = new SimpleDateFormat("dd/MM/yyyy");
 	
-	public static class InsightItemResult {
-		public List<InsightItem> insights = new ArrayList();
-		
-		public InsightItemResult(List<Insight> insightList) {
-			for (Insight insight : insightList) {
-				InsightItem insightItem = new InsightItem(insight);
-				insights.add(insightItem);
-			}
-		}
-	}
-	
 	public static class InsightItem {
 		public String 	id;
 		public String 	content;
@@ -77,6 +66,15 @@ public class APIInsights extends APIController {
 					lastCurrentUserVote = "non-voted";
 				}
 			}
+		}
+		
+		public static List<InsightItem> insightListToInsightItemList(List<Insight> insightList) {
+			List<InsightItem> insights = new ArrayList();
+			for (Insight insight : insightList) {
+				InsightItem insightItem = new InsightItem(insight);
+				insights.add(insightItem);
+			}
+			return insights;
 		}
 	}
 	
@@ -128,7 +126,7 @@ public class APIInsights extends APIController {
 	// downloaded insight
 	/**
 	 * Get a list of insights<br/>
-	 * <b>response:</b> <code>{insights:[{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote}, ...]}</code>
+	 * <b>response:</b> <code>[{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote}, ...]</code>
 	 * 
 	 * @param from
 	 *            index of the first insight to return, default = 0
@@ -210,8 +208,7 @@ public class APIInsights extends APIController {
 			result = Insight.findLatest(from, number, filter);
 		}
 
-		InsightItemResult apiResult = new InsightItemResult(result.results);
-		renderAPI(apiResult);
+		renderAPI(InsightItem.insightListToInsightItemList(result.results));
 	}
 
 	/**

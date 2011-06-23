@@ -5,13 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import controllers.APIInsights.InsightItem;
+
 import models.Category;
 import models.Insight.InsightResult;
 import models.User;
 import models.UserCategoryScore;
 import models.UserInsightsFilter;
+import play.data.validation.Max;
+import play.data.validation.Min;
 import play.mvc.Router;
-import controllers.APIInsights.InsightItemResult;
 
 public class APIUsers extends APIController {
 
@@ -26,8 +29,10 @@ public class APIUsers extends APIController {
 	}
 	
 	/**
-	 * 
-	 * @param userName
+	 * Get profile information about the given User<br/>
+	 * <b>response:</b> <code>{userName, description, avatarSmall, avatarMedium, avatarLarge, successfulPredictionsCount}</code>
+	 *
+	 * @param userName unique userName of the user
 	 */
 	public static void profile(String userName) {
 		User user = User.findByUserName(userName);
@@ -51,8 +56,10 @@ public class APIUsers extends APIController {
 	
 	
 	/**
+	 * Get a list of users who are followed by the given user<br/>
+	 * <b>response:</b> <code>[userName, ...]</code>
 	 * 
-	 * @param userName
+	 * @param userName unique userName of the user
 	 */
 	public static void friends(String userName) {
 		checkAccessToken();
@@ -69,8 +76,10 @@ public class APIUsers extends APIController {
 	
 	
 	/**
+	 * Get a list of the followers of the given user<br/>
+	 * <b>response:</b> <code>[userName, ...]</code>
 	 * 
-	 * @param userName
+	 * @param userName unique userName of the user
 	 */
 	public static void followers(String userName) {
 		checkAccessToken();
@@ -84,24 +93,37 @@ public class APIUsers extends APIController {
 		
 		renderAPI(followers);
 	}
-	
-	public static void insights(String userName, Integer from, Long cat, String filterVote) {
+	/**
+	 * Get a list of the insights a given user interacted with.<br/>
+	 * <b>response:</b> <code>[{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote}, ...]</code>
+	 * 
+	 * @param userName unique userName of the user
+	 * @param from
+	 *            index of the first insight to return, default = 0
+	 * @param number
+	 *            number of insights to return, default = 20
+	 * @param category
+	 *            id of the category to restrict to, default = null
+	 * @param actions insights voted or created by the given user. ["voted", "created"] (String), default = "voted"
+	 */
+	public static void insights(String userName, @Min(0) Integer from, @Min(1) @Max(100) Integer number, Integer category, String actions) {
+		if (validation.hasErrors()) {
+			badRequest();
+		}
 		if (from == null) {
-			from = 1;
+			from = 0;
 		}
-		if (cat == null) {
-			cat = 0l;
+		if (number == null) {
+			number = 20;
 		}
-		if (filterVote == null || filterVote.trim().equals("")) {
-			filterVote = "voted";
+		if (actions == null || actions.trim().equals("")) {
+			actions = "voted";
 		}
 		
 		User user = User.findByUserName(userName);
-		InsightResult result = Application.getFilteredUserInsightsList(from, Application.NUMBER_INSIGHTS_INSIGHTPAGE, cat, user, filterVote);
+		InsightResult result = Application.getFilteredUserInsightsList(from, Application.NUMBER_INSIGHTS_INSIGHTPAGE, category, user, actions);
 		
-		InsightItemResult insightItemResult = new InsightItemResult(result.results);
-		
-		renderAPI(insightItemResult);
+		renderAPI(InsightItem.insightListToInsightItemList(result.results));
 	}
 	
 }
