@@ -4,7 +4,7 @@ import java.util.Map;
 
 import models.Filter;
 import models.Insight;
-import models.Filter.FilterType;
+import models.Filter.SortBy;
 import models.Insight.InsightResult;
 import play.mvc.*;
 

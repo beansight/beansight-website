@@ -7,7 +7,8 @@ import java.util.Map;
 
 import models.Category;
 import models.Filter;
-import models.Filter.FilterType;
+import models.Filter.FilterVote;
+import models.Filter.SortBy;
 import models.Insight;
 import models.Insight.InsightResult;
 import models.Language;
@@ -18,6 +19,7 @@ import models.Vote.State;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import play.data.validation.Match;
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Required;
@@ -31,7 +33,8 @@ public class APIInsights extends APIController {
 	// downloaded insight
 	/**
 	 * Get a list of insights<br/>
-	 * <b>response:</b> <code>[{content, endDate, uniqueId}, ...]</code>
+	 * <b>response:</b> <code>[{content, endDate, uniqueId, category, 
+	 *         agreeCount, disagreeCount, commentCount}, ...]</code>
 	 * 
 	 * @param from
 	 *            index of the first insight to return, default = 0
@@ -50,14 +53,10 @@ public class APIInsights extends APIController {
 	 *            String of the topic, default = null
 	 * @param closed
 	 *            true to return closed insights, default = false
-	 * @param created
-	 *            true to return only insights created by the user, default =
-	 *            false
-	 * 
 	 */
 	public static void list(@Min(0) Integer from,
 			@Min(1) @Max(100) Integer number, String sort, Integer category,
-			String vote, String topic, Boolean closed, Boolean created) {
+			String vote, String topic, Boolean closed) {
 
 		if (validation.hasErrors()) {
 			badRequest();
@@ -70,15 +69,20 @@ public class APIInsights extends APIController {
 		}
 		if (sort == null) {
 			sort = "updated";
+		} else {
+			if(!sort.equals("updated") && !sort.equals("trending") && !sort.equals("incoming")) {
+				badRequest();
+			}
 		}
 		if (vote == null) {
 			vote = "all";
+		} else {
+			if( !vote.equals("all") && !vote.equals("voted") && !vote.equals("non-voted")) {
+				badRequest();
+			}
 		}
 		if (closed == null) {
 			closed = false;
-		}
-		if (created == null) {
-			created = false;
 		}
 		if (category != null) {
 			Category.findById(category);
@@ -86,11 +90,20 @@ public class APIInsights extends APIController {
 
 		InsightResult result = null;
 		Filter filter = new Filter();
-		filter.filterType = FilterType.UPDATED;
 		filter.languages.add(Language.findByLabelOrCreate("en"));
 		filter.languages.add(Language.findByLabelOrCreate("fr"));
-		filter.filterVote = vote;
+
+		filter.user = getUserFromAccessToken();
+		if( vote.equals("voted") ) {
+			filter.vote = FilterVote.VOTED;
+		} else if ( vote.equals("non-voted") ) {
+			filter.vote = FilterVote.NONVOTED;
+		} else {
+			filter.vote = FilterVote.ALL;
+		}
+		
 		filter.closed = closed;
+		
 		if (category != null) {
 			filter.categories.add((Category)Category.findById(category));
 		}
@@ -128,7 +141,7 @@ public class APIInsights extends APIController {
 		if (validation.hasErrors()) {
 			badRequest();
 		}
-		renderJSON(getInsightResult(id));
+		renderAPI(getInsightResult(id));
 	}
 
 	private static Map<String, Object> getInsightResult(String insightUniqueId) {
@@ -206,7 +219,7 @@ public class APIInsights extends APIController {
 			jsonResult.put("voteState", "disagree");
 		}
 
-		renderJSON(jsonResult);
+		renderAPI(jsonResult);
 	}
 	
 	/**
@@ -215,7 +228,7 @@ public class APIInsights extends APIController {
 	 */
 	public static void categories() {
 		List<Category> categories = Category.findAll();
-		renderJSON(categories);
+		renderAPI(categories);
 	}
 
 }

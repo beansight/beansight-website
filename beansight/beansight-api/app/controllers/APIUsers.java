@@ -7,7 +7,6 @@ import java.util.Map;
 
 import models.Category;
 import models.Filter;
-import models.Filter.FilterType;
 import models.Insight;
 import models.Insight.InsightResult;
 import models.Language;
