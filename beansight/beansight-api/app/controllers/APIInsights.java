@@ -81,9 +81,6 @@ public class APIInsights extends APIController {
 		if (closed == null) {
 			closed = false;
 		}
-		if (category != null) {
-			Category.findById(category);
-		}
 
 		InsightResult result = null;
 		Filter filter = new Filter();
@@ -102,7 +99,10 @@ public class APIInsights extends APIController {
 		filter.closed = closed;
 		
 		if (category != null) {
-			filter.categories.add((Category)Category.findById(category));
+			Category cat = Category.findById(category);
+			if(cat != null) {
+				filter.categories.add(cat);
+			}
 		}
 
 		if (sort.equals("trending")) {
