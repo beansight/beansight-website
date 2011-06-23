@@ -55,6 +55,8 @@ public class APIUsers extends APIController {
 	 * @param userName
 	 */
 	public static void friends(String userName) {
+		checkAccessToken();
+		
 		User user = User.findByUserName(userName);
 		
 		List<String> friends = new ArrayList<String>();
@@ -71,6 +73,8 @@ public class APIUsers extends APIController {
 	 * @param userName
 	 */
 	public static void followers(String userName) {
+		checkAccessToken();
+		
 		User user = User.findByUserName(userName);
 		
 		List<String> followers = new ArrayList<String>();
@@ -89,32 +93,15 @@ public class APIUsers extends APIController {
 			cat = 0l;
 		}
 		if (filterVote == null || filterVote.trim().equals("")) {
-			filterVote = "all";
+			filterVote = "voted";
 		}
 		
 		User user = User.findByUserName(userName);
-		InsightResult result = getFilteredUserInsightsList(from, Application.NUMBER_INSIGHTS_INSIGHTPAGE, cat, user, filterVote);
+		InsightResult result = Application.getFilteredUserInsightsList(from, Application.NUMBER_INSIGHTS_INSIGHTPAGE, cat, user, filterVote);
 		
 		InsightItemResult insightItemResult = new InsightItemResult(result.results);
 		
 		renderAPI(insightItemResult);
 	}
 	
-	
-	private static InsightResult getFilteredUserInsightsList(int from, int numberInsights, long cat, User user, String filterVote) {
-		UserInsightsFilter filter = new UserInsightsFilter();
-
-		filter.user = user;
-		filter.filterVote = filterVote;
-		
-		Category category = Category.findById(cat);
-		if(category != null) {
-			filter.categories.add(category);
-		}
-		
-		InsightResult result = user.getLastInsights(from, numberInsights, filter);
-
-		return result;
-	}
-
 }

@@ -607,7 +607,7 @@ public class Application extends Controller {
 		renderTemplate("Application/getInsights.html");
 	}
 	
-	private static InsightResult getFilteredUserInsightsList(int from, int numberInsights, long cat, User user, String filterVote) {
+	public static InsightResult getFilteredUserInsightsList(int from, int numberInsights, long cat, User user, String filterVote) {
 		UserInsightsFilter filter = new UserInsightsFilter();
 
 		filter.user = user;
