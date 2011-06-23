@@ -21,7 +21,7 @@ import models.FeaturedInsight;
 import models.FeaturedSponsor;
 import models.FeaturedTag;
 import models.Filter;
-import models.Filter.FilterType;
+import models.Filter.SortBy;
 import models.Insight;
 import models.Insight.InsightResult;
 import models.InsightTrend;
@@ -304,17 +304,12 @@ public class Application extends Controller {
 		} else {
 			// depending on the sortBy
 			if(sortBy != null && sortBy.equals("updated")) {
-				filter.filterType = FilterType.UPDATED;
 				result = Insight.findLatest(from, numberInsights, filter);
 			} else if (sortBy != null && sortBy.equals("trending")) {
-				filter.filterType = FilterType.TRENDY;
 				result = Insight.findTrending(from, numberInsights, filter);
 			} else if (sortBy != null && sortBy.equals("incoming")) {
-				filter.filterType = FilterType.INCOMING;
 				result = Insight.findIncoming(from, numberInsights, filter);
 			} else { 
-				// default is incoming
-				filter.filterType = FilterType.INCOMING;
 				result = Insight.findIncoming(from, numberInsights, filter);
 			}
 			// featured insight

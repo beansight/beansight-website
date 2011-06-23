@@ -27,7 +27,7 @@ import jregex.MatchIterator;
 import jregex.MatchResult;
 import jregex.Pattern;
 
-import models.Filter.FilterType;
+import models.Filter.SortBy;
 import models.Vote.State;
 import models.Vote.Status;
 import notifiers.Mails;
@@ -719,7 +719,7 @@ public class Insight extends Model {
         String query = "select i.id from Insight i "
         				+ "join i.tags t "
         				+ "where i.hidden is false "
-				        + filter.generateJPAQueryWhereClause()
+				        + filter.generateJPAQueryWhereClause(SortBy.UPDATED)
 				        + " group by i.id "
 				        + " order by i.lastUpdated DESC";
 
@@ -747,7 +747,7 @@ public class Insight extends Model {
 						+ "join i.tags t "
 						+ "where i.hidden is false "
 						+ "and v.creationDate > ? " // Of course, do not check the status of the vote.
-						+ filter.generateJPAQueryWhereClause()
+						+ filter.generateJPAQueryWhereClause(SortBy.TRENDING)
 						+ "group by v.insight.id "
 						+ "order by count(v) desc";
 		List<Long> insightIds = Insight.find(query, new DateTime().minusHours(24).toDate() ).from(from).fetch(length);
@@ -772,7 +772,7 @@ public class Insight extends Model {
 		        		+ "where i.hidden is false "
 		        		+ "and (i.agreeCount + i.disagreeCount) > 1 "
 		        		+ "and endDate >= :currentDate "
-		        		+ filter.generateJPAQueryWhereClause()
+		        		+ filter.generateJPAQueryWhereClause(SortBy.INCOMING)
 		        		+ "group by i.id "
 		        		+ "order by endDate ASC";
 
@@ -796,7 +796,7 @@ public class Insight extends Model {
     		+ "where i.hidden is false "
 //    		+ "and (i.agreeCount + i.disagreeCount) > 1 "
     		+ "and endDate < :currentDate "
-    		+ filter.generateJPAQueryWhereClause()
+    		+ filter.generateJPAQueryWhereClause(null)
     		+ "group by i.id "
     		+ "order by endDate DESC";
 		

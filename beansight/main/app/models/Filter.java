@@ -4,20 +4,25 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A filter is used to filter results
+ * A filter is used to filter results (not to sort them)
  */
 public class Filter  {
 
-	public enum FilterType {
-		TRENDY, 
+	public enum SortBy {
+		TRENDING, 
 		UPDATED,
 		INCOMING
+	}
+
+	public enum FilterVote {
+		ALL,
+		VOTED,
+		NONVOTED
 	}
 	
 	public Set<Category> 	categories;
 	public Set<Tag>			tags;
 	public Set<Language> 	languages;
-	public FilterType filterType = FilterType.INCOMING;
 	public String filterVote;
 	public Boolean closed;
 	/** user is used for filtering by vote */
@@ -42,7 +47,7 @@ public class Filter  {
 	 * 
 	 * I'm sorry, this is ugly but blame SQL.
 	 */
-	public String generateJPAQueryWhereClause() {
+	public String generateJPAQueryWhereClause(SortBy sortBy) {
         String categoryIds = Category.listToIdString(this.categories);
         String languageIds = Language.listToIdString(this.languages);
         String tagIds = 	 Tag.listToIdString(this.tags);
@@ -59,15 +64,14 @@ public class Filter  {
 			whereQuery += " and t.id in (" + tagIds + ") ";
 		}
         
-    	// FIXME : Ideally the sort order should not appear in filters
-        if (filterType.equals(FilterType.TRENDY) && user != null) {
+        if (sortBy.equals(SortBy.TRENDING) && user != null) {
 			if (filterVote.equals("voted")) {
 				whereQuery += " and v.insight.id in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			} else if (filterVote.equals("notVoted")) {
 				whereQuery += " and v.insight.id not in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			}
 			whereQuery += " ";
-        } else if (  (filterType.equals(FilterType.UPDATED) || filterType.equals(FilterType.INCOMING) ) && user != null ) {
+        } else if ( (sortBy.equals(SortBy.UPDATED) || sortBy.equals(SortBy.INCOMING) ) && user != null ) {
 			if (filterVote.equals("voted")) {
 				whereQuery += " and i.id in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			} else if (filterVote.equals("notVoted")) {

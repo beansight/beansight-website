@@ -8,7 +8,7 @@ import models.Filter;
 import models.Insight;
 import models.Language;
 import models.User;
-import models.Filter.FilterType;
+import models.Filter.SortBy;
 import play.mvc.Controller;
 
 public class Sitemap extends Controller {
@@ -18,7 +18,6 @@ public class Sitemap extends Controller {
     public static void generate() {
     	
 		Filter filter = new Filter();
-		filter.filterType = FilterType.UPDATED;
 		filter.languages.add(Language.findByLabelOrCreate("en"));
 		filter.languages.add(Language.findByLabelOrCreate("fr"));
     	

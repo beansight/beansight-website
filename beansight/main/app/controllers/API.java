@@ -16,7 +16,7 @@ import models.Insight;
 import models.Language;
 import models.User;
 import models.Vote;
-import models.Filter.FilterType;
+import models.Filter.SortBy;
 import models.Insight.InsightResult;
 import models.Vote.State;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
@@ -84,7 +84,6 @@ public class API extends Controller {
 
 		InsightResult result = null;
 		Filter filter = new Filter();
-		filter.filterType = FilterType.UPDATED;
 		filter.languages.add(Language.findByLabelOrCreate("en"));
 		filter.languages.add(Language.findByLabelOrCreate("fr"));
 		filter.filterVote = "voted";
