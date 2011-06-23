@@ -8,7 +8,6 @@ import java.util.Map;
 import models.Category;
 import models.Filter;
 import models.Filter.FilterVote;
-import models.Filter.SortBy;
 import models.Insight;
 import models.Insight.InsightResult;
 import models.Language;
@@ -19,11 +18,9 @@ import models.Vote.State;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import play.data.validation.Match;
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Required;
-import controllers.CurrentUser;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 
 public class APIInsights extends APIController {
@@ -231,4 +228,31 @@ public class APIInsights extends APIController {
 		renderAPI(categories);
 	}
 
+	
+	// -------------------
+	
+	public static class InsightItemResult {
+		public long count;
+		public List<InsightItem> insightItems = new ArrayList();
+		
+		public InsightItemResult(List<Insight> insights) {
+			count = insights.size();
+			for (Insight insight : insights) {
+				InsightItem insightItem = new InsightItem(insight);
+				insightItem.uniqueId = insight.uniqueId;
+				insightItem.content = insight.content;
+				insightItems.add(insightItem);
+			}
+		}
+	}
+	
+	public static class InsightItem {
+		public String uniqueId;
+		public String content;
+		
+		public InsightItem(Insight insight) {
+			uniqueId = insight.uniqueId;
+			content = insight.content;
+		}
+	}
 }

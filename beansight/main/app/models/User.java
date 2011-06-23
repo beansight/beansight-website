@@ -958,6 +958,7 @@ public class User extends Model implements Comparable<User> {
 				+ filter.generateJPAQueryWhereClause()
 				+ filter.generateJPAQueryOrderByClause())
 				.from(from).fetch(number);
+		result.count = result.results.size();
 		return result;
 	}
 	
