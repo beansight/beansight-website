@@ -199,6 +199,15 @@ public class APIInsights extends APIController {
 			filter.vote = FilterVote.ALL;
 		}
 		
+		if(topic != null) {
+			Tag top = Tag.findByLabel(topic);
+			if(top != null) {
+				for(Tag tag : top.getContainedTags()) {
+					filter.tags.add(tag);
+				}
+			}
+		}
+		
 		filter.closed = closed;
 		
 		if (category != null) {
