@@ -65,6 +65,16 @@ public class APIController extends Controller {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("response", o);
 		
+		Map<String, Object> meta = new HashMap<String, Object>();
+		User currentUser = getUserFromAccessToken();
+		if(currentUser != null) {
+			meta.put("authenticated", true);
+			meta.put("userName", currentUser.userName);
+		} else {
+			meta.put("authenticated", false);
+		}
+		map.put("meta", meta);
+		
 		if(callback != null) {
 			renderJSONP(map, callback);
 		} else {
