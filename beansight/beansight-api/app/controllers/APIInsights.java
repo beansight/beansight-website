@@ -2,12 +2,12 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import models.Category;
+import models.Comment;
 import models.Filter;
 import models.Filter.FilterVote;
 import models.Insight;
@@ -17,10 +17,6 @@ import models.Tag;
 import models.User;
 import models.Vote;
 import models.Vote.State;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Required;
@@ -127,6 +123,30 @@ public class APIInsights extends APIController {
 			}
 		}
 		
+	}
+	
+	
+	public static class InsightComment {
+		public String 	author;
+		public Long 	creationDate;
+		public String 	content;
+		
+		public static InsightComment commentToInsightComment(Comment comment) {
+			InsightComment insightComment = new InsightComment();
+			insightComment.content = comment.content;
+			insightComment.creationDate = comment.creationDate.getTime();
+			insightComment.author = comment.user.userName;
+			return insightComment;
+		}
+		
+		
+		public static List<InsightComment> commentListToInsightCommentList(List<Comment> commentList) {
+			List<InsightComment> insightCommentList = new ArrayList<APIInsights.InsightComment>();
+			for (Comment comment : commentList) {
+				insightCommentList.add(commentToInsightComment(comment));
+			}
+			return insightCommentList;
+		}
 	}
 	
 	// TODO : what if the content evolves between two calls ?
@@ -308,5 +328,13 @@ public class APIInsights extends APIController {
 		renderAPI(allCategories);
 	}
 
+	/**
+	 * Get a list of all the comments for a given insigh <br/>
+	 * b>response:</b> <code>[{author, creationDate, content}, ...]</code>
+	 * @param id
+	 */
+	public static void comments(@Required String id) {
+		renderAPI(InsightComment.commentListToInsightCommentList(Insight.findByUniqueId(id).comments));
+	}
 	
 }
