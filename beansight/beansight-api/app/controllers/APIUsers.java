@@ -116,6 +116,9 @@ public class APIUsers extends APIController {
 		if (number == null) {
 			number = 20;
 		}
+		if (category == null) {
+			category = 0;
+		}
 		if (actions == null || actions.trim().equals("")) {
 			actions = "voted";
 		}

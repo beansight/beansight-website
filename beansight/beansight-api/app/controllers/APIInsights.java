@@ -89,6 +89,8 @@ public class APIInsights extends APIController {
 		public Long	  	disagreeCount;
 		public Long	  	commentCount;
 		public String 	lastCurrentUserVote;
+		public Double	occurenceScore;
+		public boolean 	validated;
 		public List<String> tags = new ArrayList<String>();
 		
 		public InsightDetail(Insight insight) {
@@ -101,6 +103,12 @@ public class APIInsights extends APIController {
 			agreeCount = insight.agreeCount;
 			disagreeCount = insight.disagreeCount;
 			commentCount = (long) insight.comments.size();
+			validated = insight.validated;
+			if (insight.validated) {
+				occurenceScore = insight.getValidationScore();
+			} else {
+				occurenceScore = insight.occurenceScore;
+			}
 			
 			for(Tag tag : insight.tags) {
 				tags.add(tag.label);
@@ -213,7 +221,7 @@ public class APIInsights extends APIController {
 
 	/**
 	 * Get detailed information about a given insight<br/>
-	 * <b>response:</b> <code>{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote, tags[]}</code>
+	 * <b>response:</b> <code>{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote, occurenceScore, validated, tags[]}</code>
 	 * 
 	 * @param id : unique ID of this insight
 	 */
@@ -236,6 +244,7 @@ public class APIInsights extends APIController {
 	 * @param id : unique ID of this insight
 	 */
 	public static void agree(@Required String id) {
+		checkAccessToken();
 		vote(id, State.AGREE);
 	}
 
@@ -246,6 +255,7 @@ public class APIInsights extends APIController {
 	 * @param id : unique ID of this insight
 	 */
 	public static void disagree(@Required String id) {
+		checkAccessToken();
 		vote(id, State.DISAGREE);
 	}
 
@@ -279,7 +289,14 @@ public class APIInsights extends APIController {
 	 */
 	public static void categories() {
 		List<Category> categories = Category.findAll();
-		renderAPI(categories);
+		
+		List<Object[]> allCategories = new ArrayList<Object[]>();
+		
+		for (Category cat : categories) {
+			allCategories.add(new Object[] {cat.label, cat.id});
+		}
+		
+		renderAPI(allCategories);
 	}
 
 	
