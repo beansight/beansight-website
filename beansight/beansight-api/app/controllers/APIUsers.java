@@ -57,7 +57,7 @@ public class APIUsers extends APIController {
 	
 	/**
 	 * Get a list of users who are followed by the given user<br/>
-	 * <b>response:</b> <code>[userName, ...]</code>
+	 * <b>response:</b> <code>["userName1", ...]</code>
 	 * 
 	 * @param userName unique userName of the user
 	 */
@@ -77,7 +77,7 @@ public class APIUsers extends APIController {
 	
 	/**
 	 * Get a list of the followers of the given user<br/>
-	 * <b>response:</b> <code>[userName, ...]</code>
+	 * <b>response:</b> <code>["userName1", ...]</code>
 	 * 
 	 * @param userName unique userName of the user
 	 */

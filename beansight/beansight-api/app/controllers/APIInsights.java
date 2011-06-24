@@ -248,7 +248,7 @@ public class APIInsights extends APIController {
 
 	/**
 	 * The current user agree a given insight<br/>
-	 * <b>response:</b> <code>{uniqueId, updatedAgreeCount, updatedDisagreeCount, voteState}</code>
+	 * <b>response:</b> <code>{id, updatedAgreeCount, updatedDisagreeCount, voteState}</code>
 	 * 
 	 * @param id : unique ID of this insight
 	 */
@@ -259,7 +259,7 @@ public class APIInsights extends APIController {
 
 	/**
 	 * The current user disagree a given insight<br/>
-	 * <b>response:</b> <code>{uniqueId, updatedAgreeCount, updatedDisagreeCount, voteState}</code>
+	 * <b>response:</b> <code>{id, updatedAgreeCount, updatedDisagreeCount, voteState}</code>
 	 * 
 	 * @param id : unique ID of this insight
 	 */
@@ -280,7 +280,7 @@ public class APIInsights extends APIController {
 		Insight insight = Insight.findByUniqueId(insightUniqueId);
 
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
-		jsonResult.put("uniqueId", insight.uniqueId);
+		jsonResult.put("id", insight.uniqueId);
 		jsonResult.put("updatedAgreeCount", insight.agreeCount);
 		jsonResult.put("updatedDisagreeCount", insight.disagreeCount);
 		if (voteState.equals(State.AGREE)) {
