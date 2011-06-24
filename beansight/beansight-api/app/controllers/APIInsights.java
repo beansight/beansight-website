@@ -268,6 +268,7 @@ public class APIInsights extends APIController {
 
 	/**
 	 * The current user agree a given insight<br/>
+	 * <b>Authentication required</b><br/> 
 	 * <b>response:</b> <code>{id, updatedAgreeCount, updatedDisagreeCount, voteState}</code>
 	 * 
 	 * @param id : unique ID of this insight
@@ -279,6 +280,7 @@ public class APIInsights extends APIController {
 
 	/**
 	 * The current user disagree a given insight<br/>
+	 * <b>Authentication required</b><br/> 
 	 * <b>response:</b> <code>{id, updatedAgreeCount, updatedDisagreeCount, voteState}</code>
 	 * 
 	 * @param id : unique ID of this insight
