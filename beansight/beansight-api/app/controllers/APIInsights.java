@@ -98,7 +98,6 @@ public class APIInsights extends APIController {
 		public Double	occurenceScore;
 		public boolean 	validated;
 		public List<String> tags = new ArrayList<String>();
-		public List<InsightComment> comments;
 		
 		public InsightDetail(Insight insight) {
 			id = insight.uniqueId;
@@ -135,7 +134,6 @@ public class APIInsights extends APIController {
 				}
 			}
 			
-			comments = InsightComment.commentListToInsightCommentList(insight.comments);
 		}
 		
 	}
@@ -283,8 +281,7 @@ public class APIInsights extends APIController {
 	 * Get detailed information about a given insight<br/>
 	 * <b>response:</b> <code>{id, content, creationDate, endDate, creator, category, 
 	 * 					agreeCount, disagreeCount, commentCount,
-	 * 					lastCurrentUserVote, occurenceScore, validated, tags["label", ...],
-	 * 					comments[{author, creationDate, content}, ...]}</code>
+	 * 					lastCurrentUserVote, occurenceScore, validated, tags["label", ...]}</code>
 	 * 
 	 * @param id : unique ID of this insight
 	 */
@@ -364,6 +361,21 @@ public class APIInsights extends APIController {
 		renderAPI(allCategories);
 	}
 
+	/**
+	 * Get a list of all the comments for a given insight<br/>
+	 * <b>response:</b> <code>[{author, creationDate, content}, ...]</code>
+	 * @param id
+	 */
+	public static void comments(@Required String id) {
+		if (validation.hasErrors()) {
+			badRequest();
+		}
+		Insight insight = Insight.findByUniqueId(id);
+		notFoundIfNull(insight);
+		
+		renderAPI(InsightComment.commentListToInsightCommentList(insight.comments));
+	}
+	
 	/**
 	 * The current user creates an insight<br/>
 	 * <b>response:</b> same than <code>show</code>.
