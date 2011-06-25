@@ -243,6 +243,8 @@ public class APIInsights extends APIController {
 				for(Tag tag : top.getContainedTags()) {
 					filter.tags.add(tag);
 				}
+			} else { // if no topic found, then return an empty list
+				renderAPI(new ArrayList<InsightItem>());
 			}
 		}
 		
