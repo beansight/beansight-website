@@ -2,9 +2,12 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.joda.time.DateMidnight;
 
 import models.Category;
 import models.Comment;
@@ -17,10 +20,15 @@ import models.Tag;
 import models.User;
 import models.Vote;
 import models.Vote.State;
+import play.data.binding.As;
+import play.data.validation.InFuture;
 import play.data.validation.Max;
+import play.data.validation.MaxSize;
 import play.data.validation.Min;
+import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.i18n.Lang;
+import play.i18n.Messages;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 
 public class APIInsights extends APIController {
@@ -89,6 +97,7 @@ public class APIInsights extends APIController {
 		public Double	occurenceScore;
 		public boolean 	validated;
 		public List<String> tags = new ArrayList<String>();
+		public List<InsightComment> comments;
 		
 		public InsightDetail(Insight insight) {
 			id = insight.uniqueId;
@@ -122,6 +131,8 @@ public class APIInsights extends APIController {
 					}
 				}
 			}
+			
+			comments = InsightComment.commentListToInsightCommentList(insight.comments);
 		}
 		
 	}
@@ -132,19 +143,16 @@ public class APIInsights extends APIController {
 		public Long 	creationDate;
 		public String 	content;
 		
-		public static InsightComment commentToInsightComment(Comment comment) {
-			InsightComment insightComment = new InsightComment();
-			insightComment.content = comment.content;
-			insightComment.creationDate = comment.creationDate.getTime();
-			insightComment.author = comment.user.userName;
-			return insightComment;
+		public InsightComment(Comment comment) {
+			content = comment.content;
+			creationDate = comment.creationDate.getTime();
+			author = comment.user.userName;
 		}
-		
 		
 		public static List<InsightComment> commentListToInsightCommentList(List<Comment> commentList) {
 			List<InsightComment> insightCommentList = new ArrayList<APIInsights.InsightComment>();
 			for (Comment comment : commentList) {
-				insightCommentList.add(commentToInsightComment(comment));
+				insightCommentList.add(new InsightComment(comment));
 			}
 			return insightCommentList;
 		}
@@ -270,7 +278,10 @@ public class APIInsights extends APIController {
 
 	/**
 	 * Get detailed information about a given insight<br/>
-	 * <b>response:</b> <code>{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote, occurenceScore, validated, tags[]}</code>
+	 * <b>response:</b> <code>{id, content, creationDate, endDate, creator, category, 
+	 * 					agreeCount, disagreeCount, commentCount,
+	 * 					lastCurrentUserVote, occurenceScore, validated, tags["label", ...],
+	 * 					comments[{author, creationDate, content}, ...]}</code>
 	 * 
 	 * @param id : unique ID of this insight
 	 */
@@ -348,15 +359,6 @@ public class APIInsights extends APIController {
 		}
 		
 		renderAPI(allCategories);
-	}
-
-	/**
-	 * Get a list of all the comments for a given insigh <br/>
-	 * b>response:</b> <code>[{author, creationDate, content}, ...]</code>
-	 * @param id
-	 */
-	public static void comments(@Required String id) {
-		renderAPI(InsightComment.commentListToInsightCommentList(Insight.findByUniqueId(id).comments));
 	}
 	
 }
