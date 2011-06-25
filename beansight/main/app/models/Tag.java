@@ -89,7 +89,9 @@ public class Tag extends Model {
 	private void addSubTags(List<Tag> tags) {
 		tags.add(this);
 		for(Tag t : this.children) {
-			t.addSubTags(tags);
+			if( !tags.contains(t) ) {
+				t.addSubTags(tags);
+			}
 		}
 	}
 	
