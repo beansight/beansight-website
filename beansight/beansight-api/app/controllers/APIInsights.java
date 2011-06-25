@@ -421,7 +421,7 @@ public class APIInsights extends APIController {
 		
 		Category cat = Category.findById(category);
 		if (cat == null) {
-			error();
+			badRequest();
 		}
 
 		// force the end date time at 23h59 and 59 seconds of the selected day
