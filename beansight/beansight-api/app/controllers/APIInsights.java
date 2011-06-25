@@ -20,6 +20,7 @@ import models.Vote.State;
 import play.data.validation.Max;
 import play.data.validation.Min;
 import play.data.validation.Required;
+import play.i18n.Lang;
 import exceptions.CannotVoteTwiceForTheSameInsightException;
 
 public class APIInsights extends APIController {
@@ -173,10 +174,13 @@ public class APIInsights extends APIController {
 	 *            String of the topic, default = null
 	 * @param closed
 	 *            true to return closed insights, default = false
+	 * @param language
+	 * 			  possible values : ["all", "browser", "user", "fr", "en"], default = "all"
+	 * 			  "browser" filter by browser language, "user" filter by the language the connected user reads.
 	 */
 	public static void list(@Min(0) Integer from,
-			@Min(1) @Max(100) Integer number, String sort, Integer category,
-			String vote, String topic, Boolean closed) {
+			@Min(1) @Max(100) Integer number, String sort, Long category,
+			String vote, String topic, Boolean closed, String language) {
 
 		if (validation.hasErrors()) {
 			badRequest();
@@ -204,21 +208,26 @@ public class APIInsights extends APIController {
 		if (closed == null) {
 			closed = false;
 		}
-
-		InsightResult result = null;
-		Filter filter = new Filter();
-		filter.languages.add(Language.findByLabelOrCreate("en"));
-		filter.languages.add(Language.findByLabelOrCreate("fr"));
-
-		filter.user = getUserFromAccessToken();
-		if( vote.equals("voted") ) {
-			filter.vote = FilterVote.VOTED;
-		} else if ( vote.equals("non-voted") ) {
-			filter.vote = FilterVote.NONVOTED;
-		} else {
-			filter.vote = FilterVote.ALL;
+		if (language == null) {
+			language = "all";
 		}
 		
+		User user = getUserFromAccessToken();
+		
+		InsightResult result = null;
+		Filter filter = new Filter();
+
+		if( user != null ) {
+			filter.user = user;
+			
+			if( vote.equals("voted") ) {
+				filter.vote = FilterVote.VOTED;
+			} else if ( vote.equals("non-voted") ) {
+				filter.vote = FilterVote.NONVOTED;
+			} else {
+				filter.vote = FilterVote.ALL;
+			}
+		}		
 		if(topic != null) {
 			Tag top = Tag.findByLabel(topic);
 			if(top != null) {
@@ -235,6 +244,17 @@ public class APIInsights extends APIController {
 			if(cat != null) {
 				filter.categories.add(cat);
 			}
+		}
+
+		if (language.equals("user")) {
+			if( user != null ) {
+				filter.languages.add(user.writtingLanguage);
+				if(user.secondWrittingLanguage != null) {
+					filter.languages.add(user.secondWrittingLanguage);
+				}
+			}
+		} else if( !language.equals("all") ) {
+				filter.languages.add(Language.findByLabelOrCreate(language));
 		}
 
 		if (sort.equals("trending")) {
