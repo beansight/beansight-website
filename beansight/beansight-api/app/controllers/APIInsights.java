@@ -20,6 +20,7 @@ import models.Tag;
 import models.User;
 import models.Vote;
 import models.Vote.State;
+import play.Logger;
 import play.data.binding.As;
 import play.data.validation.InFuture;
 import play.data.validation.Max;
@@ -129,6 +130,8 @@ public class APIInsights extends APIController {
 					} else {
 						lastCurrentUserVote = "disagree";
 					}
+				} else {
+					lastCurrentUserVote = "non-voted";
 				}
 			}
 			
@@ -359,6 +362,67 @@ public class APIInsights extends APIController {
 		}
 		
 		renderAPI(allCategories);
+	}
+
+	/**
+	 * The current user creates an insight<br/>
+	 * <b>response:</b> same than <code>show</code>.
+	 * 
+	 * @param content
+	 *            : the content of this insight (min 6, max 120 characters) (Required)
+	 * @param endDate
+	 *            : the end date chosen by the user (format: "yyyy-MM-dd") (Required)
+	 * @param tagList
+	 *            : a comma separated list of tags (example: "apple,iphone,ios")
+	 * @param category
+	 *            : the id of the category of the insight (Required)
+	 * @param lang : the language in which the insight is written ["en", "fr"]
+	 * @param vote
+	 *            : ["agree", "disagree", "non-voted"], default: "agree"
+	 */
+	public static void create(
+			@Required @MinSize(6) @MaxSize(120) String content,
+			@Required @InFuture @As("yyyy-MM-dd") Date endDate, @MaxSize(100) String tagList,
+			@Required long category, String lang, String vote) {
+		
+		if (validation.hasErrors()) {
+			badRequest();
+		}
+		
+		checkAccessToken();
+		
+		if(lang == null || (lang != null && !lang.equals("en") && !lang.equals("fr")) ) {
+			lang = "en";
+		}
+		if( tagList == null ) {
+			tagList = "";
+		}
+		
+		State voteState = State.AGREE;
+		if(vote != null && vote.equals("disagree")) {
+			voteState = State.DISAGREE;
+		} else if(vote != null && vote.equals("non-voted")) {
+			voteState = null;
+		}
+		
+		Category cat = Category.findById(category);
+		if (cat == null) {
+			error();
+		}
+
+		// force the end date time at 23h59 and 59 seconds of the selected day
+		Date midnightDate = new DateMidnight(endDate).plusDays(1).toDateTime().minusSeconds(1).toDate();
+		
+		User currentUser = getUserFromAccessToken();
+		Insight insight = null;
+		try {
+			insight = currentUser.createInsight(content, midnightDate, tagList, category, lang, voteState);
+		} catch (Throwable t) {
+			Logger.error(t.getMessage());
+		}
+		
+		InsightDetail apiResult = new InsightDetail(insight);
+		renderAPI(apiResult);
 	}
 	
 }
