@@ -64,14 +64,14 @@ public class Filter  {
 			whereQuery += " and t.id in (" + tagIds + ") ";
 		}
         
-        if (sortBy.equals(SortBy.TRENDING) && user != null) {
+        if (sortBy != null && sortBy.equals(SortBy.TRENDING) && user != null) {
 			if (vote.equals(FilterVote.VOTED)) {
 				whereQuery += " and v.insight.id in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			} else if (vote.equals(FilterVote.NONVOTED)) {
 				whereQuery += " and v.insight.id not in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			}
 			whereQuery += " ";
-        } else if ( (sortBy.equals(SortBy.UPDATED) || sortBy.equals(SortBy.INCOMING) ) && user != null ) {
+        } else if ( user != null ) {
 			if (vote.equals(FilterVote.VOTED)) {
 				whereQuery += " and i.id in (select distinct v.insight.id from Vote v where v.user.id = " + user.id + ")";
 			} else if (vote.equals(FilterVote.NONVOTED)) {
