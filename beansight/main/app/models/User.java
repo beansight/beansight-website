@@ -546,13 +546,18 @@ public class User extends Model implements Comparable<User> {
 			// add the insight tag
 			topics.addAll(i.tags);
 			
+			Set<TagActivity> proccessedActivities = new HashSet<TagActivity>();
+			
 			for(Tag topic : topics) {
 				// check if any activity concerns these tags
 				List<TagActivity> topicActivities = TagActivity.find("byTag", topic).fetch();
 				for (TagActivity topicActivity : topicActivities ) {
-					topicActivity.incrementNewInsightCount();
-					topicActivity.save();
+					if( !proccessedActivities.contains(topicActivity) ) {
+						topicActivity.incrementNewInsightCount();
+						topicActivity.save();
+					}
 				}
+				proccessedActivities.addAll(topicActivities);
 			}
 		}
 		
