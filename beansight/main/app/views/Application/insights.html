@@ -14,8 +14,14 @@
     #{set contentCenterClass:'large' /}
 #{/isConnected}
 #{isNotConnected}
-    #{set contentCenterClass:'mini' /}
-    #{set landingPage:true /}
+	#{if topic}
+	    #{set contentCenterClass:'large' /}
+	    #{set landingPage:true /}
+    #{/if}
+    #{else}
+	    #{set contentCenterClass:'mini' /}
+	    #{set landingPage:true /}
+    #{/else}
 #{/isNotConnected}
 
 #{isConnected}

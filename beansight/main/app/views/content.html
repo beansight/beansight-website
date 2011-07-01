@@ -42,7 +42,7 @@
 #{doLayout /}
 </div>
 
-#{if landingPage}
+#{if landingPage && !topic}
 <!-- SIDEBAR RIGHT -->
 <div id="sidebarright" class="notlog">
     <a href="@{Register.register()}" class="linksignup cuf-grm">Sign Up</a> <!-- TODO : i18n S'enregistrer -->
