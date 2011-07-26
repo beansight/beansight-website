@@ -1458,10 +1458,12 @@ public class User extends Model implements Comparable<User> {
 				.bind("facebookId", this.facebookUserId)
 				.fetch();
 		
-		results = FacebookFriend.find("select fbf from FacebookFriend fbf where fbf.isBeansightUser is false and fbf.isHidden is false and fbf.isAdded is false and " +
-				"fbf.facebookUser.facebookId in (:facebookUserIds)")
-				.bind("facebookUserIds", facebookUserIds)
-				.fetch();
+		if (facebookUserIds != null && facebookUserIds.size() > 0) {
+			results = FacebookFriend.find("select fbf from FacebookFriend fbf where fbf.isBeansightUser is false and fbf.isHidden is false and fbf.isAdded is false and " +
+					"fbf.facebookUser.facebookId in (:facebookUserIds)")
+					.bind("facebookUserIds", facebookUserIds)
+					.fetch();
+		}
 		
 		return results;
 	}
