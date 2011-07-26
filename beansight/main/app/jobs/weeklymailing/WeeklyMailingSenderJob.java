@@ -30,7 +30,7 @@ public class WeeklyMailingSenderJob extends Job {
 	@Override
 	public void doJob() throws Exception {
 		// TEMP
-		if(!TimeHelper.hourAndDayCheck(6, DateTimeConstants.FRIDAY)) {
+		if(!TimeHelper.betweenHoursAndDayCheck(6, 18, DateTimeConstants.FRIDAY)) {
 			return;
 		}
 		
@@ -47,8 +47,8 @@ public class WeeklyMailingSenderJob extends Job {
 		
 		long count = WeeklyMailingTask.count("sent is false and attempt < 5") ;
 		if (count > 0) {
-			this.in(3*60);
-			Logger.info("Still %s WeeklyMailingTask to email, scheduling another WeeklyMailingSenderJob in 3 minutes", count);
+			this.in(60);
+			Logger.info("Still %s WeeklyMailingTask to email, scheduling another WeeklyMailingSenderJob in 1 minutes", count);
 		} 
 		
 		Logger.info("ending WeeklyMailingSenderJob");
