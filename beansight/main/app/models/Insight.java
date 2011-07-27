@@ -755,6 +755,8 @@ public class Insight extends Model {
 		InsightResult result = new InsightResult();
     	if(!insightIds.isEmpty()) {
     		result.results = Insight.find("select i from Insight i where i.id in (:idList)").bind("idList", insightIds).fetch();
+    	} else {
+    		result.results = new ArrayList<Insight>();
     	}
 
 		return result;
