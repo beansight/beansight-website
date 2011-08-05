@@ -70,6 +70,9 @@ public class APIController extends Controller {
 		if(currentUser != null) {
 			meta.put("authenticated", true);
 			meta.put("userName", currentUser.userName);
+			meta.put("userUiLanguage", currentUser.uiLanguage.toString());
+			meta.put("userWrittingLanguage", currentUser.writtingLanguage.toString());
+			meta.put("userSecondWrittingLanguage", currentUser.secondWrittingLanguage.toString());
 		} else {
 			meta.put("authenticated", false);
 		}

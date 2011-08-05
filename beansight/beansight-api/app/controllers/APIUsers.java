@@ -24,6 +24,11 @@ public class APIUsers extends APIController {
 		public String avatarSmall;
 		public String avatarMedium;
 		public String avatarLarge;
+
+		public String uiLanguage;
+		public String writtingLanguage;
+		public String secondWrittingLanguage;
+		
 		public int successfulPredictionsCount;
 		public List<String[]> scores = new ArrayList<String[]>();
 	}
@@ -45,6 +50,11 @@ public class APIUsers extends APIController {
 		profil.avatarSmall = Router.getFullUrl("Application.showAvatarSmall", map);
 		profil.avatarMedium = Router.getFullUrl("Application.showAvatarMedium", map);
 		profil.avatarLarge = Router.getFullUrl("Application.showAvatarLarge", map);
+		
+		profil.uiLanguage 				= user.uiLanguage.toString();
+		profil.writtingLanguage 		= user.writtingLanguage.toString();
+		profil.secondWrittingLanguage 	= user.secondWrittingLanguage.toString();
+
 		profil.successfulPredictionsCount = user.successfulPredictionCount;
 		List<UserCategoryScore> userCategorieScores = user.getLatestCategoryScores();
 		for (UserCategoryScore userCategorieScore : userCategorieScores) {
