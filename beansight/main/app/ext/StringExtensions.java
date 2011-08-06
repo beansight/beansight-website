@@ -69,7 +69,7 @@ public class StringExtensions extends JavaExtensions {
 //    	}
         Date now = new Date();
         if (now.after(date)) {
-            return asdate(date.getTime(), Messages.get("in.format"));
+            return Messages.get("in.format.on", asdate(date.getTime(), Messages.get("in.format")));
         }
         long delta = (date.getTime() - now.getTime()) / 1000;
         if (delta < 24 * 60 * 60) {

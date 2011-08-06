@@ -18,7 +18,7 @@
     <div class="container-insight">
         #{agree-disagreeWidget insight:_insight/}
         <a href="@{Application.showInsight(_insight.uniqueId)}" class="permalink #{if _targetUser != null}leftbusy#{/if}">
-            <p class="date-insight"><span class="datetxt">${_insight.endDate.in(true)},</span> </p> 
+            <p class="date-insight"><span class="datetxt">${_insight.generateDateLabel()},</span> </p> 
             <h3>${_insight.content}</h3> 
 
             #{if _targetUser != null}

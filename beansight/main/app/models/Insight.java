@@ -48,6 +48,7 @@ import play.modules.search.Query;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
 import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
+import ext.StringExtensions;
 
 
 @Indexed
@@ -939,6 +940,11 @@ public class Insight extends Model {
 		public List<Insight> results;
 		/** the total number of results */
 		public long count;
+	}
+	
+	/** generate the date as it should be displayed */
+	public String generateDateLabel() {
+		return StringExtensions.in(endDate, true);
 	}
 
 	public String toString() {

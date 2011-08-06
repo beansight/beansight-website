@@ -41,6 +41,7 @@ public class APIInsights extends APIController {
 		public String 	content;
 		public Long 	creationDate;
 		public Long 	endDate;
+		public String	endDateLabel;
 		public String 	creator;
 		public Long   	category;
 		public Long	  	agreeCount;
@@ -53,6 +54,7 @@ public class APIInsights extends APIController {
 			content = insight.content;
 			creationDate = insight.creationDate.getTime();
 			endDate = insight.endDate.getTime();
+			endDateLabel = insight.generateDateLabel();
 			creator = insight.creator.userName;
 			category = insight.category.id;
 			agreeCount = insight.agreeCount;
@@ -89,6 +91,7 @@ public class APIInsights extends APIController {
 		public String 	content;
 		public Long 	creationDate;
 		public Long 	endDate;
+		public String	endDateLabel;
 		public String 	creator;
 		public Long   	category;
 		public Long	  	agreeCount;
@@ -104,6 +107,7 @@ public class APIInsights extends APIController {
 			content = insight.content;
 			creationDate = insight.creationDate.getTime();
 			endDate = insight.endDate.getTime();
+			endDateLabel = insight.generateDateLabel();
 			creator = insight.creator.userName;
 			category = insight.category.id;
 			agreeCount = insight.agreeCount;
@@ -164,7 +168,7 @@ public class APIInsights extends APIController {
 	// downloaded insight
 	/**
 	 * Get a list of insights<br/>
-	 * <b>response:</b> <code>[{id, content, creationDate, endDate, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote}, ...]</code>
+	 * <b>response:</b> <code>[{id, content, creationDate, endDate, endDateLabel, creator, category, agreeCount, disagreeCount, commentCount, lastCurrentUserVote}, ...]</code>
 	 * 
 	 * @param from
 	 *            index of the first insight to return, default = 0
@@ -281,7 +285,7 @@ public class APIInsights extends APIController {
 
 	/**
 	 * Get detailed information about a given insight<br/>
-	 * <b>response:</b> <code>{id, content, creationDate, endDate, creator, category, 
+	 * <b>response:</b> <code>{id, content, creationDate, endDate, endDateLabel, creator, category, 
 	 * 					agreeCount, disagreeCount, commentCount,
 	 * 					lastCurrentUserVote, occurenceScore, validated, tags["label", ...]}</code>
 	 * 
