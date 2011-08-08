@@ -31,6 +31,30 @@ public class APIUsers extends APIController {
 		
 		public int successfulPredictionsCount;
 		public List<String[]> scores = new ArrayList<String[]>();
+		
+		public Profile() {
+		}
+		
+		public Profile(User user) {
+			this.userName = user.userName;
+			this.description = user.description;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userName", userName);
+			map.put("code", user.avatarHashCode());
+			this.avatarSmall = Router.getFullUrl("Application.showAvatarSmall", map);
+			this.avatarMedium = Router.getFullUrl("Application.showAvatarMedium", map);
+			this.avatarLarge = Router.getFullUrl("Application.showAvatarLarge", map);
+			
+			this.uiLanguage 				= user.uiLanguage.toString();
+			this.writtingLanguage 		= user.writtingLanguage.toString();
+			this.secondWrittingLanguage 	= user.secondWrittingLanguage.toString();
+
+			this.successfulPredictionsCount = user.successfulPredictionCount;
+			List<UserCategoryScore> userCategorieScores = user.getLatestCategoryScores();
+			for (UserCategoryScore userCategorieScore : userCategorieScores) {
+				this.scores.add(new String[] {userCategorieScore.category.label, userCategorieScore.normalizedScore.toString()});
+			}
+		}
 	}
 	
 	/**
@@ -41,26 +65,20 @@ public class APIUsers extends APIController {
 	 */
 	public static void profile(String userName) {
 		User user = User.findByUserName(userName);
-		Profile profil = new Profile();
-		profil.userName = user.userName;
-		profil.description = user.description;
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userName", userName);
-		map.put("code", user.avatarHashCode());
-		profil.avatarSmall = Router.getFullUrl("Application.showAvatarSmall", map);
-		profil.avatarMedium = Router.getFullUrl("Application.showAvatarMedium", map);
-		profil.avatarLarge = Router.getFullUrl("Application.showAvatarLarge", map);
-		
-		profil.uiLanguage 				= user.uiLanguage.toString();
-		profil.writtingLanguage 		= user.writtingLanguage.toString();
-		profil.secondWrittingLanguage 	= user.secondWrittingLanguage.toString();
-
-		profil.successfulPredictionsCount = user.successfulPredictionCount;
-		List<UserCategoryScore> userCategorieScores = user.getLatestCategoryScores();
-		for (UserCategoryScore userCategorieScore : userCategorieScores) {
-			profil.scores.add(new String[] {userCategorieScore.category.label, userCategorieScore.normalizedScore.toString()});
+		Profile profil = new Profile(user);
+		renderAPI(profil);
+	}
+	
+	/**
+	 * Get profile information about the currently connected user<br/>
+	 * <b>response:</b> same as "profile" action
+	 */
+	public static void me() {
+		User user = getUserFromAccessToken();
+		Profile profil = null;
+		if(user != null) {
+			profil = new Profile(user);
 		}
-		
 		renderAPI(profil);
 	}
 	
