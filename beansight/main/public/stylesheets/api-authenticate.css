@@ -1,0 +1,231 @@
+/* GLOBAL */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article, aside, audio, canvas, datagrid, datalist, details, dialog, figure, footer, header, menu, nav, section, video,abbr, eventsource, mark, meter, time, progress, output, bb
+{margin:0;padding:0;border:0;outline:0;font-size:100%;font-weight :normal;vertical-align:baseline;}
+input, select {vertical-align:middle;}
+img,input[type=image]{vertical-align:bottom;}
+a{text-decoration:none;cursor:pointer;}
+ol,ul{list-style:none;}
+hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
+.nodisplay{display:none;}
+
+body {font:16px Arial,sans-serif;text-align:left;color:#8b8f90;line-height:1;background-color:#f7f7f7;}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1.logo {margin: 20px 0 20px 5px;}
+h1.logo a{text-indent:-9999px;display:block;width:184px;height:39px;position:relative;background:url(/public/images/logo.png) no-repeat 0 0;}
+
+.form-solo {
+max-width: 500px;
+margin: auto;
+}
+
+.form-solo button{
+	 margin:auto;
+}
+
+.form-part {
+    border: 8px solid #FFFFFF;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 5px;
+    padding:20px;
+}
+
+h2 {background:url(/public/images/icon-pencil.png) no-repeat left center;padding:0 0 0 14px;font-size:16px;color:#7aa13d;text-transform:uppercase;margin:0 0 24px 0;}
+
+.item-input{margin:0 0 13px 0;padding:6px;-moz-border-radius:6px;-webkit-border-radius:6px;border:solid #eeeeee 3px;background-color:#fff;}
+.item-input input{color:#6e7677;font-size:20px;border:0 none;}
+
+.item-submit button{display:block;border:0 none;cursor:pointer;width:198px;height:35px;background:none transparent;}
+.item-submit button span{float:left;display:block;height:35px;}
+.item-submit button span.backbutton {background:url(/public/images/btn-vert1.png) no-repeat 0 0;width:10px;}
+.item-submit button span.txtbutton {height:27px;background:url(/public/images/btn-vert2.png) no-repeat right top;width:170px;font-size:14px;color:#fff;text-transform:uppercase;padding:8px 12px 0 0;}
+.item-submit button:hover span {background-position:right bottom;}
+
+
+/*
+CSS Social Sign-in Buttons by Bloop [http://bloop.co] are licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+Please link to Bloop [http://bloop.co] somewhere on the page when you use these buttons.
+Contact @smcllns with questions about permissions but you're basically free to do what you like.
+*/
+
+/*BUTTON WIDTH
+Use width:auto or a fixed width on the .social_buttons element
+*/
+
+/*Social icons sprite file*/
+.social_buttons > span:before {
+    background: url(/public/images/social/social_buttons_icons.png) no-repeat;
+}
+
+
+/*Resets*/
+.social_buttons {
+    border: 0;
+    color: #fff !important;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 0;
+    outline: none;
+    padding: 0;
+    text-decoration: none !important;
+}
+button::-moz-focus-inner { 
+    border: 0;
+    padding: 0;
+}
+
+/*22px height*/
+.sb_24 > span,
+.sb_24 > span:before {
+    font-size: 12px;
+    height: 22px;
+    line-height: 22px;
+}
+.sb_24 > span:before {
+    width: 22px;
+}
+.sb_24 > span {
+    padding-right: 10px;
+}
+.sb_24,
+.sb_24 > span {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+/*48px height*/
+.sb_48 > span,
+.sb_48 > span:before {
+    font-size: 18px;
+    height: 36px;
+    line-height: 36px;
+}
+.sb_48 > span:before {
+    width: 40px;
+}
+.sb_48 > span {
+    padding-right: 20px;
+}
+.sb_48,
+.sb_48 > span {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/*icons*/
+.sb_facebook.sb_24 > span:before {
+    background-position: 5px 4px;
+}
+.sb_linkedin.sb_24 > span:before {
+    background-position: 5px -45px;
+}
+.sb_twitter.sb_24 > span:before {
+    background-position: 5px -95px;
+}
+.sb_google.sb_24 > span:before {
+    background-position: 5px -146px;
+}
+.sb_facebook.sb_48 > span:before {
+    background-position: -40px 7px;
+}
+.sb_linkedin.sb_48 > span:before {
+    background-position: -40px -42px;
+}
+.sb_twitter.sb_48 > span:before {
+    background-position: -40px -91px;
+}
+.sb_google.sb_48 > span:before {
+    background-position: -40px -141px;
+}
+
+/*Brand colors*/
+.sb_facebook {
+    background: #5E76AB;
+    border: 1px solid #5E76AB;
+}
+.sb_facebook:hover {
+    background: #4863AE;
+}
+.sb_linkedin {
+    background: #4A95BF;
+    border: 1px solid #4A95BF;
+}
+.sb_linkedin:hover {
+    background: #3B88C5;
+
+}
+.sb_twitter {
+    background: #A7E7EB;
+    border: 1px solid #A7E7EB;
+}
+.sb_twitter:hover {
+    background: #85DCE2;
+}
+.sb_google {
+    background: #6D88EA;
+    border: 1px solid #6D88EA;
+}
+.sb_google:hover {
+    background: #4E6CF7;    
+}
+.sb_twitter > span {
+    border-top-color: rgba(255,255,255,0.7) !important;
+    border-bottom-color: rgba(0,0,0,0.3) !important;    
+    color: #3C6B9C !important;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.7) !important;
+}
+
+/*Common*/
+.social_buttons {
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    display: block;
+    font-family: "Lucida Grande", Tahoma, sans-serif;
+    position: relative;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+}
+.social_buttons > span {
+    background: -moz-linear-gradient(top, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.1));
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.2)), color-stop(40%, rgba(255,255,255,0)), color-stop(70%, rgba(0,0,0,0)), to(rgba(0,0,0,0.1)));
+    border: 1px solid rgba(0,0,0,0.1);
+    border-bottom-color: rgba(0,0,0,0.5);
+    border-top-color: rgba(255,255,255,0.5);
+    display: block;
+    overflow: visible;
+    white-space: nowrap;
+}
+.social_buttons > span:before {
+    -moz-box-shadow: 1px 0 1px rgba(255,255,255,0.2);
+    -webkit-box-shadow: 1px 0 1px rgba(255,255,255,0.2);
+    background-repeat: no-repeat;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 1px 0 1px rgba(255,255,255,0.5);
+    content: "";
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+
+/*Interactions*/
+.social_buttons:hover > span {
+    border-top-color: rgba(255,255,255,0.5);
+    border-bottom-color: rgba(0,0,0,0.7);  
+}
+.social_buttons:active > span {
+    background: -webkit-gradient(linear, left bottom, left top, from(rgba(255,255,255,0.3)), color-stop(30%, rgba(255,255,255,0)), color-stop(50%, rgba(0,0,0,0)), to(rgba(0,0,0,0.2)));  
+    background: -moz-linear-gradient(bottom, rgba(255,255,255,0.3), rgba(255,255,255,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2));  
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.sb_24:active > span {
+    line-height: 23px;
+}
+.sb_48:active > span {
+    line-height: 38px;
+}

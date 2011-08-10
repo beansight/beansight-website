@@ -3,34 +3,26 @@
     &{'register'}
 #{/set}
 
-#{set contentClass:'signup' /}
 
-
-
-<div class="bloccontent bloccenter">
-
-	<div id="facebookLoginBlock">
+<div class="form-solo">
+    <h1 class="logo"><a href="/"> Beansight</a></h1>
+	
+	<div class="form-part">
 	    #{form @Register.fbAuthenticate(), id:'registerFormFacebook'}
-	        <div >
-	            <button class="social_buttons sb_24 sb_facebook"><span>&{'register.facebookTitle'}</</span></button>
-	        </div>
+	            <button class="social_buttons sb_24 sb_facebook"><span>&{'register.facebookTitle'}</span></button>
 	    #{/form}
 	</div>	
-</div>
-<div class="bloccontent bloccenter">
-	<div id="twitterLoginBlock">
+	
+	<div class="form-part">
 	    #{form @Register.twitAuthenticate(), id:'registerFormTwitter'}
-	        <div>
-	            <button class="social_buttons sb_24 sb_twitter"><span>&{'register.twitterTitle'}</</span></button>
-	        </div>
+	            <button class="social_buttons sb_24 sb_twitter"><span>&{'register.twitterTitle'}</span></button>
 	    #{/form}
 	</div>
-</div>
-<div class="bloccontent bloccenter">
-	<div id="beansightLoginBlock">
+	
+	<div class="form-part">
 	    #{form @Secure.authenticate()}
 	    	<input type="hidden" name="connectWith" id="connectWith"/>
-	        <h2 class="cuf-grb">&{'api.beansightTitle'}</h2>
+	        <h2>&{'api.beansightTitle'}</h2>
 	
 	        <label for="username">&{'email'}</label>
 	        <div class="item-input">
@@ -43,13 +35,9 @@
 	        </div>
 	        
 	        <div class="item-submit">
-	            <!--<input type="submit" name="submit-signup" value="Create my account"/>-->
-	            <button><span class="backbutton"></span><span class="txtbutton cuf-newaccount">&{'loginbutton'}</span></button>
+                <button><span class="backbutton"></span><span class="txtbutton">&{'loginbutton'}</span></button>
 	        </div>
 	    #{/form}
     </div>
-
-
-
 </div>
 
