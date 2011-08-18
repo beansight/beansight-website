@@ -102,6 +102,7 @@ agree-disagree.loginToVoteTooltip.agree=Log in to agree with this prediction.
 agree-disagree.loginToVoteTooltip.disagree=Log in to disagree with this prediction.
 agree-disagree.changeyourmind=Change your mind:
 agree-disagree.validate=Validate this prediction:
+relatedInsights=Related predictions
 
 #experts
 experts.explore=Explore the community

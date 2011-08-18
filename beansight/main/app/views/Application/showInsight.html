@@ -168,7 +168,17 @@
             #{comment comment:comment /}
             #{/list}
             </div>
-
+        </div>
+        
+        <div class="relatedInsights">
+        #{if !relatedInsights.isEmpty() }
+            <h3 class="relatedTitle"><span class="cuf-grb">&{'relatedInsights'}</span></h3>
+            <ol>
+            #{list items:relatedInsights, as:'relatedInsight'}
+                <li class="relatedInsight">#{insight insight:relatedInsight, characters:110 /}</li>
+            #{/list}
+            </ol>
+        #{/if}
         </div>
     </div>
 </div>

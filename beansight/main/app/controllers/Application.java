@@ -546,6 +546,11 @@ public class Application extends Controller {
         renderArgs.put("lastVotes", lastVotes);
         renderArgs.put("agreeInsightTrends", agreeInsightTrends);
         renderArgs.put("comments", insight.getNotHiddenComments());
+        
+        List<Insight> relateds = insight.relatedInsights(5);
+        
+        renderArgs.put("relatedInsights", relateds );
+        
 		render(insight);
 	}
 

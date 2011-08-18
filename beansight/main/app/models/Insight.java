@@ -933,7 +933,33 @@ public class Insight extends Model {
     	}
     }
     
-
+    /**
+     * @return insights related to this one.
+     */
+    public List<Insight> relatedInsights(int number){
+    	
+    	List<Insight> insights = new ArrayList<Insight>();
+    	if (this.tags.isEmpty()) {
+    		return insights;
+    	}
+    	
+		String query = "select i.id from Insight i "
+						+ "join i.tags t "
+						+ "where i.hidden is false "
+						+ "and t.id in (" + Tag.listToIdString(this.tags) +") "
+						+ "and i.id <> " + this.id + " "
+						+ "group by i.id "
+						+ "order by count(t) desc";
+		List<Long> insightIds = Insight.find(query).fetch(number);
+		
+    	if(insightIds.isEmpty()) {
+        	return insights;
+    	}
+    	
+    	insights = Insight.find("select i from Insight i where i.id in (:idList)").bind("idList", insightIds).fetch();
+    	
+    	return insights;
+    }
     
 	public static class InsightResult {
 		/** The asked insights */

@@ -650,6 +650,11 @@ a:hover{color:#228392;}
 #content .single .s-content .commentzone .newcomment .input-textarea{float:right;width:504px;padding:6px;margin:0;-moz-border-radius:6px;-webkit-border-radius:6px;border:solid #eeeeee 3px;background-color:#fff;}
 #content .single .s-content .commentzone .newcomment .input-textarea textarea{width:504px;height:54px;font-size:12px;padding:0;margin:0;color:#a1a5a6;font-family:Arial, serif;border:0 none;}
 
+#content .single .s-content .relatedInsights{padding:10px 0 15px 0;margin:0 23px;}
+#content .single .s-content .relatedInsights .relatedTitle{text-transform:uppercase;color:#00505c;font-size:16px;}
+#content .single .s-content .relatedInsights .relatedInsight{  font-size: 12px; border-top: 1px solid #EFEFEF; clear: both;   padding: 5px 0;}
+#content .single .s-content .relatedInsights .relatedInsight:first-child{border-top: 0px;}
+
 .pinnedBox{position:absolute; z-index:40; overflow:hidden; padding:35px 10px 0 20px;width:201px;height:140px; background:url(/public/images/loginback.png) no-repeat left bottom;}
 
 .sharezone span.shareItem{display:block;float:left;height:15px;}
