@@ -53,8 +53,6 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void voterScores() {
-		Date date = new DateTime(2011, 2, 15, 0, 0, 0, 0).toDate();
-		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
     	i.computeVoterScores();
@@ -85,8 +83,6 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void voterScoresExact() {
-		Date date = new DateMidnight(new Date()).toDate();
-		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
     	i.computeVoterScores();
