@@ -1,6 +1,7 @@
 package unit;
 
 import java.util.Date;
+import java.util.List;
 
 import models.Category;
 import models.Insight;
@@ -13,6 +14,7 @@ import models.Vote.State;
 import models.Vote.Status;
 
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,7 +53,7 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void voterScores() {
-		Date date = new DateMidnight(new Date()).toDate();
+		Date date = new DateTime(2011, 2, 15, 0, 0, 0, 0).toDate();
 		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
@@ -108,7 +110,7 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void userCategoryScore() {
-		Date date = new DateMidnight(new Date()).toDate();
+		Date date = new DateTime(2011, 2, 15, 0, 0, 0, 0).toDate();
 		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
@@ -116,7 +118,10 @@ public class ScoringTest extends UnitTest {
     	
     	User steren = User.findByUserName("Steren");
     	steren.computeCategoryScores(date, PeriodEnum.THREE_MONTHS);
-		for(UserCategoryScore catScore : steren.getCategoryScores(date, PeriodEnum.THREE_MONTHS)) {
+    	List<UserCategoryScore> catScores = steren.getCategoryScores(date, PeriodEnum.THREE_MONTHS);
+    	assertTrue("Tested user should have a score in the voted category", !catScores.isEmpty());
+
+    	for(UserCategoryScore catScore : catScores) {
 			if(catScore.category.equals(i.category)) {
 				assertTrue("User should gain point in the category he answered well", catScore.score > 0);
 			} else {
@@ -127,7 +132,7 @@ public class ScoringTest extends UnitTest {
 	
 	@Test
 	public void userGlobalScore() {
-		Date date = new DateMidnight(new Date()).toDate();
+		Date date = new DateTime(2011, 2, 15, 0, 0, 0, 0).toDate();
 		
 		Insight i = Insight.findByUniqueId("beansight-will-be-in-private-beta");
     	i.validate();
