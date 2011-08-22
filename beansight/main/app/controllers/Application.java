@@ -359,6 +359,7 @@ public class Application extends Controller {
 
 	/**
 	 * A page with the best experts 
+	 * This page is not currently used on beansight.com
 	 */
 	public static void bestExperts() {
 		if (Security.isConnected()) {

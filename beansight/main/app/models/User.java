@@ -850,8 +850,6 @@ public class User extends Model implements Comparable<User> {
 	 * compute the global score for this user
 	 */
 	public void computeUserScore(Date computeDate, PeriodEnum period) {
-//		UserScoreHistorized userScoreHistorized = UserScoreHistorized.find("scoreDate=:scoreDate and user=:user").bind("scoreDate", computeDate).bind("user", this).first();
-//		List<UserCategoryScore> categoryScores = userScoreHistorized.categoryScores;
 		List<UserCategoryScore> categoryScores = UserCategoryScore.find("historic.scoreDate=:scoreDate and historic.user=:user and period=:period").bind("scoreDate", computeDate).bind("user", this).bind("period", period).fetch();
 		Double score = null;
 		for(UserCategoryScore catScore : categoryScores) {
@@ -875,15 +873,10 @@ public class User extends Model implements Comparable<User> {
 	 */
 	public void computeCategoryScore(Category category, Date computeDate, PeriodEnum period) {
 		UserScoreHistoric userScoreHistorized = UserScoreHistoric.find("scoreDate=:scoreDate and user=:user").bind("scoreDate", computeDate).bind("user", this).first();
-//		UserScoreHistorized userScoreHistorized = UserScoreHistorized.find("select h from UserScoreHistorized h " +
-//				"join h.categoryScores cs " +
-//				"where cs.period = :period and h.scoreDate=:scoreDate and h.user=:user")
-//				.bind("period", period).bind("scoreDate", computeDate).bind("user", this).first();
 		if (userScoreHistorized==null) {
 			userScoreHistorized = new UserScoreHistoric(computeDate, this);
 			userScoreHistorized.save();
 		}
-//		List<UserCategoryScore> categoryScores = userScoreHistorized.categoryScores;
 		List<UserCategoryScore> categoryScores = UserCategoryScore.find("select cs from UserCategoryScore cs " +
 				"where cs.historic.scoreDate = :scoreDate and cs.historic.user = :user and cs.period = :period")
 				.bind("scoreDate", computeDate)
@@ -1243,14 +1236,7 @@ public class User extends Model implements Comparable<User> {
 	/**
 	 * @return the score of this user for this insight
 	 */
-//	public UserInsightScore getInsightScore(Insight insight, Date computeDate, PeriodEnum period) {
 	public UserInsightScore getInsightScore(Insight insight) {
-//		return UserInsightScore.find("select i from UserInsightScore i " +
-//				"where i.historic.scoreDate = :computeDate and i.insight = :insight and i.historic.user=:usertraite and i.period = :period")
-//				.bind("computeDate", computeDate)
-//				.bind("insight", insight)
-//				.bind("usertraite",this)
-//				.bind("period", period).first();
 		return UserInsightScore.find("select i from UserInsightScore i "
 				+"where i.user=:usertraite "
 				+ "and i.insight=:insighttraite").bind("usertraite",this).bind("insighttraite", insight).first();
@@ -1563,40 +1549,6 @@ public class User extends Model implements Comparable<User> {
 			return user1.compareTo(user2);
 		}
 		
-	}
-	
-
-	public static void computeCategoriesAndUserScoresForAllUsers(Date computeDate) {
-		_computeCategoriesAndUserScoresForAllUsers(computeDate, 1);
-	}
-	
-	private static void _computeCategoriesAndUserScoresForAllUsers(Date computeDate, int pageToProcess) {
-    	if (!JPA.em().getTransaction().isActive()) {
-    		JPA.em().getTransaction().begin();
-    	}
-    	// Calculate for all users having voted for at least one insight (prediction) during the period
-    	Date from = new Date(computeDate.getTime() - PeriodEnum.THREE_MONTHS.getTimePeriod());
-    	List<User> usersToUpdate = User.find("select distinct u from User u join u.votes v join v.insight i " +
-    			"where i.hidden is false and i.endDate between :fromDate and :endDate")
-    			.bind("fromDate", from)
-    			.bind("endDate", computeDate)
-    			.fetch(pageToProcess, 5);
-    	
-    	// if no more user to update 
-    	if (!usersToUpdate.isEmpty()) {
-	    	int i = 1;
-	    	for(User u : usersToUpdate) {
-	    		Logger.debug("ComputeCategoryAndUserScoreHistoJob : updating user, page " + pageToProcess + " : " + i + "/" + usersToUpdate.size());
-	    		u.computeCategoryScores(computeDate, PeriodEnum.THREE_MONTHS);
-	    		u.computeUserScore(computeDate, PeriodEnum.THREE_MONTHS);
-	    		i++;
-	    	}
-	    	
-	    	// continue to next page
-	    	JPA.em().getTransaction().commit();
-	    	pageToProcess++;
-	    	_computeCategoriesAndUserScoresForAllUsers(computeDate, pageToProcess);
-    	}
 	}
 	
 	public void computeSuccessfulPredictionCount() {
