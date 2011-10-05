@@ -27,7 +27,7 @@ public class InsightTrendsCalculateJob extends Job {
     	Long pageToProcess = (Long)Cache.get(PAGE_TO_PROCESS_KEY);
     	if (pageToProcess == null || pageToProcess == 0) {
     		pageToProcess = 1l;
-    		Cache.add(PAGE_TO_PROCESS_KEY, pageToProcess, "5mn");
+    		Cache.add(PAGE_TO_PROCESS_KEY, pageToProcess);
     	}
     	Logger.info("InsightTrendsCalculateJob begin. Page:%s", pageToProcess);
     	

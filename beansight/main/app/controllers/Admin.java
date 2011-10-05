@@ -27,6 +27,7 @@ import models.Comment;
 import models.FacebookFriend;
 import models.Insight;
 import models.InsightActivity;
+import models.InsightTrend;
 import models.Language;
 import models.PeriodEnum;
 import models.Tag;
@@ -50,6 +51,7 @@ import exceptions.NotFollowingUserException;
 
 import play.Logger;
 import play.Play;
+import play.cache.Cache;
 import play.data.binding.As;
 import play.modules.search.Search;
 import play.mvc.Controller;
@@ -431,6 +433,8 @@ public class Admin extends Controller {
 	public static void updateInsightTrend(String uniqueId) {
 		Insight i = Insight.findByUniqueId(uniqueId);
 		i.buildInsightTrends();
+		// deleting this key in cache insure that the InsightTrends will be reloaded from db
+		Cache.delete("agreeInsightTrendsCache"); 
 	}
 	
 	/**
@@ -440,6 +444,26 @@ public class Admin extends Controller {
 	 */
 	public static void updateInsightTrends() throws Exception {
 		new InsightTrendsCalculateJob().doJob();
+	}
+	
+	/**
+	 * This is a one shot method call and should be deleted after its only call
+	 * What it does is :
+	 * - it forces insight endinf after the 15 september 2011 to be updated
+	 * 
+	 * @throws Exception
+	 */
+	public static void oneShotUpdateInsightTrendsNotUpdatedBecauseOfABug() throws Exception {
+		List<Insight> insights = Insight.find("endDate > :date1")
+			.bind("date1", new DateMidnight(2011, 9, 15).toDate())
+			//.bind("date2", new Date())
+			.fetch();
+		for (Insight insight : insights) {
+			InsightTrend.delete("insight = ? and trendDate = ?", insight, insight.endDate);
+			insight.buildInsightTrends();
+		}
+		// deleting this key in cache insure that the InsightTrends will be reloaded from db
+		Cache.delete("agreeInsightTrendsCache"); 
 	}
 	
 	/**

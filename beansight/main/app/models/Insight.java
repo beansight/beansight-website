@@ -355,7 +355,6 @@ public class Insight extends Model {
 	/**
 	 * @return the list of the votes before the considered date for this Insight
 	 */
-	
 	public List<Vote> getVotesBefore(Date date) {
 		return Vote.find(
 				"select v from Vote v " + "join v.insight i "
@@ -363,6 +362,18 @@ public class Insight extends Model {
 						+ "and v.creationDate < :date").bind("insightId", this.id).bind("date", date).fetch();
 	}
 
+	
+	/**
+	 * @return the list of the votes STRICTLY AFTER the considered date for this Insight
+	 */
+	public List<Vote> getVotesAfter(Date date) {
+		return Vote.find(
+				"select v from Vote v " + "join v.insight i "
+						+ "where i.id=:insightId "
+						+ "and v.creationDate > :date order by v.creationDate ASC").bind("insightId", this.id).bind("date", date).fetch();
+	}
+	
+	
 	/**
 	 * @return the votes made on this insight before the end date, the older one is first
 	 */
@@ -386,16 +397,17 @@ public class Insight extends Model {
 						.fetch();
 	}
 
-	/**
-	 * @return the ordered list of trends for this insight
-	 */
-	public List<Trend> getTrends() {
-		return Trend.find(
-				"select u from Trend u "
-						+ "where u.insight.id=:insightId "
-						+ "order by u.trendDate DESC"
-						).bind("insightId", this.id).fetch();
-	}
+// Trend Entity is deprecated	
+//	/**
+//	 * @return the ordered list of trends for this insight
+//	 */
+//	public List<Trend> getTrends() {
+//		return Trend.find(
+//				"select u from Trend u "
+//						+ "where u.insight.id=:insightId "
+//						+ "order by u.trendDate DESC"
+//						).bind("insightId", this.id).fetch();
+//	}
 	
 	public List<InsightTrend> getInsightTrends() {
 		return InsightTrend.find(
@@ -403,6 +415,14 @@ public class Insight extends Model {
 						+ "where u.insight.id=:insightId "
 						+ "order by u.trendDate ASC"
 						).bind("insightId", this.id).fetch();
+	}
+	
+	public InsightTrend getLastInsightTrends() {
+		return InsightTrend.find(
+				"select u from InsightTrend u "
+						+ "where u.insight.id=:insightId "
+						+ "order by u.trendDate DESC"
+						).bind("insightId", this.id).first();
 	}
 	
 //	public List<InsightTrend> getInsightTrends(Date endDate) {
@@ -620,19 +640,25 @@ public class Insight extends Model {
 	public void buildInsightTrends() {
 		Logger.info("buildInsightTrends for id : " + this.id);
 
-		// delete all the existing trends
-		// TODO why everything needs to be deleted ?  probability at a given date is fixed, only recompute if the algorithm changed.
-		InsightTrend.delete("insight = ?", this);
-
-		List<Vote> votes = this.getChronologicalVotes();
-		Vote vote;
-
 		DateTime dateConsidered;
 		// lastTrend is the date of the last trend built 
-		DateTime lastTrendDate = new DateTime(this.creationDate);
+		DateTime lastTrendDate;
 		
-		new InsightTrend(this.creationDate, this).save();
-		
+		// get the last trend built for this insight.
+		// if null then it means that this is the first time we build InsightTrend objects for this insight.
+		// so we ask for all available votes in order to build InsightTrend(s)
+		// if there is an InsightTrend then we can use it as a starting point to build some other InsightTrend
+		List<Vote> votes = null;
+		InsightTrend lastInsightTrend = this.getLastInsightTrends();
+		if (lastInsightTrend == null) {
+			lastTrendDate = new DateTime(this.creationDate);
+			votes = this.getChronologicalVotes();
+		} else {
+			lastTrendDate = new DateTime(lastInsightTrend.trendDate);
+			votes = this.getVotesAfter(lastInsightTrend.trendDate);
+		}
+		Vote vote;
+
 		// now for each vote we're going to build a trend
 		// there shouldn't be more than one trend per hour
 		// so for each vote we going to check if the next vote happened more than an hour after the last trend built
@@ -664,12 +690,6 @@ public class Insight extends Model {
 			}
 		}
 		
-		//and last, the last trend happens at the insight deadline
-		// TODO what the point ? Shouldn't it be the current date ? 
-		InsightTrend lastTrend = new InsightTrend(this.endDate, this).save();
-		
-		// save the last computed occurenceScore in the insight
-		this.occurenceScore = lastTrend.occurenceProbability;
 		this.save();
 		Logger.info("buildInsightTrends for id : %s FINISHED", this.id.toString());
 	}

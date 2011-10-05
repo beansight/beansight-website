@@ -4,15 +4,17 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
+@Table (
+		uniqueConstraints={@UniqueConstraint(name="VOTE_INSIGHTID_CREATIONDATE_IDX", columnNames={"insight_id", "creationDate"})}
+	)
 public class Vote extends Model {
 
 	public enum State {

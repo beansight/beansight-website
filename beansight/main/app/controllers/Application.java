@@ -537,10 +537,6 @@ public class Application extends Controller {
 		} else {
 			agreeInsightTrends = InsightTrend.find("select t from InsightTrend t where t.insight = :insight order by t.trendDate").bind("insight", insight).fetch();
 			
-			// unless the insight date is passed, remove the last trends which is set at the insight's endDate 
-			if (agreeInsightTrends != null && !agreeInsightTrends.isEmpty() && insight.endDate.after(new Date())) {
-				agreeInsightTrends.remove(agreeInsightTrends.size() - 1);
-			}
 			agreeInsightTrendsCache.put(insight.id, agreeInsightTrends);
 		}
 		
