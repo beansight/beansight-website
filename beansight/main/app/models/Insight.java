@@ -481,6 +481,8 @@ public class Insight extends Model {
 		
 		// compute the evolution of the probability to occur for this insight over time
 		this.buildInsightTrends();
+		// TODO: Compute trend at deadline
+		new InsightTrend(this.endDate, this).save();
 		
 		// check whether the prediction happened or not
 		State hasHappened = State.AGREE;

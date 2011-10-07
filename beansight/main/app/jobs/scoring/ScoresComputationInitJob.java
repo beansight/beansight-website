@@ -42,7 +42,11 @@ public class ScoresComputationInitJob extends Job {
     	// over the ScoresToComputeTask
     	if (ComputeScoreForUsersTask.count() > 0) {
     		Logger.info("their is already some ScoresToComputeTask in DB that are processed. They will be deleted and ScoresComputationInitJob will be rerun un 60 s");
-    		ComputeScoreForUsersTask.deleteAll();
+    		List<ComputeScoreForUsersTask> tasks = ComputeScoreForUsersTask.findAll();
+    		for (ComputeScoreForUsersTask task : tasks) {
+    			task.delete();
+    		}
+    		
     		ScoresComputationInitJob scoresComputationInitJob = new ScoresComputationInitJob();
     		scoresComputationInitJob.runNow = true;
     		scoresComputationInitJob.in(60);

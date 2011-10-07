@@ -400,6 +400,14 @@ public class Admin extends Controller {
 		job.now();
 	}
 	
+	public static void cleanComputeScoreForUsersTask() {
+		List<ComputeScoreForUsersTask> tasks = ComputeScoreForUsersTask.findAll();
+		for (ComputeScoreForUsersTask task : tasks) {
+			task.delete();
+		}
+	}
+	
+	
 	/**
 	 * This will manualsy start the insaignts validation job
 	 */
