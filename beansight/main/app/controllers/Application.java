@@ -495,6 +495,9 @@ public class Application extends Controller {
 			flash.error("Error creating the prediction: " + t.getMessage());
 			create(insightContent, endDate, tagLabelList, categoryId, lang, vote);
 		}
+		
+		// send a quick mail to admin users so they can check if insight is OK
+        Mails.newInsightNotification(insight);
 
 		showInsight(insight.uniqueId);
 	}
@@ -549,9 +552,6 @@ public class Application extends Controller {
         
         renderArgs.put("relatedInsights", relateds );
         
-        // send a quick mail to admin users so they can check if insight is OK
-        Mails.newInsightNotification(insight);
-		
         render(insight);
 	}
 
