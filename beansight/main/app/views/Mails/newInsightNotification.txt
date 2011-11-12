@@ -1,0 +1,7 @@
+#{extends 'masterMail.txt' /}
+
+Nouvelle prediction
+
+Contenu : ${insight.content} 
+Categorie : ${insight.category.label}
+Date de fin : ${insight.endDate}

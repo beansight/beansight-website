@@ -37,6 +37,7 @@ import models.Vote;
 import models.Vote.State;
 import models.WaitingEmail;
 import models.analytics.UserClientInfo;
+import notifiers.Mails;
 
 import org.joda.time.DateMidnight;
 
@@ -548,7 +549,10 @@ public class Application extends Controller {
         
         renderArgs.put("relatedInsights", relateds );
         
-		render(insight);
+        // send a quick mail to admin users so they can check if insight is OK
+        Mails.newInsightNotification(insight);
+		
+        render(insight);
 	}
 
 	/**

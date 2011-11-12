@@ -11,6 +11,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.commons.collections.set.CompositeSet.SetMutator;
+import org.apache.commons.mail.SimpleEmail;
+
 import ext.StringExtensions;
 
 import models.CommentMentionMailTask;
@@ -122,4 +125,18 @@ public class Mails extends Mailer {
 		} 
 	}
 
+	public static void newInsightNotification(Insight insight) {
+		setFrom(FROM_NOTIFICATION);
+		setSubject("New prediction: " + insight.content);
+		List<User> admins = User.find("isAdmin = true").fetch();
+		for (User admin : admins) {
+			addRecipient(admin.email);
+		}
+		
+		try {
+			send(insight);
+		} catch (Throwable e) {
+			throw new RuntimeException(e);
+		} 
+	}
 }
