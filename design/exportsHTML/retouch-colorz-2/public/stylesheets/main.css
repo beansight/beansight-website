@@ -1,0 +1,296 @@
+/*
+Original palette :
+dark
+#1B676B     A Dream In Color 
+#519548     A Dream in Green
+#88C425     A Dream In Lime
+#BEF202     A Dream In Grellow
+#EAFDE6     Dream Base
+light
+based on http://fr-fr.colourlovers.com/palette/871636/A_Dream_in_Color
+by http://fr-fr.colourlovers.com/lover/madmod001
+Thanks man !
+
+our light gray :
+#F6F6F6     Light Gray
+
+declinaison of Dream Base: (luminosity)
+#f4fcf2     Dream Base light
+#EAFDE6     Dream Base
+#d6e6d3     Dream Base gray
+#c2ccc0     Dream Base gray 2
+*/
+
+body {
+    background-color:#F6F6F6;
+    color: #333333;
+}
+
+ul {
+    list-style:none outside none;
+    margin:0;
+    padding:0;
+}
+
+a {text-decoration: none; color:#1B676B;}
+a:visited {text-decoration: none;}
+a:active {text-decoration: none;}
+a:hover {text-decoration: underline;}
+
+
+.sideBox {
+    -moz-border-radius-topright: 7px;
+    -webkit-border-top-right-radius: 7px;
+    border-top-right-radius: 7px;
+
+    -moz-border-radius-bottomleft: 7px;
+    -webkit-border-bottom-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+
+    border: 1px solid #BEF202;
+    
+    padding: 0.5em 1em;
+    background-color:   white;
+    margin-bottom: 2em;
+}
+
+#mainContainer {
+    -moz-box-shadow: 0 0 10px #519548;
+    -webkit-box-shadow: 0 0 10px #519548;
+    box-shadow: 0 0 10px #519548;
+    
+    /*padding: 3em 0 0;*/
+    background-color: #f4fcf2;
+    border-left: 7px solid #BEF202;
+    border-right: 7px solid #BEF202;
+}
+
+.beansight {
+    font-family: 'Yanone Kaffeesatz', arial, serif;
+    font-size:2em;
+}
+
+.admin {
+    border-style:solid;
+    border-color: red;
+    border-width:1px;   
+}
+
+#footer {
+    padding: 2em 0 1em;
+    background-color: #d6e6d3;
+    color: #c2ccc0;
+    
+    text-shadow: 0 1px 0 #FFFFFF;   
+}
+
+#footer ul {
+    margin:0;
+    padding:0;
+
+}
+
+
+#userOptions {
+	float:right;
+	}
+	
+	
+#ui-datepicker-div { font-size: 12px; }
+
+/**
+ * Main Menu
+ */
+#menuBar ul li a {
+    -moz-border-radius:4px;
+    -wekbit-border-radius:4px;
+    border-radius:4px;
+    
+    text-decoration: none;
+    
+    color:#666666;
+    font-size:14px;
+    height:26px;
+    line-height:26px;
+    padding:0 6px;
+    margin-right:6px;
+    text-shadow:1px 1px 0 white;
+}
+#menuBar ul li a.current {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-width:1px;
+    border-color:#CCCCCC #EEEEEE #EEEEEE #CCCCCC;
+    border-style:solid;
+    color:#333333;
+}
+
+.sideBar {
+    width:200px;
+    float:left;
+}
+
+/**
+ * Index
+ */
+#trendingInsights {
+	width:480px;
+    float:left;	
+}
+
+/**
+ * Create
+ */
+ #insightContent {
+ 	vertical-align: top; 
+ 	width: 250px; 
+ 	height:50px;
+ }
+
+/**
+ * Search
+ */
+#searchBox {
+    float:right;
+}
+/* Search input, credits MediaWiki template */
+#searchBox h5 {
+    display: none;
+}
+#simpleSearch {
+    box-shadow: 0px 3px 4px #E5E5E5 inset, 1px 1px 0 #EFEFEF;
+    -webkit-box-shadow: 0px 3px 4px #E5E5E5 inset, 1px 1px 0 #EFEFEF; 
+    -moz-box-shadow: 0px 3px 4px #E5E5E5 inset, 1px 1px 0 #EFEFEF;  
+
+    border:1px solid #AAAAAA;
+    min-height:1px;
+    position:relative;
+    background-color: white;
+    width: 221px;
+}
+#simpleSearch input#searchInput {
+    background-color:transparent;
+    border-width:0;
+    font-size:13px;
+    margin:0;
+    padding:3px;
+    vertical-align:top;
+    width:14em;
+}
+#simpleSearch button#searchButton {
+    background-color:transparent;
+    border:medium none;
+    cursor:pointer;
+    font-size:x-small;
+    margin:0 5px;
+    padding:0;
+}
+#simpleSearch button#searchButton img {
+    border:medium none;
+    margin:0;
+    padding:0;
+    vertical-align:middle;
+}
+
+/**
+ * Tags
+ */
+#tagList ul li {
+    display:inline;
+}
+
+#tagList {
+    padding-bottom: 10px;	
+}
+
+/** 
+ * Comments
+ */
+ #addCommentForm {
+    width: 400px;
+ }
+ 
+#addCommentForm textarea {
+    height: 100px;
+}
+
+#addCommentForm .right {
+	text-align: right;
+}
+
+
+/*
+ * icons
+ */
+.icon {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: left top; 
+}
+
+/** 
+ * Agree Disagree
+ */
+.icon.agree.interactive {
+    background-image: url('../images/agree-inactive.png');
+}
+.voteAgree .icon.agree.interactive, .icon.agree {
+    background-image: url('../images/agree.png');
+}
+
+.icon.disagree.interactive {
+    background-image: url('../images/disagree-inactive.png');
+}
+.voteDisagree .icon.disagree.interactive, .icon.disagree {
+    background-image: url('../images/disagree.png');
+}
+
+/**
+ * Favorites
+ */
+a.icon.favorite {
+    background-image: url('../images/star-inactive.png');
+}
+
+a.icon.favorite.active {
+    background-image: url('../images/star-active.png');
+}
+
+.pageFavorite {
+    float:right;
+}
+
+/**
+ * Insight Page
+ */
+.insightVoteDetails {
+	float:right;
+    width:300px;
+}
+
+/**
+ * Insight Line
+ */
+.insight-line .date {
+	color:#66a0a3;
+}
+.insight-line .content {
+}
+
+.languageFlag {
+    padding: 5px;	
+}
+
+.languageFlag.selected {
+    background-color: #D6E6D3;
+}
+
+.categoryFilter.selected {
+    background-color: #D6E6D3;   	
+}
+
+.tooMuchCharacters {
+	color: red;
+}

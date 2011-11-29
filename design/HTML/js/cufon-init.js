@@ -1,0 +1,13 @@
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-grb', {hover: true});
+Cufon.set('fontFamily', 'got-rnd-med').replace('.cuf-grm', {hover: true});
+Cufon.set('fontFamily', 'got-rnd-bold').replace('.cuf-grs', {hover: true});
+Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowtwit', {textShadow: '#54d5f6 1px 1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowfb', {textShadow: '#223974 1px 1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowtwit2', {textShadow: '#029cee 1px 1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowfb2', {textShadow: '#324a85 0px 1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-create', {textShadow: '#156575 0px -1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-connect', {textShadow: '#4a6e1f 0px -1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-newaccount', {textShadow: '#7cac41 0px -1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-explore', {textShadow: '#c8dd90 0px 1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-participate', {textShadow: '#3c9fad 0px 1px'}, {hover: true});
+//Cufon.set('fontFamily', 'myriad pro').replace('#sidebar-signup h4', {textShadow: '#ee7c63 1px 1px'}, {fontWeight:'400'});

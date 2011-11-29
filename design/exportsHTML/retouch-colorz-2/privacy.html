@@ -1,0 +1,396 @@
+
+<!doctype html> 
+<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <title>    Frequently Asked Questions
+ - Beansight</title> 
+ 
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/style.css?Nr4ivgyyLrguCuT+JKrrrQ==" /> 
+	<link rel="stylesheet" type="text/css" href="public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css?hMxMGHfVJOeFZAX2yT6t1w=="> 
+	  
+	         
+	<link rel="shortcut icon" type="image/png" href="public/images/favicon.ico"> 
+	<link rel="apple-touch-icon" href="public/images/beansight_icon.jpg" /> 
+	
+	<meta property="og:title"      content="    Frequently Asked Questions
+ - Beansight" /> 
+    <meta property="og:site_name"  content="Beansight" /> 
+    <meta property="og:type"       content="website" /> 
+	<meta property="og:image"      content="public/images/beansight_icon.jpg" /> 
+	<meta property="fb:app_id"     content="137918342928326" /> 
+    <meta name="description"  content="Browse Beansight to know what people think and what is likely to happen tomorrow. Share your predictions and prove your expertise." /> 
+ 
+    
+    <meta name="google-site-verification" content="Y7yziTs492G_Z5Ogo8PCt4qusa7cr7AUoxUK-OUP-3g" /> 
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.validate.min.js?fI9u6BbHGTOo+Tlms05FjA==" type="text/javascript"></script> 
+    <script src="public/javascripts/jquery.hotkeys.js?rk7mjf31cuAON7eIoIS+1A==" type="text/javascript"></script>	
+	<script src="public/javascripts/jquery.extend.js?WHYNebH5JzHPiQRwr7d8Jg==" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.selectbox-0.6.1.js?Usel0DXMZDtdqsBtD++EYw==" type="text/javascript"></script> 
+	
+	<script src="public/javascripts/cufon-yui.js?LvMCRUZuUCPCGH0TgHXLWg==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-book_325.font.js?0y2PtsWJxXqA7icqOCqSzw==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-med_350.font.js?BCDlTZfuihACsN+umpZD3w==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-bold_400.font.js?74FLRir0DdCrj3fEr1xM2A==" type="text/javascript"></script> 
+ 
+	<!-- Beansight javascripts --> 
+	<script src="public/javascripts/i18n/en.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="public/javascripts/beansight.js?EBmDDVogcpdcd6sOQynhIA==" type="text/javascript" charset="utf-8"></script> 
+	  
+	
+	<!-- define here the actions --> 
+	<script type="text/javascript"> 
+	var agreeAction = function(options) {var pattern = '/application/agree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var disagreeAction = function(options) {var pattern = '/application/disagree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var resetInsightActivityAction = function(options) {var pattern = '/application/resetinsightactivity'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingInsightAction = function(options) {var pattern = '/application/togglefollowinginsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingUserAction = function(options) {var pattern = '/application/togglefollowinguser?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var loadFollowedUsersBlockAction = function(options) {var pattern = '/application/loadfollowedusers?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getInsightsAction = function(options) {var pattern = '/application/getinsights?topic=:topic&cat=:cat&sortBy=:sortBy&filterVote=:filterVote&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var searchExpertsAction = function(options) {var pattern = '/application/searchexperts'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var moreSearchAction = function(options) {var pattern = '/application/moresearch'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var inviteAction = function(options) {var pattern = '/application/invite'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendMessageAction = function(options) {var pattern = '/application/sendmessage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var shareInsightAction = function(options) {var pattern = '/application/shareinsight'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var favoriteUserSuggestAction = function(options) {var pattern = '/application/favoriteusersuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var tagSuggestAction = function(options) {var pattern = '/application/tagsuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var cropImageAction = function(options) {var pattern = '/application/cropimage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var leaveYourEmailAction = function(options) {var pattern = '/application/leaveyouremail'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendToContactAction = function(options) {var pattern = '/contact/sendtocontact'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var addCommentAction = function(options) {var pattern = '/application/addcomment'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserRealNameAction = function(options) {var pattern = '/settings/updateuserrealname'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserDescriptionAction = function(options) {var pattern = '/settings/updateuserdescription'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getFavoriteInsightAction = function(options) {var pattern = '/application/getfavoriteinsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var insightHideCommentAction = function(options) {var pattern = '/admin/insighthidecomment?commentId=:commentId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var showAvatarSmallFromEmailAction = function(options) {var pattern = '/application/showavatarsmallfromemail?email=:email'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isUserNameAvailableAction = function(options) {var pattern = '/register/isusernameavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isEmailAvailableAction = function(options) {var pattern = '/register/isemailavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;  
+	</script> 
+</head> 
+<body> 
+        <!-- HEADER --> 
+        <div id="header"> 
+            <div class="contentheader"> 
+                <!-- LOGO --> 
+                
+                <div class="colhead logocol"> 
+                    <h1><a href="/"> Beansight</a></h1> 
+                </div> 
+                
+                
+                <!-- FORM SEARCH --> 
+                <div class="colhead searchcol"> 
+                
+ 
+<div class="formsearch"> 
+<form action="/application/search" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" ><input type="hidden" name="authenticityToken" value="1b8786078715da2a100a95d32e081e350aecb069"> 
+ 
+    <div class="searchinput"> 
+        <label for="query" class="cuf-grb">Search the future</label> 
+        <div class="inputstyle"> 
+            <input type="text" name="query" id="txtsearch" value="" class="inputtxt" placeholder="Search"/> 
+            <input type="submit" id="searchsubmit" class="inputsubmit"/> 
+        </div> 
+    </div> 
+ 
+</form> 
+</div> 
+ 
+                </div> 
+                <!-- ZONE LOGIN --> 
+                <div class="colhead collogin"> 
+                	
+ 
+ 
+	<div class="signedInUserOption"> 
+<div class="signbtn"> 
+    <a href="/logout" class="cuf-grb">Log out</a> 
+</div> 
+<div class="welcome"> 
+    <p>Welcome  <a href="/profile" class="pseudo-link">Roger</a></p> 
+    <p><a href="/settings" class="setting-link">Settings</a></p> 
+</div> 
+</div> 
+ 
+	
+ 
+                </div> 
+            </div> 
+        </div> 
+ 
+   
+ 
+ 
+ 
+	
+<!-- CONTENU --> 
+<div id="content" class=""> 
+<!-- CONTENT --> 
+<div id="content"> 
+ 
+<!-- SIDEBAR LEFT --> 
+<div id="sidebarleft" class="	"> 
+ 
+ 
+	
+<!-- CREER INSIGHT --> 
+<p class="btn-newins"><a href="/create" class="cuf-grm ">Create</a></p> 
+ 
+	
+ 
+ 
+	
+   <!-- MENU NAV --> 
+<h2 class="azurme"><span class="cuf-grb">Menu</span></h2> 
+<ul class="menuleft"> 
+    <li><a href="/" class="cuf-grb ">Predictions</a></li> 
+    <li><a href="/experts" class="cuf-grb ">Experts</a></li> 
+ 
+	    
+    <li><a href="/profile" class="cuf-grb ">Profile</a></li> 
+ 
+		</ul> 
+ 
+	
+ 
+ 
+	
+    <!-- ACTIVITY --> 
+<h2 class="azurme"><span class="cuf-grb">Activity</span></h2> 
+<div class="activity"> 
+    <!-- With Activity --> 
+    <div id="insightActivity" style="display:none;"> 
+    <p><a id="resetActivity" href="" >Clear activity feed.</a></p> 
+            </div> 
+    <!-- Without activity --> 
+    <div id="noInsightActivity" > 
+    <p class="message">No recent activity</p> 
+    </div> 
+</div> 
+ 
+    <!-- FAVORITES --> 
+<h2 class="favh2 greenme paddingme"><span class="cuf-grb">Favorites</span></h2> 
+<div class="list-fav"> 
+    <hr class="clear"/> 
+</div><div class="list-avatars"> 
+</div><hr class="clear"/> 
+ 
+	
+	<div id="plzconfirm" class="warning"> 
+	<p>You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.</p> 
+	</div> 
+	
+    
+    <hr class="clear"/> 
+ 
+	
+ 
+ 
+	
+ 
+</div> 
+	
+<div id="contentcenter" class="large"> 
+<h2 class="cuf-grb">Privacy Policy</h2> 
+<div class="pagecontent"> 
+<p class="pageintro">Your privacy is critically important to us. At Beansight we have a few fundamental principles:</p>
+<div class="pagetxt">
+	<ol> 
+    	<li>We don't ask you for personal information unless we truly need it.</li> 
+    	<li>We don't share your personal information with anyone except to comply with the law, develop our products, or protect our rights.</li> 
+    	<li>We don't store personal information on our servers unless required for the on-going operation of one of our services.</li> 
+    </ol> 
+<br> 
+Below is our privacy policy which incorporates these goals:
+<h3 class="section-title">Website Visitors</h3> 
+		<div class="bloc-section"> 
+Like most website operators, Beansight collects non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the date and time of each visitor request. Beansight's purpose in collecting non-personally identifying information is to better understand how Beansight's visitors use its website. From time to time, Beansight may release non-personally-identifying information in the aggregate, e.g., by publishing a report on trends in the usage of its website.
+<br> 
+Beansight also collects potentially personally-identifying information like Internet Protocol (IP) addresses for logged in users and for users leaving comments our website. Beansight only discloses logged in user and commenter IP addresses under the same circumstances that it uses and discloses personally-identifying information as described below.
+<br> 
+		</div>
+
+<h3 class="section-title">Gathering of Personally-Identifying Information<h3> 
+		<div class="bloc-section"> 
+Certain visitors to Beansight's websites choose to interact with Beansight in ways that require Beansight to gather personally-identifying information. The amount and type of information that Beansight gathers depends on the nature of the interaction.
+<br> 
+Our  web site is primarily designed to help you share prediction with the world. Most of the information you provide to us is information you are asking us to make public. This includes not only the prediction you share  and the metadata provided with predictions but also the people you favorite, the prediction you mark as favorites or interact and many other bits of information. You should be careful about all information that will be made public by Beansight, not just your predictions.
+<br> 
+		</div>
+
+<h3 class="section-title">Protection of Certain Personally-Identifying Information</h3> 
+		<div class="bloc-section"> 
+Beansight discloses potentially personally-identifying and personally-identifying information only to those of its employees, contractors and affiliated organizations that (i) need to know that information in order to process it on Beansight behalf or to provide services available at Beansight's websites, and (ii) that have agreed not to disclose it to others. Some of those employees, contractors and affiliated organizations may be located outside of your home country; by using Beansight's websites, you consent to the transfer of such information to them. Beansight will not rent or sell potentially personally-identifying and personally-identifying information to anyone. Other than to its employees, contractors and affiliated organizations, as described above, Beansight discloses potentially personally-identifying and personally-identifying information only in response to a subpoena or court order, or when Beansight believes in good faith that disclosure is reasonably necessary to protect the property or rights of Beansight, third parties or the public at large. If you are a registered user of an Beansight website and have supplied your email address, Beansight may occasionally send you an email to tell you about new features, solicit your feedback, or just keep you up to date with what's going on with Beansight and our products. We primarily use blogs to communicate this type of information, so we expect to keep this type of email to a minimum. If you send us a request (for example via a support email or via one of our feedback mechanisms), we reserve the right to publish it in order to help us clarify or respond to your request or to help us support other users. Beansight takes all measures reasonably necessary to protect against the unauthorized access, use, alteration or destruction of potentially personally-identifying and personally-identifying information.
+<br> 
+		</div>
+
+<h3 class="section-title">Cookies</h3> 
+		<div class="bloc-section"> 
+A cookie is a string of information that a website stores on a visitor's computer, and that the visitor's browser provides to the website each time the visitor returns. Beansight uses cookies to help Beansight identify and track visitors, their usage of Beansight website, and their website access preferences. Beansight visitors who do not wish to have cookies placed on their computers should set their browsers to refuse cookies before using Beansight's website, with the drawback that certain features of Beansight's websites may not function properly without the aid of cookies.
+		</div>
+
+<h3 class="section-title">PAds</h3> 
+		<div class="bloc-section"> 
+Ads appearing on any of our websites may be delivered to users by advertising partners, who may set cookies. These cookies allow the ad server to recognize your computer each time they send you an online advertisement to compile information about you or others who use your computer. This information allows ad networks to, among other things, deliver targeted advertisements that they believe will be of most interest to you. This Privacy Policy covers the use of cookies by Beansight and does not cover the use of cookies by any advertisers.
+<br> 
+		</div>
+
+<h3 class="section-title">Privacy Policy Changes</h3> 
+		<div class="bloc-section"> 
+Although most changes are likely to be minor, Beansight may change its Privacy Policy from time to time, and in Beansight's sole discretion. Beansight encourages visitors to frequently check this page for any changes to its Privacy Policy. Your continued use of this site after any change in this Privacy Policy will constitute your acceptance of such change.
+<br> 
+This privacy policy is available under a Creative Commons Sharealike license, thanks to http://wordpress.com/
+		</div>
+
+</div>
+</div>
+ </div> 
+ 
+</div> 
+ 
+ 
+<hr class="clear"/> 
+</div> 
+	
+<hr class="clear"/> 
+ 
+        <!-- FOOTER --> 
+        <div id="footer"> 
+            <div class="backfooter"></div> 
+            <div class="contentfooter"> 
+                <div class="menufooter"> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Extra</h2> 
+                        <ul> 
+                            <li><a href="http://blog.beansight.com">Read the blog</a></li> 
+                            
+                            <li><a href="/legal/terms-of-service">Terms</a></li> 
+                            <li><a href="/legal/privacy-policy">Privacy</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Help</h2> 
+                        <ul> 
+                            <li><a href="/faq">Read the FAQ</a></li> 
+                            <li><a href="/contact">Contact us</a></li> 
+                            <li><a href="/forgotpassword">Forgot password ?</a></li> 
+                            <li><a href="http://getsatisfaction.com/beansight">Your voice</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">From</h2> 
+                        <ul> 
+                        	<li><a href="http://www.startupweekend.org">Startup Weekend</a></li> 
+                        	<li><a href="http://www.lecamping.org">Le Camping</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">We are social</h2> 
+                        <a href="http://www.facebook.com/Beansight" target="_blank" class="sociallinks facebooklinks"> 
+                            <span class="item likefb">Like facebook</span> 
+                            <span class="item titlesocial">Facebook</span> 
+                            <span class="item nbsocial"><span id="facebookFans">201</span> Fans</span> 
+                        </a> 
+                        <a href="http://twitter.com/#!/beansight" target="_blank" class="sociallinks twitterlinks"> 
+                            <span class="item titlesocial">Twitter</span> 
+                            <span class="item nbsocial"><span id="twitterFollowers">126</span> followers</span> 
+                        </a> 
+                    </div> 
+ 
+ 
+                    <div class="copyright"> 
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p> 
+                        <p class="rights">All rights reserved.</p> 
+                        <p class="authorwebsite">Design by <a href="http://www.colorz.fr/">Colorz</a></p> 
+                    </div> 
+                </div> 
+            </div> 
+ 
+        </div> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+// keyboard shortcuts
+/*
+$(document).bind("keydown", ["g", "i"], function () {
+    window.location.href = "/";
+}).bind("keydown", ["g", "e"], function () {
+    window.location.href = "/experts";
+}).bind("keydown", ["g", "p"], function () {
+    window.location.href = "/profile";
+}).bind("keydown", "c", function () {
+    window.location.href = "/create";
+}).bind("keydown", "/", function () {
+    $('#txtsearch').focus();
+});
+*/
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  // Google Analytics
+  var feedback_widget_options = {};
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "beansight";
+  feedback_widget_options.placement = "left";
+  feedback_widget_options.color = "#222";
+  feedback_widget_options.style = "idea";
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+  
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16319303-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	
+	// Go Squared LiveStats
+	var GoSquared={};
+    GoSquared.acct = "GSN-789144-E";
+    (function(w){
+        function gs(){
+            w._gstc_lt=+(new Date); var d=document;
+            var g = d.createElement("script"); g.type = "text/javascript"; g.async = true; g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+            var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(g, s);
+        }
+        w.addEventListener?w.addEventListener("load",gs,false):w.attachEvent("onload",gs);
+    })(window);
+</script> 
+ 
+ 
+</body> 
+</html> 

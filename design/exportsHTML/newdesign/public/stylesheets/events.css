@@ -1,0 +1,303 @@
+*{margin:0;padding:0;}
+
+
+/* GLOBAL */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article, aside, audio, canvas, datagrid, datalist, details, dialog, figure, footer, header, menu, nav, section, video,abbr, eventsource, mark, meter, time, progress, output, bb
+{margin:0;padding:0;border:0;outline:0;font-size:100%;font-weight :normal;vertical-align:baseline;}
+input, select {vertical-align:middle;}
+img,input[type=image]{vertical-align:bottom;}
+a{text-decoration:none;cursor:pointer;}
+ol,ul{list-style:none;}
+hr.clear{clear:both;visibility:hidden;height:1px;overflow:hidden;border:0;}
+.nodisplay{display:none;}
+
+/* SPECIFIQUE */
+html{overflow-y:scroll;}
+html {text-align:center;}
+body {text-align:left;color:#8b8f90;line-height:1;background-color:#FFFFFF;
+    font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+    font-size: 75%;
+    }
+
+.admin {-moz-box-shadow: 0 0 0.5em red;-webkit-box-shadow: 0 0 0.5em red;box-shadow: 0 0 0.5em red;}
+
+.ajaxloader{background:url(../images/ajax-loader.gif) no-repeat 0 0; width:16px; height:16px;}
+
+a{color:#8b8f90}
+a:hover{color:#228392;}
+
+
+.container{width:966px;margin:0 auto;}
+
+
+.login {
+padding: 2em 0;
+float:right;
+}
+/* color and theme inspired by http://theme.wordpress.com/themes/wu-wei/ */
+#header {
+    padding: 2em 0;	
+}
+#content {
+    border-top: 1px solid #D1D9DC;
+    padding-top: 1.5em;	
+}
+#footer {
+    border-top: 3px solid #EEEEEE;
+    color: #D1D9DC;
+    font-size: 0.916em;
+    line-height: 1em;
+    margin: 2em 0;
+    padding: 0.5em 0 0;
+}
+.event-name {
+    color: #D1D9DC;
+    font-size: 5em;
+    font-weight: bold;
+    line-height: 1em;
+}
+.description {
+    color: #6A797D;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+}
+
+#content .callToAction {
+    color: #959EA1;
+    font-size: 2.5em;
+    padding-bottom: 30px; 
+}
+
+#content .insightList {
+	margin: 0 80px;
+}
+
+#content .insightContainer {
+    color: #6A797D;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+    height:100px;
+}
+
+.miniImage {
+    float:left;
+    margin: 10px;
+}
+
+.poweredBy{ 
+	float: right;
+}
+
+.insightTitle{float:left; width:500px;}
+.insightContainer .voteButtons{float:right;}
+.insightContainer .linkvote{float:left;width:125px;height:34px;margin:0 0 12px 0;}
+.insightContainer .linkvote .voteNumber{display:block;width:111px;height:26px;padding:8px 0 0 0;text-align:center;background:url(../images/insight-vote.png) no-repeat 0 0;}
+.insightContainer .linkvote .voteNumber.clickvote:hover{background-position:0 -34px;}
+.insightContainer .linkvote .voteCount{color:#fff;font-weight:bold;font-size:18px;}
+.insightContainer .linkvote.disagreeaction a{margin:0 0 0 13px;}
+.insightContainer .linkvote.agreeaction{border-right:solid #ededed 1px;}
+.insightContainer.voteDisagree  .linkvote.disagreeaction .voteNumber{background-position:0 -102px;}
+.insightContainer.voteAgree  .linkvote.agreeaction .voteNumber{background-position:0 -68px;}
+
+/* jQuery Tooltip */
+#tooltip {
+    position: absolute;
+    z-index: 3000;
+    border: 4px solid white;
+    background-color: #F7F7F7;
+    padding: 5px;
+    opacity: 1;
+    border-radius:4px;
+    width: 200px;
+    box-shadow:1px 1px 1px #999999;   
+    -moz-border-radius:4px;
+    -moz-box-shadow:1px 1px 1px #999999;
+    -webkit-border-radius:4px;
+    -webkit-box-shadow:1px 1px 1px #999999;
+}
+#tooltip h3, #tooltip div { margin: 0; }
+
+
+/*
+CSS Social Sign-in Buttons by Bloop [http://bloop.co] are licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+Please link to Bloop [http://bloop.co] somewhere on the page when you use these buttons.
+Contact @smcllns with questions about permissions but you're basically free to do what you like.
+*/
+
+/*BUTTON WIDTH
+Use width:auto or a fixed width on the .social_buttons element
+*/
+
+/*Social icons sprite file*/
+.social_buttons > span:before {
+	background: url(../images/social/social_buttons_icons.png) no-repeat;
+}
+
+
+/*Resets*/
+.social_buttons {
+	border: 0;
+	color: #fff !important;
+	cursor: pointer;
+	font-weight: bold;
+	letter-spacing: 0;
+	outline: none;
+	padding: 0;
+	text-decoration: none !important;
+}
+button::-moz-focus-inner { 
+	border: 0;
+	padding: 0;
+}
+
+/*22px height*/
+.sb_24 > span,
+.sb_24 > span:before {
+	font-size: 12px;
+	height: 22px;
+	line-height: 22px;
+}
+.sb_24 > span:before {
+	width: 22px;
+}
+.sb_24 > span {
+	padding-right: 10px;
+}
+.sb_24,
+.sb_24 > span {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+/*48px height*/
+.sb_48 > span,
+.sb_48 > span:before {
+	font-size: 18px;
+	height: 36px;
+	line-height: 36px;
+}
+.sb_48 > span:before {
+	width: 40px;
+}
+.sb_48 > span {
+	padding-right: 20px;
+}
+.sb_48,
+.sb_48 > span {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/*icons*/
+.sb_facebook.sb_24 > span:before {
+	background-position: 5px 4px;
+}
+.sb_linkedin.sb_24 > span:before {
+	background-position: 5px -45px;
+}
+.sb_twitter.sb_24 > span:before {
+	background-position: 5px -95px;
+}
+.sb_google.sb_24 > span:before {
+	background-position: 5px -146px;
+}
+.sb_facebook.sb_48 > span:before {
+	background-position: -40px 7px;
+}
+.sb_linkedin.sb_48 > span:before {
+	background-position: -40px -42px;
+}
+.sb_twitter.sb_48 > span:before {
+	background-position: -40px -91px;
+}
+.sb_google.sb_48 > span:before {
+	background-position: -40px -141px;
+}
+
+/*Brand colors*/
+.sb_facebook {
+	background: #5E76AB;
+	border: 1px solid #5E76AB;
+}
+.sb_facebook:hover {
+	background: #4863AE;
+}
+.sb_linkedin {
+	background: #4A95BF;
+	border: 1px solid #4A95BF;
+}
+.sb_linkedin:hover {
+	background: #3B88C5;
+
+}
+.sb_twitter {
+	background: #A7E7EB;
+	border: 1px solid #A7E7EB;
+}
+.sb_twitter:hover {
+	background: #85DCE2;
+}
+.sb_google {
+	background: #6D88EA;
+	border: 1px solid #6D88EA;
+}
+.sb_google:hover {
+	background: #4E6CF7;    
+}
+.sb_twitter > span {
+	border-top-color: rgba(255,255,255,0.7) !important;
+	border-bottom-color: rgba(0,0,0,0.3) !important;    
+	color: #3C6B9C !important;
+	text-shadow: 0 1px 1px rgba(255,255,255,0.7) !important;
+}
+
+/*Common*/
+.social_buttons {
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+	display: block;
+	font-family: "Lucida Grande", Tahoma, sans-serif;
+	position: relative;
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+}
+.social_buttons > span {
+	background: -moz-linear-gradient(top, rgba(255,255,255,0.2), rgba(255,255,255,0) 40%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.1));
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.2)), color-stop(40%, rgba(255,255,255,0)), color-stop(70%, rgba(0,0,0,0)), to(rgba(0,0,0,0.1)));
+	border: 1px solid rgba(0,0,0,0.1);
+	border-bottom-color: rgba(0,0,0,0.5);
+	border-top-color: rgba(255,255,255,0.5);
+	display: block;
+	overflow: visible;
+	white-space: nowrap;
+}
+.social_buttons > span:before {
+	-moz-box-shadow: 1px 0 1px rgba(255,255,255,0.2);
+	-webkit-box-shadow: 1px 0 1px rgba(255,255,255,0.2);
+	background-repeat: no-repeat;
+	border-right: 1px solid rgba(0,0,0,0.1);
+	box-shadow: 1px 0 1px rgba(255,255,255,0.5);
+	content: "";
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+
+/*Interactions*/
+.social_buttons:hover > span {
+	border-top-color: rgba(255,255,255,0.5);
+	border-bottom-color: rgba(0,0,0,0.7);  
+}
+.social_buttons:active > span {
+	background: -webkit-gradient(linear, left bottom, left top, from(rgba(255,255,255,0.3)), color-stop(30%, rgba(255,255,255,0)), color-stop(50%, rgba(0,0,0,0)), to(rgba(0,0,0,0.2)));  
+	background: -moz-linear-gradient(bottom, rgba(255,255,255,0.3), rgba(255,255,255,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2));  
+	border-top: 1px solid rgba(255,255,255,0.2);
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.sb_24:active > span {
+	line-height: 23px;
+}
+.sb_48:active > span {
+	line-height: 38px;
+}

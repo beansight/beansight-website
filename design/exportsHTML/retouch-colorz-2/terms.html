@@ -1,0 +1,407 @@
+
+<!doctype html> 
+<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <title>    Frequently Asked Questions
+ - Beansight</title> 
+ 
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/style.css?Nr4ivgyyLrguCuT+JKrrrQ==" /> 
+	<link rel="stylesheet" type="text/css" href="public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css?hMxMGHfVJOeFZAX2yT6t1w=="> 
+	  
+	         
+	<link rel="shortcut icon" type="image/png" href="public/images/favicon.ico"> 
+	<link rel="apple-touch-icon" href="public/images/beansight_icon.jpg" /> 
+	
+	<meta property="og:title"      content="    Frequently Asked Questions
+ - Beansight" /> 
+    <meta property="og:site_name"  content="Beansight" /> 
+    <meta property="og:type"       content="website" /> 
+	<meta property="og:image"      content="public/images/beansight_icon.jpg" /> 
+	<meta property="fb:app_id"     content="137918342928326" /> 
+    <meta name="description"  content="Browse Beansight to know what people think and what is likely to happen tomorrow. Share your predictions and prove your expertise." /> 
+ 
+    
+    <meta name="google-site-verification" content="Y7yziTs492G_Z5Ogo8PCt4qusa7cr7AUoxUK-OUP-3g" /> 
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.validate.min.js?fI9u6BbHGTOo+Tlms05FjA==" type="text/javascript"></script> 
+    <script src="public/javascripts/jquery.hotkeys.js?rk7mjf31cuAON7eIoIS+1A==" type="text/javascript"></script>	
+	<script src="public/javascripts/jquery.extend.js?WHYNebH5JzHPiQRwr7d8Jg==" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.selectbox-0.6.1.js?Usel0DXMZDtdqsBtD++EYw==" type="text/javascript"></script> 
+	
+	<script src="public/javascripts/cufon-yui.js?LvMCRUZuUCPCGH0TgHXLWg==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-book_325.font.js?0y2PtsWJxXqA7icqOCqSzw==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-med_350.font.js?BCDlTZfuihACsN+umpZD3w==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-bold_400.font.js?74FLRir0DdCrj3fEr1xM2A==" type="text/javascript"></script> 
+ 
+	<!-- Beansight javascripts --> 
+	<script src="public/javascripts/i18n/en.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="public/javascripts/beansight.js?EBmDDVogcpdcd6sOQynhIA==" type="text/javascript" charset="utf-8"></script> 
+	  
+	
+	<!-- define here the actions --> 
+	<script type="text/javascript"> 
+	var agreeAction = function(options) {var pattern = '/application/agree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var disagreeAction = function(options) {var pattern = '/application/disagree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var resetInsightActivityAction = function(options) {var pattern = '/application/resetinsightactivity'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingInsightAction = function(options) {var pattern = '/application/togglefollowinginsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingUserAction = function(options) {var pattern = '/application/togglefollowinguser?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var loadFollowedUsersBlockAction = function(options) {var pattern = '/application/loadfollowedusers?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getInsightsAction = function(options) {var pattern = '/application/getinsights?topic=:topic&cat=:cat&sortBy=:sortBy&filterVote=:filterVote&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var searchExpertsAction = function(options) {var pattern = '/application/searchexperts'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var moreSearchAction = function(options) {var pattern = '/application/moresearch'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var inviteAction = function(options) {var pattern = '/application/invite'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendMessageAction = function(options) {var pattern = '/application/sendmessage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var shareInsightAction = function(options) {var pattern = '/application/shareinsight'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var favoriteUserSuggestAction = function(options) {var pattern = '/application/favoriteusersuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var tagSuggestAction = function(options) {var pattern = '/application/tagsuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var cropImageAction = function(options) {var pattern = '/application/cropimage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var leaveYourEmailAction = function(options) {var pattern = '/application/leaveyouremail'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendToContactAction = function(options) {var pattern = '/contact/sendtocontact'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var addCommentAction = function(options) {var pattern = '/application/addcomment'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserRealNameAction = function(options) {var pattern = '/settings/updateuserrealname'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserDescriptionAction = function(options) {var pattern = '/settings/updateuserdescription'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getFavoriteInsightAction = function(options) {var pattern = '/application/getfavoriteinsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var insightHideCommentAction = function(options) {var pattern = '/admin/insighthidecomment?commentId=:commentId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var showAvatarSmallFromEmailAction = function(options) {var pattern = '/application/showavatarsmallfromemail?email=:email'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isUserNameAvailableAction = function(options) {var pattern = '/register/isusernameavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isEmailAvailableAction = function(options) {var pattern = '/register/isemailavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;  
+	</script> 
+</head> 
+<body> 
+        <!-- HEADER --> 
+        <div id="header"> 
+            <div class="contentheader"> 
+                <!-- LOGO --> 
+                
+                <div class="colhead logocol"> 
+                    <h1><a href="/"> Beansight</a></h1> 
+                </div> 
+                
+                
+                <!-- FORM SEARCH --> 
+                <div class="colhead searchcol"> 
+                
+ 
+<div class="formsearch"> 
+<form action="/application/search" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" ><input type="hidden" name="authenticityToken" value="1b8786078715da2a100a95d32e081e350aecb069"> 
+ 
+    <div class="searchinput"> 
+        <label for="query" class="cuf-grb">Search the future</label> 
+        <div class="inputstyle"> 
+            <input type="text" name="query" id="txtsearch" value="" class="inputtxt" placeholder="Search"/> 
+            <input type="submit" id="searchsubmit" class="inputsubmit"/> 
+        </div> 
+    </div> 
+ 
+</form> 
+</div> 
+ 
+                </div> 
+                <!-- ZONE LOGIN --> 
+                <div class="colhead collogin"> 
+                	
+ 
+ 
+	<div class="signedInUserOption"> 
+<div class="signbtn"> 
+    <a href="/logout" class="cuf-grb">Log out</a> 
+</div> 
+<div class="welcome"> 
+    <p>Welcome  <a href="/profile" class="pseudo-link">Roger</a></p> 
+    <p><a href="/settings" class="setting-link">Settings</a></p> 
+</div> 
+</div> 
+ 
+	
+ 
+                </div> 
+            </div> 
+        </div> 
+ 
+   
+ 
+ 
+ 
+	
+<!-- CONTENU --> 
+<div id="content" class=""> 
+<!-- CONTENT --> 
+<div id="content"> 
+ 
+<!-- SIDEBAR LEFT --> 
+<div id="sidebarleft" class="	"> 
+ 
+ 
+	
+<!-- CREER INSIGHT --> 
+<p class="btn-newins"><a href="/create" class="cuf-grm ">Create</a></p> 
+ 
+	
+ 
+ 
+	
+   <!-- MENU NAV --> 
+<h2 class="azurme"><span class="cuf-grb">Menu</span></h2> 
+<ul class="menuleft"> 
+    <li><a href="/" class="cuf-grb ">Predictions</a></li> 
+    <li><a href="/experts" class="cuf-grb ">Experts</a></li> 
+ 
+	    
+    <li><a href="/profile" class="cuf-grb ">Profile</a></li> 
+ 
+		</ul> 
+ 
+	
+ 
+ 
+	
+    <!-- ACTIVITY --> 
+<h2 class="azurme"><span class="cuf-grb">Activity</span></h2> 
+<div class="activity"> 
+    <!-- With Activity --> 
+    <div id="insightActivity" style="display:none;"> 
+    <p><a id="resetActivity" href="" >Clear activity feed.</a></p> 
+            </div> 
+    <!-- Without activity --> 
+    <div id="noInsightActivity" > 
+    <p class="message">No recent activity</p> 
+    </div> 
+</div> 
+ 
+    <!-- FAVORITES --> 
+<h2 class="favh2 greenme paddingme"><span class="cuf-grb">Favorites</span></h2> 
+<div class="list-fav"> 
+    <hr class="clear"/> 
+</div><div class="list-avatars"> 
+</div><hr class="clear"/> 
+ 
+	
+	<div id="plzconfirm" class="warning"> 
+	<p>You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.</p> 
+	</div> 
+	
+    
+    <hr class="clear"/> 
+ 
+	
+ 
+ 
+	
+ 
+</div> 
+	
+<div id="contentcenter" class="large"> 
+<h2 class="cuf-grb">Terms of Service</h2> 
+<div class="pagecontent"> 
+	<p class="pageintro">These Terms of Service ("Terms") govern your access to and use of the services and Beansight's website (the "Services"), and any information, text, graphics, or other materials uploaded, downloaded or appearing on the Services (collectively referred to as "Content"). Your access to and use of the Services is conditioned on your acceptance of and compliance with these Terms. By accessing or using the Services you agree to be bound by these Terms.</p>
+	<div class="pagetxt">
+		<h3 class="faq-section-title section-title">Use of the Service</h3> 
+		<div class="bloc-section"> 
+			We may, without prior notice, change the Service; stop providing the Service or features of the Service, to you or to users generally; or create usage limits for the Service.
+			<br> 
+			You are responsible for safeguarding the password that you use to access the Service and for any activities or actions under your password. We encourage you to use "strong" passwords (that use a combination of upper and lower case letters, numbers and symbols) with your account. Beansight will not be liable for any loss or damage arising from your failure to comply with these requirements.
+		</div>
+		<h3 class="section-title">User Content</h3> 
+		<div class="bloc-section"> 
+		"Content" means any information, text, graphics, or other materials uploaded, downloaded or appearing on the Service. You retain ownership of all Content you submit, post, display, or otherwise make available on the Service.
+		</div>
+		<h3 class="ection-title">Your License to Beansight</h3> 
+		<div class="bloc-section"> 
+		By submitting, posting or displaying Content on or through the Service, you grant us a worldwide, non-exclusive, royalty-free license (with the right to sublicense) to use, copy, reproduce, process, adapt, modify, publish, transmit, display and distribute such Content in any and all media or distribution methods (now known or later developed).
+		<br> 
+		You agree that this license includes the right for other users of the Service to modify your Content, and for Beansight to make your Content available to others for the publication, distribution, syndication, or broadcast of such Content on other media and services, subject to our terms and conditions for such Content use. Such additional uses by Beansight or others may be made with no compensation paid to you with respect to the Content that you submit, post, transmit or otherwise make available through the Service.
+		<br> 
+		We may modify or adapt your Content in order to transmit, display or distribute it over computer networks and in various media and/or make changes to your Content as are necessary to conform and adapt that Content to any requirements or limitations of any networks, devices, services or media.
+		</div>
+		<h3 class="section-title">Beansights Licenses to You</h3> 
+		<div class="bloc-section"> 
+		Subject to these Terms, Beansight gives you a worldwide, royalty-free, non-assignable and non-exclusive license to re-post any of the Content on Beansight anywhere on the rest of the web provided that the Content was added to the Service, and provided that the user who created the content has not explicitly marked the content as not for reproduction, and provided that you: (a) do not modify the Content; (b) attribute Beansight with a human and machine-followable link (an A tag) linking back to the page displaying the original source of the content on quora.com (c) upon request, either by Beansight or a user, remove the user's name from Content which the user has subsequently made anonymous; (d) upon request, either by Beansight or by a user who contributed to the Content, make a reasonable effort to update a particular piece of Content to the latest version on beansight.com; and (e) upon request, either by Beansight or by a user who contributed to the Content, make a reasonable attempt to delete Content that has been deleted on beansight.com.
+		<br> 
+		Your Content will be viewable by other users of the Service and through third party services and websites. You should only provide Content that you are comfortable sharing with others under these Terms.
+		<br> 
+		All Content, whether publicly posted or privately transmitted, is the sole responsibility of the person who originated such Content. We may not monitor or control the Content posted via the Service. Any use of or reliance on any Content or materials posted via the Service or obtained by you through the Service is at your own risk. We do not endorse, support, represent or guarantee the completeness, truthfulness, accuracy, or reliability of any Content or communications posted via the Service or endorse any opinions expressed via the Service. You understand that by using the Service, you may be exposed to Content that might be offensive, harmful, inaccurate or otherwise inappropriate. Under no circumstances will Beansight be liable in any way for any Content, including, but not limited to, any errors or omissions in any Content, or any loss or damage of any kind incurred as a result of the use of any Content made available via the Service or broadcast elsewhere.
+		<br> 
+		You are responsible for your use of the Service, for any Content you provide, and for any consequences thereof, including the use of your Content by other users and third parties partners. You understand that your Content may be republished and if you do not have the right to submit Content for such use, it may subject you to liability. Beansight will not be responsible or liable for any use of your Content by Beansight in accordance with these Terms. You represent and warrant that you have all the rights, power and authority necessary to grant the rights granted herein to any Content that you submit.
+		<br> 
+		We reserve the right at all times (but will not have an obligation) to remove or refuse to distribute any Content on the Service and to terminate users or reclaim usernames. We also reserve the right to access, read, preserve, and disclose any information as we reasonably believe is necessary to (i) satisfy any applicable law, regulation, legal process or governmental request, (ii) enforce the Terms, including investigation of potential violations hereof, (iii) detect, prevent, or otherwise address fraud, security or technical issues, (iv) respond to user support requests, or (v) protect the rights, property or safety of Quora, its users and the public.
+		<br> 
+		<h3 class="section-title">Rules</h3> 
+		<div class="bloc-section"> 
+		You must not do any of the following while accessing or using the Service: (i) use the Service for any unlawful purposes or for promotion of illegal activities; (ii) post any Content (as defined below) or use the Service in violation of any applicable law (including intellectual property laws, right of privacy or publicity laws, and any laws of a non-French. jurisdiction applicable to you), or any contractual or other legal obligation; (iii) post Content that is hateful, abusive, threatening, profane, or otherwise objectionable; (iv) post Content or use the Service to create an impression that you know is incorrect, misleading, or deceptive, including by impersonating others or otherwise misrepresenting your affiliation with a person or entity; (v) publish or post other people's private or personally identifiable information without their express authorization and permission; (vi) use the Service for the purpose of spamming anyone; (vii) publish or link to malicious content intended to damage or disrupt another user's browser or computer or to compromise a user's privacy; (viii) access or tamper with non-public areas of the Service, Beansight's computer systems, or the technical delivery systems of Beansight's providers; (ix) probe, scan, or test the vulnerability of any system or network or breach or circumvent any security or authentication measures; (x) access or search or attempt to access or search the Service by any means (automated or otherwise) other than through the currently available, published interfaces that are provided by Beansight (and only pursuant to those terms and conditions), unless you have been specifically allowed to do so in a separate agreement with Beansight (crawling the Service is permissible in accordance with these Terms, but scraping the Service without the prior consent of Beansight except as permitted by these Terms is expressly prohibited); (xi) forge any TCP/IP packet header or any part of the header information in any email or posting, or in any way use the Service to send altered, deceptive or false source-identifying information; or (xii) interfere with or disrupt (or attempt to do so) the access of any user, host or network, including, without limitation, sending a virus, overloading, flooding, spamming, mail-bombing the Service, or by scripting the creation of Content in such a manner as to interfere with or create an undue burden on the Service.
+		<br> 
+		We may make available one or more APIs for interacting with the Service. Your use of any Beansight API is subject to these terms and the Beansight API Rules, which will be posted before we make these APIs available (as part of these Terms).
+		</div>
+		<h3 class="section-title">Proprietary Rights</h3> 
+		<div class="bloc-section"> 
+		All right, title, and interest in and to the Service (excluding Content provided by users) are and will remain the exclusive property of Beansight and its licensors. The Service is protected by copyright, trademark, and other laws of both France and foreign countries. Except as expressly provided herein, nothing in the Terms gives you a right to use the Beansight name or any of the Beansight trademarks, logos, domain names, and other distinctive brand features. Any feedback, comments, or suggestions you may provide regarding the Service is entirely voluntary and we will be free to use such feedback, comments or suggestions as we see fit and without any obligation to you.
+		<br> 
+		The Service may include advertisements, which may be targeted to the Content or information on the Service, queries made through the Service, or other information. The types and extent of advertising by Beansight on the Service are subject to change. In consideration for Beansight granting you access to and use of the Service, you agree that Beansight and its third party providers and partners may place such advertising on the Service or in connection with the display of Content or information from the Service whether submitted by you or others.
+		</div>
+		<h3 class="section-title">Copyright Policy</h3> 
+		<div class="bloc-section"> 
+		Beansight respects the intellectual property rights of others and expects users of the Service to do the same. We will respond to notices of alleged copyright infringement that comply with applicable law and are properly provided to us. If you believe that your Content has been copied in a way that constitutes copyright infringement, please contact us at contact@beansight.com
+		</div>
+		<h3 class="section-title">Privacy</h3> 
+		<div class="bloc-section"> 
+		Beansight values your privacy. Please review our Privacy Policy to learn more about how we collect and use information about you via the Service. By using the Service you consent to the transfer of your information to France and/or other countries for storage, processing and use by Beansight.
+		</div>
+		<h3 class="section-title">Links</h3> 
+		<div class="bloc-section"> 
+		The Service may contain links to third-party websites or resources. You acknowledge and agree that we are not responsible or liable for: (i) the availability or accuracy of such websites or resources; or (ii) the content, products, or services on or available from such websites or resources. Links to such websites or resources do not imply any endorsement by Beansight of such websites or resources or the content, products, or services available from such websites or resources. You acknowledge sole responsibility for and assume all risk arising from your use of any such websites or resources.
+		<br> 
+		The Service is operated and provided by Beansight, 45 rue de rochechouart, 75009 Paris, FRANCE. If you have questions about these Terms, please contact us at contact@beansight.com.
+		</div> 
+		</div>
+		<hr class="clear"/> 
+	</div>
+</div>
+ </div> 
+ 
+</div> 
+ 
+ 
+<hr class="clear"/> 
+</div> 
+	
+<hr class="clear"/> 
+ 
+        <!-- FOOTER --> 
+        <div id="footer"> 
+            <div class="backfooter"></div> 
+            <div class="contentfooter"> 
+                <div class="menufooter"> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Extra</h2> 
+                        <ul> 
+                            <li><a href="http://blog.beansight.com">Read the blog</a></li> 
+                            
+                            <li><a href="/legal/terms-of-service">Terms</a></li> 
+                            <li><a href="/legal/privacy-policy">Privacy</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Help</h2> 
+                        <ul> 
+                            <li><a href="/faq">Read the FAQ</a></li> 
+                            <li><a href="/contact">Contact us</a></li> 
+                            <li><a href="/forgotpassword">Forgot password ?</a></li> 
+                            <li><a href="http://getsatisfaction.com/beansight">Your voice</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">From</h2> 
+                        <ul> 
+                        	<li><a href="http://www.startupweekend.org">Startup Weekend</a></li> 
+                        	<li><a href="http://www.lecamping.org">Le Camping</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">We are social</h2> 
+                        <a href="http://www.facebook.com/Beansight" target="_blank" class="sociallinks facebooklinks"> 
+                            <span class="item likefb">Like facebook</span> 
+                            <span class="item titlesocial">Facebook</span> 
+                            <span class="item nbsocial"><span id="facebookFans">201</span> Fans</span> 
+                        </a> 
+                        <a href="http://twitter.com/#!/beansight" target="_blank" class="sociallinks twitterlinks"> 
+                            <span class="item titlesocial">Twitter</span> 
+                            <span class="item nbsocial"><span id="twitterFollowers">126</span> followers</span> 
+                        </a> 
+                    </div> 
+ 
+ 
+                    <div class="copyright"> 
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p> 
+                        <p class="rights">All rights reserved.</p> 
+                        <p class="authorwebsite">Design by <a href="http://www.colorz.fr/">Colorz</a></p> 
+                    </div> 
+                </div> 
+            </div> 
+ 
+        </div> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+// keyboard shortcuts
+/*
+$(document).bind("keydown", ["g", "i"], function () {
+    window.location.href = "/";
+}).bind("keydown", ["g", "e"], function () {
+    window.location.href = "/experts";
+}).bind("keydown", ["g", "p"], function () {
+    window.location.href = "/profile";
+}).bind("keydown", "c", function () {
+    window.location.href = "/create";
+}).bind("keydown", "/", function () {
+    $('#txtsearch').focus();
+});
+*/
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  // Google Analytics
+  var feedback_widget_options = {};
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "beansight";
+  feedback_widget_options.placement = "left";
+  feedback_widget_options.color = "#222";
+  feedback_widget_options.style = "idea";
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+  
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16319303-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	
+	// Go Squared LiveStats
+	var GoSquared={};
+    GoSquared.acct = "GSN-789144-E";
+    (function(w){
+        function gs(){
+            w._gstc_lt=+(new Date); var d=document;
+            var g = d.createElement("script"); g.type = "text/javascript"; g.async = true; g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+            var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(g, s);
+        }
+        w.addEventListener?w.addEventListener("load",gs,false):w.attachEvent("onload",gs);
+    })(window);
+</script> 
+ 
+ 
+</body> 
+</html> 

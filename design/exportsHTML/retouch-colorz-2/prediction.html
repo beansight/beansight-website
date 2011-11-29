@@ -1,0 +1,610 @@
+
+<!doctype html> 
+<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <title>Dans quelques ann&eacute;es 60 % de la population francaise aura un IPAD - Beansight</title> 
+ 
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/style.css?Nr4ivgyyLrguCuT+JKrrrQ==" /> 
+	<link rel="stylesheet" type="text/css" href="public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css?hMxMGHfVJOeFZAX2yT6t1w=="> 
+	  
+	         
+	<link rel="shortcut icon" type="image/png" href="public/images/favicon.ico"> 
+	<link rel="apple-touch-icon" href="public/images/beansight_icon.jpg" /> 
+	
+	<meta property="og:title"      content="Dans quelques ann&eacute;es 60 % de la population francaise aura un IPAD - Beansight" /> 
+    <meta property="og:site_name"  content="Beansight" /> 
+    <meta property="og:type"       content="website" /> 
+	<meta property="og:image"      content="public/images/beansight_icon.jpg" /> 
+	<meta property="fb:app_id"     content="137918342928326" /> 
+    <meta name="description"  content="Browse Beansight to know what people think and what is likely to happen tomorrow. Share your predictions and prove your expertise." /> 
+ 
+    
+    <meta name="google-site-verification" content="Y7yziTs492G_Z5Ogo8PCt4qusa7cr7AUoxUK-OUP-3g" /> 
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.validate.min.js?fI9u6BbHGTOo+Tlms05FjA==" type="text/javascript"></script> 
+    <script src="public/javascripts/jquery.hotkeys.js?rk7mjf31cuAON7eIoIS+1A==" type="text/javascript"></script>	
+	<script src="public/javascripts/jquery.extend.js?WHYNebH5JzHPiQRwr7d8Jg==" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.selectbox-0.6.1.js?Usel0DXMZDtdqsBtD++EYw==" type="text/javascript"></script> 
+	
+	<script src="public/javascripts/cufon-yui.js?LvMCRUZuUCPCGH0TgHXLWg==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-book_325.font.js?0y2PtsWJxXqA7icqOCqSzw==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-med_350.font.js?BCDlTZfuihACsN+umpZD3w==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-bold_400.font.js?74FLRir0DdCrj3fEr1xM2A==" type="text/javascript"></script> 
+ 
+	<!-- Beansight javascripts --> 
+	<script src="public/javascripts/i18n/en.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="public/javascripts/beansight.js?EBmDDVogcpdcd6sOQynhIA==" type="text/javascript" charset="utf-8"></script> 
+	  
+	
+	<!-- define here the actions --> 
+	<script type="text/javascript"> 
+	var agreeAction = function(options) {var pattern = '/application/agree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var disagreeAction = function(options) {var pattern = '/application/disagree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var resetInsightActivityAction = function(options) {var pattern = '/application/resetinsightactivity'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingInsightAction = function(options) {var pattern = '/application/togglefollowinginsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingUserAction = function(options) {var pattern = '/application/togglefollowinguser?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var loadFollowedUsersBlockAction = function(options) {var pattern = '/application/loadfollowedusers?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getInsightsAction = function(options) {var pattern = '/application/getinsights?topic=:topic&cat=:cat&sortBy=:sortBy&filterVote=:filterVote&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var searchExpertsAction = function(options) {var pattern = '/application/searchexperts'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var moreSearchAction = function(options) {var pattern = '/application/moresearch'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var inviteAction = function(options) {var pattern = '/application/invite'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendMessageAction = function(options) {var pattern = '/application/sendmessage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var shareInsightAction = function(options) {var pattern = '/application/shareinsight'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var favoriteUserSuggestAction = function(options) {var pattern = '/application/favoriteusersuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var tagSuggestAction = function(options) {var pattern = '/application/tagsuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var cropImageAction = function(options) {var pattern = '/application/cropimage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var leaveYourEmailAction = function(options) {var pattern = '/application/leaveyouremail'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendToContactAction = function(options) {var pattern = '/contact/sendtocontact'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var addCommentAction = function(options) {var pattern = '/application/addcomment'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserRealNameAction = function(options) {var pattern = '/settings/updateuserrealname'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserDescriptionAction = function(options) {var pattern = '/settings/updateuserdescription'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getFavoriteInsightAction = function(options) {var pattern = '/application/getfavoriteinsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var insightHideCommentAction = function(options) {var pattern = '/admin/insighthidecomment?commentId=:commentId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var showAvatarSmallFromEmailAction = function(options) {var pattern = '/application/showavatarsmallfromemail?email=:email'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isUserNameAvailableAction = function(options) {var pattern = '/register/isusernameavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isEmailAvailableAction = function(options) {var pattern = '/register/isemailavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;  
+	</script> 
+</head> 
+<body> 
+        <!-- HEADER --> 
+        <div id="header"> 
+            <div class="contentheader"> 
+                <!-- LOGO --> 
+                
+                <div class="colhead logocol"> 
+                    <h1><a href="/"> Beansight</a></h1> 
+                </div> 
+                
+                
+                <!-- FORM SEARCH --> 
+                <div class="colhead searchcol"> 
+                
+ 
+<div class="formsearch"> 
+<form action="/application/search" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" ><input type="hidden" name="authenticityToken" value="1b8786078715da2a100a95d32e081e350aecb069"> 
+ 
+    <div class="searchinput"> 
+        <label for="query" class="cuf-grb">Search the future</label> 
+        <div class="inputstyle"> 
+            <input type="text" name="query" id="txtsearch" value="" class="inputtxt" placeholder="Search"/> 
+            <input type="submit" id="searchsubmit" class="inputsubmit"/> 
+        </div> 
+    </div> 
+ 
+</form> 
+</div> 
+ 
+                </div> 
+                <!-- ZONE LOGIN --> 
+                <div class="colhead collogin"> 
+                	
+ 
+ 
+	<div class="signedInUserOption"> 
+<div class="signbtn"> 
+    <a href="/logout" class="cuf-grb">Log out</a> 
+</div> 
+<div class="welcome"> 
+    <p>Welcome  <a href="/profile" class="pseudo-link">Roger</a></p> 
+    <p><a href="/settings" class="setting-link">Settings</a></p> 
+</div> 
+</div> 
+ 
+	
+ 
+                </div> 
+            </div> 
+        </div> 
+ 
+   
+ 
+ 
+ 
+	
+<!-- CONTENU --> 
+<div id="content" class=""> 
+<!-- CONTENT --> 
+<div id="content"> 
+ 
+<!-- SIDEBAR LEFT --> 
+<div id="sidebarleft" class="	"> 
+ 
+ 
+	
+<!-- CREER INSIGHT --> 
+<p class="btn-newins"><a href="/create" class="cuf-grm ">Create</a></p> 
+ 
+	
+ 
+ 
+	
+   <!-- MENU NAV --> 
+<h2 class="azurme"><span class="cuf-grb">Menu</span></h2> 
+<ul class="menuleft"> 
+    <li><a href="/" class="cuf-grb current
+">Predictions</a></li> 
+    <li><a href="/experts" class="cuf-grb ">Experts</a></li> 
+ 
+	    
+    <li><a href="/profile" class="cuf-grb ">Profile</a></li> 
+ 
+		</ul> 
+ 
+	
+ 
+ 
+	
+    <!-- ACTIVITY --> 
+<h2 class="azurme"><span class="cuf-grb">Activity</span></h2> 
+<div class="activity"> 
+    <!-- With Activity --> 
+    <div id="insightActivity" style="display:none;"> 
+    <p><a id="resetActivity" href="" >Clear activity feed.</a></p> 
+            </div> 
+    <!-- Without activity --> 
+    <div id="noInsightActivity" > 
+    <p class="message">No recent activity</p> 
+    </div> 
+</div> 
+ 
+    <!-- FAVORITES --> 
+<h2 class="favh2 greenme paddingme"><span class="cuf-grb">Favorites</span></h2> 
+<div class="list-fav"> 
+    <hr class="clear"/> 
+</div><div class="list-avatars"> 
+</div><hr class="clear"/> 
+ 
+	
+	<div id="plzconfirm" class="warning"> 
+	<p>You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.</p> 
+	</div> 
+	
+    
+    <hr class="clear"/> 
+ 
+	
+ 
+ 
+	
+ 
+</div> 
+	
+<div id="contentcenter" class="large"> 
+<div class='insightContainer insight_dans-quelques-annees-60-de-la-population-francaise-aura-un-ipad 
+ 
+ 
+ 
+'> 
+ 
+<div class="single"> 
+    <div class="s-header"> 
+        <p class="s-intro"> 
+	
+ 
+<a href="#" class="addfav " onClick="return toggleFollowingInsight('dans-quelques-annees-60-de-la-population-francaise-aura-un-ipad');">Add to favorites</a> 
+	        Created 18 days ago by <a href="/expert/fabienne" class="s-author">fabienne</a> 
+         in <a href="#" class="link-cat">Technology</a></p> 
+         
+        <ul class="list-tags"> 
+            
+	<li class="link-new"><a href="#" id="showMoreTags">suggest other tags</a></li>  
+	            
+                        <li><a href="#">tagtagtag1</a></li> 
+                        <li><a href="#">tagtagtag2</a></li> 
+                        <li><a href="#">tagtagtag3</a></li>                         
+                        <li><a href="#">tagtagtag4</a></li> 
+                        <li><a href="#">tagtagtag5</a></li> 
+                        <li><a href="#">tagtagtag6</a></li>                                                                        
+                    </ul> 
+        <div id="moreTags" style="display:none;"> 
+        <form action="/application/addtags?uniqueId=dans-quelques-annees-60-de-la-population-francaise-aura-un-ipad" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" ><input type="hidden" name="authenticityToken" value="1b8786078715da2a100a95d32e081e350aecb069"> 
+            <input type="text" name="tagLabelList" id="tagLabelList" /> 
+            <input type="submit" value="Add tags"/> 
+        
+</form>        </div> 
+<hr class="clear"/>
+    </div> 
+    <div class="s-content"> 
+        <h2>Dans quelques ann&eacute;es 60 % de la population francaise aura un IPAD</h2> 
+        <p class="insightdate">End 01 December 2012</p> 
+        
+        <div class="graphzone"> 
+            <div class="leftgraph"> 
+                                
+                
+ 
+<div class="voteWidgetLarge"> 
+    <div class="linkvote agreeaction"> 
+	<a href="#" class="voteNumber clickvote" onClick="return agree('dans-quelques-annees-60-de-la-population-francaise-aura-un-ipad');"> 
+		<span class="voteCount agreeCount">2</span> <img src="public/images/icon-more.png" alt=""/></a></div> 
+    <div class="linkvote disagreeaction"> 
+	<a href="#" class="voteNumber clickvote" onClick="return disagree('dans-quelques-annees-60-de-la-population-francaise-aura-un-ipad');"> 
+		<span class="voteCount disagreeCount">36</span> <img src="public/images/icon-less.png" alt=""/></a></div> 
+    
+    <p> 
+    
+	
+	    
+	    
+	       <span id="lastVote">You haven't voted yet.</span> 
+	    
+    
+	
+    	
+    </p> 
+</div> 
+ 
+                <div class="lastvoters"> 
+                    <p>Last voters:</p> 
+                    <ul class="listvoters"> 
+                                            <li> 
+ 
+ 
+<a href="/expert/kornx" class="item-avatar"> 
+    <span class="backavatar  disagree "><img src="/profile/kornx/small?code=22267458" title="kornx"/></span> 
+</a></li> 
+                                            <li> 
+ 
+ 
+<a href="/expert/m0hda" class="item-avatar"> 
+    <span class="backavatar  disagree "><img src="/profile/m0hda/small?code=7428527" title="m0hda"/></span> 
+</a></li> 
+                                            <li> 
+ 
+ 
+<a href="/expert/Kevvv" class="item-avatar"> 
+    <span class="backavatar  agree "><img src="/profile/Kevvv/small?code=9744939" title="Kevvv"/></span> 
+</a></li> 
+                                            <li> 
+ 
+ 
+<a href="/expert/Bertil" class="item-avatar"> 
+    <span class="backavatar  disagree "><img src="/profile/Bertil/small?code=29102462" title="Bertil"/></span> 
+</a></li> 
+                                            <li> 
+ 
+ 
+<a href="/expert/ClaireVoyant" class="item-avatar"> 
+    <span class="backavatar  disagree "><img src="/profile/ClaireVoyant/small?code=29107469" title="ClaireVoyant"/></span> 
+</a></li> 
+                                        </ul> 
+                    <hr class="clear"/> 
+                </div> 
+<div class="sharezone"> 
+	
+	<div class="sharebox" id="sharezone"> 
+	       
+		       <span id="shareOnBeansight" class="shareItem"> 
+	       <a href="#" id="shareOnBeansight-link" class="uiButton shareButton">Share</a> 
+           </span> 
+           <div id="shareOnBeansight-box" style="display:none;" class="pinnedBox"> 
+	           <form id="shareOnBeansightForm"> 
+	               <p>Type the username of a user you put in your favorites:</p> 
+	               <input type="text" name="userName" id="userToShareTo" /> 
+	               <input type="hidden" name="insightUniqueId" value="dans-quelques-annees-60-de-la-population-francaise-aura-un-ipad" /> 
+	               <input type="submit"/> 
+	           </form> 
+	           <span id="shareConfirmation"></span> 
+           </div> 
+           
+	           
+           <span id="shareOnTwitter" class="shareItem"> 
+	       <a href="http://twitter.com/share" class="twitter-share-button" data-text="Dans quelques années 60 % de la population francaise aura un IPAD #Beansight" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script> 
+           </span> 
+           
+           <span id="shareOnFacebook" class="shareItem"> 
+	       <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like layout="button_count" show_faces="false" width="50"></fb:like> 
+           </span> 
+		   <hr class="clear"/>
+	</div> 
+ 
+ 
+ 
+</div> 
+            </div> 
+            
+            <div class="graphique"> 
+                <img src="https://chart.googleapis.com/chart?chxt=y&cht=lc&chco=76A4FB&chls=2.0&chs=316x148&chd=t:0.0,0.0,0.0,50.0,33.3333333333333,25.0,16.6666666666667,16.6666666666667,16.6666666666667,16.6666666666667,16.6666666666667,16.6666666666667,16.6666666666667,14.2857142857143,12.5,7.69230769230769,7.14285714285714,7.14285714285714,5.88235294117647,7.69230769230769,6.66666666666667,6.45161290322581,6.25,6.06060606060606,5.88235294117647,5.71428571428571,5.71428571428571,5.71428571428571,5.71428571428571,5.71428571428571,5.55555555555556,5.55555555555556,8.10810810810811,8.10810810810811,8.10810810810811,8.10810810810811,8.10810810810811,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526,7.89473684210526" alt=""/> 
+            </div> 
+            <hr class="clear"/> 
+        </div> 
+        
+        
+        
+	                
+	
+        <div class="commentzone"> 
+            <p class="nbcomments"><span class="cuf-grm">5</span> <span class="cuf-grb">comments</span></p> 
+            
+	            <form class="newcomment" id="addCommentForm"> 
+                
+                <div class="comment-author"> 
+                    <a href="/expert/Roger"> 
+                        Roger
+                        <span class="img-author"> 
+                            <img src="/profile/Roger/small?code=12867008"/> 
+                        </span> 
+                    </a> 
+                </div> 
+                <div class="input-textarea"> 
+                    <textarea cols="20" rows="4" name="content"></textarea> 
+                </div> 
+                <input name="uniqueId" type="hidden" value="dans-quelques-annees-60-de-la-population-francaise-aura-un-ipad"/> 
+ 
+                <hr class="clear"/> 
+                <div class="input-submit"> 
+                	
+                    <button><span class="ajaxloader" style="display:none;"></span><span class="backbutton"></span><span class="txtbutton cuf-newaccount">Add new comment</span></button> 
+                    <!--<input type="submit" name="submit-comment" value="Add a comment"/>--> 
+                </div> 
+                <hr class="clear"/> 
+            </form> 
+            
+	
+            <div id="commentList" class="list-comments"> 
+                        <div class="item-comment first" id="insightComment_286"> 
+    <div class="user-comment"> 
+        <a href="/expert/MathRobin" class="name-comment">MathRobin</a> 
+        <span class="date-comment">10 days ago</span> 
+        <a href="/expert/MathRobin" class="avatar-comment"><img src="/profile/MathRobin/small?code=6043277" alt=""/></a> 
+        <span class="vote-comment disagreeaction">Vote</span> 
+        <hr class="clear"/> 
+    </div> 
+    <p class="txt-comment">je passe en mode super-troll : la simplicit&eacute; n'est pas l'exclusivit&eacute; d'Apple et de son iPad, essayez donc d'autres tablettes, notamment Android. On en reparle apr&egrave;s ;)<br/><br/>joke &agrave; la vol&eacute;e : Il a int&eacute;r&ecirc;t &agrave; inclure un dictionnaire alors, on parle de &quot;domotique&quot;, pas &quot;domestique&quot;</p>    
+	<p> 
+	
+	    		
+		</p> 
+ 
+    <hr class="clear"/> 
+</div> 
+                        <div class="item-comment first" id="insightComment_268"> 
+    <div class="user-comment"> 
+        <a href="/expert/fabienne" class="name-comment">fabienne</a> 
+        <span class="date-comment">13 days ago</span> 
+        <a href="/expert/fabienne" class="avatar-comment"><img src="/profile/fabienne/small?code=17117787" alt=""/></a> 
+        <span class="vote-comment agreeaction">Vote</span> 
+        <hr class="clear"/> 
+    </div> 
+    <p class="txt-comment">Il nous servira aussi pour la domestique dans la maison et sera indispensable comme les ordis le sont aujourd hui,se sera un iPad car sont utilisation est tr&egrave;s facile<br/></p>    
+	<p> 
+	
+	    		
+		</p> 
+ 
+    <hr class="clear"/> 
+</div> 
+                        <div class="item-comment first" id="insightComment_225"> 
+    <div class="user-comment"> 
+        <a href="/expert/karnoult" class="name-comment">karnoult</a> 
+        <span class="date-comment">14 days ago</span> 
+        <a href="/expert/karnoult" class="avatar-comment"><img src="/profile/karnoult/small?code=20547415" alt=""/></a> 
+        <span class="vote-comment disagreeaction">Vote</span> 
+        <hr class="clear"/> 
+    </div> 
+    <p class="txt-comment">Une tablette oui, mais pas un ipad !</p>    
+	<p> 
+	
+	    		
+		</p> 
+ 
+    <hr class="clear"/> 
+</div> 
+                        <div class="item-comment first" id="insightComment_221"> 
+    <div class="user-comment"> 
+        <a href="/expert/MathRobin" class="name-comment">MathRobin</a> 
+        <span class="date-comment">15 days ago</span> 
+        <a href="/expert/MathRobin" class="avatar-comment"><img src="/profile/MathRobin/small?code=6043277" alt=""/></a> 
+        <span class="vote-comment disagreeaction">Vote</span> 
+        <hr class="clear"/> 
+    </div> 
+    <p class="txt-comment">Tout d&eacute;pend aussi si on parle de l'iPad 1, de l'iPad 2 ou de toutes les g&eacute;n&eacute;rations de l'iPad. De plus, pourquoi se limiter &agrave; cette seule tablette alors qu'Android est parti pour litt&eacute;ralement envahir le march&eacute; des tablettes (avec HoneyComb qui vient de d&eacute;marrer, j'y crois). Plus la playbook pour les irr&eacute;ductibles de Blackberry</p>    
+	<p> 
+	
+	    		
+		</p> 
+ 
+    <hr class="clear"/> 
+</div> 
+                        <div class="item-comment first" id="insightComment_188"> 
+    <div class="user-comment"> 
+        <a href="/expert/Steren" class="name-comment">Steren</a> 
+        <span class="date-comment">17 days ago</span> 
+        <a href="/expert/Steren" class="avatar-comment"><img src="/profile/Steren/small?code=11050263" alt=""/></a> 
+        <span class="vote-comment ">Vote</span> 
+        <hr class="clear"/> 
+    </div> 
+    <p class="txt-comment">Par iPad, tu veux dire tablettes ?<br/>Ce n'est pas tr&egrave;s clair &quot;dans quelques ann&eacute;es&quot;, surtout si la date de fin est d&eacute;cembre 2012.</p>    
+	<p> 
+	
+	    		
+		</p> 
+ 
+    <hr class="clear"/> 
+</div> 
+                        </div> 
+ 
+        </div> 
+    </div> 
+</div> 
+    
+ 
+</div> 
+<script type="text/javascript" charset="utf-8"> 
+// keyboard shortcuts
+/*
+$(document).bind("keydown", "u", function () {
+    window.location.href = "/";
+});
+*/
+</script> 
+</div> 
+ 
+</div> 
+ 
+ 
+<hr class="clear"/> 
+</div> 
+	
+<hr class="clear"/> 
+ 
+        <!-- FOOTER --> 
+        <div id="footer"> 
+            <div class="backfooter"></div> 
+            <div class="contentfooter"> 
+                <div class="menufooter"> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Extra</h2> 
+                        <ul> 
+                            <li><a href="http://blog.beansight.com">Read the blog</a></li> 
+                            
+                            <li><a href="/legal/terms-of-service">Terms</a></li> 
+                            <li><a href="/legal/privacy-policy">Privacy</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Help</h2> 
+                        <ul> 
+                            <li><a href="/faq">Read the FAQ</a></li> 
+                            <li><a href="/contact">Contact us</a></li> 
+                            <li><a href="/forgotpassword">Forgot password ?</a></li> 
+                            <li><a href="http://getsatisfaction.com/beansight">Your voice</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">From</h2> 
+                        <ul> 
+                        	<li><a href="http://www.startupweekend.org">Startup Weekend</a></li> 
+                        	<li><a href="http://www.lecamping.org">Le Camping</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">We are social</h2> 
+                        <a href="http://www.facebook.com/Beansight" target="_blank" class="sociallinks facebooklinks"> 
+                            <span class="item likefb">Like facebook</span> 
+                            <span class="item titlesocial">Facebook</span> 
+                            <span class="item nbsocial"><span id="facebookFans">201</span> Fans</span> 
+                        </a> 
+                        <a href="http://twitter.com/#!/beansight" target="_blank" class="sociallinks twitterlinks"> 
+                            <span class="item titlesocial">Twitter</span> 
+                            <span class="item nbsocial"><span id="twitterFollowers">126</span> followers</span> 
+                        </a> 
+                    </div> 
+ 
+ 
+                    <div class="copyright"> 
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p> 
+                        <p class="rights">All rights reserved.</p> 
+                        <p class="authorwebsite">Design by <a href="http://www.colorz.fr/">Colorz</a></p> 
+                    </div> 
+                </div> 
+            </div> 
+ 
+        </div> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+// keyboard shortcuts
+/*
+$(document).bind("keydown", ["g", "i"], function () {
+    window.location.href = "/";
+}).bind("keydown", ["g", "e"], function () {
+    window.location.href = "/experts";
+}).bind("keydown", ["g", "p"], function () {
+    window.location.href = "/profile";
+}).bind("keydown", "c", function () {
+    window.location.href = "/create";
+}).bind("keydown", "/", function () {
+    $('#txtsearch').focus();
+});
+*/
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  // Google Analytics
+  var feedback_widget_options = {};
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "beansight";
+  feedback_widget_options.placement = "left";
+  feedback_widget_options.color = "#222";
+  feedback_widget_options.style = "idea";
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+  
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16319303-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	
+	// Go Squared LiveStats
+	var GoSquared={};
+    GoSquared.acct = "GSN-789144-E";
+    (function(w){
+        function gs(){
+            w._gstc_lt=+(new Date); var d=document;
+            var g = d.createElement("script"); g.type = "text/javascript"; g.async = true; g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+            var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(g, s);
+        }
+        w.addEventListener?w.addEventListener("load",gs,false):w.attachEvent("onload",gs);
+    })(window);
+</script> 
+ 
+ 
+</body> 
+</html> 

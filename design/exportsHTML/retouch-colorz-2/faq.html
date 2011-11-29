@@ -1,0 +1,466 @@
+
+<!doctype html> 
+<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <title>    Frequently Asked Questions
+ - Beansight</title> 
+ 
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/style.css?Nr4ivgyyLrguCuT+JKrrrQ==" /> 
+	<link rel="stylesheet" type="text/css" href="public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css?hMxMGHfVJOeFZAX2yT6t1w=="> 
+	  
+	         
+	<link rel="shortcut icon" type="image/png" href="public/images/favicon.ico"> 
+	<link rel="apple-touch-icon" href="public/images/beansight_icon.jpg" /> 
+	
+	<meta property="og:title"      content="    Frequently Asked Questions
+ - Beansight" /> 
+    <meta property="og:site_name"  content="Beansight" /> 
+    <meta property="og:type"       content="website" /> 
+	<meta property="og:image"      content="public/images/beansight_icon.jpg" /> 
+	<meta property="fb:app_id"     content="137918342928326" /> 
+    <meta name="description"  content="Browse Beansight to know what people think and what is likely to happen tomorrow. Share your predictions and prove your expertise." /> 
+ 
+    
+    <meta name="google-site-verification" content="Y7yziTs492G_Z5Ogo8PCt4qusa7cr7AUoxUK-OUP-3g" /> 
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.validate.min.js?fI9u6BbHGTOo+Tlms05FjA==" type="text/javascript"></script> 
+    <script src="public/javascripts/jquery.hotkeys.js?rk7mjf31cuAON7eIoIS+1A==" type="text/javascript"></script>	
+	<script src="public/javascripts/jquery.extend.js?WHYNebH5JzHPiQRwr7d8Jg==" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.selectbox-0.6.1.js?Usel0DXMZDtdqsBtD++EYw==" type="text/javascript"></script> 
+	
+	<script src="public/javascripts/cufon-yui.js?LvMCRUZuUCPCGH0TgHXLWg==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-book_325.font.js?0y2PtsWJxXqA7icqOCqSzw==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-med_350.font.js?BCDlTZfuihACsN+umpZD3w==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-bold_400.font.js?74FLRir0DdCrj3fEr1xM2A==" type="text/javascript"></script> 
+ 
+	<!-- Beansight javascripts --> 
+	<script src="public/javascripts/i18n/en.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="public/javascripts/beansight.js?EBmDDVogcpdcd6sOQynhIA==" type="text/javascript" charset="utf-8"></script> 
+	  
+	
+	<!-- define here the actions --> 
+	<script type="text/javascript"> 
+	var agreeAction = function(options) {var pattern = '/application/agree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var disagreeAction = function(options) {var pattern = '/application/disagree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var resetInsightActivityAction = function(options) {var pattern = '/application/resetinsightactivity'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingInsightAction = function(options) {var pattern = '/application/togglefollowinginsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingUserAction = function(options) {var pattern = '/application/togglefollowinguser?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var loadFollowedUsersBlockAction = function(options) {var pattern = '/application/loadfollowedusers?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getInsightsAction = function(options) {var pattern = '/application/getinsights?topic=:topic&cat=:cat&sortBy=:sortBy&filterVote=:filterVote&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var searchExpertsAction = function(options) {var pattern = '/application/searchexperts'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var moreSearchAction = function(options) {var pattern = '/application/moresearch'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var inviteAction = function(options) {var pattern = '/application/invite'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendMessageAction = function(options) {var pattern = '/application/sendmessage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var shareInsightAction = function(options) {var pattern = '/application/shareinsight'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var favoriteUserSuggestAction = function(options) {var pattern = '/application/favoriteusersuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var tagSuggestAction = function(options) {var pattern = '/application/tagsuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var cropImageAction = function(options) {var pattern = '/application/cropimage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var leaveYourEmailAction = function(options) {var pattern = '/application/leaveyouremail'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendToContactAction = function(options) {var pattern = '/contact/sendtocontact'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var addCommentAction = function(options) {var pattern = '/application/addcomment'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserRealNameAction = function(options) {var pattern = '/settings/updateuserrealname'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserDescriptionAction = function(options) {var pattern = '/settings/updateuserdescription'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getFavoriteInsightAction = function(options) {var pattern = '/application/getfavoriteinsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var insightHideCommentAction = function(options) {var pattern = '/admin/insighthidecomment?commentId=:commentId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var showAvatarSmallFromEmailAction = function(options) {var pattern = '/application/showavatarsmallfromemail?email=:email'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isUserNameAvailableAction = function(options) {var pattern = '/register/isusernameavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isEmailAvailableAction = function(options) {var pattern = '/register/isemailavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;  
+	</script> 
+</head> 
+<body> 
+        <!-- HEADER --> 
+        <div id="header"> 
+            <div class="contentheader"> 
+                <!-- LOGO --> 
+                
+                <div class="colhead logocol"> 
+                    <h1><a href="/"> Beansight</a></h1> 
+                </div> 
+                
+                
+                <!-- FORM SEARCH --> 
+                <div class="colhead searchcol"> 
+                
+ 
+<div class="formsearch"> 
+<form action="/application/search" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" ><input type="hidden" name="authenticityToken" value="1b8786078715da2a100a95d32e081e350aecb069"> 
+ 
+    <div class="searchinput"> 
+        <label for="query" class="cuf-grb">Search the future</label> 
+        <div class="inputstyle"> 
+            <input type="text" name="query" id="txtsearch" value="" class="inputtxt" placeholder="Search"/> 
+            <input type="submit" id="searchsubmit" class="inputsubmit"/> 
+        </div> 
+    </div> 
+ 
+</form> 
+</div> 
+ 
+                </div> 
+                <!-- ZONE LOGIN --> 
+                <div class="colhead collogin"> 
+                	
+ 
+ 
+	<div class="signedInUserOption"> 
+<div class="signbtn"> 
+    <a href="/logout" class="cuf-grb">Log out</a> 
+</div> 
+<div class="welcome"> 
+    <p>Welcome  <a href="/profile" class="pseudo-link">Roger</a></p> 
+    <p><a href="/settings" class="setting-link">Settings</a></p> 
+</div> 
+</div> 
+ 
+	
+ 
+                </div> 
+            </div> 
+        </div> 
+ 
+   
+ 
+ 
+ 
+	
+<!-- CONTENU --> 
+<div id="content" class=""> 
+<!-- CONTENT --> 
+<div id="content"> 
+ 
+<!-- SIDEBAR LEFT --> 
+<div id="sidebarleft" class="	"> 
+ 
+ 
+	
+<!-- CREER INSIGHT --> 
+<p class="btn-newins"><a href="/create" class="cuf-grm ">Create</a></p> 
+ 
+	
+ 
+ 
+	
+   <!-- MENU NAV --> 
+<h2 class="azurme"><span class="cuf-grb">Menu</span></h2> 
+<ul class="menuleft"> 
+    <li><a href="/" class="cuf-grb ">Predictions</a></li> 
+    <li><a href="/experts" class="cuf-grb ">Experts</a></li> 
+ 
+	    
+    <li><a href="/profile" class="cuf-grb ">Profile</a></li> 
+ 
+		</ul> 
+ 
+	
+ 
+ 
+	
+    <!-- ACTIVITY --> 
+<h2 class="azurme"><span class="cuf-grb">Activity</span></h2> 
+<div class="activity"> 
+    <!-- With Activity --> 
+    <div id="insightActivity" style="display:none;"> 
+    <p><a id="resetActivity" href="" >Clear activity feed.</a></p> 
+            </div> 
+    <!-- Without activity --> 
+    <div id="noInsightActivity" > 
+    <p class="message">No recent activity</p> 
+    </div> 
+</div> 
+ 
+    <!-- FAVORITES --> 
+<h2 class="favh2 greenme paddingme"><span class="cuf-grb">Favorites</span></h2> 
+<div class="list-fav"> 
+    <hr class="clear"/> 
+</div><div class="list-avatars"> 
+</div><hr class="clear"/> 
+ 
+	
+	<div id="plzconfirm" class="warning"> 
+	<p>You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.</p> 
+	</div> 
+	
+    
+    <hr class="clear"/> 
+ 
+	
+ 
+ 
+	
+ 
+</div> 
+	
+<div id="contentcenter" class="large"> 
+<h2 class="cuf-grb">Frequently Asked Questions</h2> 
+ 
+<div class="FAQ pagecontent"> 
+<p class="faq-intro pageintro">On this page, you’ll find information on how to use Beansight and on how Beansight works. This page is ordered following the lifespan of a prediction (from creation to expertise). You’ll also find information on how to set up Beansight to increase your comfort of use.</p> 
+<div class="pagetxt">
+	<div class="FAQ-section"> 
+		<h3 class="faq-section-title section-title" id="creation">Creation</h3> 
+		<div class="QandA bloc-section"> 
+			<h4 class="question section-subtitle">How do I create a prediction?</h4> 
+			<p>Just click on the create icon on the upper left menu. Then fill the prediction, the deadline the category and tags. And you’re done!</p> 
+		</div> 
+		<div class="QandA bloc-section">    
+			<h4 class="question section-subtitle">Why is the deadline important?</h4> 
+			<p>Each prediction is associated to a deadline. It’s the point when we’ll see whether you’re prediction happened or not. Chose it carefully!</p> 
+		</div> 
+		<div class="QandA bloc-section"> 
+			<h4 class="question section-subtitle">Why are the category and tags important?</h4> 
+			<p>Category and tags will help us to sort your prediction so that other people may find it, read it and vote for or against it.</p> 
+		</div> 
+	</div> 
+	 
+	<div class="FAQ-section"> 
+		<h3 class="faq-section-title section-title" id="votes">Votes</h3> 
+		<div class="QandA bloc-section"> 
+		<h4 class="question section-subtitle">How do I vote for a prediction?</h4> 
+		<p>Just click on the thumb up to approve a prediction or on the thumb down if you disagree on a prediction.</p> 
+		</div> 
+		<div class="QandA bloc-section"> 
+		<h4 class="question section-subtitle">What are the consequences of a vote?</h4> 
+		<p>Your vote will help us to determine whether this prediction is likely to happen. Beside for each vote you make, you engage your credibility. You can prove your expertise by showing skills in determining which predictions will happen. </p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">How do I find interesting predictions?</h4> 
+		<p>You can browse prediction by using our filters (voted or not and by category). You can also sort them by their last activity or by popularity. If you’re looking to a specific prediction you can use our search engine. If you think we should sort them differently, please contact us.</p> 
+		</div> 
+		<div class="QandA bloc-section"> 
+		<h4 class="question section-subtitle">What if I changed my mind on a prediction?</h4> 
+		<p>Beansight invites you to change your position if you change your mind. If you change from wrong to right you’ll lose less points. You can even earn points if your change comes soon enough.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">How can I follow the trends of a prediction?</h4> 
+		<p>If you want to be notified about changes on a prediction you can add it to your favorites by clicking on the star. You’ll receive e-mails for new comments to keep up with the trend.</p> 
+		</div> 
+	</div> 
+	 
+	<div class="FAQ-section"> 
+		<h3 class="faq-section-title section-title" id="validation">Validation</h3> 
+		<div class="QandA bloc-section"> 
+		<h4 class="question section-subtitle">How are predictions validated?</h4> 
+		<p>Since users are welcome to change their mind, the closer we are to the deadline the more reliable votes will be. The trend will therefore converge to the right position in the end. Our algorithm will take every positions into account so that all prediction will be automatically validated.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">What if everybody is wrong?</h4> 
+		<p>Mmmh... That’s very unlikely. But it might happen. In this case, users will be invited to flag the prediction in order to raise a community manager’s attention. But usually the crowd is right.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">How come can I vote for past predictions?</h4> 
+		<p>Yes, you can! These votes will help us to validate the prediction. They aren’t for scoring. No expertise point  is given for these votes.</p> 
+		</div> 
+	</div> 
+	 
+	<div class="FAQ-section"> 
+		<h3 class="faq-section-title section-title" id="expertise">Expertise</h3> 
+		<div class="QandA bloc-section"> 
+		<h4 class="question section-subtitle">How is my expertise calculated?</h4> 
+		<p>Expertise is based on scores computed for each position you take. You can earn points if you’re right or lose point if you’re wrong. More points will be attributed if <ul><li>you keep your position longer </li><li>you take a position against the trend</li><li>the prediction is popular</li></ul>Please note that the algorithm is even more beta than the rest of the site. It can still change and your score might be recomputed.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">How is my expertise displayed?</h4> 
+		<p>Your skills are shown thanks to expertise stars attributed by categories. The top performer on a specific category is given 5 stars. Then we compare your score with the score of the top performer and give you the deserved stars. If you want more stars, you’ll have to increase you expertise score. <br/>This said, it also means that your number of stars could vary if the top performer’s score varies. </p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">How to get rid of obvious predictions?</h4> 
+		<p>We don’t. Every prediction might be interesting. But don’t expect to earn expertise points  if everybody agrees with you!</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">Do I earn expertise points for creating a prediction?</h4> 
+		<p>You don’t earn point for creating a prediction. But you’ll earn (or lose!) points by taking position. Of course, you can vote for your own prediction.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">Are my comments taken into account for my expertise score?</h4> 
+		<p>Not yet! ;)</p> 
+		</div> 
+	</div> 
+	 
+	<div class="FAQ-section"> 
+		<h3 class="faq-section-title section-title" id="experts">Experts</h3> 
+		<div class="QandA bloc-section"> 
+		<h4 class="question section-subtitle">How do I find the experts?</h4> 
+		<p>You’ll find the list of Beansight users on the Experts menu. At this point, you can only look for experts by using the search engine (therefore you need to know their names). By default, experts are ranked by their global expertise score.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">What’s the point of addind an expert to my favorites?</h4> 
+		<p>You can easily find later experts you follow in the left menu. You will also be able to suggest them predictions. You can follow someone by clicking on the star under their profile picture.</p> 
+		</div> 
+	</div> 
+	 
+	<div class="FAQ-section"> 
+		<h3 class="faq-section-title section-title" id="profile">Profile and settings</h3> 
+		<div class="QandA bloc-section"> 
+		<h4 class="question section-subtitle">How can I have a neat profile picture?</h4> 
+		<p>You can edit your profile by clicking on your name on the upper right corner of each page. You’re invited to add a profile picture and a description. Then, it’s all on you to upload the best profile pic!</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">How can I set up my languages?</h4> 
+		<p>By default, we use the language of your browser. You may change it or add additional languages on the setting page (just under your name on the upper right corner). At this point, Beansight can only speak English and French.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">What does Log in with Twitter or Facebook mean?</h4> 
+		<p>When you log into Beansight using Twitter or Facebook, these websites will handle your authentication. You will not have to remember a password to access Beansight. Just continue clicking on “Log in with Twitter” or “Log in with Facebook” in the future to access Beansight.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">Can I login with Twitter or Facebook if I usually log in using a password?</h4> 
+		<p>For now, If you created a traditional Beansight account (using the sign up form and choosing a password), you cannot log in on the same account using Twitter or Facebook. In the future, we may provide a way to associate an existing Beansight account with a Twitter or Facebook account.</p> 
+		</div> 
+		<div class="QandA bloc-section">	
+		<h4 class="question section-subtitle">Can I have invitations for my friends?</h4> 
+		<p>Sure! Our early adopters will receive invits sooner or later. The only thing we can say so far is that our most active users will have the priority.</p> 
+		</div> 
+	</div> 
+	</div>
+ 
+</div> 
+</div> 
+ 
+</div> 
+ 
+ 
+<hr class="clear"/> 
+</div> 
+	
+<hr class="clear"/> 
+ 
+        <!-- FOOTER --> 
+        <div id="footer"> 
+            <div class="backfooter"></div> 
+            <div class="contentfooter"> 
+                <div class="menufooter"> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Extra</h2> 
+                        <ul> 
+                            <li><a href="http://blog.beansight.com">Read the blog</a></li> 
+                            
+                            <li><a href="/legal/terms-of-service">Terms</a></li> 
+                            <li><a href="/legal/privacy-policy">Privacy</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Help</h2> 
+                        <ul> 
+                            <li><a href="/faq">Read the FAQ</a></li> 
+                            <li><a href="/contact">Contact us</a></li> 
+                            <li><a href="/forgotpassword">Forgot password ?</a></li> 
+                            <li><a href="http://getsatisfaction.com/beansight">Your voice</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">From</h2> 
+                        <ul> 
+                        	<li><a href="http://www.startupweekend.org">Startup Weekend</a></li> 
+                        	<li><a href="http://www.lecamping.org">Le Camping</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">We are social</h2> 
+                        <a href="http://www.facebook.com/Beansight" target="_blank" class="sociallinks facebooklinks"> 
+                            <span class="item likefb">Like facebook</span> 
+                            <span class="item titlesocial">Facebook</span> 
+                            <span class="item nbsocial"><span id="facebookFans">201</span> Fans</span> 
+                        </a> 
+                        <a href="http://twitter.com/#!/beansight" target="_blank" class="sociallinks twitterlinks"> 
+                            <span class="item titlesocial">Twitter</span> 
+                            <span class="item nbsocial"><span id="twitterFollowers">126</span> followers</span> 
+                        </a> 
+                    </div> 
+ 
+ 
+                    <div class="copyright"> 
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p> 
+                        <p class="rights">All rights reserved.</p> 
+                        <p class="authorwebsite">Design by <a href="http://www.colorz.fr/">Colorz</a></p> 
+                    </div> 
+                </div> 
+            </div> 
+ 
+        </div> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+// keyboard shortcuts
+/*
+$(document).bind("keydown", ["g", "i"], function () {
+    window.location.href = "/";
+}).bind("keydown", ["g", "e"], function () {
+    window.location.href = "/experts";
+}).bind("keydown", ["g", "p"], function () {
+    window.location.href = "/profile";
+}).bind("keydown", "c", function () {
+    window.location.href = "/create";
+}).bind("keydown", "/", function () {
+    $('#txtsearch').focus();
+});
+*/
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  // Google Analytics
+  var feedback_widget_options = {};
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "beansight";
+  feedback_widget_options.placement = "left";
+  feedback_widget_options.color = "#222";
+  feedback_widget_options.style = "idea";
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+  
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16319303-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	
+	// Go Squared LiveStats
+	var GoSquared={};
+    GoSquared.acct = "GSN-789144-E";
+    (function(w){
+        function gs(){
+            w._gstc_lt=+(new Date); var d=document;
+            var g = d.createElement("script"); g.type = "text/javascript"; g.async = true; g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+            var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(g, s);
+        }
+        w.addEventListener?w.addEventListener("load",gs,false):w.attachEvent("onload",gs);
+    })(window);
+</script> 
+ 
+ 
+</body> 
+</html> 

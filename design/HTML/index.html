@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Beansight</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/jquery.extend.js" type="text/javascript"></script>
+    <script src="js/jquery.selectbox-0.6.1.js" type="text/javascript"></script>
+    <script src="js/cufon-yui.js" type="text/javascript"></script>
+    <script src="js/got-rnd-book_325.font.js" type="text/javascript"></script>
+    <script src="js/got-rnd-med_350.font.js" type="text/javascript"></script>
+    <script src="js/got-rnd-bold_400.font.js" type="text/javascript"></script>
+    <script src="js/cufon-init.js" type="text/javascript"></script>
+    <script src="js/events.js" type="text/javascript"></script>
+    <link rel="shortcut icon" href="images/fav.ico" />
+  </head>
+  <body>
+
+        <!-- HEADER -->
+        <div id="header">
+            <div class="contentheader">
+                <!-- LOGO -->
+                <div class="colhead logocol">
+                    <h1><a href="/"> Beansight</a></h1>
+                </div>
+                <!-- FORM SEARCH -->
+                <div class="colhead searchcol">
+                    <form action="#" method="post" class="formsearch">
+                        <div class="searchinput">
+                            <label for="txtseach" class="cuf-grb">Search the future</label>
+                            <div class="inputstyle">
+                                <input type="text" name="txtseach" id="txtseach" value="Search" class="inputtxt clearinput"/>
+                                <input type="submit" name="search" id="searchsubmit" class="inputsubmit"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- ZONE LOGIN -->
+                <div class="colhead collogin">
+                    <div class="logbtn" id="zonelogin">
+                        <a href="#" class="cuf-grb" id="btnlogin">Login</a>
+                        <div id="boxlogin">
+                            <div class="listlogin">
+                                <ul>
+                                    <li class="log-b"><a href="#" class="current" id="log-bean">Beansight</a></li>
+                                    <li class="log-t"><a href="#" id="log-twit">Twitter</a></li>
+                                    <li class="log-f"><a href="#" id="log-fb">Facebook</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="list-logins">
+                                <div class="item-loginbox" id="boxlog-bean">
+                                    <form action="#" method="post">
+                                        <label for="pseudologin">Username</label>
+                                        <div class="inputlogin">
+                                            <input type="text" name="" value="" id="pseudologin"/>
+                                        </div>
+                                        <label for="passlogin">Pass</label>
+                                        <div class="inputlogin">
+                                            <input type="password" name="" value="" id="passlogin"/>
+                                        </div>
+                                        <div class="inputsubmit">
+                                            <button><span class="backbutton"></span><span class="txtbutton cuf-connect">Connect</span></button>
+                                        </div>
+                                        <!--<div class="inputsubmit">
+                                            <input type="submit" name="submit-log" value="Connect"/>
+                                        </div>-->
+                                    </form>
+                                </div>
+
+                                <div class="item-loginbox nojavascript" id="boxlog-twit">
+                                    Twitter connexion
+                                </div>
+
+                                <div class="item-loginbox nojavascript" id="boxlog-fb">
+                                    Facebook connexion
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="signbtn">
+                        <a href="#" class="cuf-grb">Sign Up</a>
+                    </div>
+
+                    
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- CONTENU -->
+        <div id="content">
+            <!-- SIDEBAR LEFT -->
+            <div id="sidebarleft">
+                <!-- LES EXPERTS -->
+                <h2 class="expoerth2 paddingme greenme"><span class="cuf-grb">What do expert think</span></h2>
+                <!-- liste experts, avec ajout class "first" pour le premier de la ligne -->
+                <div class="listusers">
+                    <ul>
+                        <li class="first"><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li class="first"><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li class="first"><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                        <li><a href="#"><span class="miniavatar"><img src="images/content/sample-46x46.jpg" alt=""/></span>Cyril</a></li>
+                    </ul>
+                    <hr class="clear"/>
+                </div>
+                <!-- CATEGORIES -->
+                <h2 class="categoriesh2 paddingme azurme"><span class="cuf-grb">Browse categories</span></h2>
+                <ul class="listcats">
+                    <li><a href="#">Technology</a></li>
+                    <li><a href="#">Web</a></li>
+                    <li><a href="#">Sport</a></li>
+                    <li><a href="#">Finance</a></li>
+                    <li><a href="#">Geek</a></li>
+                    <li><a href="#">Beauty</a></li>
+                </ul>
+                <hr class="clear"/>
+            </div>
+            <!-- CONTENU CENTRE -->
+            <div id="contentcenter" class="mini">
+                <h2 class="cuf-grb">Most popular insights</h2>
+                <div class="listinsights">
+                    <ul class="menulistinsights">
+                        <li class="sortby">Sort by</li>
+                        <li class="first"><a href="#">popularity</a></li>
+                        <li><a href="#">created date</a></li>
+                        <li><a href="#">insight deadline</a></li>
+                    </ul>
+                    <div class="item-insight greyline">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son nouveau Data Center pour iTunes Cloud</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+                    <div class="item-insight">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son no</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+                    <div class="item-insight greyline">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+                    <div class="item-insight">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son nouveau Data Center pour iTunes Cloud</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+                    <div class="item-insight last-insight greyline">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son nouveau Data Center pour iTunes Cloud</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+
+                    <div class="seeall">
+                        <p><a href="#">see all insights</a></p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- SIDEBAR RIGHT -->
+            <div id="sidebarright" class="notlog">
+                <a href="#" class="signup"><span class="cuf-grm">Sign Up</span></a>
+            </div>
+        </div>
+
+
+        <hr class="clear"/>
+
+
+
+
+        <!-- FOOTER -->
+        <div id="footer">
+            <div class="backfooter"></div>
+            <div class="contentfooter">
+                <div class="menufooter">
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Extra</h2>
+                        <ul>
+                            <li><a href="#">Read the blog</a></li>
+                            <li><a href="#">About us</a></li>
+                            <li><a href="#">API</a></li>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Help</h2>
+                        <ul>
+                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Read the FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Links</h2>
+                        <ul>
+                            <li><a href="#">Colorz</a></li>
+                            <li><a href="#">Garance Dorée</a></li>
+                            <li><a href="#">Decate</a></li>
+                            <li><a href="#">Monsieur Lam</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">We are social</h2>
+                        <a href="#" class="sociallinks facebooklinks">
+                            <span class="likefb">Like facebook</span>
+                            <span class="titlesocial">Facebook</span>
+                            <span class="nbsocial">950 Fans</span>
+                        </a>
+                        <a href="#" class="sociallinks twitterlinks">
+                            <span class="titlesocial">Twitter</span>
+                            <span class="nbsocial">950 followers</span>
+                        </a>
+                    </div>
+
+
+                    <div class="copyright">
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p>
+                        <p class="rights">All rights reserved.</p>
+                        <p class="authorwebsite">Website by <a href="http://www.colorz.fr/">Colorz</a></p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+      
+  </body>
+</html>

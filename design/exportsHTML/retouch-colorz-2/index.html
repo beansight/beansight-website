@@ -1,0 +1,1496 @@
+
+<!doctype html> 
+<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <title>    Explorer les prédictions
+ - Beansight</title> 
+ 
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/style.css?Nr4ivgyyLrguCuT+JKrrrQ==" /> 
+	<link rel="stylesheet" type="text/css" href="public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css?hMxMGHfVJOeFZAX2yT6t1w=="> 
+	  
+	         
+	<link rel="shortcut icon" type="image/png" href="public/images/favicon.ico"> 
+	<link rel="apple-touch-icon" href="public/images/beansight_icon.jpg" /> 
+	
+	<meta property="og:title"      content="    Explorer les prédictions
+ - Beansight" /> 
+    <meta property="og:site_name"  content="Beansight" /> 
+    <meta property="og:type"       content="website" /> 
+	<meta property="og:image"      content="public/images/beansight_icon.jpg" /> 
+	<meta property="fb:app_id"     content="137918342928326" /> 
+    <meta name="description"  content="Avec Beansight, parcourez les opinions et découvrez ce qui va probablement arriver demain. Partagez vos prédictions et prouvez votre expertise." /> 
+ 
+    
+    <meta name="google-site-verification" content="Y7yziTs492G_Z5Ogo8PCt4qusa7cr7AUoxUK-OUP-3g" /> 
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.validate.min.js?fI9u6BbHGTOo+Tlms05FjA==" type="text/javascript"></script> 
+    <script src="public/javascripts/jquery.hotkeys.js?rk7mjf31cuAON7eIoIS+1A==" type="text/javascript"></script>	
+	<script src="public/javascripts/jquery.extend.js?WHYNebH5JzHPiQRwr7d8Jg==" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.selectbox-0.6.1.js?Usel0DXMZDtdqsBtD++EYw==" type="text/javascript"></script> 
+	
+	<script src="public/javascripts/cufon-yui.js?LvMCRUZuUCPCGH0TgHXLWg==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-book_325.font.js?0y2PtsWJxXqA7icqOCqSzw==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-med_350.font.js?BCDlTZfuihACsN+umpZD3w==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-bold_400.font.js?74FLRir0DdCrj3fEr1xM2A==" type="text/javascript"></script> 
+ 
+	<!-- Beansight javascripts --> 
+	<script src="public/javascripts/i18n/fr.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="public/javascripts/beansight.js?EBmDDVogcpdcd6sOQynhIA==" type="text/javascript" charset="utf-8"></script> 
+	  
+	
+	<!-- define here the actions --> 
+	<script type="text/javascript"> 
+	var agreeAction = function(options) {var pattern = '/application/agree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var disagreeAction = function(options) {var pattern = '/application/disagree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var resetInsightActivityAction = function(options) {var pattern = '/application/resetinsightactivity'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingInsightAction = function(options) {var pattern = '/application/togglefollowinginsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingUserAction = function(options) {var pattern = '/application/togglefollowinguser?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var loadFollowedUsersBlockAction = function(options) {var pattern = '/application/loadfollowedusers?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getInsightsAction = function(options) {var pattern = '/application/getinsights?topic=:topic&cat=:cat&sortBy=:sortBy&filterVote=:filterVote&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var searchExpertsAction = function(options) {var pattern = '/application/searchexperts'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var moreSearchAction = function(options) {var pattern = '/application/moresearch'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var inviteAction = function(options) {var pattern = '/application/invite'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendMessageAction = function(options) {var pattern = '/application/sendmessage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var shareInsightAction = function(options) {var pattern = '/application/shareinsight'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var favoriteUserSuggestAction = function(options) {var pattern = '/application/favoriteusersuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var tagSuggestAction = function(options) {var pattern = '/application/tagsuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var cropImageAction = function(options) {var pattern = '/application/cropimage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var leaveYourEmailAction = function(options) {var pattern = '/application/leaveyouremail'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendToContactAction = function(options) {var pattern = '/contact/sendtocontact'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var addCommentAction = function(options) {var pattern = '/application/addcomment'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserRealNameAction = function(options) {var pattern = '/settings/updateuserrealname'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserDescriptionAction = function(options) {var pattern = '/settings/updateuserdescription'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getFavoriteInsightAction = function(options) {var pattern = '/application/getfavoriteinsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var insightHideCommentAction = function(options) {var pattern = '/admin/insighthidecomment?commentId=:commentId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var showAvatarSmallFromEmailAction = function(options) {var pattern = '/application/showavatarsmallfromemail?email=:email'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isUserNameAvailableAction = function(options) {var pattern = '/register/isusernameavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isEmailAvailableAction = function(options) {var pattern = '/register/isemailavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;  
+	</script> 
+</head> 
+<body> 
+        <!-- HEADER --> 
+        <div id="header"> 
+            <div class="contentheader"> 
+                <!-- LOGO --> 
+                
+                <div class="colhead logocol"> 
+                    <h1><a href="/"> Beansight</a></h1> 
+                </div> 
+                
+                
+                <!-- FORM SEARCH --> 
+                <div class="colhead searchcol"> 
+                
+ 
+<div class="formsearch"> 
+<form action="/application/search" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" ><input type="hidden" name="authenticityToken" value="ac474f753f2c0035978f18bdc2b1884100a06d19"> 
+ 
+    <div class="searchinput"> 
+        <label for="query" class="cuf-grb">Explorez le futur</label> 
+        <div class="inputstyle"> 
+            <input type="text" name="query" id="txtsearch" value="" class="inputtxt" placeholder="Recherche"/> 
+            <input type="submit" id="searchsubmit" class="inputsubmit"/> 
+        </div> 
+    </div> 
+ 
+</form> 
+</div> 
+ 
+                </div> 
+                <!-- ZONE LOGIN --> 
+                <div class="colhead collogin"> 
+                	
+ 
+ 
+	<div class="signedInUserOption"> 
+<div class="signbtn"> 
+    <a href="/logout" class="cuf-grb">Se déconnecter</a> 
+</div> 
+<div class="welcome"> 
+    <p>Bonjour  <a href="/profile" class="pseudo-link">Sterenrhyrhttyjuyj</a></p> 
+    <p><a href="/settings" class="setting-link">Paramètres</a></p> 
+</div> 
+</div> 
+ 
+	
+ 
+                </div> 
+            </div> 
+        </div> 
+ 
+   
+ 
+ 
+ 
+	
+<!-- CONTENU --> 
+<div id="content" class=""> 
+<!-- CONTENT --> 
+<div id="content"> 
+ 
+<!-- SIDEBAR LEFT --> 
+<div id="sidebarleft" class="	"> 
+ 
+ 
+	
+<!-- CREER INSIGHT --> 
+<p class="btn-newins"><a href="/create" class="cuf-grm ">Créer</a></p> 
+ 
+	
+ 
+ 
+	
+   <!-- MENU NAV --> 
+<h2 class="azurme"><span class="cuf-grb">Menu</span></h2> 
+<ul class="menuleft"> 
+    <li><a href="/" class="cuf-grb current
+">Prédictions</a></li> 
+    <li><a href="/experts" class="cuf-grb ">Experts</a></li> 
+ 
+	    
+    <li><a href="/profile" class="cuf-grb ">Profil</a></li> 
+ 
+		</ul> 
+ 
+	
+ 
+ 
+	
+    <!-- ACTIVITY --> 
+<h2 class="azurme"><span class="cuf-grb">Activité</span></h2> 
+<div class="activity"> 
+    <!-- With Activity --> 
+    <div id="insightActivity" > 
+    <p><a id="resetActivity" href="" >Vider le flux d'activité</a></p> 
+         
+            <p class="title-activity"> 
+ 
+ 
+ 
+2 <span class="acdisagree acicon">ne sont pas d'accord
+ avec </span>
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<span class='insightContainer insight_renault-va-stopper-sa-production-de-vehicules-non-electrique 
+ 
+ voteDisagree 
+ 
+'> 
+ 
+    <a href='/prediction/renault-va-stopper-sa-production-de-vehicules-non-electrique'>Renault va stopper sa production de v...</a> 
+ 
+</span></p> 
+         
+            <p class="title-activity"> 
+ 
+ 
+ 
+1 <span class="acdisagree acicon">ne sont pas d'accord
+ avec </span>
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<span class='insightContainer insight_beansight-va-lever-1-5-millions-d-euros-grace-a-ses-15-000-users-acquis-avant-le-31-mars 
+ 
+ voteDisagree 
+ 
+'> 
+ 
+    <a href='/prediction/beansight-va-lever-1-5-millions-d-euros-grace-a-ses-15-000-users-acquis-avant-le-31-mars'>Beansight va lever 1,5 millions d'eur...</a> 
+ 
+</span></p> 
+         
+            <p class="title-activity"> 
+ 
+ 
+ 
+2 <span class="acnewavis acicon">change d'avis
+ avec </span>
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<span class='insightContainer insight_twitter-va-etre-rachete-par-google 
+ 
+ voteDisagree 
+ 
+'> 
+ 
+    <a href='/prediction/twitter-va-etre-rachete-par-google'>Twitter va être racheté par Google</a> 
+ 
+</span></p> 
+         
+            <p class="title-activity"> 
+ 
+ 
+1 <span class="acagree acicon">sont d'accord</span>
+ et  1 <span class="acdisagree acicon">ne sont pas d'accord
+ avec </span>
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<span class='insightContainer insight_beansight-va-ajouter-dans-sa-nouvelle-version-un-bouton-pour-valider-ou-non-une-prediction 
+ 
+ voteDisagree 
+ 
+'> 
+ 
+    <a href='/prediction/beansight-va-ajouter-dans-sa-nouvelle-version-un-bouton-pour-valider-ou-non-une-prediction'>Beansight va ajouter, dans sa nouvell...</a> 
+ 
+</span></p> 
+            </div> 
+    <!-- Without activity --> 
+    <div id="noInsightActivity" style="display:none;"> 
+    <p class="message">Pas d'activité récente</p> 
+    </div> 
+</div> 
+ 
+    <!-- FAVORITES --> 
+<h2 class="azurme"><span class="cuf-grb">Favoris</span></h2> 
+<div class="list-fav"> 
+    <div class="item-fav .insight_play-framework-will-rank-among-the-4-best-agile-web-frameworks }"> 
+    <!-- TODO COLORZ "first"--> 
+            
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<span class='insightContainer insight_play-framework-will-rank-among-the-4-best-agile-web-frameworks 
+ voteAgree  
+ 
+ 
+'> 
+ 
+    <a href='/prediction/play-framework-will-rank-among-the-4-best-agile-web-frameworks'>Play! framework will rank among the 4...</a> 
+ 
+</span>    </div> 
+    <div class="item-fav .insight_an-unexpected-second-half-of-radiohead-s-new-album-will-be-released }"> 
+    <!-- TODO COLORZ "first"--> 
+            
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<span class='insightContainer insight_an-unexpected-second-half-of-radiohead-s-new-album-will-be-released 
+ voteAgree  
+ 
+ 
+     validated  
+    
+     validatedFalse 
+    
+ 
+'> 
+ 
+    <a href='/prediction/an-unexpected-second-half-of-radiohead-s-new-album-will-be-released'>An unexpected second half of Radiohea...</a> 
+ 
+</span>    </div> 
+    <div class="item-fav .insight_star-wars-une-nouvelle-trilogie-sera-annoncee }"> 
+    <!-- TODO COLORZ "first"--> 
+            
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<span class='insightContainer insight_star-wars-une-nouvelle-trilogie-sera-annoncee 
+ voteAgree  
+ 
+ 
+'> 
+ 
+    <a href='/prediction/star-wars-une-nouvelle-trilogie-sera-annoncee'>Star Wars: une nouvelle trilogie sera...</a> 
+ 
+</span>    </div> 
+    <div class="item-fav .insight_marilyn-monroe-will-be-back-in-a-new-movie-directed-by-george-lucas }"> 
+    <!-- TODO COLORZ "first"--> 
+            
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<span class='insightContainer insight_marilyn-monroe-will-be-back-in-a-new-movie-directed-by-george-lucas 
+ voteAgree  
+ 
+ 
+'> 
+ 
+    <a href='/prediction/marilyn-monroe-will-be-back-in-a-new-movie-directed-by-george-lucas'>Marilyn Monroe will be back in a new ...</a> 
+ 
+</span>    </div> 
+    <hr class="clear"/> 
+</div><div class="list-avatars"> 
+    
+ 
+<a href="/expert/Guillaume" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Guillaume/small?code=30813259"/></span> 
+    <p>Guillaume</p> 
+</a> 
+    
+ 
+<a href="/expert/Sanguinax" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Sanguinax/small?code=32896773"/></span> 
+    <p>Sanguinax</p> 
+</a> 
+    
+ 
+<a href="/expert/JeanBernard" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/JeanBernard/small?code=19701397"/></span> 
+    <p>JeanBernard</p> 
+</a> 
+    
+ 
+<a href="/expert/bruno" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/bruno/small?code=6253485"/></span> 
+    <p>bruno</p> 
+</a> 
+    
+ 
+<a href="/expert/Cyril" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Cyril/small?code=9856651"/></span> 
+    <p>Cyril</p> 
+</a> 
+    
+ 
+<a href="/expert/jeanbaptiste" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/jeanbaptiste/small?code=2507377"/></span> 
+    <p>jeanbaptiste</p> 
+</a> 
+    
+ 
+<a href="/expert/Beansight" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Beansight/small?code=30674936"/></span> 
+    <p>Beansight</p> 
+</a> 
+    
+ 
+<a href="/expert/Pierus" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Pierus/small?code=23371050"/></span> 
+    <p>Pierus</p> 
+</a> 
+    
+ 
+<a href="/expert/jpeg" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/jpeg/small?code=9059692"/></span> 
+    <p>jpeg</p> 
+</a> 
+    
+ 
+<a href="/expert/CedricSoubrie" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/CedricSoubrie/small?code=29789207"/></span> 
+    <p>CedricSou...</p> 
+</a> 
+    
+ 
+<a href="/expert/Nanette" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Nanette/small?code=1529500"/></span> 
+    <p>Nanette</p> 
+</a> 
+    
+ 
+<a href="/expert/Cecilia" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Cecilia/small?code=3621579"/></span> 
+    <p>Cecilia</p> 
+</a> 
+    
+ 
+<a href="/expert/Hugh" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Hugh/small?code=140734"/></span> 
+    <p>Hugh</p> 
+</a> 
+    
+ 
+<a href="/expert/saetwo" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/saetwo/small?code=16509775"/></span> 
+    <p>saetwo</p> 
+</a> 
+    
+ 
+<a href="/expert/XVI" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/XVI/small?code=18200850"/></span> 
+    <p>XVI</p> 
+</a> 
+    
+ 
+<a href="/expert/ferdinand" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/ferdinand/small?code=19493696"/></span> 
+    <p>ferdinand</p> 
+</a> 
+    
+ 
+<a href="/expert/Chloe" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Chloe/small?code=5091320"/></span> 
+    <p>Chloe</p> 
+</a> 
+    
+ 
+<a href="/expert/Helo" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Helo/small?code=6029699"/></span> 
+    <p>Helo</p> 
+</a> 
+    
+ 
+<a href="/expert/Oliwia" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Oliwia/small?code=6766762"/></span> 
+    <p>Oliwia</p> 
+</a> 
+    
+ 
+<a href="/expert/El_Playa" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/El_Playa/small?code=13012332"/></span> 
+    <p>El_Playa</p> 
+</a> 
+    
+ 
+<a href="/expert/remisme" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/remisme/small?code=24031207"/></span> 
+    <p>remisme</p> 
+</a> 
+    
+ 
+<a href="/expert/nichou" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/nichou/small?code=31353472"/></span> 
+    <p>nichou</p> 
+</a> 
+    
+ 
+<a href="/expert/catwell" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/catwell/small?code=19018990"/></span> 
+    <p>catwell</p> 
+</a> 
+    
+ 
+<a href="/expert/Florent" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Florent/small?code=12647685"/></span> 
+    <p>Florent</p> 
+</a> 
+    
+ 
+<a href="/expert/fabienne" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/fabienne/small?code=2317012"/></span> 
+    <p>fabienne</p> 
+</a> 
+    
+ 
+<a href="/expert/EliseNebout" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/EliseNebout/small?code=18883783"/></span> 
+    <p>EliseNebout</p> 
+</a> 
+    
+ 
+<a href="/expert/henrimorlaye" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/henrimorlaye/small?code=21937878"/></span> 
+    <p>henrimorlaye</p> 
+</a> 
+    
+ 
+<a href="/expert/Shave" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Shave/small?code=13832133"/></span> 
+    <p>Shave</p> 
+</a> 
+    
+ 
+<a href="/expert/simon" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/simon/small?code=11555068"/></span> 
+    <p>simon</p> 
+</a> 
+    
+ 
+<a href="/expert/ronan" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/ronan/small?code=26537860"/></span> 
+    <p>ronan</p> 
+</a> 
+    
+ 
+<a href="/expert/Bertil" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Bertil/small?code=16314901"/></span> 
+    <p>Bertil</p> 
+</a> 
+    
+ 
+<a href="/expert/hugo" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/hugo/small?code=31279200"/></span> 
+    <p>hugo</p> 
+</a> 
+    
+ 
+<a href="/expert/celine" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/celine/small?code=12244257"/></span> 
+    <p>celine</p> 
+</a> 
+    
+ 
+<a href="/expert/Dr_Funk" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/Dr_Funk/small?code=33456510"/></span> 
+    <p>Dr_Funk</p> 
+</a> 
+    
+ 
+<a href="/expert/xdoremus" class="item-avatar"> 
+    <span class="backavatar"><img src="/profile/xdoremus/small?code=31960726"/></span> 
+    <p>xdoremus</p> 
+</a> 
+</div><hr class="clear"/> 
+ 
+	
+    <h2 class="greenme azurme"><span class="cuf-grb">Invitations</span></h2> 
+<div id="invite" class="invite"> 
+    <p>Inviter quelqu'un à rejoindre Beansight :</p> <p>Il vous reste <strong><span class="invitationLeftNumber">3</span> invitations</strong></p>    <form id="inviteForm"> 
+        <input type="email" name="email" id="emailInvite" placeholder="exemple@email.fr" class="input"/> 
+		<div class="inputsubmit">
+			<button id="submitinvite"><span class="backbutton"></span><span class="txtbutton cuf-invitation">Envoyer</span></button> 
+		</div>
+        <!--<input type="submit" name="submit" value="Envoyer" /> -->
+        <div id="inviteMessage" style="display:none;"> 
+            <label for="message">Ajoutez un message :</label> 
+            <textarea name="message" id="inviteTextArea"></textarea> 
+        </div> 
+    </form> 
+    <p id="inviteconfirm" style="display:none;">Invitation envoyée</p> 
+</div> 
+ 
+    <hr class="clear"/> 
+ 
+	
+ 
+ 
+	
+ 
+</div> 
+	
+<div id="contentcenter" class="large"> 
+<h2 class="cuf-grb">Prédictions  </h2> 
+ 
+<div class="listinsights"> 
+    <ul class="menulistinsights"> 
+        <li class="sortby">Tri:</li> 
+        <li class="first"> 
+            <div id="radioSortByFilter" style="font-size: 11px;"> 
+                <input type="radio" autocomplete="off" name="SortByGroup" value="incoming" checked  id="radioSortByIncoming" />         <label for="radioSortByIncoming">    Prochainement </label> 
+                <input type="radio" autocomplete="off" name="SortByGroup" value="trending"          id="radioSortByTrending"/>          <label for="radioSortByTrending">    Popularité </label> 
+                <input type="radio" autocomplete="off" name="SortByGroup" value="updated"           id="radioSortByUpdated"/>           <label for="radioSortByUpdated">     Mise à jour   </label> 
+            </div>        
+        </li> 
+        <li> 
+	        <div id="radioVotefilter" style="font-size: 11px;"> 
+		        <input type="radio" autocomplete="off" name="VoteGroup" value="all" checked   id="radioVoteAll" />        <label for="radioVoteAll">      Tous</label> 
+		        <input type="radio" autocomplete="off" name="VoteGroup" value="voted"         id="radioVoteVoted"/>       <label for="radioVoteVoted">    Voté   </label> 
+		        <input type="radio" autocomplete="off" name="VoteGroup" value="notVoted"      id="radioVoteNotVoted"/>    <label for="radioVoteNotVoted"> Non voté</label> 
+	        </div> 
+        </li> 
+        	    <li> 
+		    <div class="filterDropDown"> 
+		    <select name="categoryId" id="filterCategory" autocomplete="off"> 
+		       <option value="0" selected>Catégorie: All</option> 
+			   			       <option value="1" >Celebrities</option> 
+			   			       <option value="2" >Economics</option> 
+			   			       <option value="3" >Fun</option> 
+			   			       <option value="4" >Politics</option> 
+			   			       <option value="5" >Sport</option> 
+			   			       <option value="6" >Technology</option> 
+			   			       <option value="7" >Entertainment</option> 
+			   			       <option value="8" >Society</option> 
+			   			</select> 
+			</div> 
+	    </li> 
+	        </ul> 
+    
+    <ul id="insightList"> 
+        
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_retour-sur-terre-triomphal-pour-endeavour-la-nasa-annonce-que-la-navette-rempile-pour-une-mission-de-plus 
+ 
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('retour-sur-terre-triomphal-pour-endeavour-la-nasa-annonce-que-la-navette-rempile-pour-une-mission-de-plus');" class="agreeCount">1</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('retour-sur-terre-triomphal-pour-endeavour-la-nasa-annonce-que-la-navette-rempile-pour-une-mission-de-plus');" class="disagreeCount">5</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/retour-sur-terre-triomphal-pour-endeavour-la-nasa-annonce-que-la-navette-rempile-pour-une-mission-de-plus" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+            <p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Aujourd'hui,</span> </p> 
+            <h3>Retour sur Terre triomphal pour Endeavour. La NASA annonce que la navette rempile pour une mission de plus.</h3> 
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_beansight-will-be-featured-on-techcrunch-france 
+ voteAgree  
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('beansight-will-be-featured-on-techcrunch-france');" class="agreeCount">35</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('beansight-will-be-featured-on-techcrunch-france');" class="disagreeCount">0</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/beansight-will-be-featured-on-techcrunch-france" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+            <p class="date-insight"><span class="datetxt">ADemain</span></p> 
+            <h3>Beansight will be featured on Techcrunch France</h3> 
+            
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_le-president-libyen-kadhafi-a-deja-quitte-son-pays-pour-buller-sur-une-plage-de-sable-blanc-en-amerique-du-sud 
+ 
+ voteDisagree 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('le-president-libyen-kadhafi-a-deja-quitte-son-pays-pour-buller-sur-une-plage-de-sable-blanc-en-amerique-du-sud');" class="agreeCount">5</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('le-president-libyen-kadhafi-a-deja-quitte-son-pays-pour-buller-sur-une-plage-de-sable-blanc-en-amerique-du-sud');" class="disagreeCount">77</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/le-president-libyen-kadhafi-a-deja-quitte-son-pays-pour-buller-sur-une-plage-de-sable-blanc-en-amerique-du-sud" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+            <p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 2 jours,</span> </p> 
+            <h3>Le président Libyen Kadhafi a déjà quitté son pays pour buller sur une plage de sable blanc en Amérique du Sud </h3> 
+            
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_10000-voitures-electriques-nvelle-marque-45km-h-a-9999-avec-batterie-de-60-km-d-autonomie-se-vendront-en-2012-en-france 
+ 
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('10000-voitures-electriques-nvelle-marque-45km-h-a-9999-avec-batterie-de-60-km-d-autonomie-se-vendront-en-2012-en-france');" class="agreeCount">5</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('10000-voitures-electriques-nvelle-marque-45km-h-a-9999-avec-batterie-de-60-km-d-autonomie-se-vendront-en-2012-en-france');" class="disagreeCount">17</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/10000-voitures-electriques-nvelle-marque-45km-h-a-9999-avec-batterie-de-60-km-d-autonomie-se-vendront-en-2012-en-france" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 3 jours, </span></p> 
+            <h3>10000 voitures électriques nvelle marque 45km/h à 9999€ avec batterie de 60 km d'autonomie se vendront en 2012 en France</h3> 
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_tous-les-pays-du-monde-arabe-s-enflamment-dans-une-recherche-de-democratie-l-algerie-sera-le-prochain 
+ 
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('tous-les-pays-du-monde-arabe-s-enflamment-dans-une-recherche-de-democratie-l-algerie-sera-le-prochain');" class="agreeCount">33</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('tous-les-pays-du-monde-arabe-s-enflamment-dans-une-recherche-de-democratie-l-algerie-sera-le-prochain');" class="disagreeCount">23</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/tous-les-pays-du-monde-arabe-s-enflamment-dans-une-recherche-de-democratie-l-algerie-sera-le-prochain" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 5 jours,</span> </p> 
+            <h3>Tous les pays du monde Arabe s'enflamment dans une recherche de démocratie, l'Algérie sera le prochain...</h3> 
+            
+            
+                <p class="date-insight" style="float: right; clear:both;">(1 commentaire)</p> 
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_the-revolution-in-algeria-will-fail 
+ 
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('the-revolution-in-algeria-will-fail');" class="agreeCount">8</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('the-revolution-in-algeria-will-fail');" class="disagreeCount">10</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/the-revolution-in-algeria-will-fail" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 5 jours, </span></p> 
+            <h3>The revolution in Algeria will fail.</h3> 
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_la-commuz-sera-totalement-nulle 
+ 
+ voteDisagree 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('la-commuz-sera-totalement-nulle');" class="agreeCount">3</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('la-commuz-sera-totalement-nulle');" class="disagreeCount">1</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/la-commuz-sera-totalement-nulle" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 5 jours,</span> </p> 
+            <h3>La Commuz' sera totalement nulle.</h3> 
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_apres-l-egypte-la-libye 
+ voteAgree  
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('apres-l-egypte-la-libye');" class="agreeCount">97</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('apres-l-egypte-la-libye');" class="disagreeCount">7</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/apres-l-egypte-la-libye" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 7 jours,</span> </p> 
+            <h3>Après l'Egypte, la Libye !</h3> 
+            
+            
+                <p class="date-insight" style="float: right; clear:both;">(5 commentaires)</p> 
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_au-startup-weekend-lausanne-un-pitcheur-proposera-un-reseau-social-pour-couples-divorces 
+ 
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('au-startup-weekend-lausanne-un-pitcheur-proposera-un-reseau-social-pour-couples-divorces');" class="agreeCount">30</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('au-startup-weekend-lausanne-un-pitcheur-proposera-un-reseau-social-pour-couples-divorces');" class="disagreeCount">5</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/au-startup-weekend-lausanne-un-pitcheur-proposera-un-reseau-social-pour-couples-divorces" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 8 jours,</span> </p> 
+            <h3>Au Startup Weekend Lausanne, un pitcheur proposera un réseau social pour couples divorcés</h3> 
+            
+            
+                <p class="date-insight" style="float: right; clear:both;">(5 commentaires)</p> 
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_france-will-seize-the-vi-nations-title-in-2011 
+ 
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('france-will-seize-the-vi-nations-title-in-2011');" class="agreeCount">3</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('france-will-seize-the-vi-nations-title-in-2011');" class="disagreeCount">13</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/france-will-seize-the-vi-nations-title-in-2011" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 9 jours,</span> </p> 
+            <h3>France will seize the VI Nations title in 2011.</h3> 
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_startup-weekend-lausanne-will-be-awesome 
+ 
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('startup-weekend-lausanne-will-be-awesome');" class="agreeCount">3</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('startup-weekend-lausanne-will-be-awesome');" class="disagreeCount">0</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/startup-weekend-lausanne-will-be-awesome" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 10 jours,</span> </p> 
+            <h3>Startup Weekend Lausanne will be awesome</h3> 
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    <li class="insightItem"> 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+ 
+ 
+ 
+	
+ 
+<div class='insightContainer insight_beansight-n-aura-pas-ajoute-de-bouton-pour-annuler-un-vote-a-une-prediction 
+ voteAgree  
+ 
+ 
+'> 
+ 
+<div class="item-insight"> 
+    <div class="content-insight"> 
+    
+	
+        
+ 
+<div class="vote-insight"> 
+    <p class="vote-more"><a href="#" onClick="return agree('beansight-n-aura-pas-ajoute-de-bouton-pour-annuler-un-vote-a-une-prediction');" class="agreeCount">6</a></p> 
+    <p class="vote-less"><a href="#" onClick="return disagree('beansight-n-aura-pas-ajoute-de-bouton-pour-annuler-un-vote-a-une-prediction');" class="disagreeCount">2</a></p> 
+</div> 
+ 
+<!-- TODO COLORZ was: class="icon agree interactive" --> 
+ 
+ 
+    
+	
+        <a href="/prediction/beansight-n-aura-pas-ajoute-de-bouton-pour-annuler-un-vote-a-une-prediction" class="permalink "> 
+            <p class="comment-insight"><span class="nbcom">1</span></p> 
+			<p class="date-insight" style="color: #A1A5A6"><span class="datetxt">Dans 11 jours,</span> </p> 
+            <h3>Beansight n'aura pas ajouté de bouton pour annuler un vote à une prédiction.</h3> 
+            
+            
+        </a> 
+        <hr class="clear"/> 
+    </div> 
+</div> 
+ 
+</div> 
+ 
+    </li> 
+ 
+    </ul> 
+ 
+    <div id="moreResults" class="seeall"> 
+        <p><a id="moreInsights" href="#">plus</a></p> 
+    </div> 
+</div> 
+ 
+<script type="text/javascript"> 
+// TODO check if a "more" button should be displayed
+//if( $("#insightList li").length >= 12 ) {
+//        $("#moreResults").fadeIn(2000);
+//   }
+var NUMBER_INSIGHTS_INSIGHTPAGE = 12;
+var insightsFrom = NUMBER_INSIGHTS_INSIGHTPAGE;
+ 
+var filterTopic =  null;
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+// keyboard shortcuts
+/*
+var shortcutCurrentInsight = 1;
+$(document).bind("keydown", "j", function () {
+    shortcutCurrentInsight++;
+}).bind("keydown", "k", function () {
+    if(shortcutCurrentInsight > 1) {
+        shortcutCurrentInsight--;
+    }
+}).bind("keydown", "Return", function () {
+    var shortcutTarget = $("a.permalink", "#insightList .insightItem:nth-child(" + shortcutCurrentInsight + ")").attr("href");
+    if (shortcutTarget != null && shortcutTarget != "") {
+        window.location.href = shortcutTarget;
+    }
+});
+*/
+</script> 
+</div> 
+ 
+</div> 
+ 
+ 
+<hr class="clear"/> 
+</div> 
+	
+<hr class="clear"/> 
+ 
+        <!-- FOOTER --> 
+        <div id="footer"> 
+            <div class="backfooter"></div> 
+            <div class="contentfooter"> 
+                <div class="menufooter"> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Extra</h2> 
+                        <ul> 
+                            <li><a href="http://blog.beansight.com">Lisez le blog</a></li> 
+                            
+                            <li><a href="/legal/terms-of-service">Terms</a></li> 
+                            <li><a href="/legal/privacy-policy">Privacy</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Aide</h2> 
+                        <ul> 
+                            <li><a href="/faq">Lisez la FAQ</a></li> 
+                            <li><a href="/contact">Contactez nous</a></li> 
+                            <li><a href="/forgotpassword">Mot de passe perdu ?</a></li> 
+                            <li><a href="http://getsatisfaction.com/beansight">Votre avis</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Issu de</h2> 
+                        <ul> 
+                        	<li><a href="http://www.startupweekend.org">Startup Weekend</a></li> 
+                        	<li><a href="http://www.lecamping.org">Le Camping</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Retrouvez nous</h2> 
+                        <a href="http://www.facebook.com/Beansight" target="_blank" class="sociallinks facebooklinks"> 
+                            <span class="item likefb">Like facebook</span> 
+                            <span class="item titlesocial">Facebook</span> 
+                            <span class="item nbsocial"><span id="facebookFans">201</span> Fans</span> 
+                        </a> 
+                        <a href="http://twitter.com/#!/beansight" target="_blank" class="sociallinks twitterlinks"> 
+                            <span class="item titlesocial">Twitter</span> 
+                            <span class="item nbsocial"><span id="twitterFollowers">126</span> followers</span> 
+                        </a> 
+                    </div> 
+ 
+ 
+                    <div class="copyright"> 
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p> 
+                        <p class="rights">Tous droits réservés.</p> 
+                        <p class="authorwebsite">Design par <a href="http://www.colorz.fr/">Colorz</a></p> 
+                    </div> 
+                </div> 
+            </div> 
+ 
+        </div> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+// keyboard shortcuts
+/*
+$(document).bind("keydown", ["g", "i"], function () {
+    window.location.href = "/";
+}).bind("keydown", ["g", "e"], function () {
+    window.location.href = "/experts";
+}).bind("keydown", ["g", "p"], function () {
+    window.location.href = "/profile";
+}).bind("keydown", "c", function () {
+    window.location.href = "/create";
+}).bind("keydown", "/", function () {
+    $('#txtsearch').focus();
+});
+*/
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  // Google Analytics
+  var feedback_widget_options = {};
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "beansight";
+  feedback_widget_options.placement = "left";
+  feedback_widget_options.color = "#222";
+  feedback_widget_options.style = "idea";
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+  
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16319303-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	
+	// Go Squared LiveStats
+	var GoSquared={};
+    GoSquared.acct = "GSN-789144-E";
+    (function(w){
+        function gs(){
+            w._gstc_lt=+(new Date); var d=document;
+            var g = d.createElement("script"); g.type = "text/javascript"; g.async = true; g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
+            var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(g, s);
+        }
+        w.addEventListener?w.addEventListener("load",gs,false):w.attachEvent("onload",gs);
+    })(window);
+</script> 
+ 
+ 
+</body> 
+</html> 

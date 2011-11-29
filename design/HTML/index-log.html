@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Beansight</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/jquery.extend.js" type="text/javascript"></script>
+    <script src="js/jquery.selectbox-0.6.1.js" type="text/javascript"></script>
+    <script src="js/cufon-yui.js" type="text/javascript"></script>
+    <script src="js/got-rnd-book_325.font.js" type="text/javascript"></script>
+    <script src="js/got-rnd-med_350.font.js" type="text/javascript"></script>
+    <script src="js/got-rnd-bold_400.font.js" type="text/javascript"></script>
+    <script src="js/cufon-init.js" type="text/javascript"></script>
+    <script src="js/events.js" type="text/javascript"></script>
+    <link rel="shortcut icon" href="images/fav.ico" />
+  </head>
+  <body>
+
+        <!-- HEADER -->
+        <div id="header">
+            <div class="contentheader">
+                <!-- LOGO -->
+                <div class="colhead logocol">
+                    <h1><a href="/"> Beansight</a></h1>
+                </div>
+                <!-- FORM SEARCH -->
+                <div class="colhead searchcol">
+                    <form action="#" method="post" class="formsearch">
+                        <div class="searchinput">
+                            <label for="txtseach" class="cuf-grb">Search the future</label>
+                            <div class="inputstyle">
+                                <input type="text" name="txtseach" id="txtseach" value="Search" class="inputtxt clearinput"/>
+                                <input type="submit" name="search" id="searchsubmit" class="inputsubmit"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- ZONE LOGIN -->
+                <div class="colhead collogin">
+                    <div class="welcome">
+                        <p>Welcome <a href="#" class="pseudo-link">mamax</a></p>
+                        <p><a href="/profil.html" class="setting-link">settings</a></p>
+                    </div>
+                    <div class="signbtn">
+                        <a href="#" class="cuf-grb">Logout</a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- CONTENU -->
+        <div id="content">
+            <!-- SIDEBAR LEFT -->
+            <div id="sidebarleft">
+
+                <!-- CREER INSIGHT -->
+                <p class="btn-newins"><a href="#" class="cuf-grm">Create an Insight</a></p>
+
+                <!-- MENU NAV -->
+                <h2 class="azurme"><span class="cuf-grb">Menu</span></h2>
+                <ul class="menuleft">
+                    <li><a href="/insights.html" class="cuf-grb">Insights</a></li>
+                    <li><a href="/experts.html" class="cuf-grb">Experts</a></li>
+                    <li><a href="/profil.html" class="cuf-grb">Profile</a></li>
+                </ul>
+                
+                
+                <!-- ACTIVITY -->
+                <h2 class="azurme"><span class="cuf-grb">Activity on my insights</span></h2>
+                <div class="activity">
+                    <!-- avec activite -->
+                    <p class="title-activity first"><a href="#">Apple va utiliser son nouveau...</a></p>
+                    <p class="title-activity"><a href="#">Apple va utiliser son nouveau...</a></p>
+                    <p class="title-activity"><a href="#">Apple va utiliser son nouveau erogeor goieg oeoiejgoe oeoi oiertbo irj boitrob oriboi rotiborito</a></p>
+                    <p class="title-activity"><a href="#">Apple va utiliser son nouveau erg apple va utiliser son nouveau erg</a></p>
+                    <!-- sans activite -->
+                    <!--<p class="message">You don't have any activity</p>-->
+                </div>
+
+                <!-- FAVORITES -->
+                <h2 class="favh2 greenme paddingme"><span class="cuf-grb">Favorites</span></h2>
+                <div class="list-fav">
+                    <div class="item-fav first">
+                        <a href="#">
+                            <div class="date-fav">
+                                <span class="date-day">20</span> / <span class="date-month">5</span>
+                            </div>
+                            <p class="title-fav">Apple va utiliser son nouveau...</p>
+                        </a>
+                    </div>
+                    <div class="item-fav">
+                        <a href="#">
+                            <div class="date-fav">
+                                <span class="date-day">20</span> / <span class="date-month">5</span>
+                            </div>
+                            <p class="title-fav">Apple va utiliser son nouveau...</p>
+                        </a>
+                    </div>
+                    <hr class="clear"/>
+                </div>
+
+
+                <!-- AVATARS -->
+                <div class="list-avatars">
+                    <a href="" class="item-avatar">
+                        <span class="backavatar"><img src="images/content/sample-26x26.jpg" alt=""/></span>
+                        <p>Henry Lim</p>
+                    </a>
+                    <a href="" class="item-avatar">
+                        <span class="backavatar"><img src="images/content/sample-26x26.jpg" alt=""/></span>
+                        <p>Fubiz</p>
+                    </a>
+                    <a href="" class="item-avatar">
+                        <span class="backavatar"><img src="images/content/sample-26x26.jpg" alt=""/></span>
+                        <p>Fubiz</p>
+                    </a>
+                    <a href="" class="item-avatar">
+                        <span class="backavatar"><img src="images/content/sample-26x26.jpg" alt=""/></span>
+                        <p>Fubiz</p>
+                    </a>
+                </div>
+                
+                <hr class="clear"/>
+            </div>
+
+
+
+            <!-- CONTENU CENTRE LARGE -->
+            <div id="contentcenter" class="large">
+                <h2 class="cuf-grb">New and trending insights</h2>
+                <div class="listinsights">
+                    <ul class="menulistinsights">
+                        <li class="sortby">Sort by</li>
+                        <li class="first"><a href="#">trending</a></li>
+                        <li><a href="#">incoming</a></li>
+                        <li><a href="#">suggested</a></li>
+                        <li class="selectme"><a href="#" id="select-tri">select a category</a>
+                            <ul class="nojavascript" id="ulselect-tri">
+                                <li><a href="#"><span>Technology</span></a></li>
+                                <li><a href="#"><span>Web</span></a></li>
+                                <li class="last"><a href="#"><span>Sport</span></a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Favorites</a></li>
+                        <li class="langme">
+                            <a href="#" class="french">français</a>
+                            <a href="#" class="english">anglais</a>
+                            <hr class="clear"/>
+                        </li>
+                    </ul>
+                    <div class="item-insight greyline">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son nouveau Data Center pour iTunes Cloud avec titre sur deux lignes</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+                    <div class="item-insight">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son nouveau Data Center pour iTunes Cloud</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+                    <div class="item-insight greyline">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son nouveau Data Center pour iTunes Cloud</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+                    <div class="item-insight">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son nouveau Data Center pour iTunes Cloud</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+                    <div class="item-insight last-insight greyline">
+                        <div class="content-insight">
+                            <div class="vote-insight">
+                                <p class="vote-more"><a href="#">105</a></p>
+                                <p class="vote-less"><a href="#">10</a></p>
+                            </div>
+                            <a href="#" class="permalink">
+                                <h3>Apple va utiliser son nouveau Data Center pour iTunes Cloud</h3>
+                                <p class="date-insight">le 15 octobre 2010</p>
+                            </a>
+                            <hr class="clear"/>
+                        </div>
+                    </div>
+
+                    <div class="seeall">
+                        <p><a href="#">see all insights</a></p>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+        <hr class="clear"/>
+
+
+
+
+        <!-- FOOTER -->
+        <div id="footer">
+            <div class="backfooter"></div>
+            <div class="contentfooter">
+                <div class="menufooter">
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Extra</h2>
+                        <ul>
+                            <li><a href="#">Read the blog</a></li>
+                            <li><a href="#">About us</a></li>
+                            <li><a href="#">API</a></li>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Help</h2>
+                        <ul>
+                            <li><a href="/contact.html">Contact us</a></li>
+                            <li><a href="#">Read the FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">Links</h2>
+                        <ul>
+                            <li><a href="#">Colorz</a></li>
+                            <li><a href="#">Garance Dorée</a></li>
+                            <li><a href="#">Decate</a></li>
+                            <li><a href="#">Monsieur Lam</a></li>
+                        </ul>
+                    </div>
+                    <div class="colfooter">
+                        <h2 class="cuf-grm">We are social</h2>
+                        <a href="#" class="sociallinks facebooklinks">
+                            <span class="likefb">Like facebook</span>
+                            <span class="titlesocial">Facebook</span>
+                            <span class="nbsocial">950 Fans</span>
+                        </a>
+                        <a href="#" class="sociallinks twitterlinks">
+                            <span class="titlesocial">Twitter</span>
+                            <span class="nbsocial">950 followers</span>
+                        </a>
+                    </div>
+
+
+                    <div class="copyright">
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p>
+                        <p class="rights">All rights reserved.</p>
+                        <p class="authorwebsite">Website by <a href="http://www.colorz.fr/">Colorz</a></p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+      
+  </body>
+</html>

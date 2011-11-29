@@ -1,0 +1,428 @@
+
+<!doctype html> 
+<html xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="http://www.facebook.com/2008/fbml"> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <title>    Explore predictions
+ - Beansight</title> 
+ 
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/style.css?CJBNDgoLobgYopssLMffGg==" /> 
+	<link rel="stylesheet" type="text/css" href="public/stylesheets/jquery-ui/beansight/jquery-ui-1.8.10.custom.css?hMxMGHfVJOeFZAX2yT6t1w=="> 
+	  
+ 
+	<link rel="shortcut icon" type="image/png" href="public/images/favicon.ico"> 
+<link rel="apple-touch-icon" href="public/images/beansight_icon.jpg" /> 
+	
+	<meta property="og:title"      content="    Explore predictions
+ - Beansight" /> 
+    <meta property="og:site_name"  content="Beansight" /> 
+    <meta property="og:type"       content="website" /> 
+	<meta property="og:image"      content="http://www.beansight.compublic/images/beansight_icon.jpg" /> 
+	<meta property="fb:app_id"     content="137918342928326" /> 
+    <meta name="description"  content="Browse Beansight to know what people think and what is likely to happen tomorrow. Share your predictions and prove your expertise." /> 
+    
+ 
+    
+    <meta name="google-site-verification" content="Y7yziTs492G_Z5Ogo8PCt4qusa7cr7AUoxUK-OUP-3g" /> 
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script> 
+	
+	<!--<script src="public/javascripts/jquery-1.4.2.min.js?3w/3/nzQ6XlaAsWN6C9taQ==" type="text/javascript"></script>--> 
+    <!--<script src="public/javascripts/jquery-ui-1.8.5.custom.min.js?8P8ZzJHgo96K4i3OaBNhHg==" type="text/javascript"></script>--> 
+	
+	<script src="public/javascripts/jquery.validate.min.js?fI9u6BbHGTOo+Tlms05FjA==" type="text/javascript"></script> 
+    <script src="public/javascripts/jquery.tooltip.min.js?VZ8j3YztJ1rGjxXKsEG/RA==" type="text/javascript"></script>	
+    <script src="public/javascripts/jquery.hotkeys.js?rk7mjf31cuAON7eIoIS+1A==" type="text/javascript"></script>	
+	<script src="public/javascripts/jquery.extend.js?WHYNebH5JzHPiQRwr7d8Jg==" type="text/javascript"></script> 
+	<script src="public/javascripts/jquery.selectbox-0.6.1.js?Usel0DXMZDtdqsBtD++EYw==" type="text/javascript"></script> 
+	
+	<script src="public/javascripts/cufon-yui.js?LvMCRUZuUCPCGH0TgHXLWg==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-book_325.font.js?0y2PtsWJxXqA7icqOCqSzw==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-med_350.font.js?BCDlTZfuihACsN+umpZD3w==" type="text/javascript"></script> 
+	<script src="public/javascripts/got-rnd-bold_400.font.js?74FLRir0DdCrj3fEr1xM2A==" type="text/javascript"></script> 
+ 
+	<!-- Include History (Production) --> 
+	<script type="text/javascript" src="public/javascripts/history/jquery.history.min.js?d/NyKK+us1e1++OPC3lNzQ=="></script> 
+ 
+	<!-- Beansight javascripts --> 
+	<script src="public/javascripts/i18n/en.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="public/javascripts/beansight.js?mJpCGIb4sfMkgsyq7Lhf1Q==" type="text/javascript" charset="utf-8"></script> 
+	
+	<!-- auto grow jquery plugin --> 
+	<script src="public/javascripts/jquery.autogrow-textarea.js" type="text/javascript" charset="utf-8"></script> 
+	  
+	
+	<!-- define here the actions --> 
+	<script type="text/javascript"> 
+	var agreeAction = function(options) {var pattern = '/api/agree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var disagreeAction = function(options) {var pattern = '/api/disagree?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var resetInsightActivityAction = function(options) {var pattern = '/application/resetinsightactivity'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var toggleFollowingInsightAction = function(options) {var pattern = '/application/togglefollowinginsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var toggleFollowingTopicAction = function(options) {var pattern = '/application/togglefollowingtopic?topicId=:topicId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;	
+	var toggleFollowingUserAction = function(options) {var pattern = '/application/togglefollowinguser?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var removeFollowedUserAction = function(options) {var pattern = '/application/removefolloweduser?userId=:userId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var followAllFacebookFriendsAction = function(options) {var pattern = '/application/followallfacebookfriends'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var loadFollowedUsersBlockAction = function(options) {var pattern = '/application/loadfollowedusers'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var loadFollowedTopicsBlockAction = function(options) {var pattern = '/application/loadfollowedtopics'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getInsightsAction = function(options) {var pattern = '/application/getinsights?topic=:topic&cat=:cat&sortBy=:sortBy&filterVote=:filterVote&closed=:closed&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var reloadInsightsAction = function(options) {var pattern = '/application/reloadinsights?topic=:topic&cat=:cat&sortBy=:sortBy&filterVote=:filterVote&closed=:closed&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getUserInsightsAction = function(options) {var pattern = '/application/getuserinsights?cat=:cat&filterVote=:filterVote&userName=:userName&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var reloadUserInsightsAction = function(options) {var pattern = '/application/reloaduserinsights?cat=:cat&filterVote=:filterVote&userName=:userName&from=:from'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var searchExpertsAction = function(options) {var pattern = '/application/searchexperts'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var reloadSearchExpertsAction = function(options) {var pattern = '/application/reloadsearchexperts?cat=:cat&query=:query&from=:from&filter=:filter'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var moreSearchAction = function(options) {var pattern = '/application/moresearch'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var inviteAction = function(options) {var pattern = '/application/invite'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendMessageAction = function(options) {var pattern = '/application/sendmessage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var shareInsightAction = function(options) {var pattern = '/application/shareinsight'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var favoriteUserSuggestAction = function(options) {var pattern = '/application/favoriteusersuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var tagSuggestAction = function(options) {var pattern = '/application/tagsuggest'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var cropImageAction = function(options) {var pattern = '/application/cropimage'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var leaveYourEmailAction = function(options) {var pattern = '/application/leaveyouremail'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var sendToContactAction = function(options) {var pattern = '/contact/sendtocontact'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var addCommentAction = function(options) {var pattern = '/application/addcomment'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var editCommentAction = function(options) {var pattern = '/application/editcomment?commentId=:commentId&uniqueId=:uniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserRealNameAction = function(options) {var pattern = '/settings/updateuserrealname'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var updateUserDescriptionAction = function(options) {var pattern = '/settings/updateuserdescription'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var getFavoriteInsightAction = function(options) {var pattern = '/application/getfavoriteinsight?insightUniqueId=:insightUniqueId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var insightHideCommentAction = function(options) {var pattern = '/admin/insighthidecomment?commentId=:commentId'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	var showAvatarSmallFromEmailAction = function(options) {var pattern = '/application/showavatarsmallfromemail?email=:email'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isUserNameAvailableAction = function(options) {var pattern = '/register/isusernameavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var isEmailAvailableAction = function(options) {var pattern = '/register/isemailavailable'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;  
+    var addToFavoritesFromSuggestedFacebookFriendsAction = function(options) {var pattern = '/application/addtofavoritesfromsuggestedfacebookfriends?userIdOfTheFriendToAdd=:userIdOfTheFriendToAdd'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+    var hideSuggestedFacebookFriendAction = function(options) {var pattern = '/application/hidesuggestedfacebookfriend?userIdOfTheFriendToHide=:userIdOfTheFriendToHide'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+ 
+    var linkBeansightAccountWithFacebookAction = function(options) {var pattern = '/register/linkbeansightaccountwithfacebook'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+ 
+    var manageFacebookFriendsFromSideBarAction = function(options) {var pattern = '/application/managefacebookfriendsfromsidebar'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+;
+	</script> 
+</head> 
+<body> 
+        <!-- HEADER --> 
+        <div id="header" class="notloguser"> 
+            <div class="contentheader"> 
+                <!-- LOGO --> 
+                <div class="colhead logocol" > 
+                    <h1><a href="/"> Beansight</a></h1> 
+                </div> 
+                
+                <!-- FORM SEARCH --> 
+                <!--<div class="colhead searchcol"> 
+                
+ 
+<div class="formsearch"> 
+<form action="/application/search" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" ><input type="hidden" name="authenticityToken" value="58d2a409ac9235e62d168d30ee65062ccb40d093"> 
+ 
+    <div class="searchinput"> 
+        <label for="query" class="cuf-grb">Search the future</label> 
+        <div class="inputstyle"> 
+            <input type="text" name="query" id="txtsearch" value="" class="inputtxt" placeholder="Search"/> 
+            <input type="submit" id="searchsubmit" class="inputsubmit"/> 
+        </div> 
+    </div> 
+ 
+</form> 
+</div> 
+ 
+                </div> 
+				-->
+				
+				
+				
+				
+                <!-- ZONE LOGIN --> 
+                <div class="colhead collogin"> 
+					<a href="#" class="logbtn">Connection</a>
+					<div id="loginbox" class="loginbox"> 
+						<form action="/register/beansightauthenticate" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="boxlogContent" id="logBeanForm" ><input type="hidden" name="authenticityToken" value="58d2a409ac9235e62d168d30ee65062ccb40d093"> 
+							<label for="username">E-mail</label> 
+							<div class="inputlogin"> 
+								<input type="text" name="username" value="" id="pseudologin" class="clearinput" placeholder="Username"/> 
+							</div> 
+							<label for="password">Password</label> 
+							<div class="inputlogin"> 
+								<input type="password" name="password" value="" id="passlogin" class="clearinput" placeholder="Password"/> 
+							</div> 
+							<!--<div class="avatarlogin"> 
+								<img id="avatarlogin" src="public/images/avatar/empty-small.jpg" /> 
+							</div> -->
+							<input style="display:none;" type="checkbox" name="remember" id="remember" value="true" checked="true" /> 
+							<input type="hidden" name="url" id="url" value="/?cat=0&sortBy=trending&filterVote=all" /> 
+							<div class="inputsubmit"> 
+								<a href="/forgotpassword" class="forgotten">forgot your password ?</a> 
+								<button class="goButton"><span class="backbutton"></span><span class="txtbutton">Connect</span></button> 
+							</div> 
+						</form>
+						<a href="#" class="btnlogwith logwithfb">Sign in with Facebook</a>
+						<a href="#" class="btnlogwith logwithtwit">Sign in with Twitter</a>
+					</div>
+					<!--
+					<div id="loginbox" class="loginbox"> 
+						<p class="cuf-loginwidth">Log In with</p> 
+						<ul class="listlogs"> 
+							<li class="log-b" id="lilogb"> 
+								<a href="#" class="current logbutton" id="log-bean">Beansight</a> 
+								<div class="item-loginbox" id="boxlog-bean" style="display:none;"> 
+									<form action="/register/beansightauthenticate" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="boxlogContent" id="logBeanForm" ><input type="hidden" name="authenticityToken" value="58d2a409ac9235e62d168d30ee65062ccb40d093"> 
+										<label for="username">E-mail</label> 
+										<div class="inputlogin"> 
+											<input type="email" name="username" value="" id="pseudologin" class="clearinput"/> 
+										</div> 
+										<label for="password">Password</label> 
+										<div class="inputlogin"> 
+											<input type="password" name="password" value="" id="passlogin" class="clearinput"/> 
+										</div> 
+										<div class="avatarlogin"> 
+											<img id="avatarlogin" src="public/images/avatar/empty-small.jpg" /> 
+										</div> 
+										<input style="display:none;" type="checkbox" name="remember" id="remember" value="true" checked="true" /> 
+										<input type="hidden" name="url" id="url" value="/?cat=0&sortBy=trending&filterVote=all" /> 
+										<div class="inputsubmit"> 
+											<button class="goButton"><span class="backbutton"></span><span class="txtbutton cuf-connect">Log in</span></button> 
+											<a href="/forgotpassword" class="forgotten">Password forgotten</a> 
+										</div> 
+									
+									</form>            
+								</div> 
+							</li> 
+							<li class="log-t"> 
+								<a href="/register/twitauthenticate?url=%2F%3Fcat%3D0%26sortBy%3Dtrending%26filterVote%3Dall" id="log-twit" class="logbutton">Twitter</a> 
+							</li> 
+							<li class="log-f"> 
+								<a href="/register/fbauthenticate?url=%2F%3Fcat%3D0%26sortBy%3Dtrending%26filterVote%3Dall" id="log-fb" class="logbutton">Facebook</a> 
+							</li> 
+						</ul> 
+					</div> -->
+                </div> 
+            </div> 
+        </div> 
+ 
+   
+ 
+ 
+	
+<!-- CONTENU --> 
+<div id="content" class=""> 
+<div id="gotoMobile" style="display:none;" class="topMessage"><a class="message" href="http://www.beansight.com/m">Do you rather visit the mobile version of Beansight? Follow this link.</a></div> 
+<!-- CONTENT --> 
+ 
+	<div class="pushhome">
+		<form action="" method="" id="searchhome">
+			<h2>Share your predictions</h2>
+			<p>Share your views on what the future store for us and prove your <strong>credibility</strong>.</p>
+			<div class="forminputs">
+				<div class="txtsearch"><input type="text" name="" value="" placeholder="Discover the future"/></div>
+				<div class="submitsearch"><input type="submit"/></div>
+			</div>
+			<p class="searchfeatures">Now featured : <a href="">Tour de France</a>, <a href="">Google Plus</a></p>
+		</form>
+		<form action="" method="" id="registerhome">
+			<h2>Join Beansight</h2>
+			<label for="">Prénom et nom</label>
+			<div class="inputjoin"> 
+				<input type="text" name="" value="" id="" class="clearinput"/> 
+			</div> 
+			<label for="">Email</label>
+			<div class="inputjoin"> 
+				<input type="email" name="" value="" id="" class="clearinput"/> 
+			</div> 
+			<label for="">Password</label>
+			<div class="inputjoin"> 
+				<input type="password" name="" value="" id="" class="clearinput"/> 
+			</div> 
+			<div class="inputsubmit"> 
+				<button class="goButton"><span class="backbutton"></span><span class="txtbutton cuf-connect">Create my account</span></button> 
+			</div> 
+			<div class="sociallinks">
+				<a href="#" class="fblink">Facebook</a><a href="#" class="twitlink">Twitter</a>
+			</div>
+			
+			
+			
+		</form>
+	</div>
+	
+	
+	<div id="frisehome">
+		<div class="timer">
+			<ul class="years">
+				<li class="itemyear">2011</li>
+				<li class="itemyear">2012</li>
+				<li class="itemyear">2013</li>
+				<li class="itemyear">2014</li>
+				<li class="itemyear">2015</li>
+			</ul>
+			
+			<ul class="predicts">
+				<li class="itempredict" style="left:200px;">
+					<img src="./public/images/content/sample-26x26.jpg" alt=""/>
+					<p><strong>En 2012,</strong> Obama sera réélu président des Etats-Unis.</p>
+				</li>
+				<li class="itempredict" style="left:250px;">
+					<img src="./public/images/content/sample-26x26.jpg" alt=""/>
+					<p><strong>En 2012,</strong> Obama sera réélu président des Etats-Unis.</p>
+				</li>
+				<li class="itempredict" style="left:500px;">
+					<img src="./public/images/content/sample-26x26.jpg" alt=""/>
+					<p><strong>En 2015,</strong> les hologrammes auront remplacé la télévision 3D.</p>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+	
+	
+
+ 
+<hr class="clear"/> 
+ 
+ 
+</div> 
+ 
+ 
+	
+<hr class="clear"/> 
+ 
+        <!-- FOOTER --> 
+        <div id="footer"> 
+            <div class="backfooter"></div> 
+            <div class="contentfooter"> 
+                <div class="menufooter"> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Extra</h2> 
+                        <ul> 
+                            <li><a href="http://blog.beansight.com">Read the blog</a></li> 
+                            
+                            <li><a href="/legal/terms-of-service">Terms</a></li> 
+                            <li><a href="/legal/privacy-policy">Privacy</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">Help</h2> 
+                        <ul> 
+                            <li><a href="/faq">Read the FAQ</a></li> 
+                            <li><a href="/contact">Contact us</a></li> 
+                            <li><a href="/forgotpassword">Forgot password ?</a></li> 
+                            <li><a href="http://getsatisfaction.com/beansight">Your voice</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">From</h2> 
+                        <ul> 
+                        	<li><a href="http://www.startupweekend.org">Startup Weekend</a></li> 
+                        	<li><a href="http://www.lecamping.org">Le Camping</a></li> 
+                        </ul> 
+                    </div> 
+                    <div class="colfooter"> 
+                        <h2 class="cuf-grm">We are social</h2> 
+                        <a href="http://www.facebook.com/Beansight" target="_blank" class="sociallinks facebooklinks"> 
+                            <span class="item likefb">Like facebook</span> 
+                            <span class="item titlesocial">Facebook</span> 
+                            <span class="item nbsocial"><span id="facebookFans">201</span> Fans</span> 
+                        </a> 
+                        <a href="http://twitter.com/#!/beansight" target="_blank" class="sociallinks twitterlinks"> 
+                            <span class="item titlesocial">Twitter</span> 
+                            <span class="item nbsocial"><span id="twitterFollowers">126</span> followers</span> 
+                        </a> 
+                    </div> 
+ 
+ 
+                    <div class="copyright"> 
+                        <p>Copyright &copy; 2010 Beansight, Inc.</p> 
+                        <p class="rights">All rights reserved.</p> 
+                        <p class="authorwebsite">Design by <a href="http://www.colorz.fr/">Colorz</a></p> 
+                    </div> 
+                </div> 
+            </div> 
+ 
+        </div> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+// keyboard shortcuts
+/*
+$(document).bind("keydown", ["g", "i"], function () {
+    window.location.href = "/";
+}).bind("keydown", ["g", "e"], function () {
+    window.location.href = "/community";
+}).bind("keydown", ["g", "p"], function () {
+    window.location.href = "/profile";
+}).bind("keydown", "c", function () {
+    window.location.href = "/create";
+}).bind("keydown", "/", function () {
+    $('#txtsearch').focus();
+});
+*/
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+  var feedback_widget_options = {};
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "beansight";
+  feedback_widget_options.placement = "left";
+  feedback_widget_options.color = "#222";
+  feedback_widget_options.style = "idea";
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+  
+  // Google Analytics
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16319303-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	
+   // Track logged users
+   	
+   
+   _gaq.push(['_setCustomVar', 1, 'Logged', 'false', 3]);
+   	
+</script> 
+ 
+ 
+</body> 
+</html> 
