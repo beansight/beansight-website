@@ -539,17 +539,19 @@ public class User extends Model implements Comparable<User> {
 
 		i.refresh();
 
-		if(i.tags != null) {
-			// select all the tags that have the insight tag as children (we don'gt get ALL the children, but it's OK.
-			String tagIds = Tag.listToIdString(new HashSet<Tag>(i.tags));
-			List<Tag> topics = Tag.find("select topic from Tag topic join topic.children t where t.id in (" + tagIds + ") ").fetch();
-			// add the insight tag
-			topics.addAll(i.tags);
-			
+		// create or update suggestions of all the followers of this user
+		for(User follower : this.followers) {
+			InsightSuggest suggest = InsightSuggest.findByUserAndInsightOrCreate(follower, i);
+			suggest.addBecauseFollowedUserCreated(this);
+			suggest.save();
+		}
+		
+		// check if any activity concerns the tag that have the tags of the insight as children.
+		List<Tag> topics = i.getParentTags();
+		if(topics != null) {
+			// check if any activity concerns these tags
 			Set<TagActivity> proccessedActivities = new HashSet<TagActivity>();
-			
 			for(Tag topic : topics) {
-				// check if any activity concerns these tags
 				List<TagActivity> topicActivities = TagActivity.find("byTag", topic).fetch();
 				for (TagActivity topicActivity : topicActivities ) {
 					if( !proccessedActivities.contains(topicActivity) ) {
@@ -559,6 +561,17 @@ public class User extends Model implements Comparable<User> {
 				}
 				proccessedActivities.addAll(topicActivities);
 			}
+
+			
+			// WIP
+			
+			// find all followers of these tags
+			
+			// create or update suggestions of all the followers of all these tags
+
+
+			
+			
 		}
 		
 		return i;
@@ -642,6 +655,13 @@ public class User extends Model implements Comparable<User> {
 				userActivity.incrementNewVoteCount();
 			}
 			userActivity.save();
+		}
+		
+		// create suggestions for all the followers of this user
+		for(User follower : this.followers) {
+			InsightSuggest suggest = InsightSuggest.findByUserAndInsightOrCreate(follower, insight);
+			suggest.addBecauseFollowedUserVoted(this);
+			suggest.save();
 		}
 	}
 
