@@ -2,13 +2,15 @@
 *{ @param insigth: the insight  }*
 *{ @param lastUserVote: the last vote of the current user for this insight }*
 <div class="voteWidgetLarge">
+    *{
     #{if _lastUserVote != null && !(_insight.endDate.getTime() < new Date().getTime())}
     <p class="smallText top">&{'agree-disagree.changeyourmind'}</p>
     #{/if}
     #{if _insight.endDate.getTime() < new Date().getTime()}
     <p class="smallText top">&{'agree-disagree.validate'}</p>
     #{/if}
-        
+     }*
+       
     <div class="linkvote agreeaction">
         #{isConnected}<a href="#" class="voteNumber clickvote" onClick="return agree('${_insight.uniqueId}');">#{/isConnected}
         #{isNotConnected}<a href="@{Register.register()}" class="voteNumber loginTooltip" title="&{'agree-disagree.loginToVoteTooltip.agree'}"/>#{/isNotConnected}
@@ -21,7 +23,7 @@
             <span class="voteCount disagreeCount">${_insight.disagreeCount}</span> <img src="/public/images/icon-less.png" alt=""/>
         </a>
     </div>
-    
+    *{
     <p class="smallText bottom">
     #{isConnected}
 	    #{if _lastUserVote != null}
@@ -40,4 +42,5 @@
         <span>&{'agree-disagree.notconnected'}</span>
     #{/isNotConnected}
     </p>
+    }*
 </div>

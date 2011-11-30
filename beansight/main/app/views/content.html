@@ -9,6 +9,7 @@
 #{isConnected}
 <!-- CREER INSIGHT -->
 <p class="btn-newins"><a href="@{Application.create()}" class="cuf-grm #{currentMenu 'menuCreate' /}">&{'menucreate'}</a></p>
+    
     #{if !emailConfirmed}
     <div id="plzconfirm" class="warning">
     <p>&{'needemailconfirm'}</p>
@@ -16,6 +17,7 @@
     #{/if}
 #{/isConnected}
 
+<div class="contentsidebar">
 #{menu /}
 
 #{isConnected}
@@ -36,6 +38,7 @@
     #{/else}
 #{/isNotConnected}
 
+</div>
 </div>
 	
 <div id="contentcenter" class="#{get 'contentCenterClass' /}">

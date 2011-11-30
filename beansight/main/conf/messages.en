@@ -21,12 +21,14 @@ secure.title=Log In
 home=Home
 trendinginsights=Trending predictions:
 indexNotConnected.marketing=With Beansight:<br/>Share your insights<br/>Prove your expertise.
+home.searchplaceholder=Search the future
+home.signup=Sign Up
 
 # indexConnected
 newandtrending=New and trending
 needemailconfirm=You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.
 activityaroundme=Activity
-favorites=Activity on my favorites
+favorites=Favorites
 exploremore=Explore more...
 activityreset=Clear activity feed.
 noInsightActivity=No recent activity
@@ -36,10 +38,13 @@ invitationsleft=You have <strong><span class="invitationLeftNumber">%s</span> in
 inviteemailplaceholder=example@email.com
 addmessage=Add a message:
 inviteYourFacebookFriends=Invite my Facebook friends
-invitesubmit=Send
+invitesubmit=Ok
 inviteconfirm=Invitation sent
 browsecategory=Browse Category
 trendinginsights=Trending Predictions
+followedUsers.title=Users
+followedinsights.title=Predictions
+followedTopics.title=Topics
 
 # search page
 search.pagetitle=Search
@@ -94,6 +99,8 @@ shareInsight.shareonbeansight=Share
 shareInsight.searchBeansightUser=Type the username of a user you put in your favorites:
 shareInsight.sharebutton=Share
 showInsight.addInsightToFavorite=Favorite this insight
+showInsight.probabilitybar.Label=Probability: 
+showInsight.share=Share
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=You haven't voted yet.
 agree-disagree.youhavenotvalidatedyet=You haven't validated this prediction.
@@ -103,6 +110,7 @@ agree-disagree.loginToVoteTooltip.disagree=Log in to disagree with this predicti
 agree-disagree.changeyourmind=Change your mind:
 agree-disagree.validate=Validate this prediction:
 relatedInsights=Related predictions
+followInsightWidget=Follow prediction
 
 #experts
 experts.explore=Explore the community
@@ -272,10 +280,8 @@ password=Password
 remember=remember?
 loginbutton=Log in
 welcomeusername=Welcome 
-userOptions.confirmHavingPromocode=Ok, continue
-userOptions.makesureHavingPromocodeTwitter=Warning<br/>Beansight is in private beta.<br/>Continue only if you already logged on Beansight using twitter or if you have an access code.
-userOptions.makesureHavingPromocodeFacebook=Warning<br/>Beansight is in private beta.<br/>Continue only if you already logged on Beansight using facebook or if you have an access code.
-userOptions.sorrynofacebook=Facebook login is not available for the moment due to technical issues.
+userOptions.loginwithfacebook=Log in with Facebook
+userOptions.loginwithtwitter=Log in with Twitter
 
 # register
 register=Sign up
@@ -294,12 +300,12 @@ register.banner.exploretext=With Beansight, explore predictions shared by our co
 register.banner.participate=Participate
 register.banner.participatetext=Correctly anticipate events and get recognition from the community for your expertise.
 register.createAccountWith=Create an account using
-register.beansightTitle=Signup with Beansight
+register.beansightTitle=Sign up with Beansight
 register.beansightSignupButton=Signup
-register.facebookTitle=Signup with Facebook
-register.facebookSignupButton=Signup with Facebook
-register.twitterTitle=Signup with Twitter
-register.twitterSignupButton=Signup with Twitter
+register.facebookTitle=Sign up with Facebook
+register.facebookSignupButton=Sign up with Facebook
+register.twitterTitle=Sign up with Twitter
+register.twitterSignupButton=Sign up with Twitter
 register.why=Why Register
 register.confirmInvitationTitle=Please confirm your informations to complete signup
 

@@ -1,4 +1,5 @@
 <div class="list-fav favoriteTopics">
+<h3>&{'followedTopics.title'}</h3>
 #{list items:_followedTopicActivities , as:'followedTopicActivity'}
     <div class="item-fav">
         #{if followedTopicActivity.newInsightCount > 0}<span class="newInsightCount activityNotification">${followedTopicActivity.newInsightCount}</span>#{/if}

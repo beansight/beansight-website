@@ -3,16 +3,17 @@
 
 #{if _insightActivity.newFavoriteCount != 0}&{'activityfavorited', _insightActivity.newFavoriteCount},#{/if}
 
-#{if _insightActivity.voteChangeCount != 0}
-    ${_insightActivity.voteChangeCount} <span class="acnewavis acicon">&{'activitychanged'}</span>
-#{/if}
 
 #{if _insightActivity.newAgreeCount != 0}
-    ${_insightActivity.newAgreeCount} <span class="acagree acicon">&{'activityagreed'}</span>
+    <span class="goodpts">${_insightActivity.newAgreeCount}</span><!-- &{'activityagreed'} -->
 #{/if}
 
 #{if _insightActivity.newDisagreeCount != 0}
-    ${_insightActivity.newDisagreeCount} <span class="acdisagree acicon">&{'activitydisagreed'}</span>
+    <span class="badpts">${_insightActivity.newDisagreeCount}</span><!-- &{'activitydisagreed'} -->
+#{/if}
+
+#{if _insightActivity.voteChangeCount != 0}
+    <span class="changedpts">${_insightActivity.voteChangeCount}</span><!-- &{'activitychanged'} -->
 #{/if}
 
 #{insight insight:_insightActivity.insight /}

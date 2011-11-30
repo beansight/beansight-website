@@ -16,10 +16,8 @@
 <div class="item-insight">
     <div class="content-insight">
     <div class="container-insight">
-        #{agree-disagreeWidget insight:_insight/}
         <a href="@{Application.showInsight(_insight.uniqueId)}" class="permalink #{if _targetUser != null}leftbusy#{/if}">
-            <p class="date-insight"><span class="datetxt">${_insight.generateDateLabel()},</span> </p> 
-            <h3>${_insight.content}</h3> 
+            <h3>${_insight.generateDateLabel()}, ${_insight.content}</h3> 
 
             #{if _targetUser != null}
             <span class="target-user">
@@ -31,6 +29,13 @@
                 <p class="comment-insight"><span class="nbcom">${_insight.comments.size()}</span></p>
             #{/if}
         </a>
+
+        *{TODO TIMELINE}*
+        #{if false}
+        <p class="countfriends">Prediction voted by <span>4 friends</span></p>
+        #{/if}
+
+        #{agree-disagreeWidget insight:_insight/}
 
         #{if _insight.sponsored}
             <p class="sponsor-insight">

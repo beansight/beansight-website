@@ -1,4 +1,5 @@
-<div class="list-avatars favoriteUsers">
+<div class="list-fav list-avatars favoriteUsers">
+<h3>&{'followedUsers.title'}</h3>
 #{list items:_followedUserActivities , as:'userActivity'}
 <a href="@{Application.showUser(userActivity.followedUser.userName)}" class="item-avatar">
     <span class="backavatar"><img src="@{Application.showAvatarSmall(userActivity.followedUser.userName, userActivity.followedUser.avatarHashCode())}"/></span>

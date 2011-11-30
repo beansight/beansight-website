@@ -10,12 +10,20 @@ Cufon.set('fontFamily', 'got-rnd-bold').replace('.cuf-grs', {hover: true});
 Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowtwit', {textShadow: '#54d5f6 1px 1px'}, {hover: true});
 Cufon.set('fontFamily', 'got-rnd-med').replace('.shadowfb', {textShadow: '#223974 1px 1px'}, {hover: true});
 //Cufon.set('fontFamily', 'myriad pro').replace('#sidebar-signup h4', {textShadow: '#ee7c63 1px 1px'}, {fontWeight:'400'});
-Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-connect', {textShadow: '#186877 0px -1px'}, {hover: true});
+Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-connect', {hover: true});
 Cufon.set('fontFamily', 'got-rnd-book').replace('.cuf-loginwidth', {hover: true});
 Cufon.set('fontFamily', 'got-rnd-med').replace('.cuf-invitation', {textShadow: '#5e872a 0px -1px'}, {hover: true});
 Cufon.set('fontFamily', 'got-rnd-book').replace('.section-title',{hover: true});
 Cufon.set('fontFamily', 'got-rnd-book').replace('.pageintro',{hover: true});
 Cufon.set('fontFamily', 'got-rnd-book').replace('.half-title',{hover: true});
+Cufon.set('fontFamily', 'got-rnd-med').replace('.widgetsingle .minititle');
+Cufon.set('fontFamily', 'got-rnd-book').replace('#content .single .s-header .s-intro a.addfav .txt-fav',{hover: true});
+Cufon.set('fontFamily', 'got-rnd-bold').replace('#searchhome h2');
+Cufon.set('fontFamily', 'got-rnd-book').replace('.commentzone .newcomment .input-submit button', {textShadow: '#5c8427 0px -1px'},{hover: true});
+
+
+
+
 
 //////////////////////
 // Actions on insights
@@ -716,10 +724,10 @@ $(document).ready(function() {
     	
         if($('#log-bean').hasClass('opened')){
             $('#log-bean').removeClass('opened');
-            $('#boxlog-bean').slideUp(500);
+            $('#loginbox').slideUp(500);
         }else{
             $('#log-bean').addClass('opened');
-            $('#boxlog-bean').slideDown(500);
+            $('#loginbox').slideDown(500);
         }
         return false;
     });
@@ -734,13 +742,6 @@ $(document).ready(function() {
 			password: {
 				required: true
 			}
-		}
-	});
-	
-	// load the user avatar when email filled
-	$("#passlogin").focus(function() {
-		if($("#pseudologin").valid()) {
-			$("#avatarlogin").attr('src', showAvatarSmallFromEmailAction({"email": $("#pseudologin").val()}));
 		}
 	});
     

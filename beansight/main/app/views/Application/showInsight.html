@@ -40,32 +40,16 @@
 
 <div class="single">
     <div class="s-header">
-        <p class="s-intro">#{isConnected}#{followInsightWidget insight:insight /}#{/isConnected}
-        &{'creationdate'} ${insight.creationDate.since(true)} &{'createdby'} <a href="@{Application.showUser(insight.creator.userName)}" class="s-author">${insight.creator.userName}</a>
-         &{'createdin'} <a href="@{Application.insights(null, insight.category.id)}" class="link-cat">${insight.category.label}</a></p>
-         
-        <ul class="list-tags">
-            #{isConnected}<li class="link-new"><a href="#" id="showMoreTags">&{'suggesttags'}</a></li>#{/isConnected}
-            
-            #{list items:insight.tags, as:'tag' }
-            <li><a href="@{Application.insights(null, null, null, tag.label, null)}">${tag.label}</a></li>
-            #{/list}
-        </ul>
-        <div id="moreTags" style="display:none;">
-        #{form @Application.addTags(insight.uniqueId)}
-            <input type="text" name="tagLabelList" id="tagLabelList" />
-            <input type="submit" value="&{'addtags'}"/>
-        #{/form}
-        </div>
-        <hr class="clear"/>
+        <p class="s-intro">
+        #{isConnected}#{followInsightWidget insight:insight /}#{/isConnected}
+        </p>
+	    <hr class="clear"/> 
     </div>
+    
     <div class="s-content">
         <div class="insight-content">
-        <div class="insight-validation">        
-            <p class="insightdate">&{'showInsights.enddate'} ${insight.endDate.format("dd MMMM yyyy")},</p>
-            <h2>${insight.content}</h2>
-        </div>
-        </div>
+        *{
+        <!-- <div class="insight-validation"> -->        
         #{if insight.validated}
             <p class="insightvalidation">
             #{if insight.validationScore > 0.9}
@@ -85,68 +69,48 @@
             #{/else}    
             </p>
         #{/if}
-
-        <div class="graphzone">
-            <div class="leftgraph">
-                #{agree-disagreeWidgetLarge insight:insight, lastUserVote:lastUserVote /}
-
-                <div class="lastvoters">
-                    <p>&{'lastvoters'}</p>
-                    <ul class="listvoters">
-                    #{list items:lastVotes, as:'vote'}
-                        <li>#{userMiniAvatarVote vote:vote /}</li>
-                    #{/list}
-                    </ul>
-                    <hr class="clear"/>
-                </div>
-        
-        #{shareInsight insight:insight /}
-
-            </div>
+        }*
+            <h2>&{'showInsights.enddate'} ${insight.endDate.format("dd MMMM yyyy")}, ${insight.content}</h2>
+            #{agree-disagreeWidgetLarge insight:insight, lastUserVote:lastUserVote /}
             
-            <div class="graphique">
-            	<div id="insightTrendsChart" class="analytics-graph" style='width: 316px; height: 170px;'></div>
-                <p style="text-align: center; font-size: 12px; margin-top: 5px; font-style: italic;">&{'showInsights.chartTitle'}</p>
+            <div class="infoinsight">
+                <p class="authortxt">
+			        &{'creationdate'} ${insight.creationDate.since(true)} 
+			        &{'createdby'} <a href="@{Application.showUser(insight.creator.userName)}" class="s-author">${insight.creator.userName}</a>
+			        &{'createdin'} <a href="@{Application.insights(null, insight.category.id)}" class="link-cat">${insight.category.label}</a>
+                </p>
+                %{
+                    java.text.NumberFormat percentFormat = java.text.NumberFormat.getPercentInstance();
+                    percentFormat.setMaximumFractionDigits(0);
+                    String percentageScore = percentFormat.format(insight.occurenceScore);
+                    
+                }%
+                <p class="probbloc"><span style="width:${percentageScore}%;" class="pourcentbar"></span><span class="pourcenttxt">&{'showInsight.probabilitybar.Label'}${percentageScore}</span></p>
+                <p class="sharelink"><span class="labelshare">&{'showInsight.share'}</span><a href="#" class="itemshare beansightshare">Beansight</a><a href="#" class="itemshare facebookshare">Facebook</a><a href="#" class="itemshare twittershare">Twitter</a></p>
             </div>
+        </div>
+        
+        <div class="lastvoters">
+            <p>&{'lastvoters'}</p>
+            <ul class="listvoters">
+            #{list items:lastVotes, as:'vote'}
+                <li>#{userMiniAvatarVote vote:vote /}</li>
+            #{/list}
+            </ul>
             <hr class="clear"/>
         </div>
-
-        #{isConnected}
-        #{secure.check 'admin'}
-        <div class="admin">
-            <p>
-                #{form @Admin.setInsightLanguage(), autocomplete:'off'}
-                <label for="lang">Set Language :</label> <input type="text" name="lang" id="lang" value="${insight.lang}">
-                <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}">
-                <input type="submit">
-                #{/form}
-            </p>            
-            <p>
-                #{form @Admin.setFakeValidationScore(), autocomplete:'off'}
-                <label for="fakeValidationScore">Fake ValidationScore :</label> <input type="number" min="0" max="1" step="0.05" name="fakeValidationScore" id="fakeValidationScore" value="${insight.fakeValidationScore}"> (ex: "0.7", blank for null)
-                <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}">
-                <input type="submit">
-                #{/form}
-            </p>
-            <a href="@{Admin.hideInsight( insight.id )}" onclick="return confirm('confirm ?');" style="color: red;">hide this prediction</a>
-        </div>
         
-        #{/secure.check}
-        #{/isConnected}
+        
+        
+        
+        *{
+           #{shareInsight insight:insight /}
+    }*
 
         <div class="commentzone">
             <p class="nbcomments"><span class="cuf-grm" id="commentsSize">${comments?.size()}</span> <span class="cuf-grb">&{'comments'}</span></p>
             #{isConnected}
             <form class="newcomment" id="addCommentForm">
-                
-                <div class="comment-author">
-                    <a href="@{Application.showUser(controllers.CurrentUser.getCurrentUser().userName)}">
-                        ${controllers.CurrentUser.getCurrentUserName()}
-                        <span class="img-author">
-                            <img src="@{Application.showAvatarSmall( controllers.CurrentUser.getCurrentUser().userName, controllers.CurrentUser.getCurrentUser().avatarHashCode())}"/>
-                        </span>
-                    </a>
-                </div>
                 <div class="input-textarea">
                     <textarea cols="20" rows="4" name="content" id="commentContent"></textarea>
                 </div>
@@ -170,16 +134,64 @@
             </div>
         </div>
         
-        <div class="relatedInsights">
+        <div class="graphique widgetsingle"> 
+            <h3 class="minititle">Probability</h3>
+            <div id="insightTrendsChart" class="analytics-graph" style='width: 230px; height: 170px;'></div> 
+            <p style="text-align: center; font-size: 12px; margin-top: 5px; font-style: italic;">&{'showInsights.chartTitle'}</p> 
+        </div> 
+        
+        <div class="listtags widgetsingle"> 
+	        <h3 class="minititle">Tags</h3>
+	        <ul class="list-tags">
+	            #{list items:insight.tags, as:'tag' }
+	            <li><a href="@{Application.insights(null, null, null, tag.label, null)}">${tag.label}</a></li>
+	            #{/list}
+
+	            #{isConnected}<li class="link-new"><a href="#" id="showMoreTags">&{'suggesttags'}</a></li>#{/isConnected}
+	        </ul>
+	        <div id="moreTags" style="display:none;">
+	        #{form @Application.addTags(insight.uniqueId)}
+	            <input type="text" name="tagLabelList" id="tagLabelList" />
+	            <input type="submit" value="&{'addtags'}"/>
+	        #{/form}
+	        </div>
+        </div>
+        
+        <div class="listsimilar widgetsingle"> 
+        <h3 class="minititle">&{'relatedInsights'}</h3>
         #{if !relatedInsights.isEmpty() }
-            <h3 class="relatedTitle"><span class="cuf-grb">&{'relatedInsights'}</span></h3>
-            <ol>
+            <ul class="list-similar">
             #{list items:relatedInsights, as:'relatedInsight'}
                 <li class="relatedInsight">#{insight insight:relatedInsight, characters:110 /}</li>
             #{/list}
-            </ol>
+            </ul>
         #{/if}
         </div>
+
+        <hr class="clear"/>
+
+        #{isConnected}
+        #{secure.check 'admin'}
+        <div class="admin">
+            <p>
+                #{form @Admin.setInsightLanguage(), autocomplete:'off'}
+                <label for="lang">Set Language :</label> <input type="text" name="lang" id="lang" value="${insight.lang}">
+                <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}">
+                <input type="submit">
+                #{/form}
+            </p>            
+            <p>
+                #{form @Admin.setFakeValidationScore(), autocomplete:'off'}
+                <label for="fakeValidationScore">Fake ValidationScore :</label> <input type="number" min="0" max="1" step="0.05" name="fakeValidationScore" id="fakeValidationScore" value="${insight.fakeValidationScore}"> (ex: "0.7", blank for null)
+                <input type="hidden" name="insightUniqueId" value="${insight.uniqueId}">
+                <input type="submit">
+                #{/form}
+            </p>
+            <a href="@{Admin.hideInsight( insight.id )}" onclick="return confirm('confirm ?');" style="color: red;">hide this prediction</a>
+        </div>
+        #{/secure.check}
+        #{/isConnected}
+        
     </div>
 </div>
     

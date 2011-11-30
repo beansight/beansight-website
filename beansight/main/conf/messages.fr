@@ -21,12 +21,14 @@ secure.title=Se connecter
 home=Accueil
 trendinginsights=Prédictions populaires :
 indexNotConnected.marketing=Avec Beansight :<br/>Partagez vos prédictions<br/>Prouvez votre expertise.
+home.searchplaceholder=Découvrez le futur
+home.signup=Créer un compte
 
 # indexConnected
 newandtrending=Nouveaux
 needemailconfirm=Un email de confirmation vous a été adressé. Vérifiez votre boîte de réception prochainement pour terminer votre inscription.
 activityaroundme=Activité
-favorites=Activité sur mes favoris
+favorites=Favoris
 exploremore=Explorer plus...
 activityreset=Vider le flux d'activité
 noInsightActivity=Pas d'activité récente
@@ -36,10 +38,13 @@ invitationsleft=Il vous reste <strong><span class="invitationLeftNumber">%s</spa
 inviteemailplaceholder=exemple@email.fr
 addmessage=Ajoutez un message :
 inviteYourFacebookFriends=Inviter mes amis Facebook
-invitesubmit=Envoyer
+invitesubmit=Ok
 inviteconfirm=Invitation envoyée
 browsecategory=Catégories
 trendinginsights=Prédictions populaires
+followedUsers.title=Utilisateurs
+followedinsights.title=Prédictions
+followedTopics.title=Sujets
 
 # search page
 search.pagetitle=Recherche
@@ -94,6 +99,8 @@ shareInsight.shareonbeansight=Partager
 shareInsight.searchBeansightUser=Entrez le nom d'un utilisateur beansight que vous avez mis en favoris :
 shareInsight.sharebutton=Partager
 showInsight.addInsightToFavorite=Ajoutez cette prédiction à vos favoris
+showInsight.probabilitybar.Label=Probabilité :
+showInsight.share=Partage
 # agree-disagree widget
 agree-disagree.youhavenotvotedyet=Vous n'avez pas encore voté.
 agree-disagree.youhavenotvalidatedyet=Vous n'avez pas encore validé cette prédiction.
@@ -103,6 +110,7 @@ agree-disagree.loginToVoteTooltip.disagree=Vous devez être connecté pour prend
 agree-disagree.changeyourmind=Changez d'avis :
 agree-disagree.validate=Validez cette prédiction :
 relatedInsights=Prédictions similaires
+followInsightWidget=Suivre cette prediction
 
 #experts
 experts.explore=Explorer la communauté
@@ -271,10 +279,8 @@ password=Mot de passe
 remember=se souvenir ?
 loginbutton=Connexion
 welcomeusername=Bonjour 
-userOptions.confirmHavingPromocode=Ok, continuer
-userOptions.makesureHavingPromocodeTwitter=Attention<br/>Beansight est en beta privée.<br/>Continuez seulement si vous vous êtes déjà connecté sur Beansight avec Twitter ou si vous possédez un code d'accès.
-userOptions.makesureHavingPromocodeFacebook=Attention<br/>Beansight est en beta privée.<br/>Continuez seulement si vous vous êtes déjà connecté sur Beansight avec Facebook ou si vous possédez un code d'accès.
-userOptions.sorrynofacebook=Désolé, se connecter en utilisant Facebook est impossible pour le moment à cause d'un problème technique.
+userOptions.loginwithfacebook=Se connecter avec Facebook
+userOptions.loginwithtwitter=Se connecter avec Twitter
 
 # register
 register=Création de compte
