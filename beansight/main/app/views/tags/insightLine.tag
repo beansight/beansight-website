@@ -17,14 +17,15 @@
     <div class="content-insight">
     <div class="container-insight">
         <a href="@{Application.showInsight(_insight.uniqueId)}" class="permalink #{if _targetUser != null}leftbusy#{/if}">
-            <h3>${_insight.generateDateLabel()}, ${_insight.content}</h3> 
-
+        
             #{if _targetUser != null}
             <span class="target-user">
                 <span class="avatar-user"><img src="@{Application.showAvatarSmall(_targetUser.userName, _targetUser.avatarHashCode())}" alt=""/></span>
                 <span class="vote-user ${voteTargetUserClass}">Vote ${_targetUser.userName}</span>
             </span>
             #{/if}
+        
+            <h3>${_insight.generateDateLabel()}, ${_insight.content}</h3> 
             #{if _insight.comments.size() > 0}
                 <p class="comment-insight"><span class="nbcom">${_insight.comments.size()}</span></p>
             #{/if}

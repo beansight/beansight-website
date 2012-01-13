@@ -18,11 +18,13 @@ secure.error=E-mail ou mot-de-passe inconnu
 secure.title=Se connecter
 
 # indexNotConnected
-home=Accueil
+home=Prédictions
 trendinginsights=Prédictions populaires :
 indexNotConnected.marketing=Avec Beansight :<br/>Partagez vos prédictions<br/>Prouvez votre expertise.
 home.searchplaceholder=Découvrez le futur
 home.signup=Créer un compte
+home.tagline=Partagez vos prédictions
+home.description=Partagez votre point de vue sur ce que l'avenir nous réserve et prouvez votre <strong>crédibilité</strong>.
 
 # indexConnected
 newandtrending=Nouveaux
@@ -279,8 +281,8 @@ password=Mot de passe
 remember=se souvenir ?
 loginbutton=Connexion
 welcomeusername=Bonjour 
-userOptions.loginwithfacebook=Se connecter avec Facebook
-userOptions.loginwithtwitter=Se connecter avec Twitter
+userOptions.loginwithfacebook=Connexion via Facebook
+userOptions.loginwithtwitter=Connexion via Twitter
 
 # register
 register=Création de compte
@@ -301,7 +303,7 @@ register.banner.participatetext=Anticipez correctement des évènements et soyez
 register.createAccountWith=Créer un compte avec
 register.beansightTitle=Créer un compte Beansight
 register.beansightSignupButton=Créer mon compte
-register.facebookTitle=Se connecter avec Facebook 
+register.facebookTitle=Facebook 
 register.facebookSignupButton=Créer
 register.twitterTitle=Se connecter avec Twitter
 register.twitterSignupButton=Créer

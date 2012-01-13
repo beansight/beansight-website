@@ -18,11 +18,13 @@ secure.error=E-mail or password unknown
 secure.title=Log In
 
 # indexNotConnected
-home=Home
+home=Predictions
 trendinginsights=Trending predictions:
 indexNotConnected.marketing=With Beansight:<br/>Share your insights<br/>Prove your expertise.
 home.searchplaceholder=Search the future
 home.signup=Sign Up
+home.tagline=Share your predictions
+home.description=Share your views on what the future store for us and prove your <strong>credibility</strong>.
 
 # indexConnected
 newandtrending=New and trending

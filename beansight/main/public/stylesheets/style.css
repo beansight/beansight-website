@@ -150,8 +150,30 @@ a:hover{color:#228392;}
 #registerhome  .inputsubmit button:hover span{background-position:right bottom;}
 .sociallinks {width:182px;margin:0 auto;padding:14px 0 0 0;}
 
+.sociallinks a {
+display: block;
+float: left;
+}
+
+.sociallinks a.fblink {
+	width: 150px;
+    margin-right: 10px;
+}
+
 .sociallinks .twitlink{ display:block;float:left;text-indent:-9999px;background:url(/public/images/btn-logtwittermini.png) no-repeat 0 0;width:22px;height:22px;}
 .sociallinks .twitlink:hover{background-position:left bottom;}
+
+#registerhome .legal {
+	color: white;
+	text-align: center;
+	clear:both;
+    font-size: 12px;
+}
+
+#registerhome .legal a {
+	
+}
+
 
 /* frise home */
 #frisehome{margin:74px 0 43px 0;background:url(/public/images/graduation.png) repeat-x left bottom;height:39px;width:941px;}
@@ -522,11 +544,11 @@ a:hover{color:#228392;}
 #contentcenter.large .listinsights .item-insight a.permalink h3{/*width:585px;*/}
 #contentcenter.large .listinsights .item-insight a.permalink p{font-size:11px;color:#cccecf;}
 #contentcenter.large .listinsights .item-insight a.permalink p span{color:#969696;}
-#contentcenter.large .listinsights .item-insight a.permalink.leftbusy h3{width:540px;}
+#contentcenter.large .listinsights .item-insight a.permalink.leftbusy h3{width:390px;}
 #contentcenter .listinsights .insightItem .item-insight a.permalink:hover h3{color:#228392;}
 #contentcenter .listinsights .insightItem .item-insight a.permalink p.date-insight{margin-bottom:4px;color:#a1a5a6;line-height:11px;float:left;width:300px;}
 
-#contentcenter .listinsights .insightItem .item-insight a.permalink p.comment-insight{color:#a1a5a6;font-size:11px;height:11px;line-height:11px;float:left;padding-right:5px;float:right;margin-right:30px; clear: both;}
+#contentcenter .listinsights .insightItem .item-insight a.permalink p.comment-insight{color:#a1a5a6;font-size:11px;height:11px;line-height:11px;float:left;padding-right:5px;float:right; clear: both;}
 #contentcenter .listinsights .insightItem .item-insight a.permalink p.comment-insight .nbcom{padding-right:15px;background:url(/public/images/icon-commentitem.png) no-repeat right center;}
 
 #contentcenter .listinsights .item-insight a.permalink:hover p.date-insight{color:#696f70;}
