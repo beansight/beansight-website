@@ -1,0 +1,7 @@
+*.pyc
+beansight/main/eclipse
+beansight/main/tmp
+.project
+.classpath
+.settings
+
