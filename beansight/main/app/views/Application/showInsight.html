@@ -24,7 +24,7 @@
         }
     </script>
 #{/set}
-
+ 
 #{set openGraphType:'article' /}
 #{set 'moreOpenGraph'}
 <meta property="og:url" content="@@{Application.showInsight(insight.uniqueId)}"/>
@@ -48,28 +48,6 @@
     
     <div class="s-content">
         <div class="insight-content">
-        *{
-        <!-- <div class="insight-validation"> -->        
-        #{if insight.validated}
-            <p class="insightvalidation">
-            #{if insight.validationScore > 0.9}
-                &{'showInsights.validation.validated.highScore'}
-            #{/if}
-            #{elseif insight.validationScore > models.Insight.INSIGHT_VALIDATED_TRUE_MINVAL}
-                &{'showInsights.validation.validated.normalScore'}
-            #{/elseif}
-            #{elseif insight.validationScore > models.Insight.INSIGHT_VALIDATED_FALSE_MAXVAL}
-                &{'showInsights.validation.unknow'}
-            #{/elseif}
-            #{elseif insight.validationScore > 0.1}
-                &{'showInsights.validation.notValidated.normalScore'}
-            #{/elseif}
-            #{else}
-                &{'showInsights.validation.notValidated.lowScore'}
-            #{/else}    
-            </p>
-        #{/if}
-        }*
             <h2>&{'showInsights.enddate'} ${insight.endDate.format("dd MMMM yyyy")}, ${insight.content}</h2>
             #{agree-disagreeWidgetLarge insight:insight, lastUserVote:lastUserVote /}
             
@@ -95,6 +73,26 @@
                 
             </div>
         </div>
+        
+        #{if insight.validated}
+            <p class="insightvalidation">
+            #{if insight.validationScore > 0.9}
+                &{'showInsights.validation.validated.highScore'}
+            #{/if}
+            #{elseif insight.validationScore > models.Insight.INSIGHT_VALIDATED_TRUE_MINVAL}
+                &{'showInsights.validation.validated.normalScore'}
+            #{/elseif}
+            #{elseif insight.validationScore > models.Insight.INSIGHT_VALIDATED_FALSE_MAXVAL}
+                &{'showInsights.validation.unknow'}
+            #{/elseif}
+            #{elseif insight.validationScore > 0.1}
+                &{'showInsights.validation.notValidated.normalScore'}
+            #{/elseif}
+            #{else}
+                &{'showInsights.validation.notValidated.lowScore'}
+            #{/else}    
+            </p>
+        #{/if}
         
         <div class="lastvoters">
             <p>&{'lastvoters'}</p>

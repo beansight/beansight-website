@@ -437,9 +437,9 @@ float: left;
 #contentcenter .listinsights .insightItem .insightContainer .item-insight .vote-insight .vote-more a:hover,
 #contentcenter .listinsights .insightItem .insightContainer.voteAgree .item-insight .vote-insight .vote-more a{color:#7aa13d;}
 
-#contentcenter .listinsights .insightItem .insightContainer.validatedTrue .item-insight .container-insight    {   background:url(/public/images/validated-background-plus.png) no-repeat 90% center; }
-#contentcenter .listinsights .insightItem .insightContainer.validatedFalse .item-insight .container-insight   {   background:url(/public/images/validated-background-moins.png) no-repeat 90% center;}
-#contentcenter .listinsights .insightItem .insightContainer.validatedUnknown .item-insight .container-insight {   background:url(/public/images/validated-background-unknown.png) no-repeat 90% center; }
+#contentcenter .listinsights .insightItem .insightContainer.validatedTrue .item-insight .container-insight    {   background:url(/public/images/validated-background-plus.png) no-repeat 70% center; }
+#contentcenter .listinsights .insightItem .insightContainer.validatedFalse .item-insight .container-insight   {   background:url(/public/images/validated-background-moins.png) no-repeat 70% center;}
+#contentcenter .listinsights .insightItem .insightContainer.validatedUnknown .item-insight .container-insight {   background:url(/public/images/validated-background-unknown.png) no-repeat 70% center; }
 
 #contentcenter .listinsights .insightItem .insightContainer.sponsored .sponsor-insight{float:right; margin: 0 20px 10px 0;   font-size: 11px;}
 #contentcenter .listinsights .insightItem .insightContainer.sponsored .sponsor-insight .sponsor{font-weight:bold; color:#7AA13D;}
@@ -751,9 +751,8 @@ float: left;
 #moreTags{clear:both;}
 #content .single .s-content{position:relative;display:block;height:auto;width:696px;background:url(/public/images/single-bottom.png) no-repeat left bottom;padding:10px 0 2px 0px;}
 #content .insightContainer .single .s-content .insight-content{height:146px;width:650px;margin:0 23px 10px 23px;padding:0;background-color: #f7f7f7;font-size:20px;color:#00505c;position:relative;}
-#content .insightContainer .single .s-content .insight-validation{padding:10px 15px;}
-#content .insightContainer.validatedTrue    .single .s-content .insight-content .insight-validation {background:url(/public/images/validated-background-plus.png) no-repeat 100% center;}
-#content .insightContainer.validatedFalse   .single .s-content .insight-content .insight-validation {background:url(/public/images/validated-background-moins.png) no-repeat 100% center;}
+#content .insightContainer.validatedTrue    .single .s-content .insight-content h2 {background:url(/public/images/validated-background-plus.png) no-repeat 95% center;}
+#content .insightContainer.validatedFalse   .single .s-content .insight-content h2 {background:url(/public/images/validated-background-moins.png) no-repeat 95% center;}
 #content .single .s-content h2{border:0;text-transform:none;line-height:30px;height:auto;padding:25px 18px 0 18px;margin:0;background-image:none;font-size:20px;color:#00505c;font-weight:bold;width:453px;float:left;height:91px;border-right:solid #fcfcfc 1px;}
 #content .single .s-content .insightdate{}
 #content .single .s-content .insightvalidation {margin:0 38px 10px; padding: 0px 0px 0px 15px;}
