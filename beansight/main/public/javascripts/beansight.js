@@ -1064,8 +1064,11 @@ $(document).ready(function() {
 	// Share on Beansight
 	$('#shareOnBeansight-link').click(function() {
 		$('#shareOnBeansight-box').slideToggle();
+		$('#shareOnFacebook').hide();
+		$('#shareOnTwitter').hide();
 		return false;
-	})
+	});
+	
 	$('#shareOnBeansightForm').submit(function() {
         $.getJSON(shareInsightAction(), $(this).serialize(), function(data) {
         	clearForm($('#shareOnBeansightForm'));
@@ -1080,9 +1083,23 @@ $(document).ready(function() {
         );
         return false;
 	});
-		$( "#userToShareTo" ).autocomplete({
+	$( "#userToShareTo" ).autocomplete({
 	    source: favoriteUserSuggestAction(),
 	    minLength: 1
+	});
+
+	$('#shareOnTwitter-link').click(function() {
+		$('#shareOnTwitter').toggle("normal");
+		$('#shareOnFacebook').hide();
+		$('#shareOnBeansight-box').slideUp();
+		return false;
+	});
+	
+	$('#shareOnFacebook-link').click(function() {
+		$('#shareOnFacebook').toggle("normal");
+		$('#shareOnTwitter').hide();
+		$('#shareOnBeansight-box').slideUp();		
+		return false;
 	});
 	
 	// Sugest tags

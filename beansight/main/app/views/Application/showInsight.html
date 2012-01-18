@@ -85,8 +85,14 @@
                     String percentageScore = percentFormat.format(insight.occurenceScore);
                     
                 }%
-                <p class="probbloc"><span style="width:${percentageScore}%;" class="pourcentbar"></span><span class="pourcenttxt">&{'showInsight.probabilitybar.Label'}${percentageScore}</span></p>
-                <p class="sharelink"><span class="labelshare">&{'showInsight.share'}</span><a href="#" class="itemshare beansightshare">Beansight</a><a href="#" class="itemshare facebookshare">Facebook</a><a href="#" class="itemshare twittershare">Twitter</a></p>
+                <p class="probbloc">
+                    <span style="width:${percentageScore}%;" class="pourcentbar"></span>
+                    <span class="pourcenttxt">&{'showInsight.probabilitybar.Label'}${percentageScore}</span>
+                </p>
+                
+                
+                #{shareInsight insight:insight /}
+                
             </div>
         </div>
         
@@ -99,13 +105,6 @@
             </ul>
             <hr class="clear"/>
         </div>
-        
-        
-        
-        
-        *{
-           #{shareInsight insight:insight /}
-    }*
 
         <div class="commentzone">
             <p class="nbcomments"><span class="cuf-grm" id="commentsSize">${comments?.size()}</span> <span class="cuf-grb">&{'comments'}</span></p>

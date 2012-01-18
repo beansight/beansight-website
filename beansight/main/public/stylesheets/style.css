@@ -395,14 +395,14 @@ float: left;
 .langtri  .ui-state-default.btnen:hover{background:url(/public/images/flag-en-selected.png) no-repeat 0 0 transparent;}
 .langtri  .ui-state-default span, .langtri  .ui-state-default span:hover{background:none transparent;}
 
+
 .filterDropDown{color:#228392; float:left;border:solid #ededed 1px; padding:3px 3px 7px 3px;height:10px;-webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;margin-right:5px;}
-.filterDropDown select{border:0 none;width:100%;}
 .filterDropDown .jquery-selectbox{position:relative;}
+
 .filterDropDown .jquery-selectbox .jquery-selectbox-moreButton{background: url(/public/images/puce-flech-bas.png) no-repeat 10px 5px;cursor: pointer;float:right;height: 15px;width: 15px; padding-right:5px;}
 .filterDropDown .jquery-selectbox .jquery-selectbox-list{display:none;position:absolute;top:18px;left:-4px;background-color:#fff;width:141px !important;}
 .filterDropDown .jquery-selectbox .jquery-selectbox-list span{background-color:#fff;display:block;border:1px solid #EEEEEE;padding:5px 10px;border-top:0;cursor:pointer; }
 .filterDropDown .jquery-selectbox .jquery-selectbox-list span:hover{background:#eeeeee;}
-.filterDropDown .jquery-selectbox .jquery-selectbox-currentItem{display:block;float:left;}
 
 #contentcenter .listinsights .item-insight{clear:both;width:420px;padding:0 18px;/*background:url(/public/images/back-insight.png) repeat-y 0 0;*/}
 #contentcenter.large .listinsights .item-insight{width:694px;/*background-image:url(/public/images/back-insight-large.png);*/}
@@ -784,7 +784,6 @@ position:absolute;left:1px;height:30px;
 #content .insightContainer.validatedTrue .single .s-content .insightvalidation {color: #7AA13D;}
 #content .insightContainer.validatedFalse .single .s-content .insightvalidation {color: #A13D3D;}
 #content .single .s-content .graphzone{margin:0 23px;}
-#content .single .s-content .sharezone{margin:20px 0 15px 0px;width:315px;}
 #content .single .s-content .graphzone .leftgraph{float:left;width:315px;}
 .insightContainer .voteWidgetLarge{background-color:#f7f7f7;/*-moz-border-radius:2px;-webkit-border-radius:2px;*/padding:18px 21px 8px 27px;width:111px;height:90px;float:left;border-left:solid #ebebeb 1px;}
 .insightContainer .voteWidgetLarge .linkvote{float:left;width:111px;height:34px;margin:0 0 12px 0;}
@@ -829,38 +828,36 @@ position:absolute;left:1px;height:30px;
 
 .pinnedBox{position:absolute; z-index:40; overflow:hidden; padding:35px 10px 0 20px;width:201px;height:140px; background:url(/public/images/loginback.png) no-repeat left bottom;}
 
-.sharezone span.shareItem{display:block;float:left;height:15px;}
-/*.sharezone .sharebox  {height: 25px;}
-.sharezone .sharebox .shareItem {margin-right:50px;}*/
-.sharezone .sharebox { padding: 20px; background-color: #f5f5f5; -moz-border-radius:2px;-webkit-border-radius:2px;}
-.sharezone .sharebox .shareButton.ui-widget {padding:2px 6px 2px 18px;font-size:11px;display:block;float:left;color:#83a74a;background:url(/public/images/icon-share.png) no-repeat 3px 5px #edf1e7;-moz-border-radius:2px;-webkit-border-radius:2px;border:solid #cdd9ba 1px;}
-.sharezone .sharebox .shareButton.ui-widget:hover, .sharezone .sharebox .shareButton.ui-widget.ui-state-hover{background-color:#edf1e7;color:#83a74a;}
-.sharezone .sharebox .shareButton.ui-widget span{padding:0;}
-/*#content .single .s-content .commentzone .newcomment .input-submit{margin:10px 0 0 0;width:157px;height:35px;position:absolute;top:94px;left:474px;}
-#content .single .s-content .commentzone .newcomment .input-submit input{text-indent:-9999px;text-align:left;display:block;cursor:pointer;border:0 none;background:url(/public/images/btn-addcomment.png) no-repeat 0 0;width:157px;height:35px;font-size:0;line-height:0;margin:0;}
-#content .single .s-content .commentzone .newcomment .input-submit input:hover{background-position:left bottom;}*/
-.sharezone span.shareItem#shareOnBeansight {width:90px;}
-.sharezone span.shareItem#shareOnTwitter {width:97px;}
-.sharezone span.shareItem#shareOnFacebook {width:50px;padding-left:33px;}
+.sharezone {
+	position: absolute;
+	margin-top: 5px;
+	right: 0;
+	margin-right: 160px;
+}
 
+#shareOnBeansight-box {
+	left: 380px;
+    top: 10px;
+}
 
+.shareItem{
+	position: absolute;
+	right: 160px;
+	margin-right: 70px;
+	margin-top: 6px;
+	width: 80px;
+	background-color: #f1f1f1;
+}
 
+.shareItem#shareOnFacebook {
+	margin-top: 4px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+.sharezone .shareItem#shareOnBeansight {width:90px;}
+.sharezone .shareItem#shareOnTwitter {width:90px;}
+.sharezone .shareItem#shareOnFacebook {width:80px;}
+*/
 
 
 .commentzone .newcomment .input-submit{clear:both;height:35px;margin:10px 0 0 0;top:94px;right:19px;float: right;}
@@ -870,7 +867,7 @@ position:absolute;left:1px;height:30px;
 .commentzone .newcomment .input-submit button span.txtbutton{height:28px;background:url(/public/images/btn-vert2.png) no-repeat right top;font-size:14px;color:#fff;text-transform:uppercase;padding:7px 10px 0 0;}
 .commentzone .newcomment .input-submit button:hover span{background-position:right bottom;}
 
-.commentzone .list-comments{padding:5px 0; min-height: 300px;}
+.commentzone .list-comments{padding:5px 0; min-height: 500px;}
 .commentzone .list-comments .item-comment{height:auto;padding:10px 0 15px 0;border-top:solid #f7f7f7 1px;}
 .commentzone .list-comments .item-comment:first-child{border:0 none;}
 .commentzone .list-comments .item-comment .user-comment{float:left;width:100px;}
