@@ -1,39 +1,26 @@
 #{isNotConnected}
-<div id="loginbox" class="loginbox">
-    <p class="cuf-loginwidth">&{'loginlink'}</p>
-    <ul class="listlogs">
-        <li class="log-b" id="lilogb">
-            <a href="#" class="current logbutton" id="log-bean">Beansight</a>
-            <div class="item-loginbox" id="boxlog-bean" style="display:none;">
-                #{form @Register.beansightAuthenticate(), class:'boxlogContent', id:'logBeanForm'}
-                    <label for="username">&{'email'}</label>
-                    <div class="inputlogin">
-                        <input type="email" name="username" value="${flash.username}" id="pseudologin" class="clearinput"/>
-                    </div>
-                    <label for="password">&{'password'}</label>
-                    <div class="inputlogin">
-                        <input type="password" name="password" value="" id="passlogin" class="clearinput"/>
-                    </div>
-                    <div class="avatarlogin">
-                        <img id="avatarlogin" src="/public/images/avatar/empty-small.jpg" />
-                    </div>
-                    <input style="display:none;" type="checkbox" name="remember" id="remember" value="true" checked="true" />
-                    <input type="hidden" name="url" id="url" value="${request.url}" />
-                    <div class="inputsubmit">
-                        <button class="goButton"><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'loginbutton'}</span></button>
-                        <a href="@{Security.forgotPasswordAskEmail()}" class="forgotten">&{'userOptions.forgotPassword'}</a>
-                    </div>
-                #{/form}
-            </div>
-        </li>
-        <li class="log-t">
-            <a href="@{Register.twitAuthenticate(request.url)}" id="log-twit" class="logbutton">Twitter</a>
-        </li>
-        <li class="log-f">
-            <a href="@{Register.fbAuthenticate(request.url)}" id="log-fb" class="logbutton">Facebook</a>
-        </li>
-    </ul>
+<a href="#" class="logbtn" id="log-bean">&{'logintitle'}</a>
+<div id="loginbox" class="loginbox" style="display:none;"> 
+    #{form @Register.beansightAuthenticate(), class:'boxlogContent', id:'logBeanForm'}
+        <label for="username">&{'email'}</label> 
+        <div class="inputlogin"> 
+            <input type="email" name="username" value="" id="pseudologin" class="clearinput" placeholder="&{'email'}"/> 
+        </div> 
+        <label for="password">&{'password'}</label> 
+        <div class="inputlogin"> 
+            <input type="password" name="password" value="" id="passlogin" class="clearinput" placeholder="&{'password'}"/> 
+        </div> 
+        <input style="display:none;" type="checkbox" name="remember" id="remember" value="true" checked="true" /> 
+        <input type="hidden" name="url" id="url" value="${request.url}" /> 
+        <div class="inputsubmit"> 
+            <a href="@{Security.forgotPasswordAskEmail()}" class="forgotten">&{'userOptions.forgotPassword'}</a> 
+            <button class="goButton"><span class="backbutton"></span><span class="txtbutton">&{'loginbutton'}</span></button> 
+        </div> 
+    #{/form}
+    <a href="@{Register.twitAuthenticate(request.url)}" class="btnlogwith logwithfb social_buttons sb_24 sb_facebook"><span>&{'userOptions.loginwithfacebook'}</span></a>
+    <a href="@{Register.fbAuthenticate(request.url)}" class="btnlogwith social_buttons sb_24 sb_twitter"><span>&{'userOptions.loginwithtwitter'}</span></a>
 </div>
+
 #{/isNotConnected}
 
 

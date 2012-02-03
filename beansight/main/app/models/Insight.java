@@ -157,6 +157,9 @@ public class Insight extends Model {
 	@ManyToOne
 	public User sponsor;
 	
+	/** should this insight be featured on the homepage? */
+	public boolean featuredHome;
+	
 	/**
 	 * Create an insight
 	 * 
@@ -849,6 +852,14 @@ public class Insight extends Model {
 	 */
 	public static List<Insight> findEndDateNotOver(int page, int number) {
 		List<Insight> insights = Insight.find("hidden is false and endDate > ?", new Date()).fetch(page, number);
+		return insights;
+	}
+	
+	/**
+	 * Fetch the insights that should be featured on the hompage
+	 */
+	public static List<Insight> findFeaturedHome() {
+		List<Insight> insights = Insight.find("featuredHome is true").fetch();
 		return insights;
 	}
 	

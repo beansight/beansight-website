@@ -40,6 +40,7 @@ import models.analytics.UserClientInfo;
 import notifiers.Mails;
 
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
 
 import play.Logger;
 import play.Play;
@@ -232,7 +233,15 @@ public class Application extends Controller {
 			}
 		}
 		
-		render(sortBy, cat, filterVote, closed);
+		// if not a topic page, display a home screen
+		if (topic == null && !Security.isConnected()) {
+			// get the featured insights
+			renderArgs.put("featuredInsights", Insight.findFeaturedHome());
+			// render a special template
+			render("Application/home.html");
+		} else {
+			render(sortBy, cat, filterVote, closed);
+		}
 	}
 
 	/**

@@ -1,0 +1,81 @@
+#{extends 'main.html' /}
+#{set 'title'}&{'home.signup'}#{/set}
+
+#{set displaySearchbar:false /}
+
+    <div class="pushhome">
+        #{form @Application.search(), id:'searchhome'}
+            <h2>&{'home.tagline'}</h2>
+            <p>&{'home.description'}</p>
+            <div class="forminputs">
+                <div class="txtsearch"><input type="text" name="query" value="" placeholder="&{'home.searchplaceholder'}"/></div>
+                <div class="submitsearch"><input type="submit"/></div>
+            </div>
+            
+            #{if !topic && !featuredTopics.isEmpty()}
+            <p class="searchfeatures">&{'insights.featuredTopics'} #{list items:featuredTopics, as:'top'}<a href="@{Application.insights(null, null, null, top.tag.label, null)}">${top.tag.label}</a>#{if !top_isLast},  #{/if}#{/list}</p>
+			#{/if}
+        #{/form}
+        
+        #{form @Register.registerNew(), id:'registerhome'}
+            <h2>&{'home.signup'}</h2>
+            <label for="">&{'username'}</label>
+            <div class="inputjoin"> 
+                <input type="text" name="username" id="username" value="${username}" class="clearinput"/> 
+            </div> 
+            <label for="">&{'email'}</label>
+            <div class="inputjoin"> 
+                <input type="email" name="email" id="email" value="${email}" class="clearinput"/> 
+            </div> 
+            <label for="">&{'password'}</label>
+            <div class="inputjoin"> 
+                <input type="password" name="password" id="registerPassword" value="" class="clearinput"/>
+                #{if errors.forKey('password')}<span class="error">#{error 'password' /}</span>#{/if} 
+            </div> 
+            <div class="inputsubmit"> 
+                <button class="goButton"><span class="backbutton"></span><span class="txtbutton cuf-connect">&{'register.beansightSignupButton'}</span></button> 
+            </div>
+            <div class="sociallinks">
+                <a href="@{Register.fbAuthenticate()}" class="social_buttons sb_24 sb_facebook fblink"><span>&{'register.facebookTitle'}</span></a>
+                <a href="@{Register.twitAuthenticate()}" class="twitlink">Twitter</a>
+            </div>
+            
+            <div class="legal">
+                &{'register.form.accept.start'} <a href="@{Application.termsOfUse()}">&{'register.form.accept.terms'}</a> &{'register.form.accept.and'} <a href="@{Application.privacyPolicy()}">&{'register.form.accept.privacy'}</a>.
+            </div>
+        #{/form}
+    </div>
+    
+    <div id="frisehome">
+        <div class="timer">
+            <ul class="years">
+                <li class="itemyear">2011</li>
+                <li class="itemyear">2012</li>
+                <li class="itemyear">2013</li>
+                <li class="itemyear">2014</li>
+                <li class="itemyear">2015</li>
+            </ul>
+            
+            <ul class="predicts">
+            *{
+                first year: left:0px
+                a year = 188px
+            }*
+            %{
+                int firstYear = 2011;
+                int yearSize = 180;
+            }%
+                #{list featuredInsights, as:'featuredInsight'}
+                %{ 
+                    org.joda.time.DateTime dateTime = new org.joda.time.DateTime(featuredInsight.endDate);
+                    int decay = (dateTime.getYear() - firstYear) * yearSize + Math.floor( dateTime.getDayOfYear() * yearSize / 365 );
+                }%
+                <li class="itempredict" style="left:${decay}px;">
+                    <a href="@{Application.showUser(featuredInsight.creator.userName)}" class="avatar-comment"><img src="@{Application.showAvatarSmall(featuredInsight.creator.userName, featuredInsight.creator.avatarHashCode())}" alt=""/></a>
+                    <a class="insighttext" href="@{Application.showInsight(featuredInsight.uniqueId)}">${featuredInsight.content}</a>
+                </li>
+                #{/list}
+            </ul>
+            
+        </div>
+    </div>
