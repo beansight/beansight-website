@@ -546,7 +546,12 @@ public class User extends Model implements Comparable<User> {
 			suggest.save();
 		}
 		
+		// create or update suggestions for all the followers of this topic
+		
+		// it may be better to remove the entire TagAvctivity system
+		
 		// check if any activity concerns the tag that have the tags of the insight as children.
+		// if so, update activity count and also update insight suggestion
 		List<Tag> topics = i.getParentTags();
 		if(topics != null) {
 			// check if any activity concerns these tags
@@ -558,19 +563,14 @@ public class User extends Model implements Comparable<User> {
 						topicActivity.incrementNewInsightCount();
 						topicActivity.save();
 					}
+					
+					// create or update suggestions of all the followers of all these tags
+					InsightSuggest suggest = InsightSuggest.findByUserAndInsightOrCreate(topicActivity.user, i);
+					suggest.addBecauseFollowedTag(topic);
+					suggest.save();
 				}
 				proccessedActivities.addAll(topicActivities);
-			}
-
-			
-			// WIP
-			
-			// find all followers of these tags
-			
-			// create or update suggestions of all the followers of all these tags
-
-
-			
+			}			
 			
 		}
 		
@@ -616,7 +616,7 @@ public class User extends Model implements Comparable<User> {
 				insight.save();
 			}
 		} else {
-			// First time voting for this insight
+			// First time this insight is voted
 			vote = new Vote(this, insight, voteState);
 			vote.save();
 			if (voteState.equals(State.AGREE)) {

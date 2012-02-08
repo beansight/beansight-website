@@ -5,12 +5,15 @@ import play.db.jpa.*;
 
 import javax.persistence.*;
 
+import models.Filter.SortBy;
+import models.Insight.InsightResult;
+
 import java.util.*;
 
 
 /**
- * The activity that happened on a given insight for a given user
- * InsightActivities are created every time a user starts following an insight.
+ * Insight suggestion for a user. Sort by score to get the higher suggested insights
+ * Every time someone or something followed by this user is updated, this objects gets point in its score
  */
 @Entity
 public class InsightSuggest extends Model {
@@ -35,6 +38,7 @@ public class InsightSuggest extends Model {
 	/** Date the insight ends (same as insight.endDate) */
 	public Date endDate;
 	
+	/** main parameter */
 	public double score;
 	
 	/** This suggestion is displayed because these user you are following voted on the insight */
@@ -44,7 +48,7 @@ public class InsightSuggest extends Model {
 	/** This suggestion is displayed because this user created it */
 	public boolean becauseFollowedUserCreated;
 	
-	/** This suggestion is displayed because the insight has thsese tags, followed by the user */
+	/** This suggestion is displayed because the insight has these tags that you follow */
 	@ManyToMany(fetch=FetchType.LAZY)
 	public List<Tag> becauseFollowedTag;
 	
@@ -62,7 +66,7 @@ public class InsightSuggest extends Model {
 	
 	/** Clear this insight activity (set everything to 0) */
 	public void reset() {
-		this.updated = new Date();
+		// TODO
 	}
 	
 	private void updated() {
@@ -101,6 +105,34 @@ public class InsightSuggest extends Model {
 		return suggest;
 	}
 	
+	public static List<InsightSuggest> findByUser(int from, int number, Filter filter, User user) {
+        String query = "select insightsuggest from InsightSuggest insightsuggest "
+		        		+ "where insightsuggest.insight.hidden is false "
+		        		+ "and insightsuggest.user is :user "
+		        		+ "and insightsuggest.insight.endDate >= :currentDate "
+		        		//+ filter.generateJPAQueryWhereClause(SortBy.INCOMING)
+		        		+ "order by insightsuggest.score DESC";
+
+        return InsightSuggest.find(query).bind("user", user).bind("currentDate", new Date()).from(from).fetch(number);
+		
+	}
 	
+	/**
+	 * transforms a list of InsightSuggets to an InsightResult object
+	 * @param suggests
+	 * @return
+	 */
+	public static InsightResult toInsightList(List<InsightSuggest> suggests) {
+		List<Insight> insights = new ArrayList<Insight>();
+		
+		for(InsightSuggest suggest : suggests ) {
+			insights.add(suggest.insight);
+		}
+		
+		InsightResult result = new InsightResult();
+		result.results = insights;
+		
+		return result;
+	}
 	
 }

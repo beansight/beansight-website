@@ -127,6 +127,7 @@ insightstitle.closed=Réalisations
 incategory=dans
 insights.sortby=Tri:
 insights.category=Catégorie:
+insights.suggested=Suggérés
 insights.latest=Mise à jour
 insights.trending=Popularité
 insights.incoming=Prochainement
