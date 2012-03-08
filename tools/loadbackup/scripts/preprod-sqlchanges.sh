@@ -1,5 +1,5 @@
 
-SQLCHANGESPATH=../../Website/trunk/beansight/main/sql
+SQLCHANGESPATH=../../beansight/main/sql
 
 echo 'copying changes.sql to preprod server'
 scp -i ~/.ssh/preprod@beansight.com_rsa $SQLCHANGESPATH/changes.sql play@92.243.10.157:./temp/changes.sql

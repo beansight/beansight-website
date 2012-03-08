@@ -1,5 +1,5 @@
 
-SQLCHANGESPATH=../../Website/trunk/beansight/main/sql
+SQLCHANGESPATH=../../beansight/main/sql
 
 echo 'copying changes.sql to PROD server'
 scp -i ~/.ssh/prod@beansight.com $SQLCHANGESPATH/changes.sql play@92.243.16.31:./temp/changes.sql
