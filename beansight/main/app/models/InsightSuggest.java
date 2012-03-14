@@ -5,6 +5,8 @@ import play.db.jpa.*;
 
 import javax.persistence.*;
 
+import exceptions.InsightWithSameUniqueIdAndEndDateAlreadyExistsException;
+
 import models.Filter.SortBy;
 import models.Insight.InsightResult;
 
@@ -122,17 +124,30 @@ public class InsightSuggest extends Model {
 	 * @param suggests
 	 * @return
 	 */
-	public static InsightResult toInsightList(List<InsightSuggest> suggests) {
+	public static InsightSuggestResult toInsightResultList(List<InsightSuggest> suggestions) {
 		List<Insight> insights = new ArrayList<Insight>();
+		Map<Insight, InsightSuggest> suggests = new HashMap<Insight, InsightSuggest>();
 		
-		for(InsightSuggest suggest : suggests ) {
+		for(InsightSuggest suggest : suggestions ) {
 			insights.add(suggest.insight);
+			suggests.put(suggest.insight, suggest);
 		}
 		
-		InsightResult result = new InsightResult();
+		InsightSuggestResult result = new InsightSuggestResult();
 		result.results = insights;
+		result.suggests = suggests;
 		
 		return result;
 	}
+	
+	public static class InsightSuggestResult extends InsightResult {
+
+		public Map<Insight, InsightSuggest> suggests;
+		
+	}
+	
+	
+
+
 	
 }

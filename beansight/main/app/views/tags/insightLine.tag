@@ -1,6 +1,7 @@
 *{ Display the info for a given insight  }*
 *{ @param insigth: the insight  }*
 *{ @param targetUser: a specific user that we want to display the vote, leave null if no specific user }*
+*{ @param suggest: suggest data }*
 %{ 
     String voteTargetUserClass = "";
     if(_targetUser != null) {
@@ -37,6 +38,23 @@
                 &{'insightLine.sponsoredby'}
                 <a href="@{Application.showUser(_insight.sponsor.userName)}" class="sponsor">${_insight.sponsor.userName}</a>
             </p>
+        #{/if}
+
+        *{ Suggestions }*
+        #{if _suggest != null }
+            #{if _suggest.becauseFollowedUserCreated}
+                    <p>Because ${_insight.creator.userName} created</p>
+            #{/if}
+            #{if _suggest.becauseFollowedTag != null && !_suggest.becauseFollowedTag.isEmpty()}
+                #{list items:_suggest.becauseFollowedTag, as:'tag' }
+                    <p>${tag.label}</p>
+                #{/list}
+            #{/if}
+            #{if _suggest.becauseFollowedUserVoted != null && !_suggest.becauseFollowedUserVoted.isEmpty()}
+                #{list items:_suggest.becauseFollowedUserVoted, as:'userVoted' }
+                    <p>${userVoted.userName}</p>
+                #{/list}
+            #{/if}
         #{/if}
 
         <hr class="clear"/>

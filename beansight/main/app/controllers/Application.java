@@ -245,7 +245,7 @@ public class Application extends Controller {
 		}
 		
 		InsightResult result = getFilteredInsightsList(from, getNumberInsightsInsightPage(), sortBy, cat, filterVote, topic, closed, null);
-		renderArgs.put("insights", result.results);
+		renderArgs.put("result", result);
 		render();
 	}
 	
@@ -261,7 +261,7 @@ public class Application extends Controller {
 		}
 		
 		InsightResult result = getFilteredInsightsList(0, (from + getNumberInsightsInsightPage()), sortBy, cat, filterVote, topic, closed, null);
-		renderArgs.put("insights", result.results);
+		renderArgs.put("result", result);
 		
 		renderTemplate("Application/getInsights.html");
 	}
@@ -322,7 +322,7 @@ public class Application extends Controller {
 				result = Insight.findIncoming(from, numberInsights, filter);
 			} else if (sortBy != null && sortBy.equals("suggested") && Security.isConnected()) {
 				User currentUser = CurrentUser.getCurrentUser();
-				result = InsightSuggest.toInsightList(InsightSuggest.findByUser(from, numberInsights, filter, currentUser));
+				result = InsightSuggest.toInsightResultList(InsightSuggest.findByUser(from, numberInsights, filter, currentUser));
 			} else {
 				result = Insight.findIncoming(from, numberInsights, filter);
 			}
