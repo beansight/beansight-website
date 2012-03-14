@@ -1,3 +1,4 @@
+*{ widget that displays the list of user activity. Designed to be in the left sidebar }*
 <div class="list-avatars favoriteUsers">
 #{list items:_followedUserActivities , as:'userActivity'}
 <a href="@{Application.showUser(userActivity.followedUser.userName)}" class="item-avatar">
