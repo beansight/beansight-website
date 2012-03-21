@@ -24,7 +24,7 @@
 
             #{if _targetUser != null}
             <span class="target-user">
-                <span class="avatar-user"><img src="@{Application.showAvatarSmall(_targetUser.userName, _targetUser.avatarHashCode())}" alt=""/></span>
+                <span class="avatar-user"><img src="@{Application.showAvatarSmall(_targetUser.userName, _targetUser.avatarHashCode())}" alt="${_targetUser.userName}"/></span>
                 <span class="vote-user ${voteTargetUserClass}">Vote ${_targetUser.userName}</span>
             </span>
             #{/if}
@@ -34,7 +34,7 @@
         </a>
 
         #{if _insight.sponsored}
-            <p class="sponsor-insight">
+            <p class="sponsor-insight"> 
                 &{'insightLine.sponsoredby'}
                 <a href="@{Application.showUser(_insight.sponsor.userName)}" class="sponsor">${_insight.sponsor.userName}</a>
             </p>
@@ -42,19 +42,34 @@
 
         *{ Suggestions }*
         #{if _suggest != null }
+            <div class="suggestedbecause">
             #{if _suggest.becauseFollowedUserCreated}
-                    <p>Because ${_insight.creator.userName} created</p>
+                <span class="created">
+                    &{'insights.suggested.created'}
+                    <a href="@{Application.showUser(_insight.creator.userName)}" class="s-author">
+                        #{imgAvatar user:_insight.creator /}
+                        ${_insight.creator.userName}
+                    </a>
+                </span>
             #{/if}
             #{if _suggest.becauseFollowedTag != null && !_suggest.becauseFollowedTag.isEmpty()}
+                <span>&{'insights.suggested.tag'}
                 #{list items:_suggest.becauseFollowedTag, as:'tag' }
-                    <p>${tag.label}</p>
+                    <a href="@{Application.insights(null, null, null, tag.label, null)}" class="tag">${tag.label}</a>
                 #{/list}
+                </span>
             #{/if}
             #{if _suggest.becauseFollowedUserVoted != null && !_suggest.becauseFollowedUserVoted.isEmpty()}
+                #{if _suggest.becauseFollowedUserVoted.size() > 1 || !_suggest.becauseFollowedUserVoted.contains(_insight.creator)}
+                <span>&{'insights.suggested.voted'}</span>
+                #{/if}
                 #{list items:_suggest.becauseFollowedUserVoted, as:'userVoted' }
-                    <p>${userVoted.userName}</p>
+                    #{if userVoted != _insight.creator}
+                    <a href="@{Application.showUser(userVoted.userName)}" class="s-author">#{imgAvatar user:userVoted /}</a>
+                    #{/if}
                 #{/list}
             #{/if}
+            </div>
         #{/if}
 
         <hr class="clear"/>

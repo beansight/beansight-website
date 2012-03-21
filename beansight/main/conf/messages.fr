@@ -143,6 +143,9 @@ insight.commentEditableTimeout=Vous ne pouvez plus modifier ce commentaire car l
 insights.followTopic=Suivre ce sujet
 insights.featuredTopics=Sujets sélectionnés :
 insights.addTopicToFavorites=Ajoutez ce sujet à vos favoris
+insights.suggested.created=Crééé par 
+insights.suggested.tag=Taggée
+insights.suggested.voted=Votée par
 
 insightLine.sponsoredby=Sponsorisée par 
 

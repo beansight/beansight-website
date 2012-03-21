@@ -143,6 +143,9 @@ insight.commentEditableTimeout=You can not edit this comment: the time limit for
 insights.followTopic=Follow this topic
 insights.featuredTopics=Featured topics:
 insights.addTopicToFavorites=Favorite this topic
+insights.suggested.created=Created by 
+insights.suggested.tag=Tagged
+insights.suggested.voted=Voted by
 
 insightLine.sponsoredby=Promoted by 
 

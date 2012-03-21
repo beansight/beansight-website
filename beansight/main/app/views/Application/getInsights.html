@@ -1,6 +1,11 @@
 #{if targetUser == null}
-	#{listInsights insights:result.results, suggests: result.suggests /}
+    #{if result instanceof models.InsightSuggest.InsightSuggestResult}
+	   #{listInsights insights:result.results, suggests: result.suggests /}
+	#{/if}
+	#{else}
+       #{listInsights insights:result.results /}	
+	#{/else}
 #{/if}
 #{else}
-	#{listInsights insights:result.results, suggests: result.suggests, targetUser:targetUser/}
+	#{listInsights insights:result.results, targetUser:targetUser/}
 #{/else}

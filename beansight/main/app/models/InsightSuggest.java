@@ -98,9 +98,15 @@ public class InsightSuggest extends Model {
 		return InsightSuggest.find("byUserAndInsight", user, insight).first();
 	}
 	
+	/**
+	 * Find an insightsuggest by user and insight, or create it if 
+	 * @param user
+	 * @param insight
+	 * @return
+	 */
 	public static InsightSuggest findByUserAndInsightOrCreate(User user, Insight insight) {
 		InsightSuggest suggest = findByUserAndInsight(user, insight);
-		if(suggest == null) {
+		if(suggest == null && !Vote.hasUserVotedForInsight(user.id, insight.uniqueId )) {
 			suggest = new InsightSuggest(user, insight);
 			suggest.save();
 		}

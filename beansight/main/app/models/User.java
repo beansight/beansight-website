@@ -42,11 +42,9 @@ import models.analytics.UserTopicVisit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
-import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
-import play.db.jpa.JPA;
 import play.db.jpa.Model;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -660,9 +658,19 @@ public class User extends Model implements Comparable<User> {
 		// create suggestions for all the followers of this user
 		for(User follower : this.followers) {
 			InsightSuggest suggest = InsightSuggest.findByUserAndInsightOrCreate(follower, insight);
-			suggest.addBecauseFollowedUserVoted(this);
-			suggest.save();
+			if(suggest != null) {
+				suggest.addBecauseFollowedUserVoted(this);
+				suggest.save();
+			}
 		}
+		
+		// if a suggestion was made for this user and insight, remove it
+		InsightSuggest suggest = InsightSuggest.findByUserAndInsight(this, insight);
+		if(suggest != null) {			
+			suggest.delete();
+		}
+		
+		// add this insight to the user's favorite
 	}
 
 	/**
