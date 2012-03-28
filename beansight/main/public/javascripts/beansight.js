@@ -720,6 +720,7 @@ $(document).ready(function() {
     	// This is a fix for the MS IE7 z-index bug 
     	if ($.browser.msie  && parseInt($.browser.version) < 8) {
     		window.location.href = "/login";
+    		return;
     	}
     	
         if($('#log-bean').hasClass('opened')){
@@ -730,7 +731,7 @@ $(document).ready(function() {
             $('#loginbox').slideDown(500);
         }
         return false;
-    });
+    }).placeholder();;
     
     // validate the form
 	$("#logBeanForm").validate({
