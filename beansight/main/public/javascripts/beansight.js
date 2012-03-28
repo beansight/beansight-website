@@ -731,7 +731,7 @@ $(document).ready(function() {
             $('#loginbox').slideDown(500);
         }
         return false;
-    }).placeholder();;
+    }).placeholder();
     
     // validate the form
 	$("#logBeanForm").validate({

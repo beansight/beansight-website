@@ -451,7 +451,7 @@ float: left;
 #contentcenter .listinsights .insightItem .insightContainer.sponsored .sponsor-insight{float:right; margin: 0 20px 10px 0;   font-size: 11px;}
 #contentcenter .listinsights .insightItem .insightContainer.sponsored .sponsor-insight .sponsor{font-weight:bold; color:#7AA13D;}
 
-#contentcenter .listinsights .insightItem .suggestedbecause {font-size: 13px;padding-left: 60px;margin-bottom:10px}
+#contentcenter .listinsights .insightItem .suggestedbecause {font-size: 13px;padding-left: 20px;margin-bottom:10px}
 #contentcenter .listinsights .insightItem .suggestedbecause .avatar{width:17px;}
 #contentcenter .listinsights .insightItem .suggestedbecause .tag {background-color: #D6D5D6; color: white;border-radius: 2px;padding: 1px;}
 #contentcenter .listinsights .insightItem .suggestedbecause .tag:hover {background-color: #AFAFAF;}
