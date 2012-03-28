@@ -1,3 +1,4 @@
+*{ widget that displays the list of user activity. Designed to be in the left sidebar }*
 <div class="list-fav list-avatars favoriteUsers">
 <h3>&{'followedUsers.title'}</h3>
 #{list items:_followedUserActivities , as:'userActivity'}

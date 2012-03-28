@@ -11,6 +11,7 @@ import play.db.jpa.Model;
 
 /**
  * The activity that happened on a given topic a user has favorited
+ * when I favorite a topic, an activity is created
  */
 @Entity
 public class TagActivity extends Model {

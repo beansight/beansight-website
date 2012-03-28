@@ -30,7 +30,7 @@ home.description=Share your views on what the future store for us and prove your
 newandtrending=New and trending
 needemailconfirm=You need to confirm your e-mail address. Don't forget to do it soon. Check your inbox.
 activityaroundme=Activity
-favorites=Favorites
+favorites=Activity
 exploremore=Explore more...
 activityreset=Clear activity feed.
 noInsightActivity=No recent activity
@@ -137,6 +137,7 @@ insightstitle.closed=Past predictions
 incategory=in
 insights.sortby=Sort:
 insights.category=Category:
+insights.suggested=Suggested
 insights.latest=Updated
 insights.trending=Trending
 insights.incoming=Upcoming
@@ -152,6 +153,9 @@ insight.commentEditableTimeout=You can not edit this comment: the time limit for
 insights.followTopic=Follow this topic
 insights.featuredTopics=Featured topics:
 insights.addTopicToFavorites=Favorite this topic
+insights.suggested.created=Created by 
+insights.suggested.tag=Tagged
+insights.suggested.voted=Voted by
 
 insightLine.sponsoredby=Promoted by 
 

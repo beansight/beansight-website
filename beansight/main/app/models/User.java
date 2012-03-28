@@ -42,11 +42,9 @@ import models.analytics.UserTopicVisit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
-import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
 import play.Logger;
-import play.db.jpa.JPA;
 import play.db.jpa.Model;
 import play.i18n.Lang;
 import play.i18n.Messages;
@@ -539,26 +537,39 @@ public class User extends Model implements Comparable<User> {
 
 		i.refresh();
 
-		if(i.tags != null) {
-			// select all the tags that have the insight tag as children (we don'gt get ALL the children, but it's OK.
-			String tagIds = Tag.listToIdString(new HashSet<Tag>(i.tags));
-			List<Tag> topics = Tag.find("select topic from Tag topic join topic.children t where t.id in (" + tagIds + ") ").fetch();
-			// add the insight tag
-			topics.addAll(i.tags);
-			
+		// create or update suggestions of all the followers of this user
+		for(User follower : this.followers) {
+			InsightSuggest suggest = InsightSuggest.findByUserAndInsightOrCreate(follower, i);
+			suggest.addBecauseFollowedUserCreated(this);
+			suggest.save();
+		}
+		
+		// create or update suggestions for all the followers of this topic
+		
+		// it may be better to remove the entire TagAvctivity system
+		
+		// check if any activity concerns the tag that have the tags of the insight as children.
+		// if so, update activity count and also update insight suggestion
+		List<Tag> topics = i.getParentTags();
+		if(topics != null) {
+			// check if any activity concerns these tags
 			Set<TagActivity> proccessedActivities = new HashSet<TagActivity>();
-			
 			for(Tag topic : topics) {
-				// check if any activity concerns these tags
 				List<TagActivity> topicActivities = TagActivity.find("byTag", topic).fetch();
 				for (TagActivity topicActivity : topicActivities ) {
 					if( !proccessedActivities.contains(topicActivity) ) {
 						topicActivity.incrementNewInsightCount();
 						topicActivity.save();
 					}
+					
+					// create or update suggestions of all the followers of all these tags
+					InsightSuggest suggest = InsightSuggest.findByUserAndInsightOrCreate(topicActivity.user, i);
+					suggest.addBecauseFollowedTag(topic);
+					suggest.save();
 				}
 				proccessedActivities.addAll(topicActivities);
-			}
+			}			
+			
 		}
 		
 		return i;
@@ -603,7 +614,7 @@ public class User extends Model implements Comparable<User> {
 				insight.save();
 			}
 		} else {
-			// First time voting for this insight
+			// First time this insight is voted
 			vote = new Vote(this, insight, voteState);
 			vote.save();
 			if (voteState.equals(State.AGREE)) {
@@ -643,6 +654,23 @@ public class User extends Model implements Comparable<User> {
 			}
 			userActivity.save();
 		}
+		
+		// create suggestions for all the followers of this user
+		for(User follower : this.followers) {
+			InsightSuggest suggest = InsightSuggest.findByUserAndInsightOrCreate(follower, insight);
+			if(suggest != null) {
+				suggest.addBecauseFollowedUserVoted(this);
+				suggest.save();
+			}
+		}
+		
+		// if a suggestion was made for this user and insight, remove it
+		InsightSuggest suggest = InsightSuggest.findByUserAndInsight(this, insight);
+		if(suggest != null) {			
+			suggest.delete();
+		}
+		
+		// add this insight to the user's favorite
 	}
 
 	/**

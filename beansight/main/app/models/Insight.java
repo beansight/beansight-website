@@ -56,7 +56,7 @@ import ext.StringExtensions;
 public class Insight extends Model {
 
 	/** Number of hours after the deadline before the insight can be processed by the validation process */
-	public static final int VALIDATION_HOUR_NUMBER = 72; 
+	public static final int VALIDATION_HOUR_NUMBER = 72;
 	
 	/** minimal value the validationScore of an insight should be for it to be consiered as TRUE */
 	public static final double INSIGHT_VALIDATED_TRUE_MINVAL = 0.6;
@@ -964,6 +964,22 @@ public class Insight extends Model {
     	}  else {
     		Logger.debug("All Insights validated");
     	}
+    }
+
+    /** 
+     * Get the list of all tags parent of the tags of this insight
+     * TODO : for the moment, only return the first parents 
+     */
+    public List<Tag> getParentTags() {
+    	List<Tag> parentTags = null;
+    	if(this.tags != null) {
+			// select all the tags that have the insight tag as children
+			String tagIds = Tag.listToIdString(new HashSet<Tag>(this.tags));
+			parentTags = Tag.find("select topic from Tag topic join topic.children t where t.id in (" + tagIds + ") ").fetch();
+			// add the insight's tags
+			parentTags.addAll(this.tags);
+    	}
+    	return parentTags;
     }
     
     /**

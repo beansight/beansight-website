@@ -1,3 +1,4 @@
+*{ widget that displays the list of topic activity. Designed to be in the left sidebar }*
 <div class="list-fav favoriteTopics">
 <h3>&{'followedTopics.title'}</h3>
 #{list items:_followedTopicActivities , as:'followedTopicActivity'}

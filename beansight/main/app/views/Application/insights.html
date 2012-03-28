@@ -59,9 +59,11 @@
         <li class="sortby">&{'insights.sortby'}</li>
         <li class="first">
             <div id="radioSortByFilter" style="font-size: 11px;">
-                <input type="radio" autocomplete="off" name="SortByGroup" value="incoming" checked  id="radioSortByIncoming" />         <label for="radioSortByIncoming">    &{'insights.incoming'} </label> 
+                #{isConnected}
+                <input type="radio" autocomplete="off" name="SortByGroup" value="suggested" checked  id="radioSortByIncoming" />         <label for="radioSortByIncoming">    &{'insights.suggested'} </label>
+                #{/isConnected}     
                 <input type="radio" autocomplete="off" name="SortByGroup" value="trending"          id="radioSortByTrending"/>          <label for="radioSortByTrending">    &{'insights.trending'} </label>
-                <input type="radio" autocomplete="off" name="SortByGroup" value="updated"           id="radioSortByUpdated"/>           <label for="radioSortByUpdated">     &{'insights.latest'}   </label>
+                <input type="radio" autocomplete="off" name="SortByGroup" value="incoming"           id="radioSortByUpdated"/>           <label for="radioSortByUpdated">     &{'insights.incoming'}   </label>
             </div>        
         </li>
         #{/if}

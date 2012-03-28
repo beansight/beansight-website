@@ -30,7 +30,7 @@ home.description=Partagez votre point de vue sur ce que l'avenir nous réserve e
 newandtrending=Nouveaux
 needemailconfirm=Un email de confirmation vous a été adressé. Vérifiez votre boîte de réception prochainement pour terminer votre inscription.
 activityaroundme=Activité
-favorites=Favoris
+favorites=Activité
 exploremore=Explorer plus...
 activityreset=Vider le flux d'activité
 noInsightActivity=Pas d'activité récente
@@ -137,6 +137,7 @@ insightstitle.closed=Réalisations
 incategory=dans
 insights.sortby=Tri:
 insights.category=Catégorie:
+insights.suggested=Suggérés
 insights.latest=Mise à jour
 insights.trending=Popularité
 insights.incoming=Prochainement
@@ -152,6 +153,9 @@ insight.commentEditableTimeout=Vous ne pouvez plus modifier ce commentaire car l
 insights.followTopic=Suivre ce sujet
 insights.featuredTopics=Sujets sélectionnés :
 insights.addTopicToFavorites=Ajoutez ce sujet à vos favoris
+insights.suggested.created=Crééé par 
+insights.suggested.tag=Taggée
+insights.suggested.voted=Votée par
 
 insightLine.sponsoredby=Sponsorisée par 
 
