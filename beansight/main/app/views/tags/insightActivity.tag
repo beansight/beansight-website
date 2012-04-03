@@ -1,8 +1,9 @@
 *{ Display the content of a vote activity  }*
 *{ @param insightActivity: the insight activity object  }*
 
+*{
 #{if _insightActivity.newFavoriteCount != 0}&{'activityfavorited', _insightActivity.newFavoriteCount},#{/if}
-
+}*
 
 #{if _insightActivity.newAgreeCount != 0}
     <span class="goodpts">${_insightActivity.newAgreeCount}</span><!-- &{'activityagreed'} -->
