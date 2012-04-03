@@ -333,6 +333,11 @@ public class Application extends Controller {
 			} else if (sortBy != null && sortBy.equals("suggested") && Security.isConnected()) {
 				User currentUser = CurrentUser.getCurrentUser();
 				result = InsightSuggest.toInsightResultList(InsightSuggest.findByUser(from, numberInsights, filter, currentUser));
+				// if not enough insights to display, fill with Latest
+				if( result.results.size() < numberInsights ) {
+					InsightResult resultLatest = Insight.findLatest(result.results.size(), numberInsights - result.results.size(), filter);
+					result.results.addAll(resultLatest.results);
+				}
 			} else {
 				result = Insight.findIncoming(from, numberInsights, filter);
 			}
