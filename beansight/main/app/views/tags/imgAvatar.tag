@@ -1,0 +1,1 @@
+<img class="avatar" src="@{Application.showAvatarSmall(_user.userName, _user.avatarHashCode())}" alt="${_user.userName}"/> 
