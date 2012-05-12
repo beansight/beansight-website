@@ -44,6 +44,8 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.annotations.Index;
 import org.joda.time.DateTime;
 
+import controllers.CRUD.Hidden;
+
 import play.Logger;
 import play.db.jpa.Model;
 import play.i18n.Lang;
@@ -75,6 +77,7 @@ public class User extends Model implements Comparable<User> {
 	@Index (name = "USER_USERNAME_IDX")
 	public String userName;
 
+	@Hidden
 	public String password;
 	
 	@Field
@@ -121,9 +124,13 @@ public class User extends Model implements Comparable<User> {
 	/** How many invitations this user can send, -1 for infinity*/
 	public long invitationsLeft;
 	
+	@Hidden
 	public BBlob avatarUnchanged;
+	@Hidden
 	public BBlob avatarSmall;
+	@Hidden
 	public BBlob avatarMedium;
+	@Hidden
 	public BBlob avatarLarge;
 
 	/** Date the user created his account */
@@ -139,48 +146,59 @@ public class User extends Model implements Comparable<User> {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("scoreDate DESC")
 	/**  */
+	@Hidden
 	public List<UserScoreHistoric> userScoreHistorizedList;
 	
 	/** list of insights created by this user */
 	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@Hidden
 	public List<Insight> createdInsights;
 
 	/** every votes of the current user */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@Hidden
 	public List<Vote> votes;
 
 	/** the insights followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@Hidden
 	public List<Insight> followedInsights;
 
 	/** the users followed by this user */
 	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@Hidden
 	public List<User> followedUsers;
 
 	/** the topics followed by this user */
 	@ManyToMany(fetch=FetchType.LAZY)
+	@Hidden
 	public Set<Tag> followedTopics;
 
 	/** if account is linked to facebook this relationship help us
 	 * to save extra information specifically related to beansight context*/
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	@Hidden
 	public List<FacebookFriend> facebookFriends;
 	
 	/** if account is linked to facebook, gets the facebook user informations */ 
 	@OneToOne(fetch=FetchType.LAZY)
+	@Hidden
 	public FacebookUser relatedFacebookUser;
 	
 	/** the users who follow this user */
 	@ManyToMany(mappedBy = "followedUsers", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@Hidden
 	public List<User> followers;
 
 	/** the comments */
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("creationDate DESC")
+	@Hidden
 	public List<Comment> comments;
 	
 	/** insights that has been shared with this user */
 	@OneToMany(mappedBy = "toUser",  cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@Hidden
 	public List<InsightShare> shared;
 	
 	// Settings

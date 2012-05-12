@@ -15,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import controllers.CRUD.Hidden;
+
 import models.Insight.InsightResult;
 
 import play.db.jpa.Model;
@@ -40,6 +42,7 @@ public class Tag extends Model {
 	
 	/** the insights this tag refers to */
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Hidden
 	public Set<Insight> insights;
 
 	/** the date this vote has been made */
