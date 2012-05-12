@@ -32,6 +32,9 @@ GET     /profile/{userName}/large               Application.showAvatarLarge
 GET     /profile/{userName}/medium              Application.showAvatarMedium
 GET     /profile/{userName}/small               Application.showAvatarSmall
 
+GET     /agree                                  Application.agree
+GET     /disagree                               Application.disagree
+
 GET     /contact                                Contact.contact
 GET		/legal/privacy-policy					Application.privacyPolicy
 GET		/legal/terms-of-service					Application.termsOfUse

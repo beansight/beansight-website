@@ -143,6 +143,9 @@ public class Application extends Controller {
     	}
     }
     
+    /**
+     * Serve the Mozilla Webapp manifest with the correct content Type
+     */
     public static void manifest() {
     	request.contentType = "application/x-web-app-manifest+json";
     	request.format = "webapp";
@@ -1428,6 +1431,36 @@ public class Application extends Controller {
 	@InSitemap(changefreq="monthly", priority=0.8)	
 	public static void FAQ() {
 		render();
+	}
+	
+	/**
+	 * Page to quickly agree on an insight
+	 */
+	public static void agree(@Required String id) {
+		vote(id, State.AGREE);
+	}
+	
+	/**
+	 * Page to quickly disagree on an insight
+	 */
+	public static void disagree(@Required String id) {
+		vote(id, State.DISAGREE);
+	}
+	
+	private static void vote(String insightUniqueId, State voteState) {
+		User currentUser = CurrentUser.getCurrentUser();
+
+		if(currentUser != null){
+			try {
+				currentUser.voteToInsight(insightUniqueId, voteState);
+			} catch (CannotVoteTwiceForTheSameInsightException e) {
+				// do nothing
+			}
+			showInsight(insightUniqueId);
+		}else{
+			Register.register("","");
+		}
+
 	}
 	
 }
