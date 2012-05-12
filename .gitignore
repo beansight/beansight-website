@@ -4,4 +4,6 @@ beansight/main/tmp
 .project
 .classpath
 .settings
-
+beansight/main/data/
+*.log
+tools/loadbackup/backup_prod/
