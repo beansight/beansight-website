@@ -113,12 +113,14 @@ public class InsightSuggest extends Model {
 		return suggest;
 	}
 	
+	/**
+	 * find the insight to suggest to a given user, does not take into account the filters.
+	 */
 	public static List<InsightSuggest> findByUser(int from, int number, Filter filter, User user) {
         String query = "select insightsuggest from InsightSuggest insightsuggest "
 		        		+ "where insightsuggest.insight.hidden is false "
 		        		+ "and insightsuggest.user is :user "
 		        		+ "and insightsuggest.insight.endDate >= :currentDate "
-		        		//+ filter.generateJPAQueryWhereClause(SortBy.INCOMING)
 		        		+ "order by insightsuggest.score DESC";
 
         return InsightSuggest.find(query).bind("user", user).bind("currentDate", new Date()).from(from).fetch(number);

@@ -286,6 +286,18 @@ public class Application extends Controller {
 	}
 	
 
+	/**
+	 * 
+	 * @param from
+	 * @param numberInsights
+	 * @param sortBy : suggested will return the suggested insights and add the findTrending if not enough predictions
+	 * @param cat
+	 * @param filterVote
+	 * @param topicStr
+	 * @param closed
+	 * @param userName
+	 * @return
+	 */
 	private static InsightResult getFilteredInsightsList(int from, int numberInsights, String sortBy, long cat, String filterVote, String topicStr, Boolean closed, String userName) {
 		Filter filter = new Filter();
 		if(filterVote.equals("notVoted")) {
@@ -342,9 +354,9 @@ public class Application extends Controller {
 			} else if (sortBy != null && sortBy.equals("suggested") && Security.isConnected()) {
 				User currentUser = CurrentUser.getCurrentUser();
 				result = InsightSuggest.toInsightResultList(InsightSuggest.findByUser(from, numberInsights, filter, currentUser));
-				// if not enough insights to display, fill with Latest
+				// if not enough insights to display, fill with trendings
 				if( result.results.size() < numberInsights ) {
-					InsightResult resultLatest = Insight.findLatest(result.results.size(), numberInsights - result.results.size(), filter);
+					InsightResult resultLatest = Insight.findTrending(result.results.size(), numberInsights - result.results.size(), filter);
 					result.results.addAll(resultLatest.results);
 				}
 			} else {
