@@ -55,6 +55,9 @@ GET     /admin/CRUD                             module:crud
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
+# Mozilla Webapp
+GET     /manifest.webapp                        Application.manifest
+
 # Mobile version
 *     /                       module:beansight-mobile
 

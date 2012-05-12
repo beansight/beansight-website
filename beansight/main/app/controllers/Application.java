@@ -143,6 +143,12 @@ public class Application extends Controller {
     	}
     }
     
+    public static void manifest() {
+    	request.contentType = "application/x-web-app-manifest+json";
+    	request.format = "webapp";
+    	render();
+    }
+    
     public static void leaveYourEmail(@Required @Email String email) {
     	Map<String, Object> jsonResult = new HashMap<String, Object>();
     	jsonResult.put("msg", "");

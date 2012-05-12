@@ -1,0 +1,27 @@
+{  
+  "version": "1.0",  
+  "name": "Beansight",  
+  "description": "Share your ideas about the future",  
+  "icons": {  
+    "16": "/public/webapp/beansight_icon_16.png",  
+    "48": "/public/webapp/beansight_icon_48.png",  
+    "128": "/public/webapp/beansight_icon_128.png"  
+  },
+
+  "developer": {  
+    "name": "Beansight",  
+    "url": "http://www.beansight.com"  
+  },   
+
+  "locales": {  
+    "fr": {  
+      "description": "Partagez vos opinions sur l'avenir",  
+    }  
+  },
+
+  "default_locale": "en",  
+  "screen_size": {  
+    "min_width": "800",  
+    "min_height": "500"  
+  } 
+} 
