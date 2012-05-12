@@ -5,6 +5,7 @@ i18n_i18n=fr_FR
 # main
 beansightDescription=Avec Beansight, parcourez les opinions et découvrez ce qui va probablement arriver demain. Partagez vos prédictions et prouvez votre expertise.
 main.gotoMobile=Vous préférez la version mobile de Beansight ? Suivez ce lien.
+main.gotoAndroid=Ou installez l'app pour Android.
 
 # content
 content.getaninvite=Nous sommes en bêta privée. Laissez votre email et recevez une invitation :

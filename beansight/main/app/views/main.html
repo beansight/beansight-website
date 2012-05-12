@@ -129,7 +129,14 @@
 	
 <!-- CONTENU -->
 <div id="content" class="#{get 'contentClass' /}">
-<div id="gotoMobile" style="display:none;" class="topMessage"><a class="message" href="@@{Mobile.insights()}">&{'main.gotoMobile'}</a></div>
+<div id="gotoMobile" style="display:none;" class="topMessage">
+    <p>
+        <a class="message" href="@@{Mobile.insights()}">&{'main.gotoMobile'}</a>
+    </p>
+    <p>
+        <a class="message" href="https://play.google.com/store/apps/details?id=com.beansight.android">&{'main.gotoAndroid'}</a>
+    </p>
+</div>
 #{doLayout /}
 </div>
 	

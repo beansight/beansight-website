@@ -5,6 +5,7 @@ i18n_i18n=en_US
 # main
 beansightDescription=Browse Beansight to know what people think and what is likely to happen tomorrow. Share your predictions and prove your expertise.
 main.gotoMobile=Do you rather visit the mobile version of Beansight? Follow this link.
+main.gotoAndroid=Or install the Android app.
 
 # content
 content.getaninvite=We are in private beta. Get an invite by leaving your email:
