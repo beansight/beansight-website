@@ -36,6 +36,7 @@ import org.hibernate.annotations.Index;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 
+import controllers.CRUD.Exclude;
 import controllers.CRUD.Hidden;
 
 import play.Logger;
@@ -71,7 +72,7 @@ public class Insight extends Model {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@Required
-	@Hidden
+	@Exclude
 	public User creator;
 
 	/** the date this insight has been created by its creator */
@@ -98,13 +99,13 @@ public class Insight extends Model {
 	
 	/** Every vote of the current insight */
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
-	@Hidden
+	@Exclude
 	public List<Vote> votes;
 
 	/** Every tag of the current insight */
 	@ManyToMany(mappedBy = "insights", cascade = CascadeType.ALL)
 	@Field
-	@Hidden
+	@Exclude
 	public Set<Tag> tags;
 
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -115,13 +116,13 @@ public class Insight extends Model {
 
 	/** Users who follow the current insight */
 	@ManyToMany(mappedBy = "followedInsights", cascade = CascadeType.ALL)
-	@Hidden
+	@Exclude
 	public List<User> followers;
 
 	/** Comments made to current insight */
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
 	@OrderBy("creationDate DESC")
-	@Hidden
+	@Exclude
 	public List<Comment> comments;
 
 	public boolean hidden;
@@ -144,7 +145,7 @@ public class Insight extends Model {
 
 	@OneToMany(mappedBy = "insight", cascade = CascadeType.ALL)
 	@OrderBy(value = "trendDate")
-	@Hidden
+	@Exclude
 	public List<Trend> trends;
 	
 	/** has this insight been validated by the ValidationJob ? */
@@ -163,7 +164,7 @@ public class Insight extends Model {
 	public boolean sponsored; 
 	/** user account sponsored this prediction (can be different from the creator)*/
 	@ManyToOne
-	@Hidden
+	@Exclude
 	public User sponsor;
 	
 	/** should this insight be featured on the homepage? */

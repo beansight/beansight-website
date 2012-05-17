@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import controllers.CRUD.Exclude;
 import controllers.CRUD.Hidden;
 
 import models.Insight.InsightResult;
@@ -42,7 +43,7 @@ public class Tag extends Model {
 	
 	/** the insights this tag refers to */
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@Hidden
+	@Exclude
 	public Set<Insight> insights;
 
 	/** the date this vote has been made */
