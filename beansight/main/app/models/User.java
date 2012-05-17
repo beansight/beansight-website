@@ -583,8 +583,10 @@ public class User extends Model implements Comparable<User> {
 					
 					// create or update suggestions of all the followers of all these tags
 					InsightSuggest suggest = InsightSuggest.findByUserAndInsightOrCreate(topicActivity.user, i);
-					suggest.addBecauseFollowedTag(topic);
-					suggest.save();
+					if(suggest != null ) {
+						suggest.addBecauseFollowedTag(topic);
+						suggest.save();
+					}
 				}
 				proccessedActivities.addAll(topicActivities);
 			}			
