@@ -660,6 +660,9 @@ $(document).ready(function() {
     // delete nojavascript class for those who have javascript
     $('.nojavascript').removeClass('nojavascript');
 	
+    // JS shim for placeholder
+    $('input, textarea').placeholder();
+    
     // Overload jQuery error
     /** Called when an AJAX request returns an error */
     $("#error").ajaxError(function(event, request, settings){
@@ -731,7 +734,7 @@ $(document).ready(function() {
             $('#loginbox').slideDown(500);
         }
         return false;
-    }).placeholder();
+    });
     
     // validate the form
 	$("#logBeanForm").validate({

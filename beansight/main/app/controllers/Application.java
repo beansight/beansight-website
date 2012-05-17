@@ -634,7 +634,7 @@ public class Application extends Controller {
 		notFoundIfNull(user);
 		
 		InsightResult result = getFilteredUserInsightsList(from, getNumberInsightsInsightPage(), cat, user, filterVote);
-		renderArgs.put("insights", result.results);
+		renderArgs.put("result", result);
 		renderArgs.put("targetUser", user);
 		
 		renderTemplate("Application/getInsights.html");
@@ -649,7 +649,7 @@ public class Application extends Controller {
 		notFoundIfNull(user);
 		
 		InsightResult result = getFilteredUserInsightsList(0, (from + getNumberInsightsInsightPage()), cat, user, filterVote);
-		renderArgs.put("insights", result.results);
+		renderArgs.put("result", result);
 		renderArgs.put("targetUser", user);
 		
 		renderTemplate("Application/getInsights.html");
