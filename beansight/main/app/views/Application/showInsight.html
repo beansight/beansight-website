@@ -58,13 +58,13 @@
 			        &{'createdin'} <a href="@{Application.insights(null, insight.category.id)}" class="link-cat">${insight.category.label}</a>
                 </p>
                 %{
-                    java.text.NumberFormat percentFormat = java.text.NumberFormat.getPercentInstance();
+                    java.text.NumberFormat percentFormat = java.text.NumberFormat.getPercentInstance(Locale.ENGLISH);
                     percentFormat.setMaximumFractionDigits(0);
                     String percentageScore = percentFormat.format(insight.occurenceScore);
                     
                 }%
                 <p class="probbloc">
-                    <span style="width:${percentageScore}%;" class="pourcentbar"></span>
+                    <span style="width:${percentageScore};" class="pourcentbar"></span>
                     <span class="pourcenttxt">&{'showInsight.probabilitybar.Label'}${percentageScore}</span>
                 </p>
                 
