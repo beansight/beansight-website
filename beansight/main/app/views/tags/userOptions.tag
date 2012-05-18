@@ -17,8 +17,8 @@
             <button class="goButton"><span class="backbutton"></span><span class="txtbutton">&{'loginbutton'}</span></button> 
         </div> 
     #{/form}
-    <a href="@{Register.twitAuthenticate(request.url)}" class="btnlogwith logwithfb social_buttons sb_24 sb_facebook"><span>&{'userOptions.loginwithfacebook'}</span></a>
-    <a href="@{Register.fbAuthenticate(request.url)}" class="btnlogwith social_buttons sb_24 sb_twitter"><span>&{'userOptions.loginwithtwitter'}</span></a>
+    <a href="@{Register.fbAuthenticate(request.url)}" class="btnlogwith logwithfb social_buttons sb_24 sb_facebook"><span>&{'userOptions.loginwithfacebook'}</span></a>
+    <a href="@{Register.twitAuthenticate(request.url)}" class="btnlogwith social_buttons sb_24 sb_twitter"><span>&{'userOptions.loginwithtwitter'}</span></a>
 </div>
 
 #{/isNotConnected}
