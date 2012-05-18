@@ -127,7 +127,7 @@ public class Mails extends Mailer {
 
 	public static void newInsightNotification(Insight insight) {
 		setFrom(FROM_NOTIFICATION);
-		setSubject("New prediction: " + insight.content);
+		setSubject("New prediction: " + insight.uniqueId);
 		List<User> admins = User.find("isAdmin = true").fetch();
 		for (User admin : admins) {
 			addRecipient(admin.email);
