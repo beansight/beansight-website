@@ -147,8 +147,8 @@ public class Application extends Controller {
      * Serve the Mozilla Webapp manifest with the correct content Type
      */
     public static void manifest() {
-    	request.contentType = "application/x-web-app-manifest+json";
     	request.format = "webapp";
+    	response.contentType = "application/x-web-app-manifest+json";
     	render();
     }
     
