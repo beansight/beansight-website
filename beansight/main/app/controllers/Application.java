@@ -356,7 +356,7 @@ public class Application extends Controller {
 				result = InsightSuggest.toInsightResultList(InsightSuggest.findByUser(from, numberInsights, filter, currentUser));
 				// if not enough insights to display, fill with trendings
 				if( result.results.size() < numberInsights ) {
-					InsightResult resultLatest = Insight.findTrending(result.results.size(), numberInsights - result.results.size(), filter);
+					InsightResult resultLatest = Insight.findTrending(from + result.results.size(), numberInsights - result.results.size(), filter);
 					result.results.addAll(resultLatest.results);
 				}
 			} else {
