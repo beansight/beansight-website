@@ -6,6 +6,7 @@
 # ~~~~
 
 GET     /api/authenticate                       APIController.authenticate
+POST    /api/authenticateAndGetToken            APIController.authenticateAndGetToken
 GET     /api/authenticateSuccess                APIController.authenticateSuccess
 GET     /api/isauthenticated                    APIController.isAuthenticated
 GET     /api/insights/{action}                  APIInsights.{action}

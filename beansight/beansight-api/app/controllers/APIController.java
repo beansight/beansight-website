@@ -127,6 +127,14 @@ public class APIController extends Controller {
 		render();
 	}
 	
+	public static void authenticateAndGetToken(String l, String p) {
+		if ( User.authenticate(l, p) ) {
+			renderText( ApiAccessTokenStore.getAccessTokenForUser(l) );
+		} else {
+			renderText( "error" );
+		}
+	}
+	
 	/**
 	 * generic callback url if no specific url provided in authenticate(String url) : the access token will be available in the url.
 	 * For example : www.beansight.com/openapi/authenticateSuccess#access_token=a52795fc-8374-4c2b-8f46-7c8684687536
