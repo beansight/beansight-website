@@ -18,7 +18,7 @@
                      type="&{'inviteYourFacebookFriendsOnBeansight.type'}"
                      content="&{'inviteYourFacebookFriendsOnBeansight.invitationContent'} <fb:req-choice url='http://www.beansight.com' label='Beansight' />">
       <fb:multi-friend-selector showborder="true"
-								#{if play.Play.id.equals("playapps")}exclude_ids="${friendIdsToExclude.join(',')}"#{/if}
+								#{if play.Play.id.equals("prod")}exclude_ids="${friendIdsToExclude.join(',')}"#{/if}
 								email_invite="true"
                                 bypass="&{'inviteYourFacebookFriendsOnBeansight.cancel'}"
                                 cols=4
