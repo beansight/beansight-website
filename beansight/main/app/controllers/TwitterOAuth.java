@@ -42,9 +42,9 @@ import play.mvc.Router;
 public class TwitterOAuth extends Controller {
 
 	private static final OAuthClient client = new OAuthClient(
-			"http://twitter.com/oauth/request_token",
-			"https://twitter.com/oauth/access_token",
-			"http://twitter.com/oauth/authenticate", 
+			"http://api.twitter.com/oauth/request_token",
+			"https://api.twitter.com/oauth/access_token",
+			"http://api.twitter.com/oauth/authenticate", 
 			Play.configuration.getProperty("twitter.consumerKey"),
 			Play.configuration.getProperty("twitter.consumerSecret"));
 	
