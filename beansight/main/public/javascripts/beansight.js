@@ -56,6 +56,7 @@ function disagree(insightUniqueId) {
 /** Callback after a vote is done */
 function onVoteSuccess(data) {
     updateAgreeDisagreeCount(data.uniqueId, data.updatedAgreeCount, data.updatedDisagreeCount, data.voteState);
+	AKSdk.call_action("vote",true);
 }
 
 /** Update the counts of an insight, given new counts */
@@ -240,6 +241,7 @@ function onAddCommentSuccess(content) {
 	$("#commentId").val("");
 	$("#commentList").prepend( content );
 	$("#commentsSize").text(parseInt($("#commentsSize").text())+1);
+	AKSdk.call_action("comment", true);
 }
 
 //////////////

@@ -26,11 +26,29 @@
 #{/if} 
 
 <span id="shareOnTwitter" class="shareItem" style="display:none;" >
-    <a href="http://twitter.com/share" class="twitter-share-button" data-text="${_insight.content} &{'onbeansight'}" data-count="horizontal">Tweet</a>
+	<script type="text/javascript">
+    	var tweet = "${_insight.content}" + " - http://beansight.com/prediction/" + "${_insight.uniqueId}" + " #beansight";
+	</script>
+    <a href="http://twitter.com/share" class="twitter-share-button" data-text="${_insight.content}" + " - http://beansight.com/prediction/" + "${_insight.uniqueId}" + " #beansight" data-count="horizontal">Tweet</a>
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script type="text/javascript">
+    	$('a[data-text]').each(function(){
+             $(this).attr('data-text', tweet);
+        });
+        twttr.events.bind('tweet', function() {
+          AKSdk.call_action('twitter', true);
+        });
+    </script>
 </span>
 
 <span id="shareOnFacebook" class="shareItem" style="display:none;">
     <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
     <fb:like layout="button_count" show_faces="false" width="50"></fb:like>
+    <script type="text/javascript">
+    FB.Event.subscribe('edge.create',
+	    function(response) {
+	        AKSdk.call_action('facebook', true);
+	    });
+    </script>
+
 </span>

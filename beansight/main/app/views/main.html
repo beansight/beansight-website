@@ -51,6 +51,14 @@
 	<script src="/public/javascripts/jquery.autogrow-textarea.js" type="text/javascript" charset="utf-8"></script>
 	#{get 'moreScripts' /}  
 	
+	<!-- Adikteev -->
+	<script type="text/javascript" src="http://s3-eu-west-1.amazonaws.com/aksdk/aksdk-1.0.5-staging.js"></script>
+	<script type="text/javascript">
+      AKSdk.init('ZWISpW8mxixawLUf_iW7qw==');
+      AKSdk.create_button();
+	</script>
+	
+	
 	<!-- define here the actions -->
 	<script type="text/javascript">
 	var agreeAction = #{jsAction @API.agree(':insightUniqueId') /};
@@ -213,12 +221,6 @@ $(document).bind("keydown", ["g", "i"], function () {
     $('#txtsearch').focus();
 });
 */
-</script>
-
-<script type="text/javascript" charset="utf-8">
-  var is_ssl = ("https:" == document.location.protocol);
-  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 
 <script type="text/javascript" charset="utf-8">
