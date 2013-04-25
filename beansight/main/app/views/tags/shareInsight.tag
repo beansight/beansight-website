@@ -27,7 +27,7 @@
 
 <span id="shareOnTwitter" class="shareItem" style="display:none;" >
 	<script type="text/javascript">
-    	var tweet = "${_insight.content}" + " - http://beansight.com/prediction/" + "${_insight.uniqueId}" + " #beansight";
+    	var tweet = "${_insight.content}" + " #beansight";
 	</script>
     <a href="http://twitter.com/share" class="twitter-share-button" data-text="${_insight.content}" + " - http://beansight.com/prediction/" + "${_insight.uniqueId}" + " #beansight" data-count="horizontal">Tweet</a>
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
