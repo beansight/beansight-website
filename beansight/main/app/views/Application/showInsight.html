@@ -5,7 +5,6 @@
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
     <script type='text/javascript'>
     	$(document).ready(function(){
-    		alert( "http://"+window.location.hostname+"/create");
 	    	if(document.referrer == "http://"+window.location.hostname+"/create"){
 	    	setTimout(function(){
 	    		AKSdk.call_action("create", true);
