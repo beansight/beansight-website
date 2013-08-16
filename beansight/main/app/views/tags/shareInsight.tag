@@ -35,20 +35,11 @@
     	$('a[data-text]').each(function(){
              $(this).attr('data-text', tweet);
         });
-        twttr.events.bind('tweet', function() {
-          AKSdk.call_action('twitter', true);
-        });
     </script>
 </span>
 
 <span id="shareOnFacebook" class="shareItem" style="display:none;">
-    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
     <fb:like layout="button_count" show_faces="false" width="50"></fb:like>
-    <script type="text/javascript">
-    FB.Event.subscribe('edge.create',
-	    function(response) {
-	        AKSdk.call_action('facebook', true);
-	    });
-    </script>
+
 
 </span>
