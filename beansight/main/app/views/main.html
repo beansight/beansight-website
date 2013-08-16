@@ -51,12 +51,38 @@
 	<script src="/public/javascripts/jquery.autogrow-textarea.js" type="text/javascript" charset="utf-8"></script>
 	#{get 'moreScripts' /}  
 	
+	
 	<!-- Adikteev -->
-	<script type="text/javascript" src= "http://cdn.adikteev.com/lib/aksdk"></script>
+	#{isNotConnected}
 	<script type="text/javascript">
-      AKSdk.init('ZWISpW8mxixawLUf_iW7qw==');
-      AKSdk.create_button();
+	(function(e,t){t=t||{};var n=document.createElement("script");var r="https:"==document.location.protocol?"https://":"http://";n.src=r+"cdn.adikteev.com/lib/v3/aksdk?t="+((new Date).getTime()/1e3/3600).toFixed();n.type="text/javascript";n.async="true";n.onload=n.onreadystatechange=function(){var n=this.readyState;if(n&&n!="complete"&&n!="loaded")return;try{AKSdk.init(e,t)}catch(r){}};var i=document.getElementsByTagName("script")[0];i.parentNode.insertBefore(n,i)})
+	//("ZWISpW8mxixawLUf_iW7qw==",{
+	("demoweb_plus",{
+		position: "tab",
+		top: 50,
+		scroll_top: 200,
+		side: "left"
+	});
+	#{/isNotConnected}
+	#{isConnected}
+	#{set user:controllers.CurrentUser /}
+	<script type="text/javascript">
+	(function(e,t){t=t||{};var n=document.createElement("script");var r="https:"==document.location.protocol?"https://":"http://";n.src=r+"cdn.adikteev.com/lib/v3/aksdk?t="+((new Date).getTime()/1e3/3600).toFixed();n.type="text/javascript";n.async="true";n.onload=n.onreadystatechange=function(){var n=this.readyState;if(n&&n!="complete"&&n!="loaded")return;try{AKSdk.init(e,t)}catch(r){}};var i=document.getElementsByTagName("script")[0];i.parentNode.insertBefore(n,i)})
+	//("ZWISpW8mxixawLUf_iW7qw==",{
+	("demoweb_plus",{
+		position: "tab",
+		top: 50,
+		scroll_top: 200,
+		side: "left",
+		user:{
+			email:"${user.email}",
+			login:"${user.userName}",
+			avatar_url: "http://localhost:9000" + "@{Application.showAvatarLarge(user.userName, user.avatarHashCode())}?"
+		}
+	});
+	#{/isConnected}
 	</script>
+
 	
 	
 	<!-- define here the actions -->
@@ -224,13 +250,6 @@ $(document).bind("keydown", ["g", "i"], function () {
 </script>
 
 <script type="text/javascript" charset="utf-8">
-  var feedback_widget_options = {};
-  feedback_widget_options.display = "overlay";  
-  feedback_widget_options.company = "beansight";
-  feedback_widget_options.placement = "left";
-  feedback_widget_options.color = "#222";
-  feedback_widget_options.style = "idea";
-  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
   
   // Google Analytics
 	var _gaq = _gaq || [];

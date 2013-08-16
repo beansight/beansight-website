@@ -14,7 +14,6 @@ function disagree(insightUniqueId) {
 
 /** Callback after a vote is done */
 function onVoteSuccess(data) {
-
 }
 
 function removeActiveVoteButton(insightUniqueId) {
