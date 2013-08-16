@@ -44,6 +44,14 @@ public class CurrentUser extends Controller {
     	return getCurrentUser().userName;
     }
     
+    public static String getCurrentUserEmail() {
+    	return getCurrentUser().email;
+    }
+    
+    public static String getCurrentUserHashCode() {
+    	return getCurrentUser().avatarHashCode();
+    }
+    
     public static boolean isAdmin() {
     	return getCurrentUser().isAdmin;
     }
