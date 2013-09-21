@@ -60,7 +60,7 @@
 		user.email = null;
 	#{/isNotConnected}
 	#{isConnected}
-		user.avatar = "http://"+window.location.hostname + "@{Application.showAvatarLarge(controllers.CurrentUser.getCurrentUserName(), controllers.CurrentUser.getCurrentUserHashCode())}?";
+		user.avatar_url = "http://"+window.location.hostname + "@{Application.showAvatarLarge(controllers.CurrentUser.getCurrentUserName(), controllers.CurrentUser.getCurrentUserHashCode())}?";
 		user.login = "${controllers.CurrentUser.getCurrentUserName()}";
 		user.email = "${controllers.CurrentUser.getCurrentUserEmail()}";
 	#{/isConnected}
