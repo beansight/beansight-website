@@ -7,7 +7,7 @@
     	$(document).ready(function(){
 	    	if(document.referrer == "http://"+window.location.hostname+"/create"){
 	    	setTimout(function(){
-	    		AKSdk.call_action("create", true);
+	    		AKSdk.call_action("create", true, {unique:document.URL});
     		},2500);
     	}
     	});
