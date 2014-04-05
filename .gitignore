@@ -7,3 +7,6 @@ beansight/main/tmp
 beansight/main/data/
 *.log
 tools/loadbackup/backup_prod/
+*.DS_Store
+db
+logs
