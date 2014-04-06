@@ -1414,8 +1414,12 @@ public class User extends Model implements Comparable<User> {
 	public List<UserCategoryScore> getLatestCategoryScores() {
 		// what is the last time the score historic has been computed ?
 		UserScoreHistoric score = UserScoreHistoric.find("order by scoreDate DESC").first();
+		if(score != null) {
 		// return the category scores of this date
 		return this.getCategoryScores(score.scoreDate, PeriodEnum.THREE_MONTHS);
+		} else {
+			return new ArrayList<UserCategoryScore>();
+		}
 	}
 	
 	/**
