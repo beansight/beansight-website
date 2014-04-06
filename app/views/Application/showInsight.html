@@ -4,15 +4,6 @@
 #{set 'moreScripts'}
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
     <script type='text/javascript'>
-    	$(document).ready(function(){
-	    	if(document.referrer == "http://"+window.location.hostname+"/create"){
-	    	setTimout(function(){
-	    		AKSdk.call_action("create", true, {unique:document.URL});
-    		},2500);
-    	}
-    	});
-    </script>
-    <script type='text/javascript'>
       google.load('visualization', '1', {'packages':['annotatedtimeline']});
       
         google.setOnLoadCallback(drawChart);
