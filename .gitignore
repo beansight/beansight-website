@@ -1,10 +1,10 @@
 *.pyc
-beansight/main/eclipse
-beansight/main/tmp
+eclipse
+tmp
 .project
 .classpath
 .settings
-beansight/main/data/
+data
 *.log
 tools/loadbackup/backup_prod/
 *.DS_Store
