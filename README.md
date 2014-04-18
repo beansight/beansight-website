@@ -31,9 +31,11 @@ For your first run, you will need to create a new database structure or import a
 
 ### Running locally
 
-We have issues running with the `mem`of `db` databases. Prefer using a MySQL database running on your machine.
+We have issues running with the `mem`of `db` databases. Prefer using a MySQL database running on your machine: Create a MySQL database named `beansight` with a user named `beansight`and password `beansight`.
 
-If you need to emulate an Heroku config option, use something like `$ export CLEARDB_DATABASE_URL=mysql://******`.
+At first startup, the database tables need to be created. To do this, edit `application.conf` and replace `jpa.ddl=none` with `jpa.ddl=create`, then launch the Play! app by typing `play run`.
+
+If for testing purposes, you need to emulate an Heroku config options, use env viriables, i.e. something like `$ export CLEARDB_DATABASE_URL=mysql://******`.
 
 ### Running on Heroku with the ClearDB add-on
 
